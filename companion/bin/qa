@@ -8893,8 +8893,8 @@ def production_exercise(e: dict, where: str, shots: str | None = None):
     """A speaking or writing item of a unit (companion/COURSE.md "Speaking and writing"), answered from the unit's file.
     Speaking: the emulator has no microphone to speak into, so "Brez mikrofona · Can't speak now" (when the phone's
     recognizer offers the 🎤 at all), the model revealed, "Rekla sem pravilno · I said it right": right on a worksheet, left
-    out of a test's count (the rating says so). Writing: the model typed (without č, š, ž: the checks fold them), what it
-    must use ticked as it is met on a worksheet, "Preveri · Check", right by its rules, the model and the tutor's feedback
+    out of a test's count (the rating says so). Writing: the model typed (type_letters), what it must use ticked as it is
+    met on a worksheet, "Preveri · Check", right by its rules, the model and the tutor's feedback
     on its way. [shots]: a prefix for screenshots of each stage (none: none)."""
     kind = e["type"]
     if kind == "speaking":
@@ -8918,27 +8918,30 @@ def production_exercise(e: dict, where: str, shots: str | None = None):
         if shots:
             shot(f"{shots}-rated")
         return
-    model = unit_text(e["model"]).translate(ASCII)
     c = scroll_to("Napiši v slovenščini", 4) or scroll_to("Write in", 2)
     assert c is not None, f"{where}: the field"
     tap_at(c)
-    words = model.split(" ")
-    half = max(1, len(words) // 2)
     if shots:
         shot(f"{shots}-empty")
-        type_text(" ".join(words[:half]) + " ")
-        shot(f"{shots}-half")
-        type_text(" ".join(words[half:]))  # the field keeps its focus (its placeholder is gone now)
-    else:
-        type_text(model)
+    # as a learner types it, and checked: a text this long through adb alone came out with its words lost and out of order
+    type_letters(unit_text(e["model"]), "sl")
     if shots:
         shot(f"{shots}-typed")
     assert check_sheet(), f"{where}: check"
     assert wait_for("Pravilno", 8), f"{where}: right by its rules"
     if shots:
         shot(f"{shots}-checked")
-        if scroll_to("Primer odgovora", 6) is not None:
-            shot(f"{shots}-model")
+        # the model and the tutor's line lie under the checks, behind the verdict's panel: swiped from above that panel
+        seen = None
+        for _ in range(8):
+            seen = find("Primer odgovora")
+            if seen is not None and 300 < seen[1] < 1500:
+                break
+            seen = None
+            adb("shell", "input", "swipe", "540", "1300", "540", "700", "400")
+            time.sleep(1)
+        shot(f"{shots}-model")
+        assert seen is not None, f"{where}: the model text, reached above the verdict's panel"
 
 
 def school_production():

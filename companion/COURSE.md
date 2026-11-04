@@ -645,7 +645,7 @@ on an English sheet only, as its hints. What the teacher asks and the speaking m
   mistake only. List the spoken sentences of a speaking item whole. No digits in `ask`, `say`, `accept` (recognizers
   write numbers as digits).
 - **Italian:** a `child` on each, from the child's world (family, animals, games, the village's children).
-- Machine-written as everything else: the unit's `review` says these are for the native check.
+- Machine-written as everything else. A unit's `review` takes 200 characters at most (the bridge refuses a unit over it): say these are for the native check where it fits, and list them in the content's doc.
 
 ## Homework (lani.worksheet/v0)
 

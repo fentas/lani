@@ -7,7 +7,7 @@ content says is machine-written (Claude) and waits for a native check: the list 
 
 ## Native check
 
-All 40 items (8 units × the 4th sheet's three and the test's two, Italian's 20 each with a child's version) are new
+All 40 items (8 units × the 4th sheet's three and the test's two, Italian's 10 each with a child's version) are new
 text: the sentences, the models, the `spoken` lists, and what the rules accept and refuse. The questions for a native
 speaker, by unit (the file, then the sheet `<unit>-4` and the test's last two):
 
@@ -148,28 +148,41 @@ on demand).
 
 ## Verified
 
-On the branch after merging main 7b1e5134 (merge 89ec33f3): the smoke on fbf51736, the Android suite on 89ec33f3 and its five failures again on 188df49d, QA on cbe276b2's APK (built from 188df49d; cbe276b2 changes QA only).
+Tip 915819ec (main 68ecfe63 merged in): tsc, the smoke, `tutor-export --check`, the Android suite, Python and the prints.
+The emulator ran an APK built from 188df49d, before that last merge: the merge changed none of the screens' files
+(`ui/school/`, `PlayerScreen.kt`, `SpeakExercise.kt`, `data/Production.kt`) but the APK doesn't have main's hint chip and
+packs work.
 
 - **tsc** clean; **`tutor-export --check`**: 140 files match (54 tools, 32 guide topics, 51 villages' copies).
-- **The smoke** (ports 10330–10349, `LANI_SMOKE_DRAMA3_PORT` 10348): all checks passed, 3,735 ✅ (the first run on the merge found the model units' review notes over 200 characters: fixed in fbf51736). Its `production` section: the rules'
-  fixture (21 cases, 12 bad rules refused), the refusals (a model missing its must or hitting its avoid, too short, a
-  spoken form as the model or under an avoid, a child's version too long), `publish_worksheet` with both, what an older
-  app gets (`GET /course` without `?types=2`: no speaking or writing, a sheet of only them left out, the rest as it was),
-  `?types=2` rendered for the learner, the print in both genders and a child's, the voice corpus, and all 40 items of the
-  course (no avoid on a form people say, Italian's each with a child's version, a length on each writing).
-- **The Android suite** (through lani-slot.sh): 4,114 tests, 5 failures, all fixed and run again green (8 classes, 94 tests): `RegexPortabilityTest` (the rules' marks regex had bare braces, which Android's regex engine refuses: acb22b30), German B1/B2's and Italian B2's level tests (three sheets a unit: now three besides the one of speaking and writing, 188df49d), `PhoneBridgeNodeTest` `/course` (the phone's copy of the content was taken before the review fix, the node read it after: green on the rerun). `ProductionTest` (10: the fixture, checks and verdicts, takes
-  graded, spoken and nonstandard right aloud, *u vasi*, open answers, a child's version), `SheetCountTest` (a rated
-  speaking item left out of a test), and each language's `CourseContentTest`, which grades every speaking and writing
-  item as the app does: it found the app's `würd*` reading *wuerde\** (fixed: `Grading.foldStem`, 0d1a9ba9).
-- **Python:** `tests` 253 OK, `companion/tests` 179 OK (11 skipped), on the merge.
-- **Prints:** `school-prints` of the 8 units in each of their three bases, and the Italian two as a child's too (30 runs):
-  every sheet fits its two pages; the "Povej in napiši" section looked at in sl B1 (en), it B2 (de, child), de B2 (en).
-- **Emulator** (`qa-slot --steps school-production,school-unit`, screenshots in the scratchpad's
-  `ux-lesson-production/`): `school-production` ok (the 4th sheet of pogojnik-polno: both speaking items rated without a microphone and right, the writing typed in two halves with its checks ticked 2/2, ✓, 42 words, checked right, the model; the sheet's end; the test's speaking item saying it doesn't count, rated); `school-unit` ok (the unit end to end from its file, its test now ending with a speaking and a writing item: passed 11/13, ✅ 9 🟡 4 ❌ 0, the rated speaking item left out of the 13). Two QA fixes on the way (cbe276b2): the ratings lie at the screen's foot, and the result's Continue under the fold.
+- **The smoke** (ports 10330–10349, `LANI_SMOKE_DRAMA3_PORT` 10348): all checks passed, 3,747 ✅. Its `production`
+  section: the rules' fixture (21 cases, 12 bad rules refused), the refusals (a model missing its must or hitting its
+  avoid, too short, a spoken form as the model or under an avoid, a child's version too long), `publish_worksheet` with
+  both, what an older app gets (`GET /course` without `?types=2`: no speaking or writing, a sheet of only them left out,
+  the rest as it was), `?types=2` rendered for the learner, the print in both genders and a child's, the voice corpus,
+  and all 40 items of the course (no avoid on a form people say, Italian's each with a child's version, a length on each
+  writing).
+- **The Android suite** (through lani-slot.sh): 4,136 tests, 0 failures, 0 errors. `ProductionTest`, `SheetCountTest`
+  and each language's `CourseContentTest`, which grades every speaking and writing item as the app does.
+- **Python:** `tests` 253 OK, `companion/tests` 179 OK (11 skipped).
+- **Prints:** `school-prints` of the 8 units in each of their three bases, and the Italian two as a child's too: 30 runs,
+  every sheet fits its two pages. The "Povej in napiši" section looked at by eye in sl B1 (en), it B2 (de, child), de B2
+  (en).
+- **Emulator** (`qa-slot --no-build --steps school-production,school-unit`, both ok; screenshots in the scratchpad's
+  `ux-lesson-production/final/`): pogojnik-polno's 4th sheet: both speaking items through the self-rating; the writing
+  typed with its letters, its checks ticked, right by its rules, the model reached by scrolling above the verdict's
+  panel; the test's speaking item saying it doesn't count. The unit end to end from its file: the test's 14 items, 11/13
+  (✅ 9 🟡 4 ❌ 0), so the rated speaking item is left out of the count. The dev bridge's log has both writing texts as
+  `answer`s (conversations `exw…`) and the sheet's session_end, 3/3.
+
+What the checks found on the way: the app read `würd*` as *wuerde\** (`Grading.foldStem`, 0d1a9ba9); the rules' marks regex
+had bare braces (acb22b30); six units' review notes ran over the bridge's 200 characters, so it refused them (fbf51736);
+the level tests' three sheets a unit (188df49d). `PhoneBridgeNodeTest` `/course` failed once and passed on the next runs:
+probably the phone's copy of the content was taken before the review fix and the node read it after, not confirmed.
 
 Not verified: a real microphone and a recognizer's takes (the emulator has none: the self-rating path only), the node's
-Whisper on these sentences, the tutor's feedback on a text (not looked at on the emulator), Teo's tablet on 0.2.698 itself
-(the smoke serves what it would get), a native speaker's reading.
+Whisper on these sentences, the tutor's reply on a text and how it shows under it (only that the text reaches the bridge),
+a child's path on the emulator, Teo's tablet on 0.2.698 itself (the smoke serves what it would get), a native speaker's
+reading.
 
 ## What's left
 
@@ -183,6 +196,11 @@ Whisper on these sentences, the tutor's feedback on a text (not looked at on the
 - **The print's room to write:** a full sheet of two pages leaves the writing task one or two ruled lines (formeller-brief
   at B2: one, for a letter of 50–110 words); the learner writes on paper beside it. A third page, or the writing on the
   back, would be the print's choice to make.
+- **The verdict's panel covers the checks.** After "Preveri" the panel takes the lower half of the screen and the checks
+  list runs under it: with one check not met ("Skoraj") the row that says which can be out of sight, the panel shows the
+  `explain`, not the check, and the learner has to scroll above the panel to see it, the model and the tutor's line. Seen
+  with the length row (a run whose text came out short). A fix is the app's: name what isn't met in the panel, or bring
+  the checks into view. Not done here.
 - **QA for a child:** `friuli-school-unit` doesn't play speaking or writing yet (it raises on a type it doesn't know), so
   a child's path (a writing item said first, "Napiši še") is covered by `ProductionTest` and the smoke, not on the
   emulator or Teo's tablet layout.
