@@ -253,8 +253,8 @@ A1 talks, then A2.
   gesundheit-und-vorsorge, der-koerper; `ein-gebrauchtwagen` mit-dem-auto (Pickerl, Winterreifen), geld-und-bank;
   `ein-unfall-auf-der-piste` notfaelle, versicherungen; `florian-muss-sich-entscheiden` landwirtschaft, in-den-bergen.
   The supplement's entries for words a pack now has stay as the tap's second reading. Jan's twelve got packs-sl's the
-  same way (talks-sl.md's list). Teo's twelve keep theirs: packs-it isn't in the queue's tip, so Italian has no B1 or B2
-  pack here yet; talks-it.md says which would fit.
+  same way (talks-sl.md's list). Teo's twelve got packs-it's on cleanup-content, once it had landed (talks-it.md's
+  table).
 - No scene leads into the new talks yet ("keep talking" after a dialog): Stefan's Most on the market could lead into
   `most-fuer-das-fest`, Kathi's Gasthaus dialogs into `aushilfe-im-gasthaus` (at B1: talksOffered drops it below).
 - A doctor's practice, an office, a hotel and a ski slope have no stage place of their own: the shop, the mayor's
