@@ -1,5 +1,5 @@
 // Smoke checks: word packs, learning words.
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { homonymCard, learnedWords, meaningOf, normWord, PackStore, unmarkedHomonyms, validatePack, wordOf, type Pack } from '../../src/packs'
 import { baseline, compare, curatedPacks, promptClashes } from '../prompt-clashes'
@@ -74,8 +74,69 @@ export default async function packs() {
   check('list_packs shows progress and words', JSON.stringify(lp).includes('smoke-kitchen') && JSON.stringify(lp).includes('krožnik'))
 
   await festivals(learn)
+  await packLevels(learn)
   promptClashChecks()
   homonymChecks()
+}
+
+/**
+ * The packs' levels as an app reads them (GET /packs?packs=, packsForApp): the app that says packs 1 gets every pack and
+ * orders them itself; an older app, which lists and suggests them in their files' order, gets the curated packs up to a
+ * level above its learner's, and every tutor's, festival's, project's and started pack whatever its level.
+ */
+async function packLevels(learn: (id: string, results: object[]) => Promise<Response>) {
+  const profilePath = join(dataDir, 'learner-profile.json')
+  const savedProfile = readFileSync(profilePath, 'utf8')
+  const setLevel = (current_level: string) => {
+    const p = JSON.parse(savedProfile)
+    writeFileSync(profilePath, JSON.stringify({ ...p, learner: { ...p.learner, current_level } }, null, 2))
+  }
+  const words = (tag: string) => ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map(x => ({ id: `${tag}-${x}`, sl: `${tag}ova ${x}`, en: `${tag} thing ${x}` }))
+  const curated = (id: string, level: string, extra: object = {}) => ({ schema: 'lani.pack/v0', id, title: `${id} · ${id}`, level, words: words(id), ...extra })
+  const files: Record<string, object> = {
+    'lv-a2': curated('lv-a2', 'A2'),
+    'lv-b1': curated('lv-b1', 'B1'),
+    'lv-b2': curated('lv-b2', 'B2'),
+    'lv-b2-started': curated('lv-b2-started', 'B2'),
+    // a B2 pack with one word the learner has from lv-b2-started (learned 1), none learned in it (own 0): not started
+    'lv-b2-shared': { ...curated('lv-b2-shared', 'B2'), words: [{ id: 'shared', sl: 'lv-b2-startedova a', en: 'lv-b2-started thing a' }, ...words('lv-b2-shared').slice(1)] },
+    'lv-c1-feast': curated('lv-c1-feast', 'C1', { festival: 'kres' }),
+    'lv-c1-project': curated('lv-c1-project', 'C1', { project: 'mlaj' }),
+  }
+  const ids = Object.keys(files)
+  for (const [id, pack] of Object.entries(files)) writeFileSync(join(curatedDir, `${id}.json`), JSON.stringify(pack))
+  mkdirSync(join(dataDir, 'app/packs'), { recursive: true })
+  writeFileSync(join(dataDir, 'app/packs/lv-c2-tutor.json'), JSON.stringify(curated('lv-c2-tutor', 'C2')))
+  const listed = async (q = '') => ((await (await fetch(`${base}/packs${q}`, { headers: auth })).json()) as any[]).map(p => p.id).filter(id => id.startsWith('lv-')).sort()
+  try {
+    setLevel('A1')
+    check('packs: a B2 pack the learner started is learned', (await learn('lv-b2-started', [{ word_id: 'lv-b2-started-a', quality: 4 }])).ok)
+    const every = [...ids, 'lv-c2-tutor'].sort()
+    check('packs: an app that reads packs 1 gets every pack, whatever its level (GET /packs?packs=1)', JSON.stringify(await listed('?packs=1')) === JSON.stringify(every), await listed('?packs=1'))
+    check('packs: … and a later version too (?packs=2)', JSON.stringify(await listed('?packs=2')) === JSON.stringify(every))
+    const shared = ((await (await fetch(`${base}/packs?packs=1`, { headers: auth })).json()) as any[]).find(p => p.id === 'lv-b2-shared')
+    check('packs: a word the learner has from another pack counts in learned, not in own (GET /packs own)', shared?.learned === 1 && shared?.own === 0, shared)
+    check('packs: … the pack the word was learned in has it as its own', ((await (await fetch(`${base}/packs?packs=1`, { headers: auth })).json()) as any[]).find(p => p.id === 'lv-b2-started')?.own === 1)
+    const old = await listed()
+    check(
+      'packs: an older app (no ?packs=) at A1 gets the curated packs up to A2, the B2 pack started, the festival\'s, the project\'s and the tutor\'s; no B1 or B2 pack untouched, nor the B2 pack that only shares a word the learner has',
+      JSON.stringify(old) === JSON.stringify(['lv-a2', 'lv-b2-started', 'lv-c1-feast', 'lv-c1-project', 'lv-c2-tutor']),
+      old,
+    )
+    check('packs: … the same for ?packs=0 and a bad number', JSON.stringify(await listed('?packs=0')) === JSON.stringify(old) && JSON.stringify(await listed('?packs=x')) === JSON.stringify(old))
+    check('packs: … GET /packs/:id still serves a pack held back (a scene or a story opens it by id)', (await fetch(`${base}/packs/lv-b2`, { headers: auth })).ok)
+    setLevel('A2')
+    check('packs: an older app at A2 gets B1 too, not B2', JSON.stringify(await listed()) === JSON.stringify(['lv-a2', 'lv-b1', 'lv-b2-started', 'lv-c1-feast', 'lv-c1-project', 'lv-c2-tutor']), await listed())
+    setLevel('B1')
+    check('packs: an older app at B1 gets B2', (await listed()).includes('lv-b2'))
+    const before = await listed()
+    writeFileSync(profilePath, JSON.stringify({ ...JSON.parse(savedProfile), learner: { ...JSON.parse(savedProfile).learner, current_level: undefined } }, null, 2))
+    check('packs: a profile without a level reads as A1', JSON.stringify(await listed()) === JSON.stringify(old) && before.length > old.length, await listed())
+  } finally {
+    writeFileSync(profilePath, savedProfile)
+    for (const id of ids) unlinkSync(join(curatedDir, `${id}.json`))
+    unlinkSync(join(dataDir, 'app/packs/lv-c2-tutor.json'))
+  }
 }
 
 /**

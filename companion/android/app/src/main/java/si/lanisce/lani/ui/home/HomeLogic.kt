@@ -445,11 +445,13 @@ object HomeLogic {
     fun threat(kind: EventKind): Boolean = kind == EventKind.WOLVES || kind == EventKind.BEAR || kind == EventKind.STORM
 
     /** "Nove besede": new tutor packs first, else the words still to learn in all packs. */
-    fun words(packs: List<PackInfo>, newPacks: Set<String>): TileStatus {
+    fun words(packs: List<PackInfo>, newPacks: Set<String>, level: String? = null): TileStatus {
         if (packs.isEmpty()) return TileStatus(bi("homeLogic.wordPacks"))
         val fresh = packs.count { it.id in newPacks }
         if (fresh > 0) return TileStatus(bi("homeLogic.newPacks", "fresh" to fresh), attention = true)
-        val left = packs.sumOf { it.left }
+        // the words left in the packs for now: not those folded for later (two levels or more above the learner's), unless
+        // only those are left
+        val left = packs.filter { level == null || !PackSession.isLater(it, level) }.sumOf { it.left }.takeIf { it > 0 } ?: packs.sumOf { it.left }
         return if (left == 0) TileStatus("✅ ${bi("homeLogic.allLearned")}")
         else TileStatus(bi("homeLogic.leftLearn", "left" to left))
     }
