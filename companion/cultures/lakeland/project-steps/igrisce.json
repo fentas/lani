@@ -264,6 +264,200 @@
               "de": "Eure Bilder sind wunderbar. Das wird der Spielplatz eurer Träume."
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "Yesterday you all drew the playground of your dreams. Today we'll choose the best ideas.",
+              "sl": "Včeraj ste vsi narisali igrišče svojih sanj. Danes izberemo najboljše zamisli.",
+              "it": "Ieri avete disegnato tutti il parco giochi dei vostri sogni. Oggi scegliamo le idee migliori.",
+              "de": "Gestern habt ihr alle den Spielplatz eurer Träume gezeichnet. Heute wählen wir die besten Ideen aus."
+            },
+            {
+              "who": "alfie",
+              "en": "This one's got a castle, but there's no slide! Who's going to draw one?",
+              "sl": "Ta ima grad, ampak nima tobogana! Kdo ga bo narisal?",
+              "it": "Questo ha un castello, ma non lo scivolo! Chi lo disegna?",
+              "de": "Das hier hat ein Schloss, aber keine Rutsche! Wer zeichnet eine?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'll draw the slide next to the castle, shall I?",
+                  "sl": "Jaz bom {m:narisal|f:narisala} tobogan poleg gradu, prav?",
+                  "it": "Disegno io lo scivolo vicino al castello, va bene?",
+                  "de": "Ich zeichne die Rutsche neben das Schloss, ja?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Yes! A big one!",
+                    "sl": "Ja! Velikega!",
+                    "it": "Sì! Grande!",
+                    "de": "Ja! Eine große!"
+                  }
+                },
+                {
+                  "en": "I'll drown the slide next to the castle, shall I?",
+                  "sl": "Jaz bom {m:utopil|f:utopila} tobogan poleg gradu, prav?",
+                  "it": "Annego io lo scivolo vicino al castello, va bene?",
+                  "de": "Ich ertränke die Rutsche neben dem Schloss, ja?",
+                  "why": {
+                    "sl": "Draw pomeni risati; drown pomeni utopiti.",
+                    "it": "Draw vuol dire disegnare; drown vuol dire annegare.",
+                    "de": "Draw heißt zeichnen; drown heißt ertränken."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "en": "Drown it? No! Don't!",
+                    "sl": "Utopiti? Ne! Nikar!",
+                    "it": "Annegarlo? No! Non farlo!",
+                    "de": "Ertränken? Nein! Nicht!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "There are crayons all over the floor. Could someone put them back, please?",
+              "sl": "Barvice so po vseh tleh. Bi jih lahko kdo pospravil, prosim?",
+              "it": "Ci sono pastelli su tutto il pavimento. Qualcuno può rimetterli a posto, per favore?",
+              "de": "Überall liegen Wachsmalstifte auf dem Boden. Kann sie bitte jemand zurücklegen?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'll collect the crayons, Mrs Hartley, if you hold the box.",
+                  "sl": "Jaz bom {m:pobral|f:pobrala} barvice, gospa Hartley, če vi držite škatlo.",
+                  "it": "Raccolgo io i pastelli, signora Hartley, se Lei tiene la scatola.",
+                  "de": "Ich sammle die Wachsmalstifte ein, Mrs Hartley, wenn Sie die Schachtel halten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Thank you. That's very thoughtful.",
+                    "sl": "Hvala. To je zelo pozorno.",
+                    "it": "Grazie. È molto gentile.",
+                    "de": "Danke. Das ist sehr aufmerksam."
+                  }
+                },
+                {
+                  "en": "I'll collect the crowns, Mrs Hartley, if you hold the box.",
+                  "sl": "Jaz bom {m:pobral|f:pobrala} krone, gospa Hartley, če vi držite škatlo.",
+                  "it": "Raccolgo io le corone, signora Hartley, se Lei tiene la scatola.",
+                  "de": "Ich sammle die Kronen ein, Mrs Hartley, wenn Sie die Schachtel halten.",
+                  "why": {
+                    "sl": "Crayon je barvica; crown je krona.",
+                    "it": "Crayon è il pastello; crown è la corona.",
+                    "de": "Crayon ist der Wachsmalstift; crown ist die Krone."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Crowns? There's only the one castle, and it's on paper.",
+                    "sl": "Krone? Grad je samo eden, in to na papirju.",
+                    "it": "Corone? C'è un solo castello, e sulla carta.",
+                    "de": "Kronen? Es gibt nur ein Schloss, und das ist auf Papier."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "I've asked the children what they'd do if they could build anything at all. Some of the answers were rather ambitious.",
+              "sl": "Otroke sem vprašala, kaj bi naredili, če bi lahko zgradili karkoli. Nekateri odgovori so bili kar drzni.",
+              "it": "Ho chiesto ai bambini che cosa farebbero se potessero costruire qualsiasi cosa. Alcune risposte erano piuttosto ambiziose.",
+              "de": "Ich habe die Kinder gefragt, was sie täten, wenn sie alles bauen könnten. Manche Antworten waren recht ehrgeizig."
+            },
+            {
+              "who": "alfie",
+              "en": "I want a tractor you can go on. And a hundred swings.",
+              "sl": "Hočem traktor, na katerega lahko greš. In sto gugalnic.",
+              "it": "Voglio un trattore su cui salire. E cento altalene.",
+              "de": "Ich will einen Traktor zum Draufgehen. Und hundert Schaukeln."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Why don't I draw what they've all asked for, and we'll see what fits?",
+                  "sl": "Zakaj ne bi {m:narisal|f:narisala}, kar so vsi želeli, potem pa vidimo, kaj gre?",
+                  "it": "Perché non disegno quello che hanno chiesto tutti, e vediamo cosa ci sta?",
+                  "de": "Warum zeichne ich nicht, was alle sich gewünscht haben, und wir sehen, was passt?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "An excellent idea. Though I doubt the hundred swings.",
+                    "sl": "Odlična zamisel. Čeprav dvomim o sto gugalnicah.",
+                    "it": "Ottima idea. Anche se dubito delle cento altalene.",
+                    "de": "Eine ausgezeichnete Idee. Auch wenn ich an den hundert Schaukeln zweifle."
+                  }
+                },
+                {
+                  "en": "Why don't I dream what they've all asked for, and we'll see what fits?",
+                  "sl": "Zakaj ne bi {m:sanjal|f:sanjala}, kar so vsi želeli, potem pa vidimo, kaj gre?",
+                  "it": "Perché non sogno quello che hanno chiesto tutti, e vediamo cosa ci sta?",
+                  "de": "Warum träume ich nicht, was alle sich gewünscht haben, und wir sehen, was passt?",
+                  "why": {
+                    "sl": "Draw pomeni risati; dream pomeni sanjati.",
+                    "it": "Draw vuol dire disegnare; dream vuol dire sognare.",
+                    "de": "Draw heißt zeichnen; dream heißt träumen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Dream it? We need it on paper by Friday.",
+                    "sl": "Sanjati? Do petka rabimo to na papirju.",
+                    "it": "Sognarlo? Ci serve sulla carta entro venerdì.",
+                    "de": "Träumen? Wir brauchen es bis Freitag auf Papier."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "Whoever has been using the green crayon, I've found three in the sandbox and one in my tea.",
+              "sl": "Kdor je uporabljal zeleno barvico: tri sem našla v peskovniku in eno v čaju.",
+              "it": "Chiunque abbia usato il pastello verde: ne ho trovati tre nella sabbiera e uno nel tè.",
+              "de": "Wer auch immer den grünen Stift benutzt hat: Drei hab ich im Sandkasten gefunden und einen in meinem Tee."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I can't imagine how a crayon could have got into your tea.",
+                  "sl": "Ne morem si predstavljati, kako bi barvica lahko prišla v vaš čaj.",
+                  "it": "Non riesco a immaginare come un pastello possa essere finito nel Suo tè.",
+                  "de": "Ich kann mir nicht vorstellen, wie ein Wachsmalstift in Ihren Tee gekommen sein kann.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Nor can I. Though I have my suspicions.",
+                    "sl": "Niti jaz ne. Čeprav imam sum.",
+                    "it": "Neanch'io. Anche se ho i miei sospetti.",
+                    "de": "Ich auch nicht. Obwohl ich einen Verdacht habe."
+                  }
+                },
+                {
+                  "en": "I can't imagine how a crane could have got into your tea.",
+                  "sl": "Ne morem si predstavljati, kako bi žerjav lahko prišel v vaš čaj.",
+                  "it": "Non riesco a immaginare come una gru possa essere finita nel Suo tè.",
+                  "de": "Ich kann mir nicht vorstellen, wie ein Kran in Ihren Tee gekommen sein kann.",
+                  "why": {
+                    "sl": "Crayon je barvica; crane je žerjav.",
+                    "it": "Crayon è il pastello; crane è la gru.",
+                    "de": "Crayon ist der Wachsmalstift; crane ist der Kran."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A crane? Nor can I. I'd have noticed that.",
+                    "sl": "Žerjav? Niti jaz ne. Tega bi opazila.",
+                    "it": "Una gru? Neanch'io. L'avrei notata.",
+                    "de": "Ein Kran? Ich auch nicht. Den hätte ich bemerkt."
+                  }
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -486,6 +680,200 @@
               "sl": "Nič več kamnov! Jutri lahko začnemo graditi.",
               "it": "Niente più sassi! Domani possiamo cominciare a costruire.",
               "de": "Keine Steine mehr! Morgen können wir anfangen zu bauen."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "We've picked up a hundred stones this morning, and there are still some left in the grass.",
+              "sl": "Danes zjutraj smo pobrali sto kamnov, v travi pa jih je še nekaj.",
+              "it": "Stamattina abbiamo raccolto cento sassi, e ce ne sono ancora nell'erba.",
+              "de": "Heute Morgen haben wir hundert Steine aufgesammelt, und im Gras sind noch welche."
+            },
+            {
+              "who": "harry",
+              "en": "Here's another! And this one could cut you!",
+              "sl": "Tukaj je še eden! In tale bi te lahko urezal!",
+              "it": "Eccone un altro! E questo potrebbe tagliarti!",
+              "de": "Hier ist noch einer! Und der könnte dich schneiden!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Be careful with that one. It's very sharp.",
+                  "sl": "Previdno s tem. Zelo je oster.",
+                  "it": "Attenzione con quello. È molto affilato.",
+                  "de": "Vorsicht damit. Der ist sehr scharf.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "That's right. Put the sharp ones in the bucket, please.",
+                    "sl": "Tako je. Ostre daj v vedro, prosim.",
+                    "it": "Giusto. Metti quelli affilati nel secchio, per favore.",
+                    "de": "Richtig. Die scharfen bitte in den Eimer."
+                  }
+                },
+                {
+                  "en": "Be careful with that one. It's very shy.",
+                  "sl": "Previdno s tem. Zelo je sramežljiv.",
+                  "it": "Attenzione con quello. È molto timido.",
+                  "de": "Vorsicht damit. Der ist sehr schüchtern.",
+                  "why": {
+                    "sl": "Sharp pomeni oster; shy pomeni sramežljiv.",
+                    "it": "Sharp vuol dire affilato; shy vuol dire timido.",
+                    "de": "Sharp heißt scharf; shy heißt schüchtern."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Shy? Stones aren't usually shy. Quiet, perhaps.",
+                    "sl": "Sramežljiv? Kamni navadno niso sramežljivi. Morda tihi.",
+                    "it": "Timido? I sassi di solito non lo sono. Silenziosi, forse.",
+                    "de": "Schüchtern? Steine sind das normalerweise nicht. Still vielleicht."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "The children will be running here every day. Whatever's in this grass has to come out.",
+              "sl": "Otroci bodo tu tekali vsak dan. Karkoli je v tej travi, mora ven.",
+              "it": "I bambini correranno qui ogni giorno. Tutto ciò che è nell'erba deve uscire.",
+              "de": "Die Kinder laufen hier jeden Tag. Was in diesem Gras ist, muss raus."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I've gone over the grass by the gate, and it seems clear.",
+                  "sl": "Travo pri vratih sem {m:pregledal|f:pregledala}, zdi se čista.",
+                  "it": "Ho controllato l'erba vicino al cancello, e sembra pulita.",
+                  "de": "Ich habe das Gras am Tor abgesucht, es scheint frei zu sein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. Tomorrow we can start building.",
+                    "sl": "Dobro. Jutri lahko začnemo graditi.",
+                    "it": "Bene. Domani possiamo cominciare a costruire.",
+                    "de": "Gut. Morgen können wir mit dem Bauen anfangen."
+                  }
+                },
+                {
+                  "en": "I've gone over the glass by the gate, and it seems clear.",
+                  "sl": "Steklo pri vratih sem {m:pregledal|f:pregledala}, zdi se čisto.",
+                  "it": "Ho controllato il vetro vicino al cancello, e sembra pulito.",
+                  "de": "Ich habe das Glas am Tor abgesucht, es scheint klar zu sein.",
+                  "why": {
+                    "sl": "Grass je trava; glass je steklo.",
+                    "it": "Grass è l'erba; glass è il vetro.",
+                    "de": "Grass ist das Gras; glass ist das Glas."
+                  },
+                  "reply": {
+                    "face": "worried",
+                    "en": "Glass? There's glass by the gate? Show me at once.",
+                    "sl": "Steklo? Pri vratih je steklo? Takoj mi pokaži.",
+                    "it": "Vetro? C'è del vetro vicino al cancello? Fammi vedere subito.",
+                    "de": "Glas? Am Tor ist Glas? Zeig es mir sofort."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "One sharp stone is all it takes. I've spent enough evenings bandaging knees to know.",
+              "sl": "Dovolj je en oster kamen. Dovolj večerov sem povijala kolena, da to vem.",
+              "it": "Basta un sasso affilato. Ho passato abbastanza sere a fasciare ginocchia per saperlo.",
+              "de": "Ein scharfer Stein reicht. Ich habe genug Abende Knie verbunden, um das zu wissen."
+            },
+            {
+              "who": "harry",
+              "en": "My knee's got a scar like a lightning bolt!",
+              "sl": "Moje koleno ima brazgotino kot strela!",
+              "it": "Il mio ginocchio ha una cicatrice come un fulmine!",
+              "de": "Mein Knie hat eine Narbe wie ein Blitz!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "If any sharp stones are left in there, somebody will find them with their knees.",
+                  "sl": "Če je ostal kak oster kamen, ga bo kdo našel s koleni.",
+                  "it": "Se restano sassi affilati, qualcuno li troverà con le ginocchia.",
+                  "de": "Wenn scharfe Steine übrig bleiben, findet sie jemand mit den Knien.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Quite so. We'll go over it once more.",
+                    "sl": "Točno. Še enkrat bomo šli čez.",
+                    "it": "Proprio così. Ci ripasseremo ancora una volta.",
+                    "de": "Genau. Wir gehen noch einmal darüber."
+                  }
+                },
+                {
+                  "en": "If any sheep stones are left in there, somebody will find them with their knees.",
+                  "sl": "Če je ostal kak ovčji kamen, ga bo kdo našel s koleni.",
+                  "it": "Se restano sassi di pecora, qualcuno li troverà con le ginocchia.",
+                  "de": "Wenn Schafsteine übrig bleiben, findet sie jemand mit den Knien.",
+                  "why": {
+                    "sl": "Sharp pomeni oster; sheep je ovca.",
+                    "it": "Sharp vuol dire affilato; sheep è la pecora.",
+                    "de": "Sharp heißt scharf; sheep ist das Schaf."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "Sheep stones? I don't believe I know those.",
+                    "sl": "Ovčji kamni? Mislim, da teh ne poznam.",
+                    "it": "Sassi di pecora? Credo di non conoscerli.",
+                    "de": "Schafsteine? Die kenne ich wohl nicht."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "The grass has grown over most of them, so you have to feel for them with your feet.",
+              "sl": "Trava je večino prerasla, zato jih moraš tipati z nogami.",
+              "it": "L'erba ne ha coperti quasi tutti, quindi devi sentirli coi piedi.",
+              "de": "Das Gras ist über die meisten gewachsen, also muss man sie mit den Füßen ertasten."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Now that the grass has been cut, they should be much easier to find.",
+                  "sl": "Zdaj, ko je trava pokošena, bi jih moralo biti veliko lažje najti.",
+                  "it": "Ora che l'erba è stata tagliata, dovrebbero essere molto più facili da trovare.",
+                  "de": "Jetzt, wo das Gras gemäht ist, sollten sie viel leichter zu finden sein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Then we'd better get on while the light lasts.",
+                    "sl": "Potem nadaljujmo, dokler je svetlo.",
+                    "it": "Allora è meglio continuare finché c'è luce.",
+                    "de": "Dann machen wir besser weiter, solange es hell ist."
+                  }
+                },
+                {
+                  "en": "Now that the grease has been cut, they should be much easier to find.",
+                  "sl": "Zdaj, ko je mast narezana, bi jih moralo biti veliko lažje najti.",
+                  "it": "Ora che il grasso è stato tagliato, dovrebbero essere molto più facili da trovare.",
+                  "de": "Jetzt, wo das Fett geschnitten ist, sollten sie viel leichter zu finden sein.",
+                  "why": {
+                    "sl": "Grass je trava; grease je mast.",
+                    "it": "Grass è l'erba; grease è il grasso.",
+                    "de": "Grass ist das Gras; grease ist das Fett."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "The grease? This is a playground, not a kitchen.",
+                    "sl": "Mast? To je igrišče, ne kuhinja.",
+                    "it": "Il grasso? È un parco giochi, non una cucina.",
+                    "de": "Das Fett? Das ist ein Spielplatz, keine Küche."
+                  }
+                }
+              ]
             }
           ]
         }
@@ -714,6 +1102,200 @@
               "de": "Huiii! Das ist eine gute, sichere Schaukel."
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "The swing's been put up, but I'd like to check it before anyone sits on it.",
+              "sl": "Gugalnica je postavljena, ampak rada bi jo preverila, preden kdo sede nanjo.",
+              "it": "L'altalena è montata, ma vorrei controllarla prima che qualcuno si sieda.",
+              "de": "Die Schaukel steht, aber ich möchte sie prüfen, bevor sich jemand draufsetzt."
+            },
+            {
+              "who": "harry",
+              "en": "Can I try it first? Please, please!",
+              "sl": "Lahko jaz poskusim prvi? Prosim, prosim!",
+              "it": "Posso provarla per primo? Per favore, per favore!",
+              "de": "Darf ich zuerst? Bitte, bitte!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Is the seat strong enough for someone as heavy as me?",
+                  "sl": "Je sedež dovolj močan za nekoga, ki je tako težak kot jaz?",
+                  "it": "Il sedile è abbastanza forte per uno pesante come me?",
+                  "de": "Ist der Sitz stark genug für jemanden, der so schwer ist wie ich?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "It's held an anvil. I think you'll be fine.",
+                    "sl": "Zdržal je nakovalo. Mislim, da bo šlo.",
+                    "it": "Ha retto un'incudine. Credo che andrà bene.",
+                    "de": "Er hat einen Amboss gehalten. Ich glaube, das geht."
+                  }
+                },
+                {
+                  "en": "Is the sheet strong enough for someone as heavy as me?",
+                  "sl": "Je rjuha dovolj močna za nekoga, ki je tako težak kot jaz?",
+                  "it": "Il lenzuolo è abbastanza forte per uno pesante come me?",
+                  "de": "Ist das Laken stark genug für jemanden, der so schwer ist wie ich?",
+                  "why": {
+                    "sl": "Seat je sedež; sheet je rjuha.",
+                    "it": "Seat è il sedile; sheet è il lenzuolo.",
+                    "de": "Seat ist der Sitz; sheet ist das Laken."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A sheet? That's a very different kind of swing.",
+                    "sl": "Rjuha? To je čisto druga vrsta gugalnice.",
+                    "it": "Un lenzuolo? È un'altalena molto diversa.",
+                    "de": "Ein Laken? Das ist eine ganz andere Art Schaukel."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "The ropes are tight and the seat is level. I think it's ready.",
+              "sl": "Vrvi so napete in sedež raven. Mislim, da je pripravljena.",
+              "it": "Le corde sono tese e il sedile è in piano. Credo che sia pronta.",
+              "de": "Die Seile sind straff und der Sitz waagrecht. Ich glaube, sie ist fertig."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Would you like to try the swing first, Mrs Hartley?",
+                  "sl": "Bi radi prvi poskusili gugalnico, gospa Hartley?",
+                  "it": "Vuole provare Lei per prima l'altalena, signora Hartley?",
+                  "de": "Möchten Sie die Schaukel zuerst ausprobieren, Mrs Hartley?",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Oh, very well. Stand back, children. Wheee!",
+                    "sl": "No, dobro. Otroci, nazaj. Juhu!",
+                    "it": "Oh, va bene. Bambini, indietro. Uiii!",
+                    "de": "Na gut. Kinder, zurück. Huiii!"
+                  }
+                },
+                {
+                  "en": "Would you like to try the swan first, Mrs Hartley?",
+                  "sl": "Bi radi prvi poskusili laboda, gospa Hartley?",
+                  "it": "Vuole provare Lei per prima il cigno, signora Hartley?",
+                  "de": "Möchten Sie den Schwan zuerst ausprobieren, Mrs Hartley?",
+                  "why": {
+                    "sl": "Swing je gugalnica; swan je labod.",
+                    "it": "Swing è l'altalena; swan è il cigno.",
+                    "de": "Swing ist die Schaukel; swan ist der Schwan."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A swan? They bite, you know. No, thank you.",
+                    "sl": "Laboda? Grizejo, veš. Ne, hvala.",
+                    "it": "Un cigno? Morde, sai. No, grazie.",
+                    "de": "Einen Schwan? Die beißen, weißt du. Nein, danke."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "Before anyone's allowed on it, the swing has to pass my test. I've taught for ten years and I've yet to lose a child.",
+              "sl": "Preden sme kdo nanjo, mora gugalnica prestati moj preizkus. Učim deset let in še nisem izgubila otroka.",
+              "it": "Prima che qualcuno salga, l'altalena deve passare il mio esame. Insegno da dieci anni e non ho ancora perso un bambino.",
+              "de": "Bevor jemand drauf darf, muss die Schaukel meine Prüfung bestehen. Ich unterrichte seit zehn Jahren und habe noch kein Kind verloren."
+            },
+            {
+              "who": "harry",
+              "en": "I've been on higher swings than this at Morecambe!",
+              "sl": "V Morecambu sem že bil na višjih gugalnicah!",
+              "it": "Sono già stato su altalene più alte a Morecambe!",
+              "de": "Ich war in Morecambe auf höheren Schaukeln!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Perhaps the seat ought to be tested with something heavy first.",
+                  "sl": "Morda bi sedež morali najprej preizkusiti z nečim težkim.",
+                  "it": "Forse il sedile andrebbe provato prima con qualcosa di pesante.",
+                  "de": "Vielleicht sollte der Sitz zuerst mit etwas Schwerem getestet werden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "A sack of oats. Excellent suggestion.",
+                    "sl": "Vreča ovsa. Odličen predlog.",
+                    "it": "Un sacco d'avena. Ottimo suggerimento.",
+                    "de": "Ein Sack Hafer. Ausgezeichneter Vorschlag."
+                  }
+                },
+                {
+                  "en": "Perhaps the seal ought to be tested with something heavy first.",
+                  "sl": "Morda bi tjulenja morali najprej preizkusiti z nečim težkim.",
+                  "it": "Forse la foca andrebbe provata prima con qualcosa di pesante.",
+                  "de": "Vielleicht sollte die Robbe zuerst mit etwas Schwerem getestet werden.",
+                  "why": {
+                    "sl": "Seat je sedež; seal je tjulenj.",
+                    "it": "Seat è il sedile; seal è la foca.",
+                    "de": "Seat ist der Sitz; seal ist die Robbe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A seal? I think it would rather be left alone.",
+                    "sl": "Tjulenj? Mislim, da bi bil raje pri miru.",
+                    "it": "Una foca? Credo preferisca essere lasciata in pace.",
+                    "de": "Eine Robbe? Die wäre wohl lieber in Ruhe."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "The sack's stayed on, the ropes haven't moved. I can find nothing wrong with it.",
+              "sl": "Vreča je ostala, vrvi se niso premaknile. Ne najdem nobene napake.",
+              "it": "Il sacco è rimasto, le corde non si sono mosse. Non trovo niente che non va.",
+              "de": "Der Sack ist oben geblieben, die Seile haben sich nicht bewegt. Ich finde nichts daran auszusetzen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Then it's only fair that you should have the first go on the swing.",
+                  "sl": "Potem je pošteno, da vi prvi poskusite gugalnico.",
+                  "it": "Allora è giusto che sia Lei la prima a provare l'altalena.",
+                  "de": "Dann ist es nur fair, dass Sie die Schaukel als Erste ausprobieren.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "If you insist. Don't tell the governors.",
+                    "sl": "Če vztrajaš. Ne povej upravi.",
+                    "it": "Se insisti. Non dirlo al consiglio.",
+                    "de": "Wenn du darauf bestehst. Sag's nicht dem Schulrat."
+                  }
+                },
+                {
+                  "en": "Then it's only fair that you should have the first go on the swine.",
+                  "sl": "Potem je pošteno, da vi prvi poskusite svinjo.",
+                  "it": "Allora è giusto che sia Lei la prima a provare il maiale.",
+                  "de": "Dann ist es nur fair, dass Sie das Schwein als Erste ausprobieren.",
+                  "why": {
+                    "sl": "Swing je gugalnica; swine je svinja.",
+                    "it": "Swing è l'altalena; swine è il maiale.",
+                    "de": "Swing ist die Schaukel; swine ist das Schwein."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The swine? I beg your pardon!",
+                    "sl": "Svinjo? Prosim?",
+                    "it": "Il maiale? Come, scusa?",
+                    "de": "Das Schwein? Wie bitte!"
+                  }
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -939,6 +1521,214 @@
               "sl": "Zraven gugalnice: peskovnik in majhen tobogan.",
               "it": "Accanto all'altalena: una sabbiera e un piccolo scivolo.",
               "de": "Neben der Schaukel: ein Sandkasten und eine kleine Rutsche."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "The slide arrived yesterday. It's a small one, so that the little ones can use it.",
+              "sl": "Tobogan je prišel včeraj. Majhen je, da ga lahko uporabljajo najmlajši.",
+              "it": "Lo scivolo è arrivato ieri. È piccolo, così lo possono usare i più piccoli.",
+              "de": "Die Rutsche kam gestern. Sie ist klein, damit die Kleinen sie benutzen können."
+            },
+            {
+              "who": "poppy",
+              "en": "Can we try it now? Why not?",
+              "sl": "Lahko poskusimo zdaj? Zakaj ne?",
+              "it": "Possiamo provarlo adesso? Perché no?",
+              "de": "Können wir sie jetzt ausprobieren? Warum nicht?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Who's going to be the first down the slide?",
+                  "sl": "Kdo bo prvi na toboganu?",
+                  "it": "Chi sarà il primo a scendere dallo scivolo?",
+                  "de": "Wer rutscht als Erster die Rutsche hinunter?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Not until the sand's in. Then you may draw lots.",
+                    "sl": "Ne, dokler ni peska. Potem žrebajte.",
+                    "it": "Non prima che ci sia la sabbia. Poi tirate a sorte.",
+                    "de": "Nicht bevor der Sand drin ist. Dann lost ihr."
+                  }
+                },
+                {
+                  "en": "Who's going to be the first down the slipper?",
+                  "sl": "Kdo bo prvi na copati?",
+                  "it": "Chi sarà il primo a scendere dalla pantofola?",
+                  "de": "Wer rutscht als Erster den Pantoffel hinunter?",
+                  "why": {
+                    "sl": "Slide je tobogan; slipper je copata.",
+                    "it": "Slide è lo scivolo; slipper è la pantofola.",
+                    "de": "Slide ist die Rutsche; slipper ist der Pantoffel."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The slipper? That would be a short ride.",
+                    "sl": "Copata? To bi bila kratka vožnja.",
+                    "it": "La pantofola? Sarebbe una corsa breve.",
+                    "de": "Der Pantoffel? Das wäre eine kurze Fahrt."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "alfie",
+              "en": "The sandpit's empty! Where's all the sand?",
+              "sl": "Peskovnik je prazen! Kje je ves pesek?",
+              "it": "La sabbiera è vuota! Dov'è tutta la sabbia?",
+              "de": "Der Sandkasten ist leer! Wo ist der ganze Sand?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "The sand's coming on a cart, and then we can fill the sandpit.",
+                  "sl": "Pesek prihaja z vozom, potem lahko napolnimo peskovnik.",
+                  "it": "La sabbia arriva col carro, e poi possiamo riempire la sabbiera.",
+                  "de": "Der Sand kommt mit dem Wagen, und dann füllen wir den Sandkasten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "How many spades? I can count them!",
+                    "sl": "Koliko lopat? Jaz jih lahko štejem!",
+                    "it": "Quante palate? Le posso contare!",
+                    "de": "Wie viele Schaufeln? Ich kann sie zählen!"
+                  }
+                },
+                {
+                  "en": "The sand's coming on a cart, and then we can fill the sandwich.",
+                  "sl": "Pesek prihaja z vozom, potem lahko napolnimo sendvič.",
+                  "it": "La sabbia arriva col carro, e poi possiamo riempire il panino.",
+                  "de": "Der Sand kommt mit dem Wagen, und dann füllen wir das Sandwich.",
+                  "why": {
+                    "sl": "Sandpit je peskovnik; sandwich je sendvič.",
+                    "it": "Sandpit è la sabbiera; sandwich è il panino.",
+                    "de": "Sandpit ist der Sandkasten; sandwich ist das Sandwich."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A sand sandwich! Yuck!",
+                    "sl": "Sendvič s peskom! Fuj!",
+                    "it": "Un panino di sabbia! Che schifo!",
+                    "de": "Ein Sandsandwich! Igitt!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "Next to the swing, a sandpit and a small slide. It's coming together.",
+              "sl": "Poleg gugalnice peskovnik in majhen tobogan. Nastaja.",
+              "it": "Vicino all'altalena, una sabbiera e un piccolo scivolo. Sta prendendo forma.",
+              "de": "Neben der Schaukel ein Sandkasten und eine kleine Rutsche. Es wird."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "I've read that children learn more in a sandpit than in a classroom. I'm not sure I ought to agree.",
+              "sl": "Brala sem, da se otroci v peskovniku naučijo več kot v učilnici. Nisem prepričana, da bi smela pritrditi.",
+              "it": "Ho letto che i bambini imparano di più in una sabbiera che in classe. Non sono sicura di dover essere d'accordo.",
+              "de": "Ich habe gelesen, dass Kinder im Sandkasten mehr lernen als im Klassenzimmer. Ich weiß nicht, ob ich da zustimmen sollte."
+            },
+            {
+              "who": "poppy",
+              "en": "Why is the slide so small? The big ones say it's for babies.",
+              "sl": "Zakaj je tobogan tako majhen? Veliki pravijo, da je za dojenčke.",
+              "it": "Perché lo scivolo è così piccolo? I grandi dicono che è per i neonati.",
+              "de": "Warum ist die Rutsche so klein? Die Großen sagen, die ist für Babys."
+            },
+            {
+              "choices": [
+                {
+                  "en": "If the slide had been any taller, the little ones couldn't have used it.",
+                  "sl": "Če bi bil tobogan višji, ga najmlajši ne bi mogli uporabljati.",
+                  "it": "Se lo scivolo fosse stato più alto, i piccoli non avrebbero potuto usarlo.",
+                  "de": "Wäre die Rutsche höher gewesen, hätten die Kleinen sie nicht benutzen können.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Precisely. And the big ones can go down it backwards.",
+                    "sl": "Natanko. Veliki pa lahko gredo po njem nazaj.",
+                    "it": "Precisamente. E i grandi possono scendere all'indietro.",
+                    "de": "Genau. Und die Großen können sie rückwärts hinunterrutschen."
+                  }
+                },
+                {
+                  "en": "If the slice had been any taller, the little ones couldn't have used it.",
+                  "sl": "Če bi bila rezina višja, je najmlajši ne bi mogli uporabljati.",
+                  "it": "Se la fetta fosse stata più alta, i piccoli non avrebbero potuto usarla.",
+                  "de": "Wäre die Scheibe höher gewesen, hätten die Kleinen sie nicht benutzen können.",
+                  "why": {
+                    "sl": "Slide je tobogan; slice je rezina.",
+                    "it": "Slide è lo scivolo; slice è la fetta.",
+                    "de": "Slide ist die Rutsche; slice ist die Scheibe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A slice? Of what? Cake?",
+                    "sl": "Rezina? Česa? Torte?",
+                    "it": "Una fetta? Di cosa? Torta?",
+                    "de": "Eine Scheibe? Wovon? Kuchen?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "alfie",
+              "en": "I've counted the sand. There isn't any.",
+              "sl": "Preštel sem pesek. Ga ni.",
+              "it": "Ho contato la sabbia. Non ce n'è.",
+              "de": "Ich hab den Sand gezählt. Es gibt keinen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "The sandpit will have been filled by the end of the week, I promise.",
+                  "sl": "Peskovnik bo do konca tedna napolnjen, obljubim.",
+                  "it": "La sabbiera sarà stata riempita entro la fine della settimana, lo prometto.",
+                  "de": "Der Sandkasten ist bis Ende der Woche gefüllt, versprochen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Then I'll count it on Friday.",
+                    "sl": "Potem ga bom štel v petek.",
+                    "it": "Allora la conto venerdì.",
+                    "de": "Dann zähl ich ihn am Freitag."
+                  }
+                },
+                {
+                  "en": "The sandal will have been filled by the end of the week, I promise.",
+                  "sl": "Sandala bo do konca tedna napolnjena, obljubim.",
+                  "it": "Il sandalo sarà stato riempito entro la fine della settimana, lo prometto.",
+                  "de": "Die Sandale ist bis Ende der Woche gefüllt, versprochen.",
+                  "why": {
+                    "sl": "Sandpit je peskovnik; sandal je sandala.",
+                    "it": "Sandpit è la sabbiera; sandal è il sandalo.",
+                    "de": "Sandpit ist der Sandkasten; sandal ist die Sandale."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A sandal? My foot's full already!",
+                    "sl": "Sandala? Moja noga je že polna!",
+                    "it": "Un sandalo? Il mio piede è già pieno!",
+                    "de": "Eine Sandale? Mein Fuß ist schon voll!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "With a little luck, it'll all be ready for the first day of the holidays.",
+              "sl": "Z malo sreče bo vse pripravljeno za prvi dan počitnic.",
+              "it": "Con un po' di fortuna, sarà tutto pronto per il primo giorno di vacanze.",
+              "de": "Mit etwas Glück ist alles zum ersten Ferientag fertig."
             }
           ]
         }
@@ -1172,6 +1962,216 @@
               "fx": {
                 "bell": 0.6
               }
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "The playground's open, and the children have been here since three o'clock.",
+              "sl": "Igrišče je odprto in otroci so tukaj že od treh.",
+              "it": "Il parco giochi è aperto, e i bambini sono qui dalle tre.",
+              "de": "Der Spielplatz ist offen, und die Kinder sind seit drei Uhr hier."
+            },
+            {
+              "who": "alfie",
+              "en": "A hundred swings! And a hundred slides!",
+              "sl": "Sto gugalnic! In sto toboganov!",
+              "it": "Cento altalene! E cento scivoli!",
+              "de": "Hundert Schaukeln! Und hundert Rutschen!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "This must be the best playground in the dale!",
+                  "sl": "To je gotovo najboljše igrišče v dolini!",
+                  "it": "Questo dev'essere il miglior parco giochi della valle!",
+                  "de": "Das muss der beste Spielplatz im Tal sein!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "It's the only one, but thank you!",
+                    "sl": "Edino je, ampak hvala!",
+                    "it": "È l'unico, ma grazie!",
+                    "de": "Es ist der einzige, aber danke!"
+                  }
+                },
+                {
+                  "en": "This must be the best playhouse in the dale!",
+                  "sl": "To je gotovo najboljše gledališče v dolini!",
+                  "it": "Questo dev'essere il miglior teatro della valle!",
+                  "de": "Das muss das beste Theater im Tal sein!",
+                  "why": {
+                    "sl": "Playground je igrišče; playhouse je gledališče.",
+                    "it": "Playground è il parco giochi; playhouse è il teatro.",
+                    "de": "Playground ist der Spielplatz; playhouse ist das Theater."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A playhouse? Well, there's enough drama.",
+                    "sl": "Gledališče? No, drame je dovolj.",
+                    "it": "Un teatro? Beh, di dramma ce n'è abbastanza.",
+                    "de": "Ein Theater? Na ja, Drama gibt's genug."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "poppy",
+              "en": "Mum says I've got to be home at teatime.",
+              "sl": "Mami pravi, da moram biti doma do čaja.",
+              "it": "La mamma dice che devo essere a casa all'ora del tè.",
+              "de": "Mama sagt, ich muss zur Teezeit zu Hause sein."
+            },
+            {
+              "choices": [
+                {
+                  "en": "What time is teatime in your house?",
+                  "sl": "Ob kateri uri je čas za čaj pri vas?",
+                  "it": "A che ora è l'ora del tè a casa tua?",
+                  "de": "Um wie viel Uhr ist bei euch Teezeit?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Five o'clock. Or when Granny shouts.",
+                    "sl": "Ob petih. Ali ko babica zakliče.",
+                    "it": "Alle cinque. O quando grida la nonna.",
+                    "de": "Um fünf. Oder wenn Oma ruft."
+                  }
+                },
+                {
+                  "en": "What time is tea towel in your house?",
+                  "sl": "Ob kateri uri je kuhinjska krpa pri vas?",
+                  "it": "A che ora è lo strofinaccio a casa tua?",
+                  "de": "Um wie viel Uhr ist bei euch Geschirrtuch?",
+                  "why": {
+                    "sl": "Teatime je čas za čaj; tea towel je kuhinjska krpa.",
+                    "it": "Teatime è l'ora del tè; tea towel è lo strofinaccio.",
+                    "de": "Teatime ist die Teezeit; tea towel ist das Geschirrtuch."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "Tea towel? That's not a time!",
+                    "sl": "Kuhinjska krpa? To ni ura!",
+                    "it": "Strofinaccio? Non è un'ora!",
+                    "de": "Geschirrtuch? Das ist keine Uhrzeit!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "There's the bell. Teatime! Off you go, and come back tomorrow.",
+              "sl": "Tam je zvon. Čas za čaj! Pojdite in pridite spet jutri.",
+              "it": "Ecco la campana. L'ora del tè! Andate, e tornate domani.",
+              "de": "Da ist die Glocke. Teezeit! Geht nur, und kommt morgen wieder.",
+              "fx": { "bell": 0.6 }
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "hartley",
+              "en": "I've had letters from three villages asking how we did it. I told them we did it with children and a lot of patience.",
+              "sl": "Dobila sem pisma iz treh vasi, kako nam je uspelo. Odgovorila sem, da z otroki in veliko potrpljenja.",
+              "it": "Ho ricevuto lettere da tre paesi che chiedono come abbiamo fatto. Ho risposto: con i bambini e tanta pazienza.",
+              "de": "Ich habe Briefe aus drei Dörfern bekommen, wie wir das geschafft haben. Ich habe geantwortet: mit Kindern und viel Geduld."
+            },
+            {
+              "who": "alfie",
+              "en": "I've been on the swing a hundred times. Nearly.",
+              "sl": "Na gugalnici sem bil sto krat. Skoraj.",
+              "it": "Sono stato sull'altalena cento volte. Quasi.",
+              "de": "Ich war hundertmal auf der Schaukel. Fast."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I wish there'd been a playground like this when I was small.",
+                  "sl": "{m:Želel bi si, da bi bilo takšno igrišče, ko sem bil majhen|f:Želela bi si, da bi bilo takšno igrišče, ko sem bila majhna}.",
+                  "it": "Vorrei che ci fosse stato un parco giochi così quando ero {m:piccolo|f:piccola}.",
+                  "de": "Ich wünschte, es hätte so einen Spielplatz gegeben, als ich klein war.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "It isn't too late. The swing can take a grown-up. I've tested it.",
+                    "sl": "Ni prepozno. Gugalnica zdrži odraslega. Preizkušeno.",
+                    "it": "Non è troppo tardi. L'altalena regge un adulto. L'ho provata.",
+                    "de": "Es ist nicht zu spät. Die Schaukel hält einen Erwachsenen aus. Getestet."
+                  }
+                },
+                {
+                  "en": "I wish there'd been a playpen like this when I was small.",
+                  "sl": "{m:Želel bi si, da bi bila takšna stajica, ko sem bil majhen|f:Želela bi si, da bi bila takšna stajica, ko sem bila majhna}.",
+                  "it": "Vorrei che ci fosse stato un box così quando ero {m:piccolo|f:piccola}.",
+                  "de": "Ich wünschte, es hätte so einen Laufstall gegeben, als ich klein war.",
+                  "why": {
+                    "sl": "Playground je igrišče; playpen je stajica za dojenčke.",
+                    "it": "Playground è il parco giochi; playpen è il box per neonati.",
+                    "de": "Playground ist der Spielplatz; playpen ist der Laufstall."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A playpen? That's a rather different childhood.",
+                    "sl": "Stajica? To je precej drugačno otroštvo.",
+                    "it": "Un box? È un'infanzia piuttosto diversa.",
+                    "de": "Ein Laufstall? Das ist eine ganz andere Kindheit."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "poppy",
+              "en": "Granny says that if I'm late for tea again, she'll give it to the cat.",
+              "sl": "Babica pravi, da če spet zamudim čaj, ga bo dala mački.",
+              "it": "La nonna dice che se faccio di nuovo tardi per il tè, lo dà al gatto.",
+              "de": "Oma sagt, wenn ich wieder zu spät zum Tee komme, gibt sie ihn der Katze."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Then you'd better go, or you'll have missed teatime altogether.",
+                  "sl": "Potem raje pojdi, sicer bo čas za čaj mimo.",
+                  "it": "Allora è meglio che vada, o perderai del tutto l'ora del tè.",
+                  "de": "Dann gehst du besser, sonst verpasst du die Teezeit ganz.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Race you to the gate!",
+                    "sl": "Kdo bo prvi pri vratih!",
+                    "it": "Chi arriva prima al cancello!",
+                    "de": "Wer zuerst am Tor ist!"
+                  }
+                },
+                {
+                  "en": "Then you'd better go, or you'll have missed teaspoon altogether.",
+                  "sl": "Potem raje pojdi, sicer bo čajna žlička mimo.",
+                  "it": "Allora è meglio che vada, o perderai del tutto il cucchiaino.",
+                  "de": "Dann gehst du besser, sonst verpasst du den Teelöffel ganz.",
+                  "why": {
+                    "sl": "Teatime je čas za čaj; teaspoon je čajna žlička.",
+                    "it": "Teatime è l'ora del tè; teaspoon è il cucchiaino.",
+                    "de": "Teatime ist die Teezeit; teaspoon ist der Teelöffel."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "The teaspoon? I don't need a spoon for tea. Do I?",
+                    "sl": "Žlička? Za čaj ne rabim žličke. Ali jo?",
+                    "it": "Il cucchiaino? Non mi serve per il tè. O sì?",
+                    "de": "Der Teelöffel? Den brauch ich nicht für Tee. Oder?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "hartley",
+              "en": "There's the bell. Home, all of you, and I'll see you tomorrow.",
+              "sl": "Tam je zvon. Domov, vsi, jutri se vidimo.",
+              "it": "Ecco la campana. A casa, tutti, ci vediamo domani.",
+              "de": "Da ist die Glocke. Heim, ihr alle, bis morgen.",
+              "fx": { "bell": 0.6 }
             }
           ]
         }
