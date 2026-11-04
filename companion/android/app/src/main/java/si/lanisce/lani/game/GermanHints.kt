@@ -182,8 +182,8 @@ object GermanHints {
     /** One way a preposition takes a case: [case] ("acc", "dat", "gen"), [sense] ("motion", "rest" …), [spoken]: what people say beside the written form (wegen dem). */
     data class Take(val case: String, val sense: String, val spoken: Boolean = false)
 
-    /** A chunk's preposition and its case (warten auf + acc); [particle]: of a verb that is one only with it (aufpassen). */
-    data class Chunk(val lemma: String, val preposition: String, val case: String, val particle: String? = null)
+    /** A chunk's preposition and its case (warten auf + acc); [verb]: a verb's (of many forms), not an adjective's or a noun's; [particle]: of a verb that is one only with it (aufpassen). */
+    data class Chunk(val lemma: String, val preposition: String, val case: String, val verb: Boolean, val particle: String? = null)
 
     /** A verb's governed [cases] ("dat", or "dat" and "acc"); [particle]: of a separable one, only with it at its clause's end. */
     data class Governed(val cases: List<String>, val particle: String? = null)
@@ -249,7 +249,7 @@ object GermanHints {
         }
         val chunks = HashMap<String, MutableList<Chunk>>()
         for (c in objects("chunks")) {
-            val chunk = Chunk(str(c, "lemma").orEmpty(), str(c, "preposition").orEmpty(), str(c, "case").orEmpty(), str(c, "particle"))
+            val chunk = Chunk(str(c, "lemma").orEmpty(), str(c, "preposition").orEmpty(), str(c, "case").orEmpty(), strings(c["forms"]).size > 1, str(c, "particle"))
             for (f in strings(c["forms"])) chunks.getOrPut(f) { ArrayList() } += chunk
             for (f in strings(c["joined"])) chunks.getOrPut(f) { ArrayList() } += chunk.copy(particle = null)
         }
@@ -323,8 +323,11 @@ object GermanHints {
 
     private fun set(s: String): Set<String> = s.split(" ").filter { it.isNotEmpty() }.toSet()
 
-    /** Who can do it: the pronouns of the subject, and the words that stand for someone or something. */
-    private val SUBJECTS = set("ich du er sie es wir ihr man wer das dies alles nichts etwas jemand niemand jeder keiner einer alle beide manche viele")
+    /** The pronouns of the subject: the table's nominatives (ich, du … man, wer, jemand). */
+    private val PERSONS: Set<String> by lazy { T.pronouns.filterValues { "nom" in it }.keys }
+
+    /** Who can do it: those, and the words that stand for someone or something. */
+    private val SUBJECTS: Set<String> by lazy { PERSONS + set("das dies alles nichts etwas jeder keiner einer alle beide manche viele") }
     private val JOINS = set("und aber oder denn dass weil wenn ob als sondern bis obwohl damit nachdem bevor während")
 
     /** The words that send the verb last. */
@@ -361,7 +364,7 @@ object GermanHints {
     private val MODALS = set(
         "kann kannst können könnt konnte konntest konnten konntet könnte könntest könnten könntet darf darfst dürfen dürft durfte durftest durften durftet dürfte " +
             "dürftest dürften dürftet muss musst müssen müsst musste musstest mussten musstet müsste müsstest müssten müsstet soll sollst sollen sollt sollte solltest " +
-            "sollten solltet will willst wollen wollt wollte wolltest wollten wolltet möchte möchtest möchten möchtet mag magst mögen mögt lässt lässt lassen ließ",
+            "sollten solltet will willst wollen wollt wollte wolltest wollten wolltet möchte möchtest möchten möchtet mag magst mögen mögt lasse lässt lassen ließ",
     )
     private val WERDEN = set("werde wirst wird werden werdet wurde wurdest wurden wurdet würde würdest würden würdet")
     private val HELPERS = SEIN + HABEN + MODALS + WERDEN
@@ -456,7 +459,7 @@ object GermanHints {
     private fun subjectFrom(s: Said, n: Int): Pair<Int, Int>? {
         val w = s.words
         if (n !in w.indices) return null
-        if (w[n] in set("ich du er sie es wir ihr man")) return n to n
+        if (w[n] in PERSONS) return n to n
         if (w[n] in T.determiners) {
             if (T.determiners.getValue(w[n]).none { it.startsWith("nom") }) return null
             return nounFrom(s, n + 1)?.let { n to it } ?: (n to n).takeIf { w[n] == "das" }
@@ -575,8 +578,8 @@ object GermanHints {
             for (c in T.chunks[w[k]].orEmpty()) {
                 if (c.preposition != prep) continue
                 if (c.particle != null && w[s.end(i)] != c.particle) continue
-                // a noun's chunk with a capital, a verb's small: Angst vor, wartet auf
-                if (w[k] in set("angst lust interesse") != s.capital(k)) continue
+                // a verb's is written small (wartet auf; das Warten is a noun)
+                if (c.verb && !verbShaped(s, k)) continue
                 return k to c
             }
         }
@@ -673,7 +676,7 @@ object GermanHints {
         val end = s.end(i)
         val helper = (start until end).firstOrNull { it != i && (w[it] in MODALS || w[it] in WERDEN || w[it] in HABEN || w[it] in SEIN - "sein") && verbShaped(s, it) }
         if (helper != null && end != i && !s.capital(end) && (participle(w[end]) || infinitive(w[end]))) return end
-        val p = (start..end).firstOrNull { k -> k != i && w[k] in set("ich du er sie es wir ihr man wer jemand niemand") && !(k > start && w[k - 1] in T.prepositions) }
+        val p = (start..end).firstOrNull { k -> k != i && w[k] in PERSONS && !(k > start && w[k - 1] in T.prepositions) }
         if (p != null) {
             if (p > start && w[p - 1] !in FUNCTION - HELPERS && verbShaped(s, p - 1)) return p - 1
             if (p + 1 != i && p + 1 <= end && w[p + 1] !in FUNCTION - HELPERS && !s.capital(p + 1)) return p + 1
@@ -938,7 +941,7 @@ object GermanHints {
         if (forms.none { it in SEIN } || forms.none { it in HABEN }) return null
         val w = s.words
         if (gap in HABEN) {
-            val from = after(s, i, MIDDLE + set("du ich er sie es wir ihr")) ?: return null
+            val from = after(s, i, MIDDLE + PERSONS) ?: return null
             val n = if (w[from] in T.determiners || number(w[from])) nounFrom(s, from + 1) else nounFrom(s, from)
             n ?: return null
             return asks(s, n, n, if (w[n] in HAVE_NOUNS) "hint.de.feelHaben" else "hint.de.haveThing", "hintSay.with")
@@ -957,7 +960,7 @@ object GermanHints {
             return asks(s, n, n, "hint.de.noNoun", "hintSay.with")
         }
         if (gap !in set("nicht nichts") || forms.none { it.startsWith("kein") }) return null
-        val k = (i - 1 downTo s.start(i)).firstOrNull { w[it] !in MIDDLE && w[it] !in set("ich du er sie es wir ihr man das") && !s.capital(it) } ?: return null
+        val k = (i - 1 downTo s.start(i)).firstOrNull { w[it] !in MIDDLE && w[it] !in PERSONS && w[it] != "das" && !s.capital(it) } ?: return null
         return asks(s, k, k, "hint.de.noVerb", "hintSay.with")
     }
 
@@ -973,7 +976,7 @@ object GermanHints {
         if ("dat" in casesOf(gap) || gap == "denen") verbCase(s, i, "dem", forms + "dem")?.let { return it }
         val noun = (i - 1).takeIf { it >= 0 && !s.same(it, i) }?.let { k -> phraseEnding(s, k)?.let { it to k } ?: k.takeIf { s.capital(it) }?.let { it to it } }
         val n = i + 1
-        if (s.same(n, i) && w[n] in set("ich du er sie wir ihr man")) return asks(s, n, n, "hint.de.relObject", "hintSay.with")
+        if (s.same(n, i) && w[n] in PERSONS - "es") return asks(s, n, n, "hint.de.relObject", "hintSay.with")
         if (nominative && noun != null && s.same(n, i) && (w[n] in MIDDLE || w[n] in T.prepositions || w[n] in T.fused || w[n] == "sich")) {
             return asks(s, noun.second, noun.second, "hint.de.relSubject", "hintSay.with")
         }
@@ -1019,7 +1022,7 @@ object GermanHints {
     private fun particle(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
         if (forms.size < 2 || i != s.end(i)) return null
         if (gap !in PARTICLES) return null
-        val k = before(s, i, MIDDLE + set("nicht mehr alles ich du er sie es wir ihr")) ?: return null
+        val k = before(s, i, MIDDLE + PERSONS + set("nicht mehr alles")) ?: return null
         return asks(s, k, k, "hint.de.particle", "hintSay.with")
     }
 
