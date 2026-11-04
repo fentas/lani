@@ -159,8 +159,8 @@ object Happenings {
 
     /**
      * The variant happening [a] plays [today] ([DialogVariants.pick]): of its dialogs in the scene that are in season
-     * ([Dialog.months]) and name only people of [cast] who are here and met, one not heard yet, else a review; on a visit
-     * ([guest]) the day's dice picks. Null: none.
+     * ([Dialog.months]) and name only people of [cast] who are here and met, one not heard yet, else a review, the
+     * learner's own level's first ([DialogLevels]); on a visit ([guest]) the day's dice picks. Null: none.
      */
     fun variant(a: ActiveHappening, state: GameState, today: LocalDate, cast: List<Villager> = Mentions.cast, guest: Boolean = false): String? {
         val all = DialogVariants.of(a.happening)
@@ -173,7 +173,8 @@ object Happenings {
             d?.inSeason(today) != false && (names == null || Mentions.known(Mentions.inDialog(d, names), present))
         }
         val dice = if (guest) roll(state.seed, today, a.key + "#variant") else null
-        return DialogVariants.pick(all, playable, state.dialogsHeard[a.key], today, dice)
+        // the learner's own level first, then the levels below ([DialogLevels]: the scene comes trimmed to theirs)
+        return DialogVariants.pick(all, playable, state.dialogsHeard[a.key], today, dice) { DialogLevels.rankOf(a.scene, a.happening, it) }
     }
 
     fun done(state: GameState, key: String, today: LocalDate): Boolean = state.happeningsDone[key] == today.toString()
