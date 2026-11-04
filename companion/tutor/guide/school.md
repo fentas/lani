@@ -10,3 +10,8 @@ homework id, kind: worksheet | test | homework, right, almost, of, passed?, unit
 session_end (lani-db-updater). When course.unit_done is true, congratulate in one short line and consider homework on
 what Jan got wrong (the results): publish_worksheet into that unit. Load lani-studio first; never write course files
 directly.
+A sheet's speaking and writing items (types speaking and writing, from B1; COURSE.md "Speaking and writing"): a result's
+answer is what the recognizer heard or what Jan wrote, its checks what it had to use (met or not) and to avoid; rated:
+true is a speaking item Jan rated themselves (no microphone or recognizer): practice, it doesn't count in a test. Persist
+speaking ones under skills_practiced speaking, writing under writing; a spoken form is never an error. A writing item's
+text also comes to you as an answer, for your feedback (see answer).

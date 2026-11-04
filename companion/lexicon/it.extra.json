@@ -635,7 +635,11 @@
       "forms": { "azzurro": "masculine singular", "azzurra": "feminine singular", "azzurre": "feminine plural" },
       "meanings": { "de": ["hellblau"], "sl": ["sinji, svetlo moder"] } },
     { "lemma": "bello", "pos": "adj", "gloss": ["beautiful, nice"],
-      "forms": { "bello": "masculine singular", "bella": "feminine singular", "belli": "masculine plural", "belle": "feminine plural", "bel": "masculine singular (before a consonant)", "bei": "masculine plural (before a consonant)" },
+      "forms": {
+        "bello": "masculine singular", "bella": "feminine singular", "belli": "masculine plural", "belle": "feminine plural",
+        "bel": "masculine singular (before a consonant)", "bei": "masculine plural (before a consonant)",
+        "begli": "masculine plural (before a vowel, s + consonant, z)"
+      },
       "meanings": { "de": ["schön"], "sl": ["lep"] } },
     { "lemma": "calmo", "pos": "adj", "gloss": ["calm"],
       "forms": { "calmo": "masculine singular", "calma": "feminine singular", "calme": "feminine plural" },
@@ -725,8 +729,8 @@
         "andarono": "third-person plural historic past", "vada": "first/second/third-person singular present subjunctive",
         "vadano": "third-person plural present subjunctive", "va'": "second-person singular imperative", "andare": "infinitive", "andato": "past participle",
         "andata": "feminine singular past participle", "andati": "masculine plural past participle", "andavo": "first-person singular imperfect",
-        "andrai": "second-person singular future", "andrebbe": "third-person singular conditional", "andai": "first-person singular historic past",
-        "andasti": "second-person singular historic past", "andammo": "first-person plural historic past",
+        "andrai": "second-person singular future", "andrebbe": "third-person singular conditional", "andrebbero": "third-person plural conditional",
+        "andai": "first-person singular historic past", "andasti": "second-person singular historic past", "andammo": "first-person plural historic past",
         "andaste": "second-person plural historic past; second-person plural imperfect subjunctive", "andiate": "second-person plural present subjunctive",
         "andasse": "third-person singular imperfect subjunctive", "andassimo": "first-person plural imperfect subjunctive"
       },
@@ -1283,7 +1287,8 @@
     { "lemma": "ripetere", "pos": "verb", "gloss": ["to repeat"],
       "forms": {
         "ripeto": "first-person singular present", "ripeti": "second-person singular present; second-person singular imperative", "ripetere": "infinitive",
-        "ripete": "third-person singular present", "ripeterlo": "infinitive, with lo (it, him)"
+        "ripete": "third-person singular present", "ripeterlo": "infinitive, with lo (it, him)",
+        "ripetilo": "second-person singular imperative, with lo (it, him)"
       },
       "meanings": { "de": ["wiederholen"], "sl": ["ponoviti"] } },
     { "lemma": "sapere", "pos": "verb", "gloss": ["to know; can (know how to)"],
@@ -1633,11 +1638,11 @@
         "aiutate": "second-person plural present; second-person plural imperative; feminine plural past participle", "aiutano": "third-person plural present",
         "aiutava": "third-person singular imperfect", "aiutavano": "third-person plural imperfect", "aiuterà": "third-person singular future",
         "aiuterei": "first-person singular conditional", "aiuteresti": "second-person singular conditional", "aiuterebbe": "third-person singular conditional",
-        "aiutare": "infinitive", "aiutato": "past participle", "aiutarmi": "infinitive, with mi (me)", "aiutarti": "infinitive, with ti (you)",
-        "aiutarla": "infinitive, with la (it, her)", "aiutarci": "infinitive, with ci (us; there)", "aiutarsi": "infinitive, with si (oneself)",
-        "aiutami": "second-person singular imperative, with mi (me)", "aiutalo": "second-person singular imperative, with lo (it, him)",
-        "aiutala": "second-person singular imperative, with la (it, her)", "aiutiamolo": "first-person plural imperative, with lo (it, him)",
-        "aiutatemi": "second-person plural imperative, with mi (me)"
+        "aiutare": "infinitive", "aiutato": "past participle", "aiutata": "feminine singular past participle", "aiutarmi": "infinitive, with mi (me)",
+        "aiutarti": "infinitive, with ti (you)", "aiutarla": "infinitive, with la (it, her)", "aiutarci": "infinitive, with ci (us; there)",
+        "aiutarsi": "infinitive, with si (oneself)", "aiutami": "second-person singular imperative, with mi (me)",
+        "aiutalo": "second-person singular imperative, with lo (it, him)", "aiutala": "second-person singular imperative, with la (it, her)",
+        "aiutiamolo": "first-person plural imperative, with lo (it, him)", "aiutatemi": "second-person plural imperative, with mi (me)"
       },
       "meanings": { "de": ["helfen"], "sl": ["pomagati"] } },
     { "lemma": "vedere", "pos": "verb", "gloss": ["to see"],
@@ -1894,8 +1899,9 @@
       "meanings": { "de": ["so"], "sl": ["tako"] } },
     { "lemma": "ecco", "pos": "adv", "gloss": ["here is, here are, there!"],
       "forms": {
-        "ecco": null, "eccoti": "ecco + ti (here you are)", "eccolo": "ecco + lo (here he is, here it is)", "eccola": "ecco + la (here she is, here it is)",
-        "eccoli": "ecco + li (here they are)", "eccoci": "ecco + ci (here we are)", "eccone": "ecco + ne (here is some)"
+        "ecco": null, "eccomi": "ecco + mi (here I am)", "eccoti": "ecco + ti (here you are)", "eccolo": "ecco + lo (here he is, here it is)",
+        "eccola": "ecco + la (here she is, here it is)", "eccoli": "ecco + li (here they are)", "eccoci": "ecco + ci (here we are)",
+        "eccone": "ecco + ne (here is some)"
       },
       "meanings": { "de": ["da ist, hier ist, schau!"], "sl": ["tukaj je, evo"] } },
     { "lemma": "giù", "pos": "adv", "gloss": ["down"],
@@ -5435,6 +5441,9 @@
     { "lemma": "enologia", "pos": "noun", "gender": "f", "gloss": ["winemaking (the science)"],
       "forms": { "enologia": "singular" },
       "meanings": { "de": ["Önologie"], "sl": ["enologija"] } },
+    { "lemma": "collare", "pos": "noun", "gender": "m", "gloss": ["dog collar"],
+      "forms": { "collare": "singular" },
+      "meanings": { "de": ["Halsband"], "sl": ["ovratnica"] } },
     { "lemma": "acceso", "pos": "adj", "gloss": ["lit, switched on"],
       "forms": { "acceso": "masculine singular", "accesa": "feminine singular", "accesi": "masculine plural", "accese": "feminine plural" },
       "meanings": { "de": ["angezündet, eingeschaltet"], "sl": ["prižgan"] } },
@@ -6762,7 +6771,8 @@
         "cucina": "third-person singular present; second-person singular imperative",
         "cuciniamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
         "cucinano": "third-person plural present", "cucinava": "third-person singular imperfect", "cucinerà": "third-person singular future",
-        "cucinare": "infinitive", "cucinando": "gerund", "cucinato": "past participle", "cucinarla": "infinitive, with la (it, her)"
+        "cucineresti": "second-person singular conditional", "cucinare": "infinitive", "cucinando": "gerund", "cucinato": "past participle",
+        "cucinarla": "infinitive, with la (it, her)"
       },
       "meanings": { "de": ["kochen"], "sl": ["kuhati"] } },
     { "lemma": "disegnare", "pos": "verb", "gloss": ["to draw"],
@@ -8208,7 +8218,7 @@
       "forms": {
         "ridi": "second-person singular present; second-person singular imperative", "ride": "third-person singular present",
         "ridono": "third-person plural present", "rideva": "third-person singular imperfect", "ridere": "infinitive", "ridendo": "gerund",
-        "riso": "past participle"
+        "riso": "past participle", "ridici": "second-person singular imperative, with ci (us; there)"
       },
       "meanings": { "de": ["lachen"], "sl": ["smejati se"] } },
     { "lemma": "riempirsi", "pos": "verb", "gloss": ["to fill up"],
@@ -8278,9 +8288,9 @@
     { "lemma": "rompere", "pos": "verb", "gloss": ["to break, to smash"],
       "forms": {
         "rompo": "first-person singular present", "rompi": "second-person singular present; second-person singular imperative",
-        "rompe": "third-person singular present", "romperebbero": "third-person plural conditional", "rompere": "infinitive", "rotto": "past participle",
-        "rotta": "feminine singular past participle", "romperle": "infinitive, with le (them; to her)", "rompersi": "infinitive, with si (oneself)",
-        "rompile": "second-person singular imperative, with le (them; to her)"
+        "rompe": "third-person singular present", "rompevo": "first-person singular imperfect", "romperebbero": "third-person plural conditional",
+        "rompere": "infinitive", "rotto": "past participle", "rotta": "feminine singular past participle", "romperle": "infinitive, with le (them; to her)",
+        "rompersi": "infinitive, with si (oneself)", "rompile": "second-person singular imperative, with le (them; to her)"
       },
       "meanings": { "de": ["kaputt machen, brechen"], "sl": ["zlomiti, razbiti"] } },
     { "lemma": "rompersi", "pos": "verb", "gloss": ["to get broken"],
@@ -8675,7 +8685,8 @@
     { "lemma": "vendemmiare", "pos": "verb", "gloss": ["to pick grapes"],
       "forms": {
         "vendemmia": "third-person singular present; second-person singular imperative",
-        "vendemmiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative", "vendemmiare": "infinitive"
+        "vendemmiamo": "first-person plural present; first-person plural present subjunctive; first-person plural imperative",
+        "vendemmiava": "third-person singular imperfect", "vendemmiato": "past participle", "vendemmiare": "infinitive"
       },
       "meanings": { "de": ["Trauben lesen"], "sl": ["trgati grozdje"] } },
     { "lemma": "vendere", "pos": "verb", "gloss": ["to sell"],

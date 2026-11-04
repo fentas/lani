@@ -14,6 +14,7 @@ import { validatePack } from '../../src/packs'
 import { allLines } from '../../src/villagers'
 import { bridgeEleven, bridgeWhisper, check, checkCultureVoices, culturesDir, guideOf, languageBook, port as smokePort, tempDir } from './harness'
 import { villageTalks } from './village-talks'
+import { caseDeLive } from './case-de'
 
 const repo = resolve(import.meta.dir, '../../../..')
 // not 8797 (the QA's dev town) nor a learner's port: next to the smoke's own, as the towns' is
@@ -89,6 +90,37 @@ export default async function kaernten() {
 
     // word lookup without a German dictionary: the pack words (meant in Slovene, their article left out) and the villagers
     const lookup = async (q: string) => (await (await fetch(`${base}/lookup?${q}`, { headers: auth })).json()) as any
+    // German's own tables (paradigms.ts): to an app that reads them (v=2); an older app gets none
+    const formsDe = async (q: string) => (await (await fetch(`${base}/forms?${q}`, { headers: auth })).json()) as any
+    const [old, de2] = [await formsDe('w=Haus&w=fahren'), await formsDe('w=Haus&w=fahren&v=2')]
+    const [haus2, fahren2] = de2.words.map((w: any) => w.entries[0])
+    const atDe = (e: any, k: string) => e?.slots.find((s: any) => s.key === k)
+    check(
+      "kaernten: GET /forms: an older app (no v) none; with v=2 Haus's four cases (Häusern on dativ, needing plural), fahren's fährt on vokalwechsel, gefahren on partizip-zwei with sein",
+      old.words.every((w: any) => w.entries.length === 0) && haus2?.gender === 'n' && atDe(haus2, 'dat.pl')?.forms[0] === 'Häusern' && atDe(haus2, 'dat.pl').page === 'dativ' && atDe(haus2, 'dat.pl').needs?.[0] === 'plural' &&
+        atDe(fahren2, 'pres.3sg')?.page === 'vokalwechsel' && atDe(fahren2, 'pp')?.forms[0] === 'gefahren' && atDe(fahren2, 'pp').page === 'partizip-zwei' && fahren2.aux?.includes('sein'),
+      { old, de2 },
+    )
+    // German's forms cards (forms-cards.ts otherCardOf), for an app that reads them (v=2; GET /state says forms-cards-v2)
+    const cardsNoV = await fetch(`${base}/forms-cards?w=Haus`, { headers: auth })
+    const tablesDe = (await (await fetch(`${base}/forms-cards?w=Haus&v=2`, { headers: auth })).json()) as any
+    const hausCard = tablesDe.words?.[0]?.tables?.[0]
+    const madeDe = (await (await fetch(`${base}/forms-cards`, { method: 'POST', headers: auth, body: JSON.stringify({ words: [{ word: 'fahren' }], introduced: ['praesens', 'vokalwechsel', 'partizip-zwei'], asked: true, v: 2, client_id: 'smoke-kaernten-forms' }) })).json()) as any
+    const featuresDe = (await (await fetch(`${base}/state`, { headers: auth })).json()).features
+    check(
+      "kaernten: forms cards: an older app's ask 400; with v=2 Haus's table (German, its word as written, dem Haus given, not a gap; Häusern asked), fahren's card made on demand with its present (ich, du, er, ihr: wir and sie are the word itself, given) and participle tested; GET /state says forms-cards-v2, not Slovene's forms-cards",
+      cardsNoV.status === 400 && hausCard?.language === 'de' && hausCard.lemma === 'Haus' && hausCard.slots.find((x: any) => x.key === 'dat.sg')?.given === true && !hausCard.slots.find((x: any) => x.key === 'dat.pl')?.given &&
+        madeDe.added?.[0]?.lemma === 'fahren' && madeDe.added[0].tested >= 5 && featuresDe.includes('forms-cards-v2') && !featuresDe.includes('forms-cards'),
+      { status: cardsNoV.status, hausCard, madeDe, featuresDe },
+    )
+    const cardId = madeDe.added?.[0]?.item_id
+    const itemsOld = (await (await fetch(`${base}/state`, { headers: auth })).json()).databases?.spaced_repetition?.items ?? {}
+    const itemsNew = (await (await fetch(`${base}/state?forms=2`, { headers: auth })).json()).databases?.spaced_repetition?.items ?? {}
+    check(
+      "kaernten: a German forms card is held back from an older app's GET /state (it would lay it out as Slovene's), there for one asking forms=2 with its table's language",
+      !!cardId && !itemsOld[cardId] && itemsNew[cardId]?.type === 'forms' && itemsNew[cardId].forms?.language === 'de',
+      { cardId, old: Object.keys(itemsOld).filter(k => k.startsWith('forms_')), now: itemsNew[cardId] },
+    )
     const haeuser = await lookup(`w=${encodeURIComponent('Häuser')}&line=${encodeURIComponent('Die Häuser haben Balkone.')}`)
     check('kaernten: a lookup finds a German pack word by its plural, without its article, meant in Slovene', haeuser.entries[0]?.lemma === 'das Haus' && haeuser.entries[0].gloss[0]?.startsWith('hiša') && haeuser.entries[0].gloss_lang === 'sl' && haeuser.entries[0].grammar === 'plural' && haeuser.entries[0].source === 'pack', haeuser)
     const graben = await lookup(`w=graben&line=${encodeURIComponent('Wir graben ein tiefes Loch.')}`)
@@ -199,6 +231,9 @@ export default async function kaernten() {
     const heard = await fetch(`${base}/stt?prompt=Servus`, { method: 'POST', headers: { authorization: auth.authorization, 'content-type': 'audio/mp4' }, body: take })
     bridgeWhisper.st.languages = models
     check("kaernten: POST /stt without a language recognizes German, the village's", heard.ok && bridgeWhisper.st.calls.at(-1)?.query.language === 'de', bridgeWhisper.st.calls.at(-1)?.query)
+
+    // --- German's cases: the trainer's bank, the lens, the tutor's tools (test/smoke/case-de.ts) ------------------------
+    await caseDeLive(base, auth, client)
   } finally {
     await client.close()
   }

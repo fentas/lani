@@ -94,6 +94,17 @@ export default async function lakeland() {
 
     // word lookup without an English dictionary: the pack words (meant in Slovene, never in English) and the villagers
     const lookup = async (q: string) => (await (await fetch(`${base}/lookup?${q}`, { headers: auth })).json()) as any
+    // English's own tables (paradigms.ts): to an app that reads them (v=2); an older app gets none
+    const formsEn = async (q: string) => (await (await fetch(`${base}/forms?${q}`, { headers: auth })).json()) as any
+    const [oldEn, en2] = [await formsEn('w=go&w=child'), await formsEn('w=go&w=child&v=2')]
+    const go2 = en2.words[0].entries.find((e: any) => e.pos === 'verb')
+    const child2 = en2.words[1].entries.find((e: any) => e.pos === 'noun')
+    const atEn = (e: any, k: string) => e?.slots.find((s: any) => s.key === k)
+    check(
+      "lakeland: GET /forms: an older app (no v) none; with v=2 go's went on past-simple, gone on present-perfect, child's children on plurals",
+      oldEn.words.every((w: any) => w.entries.length === 0) && atEn(go2, 'past')?.forms[0] === 'went' && atEn(go2, 'past').page === 'past-simple' && atEn(go2, 'pp')?.forms[0] === 'gone' && atEn(go2, 'pp').page === 'present-perfect' && atEn(child2, 'pl')?.forms[0] === 'children' && atEn(child2, 'pl').page === 'plurals',
+      { oldEn, en2 },
+    )
     const plural = family.words.find((x: any) => x.plural && x.plural !== x.en)
     const found = await lookup(`w=${encodeURIComponent(plural.plural)}`)
     const f0 = found.entries[0]

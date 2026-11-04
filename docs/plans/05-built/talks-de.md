@@ -231,6 +231,16 @@ the brief's level; an A1 or A2 talk keeps its Semmeln.
   Slovene with the Konjunktiv II, the goals, the debrief in Slovene. The first run failed: the step looked for the talk
   in 8 swipes, and in a list of twenty the fifteenth lay below the tutor bar; now up to 16 (bin/qa).
 
+**On the merged line** (talks-it, talks-sl and the queue's tip in; bin/qa and talks-sl.md are all that changed after the smoke
+and the Android tests ran, at d4d8eb3bf): tsc, `bun build --no-bundle` on the merged test files, `prompt-clashes` (no new
+clash), `tutor-export --check` (140 files), `check-culture` for the four cultures: ok. The smoke with ports 10800–: all
+checks passed (4,044). `TalkTest` (17) and `CastTest` (19) through lani-slot.sh: 0 failures. The full Android suite was
+not run again after these merges: its 4,125 above is from 592f65330, before them. QA through `qa-slot`, read from each
+step's report line and its shots, each to the debrief in 3 taps from Home: `kaernten-talk` (Nach dem Unwetter, B1),
+`primorska-talk` (Po noči burje, B1), `friuli-talk` (Il gatto sull'albero, B1, Teo at A2), `lakeland-talk` (At the farm
+shop, A1). Before the tile fix these steps returned "skipped" with exit 0. The first shot of the list opens on the five
+A1 talks, then A2.
+
 ## What's left
 
 - **The native check** above.
@@ -272,4 +282,10 @@ voices read them at no cost; until then the phone's German text-to-speech does. 
 - 257c9c497 fix(test): make-learner makes a learner above A1 in a language without curated modules (talks-en may want it)
 - e4035a641 docs(talks-de): README and module-spec on the German talks above A2; QA scrolls the twenty
 - 592f65330 Merge branch 'main' into talks-de (bin/qa's step list by qa-steps-union.py)
-- this doc
+- 5e5f990d9 this doc
+- 73306bae1 Merge branch 'talks-it' into talks-de (one offer by level, one table of the dev tutor's lines)
+- 2306cb8e6 Merge branch 'village-b2-primorska' into talks-de (the queue's tip; de.extra.json by supp-merge.py)
+- 6948d1894 feat(talks): the German and Slovene talks above A2 name the B1/B2 packs
+- ffda13136 Merge branch 'talks-it' into talks-de (its QA fix and doc)
+- 2e05418ff, d4d8eb3bf the list by level, easiest first; gekostet and Pirker
+- ac67ffcd7 Merge branch 'talks-sl' into talks-de (one tile fix in village_talk: talks-sl's)
