@@ -1172,15 +1172,18 @@ def setup_heard(name: str, want=2):
 
 def first_moment() -> bool:
     """The first thing after the founding (ui/game/FirstMoment), when it's on screen: the greeting said back, then "Prižgi
-    ogenj", then Home. True when it did something."""
+    ogenj", then Home from the map. True when it did something: call it again until False."""
     ns = list(nodes())
     fire = say("gameIntro.lightFire", 0)
     greeting = l10n(SETUP_PAIR[0]).get("firstRun.greeting")
     if (c := next((c for t, c in ns if fire in t), None)) is not None:
         tap_at(c)
+        time.sleep(3 * slow())
+        return True
+    # the village's map after it: Home (a Back while the fire's button still went away is lost, so looked for)
+    if any(say("villageScreen.scroll", 0) in t for t, _ in ns):
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(2 * slow())
-        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # from the village's map, Home
-        time.sleep(slow())
         return True
     if (c := next((c for t, c in ns if t == greeting), None)) is not None:
         tap_at(c)
@@ -1207,6 +1210,10 @@ def first_launch(way_key="setup.computerTitle"):
     assert not any("Dobrodošel" in t or "Dobrodošla" in t for t in texts), "a greeting with a gender before anyone said who they are"
     setup_heard("welcome", 3)
     setup_shot("welcome")
+    if way_key is not None and (target, base) == ("sl", "en"):
+        # the phone's own default pair: the small link at once, nothing chosen first
+        first_link(way_key)
+        return
     assert tap(OWN_NAMES[target], 4), f"learn {target}"
     assert wait_for(say("hosted.name", 0), 8), "the name's step"
     if base != "en":
@@ -1218,8 +1225,14 @@ def first_launch(way_key="setup.computerTitle"):
     if way_key is None:
         return
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(2 * slow())
+    first_link(way_key)
+
+
+def first_link(way_key: str):
+    """The first screen's small link, to the way titled [way_key]."""
     link = say("setup.otherLink", 1)
-    assert wait_for(link, 8) or scroll_to(link, 3), "the first screen's small link"
+    assert wait_for(link, 30) or scroll_to(link, 3), "the first screen's small link"
     assert tap(link, 4), "the small link"
     assert wait_for(say("setup.otherTitle", 0), 8), "the other ways in"
     setup_heard("other", 3)
