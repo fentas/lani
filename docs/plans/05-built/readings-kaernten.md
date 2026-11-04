@@ -192,7 +192,7 @@ On this branch merged with main (ada0d6380):
 - Android: the full unit suite through lani-slot.sh, 4,125 tests in 522 classes: 1 failure, `SceneCoherenceTest` (»no line
   tells the learner to look at what isn't there«: two of the new lines said »schau«). Those lines and two more like them
   were rewritten (e52dc71e0), then SceneCoherenceTest, DialogReactionsTest, StoriesTest, NotebookTest and
-  MentionsContentTest run again: see the report. Before the merge the story and reading tests alone (StoriesTest,
+  MentionsContentTest run again: 37 tests, 0 failures. Before the merge the story and reading tests alone (StoriesTest,
   NotebookTest, DialogReactionsTest, ReadingsTest, KaerntenCultureTest, CuratedPicturesTest): 54 tests, 0 failures.
 - Python (bin/qa changed): `-s tests` 253, `-s companion/tests` 179 (11 skipped): OK.
 - QA through `qa-slot` (slot 1) on a synthetic learner of German from English at B1 (Ana, Sepp, Stanko and Mitzi added and
