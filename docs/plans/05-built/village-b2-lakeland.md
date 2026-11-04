@@ -108,12 +108,10 @@ its wood as Tone's does.
   B2 ("Morali ste biti zelo potrpežljivi", "Must have be? Hm. That's a nail without a head"). Screenshots: `b2-*.png`. This ran on
   `f7ddd16d6`, one merge of main before the last; it was not repeated.
 
-## Open: the room a B2 line has
+## The room a B2 line has
 
-In the scene panel a B2 turn takes most of the room. The lines keep at least 72 dp (`DialogRoom.LINES_MIN_DP`), which is two lines of a
-bubble: on a 1080 x 2400 phone, with translations on and the first-time word hint showing, Mr Tyson's 94-character line shows as "The
-walls took the whole village a", and its translation and speaker button are out of sight. The arrival sheet has the room. This is the
-layout, not this content: any village's B2 step with long choices will meet it. Nothing was changed, and scrolling the lines was not tried.
+In the scene panel a B2 turn took most of the room, and the lines kept only 72 dp: Mr Tyson's 94-character line stopped at "The walls took
+the whole village a". Done in [cleanup-code.md](cleanup-code.md), "The last line said, whole".
 
 ## Voices (nothing spent)
 

@@ -106,4 +106,31 @@ class DialogRoomTest {
         assertEquals(0, DialogRoom.linesHeight(180, 180))
         assertEquals(0, DialogRoom.turnMax(0, LINES_MIN_DP, TURN_MIN_DP))
     }
+
+    @Test fun `a long line said shows whole over a turn of choices, which scrolls, up to its share of the body`() {
+        // Mr Tyson's 94 characters with their translation and 🔊, on a 1080 x 2400 phone, with the first-time word hint: 150 dp
+        val body = 330
+        val line = 150
+        val lines = DialogRoom.linesFor(body, line, LINES_MIN_DP)
+        assertEquals(line, lines)
+        val most = DialogRoom.turnMax(body, lines, DialogRoom.CHOICES_MIN_DP)
+        assertEquals(body - line, most)
+        assertTrue("the turn keeps a choice and the next's start", most >= DialogRoom.CHOICES_MIN_DP)
+        // before: the turn took all but the two lines of a bubble
+        assertEquals(body - LINES_MIN_DP, DialogRoom.turnMax(body, LINES_MIN_DP, DialogRoom.CHOICES_MIN_DP))
+        // a short line asks for what it always had; one longer than its share stops there and scrolls
+        assertEquals(LINES_MIN_DP, DialogRoom.linesFor(body, 40, LINES_MIN_DP))
+        assertEquals((body * DialogRoom.LINES_SHARE).toInt(), DialogRoom.linesFor(body, 900, LINES_MIN_DP))
+        // nothing measured yet, and a body too small for a share: the least
+        assertEquals(LINES_MIN_DP, DialogRoom.linesFor(body, 0, LINES_MIN_DP))
+        assertEquals(LINES_MIN_DP, DialogRoom.linesFor(100, 300, LINES_MIN_DP))
+    }
+
+    @Test fun `a typed turn keeps its field, chips and Check beside a long line said`() {
+        for (p in phones) {
+            val body = place(p).body
+            val lines = DialogRoom.linesFor(body, 400, LINES_MIN_DP)
+            assertTrue("${p.name}: ${DialogRoom.turnMax(body, lines, TURN_MIN_DP)} dp", DialogRoom.turnMax(body, lines, TURN_MIN_DP) >= min(TURN_MIN_DP, body))
+        }
+    }
 }

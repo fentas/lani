@@ -48,6 +48,12 @@ object DialogRoom {
      */
     const val TURN_MIN_DP = 248
 
+    /** What a turn of choices keeps at least beside a long line said: its first choice and the start of the next; it scrolls. */
+    const val CHOICES_MIN_DP = 140
+
+    /** The most of the panel's body the last line said may ask for: the rest stays the turn's, a line longer scrolls. */
+    const val LINES_SHARE = 0.55f
+
     /** How long the picture takes to give way, or to come back. */
     const val MOVE_MS = 220
 
@@ -64,6 +70,12 @@ object DialogRoom {
      * to the lines; past it, the turn scrolls.
      */
     fun turnMax(body: Int, linesMin: Int, turnMin: Int): Int = max(body - linesMin, min(turnMin, body)).coerceAtLeast(0)
+
+    /**
+     * What the lines keep in a [body]: the last line said whole ([last] high: its bubble, its translation and its 🔊), a long B2
+     * line or a reaction too, up to [LINES_SHARE] of the body, never less than [linesMin].
+     */
+    fun linesFor(body: Int, last: Int, linesMin: Int): Int = last.coerceIn(linesMin, max(linesMin, (body * LINES_SHARE).toInt()))
 
     /** The lines' height under a turn [turn] high in a [body]: the rest. */
     fun linesHeight(body: Int, turn: Int): Int = (body - turn).coerceAtLeast(0)
@@ -105,14 +117,21 @@ fun DialogStage(content: @Composable () -> Unit) {
 
 /**
  * The panel's body (a bounded height: the panel's room under its header): the [lines] over the [turn], the turn as high
- * as it needs up to [DialogRoom.turnMax], the lines the rest. The turn scrolls past that (it is measured with at most it).
+ * as it needs up to [DialogRoom.turnMax], the lines the rest, the last line said whole ([lastLine]: its height, [DialogRoom.linesFor]).
+ * The turn scrolls past that (it is measured with at most it), down to [turnMin] dp.
  */
 @Composable
-internal fun LinesOverTurn(lines: @Composable () -> Unit, turn: @Composable () -> Unit, modifier: Modifier = Modifier) {
+internal fun LinesOverTurn(
+    lines: @Composable () -> Unit,
+    turn: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    lastLine: () -> Int = { 0 },
+    turnMin: Int = DialogRoom.TURN_MIN_DP,
+) {
     Layout(contents = listOf(lines, turn), modifier = modifier) { (l, t), c ->
         val body = if (c.hasBoundedHeight) c.maxHeight else DialogRoom.TURN_MIN_DP.dp.roundToPx() * 2
         val width = if (c.hasBoundedWidth) c.maxWidth else c.minWidth
-        val most = DialogRoom.turnMax(body, DialogRoom.LINES_MIN_DP.dp.roundToPx(), DialogRoom.TURN_MIN_DP.dp.roundToPx())
+        val most = DialogRoom.turnMax(body, DialogRoom.linesFor(body, lastLine(), DialogRoom.LINES_MIN_DP.dp.roundToPx()), turnMin.dp.roundToPx())
         val tp = t.map { it.measure(Constraints(minWidth = width, maxWidth = width, maxHeight = most)) }
         val lh = DialogRoom.linesHeight(body, tp.maxOfOrNull { it.height } ?: 0)
         val lp = l.map { it.measure(Constraints.fixed(width, lh)) }

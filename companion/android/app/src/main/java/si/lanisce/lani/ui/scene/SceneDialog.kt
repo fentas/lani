@@ -32,6 +32,7 @@ import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -291,8 +292,14 @@ fun DialogPanel(
                 // the turn as high as it needs (it scrolls on a small screen, kept at the field while typing), the lines
                 // the rest, at least the last line said (DialogRoom)
                 val scroll = remember(talk.key, run.at, run.step, run.mode) { ScrollState(0) }
+                // the last line said whole, a long B2 line or a reaction too: a turn of choices gives way to it and scrolls, a
+                // typed one keeps its field, its chips and Check
+                val lastLine = remember(talk.key) { mutableIntStateOf(0) }
+                val typed = run.mode == TurnMode.TYPE || run.mode == TurnMode.SAY || run.mode == TurnMode.ECHO
                 LinesOverTurn(
-                    lines = { Lines(vm, talk, voice, Modifier.fillMaxSize(), speakers, prefs.translations) },
+                    lastLine = { lastLine.intValue },
+                    turnMin = if (typed) DialogRoom.TURN_MIN_DP else DialogRoom.CHOICES_MIN_DP,
+                    lines = { Lines(vm, talk, voice, Modifier.fillMaxSize(), speakers, prefs.translations) { lastLine.intValue = it } },
                     turn = {
                         Column(
                             Modifier.fillMaxWidth().verticalScroll(scroll).padding(horizontal = 16.dp, vertical = 10.dp),
@@ -413,8 +420,11 @@ internal fun lookUp(vm: AppViewModel, line: String, en: String): (WordToken) -> 
     }
 }
 
+/** The space over and under the lines said. */
+private const val LINES_PADDING_DP = 8
+
 @Composable
-private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Modifier, speakers: Map<String, Speaking> = emptyMap(), translations: Boolean = true) {
+private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Modifier, speakers: Map<String, Speaking> = emptyMap(), translations: Boolean = true, onLast: (Int) -> Unit = {}) {
     val said = talk.run.said
     // the cards of the learner's words a turn got wrong, after the line said where it ended (by its index)
     val cards = remember(talk.run.wordCards) { talk.run.wordCards.groupBy { it.after } }
@@ -430,7 +440,13 @@ private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Mo
             was = h
         }
     }
-    LazyColumn(modifier.fillMaxWidth(), state = list, contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    // how high the last line said is, with the list's padding: what the panel keeps for it (DialogRoom.linesFor)
+    val edge = with(LocalDensity.current) { (LINES_PADDING_DP * 2).dp.roundToPx() }
+    val told by rememberUpdatedState(onLast)
+    LaunchedEffect(list) {
+        snapshotFlow { list.layoutInfo.visibleItemsInfo.firstOrNull { it.index == last }?.size }.collect { h -> if (h != null) told(h + edge) }
+    }
+    LazyColumn(modifier.fillMaxWidth(), state = list, contentPadding = PaddingValues(horizontal = 16.dp, vertical = LINES_PADDING_DP.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         itemsIndexed(said, key = { i, _ -> i }) { i, s ->
             val onWord = lookUp(vm, s.sl, s.en)
             val who = s.who?.let(speakers::get)

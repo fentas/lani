@@ -111,7 +111,7 @@ than a month's credits. With the learner's choices 226,000 or so. Jan decides wh
 
 - On a B2 turn with three long choices the answers take the panel: a reaction shows only its first two lines above them, cut off, and
   its 🔊 too (`ux-village-b2-kaernten/k2-meet-toni-reaction.png`, `k2-b2step-wrong.png`). It scrolls, but a learner may not know. Generic, the
-  same at B2 in every culture.
+  same at B2 in every culture. Fixed since: [cleanup-code.md](cleanup-code.md), "The last line said, whole".
 - Existing A1 and A2 Kärnten steps offer weil with the verb second as a wrong choice under `nebensatz` ("weil die Bienen lieben ihn"),
   against followups-12. Not mine and they have voice clips: for the lead.
 - The test files overlap with Friuli's: `KopaCycleTest`'s "no cycle" list (`friuli`, `lakeland` here; `kaernten`, `lakeland` there; once

@@ -476,7 +476,8 @@ wrong choices go (see [Rules not yet](#rules-not-yet-what-the-learner-is-asked-g
 While the keyboard is up for a typed turn, the panel keeps above it and takes the picture's room (`ui/scene/DialogRoom.kt`;
 the app draws edge to edge, so the window doesn't shrink for the keyboard): in a scene and on a visit it rises over the
 picture to just under the status bar, the top bar out of the way; in a keeper's talk and an arrival the portraits fold
-away. The turn takes the room it needs and the lines keep the rest, at least the last line said; on a small screen (or
+away. The turn takes the room it needs and the lines keep the rest, at least the last line said, whole (its translation and 🔊 too:
+`DialogRoom.linesFor`, up to 55 % of the panel; a turn of choices gives way to it and scrolls, down to 140 dp, a typed one keeps its 248); on a small screen (or
 with large fonts) the turn scrolls instead, kept down at the sentence with the gap, the field, the letter chips and
 "Preveri · Check". The panel's header keeps the person in view meanwhile: their live portrait with their face
 ([Faces](#faces-the-person-you-talk-to-and-their-expressions)). Once the keyboard is down, the picture comes back; a tap turn, with no keyboard, keeps it. The
