@@ -150,7 +150,25 @@ too (Readings.LEVELS), so 0.2.698 reads the new tellings and readings as they ar
 
 ## Checks
 
-(filled in at the end)
+On 698a87757 (the branch merged with main 85917a636; the supplement's conflict joined with the kit's supp-merge.py, 131
+lemmas both sides had added):
+
+- Bridge: `bunx tsc --noEmit -p .` clean; `bun test/check-culture.ts lakeland`: ok; the whole smoke, 3,825 checks, all
+  passed (`LANI_SMOKE_PORT=10980`, `LANI_SMOKE_DRAMA3_PORT=10998`): sixteen of Old Wilf's at B1 and B2, 180 tellings with
+  their notes, fourteen readings, three at B1 and three at B2; `bun test/learner-content.ts`: 0 texts naming Jan, 0
+  malformed placeholders, 0 turns the same for one gender; `tutor-export --check`: 140 files match.
+- Android: the full unit suite through `lani-slot.sh`: 4,123 tests, 0 failures, 2 skipped.
+- Python: `-s tests` 253 OK, `-s companion/tests` 179 OK (11 skipped).
+- QA through `qa-slot` on a synthetic learner of English from German at B1: `story-faces` played The Borrowdale Cuckoo
+  to its end ("A story at level B1", Old Wilf's portrait and faces, its six words meant in German); the corner lists the
+  B1 readings under "At your level" and the B2 under "A step up"; `culture-reading` read The night the bridge went (B2),
+  its five questions answered right, "✓ 5 of 5 right · 5 von 5 richtig". Its first run failed only because the step's
+  eight swipes ended as the Start button came on screen: the step takes sixteen now (`bin/qa`, one number). Shots in the
+  scratchpad's `ux-readings-lakeland/` (story-open, story-line-1 to 3, story-end, reading-corner, reading-text, reading-q1
+  to q5, reading-done).
+
+After that, main's `dialog-levels` merged in cleanly (867ae3c1f; nothing of this branch's files): tsc, check-culture
+and tutor-export --check passed on it; the smoke, the Android suite and QA were not run again.
 
 ## Voices
 
