@@ -98,6 +98,9 @@ import java.io.File
  * and [sync] (the offline outbox). They share [notices] for the snackbar. [savedState] keeps the back stack across the
  * process's death.
  */
+/** What the first word in the village pays: enough to see the number move. */
+private const val FIRST_WORD_FOOD = 5
+
 class AppViewModel(app: Application, private val savedState: SavedStateHandle) : AndroidViewModel(app) {
     private val prefs = Prefs(app)
     /** The learner's languages (l10n/LangSetting.kt), applied before anything below builds a label. */
@@ -142,6 +145,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     val myVoice = si.lanisce.lani.app.MyVoiceController(viewModelScope, clips, speaker).also { m ->
         speaker.mine = { clips.mine }
         speaker.onOwnLine = { m.offerAtLine() }
+        // a new learner's choice comes as a card once the first dialog is over (app/FirstRun), and is settled with it
+        m.holdOffer = { firstRun.state.voiceAfterDialog }
+        m.onOfferClosed = { firstRun.settle(si.lanisce.lani.app.FirstRun.Ask.VOICE) }
     }
     /** The hint's 🔊 in a dialog: its TL;DR in the learner's base with the Slovene in the app's voice; stopped by [speaker]. */
     val hintVoice = si.lanisce.lani.data.HintVoice(app, viewModelScope, speaker).also { speaker.hint = it }
@@ -681,41 +687,70 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     var setupRead: String? = null
 
     /**
-     * The setup's "🧭 Nekaj že znaš? · Know some already?" chose the placement test (ui/setup/SetupScreen's
-     * PlacementChoice; off by default): its page opens once the village is founded ([found]), else later from the school.
+     * What the first run left for later (app/FirstRun): the village's first line and the questions asked when they matter.
+     * Nothing of it applies to a learner who didn't come through a first run.
      */
-    var placementAsked by mutableStateOf(false)
-        private set
+    val firstRun = si.lanisce.lani.app.FirstRunController(viewModelScope, prefs)
 
-    fun askPlacement(on: Boolean) {
-        placementAsked = on
-        viewModelScope.launch { runCatching { prefs.savePlacementAsked(on) } }
+    /**
+     * The first run's "🏡 Ustanovi mojo vas" (ui/setup/SetupScreen Name): the learner's data made on this device on the defaults
+     * ([SetupFlow.answers]), the bridge up, Home, where the founding comes. [failed]: why not, in the screen's words.
+     */
+    fun startOnDevice(f: SetupFlow, failed: (String) -> Unit) {
+        viewModelScope.launch {
+            hosted.create(f.answers())
+                .onSuccess { c ->
+                    firstRun.begin(onDevice = true)
+                    hostedReady(c)
+                }
+                .onFailure { failed(it.message ?: it.toString()) }
+        }
     }
 
-    /** Founds the village where the learner chose; the placement test the setup chose opens then (once). */
+    /**
+     * Founds the village where the learner chose. A learner who never saw the village's first words comes through a first
+     * run (one on a family's computer begins it here); the village opens for its first line (ui/game/FirstMoment).
+     */
     fun found(f: si.lanisce.lani.game.Founding) {
-        game.found(f).invokeOnCompletion { viewModelScope.launch { afterFounding() } }
+        if (!game.introSeen) firstRun.begin(onDevice = firstRun.state.onDevice)
+        game.found(f).invokeOnCompletion { viewModelScope.launch { if (game.state != null && firstRun.state.moment) openVillage() } }
     }
 
-    private suspend fun afterFounding() {
-        if (!placementAsked && runCatching { prefs.placementAsked() }.getOrDefault(false) != true) return
-        placementAsked = false
-        runCatching { prefs.savePlacementAsked(false) }
-        if (game.state != null && school.course != null) openPlacement()
+    /** The first moment over ([won]: the first word said back, the fire lit, a little food for it): the map. */
+    fun firstMomentDone(won: Boolean) {
+        firstRun.settle(si.lanisce.lani.app.FirstRun.Ask.MOMENT)
+        game.finishIntro()
+        if (won) game.apply { s -> s.copy(resources = s.resources + (si.lanisce.lani.game.Res.FOOD to s.res(si.lanisce.lani.game.Res.FOOD) + FIRST_WORD_FOOD)) }
     }
 
-    /** The first launch's way on from "Še o tebi · A little about you" (SetupFlow.Step.ABOUT): Home, the choices kept. */
-    fun setupFinished() {
-        nav.reset(Screen.Home)
+    /** A session finished at some time: the node's dashboard says so (what the first moment did isn't one). */
+    val practisedOnce: Boolean get() = content.dashboard?.let { it.practisedToday || it.streak > 0 } == true
+
+    /** The learner's gender as said, the minutes a day and the level on the node; null from an older node or offline. */
+    suspend fun aboutNow(): si.lanisce.lani.data.AboutApi.About? = connected?.let { c ->
+        runCatching { si.lanisce.lani.data.AboutApi(c).get() }.onFailure { android.util.Log.i("LaniSetup", "about: ${it.message}") }.getOrNull()
     }
 
-    /** The learner's level and aim on the node (GET /learner/target); null from an older node or offline. */
-    suspend fun aimNow(): si.lanisce.lani.data.AimApi.Aim? = connected?.let { c ->
-        runCatching { si.lanisce.lani.data.AimApi(c).get() }.onFailure { android.util.Log.i("LaniSetup", "the aim: ${it.message}") }.getOrNull()
+    /** Keeps what isn't null in the learner's profile (POST /learner/about), then reads everything anew. Null when it couldn't. */
+    suspend fun keepAbout(gender: String? = null, goal: Int? = null, level: String? = null): si.lanisce.lani.data.AboutApi.About? {
+        val c = connected ?: return null
+        val a = runCatching { si.lanisce.lani.data.AboutApi(c).set(gender, goal, level) }
+            .onFailure { android.util.Log.i("LaniSetup", "about not kept: ${it.message}") }.getOrNull()
+        if (a != null) {
+            readFor = null
+            refresh()
+        }
+        return a
     }
 
-    /** Keeps [level] as the learner's aim on the node (POST /learner/target), then reads everything anew (the ages follow it). */
-    suspend fun setAim(level: String): Boolean = keepAim(level) != null
+    /** The question after the first session answered or skipped: what changed kept ([goal], [aim]), and never again. */
+    fun settlePace(goal: Int? = null, aim: String? = null) {
+        firstRun.settle(si.lanisce.lani.app.FirstRun.Ask.PACE)
+        viewModelScope.launch {
+            if (goal != null) keepAbout(goal = goal)
+            if (aim != null) keepAim(aim)
+        }
+    }
 
     /**
      * Keeps [level] as the learner's aim (POST /learner/target, the setup's and the settings' "🎯 Cilj · Aim"): the node
@@ -793,12 +828,10 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         clips.connect(c)
         myVoice.connect(c)
         stt.connect(c)
-        // Home, or the screens the learner was on before the process died (the stack saved, Nav.kt); paired on the first
-        // launch, "Še o tebi · A little about you" first (the aim and the voice: SetupFlow.Step.ABOUT)
+        // Home, or the screens the learner was on before the process died (the stack saved, Nav.kt)
         val back = restoring
         restoring = null
-        if (nav.top == Screen.Setup && !setupHosted && !hosted.isHosted(c) && setupFlow.asksAbout) setupFlow = setupFlow.paired()
-        else if (back == null || !nav.restore(back)) nav.reset(Screen.Home)
+        if (back == null || !nav.restore(back)) nav.reset(Screen.Home)
         // everything read anew (Home's own [shown] doesn't again while it runs); a notification tapped before the app ran
         // opens once it's read (its scene, its page, the cards due are there then)
         readFor = null
@@ -867,8 +900,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             bridgeUrl = null
             paired = null
             setupHosted = false
-            // to the computer's code, in the learner's languages (their aim and voice chosen already: Home once paired)
-            setupFlow = SetupFlow(step = SetupFlow.Step.COMPUTER, target = L10n.ownPair.target, base = L10n.ownPair.base, way = SetupFlow.Way.COMPUTER, firstRun = false)
+            // to the computer's code, in the learner's languages
+            setupFlow = SetupFlow(step = SetupFlow.Step.COMPUTER, target = L10n.ownPair.target, base = L10n.ownPair.base, way = SetupFlow.Way.COMPUTER)
             nav.reset(Screen.Setup)
         }
     }

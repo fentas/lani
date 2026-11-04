@@ -71,8 +71,8 @@ class PlacementController(
     /** Which version a test would be now: a child's, or a grown-up's. */
     val version: LevelPlacement.Version get() = if (child()) LevelPlacement.Version.CHILD else LevelPlacement.Version.ADULT
 
-    /** How the school offers it now ([LevelPlacement.offer]). */
-    fun offer(): LevelPlacement.Offer = LevelPlacement.offer(game.state, school.course)
+    /** How the school offers it now ([LevelPlacement.offer]); [dismissed]: its card was put away ("Pozneje"), for good. */
+    fun offer(dismissed: Boolean = false): LevelPlacement.Offer = LevelPlacement.offer(game.state, school.course, dismissed)
 
     /** The last result the learner took in the village's language; null: none. */
     fun last(): si.lanisce.lani.game.Placed? = game.state?.course?.placements?.get(language)

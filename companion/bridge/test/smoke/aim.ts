@@ -140,6 +140,14 @@ export default async function aim() {
     const same = await target('B1')
     check('… asked again: already, nothing changed', same.already === true && same.change === 'unchanged' && same.next?.level === 'B1', same)
     const back = await target('A2')
+    // what the first run left at its defaults (docs/plans/05-built/first-minutes.md): POST /learner/about
+    const about = (b: object) => fetch(`${base}/learner/about`, { method: 'POST', headers: auth, body: JSON.stringify(b) })
+    const aboutBefore = { gender: learnerNow().gender, goal: learnerNow().daily_goal_minutes }
+    const said = await (await about({ gender: 'female', goal: 20 })).json()
+    check('POST /learner/about: the gender and the minutes kept at once', said.gender === 'female' && said.goal === 20 && learnerNow().gender === 'female' && learnerNow().daily_goal_minutes === 20, said)
+    check('GET /learner/about says them', (await (await fetch(`${base}/learner/about`, { headers: auth })).json()).goal === 20)
+    check('POST /learner/about: nothing to keep, a bad gender, a goal out of range refused', (await about({})).status === 400 && (await about({ gender: 'x' })).status === 400 && (await about({ goal: 1 })).status === 400)
+    await about({ goal: aboutBefore.goal ?? 30, ...(aboutBefore.gender === 'male' ? { gender: 'male' } : {}) })
     check('POST /learner/target A2 (the current aim): the raise taken back, at once', back.change === 'now' && back.target === 'A2' && back.next === null && learnerNow().target_level_next === undefined, back)
     setLearner({ current_level: 'A1', target_level: 'B2', target_level_next: { level: 'C1', from_age: 'VAS' } })
     const lowered = await target('A2')

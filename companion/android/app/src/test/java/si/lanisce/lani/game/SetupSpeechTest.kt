@@ -45,18 +45,18 @@ class SetupSpeechTest {
         for (l in Lang.entries) assertEquals(l, SetupSpeech.name(l).single().lang)
     }
 
-    @Test fun `the languages' step says the language's name, the welcome in it, then in the base`() {
-        val s = SetupSpeech.languages(itDe)
-        assertEquals(listOf("italiano", "Benvenuti!", L10n.text(Lang.IT, "setup.what", target = Lang.IT)), s.filter { it.target }.map { it.text })
-        assertEquals(listOf("Willkommen!", L10n.text(Lang.DE, "setup.what", target = Lang.IT), L10n.text(Lang.DE, "setup.explainIn", target = Lang.IT)), s.filter { !it.target }.map { it.text })
-        ordered(itDe, s, "languages")
+    @Test fun `the name's step says the language's name, the welcome and the question in it, then in the base`() {
+        val s = SetupSpeech.who(itDe)
+        assertEquals(listOf("italiano", "Benvenuti!", L10n.text(Lang.IT, "hosted.name", target = Lang.IT)), s.filter { it.target }.map { it.text })
+        assertEquals(listOf("Willkommen!", L10n.text(Lang.DE, "hosted.name", target = Lang.IT), L10n.text(Lang.DE, "hosted.forChild", target = Lang.IT)), s.filter { !it.target }.map { it.text })
+        ordered(itDe, s, "who")
     }
 
-    @Test fun `the ways, the computer and typing it in, the title learned and the rest explained`() {
-        val ways = SetupSpeech.ways(LangPair.DEFAULT)
-        assertEquals("Kako želiš uporabljati Lani?", ways[0].text)
-        assertEquals(listOf("How do you want to use Lani?", "Just this device"), ways.drop(1).take(2).map { it.text })
-        assertTrue(ways.any { it.text == L10n.text(Lang.EN, "setup.computerWhat") })
+    @Test fun `the other ways, the computer and typing it in, the title learned and the rest explained`() {
+        val other = SetupSpeech.other(LangPair.DEFAULT)
+        assertEquals(L10n.text(Lang.SL, "setup.otherTitle"), other[0].text)
+        assertTrue(other.any { it.text == L10n.text(Lang.EN, "setup.computerWhat") })
+        assertTrue(other.any { it.text == L10n.text(Lang.EN, "hosted.importExport") })
         assertEquals(L10n.text(Lang.IT, "setup.computerTitle"), SetupSpeech.computer(itDe)[0].text)
         assertEquals(L10n.text(Lang.DE, "setup.scanHow"), SetupSpeech.computer(itDe).last().text)
         assertEquals(L10n.text(Lang.DE, "setup.manualHint"), SetupSpeech.manual(itDe).last().text)
@@ -73,24 +73,12 @@ class SetupSpeechTest {
         assertEquals(L10n.text(Lang.EN, "hosted.tutorWhat"), SetupSpeech.voiceAndTutor(LangPair.DEFAULT, child = false).last().text)
     }
 
-    @Test fun `paired, the about step says the aim and what it changes, then the voice`() {
-        val what = L10n.text(Lang.EN, "setup.aimWhat", mapOf("words" to 2000, "aim" to "B2"), Lang.SL)
-        val s = SetupSpeech.about(LangPair.DEFAULT, what)
-        assertEquals("Še o tebi", s[0].text)
-        assertTrue(s.map { it.text }.containsAll(listOf("Aim", what, "My voice")))
-        assertTrue("2000" in what && "B2" in what)
-        // an older node without the aim: its heading said, not what it changes
-        assertFalse(SetupSpeech.about(LangPair.DEFAULT, null).any { it.text == what || it.text == "Aim" })
-        ordered(LangPair.DEFAULT, s, "about")
-    }
-
     @Test fun `every step says something in all 12 pairs, each piece from its language's table`() {
         for (pair in pairs) {
             val steps = mapOf(
-                "languages" to SetupSpeech.languages(pair), "ways" to SetupSpeech.ways(pair), "computer" to SetupSpeech.computer(pair),
+                "who" to SetupSpeech.who(pair), "other" to SetupSpeech.other(pair), "computer" to SetupSpeech.computer(pair),
                 "manual" to SetupSpeech.manual(pair), "start" to SetupSpeech.deviceStart(pair), "questions" to SetupSpeech.questions(pair),
                 "voice" to SetupSpeech.voiceAndTutor(pair, child = false), "voice-child" to SetupSpeech.voiceAndTutor(pair, child = true),
-                "about" to SetupSpeech.about(pair, null),
             )
             for ((what, pieces) in steps) {
                 ordered(pair, pieces, what)

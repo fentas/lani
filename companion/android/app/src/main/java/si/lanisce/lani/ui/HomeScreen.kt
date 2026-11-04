@@ -115,6 +115,8 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         val needs = vm.game.state?.let { HomeLogic.needs(it, vm.scenes.active(it, now), vm.villagers.people(it), vm.scenes.all, offered) }.orEmpty()
             .filterNot { it.alarm && today.primary is HomeAction.Defend }
 
+        // after the first finished session, once: the minutes and the aim (app/FirstRun.pace)
+        if (vm.firstRun.state.pace(vm.practisedOnce, vm.child)) item("pace") { si.lanisce.lani.ui.home.PaceCard(vm, d) }
         item("today") {
             TodayCard(
                 today,

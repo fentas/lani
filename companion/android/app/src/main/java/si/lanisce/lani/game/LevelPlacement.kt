@@ -365,11 +365,12 @@ object LevelPlacement {
 
     /**
      * How the school offers the test ([CourseProgress.placements] and the units in [s]): [Offer.CARD], a card at the top,
-     * to a learner who hasn't done a unit of [course] nor taken it; [Offer.ROW], a quiet row under the levels, to everyone
+     * to a learner who hasn't done a unit of [course] nor taken it nor [dismissed] the card; [Offer.ROW], a quiet row under the levels, to everyone
      * else (Jan's, Teo's school: offered, never pressed). None without a course with units.
      */
-    fun offer(s: GameState?, course: Course?): Offer {
+    fun offer(s: GameState?, course: Course?, dismissed: Boolean = false): Offer {
         if (course == null || parts(course).isEmpty()) return Offer.NONE
+        if (dismissed) return Offer.ROW
         val c = s?.course
         val begun = c?.units?.any { (key, p) -> key.startsWith("${course.language}/") && (p.done != null || p.started != null) } == true
         return if (begun || c?.placements?.containsKey(course.language) == true) Offer.ROW else Offer.CARD

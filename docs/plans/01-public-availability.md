@@ -64,6 +64,22 @@ subscription unless Anthropic approves it. It must use API keys: ours, or the le
 - **The core dump** is out of the tree (a3dd17b) and ignored from now on. It leaves the history with the move
   to the new repository.
 
+## Jan's decisions (2026-11-04)
+
+These replace the hosted subscription in Variant 2 and the Claude options under it ("our key", 2a) as the way forward.
+
+- **We never resell AI.** What people pay for is the app's development and the audio service. No key server, no hosted
+  Claude for now.
+- **Tiers:**
+  - **Self-hosted:** free, with their own AI and their own audio.
+  - **The free app (AGPL):** AI by "Continue with ChatGPT", OpenRouter's sign-in or their own key; Piper and the phone's
+    voices.
+  - **The audio add-on:** the villagers' voices and live lines, at what audio costs.
+- **ChatGPT plan usage** is open to open-source projects. A "paid or remotely hosted app" joins OpenAI's waitlist first: fill
+  in the interest form before charging for anything.
+- **Launch free; add paid audio if it grows.** No account in the first run
+  ([the first minutes](05-built/first-minutes.md)).
+
 ## Jan's decisions (2026-09-26)
 
 - **A new public repository for the app** (the bridge, the app, skills, curated content, culture packs,

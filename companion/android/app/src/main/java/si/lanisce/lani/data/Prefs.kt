@@ -24,7 +24,7 @@ class Prefs(private val context: Context) {
     private val tipsMemory = stringPreferencesKey("tips_memory") // the tips dealt with on this phone, for a village founded anew (game/Guidance)
     private val eveningReminder = booleanPreferencesKey("evening_reminder") // the learner's choice; none: the profile's default
     private val learnerChild = booleanPreferencesKey("learner_child") // the app's last word on it, for the background check
-    private val placementAsked = booleanPreferencesKey("placement_asked") // the setup chose the placement test: it opens once the village is founded
+    private val firstRun = stringPreferencesKey("first_run") // app/FirstRun: what the first run left for later, asked or not
 
     private val plan = stringPreferencesKey("today_plan") // "yyyy-MM-dd\n<markdown>"
 
@@ -126,9 +126,11 @@ class Prefs(private val context: Context) {
      * pairing's, the hosted onboarding's or the town's own row); null before the app said.
      */
     suspend fun learnerChild(): Boolean? = context.store.data.first()[learnerChild]
-    suspend fun placementAsked(): Boolean = context.store.data.first()[placementAsked] ?: false
-    suspend fun savePlacementAsked(on: Boolean) = context.store.edit { it[placementAsked] = on }
     suspend fun saveLearnerChild(child: Boolean) = context.store.edit { it[learnerChild] = child }
+
+    /** What the first run left for later (app/FirstRun.encode); null on every device that never had one. */
+    suspend fun firstRun(): String? = context.store.data.first()[firstRun]
+    suspend fun saveFirstRun(s: String) = context.store.edit { it[firstRun] = s }
 
     /**
      * What this phone remembers of the tips (companion/GAME.md "Guidance"): its learner's, for a village they found anew

@@ -26,6 +26,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
@@ -34,6 +39,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.MyVoiceController
 import si.lanisce.lani.data.Clips
@@ -73,6 +79,8 @@ fun MyVoiceOffer(vm: AppViewModel) {
         ) {
             Text("🗣️ ${bi("myVoice.offerTitle")}", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
             Text(bi("myVoice.offerText"), style = MaterialTheme.typography.bodyMedium)
+            // a new learner: how the village speaks to them isn't said yet, and now it's heard (docs/plans/05-built/first-minutes.md)
+            if (vm.firstRun.state.fresh) AddressChoice(vm)
             MyVoiceChoices(c) { id ->
                 c.choose(id)
                 c.closeOffer(picked = true)
@@ -83,6 +91,33 @@ fun MyVoiceOffer(vm: AppViewModel) {
                 Button(onClick = { c.closeOffer() }, modifier = Modifier.heightIn(min = 48.dp)) { Text("✓ ${bi("myVoice.keep")}") }
             }
         }
+    }
+}
+
+/**
+ * "Kako naj te nagovarja vas? · How should the village speak to you?" on the voice's card, while the learner's profile doesn't
+ * say (the content speaks to them as to a man until then: bridge addressee.ts): a tap keeps it, and the voices offered follow
+ * it. Gone from here once said; the settings' "🙂 O meni · About me" has it too.
+ */
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+@Composable
+private fun AddressChoice(vm: AppViewModel) {
+    var about by remember { mutableStateOf<si.lanisce.lani.data.AboutApi.About?>(null) }
+    var said by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
+    LaunchedEffect(Unit) { about = vm.aboutNow() }
+    if (about == null || about?.gender != null && said == null) return
+    fun keep(g: String) {
+        said = g
+        scope.launch {
+            vm.keepAbout(gender = g)
+            vm.myVoice.load()
+        }
+    }
+    Text(bi("hosted.gender"), style = MaterialTheme.typography.titleSmall)
+    androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        androidx.compose.material3.FilterChip(said == "female", { keep("female") }, { Text(bi(if (vm.child) "hosted.asGirl" else "hosted.asWoman")) })
+        androidx.compose.material3.FilterChip(said == "male", { keep("male") }, { Text(bi(if (vm.child) "hosted.asBoy" else "hosted.asMan")) })
     }
 }
 

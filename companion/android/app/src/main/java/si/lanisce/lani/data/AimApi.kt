@@ -53,3 +53,46 @@ class AimApi(private val config: BridgeConfig) {
         }.getOrNull()
     }
 }
+
+/**
+ * What the first run left at its defaults, on the node (companion/bridge/src/features/level.ts; docs/plans/05-built/
+ * first-minutes.md): how the village speaks to the learner, the minutes a day, the level. An older node answers 404: null.
+ */
+class AboutApi(private val config: BridgeConfig) {
+    private val http = Http.client(connectSeconds = 3, readSeconds = 15)
+
+    /** [gender]: "female", "male", null while not said; [goal]: the minutes a day, null when the profile has none. */
+    data class About(val gender: String?, val goal: Int?, val level: String)
+
+    suspend fun get(): About? {
+        val (code, raw) = http.exchange(config.request(PATH).build())
+        if (code == 404) return null
+        if (code !in 200..299) throw IOException("HTTP $code")
+        return parse(raw)
+    }
+
+    /** Keeps what isn't null; the node's answer. */
+    suspend fun set(gender: String? = null, goal: Int? = null, level: String? = null): About? {
+        val body = buildJsonObject {
+            gender?.let { put("gender", it) }
+            goal?.let { put("goal", it) }
+            level?.let { put("level", it) }
+        }.toString().toRequestBody(Http.jsonType)
+        val (code, raw) = http.exchange(config.request(PATH).post(body).build())
+        if (code == 404) return null
+        if (code !in 200..299) throw IOException("HTTP $code: ${raw.take(200)}")
+        return parse(raw)
+    }
+
+    companion object {
+        const val PATH = "/learner/about"
+
+        /** GET or POST /learner/about's answer {gender, goal, level}; null when it isn't one. */
+        fun parse(raw: String): About? = runCatching {
+            val o = json.parseToJsonElement(raw).jsonObject
+            val level = o["level"]?.jsonPrimitive?.contentOrNull ?: return null
+            fun s(k: String) = o[k]?.let { runCatching { it.jsonPrimitive.contentOrNull }.getOrNull() }
+            About(s("gender"), s("goal")?.toIntOrNull(), level)
+        }.getOrNull()
+    }
+}

@@ -139,7 +139,7 @@ fun SchoolScreen(vm: AppViewModel) {
         item {
             Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 // the placement test, to a learner who hasn't begun the course: a card (game/LevelPlacement.offer)
-                if (vm.placement.offer() == si.lanisce.lani.game.LevelPlacement.Offer.CARD) PlacementCard(vm)
+                if (vm.placement.offer(!vm.firstRun.state.placementCard) == si.lanisce.lani.game.LevelPlacement.Offer.CARD) PlacementCard(vm)
                 if (!School.open(s)) BeginsCard(vm, s)
                 else {
                     TeacherSays(
@@ -162,7 +162,7 @@ fun SchoolScreen(vm: AppViewModel) {
             item("level-${view.state.level}") { LevelSection(vm, s, course, view) }
         }
         // the placement test, to everyone else: a quiet row (offered, never pressed)
-        if (vm.placement.offer() == si.lanisce.lani.game.LevelPlacement.Offer.ROW) item {
+        if (vm.placement.offer(!vm.firstRun.state.placementCard) == si.lanisce.lani.game.LevelPlacement.Offer.ROW) item {
             Column(Modifier.padding(horizontal = 8.dp)) { QuietLine("🧭 ${bi("placement.row")}", "›", action = bi("placement.offerGo")) { vm.openPlacement() } }
         }
         item { ReadSetting(vm, Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) }
@@ -224,6 +224,8 @@ private fun PlacementCard(vm: AppViewModel) {
             Text("🧭 ${bi("placement.offerTitle")}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
             Text(bi(if (child) "placement.offerTextChild" else "placement.offerText"), style = MaterialTheme.typography.bodyMedium)
             BigButton("🧭 ${bi("placement.offerGo")}", onClick = vm::openPlacement)
+            // put away for good: the quiet row under the levels stays
+            androidx.compose.material3.TextButton(onClick = { vm.firstRun.settle(si.lanisce.lani.app.FirstRun.Ask.PLACEMENT) }, modifier = Modifier.fillMaxWidth()) { Text(bi("common.later")) }
         }
     }
 }

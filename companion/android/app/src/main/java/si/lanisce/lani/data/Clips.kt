@@ -77,6 +77,18 @@ data class ClipRoutes(val index: String, val say: String, val profiles: String, 
 }
 
 /** HTTP for the node's voice store (companion/bridge/src/voice.ts), with the app token; on a visit the town's ([ClipRoutes.visit]). */
+/**
+ * The audio service's one place in the app (docs/plans/05-built/first-minutes.md, "What this leaves for the audio trial"): who
+ * makes the villagers' clips. Today the connection the learner has: the family's computer, or on this device its own bridge,
+ * whose /voice/say answers 204 so that the phone's voice speaks. The trial (every voice, no account, no card) and the paid
+ * add-on answer the same routes ([ClipRoutes.OWN]): they go here, as another [BridgeConfig] while they last. When they end this
+ * gives the connection back, the clips already on the device stay and the lines fall back to the phone's voice: nothing is
+ * lost and nothing else in the app changes.
+ */
+object AudioPlan {
+    fun voices(connection: BridgeConfig): BridgeConfig = connection
+}
+
 class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes = ClipRoutes.OWN) {
     private val http = Http.client(connectSeconds = 3, readSeconds = 90)
 
@@ -306,7 +318,7 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     val online: Boolean get() = api != null
 
     fun connect(config: BridgeConfig, routes: ClipRoutes = ClipRoutes.OWN) {
-        api = ClipsApi(config, routes)
+        api = ClipsApi(AudioPlan.voices(config), routes)
     }
 
     /** [person]'s voice profile, when the node has one. */

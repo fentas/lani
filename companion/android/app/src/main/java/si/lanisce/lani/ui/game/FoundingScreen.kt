@@ -108,21 +108,19 @@ fun FoundingScreen(vm: AppViewModel) {
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("🏡", style = MaterialTheme.typography.displayMedium, modifier = Modifier.weight(1f))
+            Text(inTarget("founding.title"), style = MaterialTheme.typography.headlineMedium, color = white, modifier = Modifier.weight(1f))
             ReadAloudButton(vm.hintVoice, speech, color = white)
         }
-        Text(inTarget("founding.title"), style = MaterialTheme.typography.headlineMedium, color = white)
         Text(inBase("founding.about"), color = white.copy(alpha = 0.85f))
 
-        Text(bi("founding.region"), style = MaterialTheme.typography.titleSmall, color = white)
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            for ((id, m) in regions) {
-                FilterChip(selected = id == culture, onClick = {}, enabled = id == culture, label = { Text(m.region.bi()) }, colors = chipColors)
-            }
-        }
-        if (regions.size > 1) Text(inBase("founding.regionOnNode"), style = MaterialTheme.typography.bodySmall, color = white.copy(alpha = 0.75f))
+        // the picture first: it's what's being chosen, and the way on stays on the screen of a phone
+        LandPreview(
+            preview,
+            culture,
+            Modifier.fillMaxWidth().aspectRatio(1.9f).clip(RoundedCornerShape(12.dp))
+                .semantics { contentDescription = "${founding.landscape.emoji} ${bi(founding.landscape.key)}" },
+        )
 
-        Text(bi("founding.landscape"), style = MaterialTheme.typography.titleSmall, color = white)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             for (l in choices) {
                 FilterChip(
@@ -131,19 +129,22 @@ fun FoundingScreen(vm: AppViewModel) {
                 )
             }
         }
-
-        LandPreview(
-            preview,
-            culture,
-            Modifier.fillMaxWidth().aspectRatio(1.6f).clip(RoundedCornerShape(12.dp))
-                .semantics { contentDescription = "${founding.landscape.emoji} ${bi(founding.landscape.key)}" },
-        )
-
         OutlinedButton(onClick = { founding = founding.reroll() }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
             Text("🎲 ${bi("founding.anotherPlace")}", color = white)
         }
         BigButton("✓ ${bi("founding.here")}", onClick = { vm.found(founding) }, color = TriglavRed)
         Text(inBase("founding.once"), style = MaterialTheme.typography.bodySmall, color = white.copy(alpha = 0.75f))
+
+        // the regions of the language: the one the node plays, and where more are set up (none to choose on this device)
+        if (regions.size > 1) {
+            Text(bi("founding.region"), style = MaterialTheme.typography.titleSmall, color = white)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for ((id, m) in regions) {
+                    FilterChip(selected = id == culture, onClick = {}, enabled = id == culture, label = { Text(m.region.bi()) }, colors = chipColors)
+                }
+            }
+            Text(inBase("founding.regionOnNode"), style = MaterialTheme.typography.bodySmall, color = white.copy(alpha = 0.75f))
+        }
     }
 }
 

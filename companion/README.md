@@ -422,10 +422,9 @@ lani://pair?v=1&u=<bridge URL>&c=<code>&p=<profile>&f=<bridge key fingerprint>
 
 (The app also reads `fluent://pair?…`, as bridges printed it before the project was renamed.)
 
-In the app's first launch, after the languages: "🖥️ S svojim računalnikom · With my family's computer" →
-"📷 Skeniraj kodo · Scan the code" (the URL and token, or the `lani://pair?…` text pasted, are behind "Ročno · Enter
-manually"); once paired, "✨ Še o tebi · A little about you" asks the aim and the voice, then Home
-([setup-refresh.md](../docs/plans/05-built/setup-refresh.md)); or, to pair again, ⚙️ Nastavitve · Settings → 🔗 Povezava · Connection → "📷 Skeniraj QR kodo" (the ⚙️ on
+In the app's first run, the small link on the first screen ("I have a code or a file") → "🖥️ S svojim računalnikom · With
+my family's computer" → "📷 Skeniraj kodo · Scan the code" (the URL and token, or the `lani://pair?…` text pasted, are behind
+"Ročno · Enter manually"); once paired, Home ([first-minutes.md](../docs/plans/05-built/first-minutes.md)); or, to pair again, ⚙️ Nastavitve · Settings → 🔗 Povezava · Connection → "📷 Skeniraj QR kodo" (the ⚙️ on
 Home: its dot is the tutor's status). The app asks for the camera only then,
 reads the code with CameraX and ZXing (no Google Play services), calls `POST /pair` and shows which
 learner it paired with. The phone must be on the tailnet: the Tailscale app, signed in to your tailnet,
@@ -2358,8 +2357,8 @@ docs/plans/05-built/placement.md): a starter who knows some of the language begi
 minutes; a child's up to 10, by tap only), adaptive (the course's three parts a level, probed from just below the learner's
 level, climbing while it goes well and halving the gap once a part fails), from the units' own tests, no cheat sheet and
 nothing counted on the rules. Offered, never run on its own: a card at the top of the school for a learner who hasn't
-begun the course, a quiet row under the levels for everyone else, a choice at setup ("🧭 Nekaj že znaš?" on "Še o tebi"
-and on this device's questions) that opens it once the village is founded. Its result ("🧭 Tvoje mesto v šoli") says
+begun the course and hasn't put the card away ("Pozneje · Later": for good), a quiet row under the levels for everyone
+else. Its result ("🧭 Tvoje mesto v šoli") says
 where the learner starts, the units before it that count as done and the level; "✓ Začnem tukaj · Start here" takes it
 (a child's behind a parent's hold): those units done and `placed` ("✅ Opravljeno z uvrstitvenim testom", still open to
 do again), the levels up to there opened, the level raised (`POST /placement`, never lowered); "Ostanem, kjer sem · Keep
@@ -4556,20 +4555,19 @@ companion/bin/lani-handover --take          # take it back once the phone handed
 
 ## Lani on this phone (no node)
 
-The app's hosted mode (plan 5): "📱 Samo ta telefon / tablica · Just this device" in the first launch, next to "🖥️ S
-svojim računalnikom · With my family's computer" ([the first launch](../docs/plans/05-built/onboarding.md)); its screens
-say "☁️ Lani na tej napravi · Lani on this device". The bridge runs in the app (QuickJS), the learner's data lives on the phone
+The app's hosted mode (plan 5): the first run's main path ([the first minutes](../docs/plans/05-built/first-minutes.md)); its
+screens say "☁️ Lani na tej napravi · Lani on this device". The bridge runs in the app (QuickJS), the learner's data lives on the phone
 (`<filesDir>/lani/data`, a data repository's layout), and there is no node, Tailscale or Claude Code. Built in
 [docs/plans/05-built/hosted-mode.md](../docs/plans/05-built/hosted-mode.md).
 
-- **The first launch:** a fresh start asks what `lani-setup` asks (the name, how the village speaks to them, the level,
-  the minutes a day, and "🧒 Za otroka · For a child"; the languages come from the setup's first steps) and "🎯 Cilj ·
-  Aim" (B2 by default; the level the village's ages lead to, sent as the profile's `target_level`), and makes the six
-  databases from `data-examples/`; or "📥 Uvozi izvoz · Import an export" takes a file `lani export` made. Then one page:
-  "🗣️ Moj glas · My voice" (the voices the cast offers, each with its ▶, a child's of their gender marked for a child) and
-  the tutor's step ("🔑 Claude (svoj ključ)", "Nadaljuj s ChatGPT · Continue with ChatGPT", or "Pozneje · Later"; on a
-  child's device "👪 To nastavi starš · A parent sets this up" and a two-second hold), then Home, where the
-  village is founded. Every step reads itself aloud as it opens, offline by the phone's voice
+- **The first run:** the language to learn, the name and "🧒 Za otroka · For a child", then the founding and the village's
+  first line; everything else starts on its default (level A1, aim B2, 15 minutes a day, no gender said, the cast's
+  voice) and is asked when it matters, once, or changed in ⚙️ Nastavitve: the school's "🧭 Nekaj že znaš?", the minutes and
+  the aim after the first session, "🗣️ Moj glas · My voice" after the first dialog, the tutor's ways the first time the
+  tutor opens ("💬 Nadaljuj s ChatGPT · Continue with ChatGPT", OpenRouter's sign-in, "🔑 Claude (svoj ključ)", "Pozneje ·
+  Later"; on a child's device "👪 To nastavi starš · A parent sets this up" and a two-second hold). "📥 Uvozi izvoz · Import
+  an export", behind the first screen's small link, takes a file `lani export` made.
+  Every step reads itself aloud as it opens, offline by the phone's voice
   ([setup-refresh.md](../docs/plans/05-built/setup-refresh.md)).
 - **Moving a learner here from a node:**
 
@@ -5198,13 +5196,10 @@ render time every 24 pictures (tag `TownScene`); `companion/bin/qa --steps zoom-
 
 ### Install and pair
 
-On first launch, choose the language to learn and the explanations' language, then "🖥️ S svojim računalnikom · With my
-family's computer" and scan the QR code from `companion/bin/lani-pair` ("📷 Skeniraj kodo · Scan the code"); "Ročno ·
-Enter manually" takes the code's text or the bridge URL (`tailscale serve status`) and the token. Once paired, "✨ Še o
-tebi · A little about you" offers "🎯 Cilj · Aim" (the learner's aim on the node, `GET`/`POST /learner/target`: at once
-while the node has no village, else a raise waits for the village's next age) and "🗣️
-Moj glas · My voice", each with its default: "🏡 V mojo vas · To my village" (or Back) keeps them. Without a node, choose
-"📱 Samo ta telefon / tablica · Just this device" instead ([Lani on this phone](#lani-on-this-phone-no-node)).
+On first launch, tap the small link on the first screen ("I have a code or a file"), then "🖥️ S svojim računalnikom · With
+my family's computer" and scan the QR code from `companion/bin/lani-pair` ("📷 Skeniraj kodo · Scan the code"); "Ročno · Enter
+manually" takes the code's text or the bridge URL (`tailscale serve status`) and the token. Without a node, choose the
+language to learn instead: Lani then runs on the device alone ([Lani on this phone](#lani-on-this-phone-no-node)).
 
 Every step reads itself aloud as it opens, as the intro does (the school's "🔊 Beri razlago" on, no screen reader): its
 title in the language learned, then in the base what it shows; before a language is chosen, the welcome in the phone's

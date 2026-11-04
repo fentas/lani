@@ -144,6 +144,12 @@ sealed interface VillageSheet {
 fun VillageScreen(vm: AppViewModel) {
     // Back: what's open over the map closes first (a card, the HUD's sheet, the plot chooser), then the screen below (Nav)
     val back = si.lanisce.lani.ui.systemBack()
+    // a learner who came through the first run: a line said aloud and a first word, not three steps to read
+    val founded = vm.game.state?.takeIf { vm.firstRun.state.moment }
+    if (founded != null) {
+        FirstMoment(vm, founded)
+        return
+    }
     if (!vm.game.introSeen) {
         // read aloud as the school's explanations are (their "🔊 Beri razlago" setting), not over a screen reader
         GameIntro(onDone = vm.game::finishIntro, voice = vm.hintVoice, speaker = vm.speaker, auto = vm.introVoice.auto && !vm.introVoice.screenReader)

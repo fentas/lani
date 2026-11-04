@@ -19,7 +19,7 @@ import si.lanisce.lani.l10n.bi
 import java.io.IOException
 import java.net.ConnectException
 
-/** The first launch's steps (app/SetupFlow, docs/plans/05-built/onboarding.md): the choices, the errors, manual entry, the child gate. */
+/** The first run's steps (app/SetupFlow, docs/plans/05-built/first-minutes.md, onboarding.md): the choices, the errors, manual entry, the child gate. */
 class SetupFlowTest {
     private val before = L10n.pair
 
@@ -51,7 +51,7 @@ class SetupFlowTest {
     @Test fun `choosing the language to learn keeps the phone's for the explanations`() {
         // Teo's tablet: German, learning Italian
         val f = SetupFlow.start("de").chooseTarget(Lang.IT)
-        assertEquals(Step.LANGUAGES, f.step)
+        assertEquals(Step.NAME, f.step)
         assertEquals(LangPair(Lang.IT, Lang.DE), f.pair)
         // a German phone learning German: explained in English; an English phone learning English: in Slovene
         assertEquals(LangPair(Lang.DE, Lang.EN), SetupFlow.start("de").chooseTarget(Lang.DE).pair)
@@ -67,44 +67,60 @@ class SetupFlowTest {
     @Test fun `the welcome reads in the chosen pair, target then base`() {
         val f = SetupFlow.start("de").chooseTarget(Lang.IT)
         L10n.pair = f.pair
-        assertEquals("Come vuoi usare Lani? · Wie möchtest du Lani nutzen?", bi("setup.howUse"))
+        assertEquals("Il tuo nome · Dein Name", bi("hosted.name"))
         assertEquals("Benvenuti! · Willkommen!", "${L10n.text(f.pair.target, "setup.hello")} · ${L10n.text(f.pair.base, "setup.hello")}")
         // Jan's pair as ever
         L10n.pair = LangPair.DEFAULT
-        assertEquals("Kako želiš uporabljati Lani? · How do you want to use Lani?", bi("setup.howUse"))
+        assertEquals("Kako ti je ime? · Your name", bi("hosted.name"))
     }
 
-    @Test fun `on from the welcome only with a language chosen`() {
-        val f = SetupFlow.start("de")
-        assertEquals(f, f.next())
-        assertEquals(Step.WAYS, f.chooseTarget(Lang.IT).next().step)
+    @Test fun `two taps to the founding, a language, then a name with its defaults`() {
+        val f = SetupFlow.start("de").chooseTarget(Lang.IT)
+        assertFalse("no name yet", f.canStart)
+        val named = f.named("  Teo ")
+        assertTrue(named.canStart)
+        assertFalse("not twice", named.starting().canStart)
+        assertFalse(SetupFlow.start("de").named("Teo").canStart) // no language chosen
+        val a = named.answers()
+        assertEquals("Teo", a.name)
+        assertEquals(listOf("it", "de", "A1"), listOf(a.target, a.base, a.level))
+        assertNull("nobody asked how the village speaks to them", a.gender)
+        assertEquals(FirstRun.MINUTES, a.goal)
+        assertEquals("B2", a.targetLevel)
+        assertFalse(a.child)
+        assertTrue("a child's", named.forChild(true).answers().child)
+        // the name's length as the hosted questions had it; a failure says why and stays, nothing lost
+        assertEquals(40, f.named("x".repeat(60)).name.length)
+        val failed = named.starting().startFailed("no room")
+        assertEquals(listOf<Any?>(Step.NAME, "no room", false, "  Teo "), listOf(failed.step, failed.problem, failed.busy, failed.name))
+        assertNull("typing again clears it", failed.named("Teo").problem)
     }
 
-    // --- the two ways ------------------------------------------------------------------------------------------------
+    // --- the other ways in -------------------------------------------------------------------------------------------
 
-    @Test fun `the two ways and back`() {
-        val ways = SetupFlow.start("de").chooseTarget(Lang.IT).next()
-        val device = ways.choose(Way.DEVICE)
+    @Test fun `the other ways in leave the main path, and back`() {
+        val other = SetupFlow.start("de").other()
+        assertEquals(Step.OTHER, other.step)
+        assertNull("no language needed for a code or a file", other.target)
+        val device = other.choose(Way.DEVICE)
         assertEquals(Step.DEVICE, device.step)
         assertEquals(Way.DEVICE, device.way)
-        val computer = ways.choose(Way.COMPUTER)
+        val computer = other.choose(Way.COMPUTER)
         assertEquals(Step.COMPUTER, computer.step)
         val manual = computer.manual()
         assertEquals(Step.MANUAL, manual.step)
         // back, step by step, to the welcome; the choices stay
         assertEquals(Step.COMPUTER, manual.back().step)
-        assertEquals(Step.WAYS, manual.back().back().step)
-        assertEquals(Step.WAYS, device.back().step)
-        assertEquals(Step.LANGUAGES, ways.back().step)
-        assertEquals(Step.WELCOME, ways.back().back().step)
-        assertEquals(Step.WELCOME, ways.back().back().back().step)
-        assertEquals(Lang.IT, ways.back().back().target)
+        assertEquals(Step.OTHER, manual.back().back().step)
+        assertEquals(Step.OTHER, device.back().step)
+        assertEquals(Step.WELCOME, other.back().step)
+        assertEquals(Step.WELCOME, other.back().back().step)
     }
 
     // --- typed by hand -----------------------------------------------------------------------------------------------
 
     @Test fun `manual entry needs an address and a token, or a pasted code`() {
-        val m = SetupFlow.start("sl").chooseTarget(Lang.SL).next().choose(Way.COMPUTER).manual()
+        val m = SetupFlow.start("sl").chooseTarget(Lang.SL).other().choose(Way.COMPUTER).manual()
         assertFalse("nothing typed", m.canConnect)
         assertFalse("no token", m.edit(url = "https://node.ts.net:8443").canConnect)
         assertTrue(m.edit(url = "https://node.ts.net:8443", token = " abc ").canConnect)
@@ -118,7 +134,7 @@ class SetupFlowTest {
     }
 
     @Test fun `an address that isn't one says so before anything is asked`() {
-        val m = SetupFlow.start("sl").chooseTarget(Lang.SL).next().choose(Way.COMPUTER).manual()
+        val m = SetupFlow.start("sl").chooseTarget(Lang.SL).other().choose(Way.COMPUTER).manual()
         val bad = m.edit(url = "https://node .ts.net", token = "t").connecting()
         assertFalse(bad.busy)
         assertEquals(PairFailure.BAD_ADDRESS, bad.trouble?.failure)
@@ -150,7 +166,7 @@ class SetupFlowTest {
     }
 
     @Test fun `a failure stops the spinner and keeps the step, with its way out`() {
-        val m = SetupFlow.start("sl").chooseTarget(Lang.SL).next().choose(Way.COMPUTER).manual().edit(url = "https://node.ts.net", token = "t").connecting()
+        val m = SetupFlow.start("sl").chooseTarget(Lang.SL).other().choose(Way.COMPUTER).manual().edit(url = "https://node.ts.net", token = "t").connecting()
         val failed = m.failed(PairTrouble.of(PairFailure.UNREACHABLE))
         assertFalse(failed.busy)
         assertEquals(Step.MANUAL, failed.step)
@@ -158,7 +174,7 @@ class SetupFlowTest {
         assertNull(failed.out().trouble)
         assertEquals(Step.MANUAL, failed.out().step)
         // a computer too old to pair by code: to the address typed
-        val old = SetupFlow.start("sl").chooseTarget(Lang.SL).next().choose(Way.COMPUTER).failed(PairTrouble.of(PairOutcome.Failed(PairFailure.OLD_COMPUTER)))
+        val old = SetupFlow.start("sl").chooseTarget(Lang.SL).other().choose(Way.COMPUTER).failed(PairTrouble.of(PairOutcome.Failed(PairFailure.OLD_COMPUTER)))
         assertEquals(Step.MANUAL, old.out().step)
         // an old code or one for someone else: a new code
         assertEquals(PairFailure.Out.SCAN, PairTrouble.of(PairFailure.EXPIRED).out)
@@ -242,40 +258,21 @@ class SetupFlowTest {
         assertTrue("\"target_level\":\"C1\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", null, "sl", "en", level = "B2", targetLevel = "A2").json())
     }
 
-    // --- paired: "Še o tebi · A little about you" ---------------------------------------------------------------------
-
-    @Test fun `paired with the computer on the first launch, the aim and the voice come before Home`() {
-        val computer = SetupFlow.start("en").chooseTarget(Lang.SL).next().choose(Way.COMPUTER)
-        assertTrue(computer.asksAbout)
-        val about = computer.manual().edit(url = "https://node.ts.net", token = "t").connecting().done().paired()
-        assertEquals(Step.ABOUT, about.step)
-        assertFalse(about.busy)
-        assertNull(about.trouble)
-        // the aim chosen there; null: the node's
-        assertNull(about.aim)
-        assertEquals("C1", about.chooseAim("c1").aim)
-        assertNull(about.chooseAim("Z9").aim)
-        // just this device asks it in its questions; the way back from the phone to a computer asks nothing again
-        assertFalse(SetupFlow.start("de").chooseTarget(Lang.IT).next().choose(Way.DEVICE).asksAbout)
-        assertFalse(SetupFlow(step = Step.COMPUTER, target = Lang.SL, base = Lang.EN, way = Way.COMPUTER, firstRun = false).asksAbout)
-    }
-
     @Test fun `Back on every step`() {
         val welcome = SetupFlow.start("de")
-        val languages = welcome.chooseTarget(Lang.IT)
-        val ways = languages.next()
-        val device = ways.choose(Way.DEVICE)
-        val computer = ways.choose(Way.COMPUTER)
+        val name = welcome.chooseTarget(Lang.IT)
+        val other = name.other()
+        val device = other.choose(Way.DEVICE)
+        val computer = other.choose(Way.COMPUTER)
         val manual = computer.manual()
-        val about = computer.paired()
         val back = mapOf(
-            welcome to Step.WELCOME, languages to Step.WELCOME, ways to Step.LANGUAGES, device to Step.WAYS,
-            computer to Step.WAYS, manual to Step.COMPUTER, about to Step.ABOUT,
+            welcome to Step.WELCOME, name to Step.WELCOME, other to Step.WELCOME, device to Step.OTHER,
+            computer to Step.OTHER, manual to Step.COMPUTER,
         )
         assertEquals("every step has its Back", Step.entries.toSet(), back.keys.map { it.step }.toSet())
         for ((f, to) in back) assertEquals("${f.step}", to, f.back().step)
         // Back keeps what was chosen, and drops what went wrong and the spinner
-        assertEquals(Lang.IT, ways.back().back().target)
+        assertEquals(Lang.IT, other.back().target)
         assertNull(manual.failed(PairTrouble.of(PairFailure.UNREACHABLE)).back().trouble)
         assertFalse(manual.edit(url = "https://node.ts.net", token = "t").connecting().back().busy)
     }

@@ -467,6 +467,13 @@ another phone meanwhile stays. The screen reads itself as it opens, as the villa
 what to do and that it is chosen once in the learner's base by the phone's voice (`game/ReadAloud`); its 🔊 by the 🏡
 reads it again or stops it. A child who doesn't read yet hears what the screen asks.
 
+**The first moment** (`game/FirstWords`, `ui/game/FirstMoment.kt`; docs/plans/05-built/first-minutes.md). For a learner who came
+through the first run, founding opens the village at once: the village as it was founded, the place said aloud, someone by
+the fire greeting them aloud with what it means, and two answers. A tap on the greeting is the learner's first word in the
+village: it's said back, the fire lights ("🔥 Prižgi ogenj"), a little food comes with it and the map opens. A wrong tap only
+hears the greeting again. It takes the place of the three steps of the village's first words, which still come for
+anyone who didn't come through a first run.
+
 **The wild animals round the village** (`game/render/Wildlife.kt`: a squirrel and a hare by day, roe deer and a fox at
 dawn and dusk, a boar with her young at night, tracks in the snow) are each a word: a tap opens its card in the village's
 language, the one its bridge looks words up in (the string tables' `wild.*`: "veverica", "scoiattolo", "Eichhörnchen",

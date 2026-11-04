@@ -166,8 +166,10 @@ private fun App(vm: AppViewModel) {
 
     // Ask once for notifications (tutor replies, new drills, evening reminder).
     val notifications = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {}
-    LaunchedEffect(vm.screen == Screen.Home) {
-        if (vm.screen == Screen.Home && Build.VERSION.SDK_INT >= 33) notifications.launch(Manifest.permission.POST_NOTIFICATIONS)
+    // not over the founding or a new learner's first minutes (app/FirstRun): after the question that follows the first session
+    val askNotifications = vm.screen == Screen.Home && vm.game.state != null && vm.firstRun.loaded && !vm.firstRun.state.holdsNotifications(vm.practisedOnce, vm.child)
+    LaunchedEffect(askNotifications) {
+        if (askNotifications && Build.VERSION.SDK_INT >= 33) notifications.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 
     val screen = vm.nav.top
@@ -237,6 +239,9 @@ private fun App(vm: AppViewModel) {
     vm.scenes.talk?.takeIf { it.step?.over == true }?.let { si.lanisce.lani.ui.scene.ProjectStepScene(vm, it) }
     // "🗣️ Moj glas · My voice" offered once, at the first line of the learner's a dialog says, over it (ui/settings/MyVoiceSettings)
     if (vm.myVoice.offering) si.lanisce.lani.ui.settings.MyVoiceOffer(vm)
+    // a new learner's comes as a card when their first dialog is over (app/FirstRun)
+    val talking = vm.scenes.talk != null || vm.scenes.keeperTalk != null
+    LaunchedEffect(vm.myVoice.waiting, talking) { if (!talking) vm.myVoice.offerNow() }
     vm.words.card?.let { WordSheet(vm, it) }
     // a word's whole table to read ("📋 Vse oblike"), over the word's card or a forms card's end it was opened from
     vm.formsCards.view?.let { si.lanisce.lani.ui.FormsOverviewSheet(vm, it) }
@@ -247,8 +252,10 @@ private fun App(vm: AppViewModel) {
     // "💾 Podatki · Data" as a sheet (ui/data/DataSheet) over any screen: QA's hook "data" (vm.dataOpen); the learner has the
     // same as the settings' page (Nastavitve › Podatki, ui/settings/SettingsScreen)
     if (vm.dataOpen) si.lanisce.lani.ui.data.DataSheet(vm.data, onDismiss = { vm.dataOpen = false }, banner = { vm.notices.banner = it })
-    // no village yet, anywhere: the learner chooses where it will be before anything else of the game
-    val founding = vm.game.placeNeeded && vm.game.state == null && (screen == Screen.Home || screen == Screen.Village)
+    // the tutor opened for the first time with none set up, on this device (app/FirstRun.tutor): the ways to one, over the chat
+    if (vm.chat.isOpen && vm.hosted.active && vm.firstRun.state.tutor(vm.tutorReady)) si.lanisce.lani.ui.hosted.TutorOffer(vm)
+    // no village yet, anywhere: the learner chooses where it will be before anything else of the game (a first run: at once)
+    val founding = (vm.game.placeNeeded || vm.firstRun.state.moment) && vm.game.state == null && (screen == Screen.Home || screen == Screen.Village)
     if (founding) si.lanisce.lani.ui.game.FoundingScreen(vm)
     if (!founding && vm.game.news.isNotEmpty() && vm.game.introSeen && (screen == Screen.Home || screen == Screen.Village)) {
         NewsSheet(vm.game.news, onDismiss = vm.game::dismissNews, voice = vm.hintVoice)

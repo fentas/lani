@@ -80,11 +80,11 @@ private enum class Step { START, LEARNER, WORKING, TUTOR }
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = null, chosenBase: String? = null, onLanguages: (() -> Unit)? = null) {
+fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = null, chosenBase: String? = null, onLanguages: (() -> Unit)? = null, importing: Boolean = false) {
     val h = vm.hosted
     val onPhone = remember { h.learnerOnPhone() }
     // a learner on the phone already: go on, start afresh or import; else straight to the questions
-    var step by remember { mutableStateOf(if (onPhone != null) Step.START else Step.LEARNER) }
+    var step by remember { mutableStateOf(if (onPhone != null || importing) Step.START else Step.LEARNER) }
     var error by remember { mutableStateOf<String?>(null) }
     var note by remember { mutableStateOf<String?>(null) }
     var name by remember { mutableStateOf("") }
@@ -169,8 +169,9 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
                         }, color = TriglavRed)
                         Text(bi("hosted.goOnWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
                     }
-                    BigButton("✨ ${bi("hosted.fresh")}", onClick = { error = null; step = Step.LEARNER }, color = if (onPhone == null) TriglavRed else white.copy(alpha = 0.2f))
-                    BigButton("📥 ${bi("hosted.importExport")}", onClick = { error = null; pick.launch(ZIP_TYPES) }, color = white.copy(alpha = 0.2f))
+                    // the first run's way to an export: the new learner's way is the name's step, not here
+                    if (onPhone != null) BigButton("✨ ${bi("hosted.fresh")}", onClick = { error = null; step = Step.LEARNER }, color = white.copy(alpha = 0.2f))
+                    BigButton("📥 ${bi("hosted.importExport")}", onClick = { error = null; pick.launch(ZIP_TYPES) }, color = if (onPhone == null) TriglavRed else white.copy(alpha = 0.2f))
                     Text(bi("hosted.importWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
                     TextButton(onClick = onBack) { Text("‹ ${bi("components.back")}", color = white) }
                 }
@@ -222,8 +223,6 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
                         for (l in HostedAnswers.LEVELS) FilterChip(level == l, { level = l }, { Text(l) }, colors = chipColors)
                     }
                     Text(bi("hosted.levelWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
-                    // 🧭 the placement test once the village is founded (off by default), from the level just chosen
-                    si.lanisce.lani.ui.setup.PlacementChoice(vm, child, chipColors, muted = muted) { Label(it) }
                     // 🎯 the aim: where the village's ages lead (B2 by default; only above the level)
                     Label("🎯 ${bi("setup.aim")}")
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -301,18 +300,21 @@ private fun keepVoice(vm: AppViewModel, child: Boolean, gender: String? = null) 
 private enum class TutorWay { CLAUDE }
 
 /**
- * The onboarding's tutor step: "🔑 Claude (svoj ključ) · Claude (your own key)" (the key typed and checked here, at
- * once), "Nadaljuj s ChatGPT · Continue with ChatGPT" (the browser's sign-in), or later. On a child's device a parent sets
- * it up: the step says so and opens after a hold (ui/setup/ParentGated). The tutor in the app turns on by itself once a
- * credential is set (the view model). [onDone]: Home.
+ * The ways to a tutor (docs/plans/05-built/first-minutes.md): "💬 Nadaljuj s ChatGPT · Continue with ChatGPT" (the browser's
+ * sign-in), OpenRouter's sign-in, "🔑 Claude (svoj ključ) · Claude (your own key)" (the key typed and checked here, at once)
+ * or later, what each costs in one line. Lani sells no AI: the learner pays their provider, and nothing waits for a tutor.
+ * On a child's device a parent sets it up: the step says so and opens after a hold (ui/setup/ParentGated). The tutor in the
+ * app turns on by itself once a credential is set (the view model). [onDone]: on; [onLight]: on a sheet, not the setup's blue.
  */
 @Composable
-private fun TutorStep(vm: AppViewModel, child: Boolean, onDone: () -> Unit) {
+internal fun TutorStep(vm: AppViewModel, child: Boolean, onDone: () -> Unit, onLight: Boolean = false) {
     val live = vm.live
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val white = Color.White
-    val muted = Color.White.copy(alpha = 0.85f)
+    val ink = if (onLight) MaterialTheme.colorScheme.onSurface else Color.White
+    val muted = if (onLight) MaterialTheme.colorScheme.onSurfaceVariant else Color.White.copy(alpha = 0.85f)
+    val warn = if (onLight) MaterialTheme.colorScheme.error else Color(0xFFFFD1D8)
+    val quiet = if (onLight) MaterialTheme.colorScheme.secondary else Color.White.copy(alpha = 0.2f)
     var way by remember { mutableStateOf<TutorWay?>(null) }
     var key by remember { mutableStateOf("") }
     var busy by remember { mutableStateOf(false) }
@@ -321,43 +323,62 @@ private fun TutorStep(vm: AppViewModel, child: Boolean, onDone: () -> Unit) {
     fun browse(url: String) = runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
     // Back from a way chosen: the ways again, as its "‹ Nazaj"
     BackHandler(enabled = way != null) { way = null; problem = null }
+    @Composable
+    fun Cost(key: String) = Text(bi(key), color = muted, style = MaterialTheme.typography.bodySmall)
 
-    Text("🧑‍🏫 ${bi("hosted.tutorTitle")}", style = MaterialTheme.typography.titleLarge, color = white, fontWeight = FontWeight.SemiBold)
+    Text("🧑‍🏫 ${bi(if (onLight) "common.tutor" else "hosted.tutorTitle")}", style = MaterialTheme.typography.titleLarge, color = ink, fontWeight = FontWeight.SemiBold)
     // a child's: the way on without a tutor, while a parent hasn't opened it
-    si.lanisce.lani.ui.setup.ParentGated(child, onLight = false, whileLocked = { BigButton("🏡 ${bi("hosted.toVillage")}", onClick = onDone, color = TriglavRed) }) {
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(bi("hosted.tutorWhat"), color = muted)
-            problem?.let { Text(it, color = Color(0xFFFFD1D8)) }
+    si.lanisce.lani.ui.setup.ParentGated(child, onLight = onLight, whileLocked = { BigButton("🏡 ${bi("hosted.toVillage")}", onClick = onDone, color = TriglavRed) }) {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Text(bi("firstRun.tutorWhat"), color = muted)
+            problem?.let { Text(it, color = warn) }
             when (way) {
                 null -> {
+                    if (live.openaiAvailable) {
+                        BigButton(if (busy) "…" else "💬 ${bi("tutorLive.continueChatGPT")}", enabled = !busy, onClick = {
+                            problem = null
+                            busy = true
+                            live.update { it.copy(provider = si.lanisce.lani.tutor.ProviderId.OPENAI, models = emptyMap()) }
+                            scope.launch {
+                                val e = live.signInWithChatGPT { url -> browse(url) }
+                                busy = false
+                                if (e != null) problem = "⚠️ $e"
+                                // OpenAI's UI guidelines: the welcome once, at the first sign-in with the plan; then Home
+                                else if (!live.settings.chatgptWelcomed) welcome = true
+                                else onDone()
+                            }
+                        }, color = TriglavRed)
+                        Cost("firstRun.costChatgpt")
+                    }
+                    if (live.openrouterAvailable) {
+                        BigButton(if (busy) "…" else "🌐 ${bi("tutorLive.continueOpenRouter")}", enabled = !busy, onClick = {
+                            problem = null
+                            busy = true
+                            live.update { it.copy(provider = si.lanisce.lani.tutor.ProviderId.OPENROUTER, models = emptyMap()) }
+                            scope.launch {
+                                val e = live.signInWithOpenRouter { url -> browse(url) }
+                                busy = false
+                                if (e != null) problem = "⚠️ $e" else onDone()
+                            }
+                        }, color = quiet)
+                        Cost("firstRun.costOpenrouter")
+                    }
+                    if (busy) TextButton(onClick = { live.cancelSignIn(); live.cancelOpenRouterSignIn(); busy = false }) { Text(bi("tutorLive.cancel"), color = ink) }
                     BigButton("🔑 ${bi("setup.tutorClaude")}", onClick = {
                         problem = null
                         live.update { it.copy(provider = si.lanisce.lani.tutor.ProviderId.ANTHROPIC, models = emptyMap()) }
                         way = TutorWay.CLAUDE
-                    }, color = white.copy(alpha = 0.2f))
-                    if (live.openaiAvailable) BigButton(if (busy) "…" else "💬 ${bi("tutorLive.continueChatGPT")}", enabled = !busy, onClick = {
-                        problem = null
-                        busy = true
-                        live.update { it.copy(provider = si.lanisce.lani.tutor.ProviderId.OPENAI, models = emptyMap()) }
-                        scope.launch {
-                            val e = live.signInWithChatGPT { url -> browse(url) }
-                            busy = false
-                            if (e != null) problem = "⚠️ $e"
-                            // OpenAI's UI guidelines: the welcome once, at the first sign-in with the plan; then Home
-                            else if (!live.settings.chatgptWelcomed) welcome = true
-                            else onDone()
-                        }
-                    }, color = white.copy(alpha = 0.2f))
-                    if (busy) TextButton(onClick = { live.cancelSignIn(); busy = false }) { Text(bi("tutorLive.cancel"), color = white) }
-                    BigButton("🏡 ${bi("common.later")}", onClick = onDone, color = TriglavRed)
-                    Text(bi("hosted.tutorLater"), color = muted, style = MaterialTheme.typography.bodySmall)
+                    }, color = quiet)
+                    Cost("firstRun.costKey")
+                    BigButton("🏡 ${bi("common.later")}", onClick = onDone, color = quiet)
+                    Cost("firstRun.costLater")
                 }
                 TutorWay.CLAUDE -> {
                     Text(bi("setup.keyWhere"), color = muted, style = MaterialTheme.typography.bodySmall)
-                    TextButton(onClick = { browse(ANTHROPIC_KEYS) }) { Text("🌐 console.anthropic.com", color = white) }
+                    TextButton(onClick = { browse(ANTHROPIC_KEYS) }) { Text("🌐 console.anthropic.com", color = ink) }
                     val fieldColors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = white, unfocusedTextColor = white, focusedLabelColor = white, unfocusedLabelColor = white.copy(alpha = 0.75f),
-                        focusedBorderColor = white, unfocusedBorderColor = white.copy(alpha = 0.6f), cursorColor = white,
+                        focusedTextColor = ink, unfocusedTextColor = ink, focusedLabelColor = ink, unfocusedLabelColor = ink.copy(alpha = 0.75f),
+                        focusedBorderColor = ink, unfocusedBorderColor = ink.copy(alpha = 0.6f), cursorColor = ink,
                     )
                     OutlinedTextField(
                         key, { key = it.trim(); problem = null }, Modifier.fillMaxWidth(),
@@ -375,13 +396,31 @@ private fun TutorStep(vm: AppViewModel, child: Boolean, onDone: () -> Unit) {
                                 onDone()
                             }
                         }
-                    }, color = TriglavRed, disabledColor = white.copy(alpha = 0.2f))
-                    TextButton(onClick = { way = null; problem = null }) { Text("‹ ${bi("components.back")}", color = white) }
+                    }, color = TriglavRed, disabledColor = quiet)
+                    TextButton(onClick = { way = null; problem = null }) { Text("‹ ${bi("components.back")}", color = ink) }
                 }
             }
         }
     }
     if (welcome) si.lanisce.lani.ui.tutor.ChatGPTWelcome { welcome = false; live.welcomedChatGPT(); onDone() }
+}
+
+/**
+ * The first time a new learner opens the tutor on this device, with none set up (app/FirstRun.tutor): the ways to one, over
+ * the chat. Whatever they do it doesn't come again; nothing is blocked (the chat says messages wait) and the settings' "🧑‍🏫
+ * Učitelj · Tutor" has all of it.
+ */
+@Composable
+fun TutorOffer(vm: AppViewModel) {
+    fun close() = vm.firstRun.settle(si.lanisce.lani.app.FirstRun.Ask.TUTOR)
+    si.lanisce.lani.ui.LaniSheet(onDismissRequest = ::close) {
+        Column(
+            Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 24.dp).navigationBarsPadding(),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            TutorStep(vm, child = vm.child, onDone = ::close, onLight = true)
+        }
+    }
 }
 
 /** Where an Anthropic API key is made. */

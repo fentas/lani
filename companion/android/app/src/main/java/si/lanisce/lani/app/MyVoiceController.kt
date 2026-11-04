@@ -64,6 +64,16 @@ class MyVoiceController(
     /** The offer was shown while the app runs (once: the node remembers the choice for good). */
     private var offered = false
 
+    /** The offer waits for the end of the dialog: a new learner's first (app/FirstRun.voiceAfterDialog; MainActivity shows it). */
+    var waiting by mutableStateOf(false)
+        private set
+
+    /** The offer shouldn't come over the dialog but after it. */
+    var holdOffer: () -> Boolean = { false }
+
+    /** The offer closed, whatever was chosen. */
+    var onOfferClosed: () -> Unit = {}
+
     private var sampleJob: Job? = null
 
     enum class Problem { OFFLINE, OLD_NODE, NOT_KEPT }
@@ -102,7 +112,20 @@ class MyVoiceController(
     fun offerAtLine() {
         if (si.lanisce.lani.data.VisitWorld.active || !MyVoices.offerDue(mine, offered)) return
         offered = true
+        if (holdOffer()) {
+            waiting = true
+            return
+        }
         if (BuildConfig.QA) Log.i(TAG, "offered at the first line")
+        load()
+        offering = true
+    }
+
+    /** The dialog is over: the offer that [waiting] held, as a card ("Which voice is yours?"). */
+    fun offerNow() {
+        if (!waiting) return
+        waiting = false
+        if (BuildConfig.QA) Log.i(TAG, "offered after the first dialog")
         load()
         offering = true
     }
@@ -115,6 +138,7 @@ class MyVoiceController(
         offering = false
         stopSample()
         if (!picked && mine?.chosen != true) choose(MyVoices.DEFAULT)
+        onOfferClosed()
     }
 
     /** Keeps [choice] (an option's id, "off", "default") on the node; their lines are in it from the next one on. */

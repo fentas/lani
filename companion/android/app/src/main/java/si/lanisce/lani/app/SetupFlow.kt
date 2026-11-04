@@ -8,16 +8,18 @@ import si.lanisce.lani.l10n.LangPair
 import si.lanisce.lani.l10n.bi
 
 /**
- * The first launch (docs/plans/05-built/onboarding.md), as a state the screens draw (ui/setup/SetupScreen) and the view
- * model keeps: a new language pair builds the screens anew (MainActivity's key), and the step stays. Pure.
+ * The first run (docs/plans/05-built/first-minutes.md, onboarding.md), as a state the screens draw (ui/setup/SetupScreen)
+ * and the view model keeps: a new language pair builds the screens anew (MainActivity's key), and the step stays. Pure.
  *
+ * The main path is two steps, then the founding (over Home):
  * 1. [Step.WELCOME]: a greeting without a gender, what Lani is, and the language to learn ([chooseTarget]).
- * 2. [Step.LANGUAGES]: the language explanations are in ([chooseBase]); the welcome reads in the pair now.
- * 3. [Step.WAYS]: how Lani runs: [Way.DEVICE] alone (the hosted mode's steps, ui/hosted/HostedSetup: the questions with
- *    the aim, then the voice and the tutor), or with [Way.COMPUTER], the family's computer: its QR code scanned
- *    ([Step.COMPUTER]), or its address and token typed behind "Ročno · Enter manually" ([Step.MANUAL]).
- * 4. [Step.ABOUT], once paired with the computer ([paired]; docs/plans/05-built/setup-refresh.md): "🎯 Cilj · Aim" and
- *    "🗣️ Moj glas · My voice", each with its default, then Home.
+ * 2. [Step.NAME]: the name and "🧒 For a child", the explanations' language with its default ([chooseBase]); the learner's
+ *    data is made on this device, on the defaults (app/FirstRun), and the village is founded.
+ *
+ * The other ways in leave it, by a small link on the first screen ([other]): [Step.OTHER], then [Way.COMPUTER], the family's
+ * computer: its QR code scanned ([Step.COMPUTER]), or its address and token typed behind "Ročno · Enter manually"
+ * ([Step.MANUAL]); or [Way.DEVICE], an export imported ([Step.DEVICE]: ui/hosted/HostedSetup, which also holds a learner
+ * already on the device).
  *
  * Every step reads itself aloud as it opens (game/SetupSpeech). What goes wrong is a [PairTrouble]: plain words and the
  * way out ([PairFailure.Out]). [back] goes a step back.
@@ -28,26 +30,24 @@ data class SetupFlow(
     val target: Lang? = null,
     /** The language explanations are in: the phone's own (when it's one of ours) until another is chosen. */
     val base: Lang = Lang.EN,
-    /** How Lani runs here, once chosen. */
+    /** "Kako ti je ime? · Your name" and "🧒 Za otroka · For a child" on [Step.NAME]. */
+    val name: String = "",
+    val child: Boolean = false,
+    /** The other way in, once chosen. */
     val way: Way? = null,
     /** "Ročno · Enter manually": the computer's address (or the text of a pairing code, pasted) and its token. */
     val url: String = "https://",
     val token: String = "",
-    /** Pairing or connecting now. */
+    /** Pairing, connecting or making the learner's data now. */
     val busy: Boolean = false,
     /** What went wrong, and the way out; null while nothing did. */
     val trouble: PairTrouble? = null,
-    /**
-     * The first launch, from its welcome: paired with the computer, [Step.ABOUT] comes before Home. False for the
-     * settings' way from the hosted mode back to a computer (the learner chose their aim and voice already).
-     */
-    val firstRun: Boolean = true,
-    /** "🎯 Cilj · Aim" chosen on [Step.ABOUT]; null: the node's (app/Aim.keep). */
-    val aim: String? = null,
+    /** The learner's data couldn't be made on this device: why ([Step.NAME]). */
+    val problem: String? = null,
 ) {
-    enum class Step { WELCOME, LANGUAGES, WAYS, COMPUTER, MANUAL, DEVICE, ABOUT }
+    enum class Step { WELCOME, NAME, OTHER, COMPUTER, MANUAL, DEVICE }
 
-    /** "Samo ta telefon / tablica · Just this device" or "S svojim računalnikom · With my family's computer". */
+    /** "S svojim računalnikom · With my family's computer", or an export imported into this device. */
     enum class Way { DEVICE, COMPUTER }
 
     /** The pair the setup reads in: the one chosen, else the phone's language explaining the default's target. */
@@ -55,17 +55,33 @@ data class SetupFlow(
 
     /** The language to learn: the explanations stay in the phone's language unless that's the one learned. */
     fun chooseTarget(t: Lang): SetupFlow =
-        copy(target = t, base = if (base == t) otherThan(t) else base, step = Step.LANGUAGES, trouble = null)
+        copy(target = t, base = if (base == t) otherThan(t) else base, step = Step.NAME, trouble = null)
 
     /** The language explanations are in; never the one learned. */
     fun chooseBase(b: Lang): SetupFlow = if (b == target) this else copy(base = b)
 
-    /** On from the languages to the two ways. */
-    fun next(): SetupFlow = when (step) {
-        Step.WELCOME -> if (target != null) copy(step = Step.LANGUAGES) else this
-        Step.LANGUAGES -> copy(step = Step.WAYS)
-        else -> this
-    }
+    /** The name being typed. */
+    fun named(n: String): SetupFlow = copy(name = n.take(40), problem = null)
+
+    /** "🧒 Za otroka · For a child": a child's content and a parent's keys (app/ParentGate). */
+    fun forChild(on: Boolean): SetupFlow = copy(child = on)
+
+    /** Founding is one tap away: a name and a language. */
+    val canStart: Boolean get() = !busy && target != null && name.isNotBlank()
+
+    /** The new learner on the defaults, for this device's bridge; the rest is asked when it matters (app/FirstRun). */
+    fun answers(): si.lanisce.lani.hosted.HostedAnswers = si.lanisce.lani.hosted.HostedAnswers(
+        name = name.trim(), gender = null, target = (target ?: pair.target).code, base = base.code, level = "A1", goal = FirstRun.MINUTES, child = child,
+    )
+
+    /** The learner's data being made. */
+    fun starting(): SetupFlow = copy(busy = true, problem = null)
+
+    /** It couldn't be made: [why] on the step, nothing lost. */
+    fun startFailed(why: String): SetupFlow = copy(busy = false, problem = why)
+
+    /** The small link on the first screen: the ways in for someone with a code or a file. */
+    fun other(): SetupFlow = copy(step = Step.OTHER, trouble = null, busy = false)
 
     fun choose(w: Way): SetupFlow = copy(way = w, step = if (w == Way.DEVICE) Step.DEVICE else Step.COMPUTER, trouble = null, busy = false)
 
@@ -93,17 +109,8 @@ data class SetupFlow(
 
     fun failed(t: PairTrouble): SetupFlow = copy(busy = false, trouble = t)
 
-    /** Connected: the app goes Home (the setup's state is dropped), or to [Step.ABOUT] first ([asksAbout]: [paired]). */
+    /** Connected: the app goes Home (the setup's state is dropped). */
     fun done(): SetupFlow = copy(busy = false, trouble = null)
-
-    /** Paired with the family's computer on the first launch: the aim and the voice ask before Home ([Step.ABOUT]). */
-    val asksAbout: Boolean get() = firstRun && way == Way.COMPUTER
-
-    /** Paired: on to [Step.ABOUT]. */
-    fun paired(): SetupFlow = copy(step = Step.ABOUT, busy = false, trouble = null)
-
-    /** "🎯 Cilj · Aim": [a], one of the levels offered ([Aim.choices]). */
-    fun chooseAim(a: String): SetupFlow = copy(aim = a.trim().uppercase().takeIf { it in Aim.LEVELS })
 
     /** The way out of [trouble] taken: it's dismissed, the step stays (or goes to the typed address, [PairFailure.Out.MANUAL]). */
     fun out(): SetupFlow = when (trouble?.out) {
@@ -114,12 +121,9 @@ data class SetupFlow(
     fun back(): SetupFlow {
         val to = when (step) {
             Step.WELCOME -> Step.WELCOME
-            Step.LANGUAGES -> Step.WELCOME
-            Step.WAYS -> Step.LANGUAGES
-            Step.COMPUTER, Step.DEVICE -> Step.WAYS
+            Step.NAME, Step.OTHER -> Step.WELCOME
+            Step.COMPUTER, Step.DEVICE -> Step.OTHER
             Step.MANUAL -> Step.COMPUTER
-            // paired already: no way back to the code (the screen's Back keeps the defaults and goes Home)
-            Step.ABOUT -> Step.ABOUT
         }
         return copy(step = to, trouble = null, busy = false)
     }
@@ -158,6 +162,16 @@ object Aim {
     /** The aim preselected for [level]: B2, or the level after it from B2 on (C2 at C2). */
     fun default(level: String): String =
         if (index(level) < LEVELS.indexOf(DEFAULT)) DEFAULT else LEVELS[(index(level) + 1).coerceAtMost(LEVELS.lastIndex)]
+
+    /** The minutes a day the question after the first session offers (the settings have them all). */
+    val MINUTES = listOf(10, 15, 20, 30)
+
+    /** The aims that question offers a learner at [level] aiming at [aim]: the one before it, it, the one after it. */
+    fun near(level: String, aim: String): List<String> {
+        val all = choices(level)
+        val at = all.indexOf(aim).coerceAtLeast(0)
+        return all.subList((at - 1).coerceAtLeast(0), (at + 2).coerceAtMost(all.size))
+    }
 
     /** [aim] (chosen, or the profile's) while it is still above [level]; else the default for it (the level changed). */
     fun keep(aim: String?, level: String): String = aim?.trim()?.uppercase()?.takeIf { it in choices(level) } ?: default(level)

@@ -61,6 +61,7 @@ enum class SettingsSection(val id: String, val emoji: String, val key: String) {
     DATA("data", "💾", "dataSync.title"),
     LANGUAGES("languages", "🌐", "connectionSheet.languages"),
     AIM("aim", "🎯", "setup.aim"),
+    ABOUT("about", "🙂", "firstRun.aboutMe"),
     SOUND("sound", "🔊", "settings.sound"),
     TIPS("tips", "💡", "tips.title"),
     NOTIFY("notifications", "🔔", "notify.title"),
@@ -109,7 +110,7 @@ private fun Sections(vm: AppViewModel) {
 
 /** The tutor's and the data's are a parent's on a child's device (keys and accounts: app/ParentGate). */
 private val SettingsSection.parents: Boolean get() = this == SettingsSection.TUTOR || this == SettingsSection.DATA || this == SettingsSection.TIPS ||
-    this == SettingsSection.NOTIFY || this == SettingsSection.AIM
+    this == SettingsSection.NOTIFY || this == SettingsSection.AIM || this == SettingsSection.ABOUT
 
 /** What a section holds now, in a line for its row. */
 private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
@@ -121,6 +122,7 @@ private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
     SettingsSection.DATA -> si.lanisce.lani.ui.data.dataSummary(vm.data)
     SettingsSection.LANGUAGES -> vm.langPair.let { "${it.target.ownName} · ${it.base.ownName}" }
     SettingsSection.AIM -> AimShown.of(vm.content.dashboard, vm.game.state?.age ?: si.lanisce.lani.game.Age.OGENJ)?.summary() ?: "…"
+    SettingsSection.ABOUT -> vm.content.dashboard?.let { "${it.level} · ${it.goalMinutes} min" } ?: "…"
     SettingsSection.SOUND -> bi("settings.soundAbout")
     SettingsSection.TIPS -> if (vm.game.state?.tips?.off == true) bi("tips.offNow") else bi("tips.onNow")
     SettingsSection.NOTIFY -> "🔔 " + if (vm.notify.reminderOn(vm.child)) bi("notify.reminderOnNow") else bi("notify.reminderOffNow")
@@ -162,6 +164,8 @@ private fun Page(vm: AppViewModel, s: SettingsSection) {
                 SettingsSection.LANGUAGES -> Languages(vm)
                 // the level the village's ages lead to: a child's is a parent's to change (a hold opens it)
                 SettingsSection.AIM -> si.lanisce.lani.ui.setup.ParentGated(vm.child) { AimSettings(vm) }
+                // what the first run left at its defaults: a child's are a parent's
+                SettingsSection.ABOUT -> si.lanisce.lani.ui.setup.ParentGated(vm.child) { AboutSettings(vm) }
                 SettingsSection.SOUND -> {
                     // the voice the learner's own lines are said in (the node's choice of voices; none in the hosted mode's yet)
                     MyVoiceSettings(vm.myVoice, Modifier.padding(bottom = 8.dp))

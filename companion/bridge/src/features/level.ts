@@ -10,7 +10,7 @@ import { titleEn } from '../grammar'
 import { json, readJson } from '../http'
 import { languageParam } from '../learner'
 import { aimOf, LANGUAGES } from '../learners'
-import { pendingOf, setTargetIn, TARGET_LEVELS, type TargetLevel } from '../aim'
+import { pendingOf, readProfile, setTargetIn, TARGET_LEVELS, writeProfile, type TargetLevel } from '../aim'
 import { placementIn, placementNotice, placementPayload, raises } from '../placement'
 import { localDate } from '../rhythm'
 import { fail, ok } from '../tool'
@@ -107,6 +107,15 @@ export function levelPayload(d: LevelUp, o: { session_id: string; date: string; 
 /** POST /learner/target: the aim ("🎯 Cilj · Aim"), a CEFR level. */
 const targetIn = z.object({ level: cefr })
 
+/**
+ * POST /learner/about: what the first run left at its defaults, changed later (docs/plans/05-built/first-minutes.md; the
+ * settings' "🙂 O meni · About me", the cards after the first session and the first dialog): how the village speaks to the
+ * learner, the minutes a day, the level. At least one of them.
+ */
+const aboutIn = z
+  .object({ gender: z.enum(['female', 'male']).optional(), goal: z.number().int().min(5).max(240).optional(), level: cefr.optional() })
+  .refine(a => a.gender !== undefined || a.goal !== undefined || a.level !== undefined, { message: 'gender, goal or level' })
+
 export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, grammar, culture }) => {
   /**
    * The home language's level and aim, as the profile says them: [next], a raise waiting for the village's next age
@@ -147,6 +156,40 @@ export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, gram
   }
 
 
+
+  /** What the settings' "🙂 O meni · About me" shows: the profile's gender (null: not said), the minutes a day, the level. */
+  function aboutNow() {
+    const l = learner.state().databases?.learner_profile?.learner
+    const g = l?.gender
+    return { gender: g === 'female' || g === 'male' ? g : null, goal: typeof l?.daily_goal_minutes === 'number' ? l.daily_goal_minutes : null, level: levelOf(l?.current_level) ?? 'A1' }
+  }
+
+  /**
+   * POST /learner/about {gender?, goal?, level?}: kept in the learner's profile at once. A level the aim isn't above any
+   * more takes the aim along (the next level up, by aim.ts's words "above the level"): an aim at or below the level means
+   * nothing. It writes the learner's data: the lease guards it.
+   */
+  function handleAbout(body: unknown): Response {
+    const r = aboutIn.safeParse(body)
+    if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+    const { gender, goal, level: to } = r.data
+    try {
+      const p = readProfile(cfg.dataDir)
+      if (!p.learner || typeof p.learner !== 'object' || Array.isArray(p.learner)) p.learner = {}
+      if (gender) p.learner.gender = gender
+      if (goal !== undefined) p.learner.daily_goal_minutes = goal
+      if (to && to !== levelOf(p.learner.current_level)) {
+        p.learner.current_level = to
+        p.learner.level_since = localDate(new Date())
+        if (!aimOf(to, p.learner.target_level)) p.learner.target_level = LEVELS[Math.min(LEVELS.indexOf(to) + 1, LEVELS.length - 1)]
+      }
+      writeProfile(cfg.dataDir, p)
+    } catch (e) {
+      return json({ error: `not kept: ${(e as Error).message}`, code: 'not_kept' }, 409)
+    }
+    log(`about: ${JSON.stringify(r.data)}`)
+    return json(aboutNow())
+  }
 
   async function handleLevel(req: Request): Promise<Response> {
     const r = levelUp.safeParse(await readJson(req))
@@ -209,6 +252,9 @@ export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, gram
       // the aim ("🎯 Cilj · Aim"): the learner's level and target_level; the app's setup sets it
       { method: 'GET', path: '/learner/target', handle: () => json(aimNow()) },
       { method: 'POST', path: '/learner/target', handle: async ({ req }) => handleTarget(await readJson(req)) },
+      // what the first run left at its defaults: how the village speaks to them, the minutes a day, the level
+      { method: 'GET', path: '/learner/about', handle: () => json(aboutNow()) },
+      { method: 'POST', path: '/learner/about', handle: async ({ req }) => handleAbout(await readJson(req)) },
     ],
     tools: [
       {
