@@ -3970,7 +3970,7 @@ language has its own slots (`LANG_KEYS` in `bridge/src/paradigms.ts`), each on a
 
 **Which form a slot shows.** A slot with more than one form shows its first, the others right too: the hand-checked table's order,
 else the regular check's forms (below), else what `lexicon/sl.forms-order.json` names, made from Sloleks 3.0 by
-`lexicon/tools/sl-forms-order.ts` (*aktualizirate* before *aktualiziraste*, *mesecu* before *mescu*; 1,132 slots), never the alphabet. The same
+`lexicon/tools/sl-forms-order.ts` (*aktualizirate* before *aktualiziraste*, *mesecu* before *mescu*; 1,127 slots), never the alphabet. The same
 file lists the nouns Sloleks has no dual or plural of (*grozdje*): their tables ask neither. A forms card keeps its slots from the day it
 was made, so GET /state serves each Slovene card as a new one would be (`cardInOrder`): only what's read changes, the deck and its
 history stay as they are.
