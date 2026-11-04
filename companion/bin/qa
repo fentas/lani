@@ -2593,7 +2593,7 @@ def kaernten_levels():
             qa_hook(f"level:{level}")
             qa_hook(f"happening:{sid}/{hid}/{variant}", f"scene:{sid}@{sid}/{hid}")
             try:
-                if wait_for("Zapri · Close", 15) is None:
+                if wait_for(say("common.close"), 15) is None:
                     raise AssertionError(f"{sid}/{hid} at {level}: its dialog didn't open")
                 got = wait_for(expect, 15)
                 shot(f"levels-kaernten-{name}")
@@ -2602,7 +2602,7 @@ def kaernten_levels():
                     shutil.copy(shots[-1], out / f"levels-kaernten-{name}.png")
                 assert got is not None, f"at {level}, {variant} asked for: «{expect}»"
                 assert absent is None or find(absent) is None, f"at {level}: «{absent}» is above the learner"
-                tap("Zapri · Close", 3)
+                tap(say("common.close"), 3)
             finally:
                 qa_hook("happening:")
             plain_village()
