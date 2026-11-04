@@ -281,7 +281,7 @@ export function speakerGendered(text: string, lang = 'sl'): boolean {
     if (new RegExp(String.raw`\bsem\s+${SL_BETWEEN}\p{L}*(l|la|lo|en|na)\b`, 'u').test(t)) return true
     // not "bo prišla sem" (here): an auxiliary of another person before the participle
     if (/(?<!\b(?:bo|bi|je|so|sta|bodo|bosta)\s+)\b\p{L}{2,}(l|la)\s+sem\b/u.test(t)) return true
-    if (/\bjaz\s+bi\s+\p{L}+(l|la)\b/u.test(t) || /\bkot\s+(?:fantič|fant|deček|deklica|dekle|punčka)\b/u.test(t)) return true
+    if (/\bjaz\s+bi\s+\p{L}+(l|la)\b/u.test(t) || /\bkot\s+(?:fantič|fant|deček|deklica|dekle|punčka)(?!\p{L})/u.test(t)) return true
     // a clause with its end: "Kaj bi rad?" asks the learner, "To bi rad videl!" is the speaker's
     return (t.match(/[^.!?;:,…]+[.!?;:,…]*/gu) ?? []).some(c => {
       if (/\b(rad|rada)\s+bi\b/u.test(c) || (/\bbi\s+(rad|rada)\b/u.test(c) && !c.includes('?'))) return true

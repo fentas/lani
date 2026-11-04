@@ -137,6 +137,7 @@ def check(index_path, repo, listing):
         print('\n## some forms not\n' + '\n'.join(part))
 
 
+NOTE_MAX = 300
 VIEWER = re.compile(r'https?://viri\.cjvt\.si/sloleks/slv/headword/\d+')
 
 
@@ -170,8 +171,12 @@ def cite(index_path, repo, write):
         if got is None or missing:
             left.append(f"{t['lemma']} ({t.get('pos')}): {'no such entry' if got is None else ', '.join(missing[:6])}")
             continue
-        new = VIEWER.sub(f"http://hdl.handle.net/11356/1745 ({key_of(idx, t['lemma'], t.get('pos'))})", note)
+        new = VIEWER.sub(f"hdl.handle.net/11356/1745 ({key_of(idx, t['lemma'], t.get('pos'))})", note)
         new = re.sub(r'\bSloleks(?: 2\.0)?(?! 3\.0)', 'Sloleks 3.0', new)
+        # forms.ts holds a note to this: a longer one leaves its whole table out of the book
+        if len(new) > NOTE_MAX:
+            left.append(f"{t['lemma']} ({t.get('pos')}): its note would be {len(new)} characters")
+            continue
         old_json, new_json = json.dumps(note, ensure_ascii=False), json.dumps(new, ensure_ascii=False)
         if text.count(old_json) != 1:
             left.append(f"{t['lemma']} ({t.get('pos')}): its note isn't in the file once")

@@ -281,12 +281,12 @@ export default async function formsSection() {
     const checked: FormsCardData = { ...old('voda', 'f', [['nom.du', ['vode', 'vodi']]]), table: 'checked' }
     const italian: FormsCardData = { ...old('voda', 'f', [['nom.du', ['vode', 'vodi']]]), language: 'it' }
     check("… a hand-checked table's card and another language's come back as they are", cardInOrder(checked, c.book) === checked && cardInOrder(italian, c.book) === italian)
-    const state = { databases: { spaced_repetition: { items: { forms_mleko: { type: 'forms', forms: old('mleko', 'n', [['loc.sg', ['mleki', 'mleku']]]) }, broken: { type: 'forms', forms: { lemma: 1 } }, vocab_a: { type: 'vocabulary' } } } } }
+    const state = { databases: { spaced_repetition: { items: { forms_mleko: { type: 'forms', forms: old('mleko', 'n', [['nom.sg', ['mleko']], ['gen.sg', ['mleka']], ['loc.sg', ['mleki', 'mleku']]]) }, broken: { type: 'forms', forms: { lemma: 1 } }, vocab_a: { type: 'vocabulary' } } } } }
     const kept = JSON.stringify({ broken: state.databases.spaced_repetition.items.broken, vocab_a: state.databases.spaced_repetition.items.vocab_a })
     withFormsInOrder(state, c.book)
     check(
       '… read through a state: the card in its order, what isn\'t a whole forms card left alone',
-      (state.databases.spaced_repetition.items.forms_mleko.forms as FormsCardData).slots[0].forms[0] === 'mleku' &&
+      (state.databases.spaced_repetition.items.forms_mleko.forms as FormsCardData).slots[2].forms[0] === 'mleku' &&
         JSON.stringify({ broken: state.databases.spaced_repetition.items.broken, vocab_a: state.databases.spaced_repetition.items.vocab_a }) === kept,
       state,
     )
