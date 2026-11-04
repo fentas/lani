@@ -4,6 +4,8 @@
 # the gender, the genitive, a qualifier such as pog. or nar.) and Sloleks (viri.cjvt.si/sloleks: the whole paradigm,
 # each form with its MULTEXT-East/JOS tag). Polite: one request at a time, at least 3.5 s apart, every answer cached
 # (--cache, default .cache/sl-sources in the repository, not committed), so a run again asks nothing it asked before.
+# viri.cjvt.si/sloleks is Sloleks 2.0, CC BY-NC-SA 4.0 (non-commercial), as its pages say: use `supplement` for no new
+# forms; sloleks3.py reads Sloleks 3.0, CC BY-SA 4.0 (docs/plans/05-built/cleanup-code.md, "Sloleks").
 #
 #   python3 companion/lexicon/tools/sl_sources.py check [--level B1,B2] [--offline]   fetch what's missing, report
 #   python3 companion/lexicon/tools/sl_sources.py supplement [--level B1,B2] [--write] the entries the supplement lacks
@@ -112,6 +114,9 @@ def sloleks_forms(i):
     out = []
     for m in re.finditer(r'MainWord\.Form=([^&"]+)&[^"]*?MainWord\.Lemma=([^&"]+)&[^"]*?Msds%5B0%5D=([A-Za-z\-]+)', body):
         p = (html.unescape(urllib.parse.unquote(m.group(1))), m.group(3))
+        # the page's labels, not forms (six went into the supplement so)
+        if p[0].lower() in ('variantno', 'nestandardno'):
+            continue
         if p not in out:
             out.append(p)
     return out

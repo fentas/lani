@@ -3988,8 +3988,8 @@ language has its own slots (`LANG_KEYS` in `bridge/src/paradigms.ts`), each on a
   the bench's, feminine, beside pot, sweat, and klop, tick), avto (its plural as a neuter's) and oktober (its genitive
   misspelt octobra). The supplement (`sl.extra.json`) overrides the word card's gender and gloss of dekle, pot and klop
   the same way. And a table for each noun whose dictionary forms the regular check can't confirm (below) or shows in
-  the wrong order, written from Slovenski pravopis 2001 on fran.si (the standard forms) and Sloleks 2.0 (the full
-  paradigm): dan, hči, uho, oko, kolo, zob, otrok, med, mir, most, zid, slap, grad, nebo, the plural-only vrata,
+  the wrong order, written from Slovenski pravopis 2001 on fran.si (the standard forms) and Sloleks (the full paradigm,
+  read on 2.0's site, checked against the 3.0 release: docs/plans/05-built/cleanup-code.md): dan, hči, uho, oko, kolo, zob, otrok, med, mir, most, zid, slap, grad, nebo, the plural-only vrata,
   grablje, škarje, orgle, klešče, vilice, vile, the nouns Wiktionary has only a few forms of (potica … toplar, tesar),
   and the plurals SP2001 orders otherwise (bratje before brati, gozdovi before gozdi; zvonovi, rogovi, lesovi only).
   SP2001's forms come first in `forms` (with Sloleks's other standard variants where SP gives no whole paradigm);

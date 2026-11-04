@@ -54,11 +54,12 @@ the paradigms files only). For English alone AGID would be a permissive alternat
 | LanguageTool german-pos-dict | de | CC BY-SA 4.0 (its LICENSE), from Morphy and korrekturen.de | share-alike; Morphy's own terms not checked |
 | DEMorphy | de | MIT for the code; its dictionary data's licence not stated | not usable without a stated data licence |
 | AGID (Kevin Atkinson) | en | permissive ("Permission to use, copy, modify, distribute and sell …"), but it carries the UK Advanced Cryptics Dictionary's notice (displayed prominently, its text verbatim) and WordNet's | the permissive choice for English, with two notices to carry; a second source for one language |
-| Sloleks 2.0 / 3.0 | sl | 2.0: **CC BY-NC-SA 4.0** (non-commercial); 3.0: CC BY-SA 4.0 (CLARIN.SI 11356/1230, 11356/1745) | how Slovene uses it: consulted by hand for the forms book's tables, never extracted as data |
+| Sloleks 2.0 / 3.0 | sl | 2.0: **CC BY-NC-SA 4.0** (non-commercial); 3.0: CC BY-SA 4.0 (CLARIN.SI 11356/1230, 11356/1745) | how Slovene uses it: **corrected 2026-11-04** (cleanup-code.md, "Sloleks"): the supplement's paradigms were read from 2.0's site by a script, not only consulted; new forms come from 3.0's release |
 
 **Compared with Sloleks.** Slovene's forms book (`sl.forms.json`) is written by hand, each table checked against SP2001
-on fran.si and Sloleks 2.0, with the entries cited: facts consulted, not a database extracted, so its licence doesn't bind
-the file. The paradigms files are different: they *are* an extract of Wiktionary's tables (a substantial part of a
+on fran.si and Sloleks 2.0, with the entries cited. This paragraph first called that facts consulted, not a database
+extracted; that holds for the book, not for `sl.extra.json`, whose paradigms a script read from the same site (cleanup-code.md,
+"Sloleks"). The paradigms files are different: they *are* an extract of Wiktionary's tables (a substantial part of a
 database, CC BY-SA 4.0 section 4), so they are adapted material and carry the licence. **Found on the way:** Sloleks 2.0,
 which the forms book's notes cite, is non-commercial; Sloleks 3.0 is CC BY-SA 4.0. Consulting a few dozen paradigms is
 fine either way, but later checks should cite 3.0 (or its successor, 11356/2080).
