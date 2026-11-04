@@ -8,6 +8,7 @@ import { scenarioPackErrors, servedScenario, validateScenario } from '../scenari
 import { FACES } from '../scenes'
 import { corpus } from '../voice'
 import { talkPlace } from './villagers'
+import { learnerLevel } from '../villagers'
 
 /** What a character says to a line they didn't understand, in each language: a friendly "What?". */
 const WHAT: Record<string, string> = { sl: 'Prosim?', it: 'Come?', de: 'Wie bitte?', en: 'Sorry?' }
@@ -61,7 +62,8 @@ export const scenarios: FeatureFactory = ({ scenarios, events, voice, addressee,
   return {
     instructions: (p => scenariosInstructions(p.target, p.base))(pair()),
     routes: [
-      // the village's role-plays (its language's only; a grown-up's never to a child), their texts in the learner's pair
+      // the village's role-plays (its language's only; a grown-up's never to a child; none more than a level above the
+      // learner's: scenarios.ts talkLevelOffered), their texts in the learner's pair
       {
         method: 'GET',
         path: '/scenarios',
@@ -69,7 +71,7 @@ export const scenarios: FeatureFactory = ({ scenarios, events, voice, addressee,
         areas: ['content'],
         handle: () => {
           const { target, base } = pair()
-          return json(scenarios.offered(profile.child).map(s => servedScenario(s, target, base)))
+          return json(scenarios.offered(profile.child, learnerLevel(cfg.dataDir)).map(s => servedScenario(s, target, base)))
         },
       },
       {
@@ -77,7 +79,7 @@ export const scenarios: FeatureFactory = ({ scenarios, events, voice, addressee,
         path: /^\/scenarios\/([a-z0-9-]+)$/,
         addressed: true,
         handle: ({ params: [id] }) => {
-          const s = scenarios.offered(profile.child).find(x => x.id === id)
+          const s = scenarios.offered(profile.child, learnerLevel(cfg.dataDir)).find(x => x.id === id)
           const { target, base } = pair()
           return s ? json(servedScenario(s, target, base)) : json({ error: 'not found' }, 404)
         },
