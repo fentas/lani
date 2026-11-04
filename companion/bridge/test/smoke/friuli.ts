@@ -420,7 +420,7 @@ export default async function friuli() {
 
     // --- another language's text is never voiced as Italian (voice-lang.ts) ------------------------------------------
     // The app's day plan during a visit to a Slovene town asked for Nonna Rosa's lines in their Slovene translation, and
-    // the setup's "Še o tebi" read in a pair not yet the learner's: the node voiced them with language_code it.
+    // the setup's labels read in a pair not yet the learner's: the node voiced them with language_code it.
     {
       const t0 = bridgeEleven.st.tts.length
       const prep = await (await fetch(`${base}/voice/prepare`, {
@@ -430,7 +430,7 @@ export default async function friuli() {
           { text: 'Živjo! Si lačen?', voice: 'grandma' }, // her "Ciao! Hai fame?" in Slovene, said to a boy
         ] }),
       })).json()
-      const label = await fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'Še o tebi', voice: 'female' }) })
+      const label = await fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'Kako ti je ime?', voice: 'female' }) })
       check("friuli: a text the node knows only in Slovene (Rosa's translations, the app's Slovene label) isn't voiced as Italian: no clip, nothing asked of ElevenLabs",
         prep.clips?.length === 2 && prep.clips.every((c: any) => c.url === null) && label.status === 204 && bridgeEleven.st.tts.length === t0,
         { prep, label: label.status, asked: bridgeEleven.st.tts.slice(t0) })
