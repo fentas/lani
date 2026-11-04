@@ -13,6 +13,7 @@ import type { Events } from './events'
 import type { Changes } from './changes'
 import type { Family } from './family'
 import type { FormsBook } from './forms'
+import type { Paradigms } from './paradigms'
 import type { CaseTriggersFile } from './case-triggers'
 import type { GameStore } from './game'
 import type { GrammarStore } from './grammar'
@@ -129,7 +130,7 @@ export type Ctx = {
    * reads which lemma a form is of (dialog-words.ts); and the case lens's trigger table (case-triggers.ts: what decides a
    * word's case, companion/grammar/<language>/data/case-triggers.json; none for a language without one).
    */
-  dictionary: { dict: Lexicon; book: FormsBook; language: string; triggers: CaseTriggersFile }
+  dictionary: { dict: Lexicon; book: FormsBook; language: string; triggers: CaseTriggersFile; paradigms: Paradigms }
 }
 
 export type FeatureFactory = (ctx: Ctx) => Feature

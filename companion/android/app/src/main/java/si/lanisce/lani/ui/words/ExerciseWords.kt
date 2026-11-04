@@ -259,6 +259,8 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
             else -> Taps.NONE
         }
         is Exercise.Speak -> open(if (GAP.containsMatchIn(text)) Reads.TARGET else Reads.BASE)
+        // a unit's speaking and writing: the task is the base's (what the teacher asks is its own line: [model])
+        is Exercise.Speaking, is Exercise.Writing -> open(Reads.BASE)
         is Exercise.Flashcard, is Exercise.Dictation, is Exercise.Unsupported -> Taps.NONE
         // the school's sheets: the text around the gaps, a table's labels and given cells, a list's lines given are what
         // the items stand in (what brackets add, a lemma or a cue, once checked); a sort's prompt as well (its words:
@@ -351,7 +353,7 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
             is Exercise.Scenario -> ex.options == null || options == Reads.TARGET
             is Exercise.Translate -> intoTarget
             is Exercise.Flashcard, is Exercise.Free, is Exercise.Unsupported -> false
-            is Exercise.Cloze, is Exercise.Reorder, is Exercise.Dictation, is Exercise.Speak -> true
+            is Exercise.Cloze, is Exercise.Reorder, is Exercise.Dictation, is Exercise.Speak, is Exercise.Speaking, is Exercise.Writing -> true
             is Exercise.GapText, is Exercise.Table, is Exercise.Transform, is Exercise.Sort, is Exercise.Counting, is Exercise.FormsTable -> true
             is Exercise.Numeral -> !ex.pad
             is Exercise.CaseTask -> ex.kind == "decline"
@@ -367,6 +369,8 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
             is Exercise.Translate -> prompt(ex.prompt).isNotEmpty()
             is Exercise.Free -> prompt(ex.prompt).isNotEmpty()
             is Exercise.Speak -> prompt(ex.prompt).isNotEmpty() || (ex.show && model(ex.say).isNotEmpty())
+            is Exercise.Speaking -> prompt(ex.prompt).isNotEmpty() || ex.ask?.let { model(it).isNotEmpty() } == true || (ex.show && model(ex.say).isNotEmpty())
+            is Exercise.Writing -> prompt(ex.prompt).isNotEmpty() || ex.ask?.let { model(it).isNotEmpty() } == true
             is Exercise.Scenario -> scene(ex.scene).isNotEmpty() || ex.line?.let { line(it).isNotEmpty() } == true || prompt(ex.prompt).isNotEmpty() ||
                 ex.options.orEmpty().let { o -> o.indices.any { option(it, o[it]).isNotEmpty() } }
             is Exercise.Flashcard -> front(ex.front, revealed = false).isNotEmpty()

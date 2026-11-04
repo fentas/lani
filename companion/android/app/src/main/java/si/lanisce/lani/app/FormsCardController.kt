@@ -97,15 +97,20 @@ class FormsCardController(
         private set
     private var viewJob: Job? = null
 
-    /** Forms cards are on: the learner's bridge makes them, for their home language (Slovene). */
-    fun on(d: Dashboard? = content.dashboard): Boolean =
-        d != null && FormsCard.FEATURE in d.features && (d.language ?: d.pair.target.code) == FormsCard.LANGUAGE
+    /** The home language's code. */
+    private fun home(d: Dashboard? = content.dashboard): String? = d?.let { it.language ?: it.pair.target.code }
 
-    /** A word's whole table can be read: the home language is Slovene (the table's sections are its grammar's). */
-    fun viewable(d: Dashboard? = content.dashboard): Boolean = d != null && (d.language ?: d.pair.target.code) == FormsCard.LANGUAGE
+    /**
+     * Forms cards are on: the learner's bridge makes them for their home language: Slovene's ([FormsCard.FEATURE]), and
+     * Italian's, German's and English's ([FormsCard.OTHER_FEATURE], a bridge that has their tables).
+     */
+    fun on(d: Dashboard? = content.dashboard): Boolean = d != null && FormsCard.has(home(d), d.features)
 
-    /** The grammar pages introduced to the learner now ([FormsCard.introduced]). */
-    fun introduced(): Set<String> = FormsCard.introduced(game.state, course(), FormsCard.LANGUAGE)
+    /** A word's whole table can be read: the home language has tables (Slovene, Italian, German, English). */
+    fun viewable(d: Dashboard? = content.dashboard): Boolean = d != null && (home(d) == FormsCard.LANGUAGE || home(d) in si.lanisce.lani.game.OtherForms.LANGUAGES)
+
+    /** The grammar pages introduced to the learner now ([FormsCard.introduced]), in the home language's book. */
+    fun introduced(): Set<String> = FormsCard.introduced(game.state, course(), home() ?: FormsCard.LANGUAGE)
 
     /** The learner's forms card of [lemma], if any. */
     fun cardOf(lemma: String): ReviewCard? = content.dashboard?.formsCards?.let { FormsCard.cardOf(it, lemma) }
@@ -122,7 +127,7 @@ class FormsCardController(
         val today = LocalDate.now()
         val no = refused.takeIf { it.first == today }?.second.orEmpty()
         // over the learner's whole deck: off the main thread (docs/plans/05-built/home-return.md: every Back to Home)
-        val want = if (FormsCard.room(d.formsCards, today) > 0) withContext(Dispatchers.Default) { FormsCard.candidates(d.pool, d.learned, d.formsCards, forms::entriesOf, no) } else emptyList()
+        val want = if (FormsCard.room(d.formsCards, today) > 0) withContext(Dispatchers.Default) { FormsCard.candidates(d.pool, d.learned, d.formsCards, forms::entriesOf, no, home(d) ?: FormsCard.LANGUAGE) } else emptyList()
         val pages = introduced()
         if (want.isEmpty() && pages == told) return false
         val answer = ask(b, want, pages, asked = false) ?: return false
@@ -185,9 +190,9 @@ class FormsCardController(
      * from an older bridge, the dictionary's forms (GET /forms: no future joined, no adjective's cases).
      */
     fun open(e: WordEntry) {
-        val v = FormsView(e.lemma, e.pos, e.itemId, Words.meaning(e).ifBlank { null }, e.emoji, e.glossEn.ifEmpty { e.gloss })
+        val v = FormsView(si.lanisce.lani.data.WordFormsWire.bareOf(e.lemma, home() ?: FormsCard.LANGUAGE), e.pos, e.itemId, Words.meaning(e).ifBlank { null }, e.emoji, e.glossEn.ifEmpty { e.gloss })
         viewJob?.cancel()
-        val own = cardOf(e.lemma)?.forms?.takeIf { e.pos == null || it.pos == e.pos }
+        val own = cardOf(v.lemma)?.forms?.takeIf { e.pos == null || it.pos == e.pos }
         if (own != null) {
             view = v.copy(look = FormsLook.Ready(own))
             return
@@ -264,7 +269,7 @@ class FormsCardController(
      * a note says so ("📋 Nove oblike v tabelah: delati, hiša · New forms in your tables"), after the pages' news.
      */
     fun introDone(unit: CourseUnit) {
-        if (unit.language != FormsCard.LANGUAGE || !on()) return
+        if (unit.language != home() || !on()) return
         val b = bridge() ?: return
         scope.launch {
             val before = content.dashboard?.formsCards.orEmpty().associate { it.id to it.forms?.fresh.orEmpty() }

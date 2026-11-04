@@ -39,7 +39,7 @@ class ItalianB2bContentTest {
             val u = checkNotNull(course.units[id]) { "$id isn't written" }
             assertEquals(id, "B2", u.level)
             assertTrue("$id: ${u.intro?.steps?.size} steps", u.intro?.steps?.size in 5..6)
-            assertEquals("$id: worksheets", 3, u.worksheets.size)
+            assertEquals("$id: worksheets (and one of speaking and writing)", 3, u.worksheets.count { s -> s.exercises.any { it !is Exercise.Speaking && it !is Exercise.Writing } })
             assertEquals("$id: pass", 80, u.test.pass)
             assertTrue("$id: flagged for a native check", u.machineWritten && u.review.orEmpty().contains("native speaker"))
         }

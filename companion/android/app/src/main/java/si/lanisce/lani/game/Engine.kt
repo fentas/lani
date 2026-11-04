@@ -307,6 +307,8 @@ object GameEngine {
         is Exercise.Scenario, is Exercise.Free -> Res.WISDOM
         is Exercise.Translate -> if (exercise.grade == "claude") Res.WISDOM else Res.FOOD
         is Exercise.Speak -> Res.WISDOM // conversation
+        // a unit's speaking and writing: saying and writing one's own, as a conversation
+        is Exercise.Speaking, is Exercise.Writing -> Res.WISDOM
         is Exercise.Unsupported -> Res.FOOD
         // the school's worksheets, each item an answer ([si.lanisce.lani.data.Sheets]): typed into a gap, a cell or a line
         // as a cloze is (grammar); a word sorted is a tap among the columns, as a plain choice is (vocabulary)
