@@ -94,7 +94,7 @@ class FriuliKopaCycleTest {
         val k = pieri(village, day)
         assertEquals(0, k.at)
         assertEquals("Buonasera! Io sono Pieri, il carbonaio.", Keepers.talk(k, "A1", "it")!!.lines.first().sl)
-        assertTrue(Keepers.talk(k, "B2", "it")!!.lines.first().sl.startsWith("Buonasera! Scusa se non mi alzo"))
+        assertTrue(Keepers.talk(k, "B2", "it")!!.lines.first().sl!!.startsWith("Buonasera! Scusa se non mi alzo"))
         assertEquals("a learner above B2 hears B2's", Keepers.talk(k, "B2", "it")!!.lines.first().sl, Keepers.talk(k, "C1", "it")!!.lines.first().sl)
         assertEquals("Il carbonaio Pieri alza la carbonaia · Köhler Pieri setzt den Meiler", k.title.bi())
         for (level in levels) play(k, level, L10n.pair, "meeting $level")
