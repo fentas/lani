@@ -139,7 +139,7 @@ Keep `say` short (one sentence, what a person says in one breath). Recognizers w
 
 ## The school's exercise types (worksheets)
 
-Four types for a page of work at once: `gaptext`, `table`, `transform` and `sort`. **They are worksheet types for now**:
+Four types for a page of work at once: `gaptext`, `table`, `transform` and `sort` (and `speaking` and `writing`, below). **They are worksheet types for now**:
 they go in the school's units, tests and homework (`lani.unit/v0`, `lani.worksheet/v0`, `publish_worksheet`;
 `companion/COURSE.md`), next to every module type above. Modules will accept them once every phone has an app that plays
 them; until then `publish_module` refuses them. Source of truth: `companion/bridge/src/course.ts`. They are strict: a key
@@ -154,7 +154,7 @@ its `explain`), the count under the sheet. In a test an almost-right item counts
 reads in their own language — `explain`, `hint`, `instruction`, `translation`, `cue`, `label`, `prompt` and a table's
 `columns` — may instead be a text per base, `{"de": "…", "sl": "…", "en": "…"}` (English always): the learner gets it in
 their base (companion/COURSE.md "Texts in the learner's language"; the Italian units write them so, for a learner from
-German). A module you publish keeps plain strings. A curated module of another language (`companion/modules/<language>/`) may have them per base too, also its `title`, `description`, a quest's `story`, a flashcard's `back` and `note`; the bridge serves it in the learner's base, and offers the app those at or below the learner's level one request at a time, the next (its level, then its `order`) when none is open and none was asked today (a module you publish is always offered).
+German). A module you publish keeps plain strings. A curated module (Slovene's A2–B2 ones in `companion/modules/`, another language's in `companion/modules/<language>/`) may have them per base too, also its `title`, `description`, a quest's `story`, a flashcard's `back` and `note`; the bridge serves it in the learner's base, and offers the app those at or below the learner's level one request at a time, the next (the learner's own level first, then the levels below, the nearest first; within a level by its `order`) when none is open and none was asked today (a module you publish is always offered).
 
 **Spoken forms are never wrong** (Jan's household: a native speaker says *bojo*, *gremo*, *a si*). A gap, a table's
 cell to fill and a transform's line take `spoken`: what a native speaker says beside the standard answer (1-8, in the
@@ -255,6 +255,23 @@ jedu?* for *Ali si že jedel?*). companion/COURSE.md "Spoken forms".
 - `columns`: 2-4, each a `label` and the `words` that belong there (1-12); 4-16 words in all, none twice (any case).
 - Played by tap: a word, then its column (a word placed can be taken back); "Preveri · Check" marks each word. Also
   `instruction`, `prompt`, `explain`.
+
+### `speaking` and `writing` — speaking and free writing in a unit (worksheets)
+
+Two more school types, for a unit's sheets, its test and homework (`publish_worksheet`); `publish_module` refuses them.
+Full format and rules: companion/COURSE.md, "Speaking and writing"; source of truth `companion/bridge/src/production.ts`.
+- `speaking`: `prompt` (the task, in the base), `ask` (what the teacher asks, one sentence in the language learned,
+  optional), `say` (the model, one sentence), `accept`, `spoken` (whole sentences as people say them: right, labelled),
+  `must` (an open answer: any sentence that meets it is right), `avoid`, `min_words`, `show` (default `false`), `child`.
+  Graded on the phone through its recognizer: a form people say is right aloud, the grading table's nonstandard too.
+- `writing`: `prompt`, `ask`, `model` (a text meeting every check), `must`, `avoid`, `length` `{min, max}` (words),
+  `child`. Checked at once by the rules (all met right, one not almost, more wrong); the text then comes to you as an
+  `answer` with `course` for feedback only: never say the verdict changed.
+- `must`: `{label, any: [rules], n}`; `avoid`: `{any, explain}`, the unit's own mistake, never a form people say. A rule is
+  a few words matched folded: `če` a word, `pogovor*` begins so, `*la` ends so, `bi … *l` none to three words between;
+  one rule per word order and gender. The bridge refuses a model or accepted answer that misses its own rules.
+- `child`: what a child (Friuli's Teo, 7) plays instead: short, and a writing item said aloud first.
+- An older app gets the sheet without them (GET /course?types=2): don't put a unit's only check of a rule there.
 
 ## Village sidequests (`quest`)
 

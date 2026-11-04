@@ -10,16 +10,64 @@ import si.lanisce.lani.game.Case
  * the contract writes them and its colour (the light theme's; [darkArgb] the same hue lighter, for the dark theme). Pure.
  */
 
-/** The case's id: its grammar page, as the bank, the wire and the mastery keys name it ("rodilnik"). */
-val Case.id: String
-    get() = when (this) {
-        Case.NOM -> "imenovalnik"
-        Case.GEN -> "rodilnik"
-        Case.DAT -> "dajalnik"
-        Case.ACC -> "tozilnik"
-        Case.LOC -> "mestnik"
-        Case.INS -> "orodnik"
-    }
+/**
+ * A language's cases as the trainer and the lens show them (docs/plans/05-built/case-de.md): which, in the school's order
+ * ([cases]), each one's id (the bank's, the wire's and the mastery keys': Slovene's grammar pages, German's names), its
+ * grammar page, its question words as the school asks them, its name in the target language for the tutor's lines, and
+ * whether the school numbers them (Slovene's 1. imenovalnik … 6. orodnik; German's course names them, the Austrian
+ * school's numbers are another order). The colours are one per case in every language. Pure.
+ */
+class CaseSet(
+    val language: String,
+    val cases: List<Case>,
+    private val ids: Map<Case, String>,
+    private val pages: Map<Case, String>,
+    private val asks: Map<Case, String>,
+    private val also: Map<Case, String>,
+    private val names: Map<Case, String>,
+    val numbered: Boolean,
+) {
+    fun id(c: Case): String = ids[c] ?: c.slot
+    fun page(c: Case): String = pages[c] ?: id(c)
+    fun ask(c: Case): String = asks[c].orEmpty()
+    fun alsoAsk(c: Case): String? = also[c]
+    fun name(c: Case): String = names[c] ?: id(c)
+    fun ofId(id: String?): Case? = cases.firstOrNull { ids[it] == id }
+}
+
+object CaseSets {
+    val SL = CaseSet(
+        "sl", Case.entries,
+        ids = mapOf(Case.NOM to "imenovalnik", Case.GEN to "rodilnik", Case.DAT to "dajalnik", Case.ACC to "tozilnik", Case.LOC to "mestnik", Case.INS to "orodnik"),
+        pages = emptyMap(),
+        asks = Case.entries.associateWith { it.question.lowercase() },
+        also = mapOf(Case.LOC to "o kom? o čem?"),
+        names = mapOf(Case.NOM to "imenovalnik", Case.GEN to "rodilnik", Case.DAT to "dajalnik", Case.ACC to "tožilnik", Case.LOC to "mestnik", Case.INS to "orodnik"),
+        numbered = true,
+    )
+
+    /** German's four, in the course's order (companion/grammar/de faelle: Nominativ, Akkusativ, Dativ, Genitiv). */
+    val DE = CaseSet(
+        "de", listOf(Case.NOM, Case.ACC, Case.DAT, Case.GEN),
+        ids = mapOf(Case.NOM to "nominativ", Case.ACC to "akkusativ", Case.DAT to "dativ", Case.GEN to "genitiv"),
+        pages = mapOf(Case.NOM to "faelle", Case.ACC to "akkusativ", Case.DAT to "dativ", Case.GEN to "genitiv"),
+        asks = mapOf(Case.NOM to "wer? was?", Case.ACC to "wen? was?", Case.DAT to "wem?", Case.GEN to "wessen?"),
+        also = emptyMap(),
+        names = mapOf(Case.NOM to "Nominativ", Case.ACC to "Akkusativ", Case.DAT to "Dativ", Case.GEN to "Genitiv"),
+        numbered = false,
+    )
+
+    /** The languages with a case set: Slovene's six, German's four. */
+    val ALL = listOf(SL, DE)
+
+    fun of(language: String?): CaseSet? = ALL.firstOrNull { it.language == language }
+
+    /** The case set of the language the learner learns (the village's; Slovene's for any other, where nothing shows it). */
+    val current: CaseSet get() = of(si.lanisce.lani.l10n.L10n.pair.target.code) ?: SL
+}
+
+/** The case's id in the learner's language: Slovene's grammar page ("rodilnik"), German's name ("dativ"). */
+val Case.id: String get() = CaseSets.current.id(this)
 
 /** Its slot in the forms book: "gen" (with the number: "gen.sg"). */
 val Case.slot: String
@@ -32,17 +80,20 @@ val Case.slot: String
         Case.INS -> "ins"
     }
 
-/** The school's question words as the contract writes them, lower case: "koga? česa?". */
-val Case.ask: String get() = question.lowercase()
+/** The school's question words as the contract writes them, lower case: "koga? česa?", "wem?". */
+val Case.ask: String get() = CaseSets.current.ask(this)
 
 /** The second pair of question words, where the school teaches one: the locative's "o kom? o čem?". */
-val Case.alsoAsk: String? get() = if (this == Case.LOC) "o kom? o čem?" else null
+val Case.alsoAsk: String? get() = CaseSets.current.alsoAsk(this)
 
 /** The whole question as the contract writes it: "pri kom? pri čem? (o kom? o čem?)". */
 val Case.asks: String get() = alsoAsk?.let { "$ask ($it)" } ?: ask
 
-/** Its name in Slovene as the school writes it (tožilnik with its ž; the id has none), for the tutor's lines. */
-val Case.slName: String get() = if (this == Case.ACC) "tožilnik" else id
+/** Its name in the learner's language as the school writes it (tožilnik with its ž; Dativ), for the tutor's lines. */
+val Case.slName: String get() = CaseSets.current.name(this)
+
+/** Its name with the school's number where it numbers them ("2. rodilnik"; German: "Dativ"). */
+val Case.named: String get() = if (CaseSets.current.numbered) "$n. $slName" else slName
 
 /** Its colour on the light theme (the contract's six: blue, red, amber, green, violet, teal). */
 val Case.lightArgb: Long
@@ -58,8 +109,8 @@ val Case.lightArgb: Long
 /** The same hue for the dark theme: lighter and a little less saturated, readable on a dark surface. */
 val Case.darkArgb: Long get() = CaseLook.lighter(lightArgb)
 
-/** The case of [id] ("rodilnik"); null for another word. */
-fun Case.Companion.ofId(id: String?): Case? = Case.entries.firstOrNull { it.id == id }
+/** The case of [id] in any language's set ("rodilnik", "dativ"); null for another word. */
+fun Case.Companion.ofId(id: String?): Case? = CaseSets.current.ofId(id) ?: CaseSets.ALL.firstNotNullOfOrNull { it.ofId(id) }
 
 /** By its forms book slot: "gen" → [Case.GEN] ("gen.sg" works too). */
 fun Case.Companion.ofSlot(slot: String?): Case? = slot?.substringBefore('.')?.let { s -> Case.entries.firstOrNull { it.slot == s } }
@@ -76,10 +127,20 @@ object CaseLook {
     )
 
     /** The pages that are about a case or a case's rule: the trainer opens from them ("🧩 Vadi sklone"). */
-    val PAGES: Set<String> = RULES.toSet() + Case.entries.map { it.id } + setOf(
+    val PAGES: Set<String> = RULES.toSet() + Case.entries.map { CaseSets.SL.id(it) } + setOf(
         "stevila-samostalniki", "mnozina-skloni", "dvojina-skloni", "sklanjatev-moski", "sklanjatev-zenski",
         "sklanjatev-srednji", "pridevniki-ujemanje", "predlogi-dva-sklona",
     )
+
+    /** German's pages about a case or a case's rule (companion/grammar/de), the trainer's "🧩 Fälle üben" on them. */
+    val PAGES_DE: Set<String> = setOf(
+        "faelle", "akkusativ", "dativ", "genitiv", "praepositionen-akkusativ", "praepositionen-dativ", "praepositionen-genitiv",
+        "wechselpraepositionen", "pronomen-dativ", "verben-praepositionen", "adjektive-praepositionen", "relativsatz",
+        "reflexive-verben", "stehen-stellen", "adjektiv-der", "adjektiv-ein", "adjektiv-null", "adjektiv-tabelle", "n-deklination",
+    )
+
+    /** The pages of [language] the trainer opens from. */
+    fun pagesOf(language: String): Set<String> = if (language == "de") PAGES_DE else PAGES
 
     /** The number's label key in the string tables: "cases.number.pl" (množina · plural). */
     fun numberKey(n: String): String = when (n) {

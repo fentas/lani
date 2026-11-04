@@ -4,7 +4,7 @@
   "title": { "sl": "Pri toplarju", "en": "By the double hayrack", "de": "Bei der Doppelharfe", "it": "Al doppio essiccatoio" },
   "emoji": "🌾",
   "level": "A2",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; checked against Fran: toplar (regional), lata, kopica, vile; to check: de Doppelharfe; place-life too",
+  "review": "sl lines, reactions, variants, B1/B2, de, it: machine-written (Claude), unreviewed; checked against Fran: toplar (regional), lata, kopica, vile; to check: de Doppelharfe; place-life too",
   "art": "field",
   "from": ["project:toplar"],
   "pack": "pri-toplarju",
@@ -46,7 +46,7 @@
       "months": [6, 7, 8, 9],
       "chance": 0.6,
       "dialog": "seno",
-      "dialogs": ["seno-stejem", "seno-sivko", "seno"],
+      "dialogs": ["seno-b2-lani", "seno-b1-dez", "seno-stejem", "seno-sivko", "seno"],
       "reward": { "food": 20 },
       "marker": "🌾",
       "memory": {
@@ -114,7 +114,7 @@
       "when": ["morning"],
       "chance": 0.45,
       "dialog": "stebri",
-      "dialogs": ["stebri-zebelj", "stebri"],
+      "dialogs": ["stebri-b2-lata", "stebri-b1-strela", "stebri-zebelj", "stebri"],
       "reward": { "stone": 15 },
       "marker": "🪵",
       "memory": {
@@ -2257,6 +2257,691 @@
           "en": "Good night, {learner}. I'm off to the sheep.",
           "de": "Gute Nacht, {learner}. Ich geh zu den Schafen.",
           "it": "Buonanotte, {learner}. Io vado dalle pecore."
+        }
+      ]
+    },
+    {
+      "id": "seno-b1-dez",
+      "level": "B1",
+      "memory": {
+        "sl": "jutro, ko sva seno spravila pred dežjem",
+        "en": "the morning we got the hay in before the rain",
+        "de": "den Morgen, an dem wir das Heu vor dem Regen eingebracht haben",
+        "it": "la mattina in cui abbiamo messo al riparo il fieno prima della pioggia"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}! Radio pravi, da bo popoldne deževalo. Si {m:videl|f:videla}, ali je spodnji travnik že pokošen?",
+          "en": "Good morning, {learner}! The radio says it'll rain this afternoon. Did you see whether the lower meadow has been mown yet?",
+          "de": "Guten Morgen, {learner}! Das Radio sagt, am Nachmittag regnet es. Hast du gesehen, ob die untere Wiese schon gemäht ist?",
+          "it": "Buongiorno, {learner}! La radio dice che nel pomeriggio pioverà. Hai visto se il prato di sotto è già falciato?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ja, ves travnik je pokošen. Seno je že suho.",
+              "en": "Yes, the whole meadow's mown. The hay's already dry.",
+              "de": "Ja, die ganze Wiese ist gemäht. Das Heu ist schon trocken.",
+              "it": "Sì, tutto il prato è falciato. Il fieno è già secco.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Dobro. Potem ga morava spraviti pred dežjem. Sedem kopic, sedem!",
+                "en": "Good. Then we must get it in before the rain. Seven haycocks, seven!",
+                "de": "Gut. Dann müssen wir es vor dem Regen einbringen. Sieben Heuhaufen, sieben!",
+                "it": "Bene. Allora dobbiamo metterlo al riparo prima della pioggia. Sette mucchi, sette!"
+              }
+            },
+            {
+              "sl": "Ja, ves travnik je pokosen. Seno je že suho.",
+              "en": "Yes, the whole meadow's mowed (a wrong form). The hay's already dry.",
+              "de": "Ja, die ganze Wiese ist gemäht (falsche Form). Das Heu ist schon trocken.",
+              "it": "Sì, tutto il prato è falciato (forma sbagliata). Il fieno è già secco.",
+              "grammar": "trpnik",
+              "why": {
+                "en": "Kositi makes its participle with a change, as many -iti verbs do: pokošen (popraviti → popravljen). Pokosen isn't a form.",
+                "de": "Kositi bildet sein Partizip mit einer Änderung, wie viele Verben auf -iti: pokošen (popraviti → popravljen). Pokosen gibt es nicht.",
+                "it": "Kositi forma il participio con un cambiamento, come molti verbi in -iti: pokošen (popraviti → popravljen). Pokosen non esiste."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Pokosen? … Ne poznam te besede. Je trava zdaj nizka ali ne?",
+                "en": "Pokosen? … I don't know that word. Is the grass short now or not?",
+                "de": "Pokosen? … Das Wort kenne ich nicht. Ist das Gras jetzt kurz oder nicht?",
+                "it": "Pokosen? … Non conosco questa parola. L'erba adesso è bassa o no?"
+              }
+            },
+            {
+              "sl": "Ja, ves travnik je pokošena. Seno je že suho.",
+              "en": "Yes, the whole meadow's mown (feminine). The hay's already dry.",
+              "de": "Ja, die ganze Wiese ist gemäht (weiblich). Das Heu ist schon trocken.",
+              "it": "Sì, tutto il prato è falciata (femminile). Il fieno è già secco.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "The participle agrees like an adjective: travnik is masculine, so pokošen. Pokošena is feminine.",
+                "de": "Das Partizip richtet sich wie ein Adjektiv: travnik ist männlich, also pokošen. Pokošena ist weiblich.",
+                "it": "Il participio concorda come un aggettivo: travnik è maschile, quindi pokošen. Pokošena è femminile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Pokošena? Trava, ja. Ampak travnik?",
+                "en": "Mown, feminine? The grass, yes. But the meadow?",
+                "de": "Gemäht, weiblich? Das Gras, ja. Aber die Wiese?",
+                "it": "Falciata? L'erba, sì. Ma il prato?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi s številkami, {learner}!",
+            "en": "How's that? Tell me in numbers, {learner}!",
+            "de": "Wie bitte? Sag's mir in Zahlen, {learner}!",
+            "it": "Come? Dimmelo coi numeri, {learner}!"
+          }
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Če bo deževalo, ga ne bova mogla obesiti. Mokro seno na toplarju gnije. Kdaj začneva?",
+          "en": "If it rains, we won't be able to hang it. Wet hay rots on the toplar. When do we start?",
+          "de": "Wenn es regnet, können wir es nicht aufhängen. Nasses Heu fault auf dem Toplar. Wann fangen wir an?",
+          "it": "Se piove, non potremo appenderlo. Il fieno bagnato marcisce sul toplar. Quando cominciamo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Začniva takoj, da bi končala pred dežjem.",
+              "en": "Let's start right away, so that we finish before the rain.",
+              "de": "Fangen wir sofort an, damit wir vor dem Regen fertig sind.",
+              "it": "Cominciamo subito, così finiamo prima della pioggia.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako se govori! Ti vile, jaz voz. Ena, dva, tri, gremo!",
+                "en": "That's the spirit! You take the fork, I'll take the cart. One, two, three, let's go!",
+                "de": "So ist's recht! Du die Gabel, ich den Wagen. Eins, zwei, drei, los!",
+                "it": "Così si parla! Tu il forcone, io il carro. Uno, due, tre, via!"
+              }
+            },
+            {
+              "sl": "Začniva takoj, ker bi končala pred dežjem.",
+              "en": "Let's start right away, because we'd finish before the rain.",
+              "de": "Fangen wir sofort an, weil wir vor dem Regen fertig wären.",
+              "it": "Cominciamo subito, perché finiremmo prima della pioggia.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Finishing before the rain is the aim, not the cause: da bi (so that). Ker is the cause (because).",
+                "de": "Vor dem Regen fertig zu sein ist das Ziel, nicht der Grund: da bi (damit). Ker ist der Grund (weil).",
+                "it": "Finire prima della pioggia è lo scopo, non la causa: da bi (affinché). Ker è la causa (perché)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ker bi končala? … Saj še nisva začela!",
+                "en": "Because we'd finish? … We haven't even started!",
+                "de": "Weil wir fertig wären? … Wir haben doch noch gar nicht angefangen!",
+                "it": "Perché finiremmo? … Ma se non abbiamo neanche cominciato!"
+              }
+            },
+            {
+              "sl": "Začniva takoj, da bi končava pred dežjem.",
+              "en": "Let's start right away, so that we finish (present after bi) before the rain.",
+              "de": "Fangen wir sofort an, damit wir vor dem Regen fertig sind (Präsens nach bi).",
+              "it": "Cominciamo subito, così finiamo (presente dopo bi) prima della pioggia.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Da bi (so that) takes the conditional's l-form, as every bi does: da bi končala. Končava is the present.",
+                "de": "Da bi (damit) verlangt die l-Form des Konditionals, wie jedes bi: da bi končala. Končava ist das Präsens.",
+                "it": "Da bi (affinché) vuole la forma in -l del condizionale, come ogni bi: da bi končala. Končava è il presente."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Končava? … Prav, ampak najprej začniva, ne?",
+                "en": "We finish? … All right, but let's start first, shall we?",
+                "de": "Wir sind fertig? … Gut, aber erst fangen wir an, oder?",
+                "it": "Finiamo? … Va bene, ma prima cominciamo, no?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi s številkami, {learner}!",
+            "en": "How's that? Tell me in numbers, {learner}!",
+            "de": "Wie bitte? Sag's mir in Zahlen, {learner}!",
+            "it": "Come? Dimmelo coi numeri, {learner}!"
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Vidiš? Sosedje smo. Ko delava skupaj, gre dvakrat hitreje.",
+          "en": "You see? We're neighbours. When we work together, it goes twice as fast.",
+          "de": "Siehst du? Wir sind Nachbarn. Wenn wir zusammen arbeiten, geht es doppelt so schnell.",
+          "it": "Vedi? Siamo vicini. Quando lavoriamo insieme, va due volte più veloce."
+        }
+      ]
+    },
+    {
+      "id": "seno-b2-lani",
+      "level": "B2",
+      "memory": {
+        "sl": "seno, ki sva ga peljala trikrat",
+        "en": "the hay we carted in three loads",
+        "de": "das Heu, das wir in drei Fuhren gefahren haben",
+        "it": "il fieno che abbiamo portato in tre viaggi"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Dobro jutro, {learner}. Lani sem predolgo čakal s senom. Ko sem prišel na travnik, ga je bil dež že dvakrat namočil.",
+          "en": "Good morning, {learner}. Last year I waited too long with the hay. By the time I got to the meadow, the rain had soaked it twice already.",
+          "de": "Guten Morgen, {learner}. Letztes Jahr habe ich mit dem Heu zu lange gewartet. Als ich auf die Wiese kam, hatte der Regen es schon zweimal durchnässt.",
+          "it": "Buongiorno, {learner}. L'anno scorso ho aspettato troppo col fieno. Quando sono arrivato al prato, la pioggia l'aveva già bagnato due volte."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ko ste prišli, je bilo seno že zgnilo?",
+              "en": "By the time you came, the hay had already rotted?",
+              "de": "Als Sie kamen, war das Heu schon verfault?",
+              "it": "Quando è arrivato, il fieno era già marcito?",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Pol ga je bilo. Druga polovica je dišala kot stara klet.",
+                "en": "Half of it had. The other half smelled like an old cellar.",
+                "de": "Die Hälfte. Die andere Hälfte roch wie ein alter Keller.",
+                "it": "Metà sì. L'altra metà sapeva di cantina vecchia."
+              }
+            },
+            {
+              "sl": "Ko ste prišli, seno je bilo že zgnilo?",
+              "en": "By the time you came, the hay had (word order) already rotted?",
+              "de": "Als Sie kamen, das Heu war schon verfault (Wortstellung)?",
+              "it": "Quando è arrivato, il fieno era già marcito (ordine delle parole)?",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "A clause in front takes the first place, so the main clause goes on with its short words: ko ste prišli, je bilo seno že zgnilo.",
+                "de": "Ein Nebensatz vorn nimmt den ersten Platz ein, also geht der Hauptsatz mit seinen kurzen Wörtern weiter: ko ste prišli, je bilo seno že zgnilo.",
+                "it": "Una subordinata in testa occupa il primo posto, quindi la principale continua con le sue parole brevi: ko ste prišli, je bilo seno že zgnilo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? … Besede so ti padle z voza, {learner}.",
+                "en": "Hm? … Your words fell off the cart, {learner}.",
+                "de": "Hm? … Dir sind die Wörter vom Wagen gefallen, {learner}.",
+                "it": "Mm? … Ti sono cadute le parole dal carro, {learner}."
+              }
+            },
+            {
+              "sl": "Ko ste prišli, bo bilo seno že zgnilo?",
+              "en": "By the time you came, the hay will have rotted?",
+              "de": "Als Sie kamen, wird das Heu schon verfault sein?",
+              "it": "Quando è arrivato, il fieno sarà già marcito?",
+              "grammar": "predpreteklik",
+              "why": {
+                "en": "It all happened last year: before you came the hay had rotted, je bilo zgnilo, the past before the past. Bo is the future.",
+                "de": "Das war alles letztes Jahr: bevor Sie kamen, war das Heu verfault, je bilo zgnilo, die Vorvergangenheit. Bo ist das Futur.",
+                "it": "È successo tutto l'anno scorso: prima che arrivasse, il fieno era marcito, je bilo zgnilo, il trapassato. Bo è il futuro."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Bo? Lani, {learner}, lani! Ne prihodnje leto, upam.",
+                "en": "Will have? Last year, {learner}, last year! Not next year, I hope.",
+                "de": "Wird? Letztes Jahr, {learner}, letztes Jahr! Nicht nächstes, hoffe ich.",
+                "it": "Sarà? L'anno scorso, {learner}, l'anno scorso! Non il prossimo, spero."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi s številkami, {learner}!",
+            "en": "How's that? Tell me in numbers, {learner}!",
+            "de": "Wie bitte? Sag's mir in Zahlen, {learner}!",
+            "it": "Come? Dimmelo coi numeri, {learner}!"
+          }
+        },
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Letos poslušam radio in koleno. Radio pravi, da bo lepo, koleno pa, da bo dež.",
+          "en": "This year I listen to the radio and to my knee. The radio says it'll be fine, the knee that it'll rain.",
+          "de": "Dieses Jahr höre ich auf das Radio und auf mein Knie. Das Radio sagt, es wird schön, das Knie, es kommt Regen.",
+          "it": "Quest'anno ascolto la radio e il ginocchio. La radio dice che farà bello, il ginocchio che pioverà."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Radio se lahko zmoti, koleno pa redko. Raje ga spraviva danes.",
+              "en": "The radio can be wrong, a knee seldom is. Let's get it in today.",
+              "de": "Das Radio kann sich irren, ein Knie selten. Bringen wir es lieber heute ein.",
+              "it": "La radio può sbagliare, il ginocchio di rado. Meglio metterlo al riparo oggi.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Prav imaš. Moje koleno je točnejše od radia.",
+                "en": "Ha! You're right. My knee is more reliable than the radio.",
+                "de": "Ha! Recht hast du. Mein Knie ist genauer als das Radio.",
+                "it": "Ah! Hai ragione. Il mio ginocchio è più preciso della radio."
+              }
+            },
+            {
+              "sl": "Potem počakajva do jutri. Radio ima vedno prav.",
+              "en": "Then let's wait until tomorrow. The radio is always right.",
+              "de": "Dann warten wir bis morgen. Das Radio hat immer recht.",
+              "it": "Allora aspettiamo fino a domani. La radio ha sempre ragione.",
+              "why": {
+                "en": "France learned last year what waiting costs: weigh his knee against the radio, don't send him back into the same mistake.",
+                "de": "France hat letztes Jahr gelernt, was Warten kostet: wäge sein Knie gegen das Radio ab, statt ihn denselben Fehler machen zu lassen.",
+                "it": "France ha imparato l'anno scorso quanto costa aspettare: metti sulla bilancia il ginocchio e la radio, non rimandarlo nello stesso errore."
+              },
+              "reply": {
+                "face": "worried",
+                "sl": "Vedno? … Lani je tudi imel prav, pa sem izgubil pol sena.",
+                "en": "Always? … Last year it was right too, and I lost half the hay.",
+                "de": "Immer? … Letztes Jahr hatte es auch recht, und ich habe das halbe Heu verloren.",
+                "it": "Sempre? … Anche l'anno scorso aveva ragione, e ho perso metà del fieno."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi s številkami, {learner}!",
+            "en": "How's that? Tell me in numbers, {learner}!",
+            "de": "Wie bitte? Sag's mir in Zahlen, {learner}!",
+            "it": "Come? Dimmelo coi numeri, {learner}!"
+          }
+        },
+        {
+          "who": "france",
+          "face": "curious",
+          "sl": "Na voz gre deset kopic, na travniku jih je trideset. Kolikokrat bova peljala?",
+          "en": "Ten haycocks go on the cart, and there are thirty on the meadow. How many times will we drive?",
+          "de": "Zehn Heuhaufen passen auf den Wagen, auf der Wiese sind dreißig. Wie oft müssen wir fahren?",
+          "it": "Sul carro stanno dieci mucchi, sul prato ce ne sono trenta. Quante volte dovremo andare?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Trikrat. Do kosila bo vse pod streho.",
+              "en": "Three times. By lunch it'll all be under the roof.",
+              "de": "Dreimal. Bis zum Mittagessen ist alles unter Dach.",
+              "it": "Tre volte. Per pranzo sarà tutto al coperto.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Trikrat, tako je! Sedem, sedem … ne, tri, tri!",
+                "en": "Three times, that's right! Seven, seven … no, three, three!",
+                "de": "Dreimal, genau! Sieben, sieben … nein, drei, drei!",
+                "it": "Tre volte, giusto! Sette, sette … no, tre, tre!"
+              }
+            },
+            {
+              "sl": "Tretjič. Do kosila bo vse pod streho.",
+              "en": "The third time. By lunch it'll all be under the roof.",
+              "de": "Das dritte Mal. Bis zum Mittagessen ist alles unter Dach.",
+              "it": "La terza volta. Per pranzo sarà tutto al coperto.",
+              "grammar": "stevniki",
+              "why": {
+                "en": "When counting how often, it's trikrat (three times). Tretjič is the third time, one of them.",
+                "de": "Beim Zählen, wie oft, heißt es trikrat (dreimal). Tretjič ist das dritte Mal, eines davon.",
+                "it": "Contando quante volte si dice trikrat (tre volte). Tretjič è la terza volta, una di esse."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Tretjič? … Saj še prvič nisva peljala!",
+                "en": "The third time? … We haven't even gone once!",
+                "de": "Das dritte Mal? … Wir sind ja noch nicht einmal das erste Mal gefahren!",
+                "it": "La terza volta? … Ma se non siamo andati neanche la prima!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi s številkami, {learner}!",
+            "en": "How's that? Tell me in numbers, {learner}!",
+            "de": "Wie bitte? Sag's mir in Zahlen, {learner}!",
+            "it": "Come? Dimmelo coi numeri, {learner}!"
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Hvala, {learner}. Sosedje smo, ampak ti si že skoraj družina.",
+          "en": "Thank you, {learner}. We're neighbours, but you're almost family now.",
+          "de": "Danke, {learner}. Wir sind Nachbarn, aber du gehörst schon fast zur Familie.",
+          "it": "Grazie, {learner}. Siamo vicini, ma tu ormai sei quasi di famiglia."
+        }
+      ]
+    },
+    {
+      "id": "stebri-b1-strela",
+      "level": "B1",
+      "memory": {
+        "sl": "hrast, ki ga je podrla burja",
+        "en": "the oak the burja brought down",
+        "de": "die Eiche, die die Bora umgeworfen hat",
+        "it": "la quercia abbattuta dalla bora"
+      },
+      "lines": [
+        {
+          "who": "tone",
+          "face": "thinking",
+          "sl": "Jutro. Ta steber je počil. Ponoči je udarila strela. Nov hrast rabim.",
+          "en": "Morning. This post has cracked. Lightning struck in the night. I need a new oak.",
+          "de": "Morgen. Dieser Pfosten ist gesprungen. In der Nacht hat der Blitz eingeschlagen. Ich brauche eine neue Eiche.",
+          "it": "Giorno. Questo palo si è spaccato. Stanotte è caduto un fulmine. Mi serve una quercia nuova."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pri potoku leži podrt hrast. Burja ga je podrla.",
+              "en": "There's a fallen oak by the stream. The burja brought it down.",
+              "de": "Am Bach liegt eine umgestürzte Eiche. Die Bora hat sie umgeworfen.",
+              "it": "Vicino al ruscello c'è una quercia caduta. L'ha abbattuta la bora.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Hrast. Dobro. Suh?",
+                "en": "Oak. Good. Dry?",
+                "de": "Eiche. Gut. Trocken?",
+                "it": "Quercia. Bene. Secca?"
+              }
+            },
+            {
+              "sl": "Pri potoku leži podran hrast. Burja ga je podrla.",
+              "en": "There's a fallen (a wrong form) oak by the stream. The burja brought it down.",
+              "de": "Am Bach liegt eine umgestürzte (falsche Form) Eiche. Die Bora hat sie umgeworfen.",
+              "it": "Vicino al ruscello c'è una quercia caduta (forma sbagliata). L'ha abbattuta la bora.",
+              "grammar": "trpnik",
+              "why": {
+                "en": "Podreti makes its participle in -t, as odpreti → odprt: podrt hrast. Podran isn't a form.",
+                "de": "Podreti bildet sein Partizip auf -t, wie odpreti → odprt: podrt hrast. Podran gibt es nicht.",
+                "it": "Podreti forma il participio in -t, come odpreti → odprt: podrt hrast. Podran non esiste."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Podran? Hm. Ne poznam. Ali je prav, ali ni.",
+                "en": "Podran? Hm. Don't know it. Either it's right or it isn't.",
+                "de": "Podran? Hm. Kenne ich nicht. Entweder ist es richtig oder nicht.",
+                "it": "Podran? Mm. Non la conosco. O è giusto, o non lo è."
+              }
+            },
+            {
+              "sl": "Pri potoku leži podrt hrast. Burja ga je podrl.",
+              "en": "There's a fallen oak by the stream. The burja (masculine) brought it down.",
+              "de": "Am Bach liegt eine umgestürzte Eiche. Die Bora (männlich) hat sie umgeworfen.",
+              "it": "Vicino al ruscello c'è una quercia caduta. L'ha abbattuta (maschile) la bora.",
+              "grammar": "pretekli-cas",
+              "why": {
+                "en": "The l-form agrees with its subject: burja is feminine, so ga je podrla. Podrl is masculine.",
+                "de": "Die l-Form richtet sich nach dem Subjekt: burja ist weiblich, also ga je podrla. Podrl ist männlich.",
+                "it": "La forma in -l concorda col soggetto: burja è femminile, quindi ga je podrla. Podrl è maschile."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Podrl? Kdo? Burja ni moški.",
+                "en": "He brought down? Who? The burja's no man.",
+                "de": "Er hat umgeworfen? Wer? Die Bora ist kein Mann.",
+                "it": "L'ha abbattuto lui? Chi? La bora non è un uomo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "en": "Hm? Again. Slowly.",
+            "de": "Hm? Noch mal. Langsam.",
+            "it": "Mm? Di nuovo. Piano."
+          }
+        },
+        {
+          "who": "tone",
+          "sl": "Suh mora biti. Moker les poči. Kdaj ga lahko pripeljeva?",
+          "en": "It has to be dry. Wet wood cracks. When can we bring it over?",
+          "de": "Trocken muss sie sein. Nasses Holz springt. Wann können wir sie herbringen?",
+          "it": "Deve essere secca. Il legno bagnato si spacca. Quando la possiamo portare?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jutri zjutraj, če mi bo France posodil Sivka.",
+              "en": "Tomorrow morning, if France lends me Sivko.",
+              "de": "Morgen früh, wenn France mir Sivko leiht.",
+              "it": "Domattina, se France mi presta Sivko.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Sivka. Dober konj. Star, ampak močan. Kot jaz.",
+                "en": "Sivko. A good horse. Old, but strong. Like me.",
+                "de": "Sivko. Ein gutes Pferd. Alt, aber stark. Wie ich.",
+                "it": "Sivko. Un buon cavallo. Vecchio, ma forte. Come me."
+              }
+            },
+            {
+              "sl": "Jutri zjutraj, če mi bo France posodil Sivko.",
+              "en": "Tomorrow morning, if France lends me Sivko (nominative).",
+              "de": "Morgen früh, wenn France mir Sivko (Nominativ) leiht.",
+              "it": "Domattina, se France mi presta Sivko (nominativo).",
+              "grammar": "sklanjatev-moski",
+              "why": {
+                "en": "Sivko is a horse, alive: a living masculine's accusative is like its genitive, posodil Sivka (as Marko → Marka). Sivko is the nominative.",
+                "de": "Sivko ist ein Pferd, lebendig: der Akkusativ eines belebten Maskulinums ist wie sein Genitiv, posodil Sivka (wie Marko → Marka). Sivko ist der Nominativ.",
+                "it": "Sivko è un cavallo, un essere vivo: l'accusativo di un maschile animato è come il genitivo, posodil Sivka (come Marko → Marka). Sivko è il nominativo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Sivko posodi? Komu? Hm. Ne razumem.",
+                "en": "Sivko lends? To whom? Hm. Don't follow.",
+                "de": "Sivko leiht? Wem? Hm. Versteh ich nicht.",
+                "it": "Sivko presta? A chi? Mm. Non capisco."
+              }
+            },
+            {
+              "sl": "Jutri zjutraj, če me bo France posodil Sivka.",
+              "en": "Tomorrow morning, if France lends me (accusative) Sivko.",
+              "de": "Morgen früh, wenn France mich (Akkusativ) Sivko leiht.",
+              "it": "Domattina, se France mi (accusativo) presta Sivko.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Posoditi (to lend) takes the dative of who gets it: mi. Me is the accusative, as if France were lending you.",
+                "de": "Posoditi (leihen) verlangt den Dativ dessen, der es bekommt: mi. Me ist der Akkusativ, als würde France dich verleihen.",
+                "it": "Posoditi (prestare) vuole il dativo di chi riceve: mi. Me è l'accusativo, come se France prestasse te."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Tebe posodi? France? Komu pa?",
+                "en": "Lends you? France? To whom?",
+                "de": "Dich verleihen? France? An wen denn?",
+                "it": "Presta te? France? E a chi?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "en": "Hm? Again. Slowly.",
+            "de": "Hm? Noch mal. Langsam.",
+            "it": "Mm? Di nuovo. Piano."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "proud",
+          "sl": "Prav. Ob šestih pri potoku. Ne zamudi.",
+          "en": "Right. Six o'clock by the stream. Don't be late.",
+          "de": "Gut. Um sechs am Bach. Komm nicht zu spät.",
+          "it": "Va bene. Alle sei al ruscello. Non fare tardi."
+        }
+      ]
+    },
+    {
+      "id": "stebri-b2-lata",
+      "level": "B2",
+      "memory": {
+        "sl": "lato, ki sem jo narobe pribil",
+        "en": "the lath I nailed on wrong",
+        "de": "die Latte, die ich falsch angenagelt habe",
+        "it": "il listello che ho inchiodato male"
+      },
+      "lines": [
+        {
+          "who": "tone",
+          "sl": "Jutro. Ta lata visi.",
+          "en": "Morning. This lath is hanging loose.",
+          "de": "Morgen. Diese Latte hängt lose.",
+          "it": "Giorno. Questo listello penzola."
+        },
+        {
+          "who": "tone",
+          "face": "sad",
+          "sl": "Moja je. Ko smo ga postavljali. Narobe sem jo pribil.",
+          "en": "It's mine. When we were putting it up. I nailed it on wrong.",
+          "de": "Die ist von mir. Als wir ihn aufgestellt haben. Ich habe sie falsch angenagelt.",
+          "it": "È mio. Quando lo stavamo montando. L'ho inchiodato male."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tudi najboljšemu se kdaj zalomi.",
+              "en": "Even the best of us gets it wrong sometimes.",
+              "de": "Auch dem Besten geht mal etwas schief.",
+              "it": "Anche al migliore capita di sbagliare.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Hm. Mogoče. Tončka pravi isto.",
+                "en": "Hm. Maybe. Tončka says the same.",
+                "de": "Hm. Vielleicht. Tončka sagt dasselbe.",
+                "it": "Mm. Forse. Tončka dice lo stesso."
+              }
+            },
+            {
+              "sl": "Tudi najboljši se kdaj zalomi.",
+              "en": "Even the best (nominative) goes wrong sometimes.",
+              "de": "Auch der Beste (Nominativ) geht mal schief.",
+              "it": "Anche il migliore (nominativo) a volte va storto.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Zalomiti se (to go wrong) has no subject for the person: it takes the dative of whom it happens to, najboljšemu se zalomi.",
+                "de": "Zalomiti se (schiefgehen) hat die Person nicht als Subjekt: es verlangt den Dativ dessen, dem es passiert, najboljšemu se zalomi.",
+                "it": "Zalomiti se (andare storto) non ha la persona come soggetto: vuole il dativo di chi ci incappa, najboljšemu se zalomi."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Najboljši se zalomi? Kje? Jaz sem cel.",
+                "en": "The best breaks? Where? I'm in one piece.",
+                "de": "Der Beste bricht? Wo? Ich bin ganz.",
+                "it": "Il migliore si spezza? Dove? Io sono tutto intero."
+              }
+            },
+            {
+              "sl": "Potem jo pustiva, kot je.",
+              "en": "Then let's leave it as it is.",
+              "de": "Dann lassen wir sie, wie sie ist.",
+              "it": "Allora lasciamolo com'è.",
+              "why": {
+                "en": "Tone can't bear a job half right: offer comfort or help, never leaving it wrong.",
+                "de": "Tone erträgt keine halbe Arbeit: biete Trost oder Hilfe an, lass es nie falsch.",
+                "it": "Tone non sopporta un lavoro fatto a metà: offri conforto o aiuto, mai lasciarlo sbagliato."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Kot je? Ne. Ali je prav, ali ni.",
+                "en": "As it is? No. Either it's right or it isn't.",
+                "de": "Wie sie ist? Nein. Entweder ist es richtig oder nicht.",
+                "it": "Com'è? No. O è giusto, o non lo è."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "en": "Hm? Again. Slowly.",
+            "de": "Hm? Noch mal. Langsam.",
+            "it": "Mm? Di nuovo. Piano."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "thinking",
+          "sl": "Če bi bil takrat vzel daljše žeblje, bi zdaj držala. Ali je prav, ali ni.",
+          "en": "If I'd taken longer nails back then, it would hold now. Either it's right or it isn't.",
+          "de": "Hätte ich damals längere Nägel genommen, würde sie jetzt halten. Entweder ist es richtig oder nicht.",
+          "it": "Se allora avessi preso chiodi più lunghi, adesso terrebbe. O è giusto, o non lo è."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Bi mi pokazali, kako se pravilno pribije lata?",
+              "en": "Would you show me how a lath is nailed on properly?",
+              "de": "Würden Sie mir zeigen, wie man eine Latte richtig annagelt?",
+              "it": "Mi mostrerebbe come si inchioda bene un listello?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Pokažem. Trije žeblji, poševno. Tako drži sto let.",
+                "en": "I'll show you. Three nails, at a slant. That way it holds a hundred years.",
+                "de": "Zeig ich dir. Drei Nägel, schräg. So hält es hundert Jahre.",
+                "it": "Te lo mostro. Tre chiodi, di sbieco. Così tiene cent'anni."
+              }
+            },
+            {
+              "sl": "Bi mi pokazali, kako se pravilno pobije lata?",
+              "en": "Would you show me how a lath is properly knocked down (or killed)?",
+              "de": "Würden Sie mir zeigen, wie man eine Latte richtig erschlägt?",
+              "it": "Mi mostrerebbe come si abbatte (o si uccide) bene un listello?",
+              "grammar": "predpone",
+              "why": {
+                "en": "Both verbs are perfective, but the prefix gives the meaning: pri- is on, attached, pribiti (nail on). Pobiti is to knock down, or to kill.",
+                "de": "Beide Verben sind vollendet, aber die Vorsilbe gibt die Bedeutung: pri- heißt an, pribiti (annageln). Pobiti heißt umschlagen oder töten.",
+                "it": "Tutti e due i verbi sono perfettivi, ma il prefisso dà il senso: pri- è attaccare, pribiti (inchiodare). Pobiti è abbattere, o uccidere."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Pobije? Hm. Lata ni volk.",
+                "en": "Kill it? Hm. A lath's no wolf.",
+                "de": "Erschlagen? Hm. Eine Latte ist kein Wolf.",
+                "it": "Ucciderlo? Mm. Un listello non è un lupo."
+              }
+            },
+            {
+              "sl": "Bi mi pokazal, kako se pravilno pribije lata?",
+              "en": "Would you (ti) show me how a lath is nailed on properly?",
+              "de": "Würdest du mir zeigen, wie man eine Latte richtig annagelt?",
+              "it": "Mi mostreresti come si inchioda bene un listello?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Tone says ti to you but expects vi back: bi mi pokazali, the plural l-form. Pokazal is ti.",
+                "de": "Tone sagt ti zu dir, erwartet aber vi: bi mi pokazali, die l-Form im Plural. Pokazal ist ti.",
+                "it": "Tone ti dà del ti ma si aspetta il vi: bi mi pokazali, la forma in -l al plurale. Pokazal è il ti."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Pokazal? Hm. Nisva skupaj krav pasla.",
+                "en": "Show, ti? Hm. We didn't herd cows together.",
+                "de": "Du? Hm. Wir haben nicht zusammen Kühe gehütet.",
+                "it": "Del tu? Mm. Non abbiamo pascolato le mucche insieme."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "en": "Hm? Again. Slowly.",
+            "de": "Hm? Noch mal. Langsam.",
+            "it": "Mm? Di nuovo. Piano."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "happy",
+          "sl": "Dobro. Jutri ob šestih. Prinesi kladivo.",
+          "en": "Good. Tomorrow at six. Bring a hammer.",
+          "de": "Gut. Morgen um sechs. Bring einen Hammer mit.",
+          "it": "Bene. Domani alle sei. Porta un martello."
         }
       ]
     }

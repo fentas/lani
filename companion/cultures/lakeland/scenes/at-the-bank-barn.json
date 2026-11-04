@@ -10,7 +10,7 @@
  },
  "emoji": "🏚️",
  "level": "A2",
- "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not reviewed by a native speaker",
+ "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not native-checked; B1, B2 variants too",
  "art": "field",
  "from": [
   "project:toplar"
@@ -181,6 +181,8 @@
    "chance": 0.5,
    "dialog": "stores",
    "dialogs": [
+    "stores-b2-roof",
+    "stores-b1-mice",
     "stores-count",
     "stores"
    ],
@@ -348,6 +350,8 @@
    "chance": 0.4,
    "dialog": "walk",
    "dialogs": [
+    "walk-b2-path",
+    "walk-b1-barn",
     "walk-hare",
     "walk"
    ],
@@ -2162,6 +2166,78 @@
      "de": "So, ich geh dann. Pass auf die Hasen auf dem Heimweg auf!"
     }
    ]
-  }
+  },
+    {
+      "id": "stores-b2-roof", "level": "B2",
+      "memory": {"en": "the twelve sacks and the roof over them", "sl": "dvanajst vreč in streho nad njimi", "it": "i dodici sacchi e il tetto sopra di loro", "de": "die zwölf Säcke und das Dach darüber"},
+      "lines": [
+        {"who": "tyson", "face": "thinking", "en": "Morning, {learner}. Twelve sacks of oats for the village, and we eat three a month. How long will they last?", "sl": "Jutro, {learner}. Dvanajst vreč ovsa za vas, na mesec jih pojemo tri. Koliko časa bodo zdržale?", "it": "Buongiorno, {learner}. Dodici sacchi d'avena per il villaggio, e ne mangiamo tre al mese. Quanto dureranno?", "de": "Morgen, {learner}. Zwölf Säcke Hafer fürs Dorf, und wir essen drei im Monat. Wie lange reichen sie?"},
+        { "choices": [
+          {"en": "Four months. By then we'll have used every last oat.", "sl": "Štiri mesece. Do takrat bomo porabili vsako zrno.", "it": "Quattro mesi. Per allora avremo usato fino all'ultimo chicco.", "de": "Vier Monate. Bis dahin werden wir jedes Haferkorn verbraucht haben.", "ok": true, "reply": {"face": "proud", "en": "Four. Spot on. You'd make a miller yet.", "sl": "Štiri. Točno. Iz tebe bo še mlinar.", "it": "Quattro. Esatto. Saresti un buon mugnaio.", "de": "Vier. Genau. Aus dir wird noch ein Müller."}},
+          {"en": "Four months. By then we'll have use every last oat.", "sl": "Štiri mesece. Do takrat bomo porabili vsako zrno.", "it": "Quattro mesi. Per allora avremo usato fino all'ultimo chicco.", "de": "Vier Monate. Bis dahin werden wir jedes Haferkorn verbraucht haben.", "grammar": "future-perfect", "why": {"en": "Will have takes the participle: we'll have used. It says what will be done by a certain time.", "sl": "Will have zahteva deležnik: we'll have used. Pove, kaj bo do določenega časa že narejeno.", "it": "Will have vuole il participio: we'll have used. Dice che cosa sarà fatto entro un certo momento.", "de": "Will have braucht das Partizip: we'll have used. Es sagt, was bis zu einem Zeitpunkt erledigt sein wird."}, "reply": {"face": "confused", "en": "Will have use? Count your words again, {m:lad|f:lass}.", "sl": "Will have use? Še enkrat preštej besede.", "it": "Will have use? Ricontale, quelle parole, {m:ragazzo|f:ragazza}.", "de": "Will have use? Zähl deine Wörter noch mal, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "face": "worried", "en": "But the roof leaks over the last three sacks. If the rain gets in, we'll have porridge in the sacks.", "sl": "Ampak streha pušča nad zadnjimi tremi vrečami. Če pride noter dež, bomo imeli kašo kar v vrečah.", "it": "Ma il tetto perde sopra gli ultimi tre sacchi. Se entra la pioggia, avremo il porridge già nei sacchi.", "de": "Aber über den letzten drei Säcken tropft das Dach. Wenn der Regen reinkommt, haben wir den Porridge schon im Sack."},
+        {"who": "tyson", "face": "curious", "en": "I'm too old for ladders these days. What would you do?", "sl": "Za lestve sem danes prestar. Kaj bi {m:naredil|f:naredila} ti?", "it": "Sono troppo vecchio per le scale ormai. Tu cosa faresti?", "de": "Für Leitern bin ich heute zu alt. Was würdest du tun?"},
+        { "choices": [
+          {"en": "I'd have the roof mended before the autumn rain.", "sl": "{m:Dal|f:Dala} bi popraviti streho pred jesenskim dežjem.", "it": "Farei riparare il tetto prima delle piogge d'autunno.", "de": "Ich würde das Dach vor dem Herbstregen reparieren lassen.", "ok": true, "reply": {"face": "happy", "en": "Aye. Sam's handy with a ladder. I'll ask him this afternoon.", "sl": "Ja. Sam je spreten z lestvijo. Popoldne ga vprašam.", "it": "Sì. Sam se la cava con le scale. Glielo chiedo oggi pomeriggio.", "de": "Ja. Sam kann gut mit Leitern. Ich frag ihn heute Nachmittag."}},
+          {"en": "I'd have the roof mend before the autumn rain.", "sl": "{m:Dal|f:Dala} bi popraviti streho pred jesenskim dežjem.", "it": "Farei riparare il tetto prima delle piogge d'autunno.", "de": "Ich würde das Dach vor dem Herbstregen reparieren lassen.", "grammar": "have-it-done", "why": {"en": "Have + the thing + the participle: have the roof mended. Someone else does the mending.", "sl": "Have + stvar + deležnik: have the roof mended. Popravi jo nekdo drug.", "it": "Have + la cosa + il participio: have the roof mended. La riparazione la fa qualcun altro.", "de": "Have + die Sache + Partizip: have the roof mended. Jemand anderer repariert es."}, "reply": {"face": "confused", "en": "The roof mend? It won't do that by itself, {m:lad|f:lass}.", "sl": "The roof mend? Sama se pa ne bo popravila.", "it": "The roof mend? Da solo non lo farà, {m:ragazzo|f:ragazza}.", "de": "The roof mend? Von allein macht es das nicht, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Twelve sacks dry, one roof mended, porridge for four months. Thank you, {m:lad|f:lass}.", "sl": "Prav. Dvanajst suhih vreč, ena popravljena streha, kaša za štiri mesece. Hvala.", "it": "Bene. Dodici sacchi asciutti, un tetto riparato, porridge per quattro mesi. Grazie, {m:ragazzo|f:ragazza}.", "de": "Gut. Zwölf trockene Säcke, ein repariertes Dach, Porridge für vier Monate. Danke, {m:Junge|f:Mädchen}."}
+      ]
+    },
+    {
+      "id": "stores-b1-mice", "level": "B1",
+      "memory": {"en": "the gap under the barn door and the mice", "sl": "špranjo pod vrati skednja in miši", "it": "la fessura sotto la porta del fienile e i topi", "de": "den Spalt unter der Scheunentür und die Mäuse"},
+      "lines": [
+        {"who": "tyson", "face": "worried", "en": "Morning, {learner}. Twelve sacks of oats came yesterday, and two have holes in them already. Mice.", "sl": "Jutro, {learner}. Včeraj je prišlo dvanajst vreč ovsa in dve sta že luknjasti. Miši.", "it": "Buongiorno, {learner}. Ieri sono arrivati dodici sacchi d'avena, e due sono già bucati. Topi.", "de": "Morgen, {learner}. Gestern kamen zwölf Säcke Hafer, und zwei haben schon Löcher. Mäuse."},
+        {"who": "tyson", "face": "curious", "en": "How do you think they got in?", "sl": "Kaj misliš, kako so prišle noter?", "it": "Come pensi che siano entrati?", "de": "Was meinst du, wie sind sie reingekommen?"},
+        { "choices": [
+          {"en": "There must be a gap under the door.", "sl": "Pod vrati mora biti špranja.", "it": "Ci dev'essere una fessura sotto la porta.", "de": "Unter der Tür muss ein Spalt sein.", "ok": true, "reply": {"face": "happy", "en": "A gap. You might be right. Let's have a look.", "sl": "Špranja. Morda imaš prav. Poglejva.", "it": "Una fessura. Potresti avere ragione. Diamo un'occhiata.", "de": "Ein Spalt. Du könntest recht haben. Schauen wir mal."}},
+          {"en": "There must to be a gap under the door.", "sl": "Pod vrati mora biti špranja.", "it": "Ci dev'essere una fessura sotto la porta.", "de": "Unter der Tür muss ein Spalt sein.", "grammar": "might-must", "why": {"en": "Must, might and can't take the base form with no to: there must be.", "sl": "Must, might in can't zahtevajo osnovno obliko brez to: there must be.", "it": "Must, might e can't vogliono la forma base senza to: there must be.", "de": "Must, might und can't nehmen die Grundform ohne to: there must be."}, "reply": {"face": "curious", "en": "Must to be? I count one word too many there, {m:lad|f:lass}.", "sl": "Must to be? Naštejem eno besedo preveč.", "it": "Must to be? Conto una parola di troppo, {m:ragazzo|f:ragazza}.", "de": "Must to be? Ich zähle ein Wort zu viel, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "face": "thinking", "en": "Here it is. A gap as wide as my thumb. The door's old, and the wood has shrunk.", "sl": "Tukaj je. Špranja, široka kot moj palec. Vrata so stara in les se je skrčil.", "it": "Eccola. Una fessura larga come il mio pollice. La porta è vecchia e il legno si è ristretto.", "de": "Da ist er. Ein Spalt, so breit wie mein Daumen. Die Tür ist alt, und das Holz ist geschrumpft."},
+        { "choices": [
+          {"en": "The door isn't tight enough to keep the mice out.", "sl": "Vrata ne tesnijo dovolj, da bi zadržala miši zunaj.", "it": "La porta non chiude abbastanza bene da tenere fuori i topi.", "de": "Die Tür ist nicht dicht genug, um die Mäuse draußen zu halten.", "ok": true, "reply": {"face": "proud", "en": "Exactly. One new board at the bottom, and no mouse gets past.", "sl": "Natanko. Ena nova deska spodaj in nobena miš ne pride mimo.", "it": "Esatto. Un'asse nuova in fondo, e nessun topo passa.", "de": "Genau. Ein neues Brett unten, und keine Maus kommt durch."}},
+          {"en": "The door isn't enough tight to keep the mice out.", "sl": "Vrata ne tesnijo dovolj, da bi zadržala miši zunaj.", "it": "La porta non chiude abbastanza bene da tenere fuori i topi.", "de": "Die Tür ist nicht dicht genug, um die Mäuse draußen zu halten.", "grammar": "too-enough", "why": {"en": "Enough comes after an adjective: tight enough. Before a noun it comes first: enough wood.", "sl": "Enough stoji za pridevnikom: tight enough. Pred samostalnikom stoji spredaj: enough wood.", "it": "Enough va dopo l'aggettivo: tight enough. Davanti a un nome va prima: enough wood.", "de": "Enough steht nach dem Adjektiv: tight enough. Vor einem Nomen steht es davor: enough wood."}, "reply": {"face": "laugh", "en": "Two words the wrong way round, like my socks today.", "sl": "Dve besedi narobe, kot moje nogavice danes.", "it": "Due parole al contrario, come i miei calzini oggi.", "de": "Zwei Wörter verkehrt herum, wie meine Socken heute."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Ten good sacks upstairs, one new board for the door. Thank you, {m:lad|f:lass}.", "sl": "Prav. Deset dobrih vreč zgoraj, ena nova deska za vrata. Hvala.", "it": "Bene. Dieci sacchi buoni di sopra, un'asse nuova per la porta. Grazie, {m:ragazzo|f:ragazza}.", "de": "Gut. Zehn gute Säcke oben, ein neues Brett für die Tür. Danke, {m:Junge|f:Mädchen}."}
+      ]
+    },
+    {
+      "id": "walk-b2-path", "level": "B2",
+      "memory": {"en": "the path the volunteers were rebuilding", "sl": "pot, ki so jo prostovoljci obnavljali", "it": "il sentiero che i volontari stavano rifacendo", "de": "den Weg, den die Freiwilligen neu gebaut haben"},
+      "lines": [
+        {"who": "sam", "face": "curious", "en": "Now then, {learner}! See those new stone steps going up the fell? What's going on up there, do you reckon?", "sl": "Živijo, {learner}! Vidiš tiste nove kamnite stopnice na hribu? Kaj se tam gori dogaja, kaj misliš?", "it": "Ehilà, {learner}! Vedi quei gradini di pietra nuovi su per il monte? Che succede lassù, secondo te?", "de": "Na, {learner}! Siehst du die neuen Steinstufen den Berg hinauf? Was ist da oben wohl los?"},
+        { "choices": [
+          {"en": "It looks like the path is being repaired.", "sl": "Videti je, da pot popravljajo.", "it": "Sembra che stiano riparando il sentiero.", "de": "Es sieht so aus, als würde der Weg repariert.", "ok": true, "reply": {"face": "happy", "en": "Aye. By volunteers, and every stone carried up by hand.", "sl": "Ja. Prostovoljci, in vsak kamen so nesli gor na roke.", "it": "Sì. Dai volontari, e ogni pietra portata su a mano.", "de": "Ja. Von Freiwilligen, und jeder Stein von Hand hinaufgetragen."}},
+          {"en": "It looks like the path is repairing.", "sl": "Videti je, da pot popravljajo.", "it": "Sembra che stiano riparando il sentiero.", "de": "Es sieht so aus, als würde der Weg repariert.", "grammar": "passive-more", "why": {"en": "The path doesn't do the work: it is being repaired, be + being + the participle.", "sl": "Pot ne dela sama: it is being repaired, be + being + deležnik.", "it": "Il sentiero non fa il lavoro da sé: it is being repaired, be + being + il participio.", "de": "Der Weg arbeitet nicht selbst: it is being repaired, be + being + Partizip."}, "reply": {"face": "laugh", "en": "The path's repairing? Clever path, mending itself!", "sl": "The path's repairing? Pametna pot, kar sama se krpa!", "it": "The path's repairing? Che sentiero furbo, si aggiusta da solo!", "de": "The path's repairing? Schlauer Weg, flickt sich selbst!"}}
+        ] },
+        {"who": "sam", "face": "thinking", "en": "The old path had been washed away so badly that walkers were making a new one through the bracken.", "sl": "Stara pot je bila tako izprana, da so si pohodniki delali novo skozi praprot.", "it": "Il vecchio sentiero era stato così dilavato che gli escursionisti se ne facevano uno nuovo tra le felci.", "de": "Der alte Weg war so ausgewaschen, dass sich die Wanderer einen neuen durchs Farnkraut gemacht haben."},
+        {"who": "sam", "face": "curious", "en": "I'd help them, but the brewing takes every weekend. And you?", "sl": "Rad bi jim pomagal, ampak varjenje mi vzame vsak konec tedna. Pa ti?", "it": "Li aiuterei, ma la birra mi prende ogni fine settimana. E tu?", "de": "Ich würde ihnen helfen, aber das Brauen frisst jedes Wochenende. Und du?"},
+        { "choices": [
+          {"en": "Me too. I wish I had more time for things like that.", "sl": "Jaz tudi. Ko bi le {m:imel|f:imela} več časa za take stvari.", "it": "Anch'io. Vorrei avere più tempo per cose così.", "de": "Ich auch. Ich wünschte, ich hätte mehr Zeit für so was.", "ok": true, "reply": {"face": "happy", "en": "Maybe one Saturday, then. The two of us and a bag of stones.", "sl": "Morda pa eno soboto. Midva in vreča kamnov.", "it": "Magari un sabato, allora. Noi due e un sacco di pietre.", "de": "Vielleicht mal an einem Samstag. Wir zwei und ein Sack Steine."}},
+          {"en": "Me too. I wish I have more time for things like that.", "sl": "Jaz tudi. Ko bi le {m:imel|f:imela} več časa za take stvari.", "it": "Anch'io. Vorrei avere più tempo per cose così.", "de": "Ich auch. Ich wünschte, ich hätte mehr Zeit für so was.", "grammar": "wish-if-only", "why": {"en": "Wish takes a past for what isn't so: I wish I had. Have would say you do.", "sl": "Wish zahteva preteklik za tisto, kar ni res: I wish I had. Have bi pomenilo, da ga imaš.", "it": "Wish vuole il passato per ciò che non è così: I wish I had. Have direbbe che ce l'hai.", "de": "Wish nimmt die Vergangenheit für das, was nicht so ist: I wish I had. Have hieße, du hast sie."}, "reply": {"face": "confused", "en": "You wish you have? Have you got time or not, then?", "sl": "You wish you have? Imaš čas ali ne?", "it": "You wish you have? Ce l'hai il tempo o no?", "de": "You wish you have? Hast du nun Zeit oder nicht?"}}
+        ] },
+        {"who": "sam", "face": "happy", "en": "Right, I'm off up. If you see the volunteers, tell them Sam's bringing ginger beer!", "sl": "No, grem gor. Če vidiš prostovoljce, jim povej, da Sam prinese ingverjevo pivo!", "it": "Bene, io salgo. Se vedi i volontari, di' loro che Sam porta la ginger beer!", "de": "So, ich geh hoch. Wenn du die Freiwilligen siehst, sag ihnen, Sam bringt Ingwerbier!"}
+      ]
+    },
+    {
+      "id": "walk-b1-barn", "level": "B1",
+      "memory": {"en": "the barn my grandad kept his cows in", "sl": "skedenj, v katerem je moj ded imel krave", "it": "il fienile dove mio nonno teneva le mucche", "de": "die Scheune, in der mein Opa seine Kühe hatte"},
+      "lines": [
+        {"who": "sam", "face": "happy", "en": "Now then, {learner}! You look busy. How long have you been in the barn today?", "sl": "Živijo, {learner}! Videti si {m:zaposlen|f:zaposlena}. Koliko časa si danes že v skednju?", "it": "Ehilà, {learner}! Sembri {m:indaffarato|f:indaffarata}. Da quanto sei nel fienile oggi?", "de": "Na, {learner}! Du siehst beschäftigt aus. Wie lange bist du heute schon in der Scheune?"},
+        { "choices": [
+          {"en": "I've been sorting the hay since ten o'clock.", "sl": "Seno urejam že od desetih.", "it": "Sistemo il fieno dalle dieci.", "de": "Ich sortiere seit zehn Uhr das Heu.", "ok": true, "reply": {"face": "laugh", "en": "Since ten? Then you've earned a walk. Come up the fell with me!", "sl": "Od desetih? Potem si si {m:zaslužil|f:zaslužila} sprehod. Pridi z mano na hrib!", "it": "Dalle dieci? Allora ti sei {m:meritato|f:meritata} una passeggiata. Vieni sul monte con me!", "de": "Seit zehn? Dann hast du dir einen Spaziergang verdient. Komm mit auf den Berg!"}},
+          {"en": "I'm sorting the hay since ten o'clock.", "sl": "Seno urejam že od desetih.", "it": "Sistemo il fieno dalle dieci.", "de": "Ich sortiere seit zehn Uhr das Heu.", "grammar": "present-perfect-continuous", "why": {"en": "From a time up to now: have been + -ing. I've been sorting since ten.", "sl": "Od nekega časa do zdaj: have been + -ing. I've been sorting since ten.", "it": "Da un momento fino ad adesso: have been + -ing. I've been sorting since ten.", "de": "Von einem Zeitpunkt bis jetzt: have been + -ing. I've been sorting since ten."}, "reply": {"face": "confused", "en": "Since ten, and still at it now? You've lost me, {learner}.", "sl": "Od desetih, in še zdaj? Zdaj si me pa {m:zmedel|f:zmedla}.", "it": "Dalle dieci, e ancora adesso? Mi sono perso, {learner}.", "de": "Seit zehn, und immer noch? Da komm ich nicht mit, {learner}."}}
+        ] },
+        {"who": "sam", "face": "thinking", "en": "My grandad used to keep his cows in this barn. The cows downstairs, the hay upstairs.", "sl": "Moj ded je imel v tem skednju krave. Krave spodaj, seno zgoraj.", "it": "Mio nonno teneva le mucche in questo fienile. Le mucche di sotto, il fieno di sopra.", "de": "Mein Opa hatte früher seine Kühe in dieser Scheune. Die Kühe unten, das Heu oben."},
+        {"who": "sam", "face": "curious", "en": "Was there a barn like this where you grew up?", "sl": "Je bil tam, kjer si {m:odraščal|f:odraščala}, tudi tak skedenj?", "it": "C'era un fienile così dove sei {m:cresciuto|f:cresciuta}?", "de": "Gab es so eine Scheune, wo du aufgewachsen bist?"},
+        { "choices": [
+          {"en": "No, but my grandparents used to have a big wooden barn.", "sl": "Ne, ampak moja stara starša sta včasih imela velik lesen skedenj.", "it": "No, ma i miei nonni avevano un grande fienile di legno.", "de": "Nein, aber meine Großeltern hatten früher eine große Holzscheune.", "ok": true, "reply": {"face": "happy", "en": "Wooden! Ours are stone, every one. Too much rain for wood up here.", "sl": "Lesen! Naši so vsi kamniti. Tu gori je preveč dežja za les.", "it": "Di legno! I nostri sono tutti di pietra. Quassù piove troppo per il legno.", "de": "Aus Holz! Unsere sind alle aus Stein. Hier oben regnet's zu viel für Holz."}},
+          {"en": "No, but my grandparents were used to have a big wooden barn.", "sl": "Ne, ampak moja stara starša sta včasih imela velik lesen skedenj.", "it": "No, ma i miei nonni avevano un grande fienile di legno.", "de": "Nein, aber meine Großeltern hatten früher eine große Holzscheune.", "grammar": "used-to", "why": {"en": "For what was so and isn't now: used to + the base form. Be used to + -ing means it's normal for you.", "sl": "Za tisto, kar je bilo in ni več: used to + osnovna oblika. Be used to + -ing pomeni, da ti je nekaj običajno.", "it": "Per ciò che era così e ora non lo è: used to + la forma base. Be used to + -ing vuol dire che per te è normale.", "de": "Für das, was so war und nicht mehr ist: used to + Grundform. Be used to + -ing heißt, es ist für dich normal."}, "reply": {"face": "confused", "en": "Were used to? Did they get used to it, then? I'm lost.", "sl": "Were used to? So se ga navadili? Ne razumem.", "it": "Were used to? Ci si erano abituati? Non capisco.", "de": "Were used to? Haben sie sich daran gewöhnt? Ich versteh's nicht."}}
+        ] },
+        {"who": "sam", "face": "happy", "en": "Come on, then. Leave the hay for an hour. The fell's waiting.", "sl": "Daj no. Pusti seno za eno uro. Hrib čaka.", "it": "Dai, allora. Lascia il fieno per un'ora. Il monte ci aspetta.", "de": "Komm schon. Lass das Heu eine Stunde liegen. Der Berg wartet."}
+      ]
+    }
  ]
 }
