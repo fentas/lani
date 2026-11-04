@@ -214,9 +214,11 @@ object TurnHints {
             val w = form.gap.word.lowercase()
             TurnHint(pages, right = setOf(w), forms = form.wrong.mapNotNull { Forms.wordAt(texts[it], form.gap.slot)?.lowercase() }.toSet() + w)
         } else {
-            // no one word: the words its right choices say and not every choice does (a tap turn's place, "vrati")
+            // no one word: the words its right choices say and not every choice does (a tap turn's place, "vrati"); the small
+            // words every rule names side by side aren't the answer: a preposition, and in German its own table's (GermanHints.small)
             val common = texts.map { Forms.words(it).toSet() }.reduce { a, b -> a intersect b }
-            fun own(t: String) = Forms.words(t).filter { it !in common && it.length >= 3 && !CaseTriggers.isPreposition(it) }.toSet()
+            val small: (String) -> Boolean = if (language == "de") GermanHints::small else CaseTriggers::isPreposition
+            fun own(t: String) = Forms.words(t).filter { it !in common && it.length >= 3 && !small(it) }.toSet()
             val r = c.filter { it.ok }.flatMap { own(it.sl) }.toSet()
             TurnHint(pages, right = r, forms = r + texts.flatMap { own(it) })
         }

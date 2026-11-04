@@ -291,7 +291,7 @@ class GermanHintTest {
             L10n.pair = LangPair(Lang.DE, base)
             val table = L10n.table(base)
             assertTrue("gesessen" in table.getValue("hint.de.rulePerfekt"))
-            assertTrue("wegen dem Regen" in table.getValue("hint.de.rulePraepGen"))
+            assertTrue("wegen dem Sturm" in table.getValue("hint.de.rulePraepGen"))
             assertTrue("Perfekt" in table.getValue("hint.de.rulePraeteritum"))
             assertTrue("von" in table.getValue("hint.de.ruleGenitiv"))
         }

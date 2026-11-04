@@ -140,6 +140,13 @@ object GermanHints {
         return id to base.copy(question = rule.question, rule = rule.text, trigger = trigger, models = rule.models)
     }
 
+    /**
+     * The small words a rule names side by side (the preposition, the article, the pronoun, the helper: mit, dem, mir, hätte):
+     * at a turn of whole phrases they aren't its answer, as a preposition isn't Slovene's: du and Sie are what the rule of du
+     * and Sie is about, and the card can't say it without them. A turn of one word's form keeps every form ([TurnHint.forms]).
+     */
+    fun small(w: String): Boolean = w in T.prepositions || w in T.fused || w in T.determiners || w in T.pronouns || w in T.relative || w in HELPERS
+
     /** What decides the form of the word at [slot] of [sentence], by the first of [looks] that finds it; null for none. */
     fun triggerOf(looks: List<Look>, sentence: String, slot: Int, h: TurnHint, names: Set<String> = emptySet()): Trigger? {
         val s = Said(sentence, names)
