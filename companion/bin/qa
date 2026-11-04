@@ -16824,7 +16824,9 @@ def open_settings(section: str | None = None):
     assert tap(SETTINGS, 4), "Home's ⚙️"
     assert wait_for("⚙️ Nastavitve · Settings", 8), "the settings"
     if section:
-        assert tap(SETTINGS_SECTIONS[section], 4), f"the settings' {section}"
+        row = wait_for(SETTINGS_SECTIONS[section], 4) or scroll_to(SETTINGS_SECTIONS[section], 3)  # the last rows, below the fold on a phone
+        assert row, f"the settings' {section}"
+        tap_at(row)
         assert wait_for("‹ Nastavitve · Settings", 6), f"the settings' {section} page"
 
 
