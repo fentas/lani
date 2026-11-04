@@ -8,6 +8,7 @@ import si.lanisce.lani.tutor.DictionaryText
 import si.lanisce.lani.tutor.Guide
 import si.lanisce.lani.tutor.PhaseA
 import si.lanisce.lani.tutor.ReplyData
+import si.lanisce.lani.tutor.ReplyCheck
 import si.lanisce.lani.tutor.ReportCheck
 import si.lanisce.lani.tutor.Schema
 import si.lanisce.lani.tutor.ShadowReply
@@ -17,6 +18,7 @@ import si.lanisce.lani.tutor.ToolOutcome
 import si.lanisce.lani.tutor.ToolRunner
 import si.lanisce.lani.tutor.ToolSpec
 import si.lanisce.lani.tutor.ToolUse
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -70,6 +72,12 @@ class LiveTools(
     /** The turn's dictionary_lookup calls whose result came back. */
     private val lookups = AtomicInteger()
 
+    /** The turn's dictionary_lookup and get_grammar calls that answered ([ReplyCheck]). */
+    private val read = AtomicInteger()
+
+    /** A reply of the turn went back once ([ReplyCheck]). */
+    private val returned = AtomicBoolean()
+
     /** The turn's record_session calls (tried: one the node refused counts, the reply then says why). */
     private val recorded = AtomicInteger()
 
@@ -104,12 +112,18 @@ class LiveTools(
                 }
                 "dictionary_lookup" -> lookup(use.input).let { (text, error) ->
                     lookups.incrementAndGet()
+                    if (!error) read.incrementAndGet()
                     out(kind, text, isError = error)
                 }
+                "get_grammar" -> (local[use.name]?.let { f -> f(use).let { (text, error) -> out(kind, text, isError = error) } } ?: node(use, kind, ::out)).also { if (!it.isError) read.incrementAndGet() }
                 "report_problem" -> if (lookups.get() == 0 && ReportCheck.aboutWords(use.input)) out(kind, ReportCheck.LOOK_FIRST, isError = true)
                     else local[use.name]?.let { f -> f(use).let { (text, error) -> out(kind, text, isError = error) } } ?: node(use, kind, ::out)
                 "reply" -> {
                     ReplyData.persistFirst(persist, recorded.get())?.let { return out(kind, it, isError = true) }
+                    ReplyCheck.lookFirst(replyKind?.invoke(use.input.s("conversation_id").orEmpty()), use.input.s("text").orEmpty(), read.get(), returned.get())?.let {
+                        returned.set(true)
+                        return out(kind, it, isError = true)
+                    }
                     val (data, dropped) = ReplyData.clean(use.input["data"] as? JsonObject, replyKind?.invoke(use.input.s("conversation_id").orEmpty()), replyKind != null)
                     val sent = if (dropped == null) use else use.copy(input = JsonObject((use.input - "data") + (data?.let { mapOf("data" to it) } ?: emptyMap())))
                     node(sent, kind) { k, text, error, errors -> out(k, if (dropped != null && !error) "$text ($dropped)" else text, error, errors) }

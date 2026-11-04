@@ -2,6 +2,7 @@ package si.lanisce.lani.tutor
 
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -66,6 +67,10 @@ class ShadowTools(
                 val conv = use.input.s("conversation_id").orEmpty()
                 if (!Regex("""^[\w-]{1,64}$""").matches(conv)) return out(kind, "not sent: conversation_id must be the one from the event", isError = true)
                 ReplyData.persistFirst(persist, recorded.get())?.let { return out(kind, it, isError = true) }
+                ReplyCheck.lookFirst(replyKind?.invoke(conv), use.input.s("text").orEmpty(), read.get(), returned.get())?.let {
+                    returned.set(true)
+                    return out(kind, it, isError = true)
+                }
                 val (data, dropped) = ReplyData.clean(use.input["data"] as? JsonObject, replyKind?.invoke(conv), replyKind != null)
                 onReply(ShadowReply(conv, use.input.s("text").orEmpty(), clock(), data))
                 out(kind, "delivered" + (dropped?.let { " ($it)" } ?: ""))
@@ -74,6 +79,7 @@ class ShadowTools(
                 // counted when its result is back: a lookup sent with the report in one message (its result not read yet)
                 // doesn't count, since the report, with no I/O, ends first
                 if (use.name == "dictionary_lookup") lookups.incrementAndGet()
+                if (!it.isError && (use.name == "dictionary_lookup" || use.name == "get_grammar")) read.incrementAndGet()
                 out(kind, it.text, isError = it.isError)
             }
             ToolKind.WRITE -> {
@@ -111,6 +117,12 @@ class ShadowTools(
     /** The turn's dictionary_lookup calls whose result came back (tool calls of one message run together). */
     private val lookups = AtomicInteger()
 
+    /** The turn's dictionary_lookup and get_grammar calls that answered ([ReplyCheck]). */
+    private val read = AtomicInteger()
+
+    /** A reply of the turn went back once ([ReplyCheck]). */
+    private val returned = AtomicBoolean()
+
     /** The turn's record_session calls. */
     private val recorded = AtomicInteger()
 
@@ -123,6 +135,36 @@ class ShadowTools(
         /** A result kept in the log is cut here (the model got it whole). */
         const val RECORD = 4_000
     }
+}
+
+/**
+ * A chat's reply that makes a claim about language (the matrix's second scoring, 2026-11-04: five of six chat errors, "-ost is
+ * always feminine" among them, had no lookup, and the rule was only prompt): it goes back to the tutor once when the turn
+ * read nothing to back it, and goes through the next time, so it can't hold a reply up. By what such a claim says, in the
+ * learner's base: a word's gender, its ending, its class.
+ */
+object ReplyCheck {
+    private val CLAIM = Regex(
+        """\b(femin\w*|mascul\w*|neuter|ends? (in|with)|endings?|is an? (noun|verb|adjective|adverb)|""" +
+            """maskulin\w*|neutrum|endet auf|endung\w*|ist ein(e|) (substantiv|verb|adjektiv|adverb)|""" +
+            """femminil\w*|maschil\w*|neutro|finisce in|termina in|desinenz\w*|è un (sostantivo|verbo|aggettivo|avverbio)|""" +
+            """ženskega spola|moškega spola|srednjega spola|končnic\w*|konča (se )?na|je (samostalnik|glagol|pridevnik|prislov))\b""",
+        RegexOption.IGNORE_CASE,
+    )
+
+    const val LOOK_FIRST =
+        "not sent: this reply says what a word's gender, ending or class is, and nothing was looked up in this turn. Check it " +
+            "first (dictionary_lookup, or get_grammar for the book's rule), then reply again. Sent as it is the next time."
+
+    /** Whether [text] claims something a lookup should back. */
+    fun claims(text: String): Boolean = CLAIM.containsMatchIn(text)
+
+    /**
+     * Why a reply of [kind] saying [text] goes back: only a chat's, with [read] lookups and grammar pages read this turn,
+     * while it hasn't gone back already ([returned]); null when it may go.
+     */
+    fun lookFirst(kind: String?, text: String, read: Int, returned: Boolean): String? =
+        if (kind == "chat" && read == 0 && !returned && claims(text)) LOOK_FIRST else null
 }
 
 /**

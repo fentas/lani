@@ -92,4 +92,21 @@ class ReplyDataTest {
         assertEquals(listOf("r", "s"), m[2].blocks().map { it["tool_use_id"]!!.jsonPrimitive.content })
         assertFalse(m[2].blocks().first().toString().contains("is_error"))
     }
+
+    @Test fun `a chat's reply about a word's gender, ending or class goes back once without a lookup`() {
+        val claims = listOf(
+            "*-ost* is always feminine.", "It ends in *-u* here.", "The ending is *-a*.", "*hitro* is an adverb.", "Das Wort ist maskulin.", "Die Endung ist -a.",
+            "È femminile.", "Finisce in -a.", "Beseda je ženskega spola.", "Končnica je -a.", "Hitro je prislov.",
+        )
+        for (c in claims) {
+            assertEquals(c, ReplyCheck.LOOK_FIRST, ReplyCheck.lookFirst("chat", c, read = 0, returned = false))
+            assertNull(c, ReplyCheck.lookFirst("chat", c, read = 1, returned = false)) // it looked something up
+            assertNull(c, ReplyCheck.lookFirst("chat", c, read = 0, returned = true)) // once: it can't hold a reply up
+            assertNull(c, ReplyCheck.lookFirst("answer", c, read = 0, returned = false)) // only a chat's
+            assertNull(c, ReplyCheck.lookFirst(null, c, read = 0, returned = false)) // the studio's, a digest's
+        }
+        for (plain in listOf("Great work today! 🎉", "Your reviews are done.", "Bravo, das war richtig.", "Dober dan! Kako si?", "Your friend sent a gift.", "I'll send it at the end of the day.")) {
+            assertNull(plain, ReplyCheck.lookFirst("chat", plain, read = 0, returned = false))
+        }
+    }
 }

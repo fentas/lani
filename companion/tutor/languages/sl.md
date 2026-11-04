@@ -17,6 +17,10 @@ points, trebati.
   *v Trnovem* a rule for every neuter.
 - **The dual past participle:** masculine *-la* (*midva sva šla*, *sta delala*), feminine and neuter *-li* (*midve sva
   šli*, *sta delali*). *šla* is never a feminine dual.
+- ***s* or *z*:** *s* before a voiceless consonant (p, t, k, f, h, c, č, s, š: *s kamni*, *s kruhom*, *s tabo*), *z* before
+  anything else, vowels too (*z mlekom*, *z Ano*): SP2001, *s*; the grammar book's page *orodnik*.
+- **A noun in *-ost* made from an adjective is feminine** (*mladost*, *starost*), not every word that ends so: *most* and
+  *gost* are masculine.
 - **What speech-to-text and home bring:** *u vasi* for *v vasi* in a speaking item's text (*v* sounds like *u* before a
   consonant), *nasvidanje* for *na svidenje* from home.
 

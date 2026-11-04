@@ -237,6 +237,41 @@ privacy note stays.
 first turn after the update (the prefix's hash), as after any prompt change. Its HTML comments are for maintainers and
 never sent (`Prefix.bundled`).
 
+## The second scoring (2026-11-04)
+
+The matrix's lanes scored again on Jan's events, by the penalty method: 32 events, one reader, each lane and dimension 5 less
+its penalties (a settled wrong claim −0.5, a narrower one −0.25, a claim the real tutor made too −0.1, a clear fault of tools,
+habits, teaching, context or tone −0.25, a small one −0.1), rounded to 0.5, then summed. Anything spoken and labelled so, register,
+regional claims, dry runs as such and the *rad kot vedno* artefact (below) weren't scored.
+
+| Lane | Σ of 35 |
+|---|---|
+| Opus 5.5 · xhigh | 32.8 |
+| GPT-6 Astra · xhigh | 32.7 |
+| GPT-6.1 Sol · xhigh | 32.2 |
+| Opus 5.5 · high | 32.1 |
+| GPT-6 Astra · high | 32.05 |
+| Opus 5.5 · medium (anchor) | 31.85 |
+| Sonnet 5.5 · xhigh (anchor) | 28.25 |
+
+Read it as "about 32-33" for the five new lanes, with no order among them: one reader, and the gaps are within what one reader's
+judgment moves. The anchors are the first scoring's lanes, read again by the same method. The presets stay as they are.
+
+What it found, and what was done:
+
+| Found | Done |
+|---|---|
+| 5 of 6 chat errors had no `dictionary_lookup`; the check covered `report_problem` only | `ReplyCheck` (`tutor/ShadowTools.kt`, used by `ShadowTools` and `LiveTools`): a chat's reply that says a word's gender, ending or class goes back once when the turn read neither a lookup nor a grammar page, and goes through the second time, so it can't hold a reply up. Rule 13 says so, and "always", "every" and "never" need it most. |
+| Sonnet at xhigh writes replies as text (8 of 32, Tools 2 of 5). The app rescues them; the rule says the tool | Rule 1: never end a turn on plain text. Prompt only: forcing the tool isn't possible with thinking on, and a second call for each would cost more than the rescue. To be read again at the next scoring. |
+| A lane reads the primary's notebook and corrects sentences it never wrote (*rad kot vedno*) | `TurnText.laneNotebook`: a lane's first message says the notebook is another tutor's, not its words. The live tutor and the primary read their own, unchanged. |
+| Lanes rarely fix a card's fault: only Opus at xhigh forgave *mleko* and regraded *kratek*, all seven missed *grozdje* | Rule 15 names a forms card that asks what the word hasn't got or doesn't offer the right form. The cards themselves are fixed too ([cleanup-code.md](cleanup-code.md), "Forms in their order"). |
+| "-ost is always feminine", in the real tutor too (*most*, *gost* are masculine) | `languages/sl.md`, and the channel guide's "Check before you claim" for a Claude Code session. |
+| "Add X" answered at length, with cards nobody asked for (*manj*, *dovolj*); no `card` find first | Rule 18, and the same paragraph of the channel guide. |
+| *z kamni* | `languages/sl.md`: *s* before a voiceless consonant ([SP2001](https://fran.si/iskanje?View=1&Query=s&FilteredDictionaryIds=134), the grammar book's *orodnik*). |
+
+Not fixed: a `notebook_note` over its 300 characters and a malformed `reply` are each a schema error the tool already returns,
+and the lanes retried. Long replies to small remarks stay rule 2's.
+
 ## Turning it on
 
 1. Pair the phone with a node whose bridge has this round's code (an older one answers 404: "the node needs an update").

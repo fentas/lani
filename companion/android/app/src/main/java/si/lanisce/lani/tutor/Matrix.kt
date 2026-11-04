@@ -545,7 +545,7 @@ class ShadowMatrix(
             val fresh = th.messages.isEmpty()
             val shown = TurnText.shownOf(host.real(th.day), th.shownUntil, events.minOfOrNull { it.at } ?: now(), t.eventIds)
             val blocks = buildList {
-                if (fresh) add(textBlock(TurnText.notebook(host.notebook)))
+                if (fresh) add(textBlock(TurnText.laneNotebook(host.notebook)))
                 if (fresh) TurnText.lines("Yesterday in brief:", th.yesterday.takeLast(12)).takeIf { it.isNotEmpty() }?.let { add(textBlock(it)) }
                 TurnText.shown(shown, zone()).takeIf { it.isNotEmpty() }?.let { add(textBlock(it)) }
                 add(textBlock(TurnText.now(now(), zone(), host.where())))

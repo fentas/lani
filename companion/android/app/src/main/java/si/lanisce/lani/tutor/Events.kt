@@ -153,6 +153,13 @@ object TurnText {
         if (n.text.isBlank()) "<notebook>\n(empty: nothing written yet. Start one from learner_state and what you learn today.)\n</notebook>"
         else "<notebook updated=\"${Instant.ofEpochMilli(n.updatedAt)}\">\n${n.text}\n</notebook>"
 
+    /**
+     * The notebook as a lane of the matrix reads it: the primary's, said outright (the second scoring, 2026-11-04: a lane
+     * took a sentence in it for its own and corrected *rad kot vedno*, which it never wrote).
+     */
+    fun laneNotebook(n: NotebookState): String =
+        "This notebook is another tutor's. What it says the learner wrote or was told is not your words: read it to know them, and never correct or retract it.\n" + notebook(n)
+
     fun lines(title: String, lines: List<String>): String = if (lines.isEmpty()) "" else "$title\n" + lines.joinToString("\n") { "- $it" }
 
     /**

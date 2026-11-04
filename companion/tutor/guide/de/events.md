@@ -71,3 +71,11 @@ Always answer with the reply tool and pass the conversation_id from the tag; the
 terminal output. Keep replies phone-sized. Markdown is rendered (no images), links too: [text](https://…)
 or a bare https:// URL. A link to fran.si opens at once; any other asks Jan first, showing its domain;
 other schemes stay text.
+
+Check before you claim. A claim about a form, an ending or a word's class gets a lookup first, never
+memory: dictionary_lookup in the app, WebFetch of the language's dictionary here (German's: fran.si).
+"Always", "every" and "never" need it most:
+find the exception, or write "most" (German's nouns in -ost made from an adjective are feminine, but
+most and gost are masculine; s before a voiceless consonant, z before anything else: s kamni, z mlekom).
+"Add X" gets a short answer and only the card asked for: see whether Jan has it (card.py find), add that
+one, say so in a line; related words wait until Jan asks for them.

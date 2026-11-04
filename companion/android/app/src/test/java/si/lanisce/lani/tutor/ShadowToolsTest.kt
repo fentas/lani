@@ -204,6 +204,22 @@ class ShadowToolsTest {
         "what_is_wrong" to "The key takes vedve, which isn't in the dictionary; it should be vidve.",
     )
 
+    @Test fun `a chat's claim goes back once, and a lookup or a grammar page lets it through`() {
+        val said = "*-ost* is always feminine."
+        fun chat() = ShadowTools(specs, { name, _ -> ReadResult("{\"read\": \"$name\"}") }, Guide(), notebook, onReply = { replies += it }, replyKind = { "chat" })
+        fun reply(t: ShadowTools) = runBlocking { t.run(ToolUse("toolu_r", "reply", obj("conversation_id" to "c-1", "text" to said))) }
+        val once = chat()
+        assertEquals(ReplyCheck.LOOK_FIRST, reply(once).content)
+        assertTrue(replies.isEmpty())
+        assertFalse(reply(once).isError)
+        assertEquals(said, replies.single().text)
+        for (read in listOf("dictionary_lookup" to "word", "get_grammar" to "id")) {
+            val t = chat()
+            assertFalse(runBlocking { t.run(ToolUse("toolu_l", read.first, obj(read.second to "most"))) }.isError)
+            assertFalse(reply(t).isError)
+        }
+    }
+
     @Test fun `a report about a word fails without a lookup earlier in the turn`() {
         val o = use("report_problem", *vedve)
         assertTrue(o.isError)
