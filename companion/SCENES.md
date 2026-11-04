@@ -1483,7 +1483,7 @@ without a dialog plays the step as the practice it always was (`GameEngine.proje
 `project-steps/` and serves a project's pack as a plain one (it strips `project`); an older app bundles the packs it was
 built with: the content can go out before the code that plays it.
 
-Primorska's 13 projects have every step (78) at A1 and A2. Kärnten's seven of kaernten-projects-a (`mlaj`, `most`,
+The Lake District's 13 projects have every step (78) at A1, A2, B1 and B2 (village-b2-lakeland). Primorska's 13 projects have every step (78) at A1 and A2. Kärnten's seven of kaernten-projects-a (`mlaj`, `most`,
 `mlin`, `balinisce`, `kapelica`, `vinograd`, `cebelji_travnik`) have every step (41) at A1 and A2, in German, their
 packs named in German (`projekt-maibaum` …: a pack's id is one across all the cultures, as the app bundles them in one
 directory); played in Im Wald, on the square (Auf dem Dorfplatz), at the stream bank (kaernten-projects-b's Am Bach), in
