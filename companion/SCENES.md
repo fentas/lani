@@ -565,8 +565,8 @@ the singular), the word that asks for the congiuntivo ("after «Bisogna che»"),
 cui, the verb before an infinitive or its a and di, stare before a gerund, what is liked (piace, piacciono: "with «la
 cioccolata»: one or more decides the verb"), the hour after alle, the place after a, in, da, più before di, a word of
 time (ieri, domani, mentre, all'improvviso). Where nothing shows (a verb's ending without a subject, *Tiro forte!*), the
-rule alone. On the curated Italian turns (2026-11-03) 1,123 have a hint, 1,079 of them a rule or a trigger, and 662 of the
-968 form turns name what decides; `ItalianHintTest` checks that nothing shown or said gives the answer away, and writes
+rule alone. On the curated Italian turns (2026-11-04) 1,131 have a hint, 1,087 of them a rule or a trigger, and 668 of the
+975 form turns name what decides; `ItalianHintTest` checks that nothing shown or said gives the answer away, and writes
 every form turn's first line to build/reports/hints/it.txt for a reader.
 
 **An English turn** (Lakeland; `game/EnglishHints.kt`, since 2026-11-03) has the card from English's own table: every
@@ -584,8 +584,8 @@ noun ("after «two hundred»: more than one"; every: the singular), the noun aft
 is"), a no before any, much or many by the noun, never with a second no ("with «never»: one no is enough in writing"),
 the place or the time after in, on, at, going there after a verb of going, since or for by what follows, a word of time
 (yesterday, now, every day), if in either half, than, the verb before an -ing form. Where nothing shows (an irregular
-past with no time word, *Yes, I ____ it!*), the rule alone. On the curated English turns (2026-11-03) 1,010 have a
-hint, 945 of them a rule or a trigger, and 745 of the 845 form turns name what decides; `EnglishHintTest`
+past with no time word, *Yes, I ____ it!*), the rule alone. On the curated English turns (2026-11-04) 1,018 have a
+hint, 953 of them a rule or a trigger, and 749 of the 852 form turns name what decides; `EnglishHintTest`
 checks that nothing shown or said gives the answer away (in sl, de and it), and writes every form turn's first line to
 build/reports/hints/en.txt.
 

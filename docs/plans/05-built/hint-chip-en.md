@@ -141,7 +141,7 @@ Back: 2 taps and a Back); now the card says it (1 tap). The 🔊: before none at
 ## What changes for Slovene's turns
 
 Measured by `TurnHintTest` (`what the tie and the cast change for Slovene's curated turns`, its report
-build/reports/hints/sl-changes.txt), on Slovene's 1,596 curated turns: the scenes' 885 and Primorska's steps, stories,
+build/reports/hints/sl-changes.txt), on Slovene's 1,604 curated turns: the scenes' and Primorska's steps, stories,
 parties and arrivals:
 - **The tie moves the gap of 20 turns**, 6 in scenes and 14 in steps and stories, each to the word a rule names, from a word
   of meaning: *Super! In ____ kruha za vse.* tested *več* (manj, a meaning) and now tests *kruha* (več kruh, rodilnik-
@@ -149,7 +149,8 @@ parties and arrivals:
   Janez ____ je povedal.* (mi against me, dajalnik; vem against poznam is the meaning); *Ne, hvala, danes ne pijem ____.*
   (vina; Ja against Ne is the meaning); *____ stopnic!* → *Sto ____!*; *Osem ____!* (stebrov); all 20 in the report.
 - **On those turns**, the hint now says the rule (in the scenes: turns with a hint 1,066 → 1,072, saying a rule 1,053 →
-  1,059, case turns with their trigger 459 of 479 → 463 of 483); the gap typed or said is the rule's word; and the turn may
+  1,059, case turns with their trigger 459 of 479 → 463 of 483, all on the same content; with main's level dialogs since:
+  1,080 hints, 1,064 saying a rule); the gap typed or said is the rule's word; and the turn may
   be typed once that rule is secure (before, its form's wrong choice of meaning had no rule, so it was always chosen). A
   learner's trap and the gate of rules not yet read the same word. When the turn is chosen, the choice of meaning stays
   among the choices, as before.
@@ -162,7 +163,8 @@ parties and arrivals:
 
 For Italian (`ItalianHintTest`, on this branch's content): the tie gives the Friuli turns of hint-chip-it's "What's left"
 (119 counted there) their page's gap: 89 more turns have a hint, 1,034 → 1,123; with a rule or a trigger 997 → 1,079;
-form turns naming what decides 596 of 879 → 662 of 968. **The cast adds 3 turns** (build/reports/hints/it-cast.txt): *Giulia
+form turns naming what decides 596 of 879 → 662 of 968, on the same content (with main's level dialogs since: 1,131,
+1,087, 668 of 975). **The cast adds 3 turns** (build/reports/hints/it-cast.txt): *Giulia
 è stanca.*, *Tommaso è più grande di te.*, *Tommaso, attento!* For English **it adds none**: a word at its clause's start
 right before the verb is taken for the subject with or without the cast (*Wilf is the winner!*); the cast only joins a
 title to a name there.
@@ -173,14 +175,14 @@ Over the curated English turns, `EnglishHintTest` (its report: build/reports/hin
 
 | | Turns |
 |---|---|
-| English turns (choices ≥ 2) | 1,634 |
-| with a hint (a page of the book) | 1,010 |
-| with a rule or a trigger on the card | 945 (94 %) |
-| form turns (one word differs) | 845 |
-| naming what decides | 745 (88 %) |
-| the 🔊 says something (the longest about 15 s) | 1,010 |
+| English turns (choices ≥ 2) | 1,642 |
+| with a hint (a page of the book) | 1,018 |
+| with a rule or a trigger on the card | 953 (94 %) |
+| form turns (one word differs) | 852 |
+| naming what decides | 749 (88 %) |
+| the 🔊 says something (the longest about 15 s) | 1,018 |
 
-The same in sl, de and it. By line: who 192, the base form 143, more than one 125, be before the -ing form 46, what there
+The same in sl, de and it. By line, before main's 8 level turns came in: who 192, the base form 143, more than one 125, be before the -ing form 46, what there
 is 42, just one 36, whose it is 23, the -ing form after be 21, said with be 17, needs be 17, the first sound 14, the
 participle 11, some in a yes sentence 11, much or many 9, the place 9, a verb of its own 9, the rest 1 to 3 each.
 
@@ -212,22 +214,22 @@ card that names *I'm*, *can't* or *don't* is left out. Hence the test's 90 %, no
 
 ## Tests
 
-On this branch with main merged (17b7b070e, tests 74c147f42), ports 10710–10729:
+On this branch with main merged (f7633e629), ports 10710–10729:
 - Bridge (only make-learner.ts changed): `bunx tsc --noEmit -p .` clean; `bun build --no-bundle` of make-learner.ts; the smoke
-  3,824 checks, all passed (LANI_SMOKE_PORT 10710, LANI_SMOKE_DRAMA3_PORT 10728); `tutor-export --check` 140 files match.
+  3,873 checks, all passed (LANI_SMOKE_PORT 10710, LANI_SMOKE_DRAMA3_PORT 10728); `tutor-export --check` 140 files match.
 - Python: `python3 -m unittest discover -s tests` 253 OK, `-s companion/tests` 179 OK (11 skipped).
-- App: the full unit suite through lani-slot.sh, 4,141 tests in 523 classes, 0 failures, 2 skipped. Among them:
-  `EnglishHintTest` 14, `ItalianHintTest` 14, `TurnHintTest` 18, `HintSpeechTest` 11 (unchanged), `FormsTest` 7 (unchanged),
-  `L10nTablesTest` 6 (3,481 keys in each table, none unused).
-- Emulator QA, `companion/bin/qa-slot --apk <the merged tree's debug APK> --no-town`, slot 1, no crash:
-  `--steps hint-en` with a synthetic learner (make-learner.ts --target en --base sl, LANI_CULTURE=lakeland,
-  LANI_QA_SETUP_PAIR=en-sl, LANI_QA_PAIR=en-sl): ok; at each of the three turns of Jack's sheep by the beck the card opens
-  with its line in Slovene: "ob «drinking»: pred obliko na -ing pride oblika glagola be", "ob «thirsty»: angleščina to pove
-  z be" and the to-be rule after "Who?", "ob «coming»: …". `--steps hint-it` (make-learner.ts --target it --base de,
-  LANI_CULTURE=friuli, LANI_QA_SETUP_PAIR=it-de), run again since `Forms.turn` and Italian's names changed: ok, its three
-  lines as before. Shots: the session's scratchpad, ux-hint-chip-en/hint-en-1.png to -3.png (the runs' all in
-  companion/qa-shots/20261104-142628 and 20261104-143232). No QA ran on a turn whose gap the tie moved: that is
-  `TurnHintTest` and the report.
+- App: the full unit suite through lani-slot.sh, 4,170 tests in 526 classes, 0 failures, 2 skipped. Among them:
+  `EnglishHintTest` 14, `ItalianHintTest` 14, `TurnHintTest` 18, `HintSpeechTest` 11 (unchanged), `FormsTest` (main's),
+  `L10nTablesTest` 6 (3,493 keys in each table, none unused).
+- Emulator QA, `companion/bin/qa-slot --apk <the tree's debug APK> --no-town`, slot 1, no crash:
+  `--steps hint-en` on f7633e629's APK, with a synthetic learner (make-learner.ts --target en --base sl,
+  LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-sl, LANI_QA_PAIR=en-sl): ok; at each of the three turns of Jack's sheep by the
+  beck the card opens with its line in Slovene: "ob «drinking»: pred obliko na -ing pride oblika glagola be", "ob «thirsty»:
+  angleščina to pove z be" and the to-be rule after "Who?", "ob «coming»: …". `--steps hint-it` on 74c147f42's APK
+  (make-learner.ts --target it --base de, LANI_CULTURE=friuli, LANI_QA_SETUP_PAIR=it-de), run again since `Forms.turn` and
+  Italian's names changed: ok, its three lines as before. Shots: the session's scratchpad, ux-hint-chip-en/hint-en-1.png to
+  -3.png (the runs' all in companion/qa-shots/20261104-173719 and 20261104-143232). No QA ran on a turn whose gap the tie
+  moved: that is `TurnHintTest` and the report.
 
 No line anyone hears was added or changed in the voice store (the new strings are the card's and the 🔊's, said by the
 phone's voice, the English by the app's live voice): a voice build needs 0 characters.
