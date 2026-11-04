@@ -185,26 +185,53 @@ supp-merge.py) and every form of both stayed.
 
 ## Checks
 
-After merging main (1311eeb2a) into the branch:
+On 678029164, with `talks-de` (58a242b06, which carries talks-sl, talks-it and packs-en) and main (377e75772) merged in.
+**The Android suite does not pass there: two failures in `SceneCoherenceTest`, in content from other branches (below).**
 
 - Bridge: `bunx tsc --noEmit -p .`; `bun build --no-bundle` on each changed test file; the smoke with ports 10820–
-  (LANI_SMOKE_DRAMA3_PORT 10838): all 3,780 checks passed. Its scenarios section: the English files by level (five A1,
-  three A2, six B1, six B2), each validating with every text in sl, de, it and en and the title, goals and who in all
-  four; lakeland (`test/smoke/village-talks.ts`, `above`): the smoke's A1 learner served the eight to A2 of twenty and
-  nothing else, `/scenarios/a-statement-for-the-police` 404; at B1 all twenty, the police statement in en · sl ("A
-  statement for the police · Izjava za policijo", "Say precisely when and where it happened · Natančno povej, kdaj in kje
-  se je zgodilo", "The police officer · Policist", the setting and a hint's meaning in Slovene), Mr Dixon, Auntie Edna,
-  Granny Maggie, Mrs Birkett and Shepherd Jack in the cast and playing theirs by name, a turn of the gate talk reaching
-  the tutor with level B1, its role and packs, in English, no child line.
-- `test/check-culture.ts lakeland` and `primorska`: ok. `bun test/learner-content.ts`: no text names Jan, no malformed
-  placeholder. `tutor-export --check`: 140 files match. The supplement validates (`validateExtra`: 2,917 entries, no
-  error); a script over the twelve's lines, phrases and English texts: 0 words unknown (102 before).
-- Android: `TalkTest` (the twenty English files by level; the twelve above A2 in en · sl, en · de and en · it with no
-  gender pair left; the police statement, the jacket and Maggie's trip in their bases; the cast's five by name).
+  (LANI_SMOKE_DRAMA3_PORT 10838): all 4,211 checks passed. Its scenarios section: the English files by level (A1 5, A2 3, B1 6,
+  B2 6), each validating with every text in sl, de, it and en and the title, goals and who in all four; lakeland
+  (`test/smoke/village-talks.ts`, talks-de's `above`): the smoke's A1 learner served the eight to A2 of twenty and nothing
+  else, `/scenarios/a-statement-for-the-police` 404; at B1 all twenty, the police statement in en · sl ("A statement for
+  the police · Izjava za policijo", "Say precisely when and where it happened · Natančno povej, kdaj in kje se je
+  zgodilo", "The police officer · Policist", the setting and a hint's meaning in Slovene), Mr Dixon, Auntie Edna, Granny
+  Maggie, Mrs Birkett and Shepherd Jack in the cast and playing theirs by name, a turn reaching the tutor with its level
+  and packs, in English, no child line. Every pack a talk names is the village's.
+- `test/check-culture.ts lakeland`, `kaernten`, `friuli`, `primorska`: ok. `bun test/learner-content.ts`: no text names
+  Jan, no malformed placeholder. `bun test/prompt-clashes.ts`: no new clash. `tutor-export --check`: 140 files match. The
+  supplement validates (`validateExtra`: 3,373 entries with packs-en's, no error); a script over the twelve's lines,
+  phrases and English texts: 0 words unknown (102 before).
+- Android, the full unit suite through lani-slot.sh: **BUILD FAILED**, 4,240 tests in 535 classes, 2 failures, 2 skipped.
+  `TalkTest` (18) and `CastTest` (19) have none: the twenty English files by level; the twelve above A2 in en · sl,
+  en · de and en · it with no gender pair left; the police statement, the jacket and Maggie's trip in their bases; the
+  cast's five by name. Both failures are `SceneCoherenceTest`, and neither is in a file of this branch:
+  - "a step says on which line its work is done": 257 done lines against the 211 it expects. Main has 211, talks-de 257:
+    the 46 more are Primorska's B1 and B2 steps (village-b2-primorska); the test's sum wasn't raised with them.
+  - "no line tells the learner to look at what isn't there": 22 lines, 20 of them the Lake District's B1 and B2 dialog
+    variants (a21705800 and its parts, dialogs-lakeland, not on main) and 2 Primorska's steps (mlaj/0 B2, most/4 B1). Some
+    only need a review in looks.json ("They both look fine to me", "You look tired, love" mean *seem*), others a cue or
+    a rewrite: an author's call, so they aren't changed here.
+
+  `companion/cultures`, `companion/scenes` and the test resources are the same in talks-de and here, so both should
+  fail on talks-de too, whose doc says its full suite wasn't run after its merges; it wasn't run on talks-de itself here.
+  Before these merges (da750629f) the full suite passed here: 4,113 tests, 0 failures, 2 skipped.
 - Python: `python3 -m unittest discover -s companion/tests` (179, 11 skipped) and `-s tests` (253): OK.
+- QA through `qa-slot` (slot 2), `--steps lakeland-talk` with `LANI_QA_TALK=a-gate-from-the-smithy` on a synthetic Giulia
+  at B1 (en · it), on 678029164: passed, played to its debrief, 3 taps from Home, no crash. Shots in the scratchpad's
+  `ux-talks-en/tip/` and `final/` (`st-*.png`): the list by level with its chips, the intro (Mr Dixon's own sprite at the forge,
+  "Now then, lad. Wanting summat made, are you?", the setting and goals in Italian), the dev tutor's lines above A2, the
+  hint that is the talk's first phrase with its Italian meaning, the correction in the base, the goals, the debrief.
+  **One run didn't count:** after the first merge the step reported `skipped` and qa-slot exit 0: it looked for the label
+  "🗣️ Talk · Conversazione", Home's tile has the two words on lines of their own, and the tile fix (151ea96f8) came to
+  talks-de after that merge. An earlier run before the merges did pass and play the talk; it most likely found that
+  label on a row of Today (TodayCard's HomeAction.Talk, last in Today's list, so more modules and packs push it out),
+  though its shots don't show the row. The result above is read from the step's report line and its shots, not its exit
+  code; with 7c31a2f3f the step now fails when Home has no talk tile.
 
 ## What's left
 
+- **`SceneCoherenceTest`'s two failures** (Checks), which come with talks-de and hold back a green Android suite on this
+  branch and on any merge of it: the sum for village-b2-primorska, the 22 "look" lines for their authors.
 - **The native check** above.
 - No scene leads into the new talks yet ("keep talking" after a dialog): Mr Dixon's smithy dialogs could lead into
   `a-gate-from-the-smithy`, Jack's on the fell into `jack-at-a-crossroads` (talksOffered already drops a link a learner
@@ -226,3 +253,8 @@ Jan before a voice build. Until then the phone's text-to-speech reads them. Noth
 ## Commits
 
 - 903ba3c67 feat(talks): the Lake District's twelve talks at B1 and B2
+- 9adb629f5 test(talks): the smoke, TalkTest, the dev tutor and QA
+- 2aea2a19c fix(talks): five base phrases
+- 35de1513f feat(talks): the talks above A2 name the B1/B2 packs
+- 01b6f83c5, b52e4eedb docs(talks): this page
+- da750629f, 813a00925, ea4a7e53c, af8c13568, e4ae7d487, 678029164 merges of main and talks-de
