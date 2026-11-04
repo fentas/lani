@@ -12,10 +12,10 @@ changes.
 ## Native check (first)
 
 Machine-written (Claude, 2026-11-03): the strings `hint.en.*` and `hintSay.en.*` in sl, en, de, it (`_note_hint_chip_en`
-in each table: 67 rules, their 67 spoken sentences, 45 trigger lines, 4 spoken openers); the 67 pages' English models and
-questions in `game/EnglishHints.kt`. 59 of the rules are the pages' own cards (companion/grammar/en, `card.rule`, in each
+in each table: 67 rules, their 67 spoken sentences, 46 trigger lines, 4 spoken openers); the 67 pages' English models and
+questions in `game/EnglishHints.kt`. 58 of the rules are the pages' own cards (companion/grammar/en, `card.rule`, in each
 base, the markdown taken out), so they say what the book's card says; written for the chip: the four pages without a
-card (future, past-simple, present-perfect, some-any), and four changed from their card: present-simple says *does,
+card (future, past-simple, present-perfect, some-any), and five changed from their card: present-simple says *does,
 watches* where the card says *goes, watches* (the answer of Lakeland's "It goes in the barn"); prepositions-place's
 examples are *in the box, on the shelf, at the station* (the card's *table, fell, tent, inn* are Lakeland's answers);
 to-be adds "be needs no do, does or don't", questions-do "(not alone: I not live)" (both name the wrong form beside the
@@ -81,7 +81,7 @@ Back: 2 taps and a Back); now the card says it (1 tap). The 🔊: before none at
 
 1. **The English table** (`game/EnglishHints.kt`, `EnglishHints.RULES`): the 67 pages of companion/grammar/en, A1 to B2,
    each with its rule in words (`hint.en.rule*`), the 🔊's sentence (`hintSay.en.rule*`), models in English with other
-   words, a question where the page asks one, and what to look for in the sentence, in order (`Look`, 41 kinds).
+   words, a question where the page asks one, and what to look for in the sentence, in order (`Look`, 42 kinds).
 2. **What decides the form** (`EnglishHints.triggerOf`), from word lists, no dictionary, at the turn and offline, and only
    where the sentence shows it plainly: who does it (a subject pronoun, someone, a name, a noun phrase with its determiner,
    a bare noun at its clause's start or after *because*; after the verb in a question that starts with it or with a
@@ -113,7 +113,7 @@ Back: 2 taps and a Back); now the card says it (1 tap). The 🔊: before none at
    names; Italian's and English's `name` take one of them wherever it stands (*Giulia è stanca.*: who: «Giulia»;
    *Giulia, vieni!*: talking to «Giulia»), Slovene's `cues` takes one as who does it, not after a preposition, and two
    joined by *in* together («Micka in Luka»).
-6. **Tests**: `EnglishHintTest` (13): every page's rule, sentence and models in every table; the triggers on the content's
+6. **Tests**: `EnglishHintTest` (14): every page's rule, sentence and models in every table; the triggers on the content's
    own turns; models with no form of the turn; a German base; and over every curated English turn (Lakeland's scenes with
    their counting dialogs at a number of each category, steps, stories, parties, arrivals), in sl, de and it: no line,
    row, title, model or spoken sentence gives the answer away. `TurnHintTest` gains the name and the tie, and a report of
@@ -141,24 +141,31 @@ Back: 2 taps and a Back); now the card says it (1 tap). The 🔊: before none at
 ## What changes for Slovene's turns
 
 Measured by `TurnHintTest` (`what the tie and the cast change for Slovene's curated turns`, its report
-build/reports/hints/sl-changes.txt), on the Slovene scenes' 885 turns:
-- **The tie moves the gap of 6 turns**, each to the word a page names, from a word of meaning: *Super! In ____ kruha za
-  vse.* now tests *kruha* (več kruh, rodilnik-kolicina) rather than *več* (manj, a meaning); *Še veliko ____!* (rok); *Tvoj
-  je ____ konj v vasi!* (najhitrejši, primernik); *Ja, zelo ____ lačen!* (sem); *Ja, poznam ga. Janez ____ je povedal.*
-  (mi against me, dajalnik; vem against poznam is the meaning); *Ne, hvala, danes ne pijem ____.* (vina, rodilnik-
-  nikalnica; Ja against Ne is the meaning). On these the hint now says the rule (the turns with a hint: 1,066 → 1,072;
-  saying a rule: 1,053 → 1,059; case turns with their trigger: 459 of 479 → 463 of 483), the gap typed or said is the
-  rule's word, and the turn may be typed once that rule is secure (before, its form's wrong choice of meaning had no rule,
-  so it was always chosen). The choice of meaning stays a choice when the turn is chosen.
-- **The cast names who does it at 0 of them**: no Slovene curated turn of a person's page (glagoli-sedanjik, biti,
-  imeti-iti, dvojina) has a name of its scene for its subject; a tutor's or a later scene's will ("Micka kuha.": who:
-  «Micka»; «Micka in Luka» for the dual).
+build/reports/hints/sl-changes.txt), on Slovene's 1,596 curated turns: the scenes' 885 and Primorska's steps, stories,
+parties and arrivals:
+- **The tie moves the gap of 20 turns**, 6 in scenes and 14 in steps and stories, each to the word a rule names, from a word
+  of meaning: *Super! In ____ kruha za vse.* tested *več* (manj, a meaning) and now tests *kruha* (več kruh, rodilnik-
+  kolicina); *Še veliko ____!* (rok); *Tvoj je ____ konj v vasi!* (najhitrejši); *Ja, zelo ____ lačen!* (sem); *Ja, poznam ga.
+  Janez ____ je povedal.* (mi against me, dajalnik; vem against poznam is the meaning); *Ne, hvala, danes ne pijem ____.*
+  (vina; Ja against Ne is the meaning); *____ stopnic!* → *Sto ____!*; *Osem ____!* (stebrov); all 20 in the report.
+- **On those turns**, the hint now says the rule (in the scenes: turns with a hint 1,066 → 1,072, saying a rule 1,053 →
+  1,059, case turns with their trigger 459 of 479 → 463 of 483); the gap typed or said is the rule's word; and the turn may
+  be typed once that rule is secure (before, its form's wrong choice of meaning had no rule, so it was always chosen). A
+  learner's trap and the gate of rules not yet read the same word. When the turn is chosen, the choice of meaning stays
+  among the choices, as before.
+- **The cast changes nothing today**: no Slovene curated turn of a person's page (glagoli-sedanjik, biti, imeti-iti, dvojina)
+  has a name of the scene or the village for its subject. A tutor's or a later scene's turn would ("Micka kuha.": who:
+  «Micka»; «Micka in Luka» for the dual: `TurnHintTest`).
 - Nothing else of Slovene's changes: the same rules, models, rows and 🔊 (TurnHintTest's and HintSpeechTest's other
-  checks unchanged).
+  checks unchanged). The count reads a step's or a story's own and its turn's `grammar`; a guess from a why, which scenes
+  have, isn't read there, so a step's count could differ by a turn or two.
 
 For Italian (`ItalianHintTest`, on this branch's content): the tie gives the Friuli turns of hint-chip-it's "What's left"
 (119 counted there) their page's gap: 89 more turns have a hint, 1,034 → 1,123; with a rule or a trigger 997 → 1,079;
-form turns naming what decides 596 of 879 → 662 of 968.
+form turns naming what decides 596 of 879 → 662 of 968. **The cast adds 3 turns** (build/reports/hints/it-cast.txt): *Giulia
+è stanca.*, *Tommaso è più grande di te.*, *Tommaso, attento!* For English **it adds none**: a word at its clause's start
+right before the verb is taken for the subject with or without the cast (*Wilf is the winner!*); the cast only joins a
+title to a name there.
 
 ## Accuracy
 
@@ -194,10 +201,27 @@ card that names *I'm*, *can't* or *don't* is left out. Hence the test's 90 %, no
 - **An irregular past with no time word** (*Yes, I ____ it!*: saw, seed) and **a plural of meaning** (*Yes, I love ____!*:
   jokes, joke) name nothing; the rule alone.
 - **Lakeland's "I have never seen"** (native check 4).
+- **make-learner.ts** stopped for English and German after practice-it-b2 (it read companion/modules/<language>, which they
+  lack): fixed here (adf2f93b5), needed for this QA; hint-chip-de needs it too.
 
 ## Tests
 
-TESTS
+On this branch with main merged (17b7b070e, tests 74c147f42), ports 10710–10729:
+- Bridge (only make-learner.ts changed): `bunx tsc --noEmit -p .` clean; `bun build --no-bundle` of make-learner.ts; the smoke
+  3,824 checks, all passed (LANI_SMOKE_PORT 10710, LANI_SMOKE_DRAMA3_PORT 10728); `tutor-export --check` 140 files match.
+- Python: `python3 -m unittest discover -s tests` 253 OK, `-s companion/tests` 179 OK (11 skipped).
+- App: the full unit suite through lani-slot.sh, 4,141 tests in 523 classes, 0 failures, 2 skipped. Among them:
+  `EnglishHintTest` 14, `ItalianHintTest` 14, `TurnHintTest` 18, `HintSpeechTest` 11 (unchanged), `FormsTest` 7 (unchanged),
+  `L10nTablesTest` 6 (3,481 keys in each table, none unused).
+- Emulator QA, `companion/bin/qa-slot --apk <the merged tree's debug APK> --no-town`, slot 1, no crash:
+  `--steps hint-en` with a synthetic learner (make-learner.ts --target en --base sl, LANI_CULTURE=lakeland,
+  LANI_QA_SETUP_PAIR=en-sl, LANI_QA_PAIR=en-sl): ok; at each of the three turns of Jack's sheep by the beck the card opens
+  with its line in Slovene: "ob «drinking»: pred obliko na -ing pride oblika glagola be", "ob «thirsty»: angleščina to pove
+  z be" and the to-be rule after "Who?", "ob «coming»: …". `--steps hint-it` (make-learner.ts --target it --base de,
+  LANI_CULTURE=friuli, LANI_QA_SETUP_PAIR=it-de), run again since `Forms.turn` and Italian's names changed: ok, its three
+  lines as before. Shots: the session's scratchpad, ux-hint-chip-en/hint-en-1.png to -3.png (the runs' all in
+  companion/qa-shots/20261104-142628 and 20261104-143232). No QA ran on a turn whose gap the tie moved: that is
+  `TurnHintTest` and the report.
 
 No line anyone hears was added or changed in the voice store (the new strings are the card's and the 🔊's, said by the
 phone's voice, the English by the app's live voice): a voice build needs 0 characters.
