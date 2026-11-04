@@ -27,6 +27,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
@@ -943,11 +945,18 @@ private fun HintChip(h: TurnHelp) {
  * would give the answer away). Never the answer ([TurnHints.fair]). In its top-right corner the 🔊 says it in short
  * ([ReadHint]).
  */
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 private fun HintCard(vm: AppViewModel, h: TurnHelp) {
     if (!h.open) return
     val t = h.text
-    Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth().popIn(t ?: h.later, from = 0.9f)) {
+    // it opens under the chip: with long choices that is below the panel's fold, and a tap would seem to do nothing
+    val seen = remember { BringIntoViewRequester() }
+    LaunchedEffect(Unit) {
+        delay(80L) // laid out first
+        seen.bringIntoView()
+    }
+    Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth().bringIntoViewRequester(seen).popIn(t ?: h.later, from = 0.9f)) {
         Box(Modifier.fillMaxWidth()) {
             // what comes first clears the 🔊 in the corner: a line, else the models, the rows, the links, what comes later
             val clear = if (h.speech.isNotEmpty()) Modifier.padding(end = 40.dp) else Modifier

@@ -4820,7 +4820,7 @@ def hint_de():
         if wait_for(close, 15) is None:
             return f"skipped: {sid}/{did} didn't open (no QA hook in this build?)"
         for k, turn in enumerate(turns):
-            assert to_turn(), f"turn {k + 1}"
+            assert to_turn(), f"turn {k + 1} (on screen: {[t[:30] for t, _ in nodes()][:14]})"
             if any(choose in t for t, _ in nodes()):
                 tap(choose, 2)
             shot(f"hint-de-turn-{k + 1}")
