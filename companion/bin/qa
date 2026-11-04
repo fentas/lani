@@ -428,6 +428,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "friuli-projects" (only when named; a synthetic Teo, LANI_CULTURE=friuli, LANI_CHILD=1,
                        LANI_QA_SETUP_PAIR=it-de) Friuli's projects as scenes: the bridge and the greasy pole in the middle, each
                        from its landmark and played through a step, the fir tapped in the wood, the chapel's bell (fp-*.png);
+                       "lakeland-b2" (only when named; the same learner, make-learner.ts --name Alex) the mill's third step at
+                       B2 from its landmark to its end card, Mr Dixon's arrival at B2 to a wrong choice (b2-*.png);
                        "lakeland-projects-b" (only when named; the same learner) the rescue hut and the bank barn
                        finished, each from its landmark's card into its scene, Jack's stretcher, the beck from its card,
                        the playground, the fountain, the clock, the viewing station and the tarn by their links (lb-*.png);
@@ -10840,6 +10842,186 @@ def friuli_projects_b():
         qa_hook("pair:")
 
 
+def lakeland_b2():
+    """The Lake District above A2 (docs/plans/05-built/village-b2-lakeland.md): a learner of English from Slovene in the Lake District
+    village (LANI_DEV_DATA: make-learner.ts --name Alex --target en --base sl; LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-sl), the app
+    in en · sl, the village a Trg (QA's hook "hearths:trg"). The mill's third step at B2 ("level:B2", "step:mlin/3"), from its landmark
+    on the map through the projects sheet, a wrong choice with its reaction, to its end card; then Mr Dixon's arrival at B2
+    ("level:B2", "meet:dixon"), its first line and turn, a wrong choice with its reaction. Also as b2-*.png in $LANI_QA_LAKELAND_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "lakeland":
+        return "skipped: the dev bridge's village isn't the Lake District's (LANI_CULTURE=lakeland and a learner of English)"
+    pair = ["en", "sl"]
+    out = Path(os.environ["LANI_QA_LAKELAND_SHOTS"]) if os.environ.get("LANI_QA_LAKELAND_SHOTS") else None
+    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
+    culture_dir = ROOT / "companion/cultures/lakeland"
+    projects = {p["id"]: p for p in json.loads((culture_dir / "projects.json").read_text())["projects"]}
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def to_village():
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        end = time.time() + 40 * slow()
+        while time.time() < end and find(lab("villageScreen.scroll")) is None:
+            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
+            if c is not None:
+                tap_at(c)
+            time.sleep(1.5)
+        assert find(lab("villageScreen.scroll")) is not None, "the village"
+        time.sleep(2)
+
+    def play(project: str, n: int, level: str, tag: str):
+        """Step [n] of [project], from its landmark on the map to its end card, at [level]."""
+        spec = projects[project]
+        step = json.loads((culture_dir / f"project-steps/{project}.json").read_text())["steps"][n - 1]
+        lines = step["levels"][level]["lines"]
+        # as they are said to the synthetic Alex: the name, the man's form of a pair
+        say = lambda s: re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", s).replace("{learner}", "Alex")
+        right = {say(c["en"]) for l in lines for c in l.get("choices", []) if c.get("ok")}
+        wrong = {say(c["en"]): say(c["reply"]["en"]) for l in lines for c in l.get("choices", []) if not c.get("ok")}
+        said = [say(l["en"]) for l in lines if not l.get("choices")]
+        qa_hook(f"level:{level}")
+        qa_hook(f"step:{project}/{n}")
+        to_village()
+        qa_hook(f"show:project:{project}")
+        time.sleep(3 * slow())
+        snap(f"b2-{tag}-map")
+        name = spec["name"]["en"]
+        # its landmark's target comes once the app has adopted the readied village (on a loaded machine, seconds); not there, the map panned
+        w, h = screen_size()
+        c = None
+        for dx in (0, -0.45, -0.45, 0.45, 0.45, 0.45, 0.45):
+            if dx:
+                adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.62)), str(int(w * (0.5 + dx))), str(int(h * 0.62)), "500")
+                time.sleep(2 * slow())
+            c = wait_for(name, 3)
+            if c is not None:
+                break
+        assert c is not None, f"{name} on the village's map: its landmark partway through, at step {n - 1}"
+        snap(f"b2-{tag}-landmark")
+        tap_at(c)
+        today = "🔨 " + l10n("en", "projectsSheet.todaysStep")
+        task = spec["steps"][n - 1]["task"]["en"]
+        assert wait_for(task, 10), f"the projects sheet at {name}: its step {n}, {task}"
+        time.sleep(1.5)
+        snap(f"b2-{tag}-sheet")
+        # its own button, under the step and the project's words: the first "Today's step" below its title
+        btn = None
+        for _ in range(10):
+            title = find(name)
+            below = sorted((c for t, c in nodes() if today in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
+            if below and below[0][1] < screen_size()[1] - 120:
+                btn = below[0]
+                break
+            w, h = screen_size()
+            adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.65)), str(w // 2), str(int(h * 0.45)), "400")
+            time.sleep(1)
+        assert btn is not None, f"{name}'s {today}"
+        tap_at(btn)
+        progress = f"{name} {n}/{len(spec['steps'])}"
+        assert wait_for(progress, 12), f"the step's dialog: {progress}"
+        time.sleep(2 * slow())
+        snap(f"b2-{tag}-opens")
+        assert any(t.startswith(s[:24]) or s[:24] in t for t, _ in nodes() for s in said), f"{name}: its first line at {level}"
+        def choice(wanted) -> bool:
+            """Taps the row of a choice in [wanted] under "Your answer" (what was said stays in the talk above), low on its left: a word's
+            middle, held on a slow emulator, opens the word's card."""
+            bs = list(boxes())
+            head = next((b for t, b in bs if lab("sceneDialog.answer") in t), None)
+            if head is None:
+                return False
+            for t, (x0, y0, x1, y1) in bs:
+                if y0 >= head[3] and (t in wanted or any(t.startswith(o + ",") or t.startswith(o + " ") for o in wanted)):
+                    tap_at((x0 + 40, y1 - 18))
+                    return True
+            return False
+
+        made_mistake = False
+        for k in range(30):
+            texts = [t for t, _ in nodes()]
+            if any(t.strip().endswith(f"{name} {n}/{len(spec['steps'])}") and t.strip() != progress and ":" not in t for t in texts):
+                break  # the end card
+            if any(l10n("en", "words.addToMyWords") in t  for t in texts):  # a tap the slow emulator took for a long press
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+                continue
+            shown = [w for w in wrong if any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts)]
+            if not made_mistake and shown:
+                snap(f"b2-{tag}-turn")
+                assert choice({shown[0]}), f"the wrong choice «{shown[0]}»"
+                time.sleep(2 * slow())
+                snap(f"b2-{tag}-wrong")
+                assert any(wrong[shown[0]][:20] in t for t, _ in nodes()), f"the reaction to «{shown[0]}»: {wrong[shown[0]]}"
+                made_mistake = True
+                continue
+            if choice(right):
+                time.sleep(2 * slow())
+                continue
+            if not tap(lab("common.next"), 3):
+                time.sleep(1)
+        snap(f"b2-{tag}-end")
+        assert made_mistake, f"{name}: a turn with a wrong choice was played"
+        line = spec["steps"][n - 1]["line"]["en"]
+        assert scroll_to(line[:24], 3) is not None, f"its line for the chronicle: {line}"
+        snap(f"b2-{tag}-line")
+
+    qa_hook("pair:en-sl")
+    try:
+        to_village()
+        qa_hook("hearths:trg")
+        time.sleep(2 * slow())
+        # on the village the hook made up (the dev bridge's copy, which the app adopts): the cast met, the two leaders living here,
+        # the learner's voice chosen, so "My voice" isn't offered over a dialog's first line
+        snap_state = dev_bridge("/game")
+        st = snap_state["state"]
+        for v in api("/villagers"):
+            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
+            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
+        for leader in ("tyson", "dixon"):
+            if not any(r.get("id") == leader for r in st.setdefault("residents", [])):
+                st["residents"].append({"id": leader, "since": "2026-01-01"})
+        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
+        dev_bridge("/learner/voice", {"voice": "default"})
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
+        time.sleep(5 * slow())
+        qa_hook("hour:11")
+        qa_hook("bubbles:0")
+        play("mlin", 3, "B2", "rafters")
+        # Mr Dixon's arrival at B2
+        spec = json.loads((culture_dir / "arrivals.json").read_text())["cast"]["dixon"]["levels"]["B2"]
+        turn = next(x for x in spec["lines"] if "choices" in x)
+        bad = next(c for c in turn["choices"] if not c.get("ok"))
+        qa_hook("level:B2")
+        qa_hook("meet:dixon")
+        time.sleep(3 * slow())
+        snap("b2-meet-opens")
+        assert any(spec["lines"][0]["en"][:20] in t or spec["late"]["en"][:20] in t for t, _ in nodes()), "Mr Dixon's first line at B2"
+        for _ in range(8):
+            if find(bad["en"]) is not None:
+                break
+            tap(lab("common.next"), 2)
+            time.sleep(1.5 * slow())
+        assert find(bad["en"]) is not None, f"Mr Dixon's first turn: {bad['en']}"
+        snap("b2-meet-turn")
+        tap_at(find(bad["en"]))
+        time.sleep(2 * slow())
+        snap("b2-meet-wrong")
+        assert any(bad["reply"]["en"][:18] in t for t, _ in nodes()), f"the reaction: {bad['reply']['en']}"
+    finally:
+        qa_hook("level:")
+        qa_hook("step:")
+        qa_hook("hour:")
+        qa_hook("bubbles:")
+        qa_hook("pair:")
+
+
 def lakeland_projects_b():
     """The Lake District's third wave, part b (docs/plans/05-built/lakeland-projects-b.md): a learner of English from Slovene in
     the Lake District village (LANI_DEV_DATA: make-learner.ts --target en --base sl; LANI_CULTURE=lakeland,
@@ -19343,6 +19525,8 @@ def plan():
         ("lakeland-places", lakeland_places, None, False, ""),
         # only with --steps lakeland-projects: the Lake District's project places, part a (lakeland-projects-a)
         ("lakeland-projects", lakeland_projects, None, False, ""),
+        # only with --steps lakeland-b2: a B2 step and a B2 arrival in the Lake District (village-b2-lakeland)
+        ("lakeland-b2", lakeland_b2, None, False, ""),
         # only with --steps friuli-projects: Friuli's village projects as scenes, part a (friuli-projects-a)
         ("friuli-projects", friuli_projects, None, False, ""),
         # only with --steps lakeland-projects-b: the Lake District's third wave, part b (two projects from the map, the beck)
@@ -19918,7 +20102,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "lakeland-b2", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
