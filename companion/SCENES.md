@@ -214,6 +214,14 @@ the one taken (the dialog's `picks` are the file's indices), so give both replie
 keeps a wrong choice, and a turn that tests a form (the choices differ in one ending) has one right answer. A handful
 per scene, where it is natural.
 
+What people say is never a wrong choice. A form the language's grading table has as `nonstandard` or `verb_second` is a
+second right one, with the standard choice's reply or a reply of its own, and its translations marked "(as people say it)";
+the turn keeps another wrong choice. Where it was the turn's only wrong choice, that choice becomes a mistake nobody grown
+up says, on the same page ("weil ist es Heidenmehl"; a fronted "Weil sie ist so schwer, bleibt sie" stays wrong, as people
+say the verb second only after the main clause). In a culture whose `en` is the language learned the mark has nowhere to
+go, as `en` is the line shown and voiced: there the spoken form leaves the turn, and typed it still counts as almost.
+`SaidChoicesTest` grades every wrong choice of every learner's turn against its turn's right ones with the table.
+
 ### Faces: the person you talk to, and their expressions
 
 The person the learner talks to is on screen as the same chibi sprite, and their face follows the conversation (Jan,

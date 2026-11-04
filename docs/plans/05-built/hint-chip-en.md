@@ -208,7 +208,7 @@ card that names *I'm*, *can't* or *don't* is left out. Hence the test's 90 %, no
   they are here.
 - **An irregular past with no time word** (*Yes, I ____ it!*: saw, seed) and **a plural of meaning** (*Yes, I love ____!*:
   jokes, joke) name nothing; the rule alone.
-- **Lakeland's "I have never seen"** (native check 4).
+- **Lakeland's "I have never seen"** (native check 4): settled on cleanup-content. *haven't never* is no wrong choice now; the turn's wrong choice is *I have never see*, on the same page.
 - **make-learner.ts** stopped for English and German after practice-it-b2 (it read companion/modules/<language>, which they
   lack): fixed here (adf2f93b5), needed for this QA; hint-chip-de needs it too.
 

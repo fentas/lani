@@ -121,7 +121,8 @@ the evening stories as far as they were read; please check against what the hous
   Tone's smithy in the valley that burned; wolf tracks and a mauled ewe on the plateau; Mr Wagner, a Bavarian guest; the
   cow Liska and an old herdsman.
 - Existing content, not this branch's: v-hisi's fotografija has "Ana … tukaj, pri peči" although Janez came to the
-  village after Ana died, and v-soli's stara-sola dates the village school seventy years back.
+  village after Ana died, and v-soli's stara-sola dates the village school seventy years back. Both fixed on
+  cleanup-content, with the last Triglav at seventy, as v-gorah has it, not at sixty.
 
 ## What
 
