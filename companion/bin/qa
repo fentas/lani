@@ -21283,6 +21283,12 @@ def hosted():
         assert find("Lep začetek") is None, "the question gone"
         goal = json.loads(run_as("cat", "files/lani/data/learner-profile.json") or "{}").get("learner", {}).get("daily_goal_minutes")
         assert goal == 20, f"the minutes kept: {goal}"
+    # the wait over, the system's question about notifications
+    for _ in range(8):
+        if (c := next((c for t, c in nodes() if t == "Allow"), None)) is not None:
+            tap_at(c)
+            break
+        time.sleep(1)
 
     # a review of the new words today (QA's hook: they are due tomorrow), to its end
     qa_hook("review")
