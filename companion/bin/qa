@@ -90,9 +90,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "hint-en" (only when named) the hint chip at the beck's three turns of Jack's sheep (an English
                        learner, LANI_CULTURE=lakeland, LANI_QA_PAIR=en-sl, en-de or en-it): be before the -ing form,
                        a feeling English says with be, be before the -ing form again (hint-en-*.png);
-                       "hint-de" (only when named) the hint chip at the Doppelharpfe's two turns of Franz's hay (a German
-                       learner, LANI_CULTURE=kaernten, LANI_QA_PAIR=de-sl, de-en or de-it): helfen with the dative, a
-                       two-way preposition by its verb, both from German's trigger table (hint-de-*.png);
+                       "hint-de" (only when named) the hint chip at the lake's two turns of the alp (a German learner,
+                       LANI_CULTURE=kaernten, LANI_QA_PAIR=de-sl, de-en or de-it): a plural after wie viele, the dative
+                       after von from German's trigger table (hint-de-*.png);
                        "hints-lens" (only when named) the hour said as counted on the sentence's grammar (ob deset:
                        the locative, its written form desetih beside it), ob pol dveh (the genitive, Kdaj?), čez pol
                        ure's card; the case trainer on B2's predlogi-dva-sklona (QA's hook "cases:meet:"), every task
@@ -4774,20 +4774,21 @@ def hint_en():
 
 
 def hint_de():
-    """The hint chip at a German turn (docs/plans/05-built/hint-chip-de.md; game/GermanHints.kt): the Doppelharpfe, Franz's hay
-    in the afternoon (QA's hook: the happening on), a German learner (LANI_DEV_DATA from make-learner.ts --target de --base
-    sl, LANI_CULTURE=kaernten), the phone in a German pair (LANI_QA_PAIR=de-sl, de-en or de-it: in sl · en the book is
-    Slovene's and a German dialog has no hint, as on a visit). At each of its two turns "📖 Namig · Hint" opens the card: "Ich
-    helfe Ihnen, Herr Franz!" (with «helfe»: the verb takes the dative, from the trigger table), "Und unter dem Dach bleibt es
-    trocken!" (with «bleibt»: Wo? the dative, a two-way preposition by its verb); a screenshot of each as hint-de-*.png, also
-    in $LANI_QA_HINT_SHOTS; then the right choice, on to the next turn. Every label is read in the phone's pair."""
+    """The hint chip at a German turn (docs/plans/05-built/hint-chip-de.md; game/GermanHints.kt): the lake, the alp (QA's hook:
+    the happening on; a scene of a spot, there from the start: a project's, as the Doppelharpfe's, isn't in a new village), a
+    German learner (LANI_DEV_DATA from make-learner.ts --target de --base sl, LANI_CULTURE=kaernten), the phone in a German
+    pair (LANI_QA_PAIR=de-sl, de-en or de-it: in sl · en the book is Slovene's and a German dialog has no hint, as on a visit).
+    At each of its two turns "📖 Namig · Hint" opens the card: "Ja, ich höre sie! Wie viele Kühe sind auf der Alm?" (after «Wie
+    viele»: more than one), "Mmm, der Käse von der Alm ist der beste!" (after «von»: the dative, from the trigger table); a
+    screenshot of each as hint-de-*.png, also in $LANI_QA_HINT_SHOTS; then the right choice, on to the next turn. Every label
+    is read in the phone's pair."""
     culture = api("/culture").get("id") or "primorska"
     if culture != "kaernten":
         return f"skipped: {culture}'s village has no German turn (LANI_CULTURE=kaernten)"
     if pair_now()[0] != "de":
         return f"skipped: the phone shows {'-'.join(pair_now())}: a German dialog has a hint only in a German pair (LANI_QA_PAIR=de-sl)"
     out = Path(os.environ["LANI_QA_HINT_SHOTS"]) if os.environ.get("LANI_QA_HINT_SHOTS") else None
-    sid, hid, did = "bei-der-doppelharpfe", "heu", "heu"
+    sid, hid, did = "am-see", "alm", "alm"
     scene = next((s for s in api("/scenes?arts=99") if isinstance(s, dict) and s.get("id") == sid), None)
     if scene is None:
         return f"skipped: the dev bridge has no {sid}"
@@ -4798,7 +4799,7 @@ def hint_de():
     village = "‹ " + label("common.village")
     # what each turn's card says first, in the pair's base (the app's tables)
     base = l10n(pair_now()[1])
-    want = [base["hint.de.verbDat"].replace("{word}", "helfe"), base["hint.de.whereAt"].replace("{word}", "bleibt")]
+    want = [base["hint.de.many"].replace("{word}", "Wie viele"), base["hint.de.afterDat"].replace("{word}", "von")]
     assert len(turns) == len(want), f"{did}: {len(turns)} turns"
 
     def to_turn() -> bool:
