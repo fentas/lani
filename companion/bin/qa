@@ -10138,7 +10138,7 @@ def village_talk(village: str):
     # Home's tile: its label in the target alone, the base on a line of its own (not the "🗣️ … · …" card it once was)
     card = scroll_to(msg(pair[0], "homeScreen.talk"), 8, exact=True)
     if card is None:
-        return f"no \"{msg(pair[0], 'homeScreen.talk')}\" tile on Home"
+        raise AssertionError(f"no \"{msg(pair[0], 'homeScreen.talk')}\" tile on Home")
     tap_at(card)
     taps += 1
     assert wait_for(msg(pair[1], "talkScreen.tutorPlaysOtherPerson"), 10) or wait_for(msg(pair[0], "talkScreen.tutorPlaysOtherPerson"), 3), "the talk's list"
