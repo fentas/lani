@@ -155,11 +155,28 @@ WhoAnswers, IntroductionContent, Kopa*, Keepers, SpotCycles) found what the firs
 `KopaCycleTest` plays every talk, the tales and the race at all four levels now, not A1 and A2. `GradingLanguagesTest` holds the supine's
 row, in the gap and in the whole sentence, and that it says nothing elsewhere.
 
-**Not yet run at this commit:** the smoke (LANI_SMOKE_PORT=11020, LANI_SMOKE_DRAMA3_PORT=11038) and the emulator QA of a B2 step and a B2
-arrival wait for the machine's heavy slots.
+**Emulator QA** (qa-slot, slot 2, `--steps project-step,parity-small`; `LANI_QA_STEP_LEVEL=B2 LANI_QA_MEET=tone LANI_QA_MEET_LEVEL=B2`): setup,
+project-step, parity-small and the crash check all ok. The maypole's first step played at B2 (Luka's "Tisto? Jeseni bo golo kot metla.",
+the tap turn in the forest, the spruce found, the step done, "Mlaj 1/5"); Tone's arrival at B2 to its first turn, the ti choice tapped, his
+"Govoriš? Hm. Midva še nisva skupaj kovala." and the why. I read the shots to see it was B2. The shots: the scratchpad's
+ux-village-b2-primorska-2/ and companion/qa-shots/20261104-150228-slot2. QA didn't play Miha at B2: `KopaCycleTest` plays every one of
+his talks at B2 on the JVM, not on a screen.
+
+**The smoke** (LANI_SMOKE_PORT=11020, LANI_SMOKE_DRAMA3_PORT=11038): all checks passed, 4,023, at 62c60548b. The run before had 2 failures,
+both pins of the case lens: *zvonika* and *mlajša* are supplement words now, so no longer "derived", in the same case for the same
+reason (as bc121dd5c for *mlaja*); both expectations are updated.
 
 ## Voices (nothing spent)
 
 Miha's new tellings, distinct texts against his A1 and A2, said to Jan: his lines and replies 28,177 characters (381 texts), the
 learner's choices 8,091 (168 texts): **36,268 in all**, on top of the first doc's 151,355. The pile's story isn't voiced. The voice notes
 call 77k more than a month's credits; Jan decides when. His voice is the cast's; nothing new to cast.
+
+## What's left
+
+1. **`SceneCoherenceTest` stays red on `dialogs-lakeland`'s 20 lines** until that branch's owner cues, rewrites or reviews them. Any branch
+   carrying `dialogs-primorska` has this.
+2. The native check above; items 1 and 2 decide whether the row and the second right choice stay, and whether two more forms join them.
+3. Merging: the pinned count in `SceneCoherenceTest` and the card's level in `KopaCulturesTest` move again with the other cultures'
+   `village-b2-*`; the supplement's extended entries need the check under "What the sources corrected". Main has moved past 85917a636.
+4. The voices, when Jan decides.
