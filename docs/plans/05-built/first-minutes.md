@@ -137,18 +137,19 @@ connection back, the clips on the device stay and lines fall back to Piper and t
 QA's step `first-run`, on the emulator, a busy machine, from the first screen to the village's map on this device, the defaults
 kept. A tap counts a field's tap (typing the name) and the system's notification question. The seconds are QA's, with no
 reading or listening: every look at the screen costs a second or two of uiautomator, the same before and after, so compare
-them with each other, not with a person. Before: an APK from an ancestor of this branch (talks-de, the same setup code).
+them with each other, not with a person. After: three runs each, so ranges. Before: one run each, on an APK from an ancestor
+of this branch (talks-de, the same setup code).
 
 | Journey | Before | After |
 |---|---|---|
 | An adult, a phone, sl · en: taps to the map | 12 | 6 |
-| Seconds to the founding | 71.4 | 26.3 |
-| Seconds to the first line said aloud | 97.6 | 40.6 (34.2 on the first run) |
-| Seconds to the map | 114.0 | 49.0 (45.7) |
+| Seconds to the founding | 71.4 | 26 to 27 |
+| Seconds to the first line said aloud | 97.6 | 34 to 42 |
+| Seconds to the map | 114.0 | 46 to 52 |
 | A child, a tablet on its side, it · de: taps to the map | 13 | 7 |
-| Seconds to the founding | 74.9 | 30.4 |
-| Seconds to the first line said aloud | 95.3 | 42.2 |
-| Seconds to the map | 110.0 | 51.6 |
+| Seconds to the founding | 74.9 | 30 to 35 |
+| Seconds to the first line said aloud | 95.3 | 42 to 48 |
+| Seconds to the map | 110.0 | 52 to 59 |
 | Questions on screen before the village | 9 | 2 (language, name) and "For a child" |
 
 The taps after: the language, the name, "Found my village", "My village will be here", the greeting, "Light the fire"; a child's
