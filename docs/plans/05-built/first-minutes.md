@@ -182,3 +182,26 @@ Other ways, from the first screen:
   - `hosted` (alone; `LANI_QA_HOSTED_CHILD=1`): the first run, the tutor's ways once, the pace card kept on the phone's bridge.
   - `family-parent` and `family-child`, on the two emulators at once.
 
+## Voice
+
+Nothing new needs a clip to work: on this device the phone's voice says everything. The first moment's place line is the intro's
+own (`gameIntro.arrive`, or the culture's), so it keeps its clips. New lines a node would voice: the greeting and the other
+answer in four languages and `firstRun.won` in four, about 150 characters together. Not built: Jan's credits.
+
+## What's left
+
+- **A native check** of the strings at the top.
+- **The family computer's pairing and the town link in "Add a family member".** Each family member on a node is a learner with a
+  bridge of their own (`lani-profile add`), and a running bridge can't make one: the parent's bridge could only mint a code for its
+  own learner, which is the opposite of a new member. It needs a way to add a profile from the app. Until then the page says
+  so on a paired device, and a family on a computer uses `lani-profile add` and `lani-pair`. Without a relay a device alone has no
+  town to link to.
+- **A daily budget per device, and the list of the family's devices with a remove.** Both need a channel between the devices after
+  the exchange, and a family on "just this device" has none until the relay is hosted. The page says what's true now: only changing
+  the key at the provider truly stops a copy.
+- **The relay as a second way** for two devices not on the same Wi-Fi: `FamilyLink.Listener` and `fetch` are the only parts that
+  know about sockets, and what they carry is already sealed.
+- **A key can't be checked offline:** a new device without the internet gets "the family's key doesn't work here", and the code is
+  spent. A parent shows a new one.
+- **The audio trial**, at `AudioPlan`; the family key's audio plan with it.
+- A Gemini key doesn't cross.
