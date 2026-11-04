@@ -213,11 +213,18 @@ The prefix grows by 3,033 characters, about 870 tokens: the new tool 1,497, `dic
 
 ## What was checked
 
-*(Filled in at the end of the branch, in the report to the lead.)*
+- `tsc`, `tutor-export --check`, the Python tests.
+- The smoke's `dictionaries` section, on the fake: the cache across two bridges, the daily cap, the gap and one request at a time, a timeout, a 429's
+  rest, the size limit, a host outside the table, redirects (another host, http, another port), consent, off, a hostile page in tags and in entities.
+- Android: the full suite. `ReachTest` (blocks, `DictionaryText`, both tutors' routes, `chat_history`), `PhoneDictionaryTest` (the real bundle in
+  QuickJS against a local fake: the fetch, the cache, the phone's size limit), `ChatStoreTest`.
+- QA: `companion/bin/qa --steps tutor-reach` on the emulator: one shadow turn on the mock with both tools in the panel, Wiktionary's block with its URL
+  in the mock's log, the fake's text in it, the chat's record, and nothing of the shadow in the real chat.
+- The real sites: one lookup per language, above.
 
-- `tsc`, the smoke's `dictionaries` section: cache, cap, timeout, 429 rest, size, a host outside the table, redirects, consent, off, a hostile page.
-- Android: `ReachTest`, `PhoneDictionaryTest` (the real bundle in QuickJS, against a local fake), `ChatStoreTest`.
-- QA: `companion/bin/qa --steps tutor-reach`: one shadow turn on the mock, both tools in the panel.
+**Not checked:** fran.si's row on a real page (the fake only). A real model using the tools: no real tutor turn ran, so whether the new rule 13 brings the
+5 errors in 6 down is for the shadow to show. The live tutor's `chat_history` on the emulator (unit tests only; QA's turn is the shadow's). The
+`shadow-tutor` QA step shares the helper `shadow_on` but wasn't rerun.
 
 ## Native check, voice
 
