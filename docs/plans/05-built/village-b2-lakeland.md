@@ -23,8 +23,7 @@ Each item is a question for a speaker. A form an adult says in Cumbria is never 
 2. **Northern English the characters use:** "Now then!", "Aye", "mate", "love", "our Poppy", "happen" (perhaps: Ned, in "Happen it is",
    "Happen not"), "a brew", "It's stewed", "give over" (Maggie), "I've a story", "I'd no idea", "we've not". Are they right for
    Cumbria, and for these speakers (Ned is seventy, Jack twenty-two)?
-3. **Words a Cumbrian might not use:** "tups" (Jack, the rams), "hefted", "gobsmacked" (Poppy), "a stick of rock" (Jack), "Force" removed;
-   "glamping" (Ned), "barbecues" as what saved the trade; the "drawing" of a pit: the stage's id only, the texts say "opens".
+3. **Words a Cumbrian might not use:** "tups" (Jack, the rams), "hefted", "gobsmacked" (Poppy), "a stick of rock" (Jack), "glamping" (Ned), "barbecues" as what saved the trade; the "drawing" of a pit: the stage's id only, the texts say "opens".
 4. **The Slovene of the steps:** "špirovec" for a rafter, "sklepnik" for a keystone, "napera" and "pesto" for a wheel's spoke and hub,
    "kopišče", "lesa" for a hurdle, "zaslon" for a wind screen, "zapornica" for a sluice, "Zemlja" and "Okvir" for the arch's centring,
    "damaske slive" for damsons, "košeničica" for gorse (no exact word), "stržek" for wren, "pograd" for a bunk.
@@ -33,8 +32,10 @@ Each item is a question for a speaker. A form an adult says in Cumbria is never 
 7. **The vi four.** The learner says vi, Lei and Sie to Mrs Birkett, Mrs Hartley, Mr Dixon and Mr Tyson in the translations. Where one
    of them is a helper the learner's turn says neither the name nor the polite address (a helper may be away, and the step names only
    its leader), so the translations of those turns are neutral; a few to Mrs Birkett in the orchard keep "vam" and "Sie".
-8. **The first person of a helper's line.** No gendered past in a helper's Slovene or Italian, as far as I could keep it out; the bridge
-   only checks this for Slovene packs, so an eye on the helpers' lines in `sl` and `it` is welcome.
+8. **The first person of a helper's line.** A helper may be away, and another says their lines. The bridge checks that only in a Slovene
+   village, so `hgender.py` (in the tools) scanned the `sl` and `it` of the helpers' lines and replies, and the hits were rewritten: a
+   present, a plural or an impersonal form ("Za luknjo ne dam niti penija", "To pa moram videti", "Padec je preverjen trikrat"). Some
+   read freer than the English. Is each still what the speaker means, and natural?
 
 ## What the learner gets
 
@@ -53,6 +54,10 @@ Primorska's, so the code that reads it is older than this branch.
 **Steps.** 4 to 7 lines, 2 to 3 turns, the tap turns kept with their slots, the cues (`fx`, `sky`) and the `done` lines where the A2 telling
 has them (50 new done lines). Each step's words are tested by a swap in the turn. The B1 and B2 lines use the level's pages; a wrong
 choice is either another word or a learner's slip, never a form from the `nonstandard` table.
+
+A reply is said by the turn's `to`, else by whoever spoke last. 25 turns come after a helper's line but answer in the leader's voice
+(Mrs Hartley's "Top marks", Mrs Birkett's "love"), so they name the leader. The helpers' lines say nothing of who says them: no
+Wilf's age, no "Mum" from Harry, no "when I was a girl" from Maggie.
 
 **Arrivals.** Each B2 arrival has its late line, 6 to 8 lines and 2 to 3 turns, and tells the person's story further than B1: Maggie's
 Saturdays as a girl, Jack's hefted Herdwicks and the winter he was sixteen, Poppy's parents, Wilf before the fells were counted, Mr
@@ -97,11 +102,13 @@ its wood as Tone's does.
 
 ## Voices (nothing spent)
 
-The new English, as voice-build would voice it (lines, the learner's choices, replies): arrivals 16,125 characters, steps 111,742, the
-pit 42,606: 170,473 in all. The voices are the cast's own and Ned's (`grandpa`); nothing new to cast.
+The new English, as voice-build would voice it (lines, the learner's choices, replies): arrivals 16,125 characters, steps 111,710, the
+pit 42,606: 170,441 in all. The voices are the cast's own and Ned's (`grandpa`); nothing new to cast.
 
 ## The tools
 
 `.lani-lead-kit/village-b2-lakeland/`: `dsl.py` (steps and arrivals from a compact text), `cyc.py` and `cycle_meta.py` (the cycle,
 re-runnable), `supp.py` (the supplement), `lint.py` (a reaction's length, and whether it says the right form), `newwords.py`, `chars.py`,
-and the texts as written (`c*.txt`, `s-*.txt`, `arr*.txt`, `supp*.txt`).
+`gender.py`, `lgender.py`, `hgender.py` (who a form in `sl` and `it` agrees with), and the texts as written (`c*.txt`, `s-*.txt`, `arr*.txt`,
+`supp*.txt`). Those texts are the first drafts: the JSON is the source now, and running `dsl.py` over them would undo the later fixes
+(`fixg.py`, `addto.py`).
