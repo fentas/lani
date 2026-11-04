@@ -8,20 +8,34 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.isImeVisible
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
+import si.lanisce.lani.l10n.bi
 import kotlin.math.max
 import kotlin.math.min
 
@@ -138,6 +152,26 @@ internal fun LinesOverTurn(
         layout(width, body) {
             lp.forEach { it.place(0, 0) }
             tp.forEach { it.place(0, lh) }
+        }
+    }
+}
+
+/**
+ * "▾" at a turn's foot while it goes on below: a long line said takes the room, and a third long choice, the right one perhaps, can
+ * lie wholly out of sight, with nothing to say so. A tap brings the rest up; it goes when the turn's end is in view.
+ */
+@Composable
+internal fun MoreBelow(scroll: ScrollState, modifier: Modifier = Modifier) {
+    val scope = rememberCoroutineScope()
+    AnimatedVisibility(visible = scroll.canScrollForward, modifier = modifier, enter = fadeIn(tween(DialogRoom.MOVE_MS)), exit = fadeOut(tween(DialogRoom.MOVE_MS))) {
+        Surface(
+            onClick = { scope.launch { scroll.animateScrollBy(scroll.viewportSize * 0.8f) } },
+            shape = CircleShape,
+            color = MaterialTheme.colorScheme.secondaryContainer,
+            shadowElevation = 3.dp,
+            modifier = Modifier.padding(bottom = 6.dp).size(48.dp).semantics { contentDescription = bi("progressScreen.more") },
+        ) {
+            Box(contentAlignment = Alignment.Center) { Text("▾", style = MaterialTheme.typography.titleLarge) }
         }
     }
 }

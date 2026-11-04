@@ -300,7 +300,7 @@ fun DialogPanel(
                     lastLine = { lastLine.intValue },
                     turnMin = if (typed) DialogRoom.TURN_MIN_DP else DialogRoom.CHOICES_MIN_DP,
                     lines = { Lines(vm, talk, voice, Modifier.fillMaxSize(), speakers, prefs.translations) { lastLine.intValue = it } },
-                    turn = {
+                    turn = { Box {
                         Column(
                             Modifier.fillMaxWidth().verticalScroll(scroll).padding(horizontal = 16.dp, vertical = 10.dp),
                             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -319,7 +319,8 @@ fun DialogPanel(
                                 DialogRun.Step.END -> Unit
                             }
                         }
-                    },
+                        MoreBelow(scroll, Modifier.align(Alignment.BottomCenter))
+                    } },
                     modifier = Modifier.weight(1f),
                 )
             }

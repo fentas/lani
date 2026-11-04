@@ -93,6 +93,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "hint-de" (only when named) the hint chip at the stream's two turns of the trout (a German learner,
                        LANI_CULTURE=kaernten, LANI_QA_PAIR=de-sl, de-en or de-it): a noun's gender, from German's trigger
                        table, and where the verb goes, at a turn of the same words in another order (hint-de-*.png);
+                       "hint-de-cases" (only when named; the same learner) a case line from a preposition and from a verb,
+                       on turns asked typed (QA's hook "turns:type") (hint-de-case-*.png);
                        "hints-lens" (only when named) the hour said as counted on the sentence's grammar (ob deset:
                        the locative, its written form desetih beside it), ob pol dveh (the genitive, Kdaj?), čez pol
                        ure's card; the case trainer on B2's predlogi-dva-sklona (QA's hook "cases:meet:"), every task
@@ -419,7 +421,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        A1 done in one line; the school's card on the map and "🚪 Entra" into A scuola at 10 o'clock, the
                        roll call on (no «Vedo, vedo» offered during it); "friuli-school-unit" (the same learner, a run of its
                        own: each is about 8 minutes) a unit end to end, $LANI_QA_IT_UNIT (ciao by default; an A2 unit
-                       after the school with A1 done), kept done, then its sheet printed (fit.js as in Chromium, the PDF);
+                       after the school with A1 done; $LANI_QA_IT_SHEET another sheet by its number: with LANI_CHILD=1 and a unit's
+                       sheet of speaking and writing, a child's path, a writing item said first, "Write it too"), kept done, then
+                       its sheet printed (fit.js as in Chromium, the PDF);
                        both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "practice-it" (only when named, the same learner)
                        Italian's practice: the ✨ modules at the learner's level, a module's why in German, the numbers
                        (the ones first, half past as German counts it), the road without clips; also as pi-*.png in
@@ -476,7 +480,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        LANI_QA_SETUP_PAIR=it-de) Friuli's projects as scenes: the bridge and the greasy pole in the middle, each
                        from its landmark and played through a step, the fir tapped in the wood, the chapel's bell (fp-*.png);
                        "lakeland-b2" (only when named; the same learner, make-learner.ts --name Alex) the mill's third step at
-                       B2 from its landmark to its end card, Mr Dixon's arrival at B2 to a wrong choice (b2-*.png);
+                       B2 from its landmark to its end card, Mr Dixon's arrival at B2 to a wrong choice (b2-*.png; with
+                       LANI_QA_B2_TABLET=1 the turn and the reaction on a tablet too, here and in kaernten-b2 and friuli-projects-b);
                        "lakeland-projects-b" (only when named; the same learner) the rescue hut and the bank barn
                        finished, each from its landmark's card into its scene, Jack's stretcher, the beck from its card,
                        the playground, the fountain, the clock, the viewing station and the tarn by their links (lb-*.png);
@@ -4812,6 +4817,81 @@ def hint_en():
     return None
 
 
+def to_german_turn() -> bool:
+    """On to a dialog's next turn in the phone's pair: Next until its answers show (a rule the learner has secure types its
+    turn, a mastered one says it: "let me choose" is in both)."""
+    answer, typed, choose = (label(k, half=True) for k in ("sceneDialog.answer", "adaptive.typeMissingWord", "adaptive.letMeChoose"))
+    nxt = label("common.next")
+    end = time.time() + 15 * slow()
+    while time.time() < end:
+        if any(t.startswith(answer) or typed in t or choose in t for t, _ in nodes()):
+            time.sleep(1.2)
+            return True
+        if not tap(nxt, 2):
+            time.sleep(0.8)
+    return False
+
+
+# A case line from a verb and one from a preposition, none in a dialog of a village's start: Most at the press, two turns of one
+# wrong choice each, so the case is what each gap asks: the scene, the happening, the dialog, and of each turn what its card
+# says, of which word, and what its gap takes.
+HINT_DE_CASES = ("im-keller", "presse", "presse", [("hint.de.verbDat", "helfe", "dir"), ("hint.de.afterDat", "Aus", "dem")])
+
+
+def hint_de_cases():
+    """A case line from a verb and from a preposition on the hint's card (docs/plans/05-built/cleanup-code.md): the same learner as
+    hint-de's, with QA's hook "turns:type" (a turn of a rule the learner hasn't met is only repeated, with no card): the dialog of
+    [HINT_DE_CASES], at each turn the chip, the card's line in the pair's base, the gap typed; hint-de-case-*.png, also in
+    $LANI_QA_HINT_SHOTS."""
+    culture = api("/culture").get("id") or "primorska"
+    if culture != "kaernten":
+        return f"skipped: {culture}'s village has no German turn (LANI_CULTURE=kaernten)"
+    if pair_now()[0] != "de":
+        return f"skipped: the phone shows {'-'.join(pair_now())}: a German dialog has a hint only in a German pair (LANI_QA_PAIR=de-sl)"
+    out = Path(os.environ["LANI_QA_HINT_SHOTS"]) if os.environ.get("LANI_QA_HINT_SHOTS") else None
+    sid, hid, did, turns = HINT_DE_CASES
+    assert any(isinstance(s, dict) and s.get("id") == sid for s in api("/scenes?arts=99")), f"the dev bridge has no {sid}"
+    chip, close, check = label("hint.chip"), label("common.close"), label("playerScreen.check")
+    base = l10n(pair_now()[1])
+    plain_village()
+    qa_hook("turns:type")
+    qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+    try:
+        assert wait_for(close, 15), f"{sid}/{did} opens"
+        for k, (key, word, gap) in enumerate(turns, 1):
+            assert to_german_turn(), f"{did}: turn {k} (on screen: {[t[:30] for t, _ in nodes() if t][:20]})"
+            assert tap(chip, 6), f"{did}: turn {k}, the hint chip «{chip}» (on screen: {[t[:30] for t, _ in nodes()][:14]})"
+            time.sleep(1.2)
+            want = base[key].replace("{word}", word)
+            texts = [t for t, _ in nodes()]
+            got = any(want[:28].lower() in t.lower() for t in texts)
+            shot(f"hint-de-case-{k}")
+            if out is not None:
+                out.mkdir(parents=True, exist_ok=True)
+                shutil.copy(shots[-1], out / f"hint-de-case-{k}.png")
+            print(f"    turn {k}: the card says «{want}»: {got}")
+            assert got, f"{did}: turn {k}: «{want}» (on screen: {[t[:60] for t in texts if t][:16]})"
+            # the card comes into view by itself, and the field goes out of it: down the turn to it, as a learner swipes
+            w, h = screen_size()
+            field = None
+            for _ in range(8):
+                field = box_of(list(boxes()), label("playerScreen.typeAnswer", half=True))
+                if field is not None:
+                    break
+                adb("shell", "input", "swipe", str(w // 4), str(int(h * 0.85)), str(w // 4), str(int(h * 0.65)), "400")
+                time.sleep(1)
+            assert field is not None, f"{did}: turn {k}, the answer field"
+            tap_at(((field[0] + field[2]) // 2, (field[1] + field[3]) // 2))
+            time.sleep(1)
+            type_text(gap)
+            assert tap(check, 4), f"{did}: turn {k}, {check}"
+            time.sleep(2.5)
+        tap(close, 3)
+    finally:
+        qa_hook("happening:")
+        qa_hook("turns:")
+
+
 def hint_de():
     """The hint chip at a German turn (docs/plans/05-built/hint-chip-de.md; game/GermanHints.kt): the stream, the trout (QA's
     hook: the happening on), a German learner at A1 (LANI_DEV_DATA from make-learner.ts --target de --base sl,
@@ -4835,25 +4915,12 @@ def hint_de():
         return f"skipped: the dev bridge has no {sid}"
     turns = [l for l in next(d for d in scene["dialogs"] if d.get("id") == did)["lines"] if l.get("choices")]
     # the chip's TalkBack text is its label alone (the 📖 is cleared from its semantics)
-    chip, close, nxt = label("hint.chip"), label("common.close"), label("common.next")
-    answer, typed, choose = (label(k, half=True) for k in ("sceneDialog.answer", "adaptive.typeMissingWord", "adaptive.letMeChoose"))
+    chip, close, choose = label("hint.chip"), label("common.close"), label("adaptive.letMeChoose", half=True)
     village = "‹ " + label("common.village")
     # what each turn's card says first, in the pair's base (the app's tables)
     base = l10n(pair_now()[1])
     want = [base["hint.de.gender"].replace("{word}", "Forelle"), base["hint.de.verbSecond"].replace("{word}", "Die Forelle")]
     assert len(turns) == len(want), f"{did}: {len(turns)} turns"
-
-    def to_turn() -> bool:
-        end = time.time() + 15 * slow()
-        while time.time() < end:
-            labels = [t for t, _ in nodes()]
-            # (a rule the learner has secure types its turn, a mastered one says it: "let me choose" is in both)
-            if any(t.startswith(answer) or typed in t or choose in t for t in labels):
-                time.sleep(1.2)
-                return True
-            if not tap(nxt, 2):
-                time.sleep(0.8)
-        return False
 
     seen = []
     plain_village()  # the village (its first-time intro skipped, when this step runs alone on a fresh install)
@@ -4862,7 +4929,7 @@ def hint_de():
         if wait_for(close, 15) is None:
             return f"skipped: {sid}/{did} didn't open (no QA hook in this build?)"
         for k, turn in enumerate(turns):
-            assert to_turn(), f"turn {k + 1} (on screen: {[t[:30] for t, _ in nodes() if t][:20]})"
+            assert to_german_turn(), f"turn {k + 1} (on screen: {[t[:30] for t, _ in nodes() if t][:20]})"
             if any(choose in t for t, _ in nodes()):
                 tap(choose, 2)
             shot(f"hint-de-turn-{k + 1}")
@@ -9743,6 +9810,34 @@ def friuli_school(part: str = "scene"):
                     if isinstance(cell, dict):  # TalkBack's name of a cell: "<row>, <column>" (its column in the base)
                         label = f'{r["label"]}, {e["columns"][c]}'
                         assert fill(label, typed(cell["accept"][0])), f"{where}: the cell {label}"
+        elif kind in ("speaking", "writing"):
+            # a child's item (COURSE.md, "A child's version"; LANI_CHILD=1): a writing item is said first, as a speaking item of
+            # its model; the emulator has no microphone, so "can't speak now", the model revealed, rated right
+            # the item comes up a moment after Next, its rows still moving: read again, until the self-rating's panel says so
+            wait_for(lab("speakExercise.cantSpeakNow"), 8)
+            for _ in range(4):
+                time.sleep(2 * slow())
+                c = find(lab("speakExercise.cantSpeakNow"))
+                if c is None:
+                    break
+                tap_at(c)
+            c = scroll_to(lab("speakExercise.reveal"), 4, bottom=2300)
+            snap(f"fs-{kind}-rate")
+            if c is not None:
+                tap_at(c)
+            c = scroll_to(lab("speakExercise.iSaidRight"), 4, bottom=2300)
+            assert c is not None, f"{where}: ✓ I said it right"
+            tap_at(c)
+            time.sleep(2)
+            snap(f"fs-{kind}-rated")
+            if kind == "writing":
+                # "✍️ Napiši še · Write it too": the same few words written, just for practice
+                c = scroll_to(lab("production.writeToo"), 6, bottom=2300)
+                assert c is not None, f"{where}: ✍️ write it too"
+                tap_at(c)
+                time.sleep(1.5)
+                snap("fs-writing-too")
+            return  # rated: on with Next
         else:
             raise AssertionError(f"{where}: QA doesn't play a {kind} here")
         assert tap_above(check, 2400), f"{where}: check"
@@ -9951,8 +10046,15 @@ def friuli_school(part: str = "scene"):
             assert wait_for(half("school.summary"), 10), "the intro's summary card"
             snap("fs-intro-summary")
             assert tap(half("school.toWorksheets"), 6), "on to the worksheets"
-            sheet = u["worksheets"][0]
-            assert tap(half("school.continueStep", step=sheet["title"]["it"]), 8), f"the first worksheet «{sheet['title']['it']}»"
+            # $LANI_QA_IT_SHEET: another sheet than the first by its number, its title on the unit's page (a sheet of speaking and writing)
+            at = int(os.environ.get("LANI_QA_IT_SHEET", "1"))
+            sheet = u["worksheets"][at - 1]
+            if at == 1:
+                assert tap(half("school.continueStep", step=sheet["title"]["it"]), 8), f"the first worksheet «{sheet['title']['it']}»"
+            else:
+                c = scroll_to(sheet["title"]["it"], 10)
+                assert c is not None, f"the worksheet «{sheet['title']['it']}» on the unit's page"
+                tap_at(c)
             for n, e in enumerate(sheet["exercises"], 1):
                 time.sleep(1.5)
                 if n == 1:
@@ -10806,6 +10908,34 @@ def course_unit_one(unit: str, shots_dir: str | None):
                 c = option_at(unit_text(e["options"][k]), swipes=3, after=prompt_piece(e.get("prompt")))
                 assert c is not None, f"{where}: the option «{e['options'][k]}»"
                 tap_at(c)
+        elif kind in ("speaking", "writing"):
+            # a child's item (COURSE.md, "A child's version"; LANI_CHILD=1): a writing item is said first, as a speaking item of
+            # its model; the emulator has no microphone, so "can't speak now", the model revealed, rated right
+            # the item comes up a moment after Next, its rows still moving: read again, until the self-rating's panel says so
+            wait_for(lab("speakExercise.cantSpeakNow"), 8)
+            for _ in range(4):
+                time.sleep(2 * slow())
+                c = find(lab("speakExercise.cantSpeakNow"))
+                if c is None:
+                    break
+                tap_at(c)
+            c = scroll_to(lab("speakExercise.reveal"), 4, bottom=2300)
+            snap(f"fs-{kind}-rate")
+            if c is not None:
+                tap_at(c)
+            c = scroll_to(lab("speakExercise.iSaidRight"), 4, bottom=2300)
+            assert c is not None, f"{where}: ✓ I said it right"
+            tap_at(c)
+            time.sleep(2)
+            snap(f"fs-{kind}-rated")
+            if kind == "writing":
+                # "✍️ Napiši še · Write it too": the same few words written, just for practice
+                c = scroll_to(lab("production.writeToo"), 6, bottom=2300)
+                assert c is not None, f"{where}: ✍️ write it too"
+                tap_at(c)
+                time.sleep(1.5)
+                snap("fs-writing-too")
+            return  # rated: on with Next
         else:
             raise AssertionError(f"{where}: QA doesn't play a {kind} here")
         assert tap_above(check, 2400), f"{where}: check"
@@ -11366,6 +11496,208 @@ def polish_cues():
     return f"skipped {', '.join(skipped)}" if skipped else None
 
 
+class VillagePlay:
+    """A village's project step played from its map, for a culture's learner (friuli_projects_b, lakeland_b2, kaernten_b2): its
+    [lang] and [pair] (the app's labels "target · base"), [learner] (who the lines are said to), the [leaders] set to live here,
+    [prefix] of its screenshots, also in $[shots]. Made from [VILLAGE_PLAYS] by the culture's name."""
+
+    def __init__(self, culture: str, lang: str, pair: list[str], learner: str, leaders: tuple, prefix: str, shots: str):
+        self.culture, self.lang, self.pair, self.learner, self.leaders, self.prefix = culture, lang, pair, learner, leaders, prefix
+        self.out = Path(os.environ[shots]) if os.environ.get(shots) else None
+        self.dir = ROOT / f"companion/cultures/{culture}"
+        self.projects = {p["id"]: p for p in json.loads((self.dir / "projects.json").read_text())["projects"]}
+
+    def lab(self, key: str) -> str:
+        return " · ".join(l10n(lang).get(key, key) for lang in self.pair)
+
+    def snap(self, name: str):
+        shot(name)
+        if self.out is not None:
+            self.out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], self.out / f"{name}.png")
+
+    def tablet(self, name: str):
+        """[name] on a tablet (2560 × 1600 at 320 dpi, Teo's), on its side and upright, then the phone again; only with
+        $LANI_QA_B2_TABLET (a run's tablet shots: resizing takes a while, and the app redraws the scene)."""
+        if os.environ.get("LANI_QA_B2_TABLET") != "1":
+            return
+        try:
+            adb("shell", "wm", "density", "320")
+            for size, side in (("2560x1600", "side"), ("1600x2560", "upright")):
+                adb("shell", "wm", "size", size)
+                time.sleep(5 * slow())
+                self.snap(f"{name}-tablet-{side}")
+        finally:
+            adb("shell", "wm", "size", "reset")
+            adb("shell", "wm", "density", "reset")
+            time.sleep(4 * slow())
+
+    def to_village(self):
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        end = time.time() + 40 * slow()
+        while time.time() < end and find(self.lab("villageScreen.scroll")) is None:
+            c = find(self.lab("common.skip")) or find(self.lab("common.continue")) or find(self.lab("challengeScreen.village"))
+            if c is not None:
+                tap_at(c)
+            time.sleep(1.5)
+        assert find(self.lab("villageScreen.scroll")) is not None, "the village"
+        time.sleep(2)
+
+    def ready(self):
+        """The app in the pair, the village a Trg (QA's hook "hearths:trg"): on the village the hook made up (the dev bridge's
+        copy, which the app adopts) the cast met, the leaders living here, the learner's voice chosen, so "My voice" isn't
+        offered over a dialog's first line."""
+        qa_hook(f"pair:{'-'.join(self.pair)}")
+        self.to_village()
+        qa_hook("hearths:trg")
+        time.sleep(2 * slow())
+        snap_state = dev_bridge("/game")
+        st = snap_state["state"]
+        for v in api("/villagers"):
+            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
+            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
+        for leader in self.leaders:
+            if not any(r.get("id") == leader for r in st.setdefault("residents", [])):
+                st["residents"].append({"id": leader, "since": "2026-01-01"})
+        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
+        dev_bridge("/learner/voice", {"voice": "default"})
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
+        time.sleep(5 * slow())
+        qa_hook("hour:11")
+        qa_hook("bubbles:0")
+
+    def play(self, project: str, n: int, level: str, tag: str):
+        """Step [n] of [project], from its landmark on the map to its end card, at [level]."""
+        lang, pre, lab, snap = self.lang, self.prefix, self.lab, self.snap
+        spec = self.projects[project]
+        step = json.loads((self.dir / f"project-steps/{project}.json").read_text())["steps"][n - 1]
+        lines = step["levels"][level]["lines"]
+        # as they are said to the synthetic learner: the name, the man's form of a pair
+        say = lambda s: re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", s).replace("{learner}", self.learner)
+        right = {say(c[lang]) for l in lines for c in l.get("choices", []) if c.get("ok")}
+        wrong = {say(c[lang]): say(c["reply"][lang]) for l in lines for c in l.get("choices", []) if not c.get("ok")}
+        said = [say(l[lang]) for l in lines if not l.get("choices")]
+        qa_hook(f"level:{level}")
+        qa_hook(f"step:{project}/{n}")
+        self.to_village()
+        qa_hook(f"show:project:{project}")
+        time.sleep(3 * slow())
+        snap(f"{pre}-{tag}-map")
+        name = spec["name"][lang]
+        # its landmark's target comes once the app has adopted the readied village (on a loaded machine, seconds); not there, the map panned
+        w, h = screen_size()
+        c = None
+        for dx in (0, -0.45, -0.45, 0.45, 0.45, 0.45, 0.45):
+            if dx:
+                adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.62)), str(int(w * (0.5 + dx))), str(int(h * 0.62)), "500")
+                time.sleep(2 * slow())
+            c = wait_for(name, 3)
+            if c is not None:
+                break
+        assert c is not None, f"{name} on the village's map: its landmark partway through, at step {n - 1}"
+        snap(f"{pre}-{tag}-landmark")
+        tap_at(c)
+        today = "🔨 " + l10n(lang, "projectsSheet.todaysStep")
+        task = spec["steps"][n - 1]["task"][lang]
+        assert wait_for(task, 10), f"the projects sheet at {name}: its step {n}, {task}"
+        time.sleep(1.5)
+        snap(f"{pre}-{tag}-sheet")
+        # its own button, under the step and the project's words: the first "Today's step" below its title
+        btn = None
+        for _ in range(10):
+            title = find(name)
+            below = sorted((c for t, c in nodes() if today in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
+            if below and below[0][1] < screen_size()[1] - 120:
+                btn = below[0]
+                break
+            w, h = screen_size()
+            adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.65)), str(w // 2), str(int(h * 0.45)), "400")
+            time.sleep(1)
+        assert btn is not None, f"{name}'s {today}"
+        tap_at(btn)
+        progress = f"{name} {n}/{len(spec['steps'])}"
+        assert wait_for(progress, 12), f"the step's dialog: {progress}"
+        time.sleep(2 * slow())
+        snap(f"{pre}-{tag}-opens")
+        assert any(t.startswith(s[:24]) or s[:24] in t for t, _ in nodes() for s in said), f"{name}: its first line at {level}"
+
+        def choice(wanted) -> bool:
+            """Taps the row of a choice in [wanted] under "Your answer" (what was said stays in the talk above), low on its left: a word's
+            middle, held on a slow emulator, opens the word's card. A long turn goes on below ("▾"): up as a learner swipes it, down to its
+            last choice, the rows under where "Your answer" began."""
+            top = None
+            for _ in range(4):
+                bs = list(boxes())
+                head = next((b for t, b in bs if lab("sceneDialog.answer") in t), None)
+                if head is not None:
+                    top = head[1]
+                if top is None:
+                    return False
+                for t, (x0, y0, x1, y1) in bs:
+                    if y0 >= top and (t in wanted or any(t.startswith(o + ",") or t.startswith(o + " ") for o in wanted)):
+                        tap_at((x0 + 40, y1 - 18))
+                        return True
+                w, h = screen_size()
+                adb("shell", "input", "swipe", str(w // 4), str(int(h * 0.76)), str(w // 4), str(int(h * 0.68)), "400")
+                time.sleep(1)
+            return False
+
+        made_mistake = False
+        for k in range(30):
+            texts = [t for t, _ in nodes()]
+            if any(t.strip().endswith(f"{name} {n}/{len(spec['steps'])}") and t.strip() != progress and ":" not in t for t in texts):
+                break  # the end card
+            if any(l10n(lang, "words.addToMyWords") in t or l10n(lang, "common.askTutor") in t for t in texts):  # a tap the slow emulator took for a long press
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+                continue
+            shown = [w for w in wrong if any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts)]
+            if not made_mistake and shown:
+                snap(f"{pre}-{tag}-turn")
+                self.tablet(f"{pre}-{tag}-turn")
+                assert choice({shown[0]}), f"the wrong choice «{shown[0]}»"
+                time.sleep(2 * slow())
+                snap(f"{pre}-{tag}-wrong")
+                self.tablet(f"{pre}-{tag}-wrong")
+                assert any(wrong[shown[0]][:20] in t for t, _ in nodes()), f"the reaction to «{shown[0]}»: {wrong[shown[0]]}"
+                made_mistake = True
+                continue
+            if choice(right):
+                time.sleep(2 * slow())
+                continue
+            if not tap(lab("common.next"), 3):
+                time.sleep(1)
+        snap(f"{pre}-{tag}-end")
+        assert made_mistake, f"{name}: a turn with a wrong choice was played"
+        line = spec["steps"][n - 1]["line"][lang]
+        assert scroll_to(line[:24], 3) is not None, f"its line for the chronicle: {line}"
+        snap(f"{pre}-{tag}-line")
+
+    @staticmethod
+    def done():
+        """QA's hooks back as they were."""
+        for hook in ("level:", "step:", "hour:", "bubbles:", "pair:"):
+            qa_hook(hook)
+
+
+# What a culture's village play is played with: its language, the pair of its synthetic learner, their name, the leaders of
+# the projects it plays, its screenshots' prefix and where they go too.
+VILLAGE_PLAYS = {
+    "friuli": ("it", ["it", "de"], "Teo", ("davide", "bruno", "franco"), "fb", "LANI_QA_FRIULI_SHOTS"),
+    "lakeland": ("en", ["en", "sl"], "Alex", ("tyson", "dixon"), "b2", "LANI_QA_LAKELAND_SHOTS"),
+    "kaernten": ("de", ["de", "sl"], "Teo", ("toni", "franz", "stefan", "eva"), "k2", "LANI_QA_KAERNTEN_SHOTS"),
+}
+
+
+def village_play(culture: str) -> VillagePlay | None:
+    """[culture]'s village play, on a dev bridge of that culture; else None."""
+    try:
+        here = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        here = None
+    return VillagePlay(culture, *VILLAGE_PLAYS[culture]) if here == culture else None
+
+
 def friuli_projects_b():
     """Friuli's village projects as short scenes, part b (docs/plans/05-built/friuli-projects-b.md): a synthetic child learning
     Italian from German in the Friuli village (LANI_DEV_DATA: make-learner.ts --name Teo --target it --base de; LANI_CULTURE=friuli,
@@ -11375,161 +11707,17 @@ def friuli_projects_b():
     its block on the square from its done line), the bridge's fifth at A2 (one of friuli-projects-a's). Each: its landmark on the map, a tap, the projects sheet at it, "Today's step",
     the dialog in its scene, a wrong choice with its reaction, the right ones, the end card and its line. Also as fb-*.png in
     $LANI_QA_FRIULI_SHOTS."""
-    try:
-        culture = api("/culture").get("id")
-    except (OSError, RuntimeError, ValueError):
-        culture = None
-    if culture != "friuli":
+    v = village_play("friuli")
+    if v is None:
         return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
-    pair = ["it", "de"]
-    out = Path(os.environ["LANI_QA_FRIULI_SHOTS"]) if os.environ.get("LANI_QA_FRIULI_SHOTS") else None
-    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
-    culture_dir = ROOT / "companion/cultures/friuli"
-    projects = {p["id"]: p for p in json.loads((culture_dir / "projects.json").read_text())["projects"]}
-
-    def snap(name: str):
-        shot(name)
-        if out is not None:
-            out.mkdir(parents=True, exist_ok=True)
-            shutil.copy(shots[-1], out / f"{name}.png")
-
-    def to_village():
-        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
-        end = time.time() + 40 * slow()
-        while time.time() < end and find(lab("villageScreen.scroll")) is None:
-            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
-            if c is not None:
-                tap_at(c)
-            time.sleep(1.5)
-        assert find(lab("villageScreen.scroll")) is not None, "the village"
-        time.sleep(2)
-
-    def play(project: str, n: int, level: str, tag: str):
-        """Step [n] of [project], from its landmark on the map to its end card, at [level]."""
-        spec = projects[project]
-        step = json.loads((culture_dir / f"project-steps/{project}.json").read_text())["steps"][n - 1]
-        lines = step["levels"][level]["lines"]
-        # as they are said to the synthetic Teo: his name, the boy's form of a pair
-        say = lambda s: re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", s).replace("{learner}", "Teo")
-        right = {say(c["it"]) for l in lines for c in l.get("choices", []) if c.get("ok")}
-        wrong = {say(c["it"]): say(c["reply"]["it"]) for l in lines for c in l.get("choices", []) if not c.get("ok")}
-        said = [say(l["it"]) for l in lines if not l.get("choices")]
-        qa_hook(f"level:{level}")
-        qa_hook(f"step:{project}/{n}")
-        to_village()
-        qa_hook(f"show:project:{project}")
-        time.sleep(3 * slow())
-        snap(f"fb-{tag}-map")
-        name = spec["name"]["it"]
-        # its landmark's target comes once the app has adopted the readied village (on a loaded machine, seconds); not there, the map panned
-        w, h = screen_size()
-        c = None
-        for dx in (0, -0.45, -0.45, 0.45, 0.45, 0.45, 0.45):
-            if dx:
-                adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.62)), str(int(w * (0.5 + dx))), str(int(h * 0.62)), "500")
-                time.sleep(2 * slow())
-            c = wait_for(name, 3)
-            if c is not None:
-                break
-        assert c is not None, f"{name} on the village's map: its landmark partway through, at step {n - 1}"
-        snap(f"fb-{tag}-landmark")
-        tap_at(c)
-        today = "🔨 " + l10n("it", "projectsSheet.todaysStep")
-        task = spec["steps"][n - 1]["task"]["it"]
-        assert wait_for(task, 10), f"the projects sheet at {name}: its step {n}, {task}"
-        time.sleep(1.5)
-        snap(f"fb-{tag}-sheet")
-        # its own button, under the step and the project's words: the first "Today's step" below its title
-        btn = None
-        for _ in range(10):
-            title = find(name)
-            below = sorted((c for t, c in nodes() if today in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
-            if below and below[0][1] < screen_size()[1] - 120:
-                btn = below[0]
-                break
-            w, h = screen_size()
-            adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.65)), str(w // 2), str(int(h * 0.45)), "400")
-            time.sleep(1)
-        assert btn is not None, f"{name}'s {today}"
-        tap_at(btn)
-        progress = f"{name} {n}/{len(spec['steps'])}"
-        assert wait_for(progress, 12), f"the step's dialog: {progress}"
-        time.sleep(2 * slow())
-        snap(f"fb-{tag}-opens")
-        assert any(t.startswith(s[:24]) or s[:24] in t for t, _ in nodes() for s in said), f"{name}: its first line at {level}"
-        def choice(wanted) -> bool:
-            """Taps the row of a choice in [wanted] under "Your answer" (what was said stays in the talk above), low on its left: a word's
-            middle, held on a slow emulator, opens the word's card."""
-            bs = list(boxes())
-            head = next((b for t, b in bs if lab("sceneDialog.answer") in t), None)
-            if head is None:
-                return False
-            for t, (x0, y0, x1, y1) in bs:
-                if y0 >= head[3] and (t in wanted or any(t.startswith(o + ",") or t.startswith(o + " ") for o in wanted)):
-                    tap_at((x0 + 40, y1 - 18))
-                    return True
-            return False
-
-        made_mistake = False
-        for k in range(30):
-            texts = [t for t, _ in nodes()]
-            if any(t.strip().endswith(f"{name} {n}/{len(spec['steps'])}") and t.strip() != progress and ":" not in t for t in texts):
-                break  # the end card
-            if any(l10n("it", "words.addToMyWords") in t or "Chiedi all'insegnante" in t for t in texts):  # a tap the slow emulator took for a long press
-                adb("shell", "input", "keyevent", "KEYCODE_BACK")
-                time.sleep(1.5)
-                continue
-            shown = [w for w in wrong if any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts)]
-            if not made_mistake and shown:
-                snap(f"fb-{tag}-turn")
-                assert choice({shown[0]}), f"the wrong choice «{shown[0]}»"
-                time.sleep(2 * slow())
-                snap(f"fb-{tag}-wrong")
-                assert any(wrong[shown[0]][:20] in t for t, _ in nodes()), f"the reaction to «{shown[0]}»: {wrong[shown[0]]}"
-                made_mistake = True
-                continue
-            if choice(right):
-                time.sleep(2 * slow())
-                continue
-            if not tap(lab("common.next"), 3):
-                time.sleep(1)
-        snap(f"fb-{tag}-end")
-        assert made_mistake, f"{name}: a turn with a wrong choice was played"
-        line = spec["steps"][n - 1]["line"]["it"]
-        assert scroll_to(line[:24], 3) is not None, f"its line for the chronicle: {line}"
-        snap(f"fb-{tag}-line")
-
-    qa_hook("pair:it-de")
     try:
-        to_village()
-        qa_hook("hearths:trg")
-        time.sleep(2 * slow())
-        # on the village the hook made up (the dev bridge's copy, which the app adopts): the cast met, the two leaders living here,
-        # the learner's voice chosen, so "My voice" isn't offered over a dialog's first line
-        snap_state = dev_bridge("/game")
-        st = snap_state["state"]
-        for v in api("/villagers"):
-            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
-            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
-        for leader in ("davide", "bruno", "franco"):
-            if not any(r.get("id") == leader for r in st.setdefault("residents", [])):
-                st["residents"].append({"id": leader, "since": "2026-01-01"})
-        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
-        dev_bridge("/learner/voice", {"voice": "default"})
-        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
-        time.sleep(5 * slow())
-        qa_hook("hour:11")
-        qa_hook("bubbles:0")
+        v.ready()
         # LANI_QA_FB_PLAYS="<project>:<n>:<level>:<tag>,…" plays those instead (village-b2-friuli: a step at B2)
         plays = [p.split(":") for p in os.environ.get("LANI_QA_FB_PLAYS", "").split(",") if p]
         for project, n, level, tag in plays or [("gasilski_dom", "4", "A1", "pump"), ("vodnjak_na_trgu", "2", "B1", "stone"), ("most", "5", "A2", "planks")]:
-            play(project, int(n), level, tag)  # the bridge's fifth is one of friuli-projects-a's, on the union
+            v.play(project, int(n), level, tag)  # the bridge's fifth is one of friuli-projects-a's, on the union
     finally:
-        qa_hook("level:")
-        qa_hook("step:")
-        qa_hook("hour:")
-        qa_hook("bubbles:")
-        qa_hook("pair:")
+        v.done()
 
 
 def lakeland_b2():
@@ -11538,178 +11726,35 @@ def lakeland_b2():
     in en · sl, the village a Trg (QA's hook "hearths:trg"). The mill's third step at B2 ("level:B2", "step:mlin/3"), from its landmark
     on the map through the projects sheet, a wrong choice with its reaction, to its end card; then Mr Dixon's arrival at B2
     ("level:B2", "meet:dixon"), its first line and turn, a wrong choice with its reaction. Also as b2-*.png in $LANI_QA_LAKELAND_SHOTS."""
-    try:
-        culture = api("/culture").get("id")
-    except (OSError, RuntimeError, ValueError):
-        culture = None
-    if culture != "lakeland":
+    v = village_play("lakeland")
+    if v is None:
         return "skipped: the dev bridge's village isn't the Lake District's (LANI_CULTURE=lakeland and a learner of English)"
-    pair = ["en", "sl"]
-    out = Path(os.environ["LANI_QA_LAKELAND_SHOTS"]) if os.environ.get("LANI_QA_LAKELAND_SHOTS") else None
-    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
-    culture_dir = ROOT / "companion/cultures/lakeland"
-    projects = {p["id"]: p for p in json.loads((culture_dir / "projects.json").read_text())["projects"]}
-
-    def snap(name: str):
-        shot(name)
-        if out is not None:
-            out.mkdir(parents=True, exist_ok=True)
-            shutil.copy(shots[-1], out / f"{name}.png")
-
-    def to_village():
-        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
-        end = time.time() + 40 * slow()
-        while time.time() < end and find(lab("villageScreen.scroll")) is None:
-            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
-            if c is not None:
-                tap_at(c)
-            time.sleep(1.5)
-        assert find(lab("villageScreen.scroll")) is not None, "the village"
-        time.sleep(2)
-
-    def play(project: str, n: int, level: str, tag: str):
-        """Step [n] of [project], from its landmark on the map to its end card, at [level]."""
-        spec = projects[project]
-        step = json.loads((culture_dir / f"project-steps/{project}.json").read_text())["steps"][n - 1]
-        lines = step["levels"][level]["lines"]
-        # as they are said to the synthetic Alex: the name, the man's form of a pair
-        say = lambda s: re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", s).replace("{learner}", "Alex")
-        right = {say(c["en"]) for l in lines for c in l.get("choices", []) if c.get("ok")}
-        wrong = {say(c["en"]): say(c["reply"]["en"]) for l in lines for c in l.get("choices", []) if not c.get("ok")}
-        said = [say(l["en"]) for l in lines if not l.get("choices")]
-        qa_hook(f"level:{level}")
-        qa_hook(f"step:{project}/{n}")
-        to_village()
-        qa_hook(f"show:project:{project}")
-        time.sleep(3 * slow())
-        snap(f"b2-{tag}-map")
-        name = spec["name"]["en"]
-        # its landmark's target comes once the app has adopted the readied village (on a loaded machine, seconds); not there, the map panned
-        w, h = screen_size()
-        c = None
-        for dx in (0, -0.45, -0.45, 0.45, 0.45, 0.45, 0.45):
-            if dx:
-                adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.62)), str(int(w * (0.5 + dx))), str(int(h * 0.62)), "500")
-                time.sleep(2 * slow())
-            c = wait_for(name, 3)
-            if c is not None:
-                break
-        assert c is not None, f"{name} on the village's map: its landmark partway through, at step {n - 1}"
-        snap(f"b2-{tag}-landmark")
-        tap_at(c)
-        today = "🔨 " + l10n("en", "projectsSheet.todaysStep")
-        task = spec["steps"][n - 1]["task"]["en"]
-        assert wait_for(task, 10), f"the projects sheet at {name}: its step {n}, {task}"
-        time.sleep(1.5)
-        snap(f"b2-{tag}-sheet")
-        # its own button, under the step and the project's words: the first "Today's step" below its title
-        btn = None
-        for _ in range(10):
-            title = find(name)
-            below = sorted((c for t, c in nodes() if today in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
-            if below and below[0][1] < screen_size()[1] - 120:
-                btn = below[0]
-                break
-            w, h = screen_size()
-            adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.65)), str(w // 2), str(int(h * 0.45)), "400")
-            time.sleep(1)
-        assert btn is not None, f"{name}'s {today}"
-        tap_at(btn)
-        progress = f"{name} {n}/{len(spec['steps'])}"
-        assert wait_for(progress, 12), f"the step's dialog: {progress}"
-        time.sleep(2 * slow())
-        snap(f"b2-{tag}-opens")
-        assert any(t.startswith(s[:24]) or s[:24] in t for t, _ in nodes() for s in said), f"{name}: its first line at {level}"
-        def choice(wanted) -> bool:
-            """Taps the row of a choice in [wanted] under "Your answer" (what was said stays in the talk above), low on its left: a word's
-            middle, held on a slow emulator, opens the word's card."""
-            bs = list(boxes())
-            head = next((b for t, b in bs if lab("sceneDialog.answer") in t), None)
-            if head is None:
-                return False
-            for t, (x0, y0, x1, y1) in bs:
-                if y0 >= head[3] and (t in wanted or any(t.startswith(o + ",") or t.startswith(o + " ") for o in wanted)):
-                    tap_at((x0 + 40, y1 - 18))
-                    return True
-            return False
-
-        made_mistake = False
-        for k in range(30):
-            texts = [t for t, _ in nodes()]
-            if any(t.strip().endswith(f"{name} {n}/{len(spec['steps'])}") and t.strip() != progress and ":" not in t for t in texts):
-                break  # the end card
-            if any(l10n("en", "words.addToMyWords") in t  for t in texts):  # a tap the slow emulator took for a long press
-                adb("shell", "input", "keyevent", "KEYCODE_BACK")
-                time.sleep(1.5)
-                continue
-            shown = [w for w in wrong if any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts)]
-            if not made_mistake and shown:
-                snap(f"b2-{tag}-turn")
-                assert choice({shown[0]}), f"the wrong choice «{shown[0]}»"
-                time.sleep(2 * slow())
-                snap(f"b2-{tag}-wrong")
-                assert any(wrong[shown[0]][:20] in t for t, _ in nodes()), f"the reaction to «{shown[0]}»: {wrong[shown[0]]}"
-                made_mistake = True
-                continue
-            if choice(right):
-                time.sleep(2 * slow())
-                continue
-            if not tap(lab("common.next"), 3):
-                time.sleep(1)
-        snap(f"b2-{tag}-end")
-        assert made_mistake, f"{name}: a turn with a wrong choice was played"
-        line = spec["steps"][n - 1]["line"]["en"]
-        assert scroll_to(line[:24], 3) is not None, f"its line for the chronicle: {line}"
-        snap(f"b2-{tag}-line")
-
-    qa_hook("pair:en-sl")
     try:
-        to_village()
-        qa_hook("hearths:trg")
-        time.sleep(2 * slow())
-        # on the village the hook made up (the dev bridge's copy, which the app adopts): the cast met, the two leaders living here,
-        # the learner's voice chosen, so "My voice" isn't offered over a dialog's first line
-        snap_state = dev_bridge("/game")
-        st = snap_state["state"]
-        for v in api("/villagers"):
-            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
-            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
-        for leader in ("tyson", "dixon"):
-            if not any(r.get("id") == leader for r in st.setdefault("residents", [])):
-                st["residents"].append({"id": leader, "since": "2026-01-01"})
-        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
-        dev_bridge("/learner/voice", {"voice": "default"})
-        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
-        time.sleep(5 * slow())
-        qa_hook("hour:11")
-        qa_hook("bubbles:0")
-        play("mlin", 3, "B2", "rafters")
+        v.ready()
+        v.play("mlin", 3, "B2", "rafters")
         # Mr Dixon's arrival at B2
-        spec = json.loads((culture_dir / "arrivals.json").read_text())["cast"]["dixon"]["levels"]["B2"]
+        spec = json.loads((v.dir / "arrivals.json").read_text())["cast"]["dixon"]["levels"]["B2"]
         turn = next(x for x in spec["lines"] if "choices" in x)
         bad = next(c for c in turn["choices"] if not c.get("ok"))
         qa_hook("level:B2")
         qa_hook("meet:dixon")
         time.sleep(3 * slow())
-        snap("b2-meet-opens")
+        v.snap("b2-meet-opens")
         assert any(spec["lines"][0]["en"][:20] in t or spec["late"]["en"][:20] in t for t, _ in nodes()), "Mr Dixon's first line at B2"
         for _ in range(8):
             if find(bad["en"]) is not None:
                 break
-            tap(lab("common.next"), 2)
+            tap(v.lab("common.next"), 2)
             time.sleep(1.5 * slow())
         assert find(bad["en"]) is not None, f"Mr Dixon's first turn: {bad['en']}"
-        snap("b2-meet-turn")
+        v.snap("b2-meet-turn")
         tap_at(find(bad["en"]))
         time.sleep(2 * slow())
-        snap("b2-meet-wrong")
+        v.snap("b2-meet-wrong")
+        v.tablet("b2-meet-wrong")
         assert any(bad["reply"]["en"][:18] in t for t, _ in nodes()), f"the reaction: {bad['reply']['en']}"
     finally:
-        qa_hook("level:")
-        qa_hook("step:")
-        qa_hook("hour:")
-        qa_hook("bubbles:")
-        qa_hook("pair:")
+        v.done()
 
 
 def kaernten_b2():
@@ -11718,152 +11763,13 @@ def kaernten_b2():
     in de · sl, the village a Trg (QA's hook "hearths:trg"). One step at B2 from its landmark to its end card, a wrong choice and its
     reaction on the way (LANI_QA_K2_STEP "<project>:<n>", the fountain's second), then one arrival at B2 (LANI_QA_K2_MEET, Schmied
     Toni: QA's hooks "level:B2", "meet:<id>"), to its first turn's reaction. Also as k2-*.png in $LANI_QA_KAERNTEN_SHOTS."""
-    try:
-        culture = api("/culture").get("id")
-    except (OSError, RuntimeError, ValueError):
-        culture = None
-    if culture != "kaernten":
+    v = village_play("kaernten")
+    if v is None:
         return "skipped: the dev bridge's village isn't the Kärnten culture's (LANI_CULTURE=kaernten and a learner of German)"
-    pair = ["de", "sl"]
-    out = Path(os.environ["LANI_QA_KAERNTEN_SHOTS"]) if os.environ.get("LANI_QA_KAERNTEN_SHOTS") else None
-    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
-    culture_dir = ROOT / "companion/cultures/kaernten"
-    projects = {p["id"]: p for p in json.loads((culture_dir / "projects.json").read_text())["projects"]}
-
-    def snap(name: str):
-        shot(name)
-        if out is not None:
-            out.mkdir(parents=True, exist_ok=True)
-            shutil.copy(shots[-1], out / f"{name}.png")
-
-    def to_village():
-        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
-        end = time.time() + 40 * slow()
-        while time.time() < end and find(lab("villageScreen.scroll")) is None:
-            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
-            if c is not None:
-                tap_at(c)
-            time.sleep(1.5)
-        assert find(lab("villageScreen.scroll")) is not None, "the village"
-        time.sleep(2)
-
-    def play(project: str, n: int, level: str, tag: str):
-        """Step [n] of [project], from its landmark on the map to its end card, at [level]."""
-        spec = projects[project]
-        step = json.loads((culture_dir / f"project-steps/{project}.json").read_text())["steps"][n - 1]
-        lines = step["levels"][level]["lines"]
-        # as they are said to the synthetic Teo: his name, the boy's form of a pair
-        say = lambda s: re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", s).replace("{learner}", "Teo")
-        right = {say(c["de"]) for l in lines for c in l.get("choices", []) if c.get("ok")}
-        wrong = {say(c["de"]): say(c["reply"]["de"]) for l in lines for c in l.get("choices", []) if not c.get("ok")}
-        said = [say(l["de"]) for l in lines if not l.get("choices")]
-        qa_hook(f"level:{level}")
-        qa_hook(f"step:{project}/{n}")
-        to_village()
-        qa_hook(f"show:project:{project}")
-        time.sleep(3 * slow())
-        snap(f"k2-{tag}-map")
-        name = spec["name"]["de"]
-        # its landmark's target comes once the app has adopted the readied village (on a loaded machine, seconds); not there, the map panned
-        w, h = screen_size()
-        c = None
-        for dx in (0, -0.45, -0.45, 0.45, 0.45, 0.45, 0.45):
-            if dx:
-                adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.62)), str(int(w * (0.5 + dx))), str(int(h * 0.62)), "500")
-                time.sleep(2 * slow())
-            c = wait_for(name, 3)
-            if c is not None:
-                break
-        assert c is not None, f"{name} on the village's map: its landmark partway through, at step {n - 1}"
-        snap(f"k2-{tag}-landmark")
-        tap_at(c)
-        today = "🔨 " + l10n("de", "projectsSheet.todaysStep")
-        task = spec["steps"][n - 1]["task"]["de"]
-        assert wait_for(task, 10), f"the projects sheet at {name}: its step {n}, {task}"
-        time.sleep(1.5)
-        snap(f"k2-{tag}-sheet")
-        # its own button, under the step and the project's words: the first "Today's step" below its title
-        btn = None
-        for _ in range(10):
-            title = find(name)
-            below = sorted((c for t, c in nodes() if today in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
-            if below and below[0][1] < screen_size()[1] - 120:
-                btn = below[0]
-                break
-            w, h = screen_size()
-            adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.65)), str(w // 2), str(int(h * 0.45)), "400")
-            time.sleep(1)
-        assert btn is not None, f"{name}'s {today}"
-        tap_at(btn)
-        progress = f"{name} {n}/{len(spec['steps'])}"
-        assert wait_for(progress, 12), f"the step's dialog: {progress}"
-        time.sleep(2 * slow())
-        snap(f"k2-{tag}-opens")
-        assert any(t.startswith(s[:24]) or s[:24] in t for t, _ in nodes() for s in said), f"{name}: its first line at {level}"
-        def choice(wanted) -> bool:
-            """Taps the row of a choice in [wanted] under "Your answer" (what was said stays in the talk above), low on its left: a word's
-            middle, held on a slow emulator, opens the word's card."""
-            bs = list(boxes())
-            head = next((b for t, b in bs if lab("sceneDialog.answer") in t), None)
-            if head is None:
-                return False
-            for t, (x0, y0, x1, y1) in bs:
-                if y0 >= head[3] and (t in wanted or any(t.startswith(o + ",") or t.startswith(o + " ") for o in wanted)):
-                    tap_at((x0 + 40, y1 - 18))
-                    return True
-            return False
-
-        made_mistake = False
-        for k in range(30):
-            texts = [t for t, _ in nodes()]
-            if any(t.strip().endswith(f"{name} {n}/{len(spec['steps'])}") and t.strip() != progress and ":" not in t for t in texts):
-                break  # the end card
-            if any(l10n("de", "words.addToMyWords") in t or l10n("de", "common.askTutor") in t for t in texts):  # a tap the slow emulator took for a long press
-                adb("shell", "input", "keyevent", "KEYCODE_BACK")
-                time.sleep(1.5)
-                continue
-            shown = [w for w in wrong if any(t == w or t.startswith(w + ",") or t.startswith(w + " ") for t in texts)]
-            if not made_mistake and shown:
-                snap(f"k2-{tag}-turn")
-                assert choice({shown[0]}), f"the wrong choice «{shown[0]}»"
-                time.sleep(2 * slow())
-                snap(f"k2-{tag}-wrong")
-                assert any(wrong[shown[0]][:20] in t for t, _ in nodes()), f"the reaction to «{shown[0]}»: {wrong[shown[0]]}"
-                made_mistake = True
-                continue
-            if choice(right):
-                time.sleep(2 * slow())
-                continue
-            if not tap(lab("common.next"), 3):
-                time.sleep(1)
-        snap(f"k2-{tag}-end")
-        assert made_mistake, f"{name}: a turn with a wrong choice was played"
-        line = spec["steps"][n - 1]["line"]["de"]
-        assert scroll_to(line[:24], 3) is not None, f"its line for the chronicle: {line}"
-        snap(f"k2-{tag}-line")
-
-    qa_hook("pair:de-sl")
     try:
-        to_village()
-        qa_hook("hearths:trg")
-        time.sleep(2 * slow())
-        # on the village the hook made up: the cast met, the leaders living here, the learner's voice chosen
-        snap_state = dev_bridge("/game")
-        st = snap_state["state"]
-        for v in api("/villagers"):
-            bond = st.setdefault("bonds", {}).setdefault(v["id"], {})
-            bond["met"] = bond.get("met") or time.strftime("%Y-%m-%d")
-        for leader in ("toni", "franz", "stefan", "eva"):
-            if not any(r.get("id") == leader for r in st.setdefault("residents", [])):
-                st["residents"].append({"id": leader, "since": "2026-01-01"})
-        dev_bridge("/game", {"rev": snap_state["rev"], "state": st}, method="PUT")
-        dev_bridge("/learner/voice", {"voice": "default"})
-        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
-        time.sleep(5 * slow())
-        qa_hook("hour:11")
-        qa_hook("bubbles:0")
+        v.ready()
         project, n = os.environ.get("LANI_QA_K2_STEP", "vodnjak_na_trgu:2").split(":")
-        play(project, int(n), "B2", "b2step")
+        v.play(project, int(n), "B2", "b2step")
         # one arrival at B2
         meet = os.environ.get("LANI_QA_K2_MEET", "toni")
         adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "home")
@@ -11871,28 +11777,25 @@ def kaernten_b2():
         qa_hook("level:B2")
         qa_hook(f"meet:{meet}")
         time.sleep(3 * slow())
-        snap(f"k2-meet-{meet}")
-        spec = json.loads((culture_dir / "arrivals.json").read_text())["cast"][meet]["levels"]["B2"]
+        v.snap(f"k2-meet-{meet}")
+        spec = json.loads((v.dir / "arrivals.json").read_text())["cast"][meet]["levels"]["B2"]
         first = next(x for x in spec["lines"] if "choices" in x)
         wrong_choice = next(c for c in first["choices"] if not c.get("ok"))
         wrong = re.split(r"[{]", wrong_choice["de"])[0].strip()
         for _ in range(8):
             if find(wrong) is not None:
                 break
-            tap(lab("common.next"), 2)
+            tap(v.lab("common.next"), 2)
             time.sleep(1.5 * slow())
         assert find(wrong) is not None, f"{meet}'s first turn at B2: {wrong}"
-        snap(f"k2-meet-{meet}-turn")
+        v.snap(f"k2-meet-{meet}-turn")
         assert tap(wrong, 3), f"the wrong choice: {wrong}"
         time.sleep(2 * slow())
-        snap(f"k2-meet-{meet}-reaction")
+        v.snap(f"k2-meet-{meet}-reaction")
+        v.tablet(f"k2-meet-{meet}-reaction")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
     finally:
-        qa_hook("level:")
-        qa_hook("step:")
-        qa_hook("hour:")
-        qa_hook("bubbles:")
-        qa_hook("pair:")
+        v.done()
 
 
 def lakeland_projects_b():
@@ -21296,6 +21199,7 @@ def plan():
         ("hint-it", hint_it, v, False, ""),
         ("hint-en", hint_en, v, False, ""),
         ("hint-de", hint_de, v, False, ""),
+        ("hint-de-cases", hint_de_cases, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("player-voice", player_voice, v, False, ""),
         # "🗣️ Moj glas · My voice": the offer at the first line, a ▶, the pick, the next line in it, the settings' page
@@ -22110,7 +22014,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
