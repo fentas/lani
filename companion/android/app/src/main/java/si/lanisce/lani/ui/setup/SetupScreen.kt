@@ -223,14 +223,14 @@ internal fun SetupPage(
 
 /** A little of the village: the first age's fire and huts on the land of the language's region, drawn as the founding draws it. */
 @Composable
-private fun VillageArt(target: Lang?) {
+private fun VillageArt(target: Lang?, ratio: Float = 1.9f) {
     // the region of the language chosen, or the village's once a bridge has said it (setting up again): VillageCulture
     val culture = remember(target) { si.lanisce.lani.game.culture.VillageCulture.preview(target) }
     val village = remember(culture) { runCatching { Founding.start(culture, null, ART_SEED).preview() }.getOrNull() }
     if (village != null) LandPreview(
         village,
         culture,
-        Modifier.fillMaxWidth().widthIn(max = 520.dp).aspectRatio(1.9f).clip(RoundedCornerShape(16.dp)).semantics { contentDescription = "village" },
+        Modifier.fillMaxWidth().widthIn(max = 520.dp).aspectRatio(ratio).clip(RoundedCornerShape(16.dp)).semantics { contentDescription = "village" },
     ) else Text("🏔️", style = MaterialTheme.typography.displayLarge)
 }
 
@@ -245,11 +245,12 @@ private const val ART_SEED = 7L
 private fun Welcome(vm: AppViewModel, flow: SetupFlow, speech: List<HintPiece>, onTarget: (Lang) -> Unit, onOther: () -> Unit) {
     val phone = flow.base
     SetupPage(vm.hintVoice, speech, side = {
-        VillageArt(flow.target)
+        // a band of the village: the tiles and the small link under them stay on the screen of a phone
+        VillageArt(flow.target, ratio = 2.8f)
         // Lani's wordmark (companion/android/tools/app_icon.py: its L is the bell tower of the launcher's icon)
         androidx.compose.foundation.Image(
             androidx.compose.ui.res.painterResource(si.lanisce.lani.R.drawable.lani_wordmark), contentDescription = "Lani",
-            modifier = Modifier.height(56.dp),
+            modifier = Modifier.height(44.dp),
         )
         Text(L10n.text(phone, "setup.hello"), style = MaterialTheme.typography.displaySmall, color = White, textAlign = TextAlign.Center)
         Text(

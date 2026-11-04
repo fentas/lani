@@ -162,3 +162,23 @@ Other ways, from the first screen:
 | The family's computer, typed | 8 | 6 (the link, the way, "Ročno", the address, the token, Connect) |
 | A new family member, from a set-up device | 7 or more, and a key typed by hand | 5 on the new device (the link, the way, the name, Found, here) and a hold on the parent's, before the first word |
 
+## Tests and QA
+
+- `app/FirstRunTest`: an existing learner sees none of it, on nothing kept; the moment once; the aim and the minutes wait for a
+  session and come once, skipped or answered; a child and a family's computer aren't asked them; the voice waits for the
+  dialog's end; the tutor's ways once, on this device, with none set up; the school's card stays dismissed; when the
+  notification question comes; it survives the app; the first words in all 12 pairs.
+- `app/SetupFlowTest`: two taps to the founding with the defaults, the other ways in, Back on every step, what the family shared.
+  Pairing and an old node's failures as before, on the new path. `data/DeepLinkTest`: an invitation, unchanged.
+- `game/SetupSpeechTest`: every step in all 12 pairs.
+- `data/FamilyLinkTest`: the QR holds no key and only its known fields; only the claiming device can read the gift; the exchange
+  is bound to the code; a used code, an expired code and a wrong proof get nothing; nothing goes without the parent; a changed
+  byte isn't opened; `Gift` and `Redact` keep the key and the code out of a log; end to end over real sockets, with a yes and a no.
+- The bridge's smoke: `POST /learner/about` in `test/smoke/aim.ts`.
+- `companion/bin/qa`:
+  - `first-run` (alone): the taps and seconds above, with screenshots; `setup-tour` (alone): the child on the tablet, on its side
+    and upright, what each step said.
+  - `first-cards`: the voice's card, the pace card, the school's card, each once.
+  - `hosted` (alone; `LANI_QA_HOSTED_CHILD=1`): the first run, the tutor's ways once, the pace card kept on the phone's bridge.
+  - `family-parent` and `family-child`, on the two emulators at once.
+

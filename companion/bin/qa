@@ -1232,10 +1232,9 @@ def first_launch(way_key="setup.computerTitle"):
 def first_link(way_key: str):
     """The first screen's small link, to the way titled [way_key]."""
     link = say("setup.otherLink", 1)
-    if not wait_for(link, 30):
-        (OUT / "first-screen.xml").write_text(screen_xml())
-        raise AssertionError(f"the first screen's small link «{link}»")
-    assert tap(link, 4), "the small link"
+    c = wait_for(link, 15) or tour_find(link, 3)
+    assert c, f"the first screen's small link «{link}»"
+    tap_at(c)
     assert wait_for(say("setup.otherTitle", 0), 8), "the other ways in"
     setup_heard("other", 3)
     setup_shot("other")
@@ -12894,7 +12893,7 @@ def family_child():
     qa_hook(f"tutorlive:{SHADOW_MOCK}")
     assert wait_for("slovenščina", 30), "the first screen"
     link = l10n("en").get("setup.otherLink")
-    c = scroll_to(link, 3) or find(link)
+    c = wait_for(link, 15) or tour_find(link, 3)
     assert c, "the first screen's small link"
     tap_at(c)
     title = say("family.scanTitle", 0)
