@@ -40,6 +40,10 @@ fun PaceCard(vm: AppViewModel, d: Dashboard) {
     var minutes by remember { mutableIntStateOf(d.goalMinutes.takeIf { it > 0 } ?: si.lanisce.lani.app.FirstRun.MINUTES) }
     val now = Aim.keep(d.targetLevel, d.level)
     var aim by remember { mutableStateOf(now) }
+    // what's marked has to show on the card's own colour
+    val marked = androidx.compose.material3.FilterChipDefaults.filterChipColors(
+        selectedContainerColor = MaterialTheme.colorScheme.primary, selectedLabelColor = MaterialTheme.colorScheme.onPrimary,
+    )
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
@@ -48,11 +52,11 @@ fun PaceCard(vm: AppViewModel, d: Dashboard) {
             Text("🌱 ${bi("firstRun.paceTitle")}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
             Text("⏱️ ${bi("hosted.goal")}", style = MaterialTheme.typography.labelLarge)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for (g in si.lanisce.lani.app.Aim.MINUTES) FilterChip(minutes == g, { minutes = g }, { Text("$g min") })
+                for (g in si.lanisce.lani.app.Aim.MINUTES) FilterChip(minutes == g, { minutes = g }, { Text("$g min") }, colors = marked)
             }
             Text("🎯 ${bi("setup.aim")}", style = MaterialTheme.typography.labelLarge)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for (a in Aim.near(d.level, now)) FilterChip(aim == a, { aim = a }, { Text(a) })
+                for (a in Aim.near(d.level, now)) FilterChip(aim == a, { aim = a }, { Text(a) }, colors = marked)
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
                 TextButton(onClick = { vm.settlePace() }) { Text(bi("common.skip")) }

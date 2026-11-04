@@ -1233,7 +1233,7 @@ def first_link(way_key: str):
     """The first screen's small link, to the way titled [way_key]."""
     link = say("setup.otherLink", 1)
     if not wait_for(link, 30):
-        print("    on screen:", [t for t, _ in nodes() if t][:24], "dump:", adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False)[:120])
+        (OUT / "first-screen.xml").write_text(screen_xml())
         raise AssertionError(f"the first screen's small link «{link}»")
     assert tap(link, 4), "the small link"
     assert wait_for(say("setup.otherTitle", 0), 8), "the other ways in"
@@ -21259,6 +21259,24 @@ def hosted():
     hosted_shot("pack-learned")
     tap("Naprej", 4)
     go_home()
+
+    # the first finished session: the minutes and the aim on Home, once; 20 minutes kept on the phone's bridge
+    child_pace = os.environ.get("LANI_QA_HOSTED_CHILD") == "1"
+    to_top()
+    time.sleep(2 * slow())
+    if child_pace:
+        assert find("Lep začetek") is None, "a child's minutes and aim are a parent's"
+    else:
+        assert wait_for("Lep začetek", 15) or scroll_to("Lep začetek", 3), "the minutes and the aim after the first session"
+        assert tap("20 min", 4), "20 minutes"
+        hosted_shot("pace")
+        ok = scroll_to("V redu · OK", 3) or find("V redu · OK")
+        assert ok, "its OK"
+        tap_at(ok)
+        time.sleep(3 * slow())
+        assert find("Lep začetek") is None, "the question gone"
+        goal = json.loads(run_as("cat", "files/lani/data/learner-profile.json") or "{}").get("learner", {}).get("daily_goal_minutes")
+        assert goal == 20, f"the minutes kept: {goal}"
 
     # a review of the new words today (QA's hook: they are due tomorrow), to its end
     qa_hook("review")
