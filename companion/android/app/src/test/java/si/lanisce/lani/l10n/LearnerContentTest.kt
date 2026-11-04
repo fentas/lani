@@ -53,7 +53,8 @@ class LearnerContentTest {
             compared++
             if (sha256(canonical(Json.parseToJsonElement(jan.renderJson(raw)))) != h.jsonObject.getValue("before").jsonPrimitive.content) differ += path
         }
-        assertTrue("compared $compared of ${files.size}", compared > files.size / 2)
+        // a floor, not a share: every file edited since leaves the comparison, as it should, and wave E's B1 and B2 edited half of them
+        assertTrue("compared $compared of ${files.size}", compared >= 150)
         assertEquals("files whose texts said to Jan differ from before", emptyList<String>(), differ)
     }
 

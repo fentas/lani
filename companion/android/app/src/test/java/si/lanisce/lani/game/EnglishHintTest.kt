@@ -295,7 +295,7 @@ class EnglishHintTest {
             assertTrue("turns with a hint: $hints", hints > 700)
             // (Lakeland has many turns of two right choices or of another length, "I'm fine, thank you." and "Very well,
             // thank you."; the whole of their sentences is the answer, so a card that names I'm, can or don't is left out
-            // there, and the chip shows its link alone)
+            // there, and the chip shows its link alone, unless a wrong choice says that word too)
             assertTrue("$said of $hints hints say more than the link", said * 100 >= hints * 90)
             assertTrue("$triggered of $formTurns form turns name what decides their form", triggered * 100 >= formTurns * 60)
         }
