@@ -16,7 +16,7 @@ import { ScenarioStore } from '../../src/scenarios'
 import { SCENE_ART, validateScene } from '../../src/scenes'
 import { profileFromEnv } from '../../src/learners'
 import { cultureSky, MOON_PHASES, SKY_FIGURES, SKY_SHOWERS, SKY_STARS } from '../../src/sky'
-import { cultureProjectSteps, cultureStepFiles, lexiconLemmas, speakerGendered, stepTellings, testsWord, withoutArticle } from '../../src/project-steps'
+import { cultureProjectSteps, cultureStepFiles, lexiconLemmas, speakerGendered, standInErrors, stepTellings, testsWord, withoutArticle, type Line } from '../../src/project-steps'
 import { celebrationErrors, celebrationSpec, cultureCelebrationFiles, cultureCelebrations, partyTellings } from '../../src/celebrations'
 import { VillagerStore } from '../../src/villagers'
 import { auth, base, check, culturesDir, dataDir, fam, italianPacksDir, tempDir } from './harness'
@@ -387,6 +387,29 @@ export default async function cultures() {
   check(
     "… a helper's line may say nothing of who says it (another says it when they're away)",
     speakerGendered('Prinesel sem vrv.') && speakerGendered('Danes sem utrujena.') && speakerGendered('Tega ne zmorem sam.') && !speakerGendered('Tukaj sem! Primimo vrv.') && !speakerGendered('Smreka je visoka.'),
+  )
+  // … in every language, a translation too, and only what is said of the speaker
+  const gendered: [string, string][] = [['Rada bi vedela.', 'sl'], ['To bi rad videl!', 'sl'], ['Kot fantič bi se bal.', 'sl'], ['Sono stanca.', 'it'], ['Ma non ci sono ancora salito.', 'it'], ['Lo faccio da solo.', 'it'], ['Da ragazzo avevo paura.', 'it'], ['Ich bin Schmied, kein Schneider.', 'de'], ['Als Bub hatte ich Angst.', 'de'], ['Als ich ein Bub war, ging das.', 'de'], ['When I was a lad, we walked.', 'en'], ['I minded the cows as a lad.', 'en']]
+  const anyones: [string, string][] = [['Kaj bi rad?', 'sl'], ['Potem jo nesi sam!', 'sl'], ['Kako bo prišla sem?', 'sl'], ['Tega drži en sam palec!', 'sl'], ['Potem bi bila cela vas bogata!', 'sl'], ['Le scale sono troppo strette.', 'it'], ['Ce ne sono abbastanza.', 'it'], ['La neve viene da sola.', 'it'], ['Ich bin hier.', 'de'], ["I'm here.", 'en']]
+  check(
+    "… in every language: what's said of the speaker, not of anyone else",
+    gendered.every(([t, l]) => speakerGendered(t, l)) && anyones.every(([t, l]) => !speakerGendered(t, l)),
+    { missed: gendered.filter(([t, l]) => !speakerGendered(t, l)), wrong: anyones.filter(([t, l]) => speakerGendered(t, l)) },
+  )
+  // a reply goes to the turn's `to`, else whoever spoke last: a helper can say what's written for the leader
+  const lineOf = (x: Record<string, unknown>) => ({ choices: [], ...x }) as unknown as Line
+  const steps: Line[] = [
+    lineOf({ who: 'luka', sl: 'Tukaj je.', en: 'Here.' }),
+    lineOf({ choices: [{ sl: 'A', ok: true, reply: { sl: 'Prinesel sem vrv.', en: 'Rope.' } }, { sl: 'B', reply: { sl: 'Ne.', it: 'Sono stanca.' } }] }),
+    lineOf({ who: 'france', sl: 'Prinesel sem vrv.' }),
+    lineOf({ choices: [{ sl: 'A', ok: true, reply: { sl: 'Prinesel sem vrv.' } }] }),
+    lineOf({ to: 'luka', choices: [{ sl: 'A', ok: true, reply: { sl: 'Prinesla sem vrv.' } }] }),
+  ]
+  const hits = standInErrors(steps, new Set(['luka']), 'france', 'x', "a helper's line").map(e => e.split(':')[0])
+  check(
+    "… a helper's reply and its translations are held to it, the leader's aren't: the turn's `to`, else whoever spoke last",
+    JSON.stringify(hits) === JSON.stringify(['x.lines[1].choices[0].reply.sl', 'x.lines[1].choices[1].reply.it', 'x.lines[4].choices[0].reply.sl']),
+    hits,
   )
 
   // --- an age's celebration (celebrations/<age>.json, lani.celebration/v0; companion/GAME.md "Ages and their celebrations"):

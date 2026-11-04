@@ -248,14 +248,103 @@ export function testedIn(lines: z.infer<typeof dialogLine>[], lang: string): { w
   return { words, taps }
 }
 
+/** What may stand between Slovene's auxiliary and its participle: the clitics and the small words. */
+const SL_BETWEEN = String.raw`(?:(?:ga|jo|ju|jih|ji|mu|jim|se|si|te|ti|vas|nas|vam|nam|že|tudi|še|pa|le|res|ne)\s+)*`
+/** A Slovene clause in the first person: a verb in -m or -va (sem, bom, zmorem; sva), by its ending, less the words that only end so. */
+const SL_FIRST = /\b(?!(?:potem|zatem|njim|vsem|mojem|tvojem|svojem|takem|katerem|nobenem)\b)(?:sva|\p{L}{2,}[aeio]m)\b/u
+/** The words after sono or ero that aren't what the speaker is, whatever they end in. */
+const IT_NOT_SAID_OF = new Set([
+  'la', 'lo', 'una', 'uno', 'qua', 'ora', 'ancora', 'sopra', 'sotto', 'dentro', 'quasi', 'troppo', 'molto', 'poco', 'tanto', 'proprio', 'appena', 'mica', 'questa', 'questo',
+  'quella', 'quello', 'nessuna', 'nessuno', 'nello', 'nella', 'sullo', 'sulla', 'dallo', 'dalla', 'allo', 'alla', 'dello', 'della', 'quattro', 'otto', 'cento', 'mezza', 'mezzo',
+  'tutta', 'tutto', 'solo', 'cosa', 'gente', 'adesso', 'abbastanza', 'circa', 'io',
+])
+/** An Italian clause in the first person: the verbs "da solo" goes with in these lines, or io itself. */
+const IT_FIRST = /\b(?:io|faccio|posso|vado|ho|sono|ero|devo|so|porto|riesco)\b/u
+/** What may stand between sono and what is said of the speaker: an adverb. */
+const IT_ADVERB = String.raw`(?:(?:ancora|già|mai|molto|troppo|così|proprio|davvero|tanto|appena|sempre|più|un\s+po'|un\s+po’)\s+)?`
+
 /**
- * A helper's line that would read wrong in another's mouth: a first person that agrees with the speaker ("Prinesel
- * sem", "sem utrujena"). A helper may be away, and another says their lines then (the app: Projects.cast): theirs say
- * nothing of the speaker's gender. Slovene only (the curated steps' language).
+ * Whether [text], in [lang], says the gender of who says it. A helper may be away, and another says their lines then
+ * (the app: Projects.cast), a guest's too, in whichever language the learner reads them: their lines and replies say
+ * nothing of the speaker. Each language by what shows it:
+ * - Slovene: what agrees with the first person ("Prinesel sem", "sem utrujena", "rad bi", "zmorem sam"; "bi bila" only with
+ *   "jaz": it reads as anyone's: "potem bi bila cela vas bogata"; "sam" with no first person isn't the speaker: "kamen sam pove"; "kot fantič");
+ * - Italian: what follows sono and ero in the singular ("sono stanca", "ci sono salito"; a plural subject's sono ends otherwise:
+ *   "le scale sono strette"), "da ragazzo", "da solo" with a first person ("l'acqua viene da sola" isn't the speaker);
+ * - German: no verb or adjective shows it, a noun does ("Ich bin Bäckerin", "als Bub", "als ich ein Bub war");
+ * - English: a noun does ("I'm a lad", "when I was a girl", "my wife").
+ * A heuristic on one line: what it can't tell it leaves alone.
  */
-export function speakerGendered(text: string): boolean {
+export function speakerGendered(text: string, lang = 'sl'): boolean {
   const t = text.toLowerCase()
-  return /\bsem\s+\p{L}*(l|la|lo|en|na)\b/u.test(t) || /\b\p{L}{2,}(l|la)\s+sem\b/u.test(t) || /\b(sam|sama|bil|bila)\b/u.test(t)
+  if (lang === 'sl') {
+    if (new RegExp(String.raw`\bsem\s+${SL_BETWEEN}\p{L}*(l|la|lo|en|na)\b`, 'u').test(t)) return true
+    // not "bo prišla sem" (here): an auxiliary of another person before the participle
+    if (/(?<!\b(?:bo|bi|je|so|sta|bodo|bosta)\s+)\b\p{L}{2,}(l|la)\s+sem\b/u.test(t)) return true
+    if (/\bjaz\s+bi\s+\p{L}+(l|la)\b/u.test(t) || /\bkot\s+(?:fantič|fant|deček|deklica|dekle|punčka)\b/u.test(t)) return true
+    // a clause with its end: "Kaj bi rad?" asks the learner, "To bi rad videl!" is the speaker's
+    return (t.match(/[^.!?;:,…]+[.!?;:,…]*/gu) ?? []).some(c => {
+      if (/\b(rad|rada)\s+bi\b/u.test(c) || (/\bbi\s+(rad|rada)\b/u.test(c) && !c.includes('?'))) return true
+      return /\b(sam|sama|rad|rada)\b/u.test(c) && !/\b(en|ena|eno)\s+sam/u.test(c) && SL_FIRST.test(c)
+    })
+  }
+  if (lang === 'it') {
+    if (/\bio\s+stess[oa]\b|\bsono\s+solo[.,!?…]|\bsono\s+sola\b|\b(?:da|quando\s+ero)\s+(?:ragazz|bambin|piccol)[oa]\b/u.test(t)) return true
+    if ((t.match(/[^.!?;:,…]+/gu) ?? []).some(c => /\bda\s+sol[oa]\b/u.test(c) && IT_FIRST.test(c))) return true
+    for (const m of t.matchAll(new RegExp(String.raw`\b(?:sono|ero)\s+${IT_ADVERB}(\p{L}+[oa])\b`, 'gu'))) if (!IT_NOT_SAID_OF.has(m[1])) return true
+    return false
+  }
+  if (lang === 'de') return /\bIch\s+bin\s+(?:die\s+|der\s+|eine?\s+)?\p{Lu}/u.test(text) || /\b[Aa]ls\s+(?:kleine[rs]?\s+|junge[rs]?\s+)?(?:Bub|Junge|Mädchen|Mädel|Dirndl|Mann|Frau)\b/u.test(text) || /\b[Aa]ls\s+ich\s+(?:ein\s+|eine\s+)?(?:Bub|Junge|Mädchen|Mädel|Dirndl)\b/u.test(text) || /\bmeine?r?m?n?\s+(?:Frau|Mann)\b/u.test(text)
+  if (lang === 'en') return /\bi'?(?:\s+a)?m\s+(?:a|an|the|just\s+a|only\s+a)\s+(?:\p{L}+\s+)?(?:man|woman|lad|lass|girl|boy|mother|father|mum|dad|husband|wife|widow|widower)\b|\bas\s+a\s+(?:\p{L}+\s+)?(?:lad|lass|girl|boy)\b|\bwhen\s+i\s+was\s+an?\s+(?:\p{L}+\s+)?(?:lad|lass|girl|boy)\b|\bmy\s+(?:husband|wife)\b/u.test(t)
+  return false
+}
+
+/**
+ * Who answers each turn of [lines] (its index → their id): the one it names (`to`), else whoever spoke last before it,
+ * else [first]: the app's repliersOf (game/scene/SceneSpec.kt).
+ */
+export function repliersOf(lines: Line[], first?: string): Map<number, string> {
+  let last = first
+  const out = new Map<number, string>()
+  lines.forEach((l, i) => {
+    if (!l.choices.length) {
+      if (l.who) last = l.who
+      return
+    }
+    if (l.to) last = l.to
+    if (last) out.set(i, last)
+  })
+  return out
+}
+
+/**
+ * The texts of [lines] someone in [standIns] says (a helper, a guest: another may say them) that say the speaker's gender:
+ * their lines and, at a turn they answer ([repliersOf] from [first]), each reply and the puzzled reaction, in every language
+ * of [SCENE_LANGUAGES]: a translation is read too. [what] names them in the message.
+ */
+export function standInErrors(lines: Line[], standIns: Set<string>, first: string | undefined, at: string, what: string): string[] {
+  const errs: string[] = []
+  const check = (t: Texts | undefined, p: string) => {
+    for (const lang of SCENE_LANGUAGES) {
+      const s = t?.[lang]
+      if (typeof s !== 'string') continue
+      const said = render(s, MAN)
+      if (speakerGendered(said, lang)) errs.push(`${p}.${lang}: ${what} says the speaker's gender ("${said}"): another may say it when they're away; say it in the plural or the present`)
+    }
+  }
+  const repliers = repliersOf(lines, first)
+  lines.forEach((l, li) => {
+    const here = `${at}.lines[${li}]`
+    if (!l.choices.length) {
+      if (l.who && standIns.has(l.who)) check(l as Texts, here)
+      return
+    }
+    const who = repliers.get(li)
+    if (!who || !standIns.has(who)) return
+    check(l.puzzled, `${here}.puzzled`)
+    l.choices.forEach((c, ci) => check(c.reply, `${here}.choices[${ci}].reply`))
+  })
+  return errs
 }
 
 /**
@@ -312,6 +401,7 @@ export function projectStepsErrors(f: ProjectSteps, r: StepRefs): string[] {
     for (const [lv, t] of Object.entries(s.levels)) {
       const here = `${at}.levels.${lv}`
       errs.push(...linesErrors(t.lines, r.lang, speakers, here))
+      errs.push(...standInErrors(t.lines, helpers, p.leader, here, "a helper's line"))
       if (!t.lines.some(l => l.who === p.leader)) errs.push(`${here}: the leader (${p.leader}) says nothing`)
       if (t.lines.filter(l => l.done).length > 1) errs.push(`${here}: done on more than one line (the step's work is done once)`)
       t.lines.forEach((l, li) => {
@@ -320,10 +410,6 @@ export function projectStepsErrors(f: ProjectSteps, r: StepRefs): string[] {
         // where the step's work is done in its picture: someone's line, with the step's scene (over the village nothing shows it)
         if (l.done && l.choices.length) errs.push(`${ln}: done goes on someone's line (the one that says the work is done), not on the learner's turn`)
         if (l.done && !s.scene) errs.push(`${ln}: done needs the step's scene (its picture shows the project one stage on); over the village nothing shows it`)
-        if (l.who && helpers.has(l.who) && r.lang === 'sl') {
-          const said = render(String((l as Record<string, unknown>).sl ?? ''), MAN)
-          if (speakerGendered(said)) errs.push(`${ln}: a helper's line says the speaker's gender ("${said}"): another may say it when they're away; say it in the plural or the present`)
-        }
         // cues and taps need the scene's picture; over the village only a bell rings (OVER_VILLAGE_FX: the chapel's little bell)
         const sky = l.sky || l.choices.some(c => c.reply?.sky)
         const named = [l.fx, ...l.choices.map(c => c.reply?.fx)].flatMap(x => Object.keys(x ?? {}))

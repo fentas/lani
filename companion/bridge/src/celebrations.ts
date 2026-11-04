@@ -15,7 +15,7 @@ import { z } from 'zod'
 import { learnerErrorsIn, render, addressee as addresseeFor } from './addressee'
 import { PACK_LANGUAGES } from './arrivals'
 import { wordsIn } from './dialog-words'
-import { lexiconLemmas, linesErrors, looksLikeFormOf, speakerGendered, testedIn, testsWord, withoutArticle, type Lemmas, type StepPack } from './project-steps'
+import { lexiconLemmas, linesErrors, looksLikeFormOf, standInErrors, testedIn, testsWord, withoutArticle, type Lemmas, type StepPack } from './project-steps'
 import { schemaField } from './schema'
 import { dialogLine, SCENE_LANGUAGES } from './scenes'
 import { LEVELS } from './stories'
@@ -126,6 +126,7 @@ export function celebrationErrors(f: Celebration, r: CelebrationRefs): string[] 
     if (!t) continue
     const here = `levels.${lv}`
     errs.push(...linesErrors(t.lines, r.lang, speakers, here, PARTY_TURNS.max, 'the host nor a guest'))
+    errs.push(...standInErrors(t.lines, guests, f.host, here, "a guest's line"))
     const turns = t.lines.filter(l => l.choices.length).length
     if (turns < PARTY_TURNS.min) errs.push(`${here}: ${turns} turn(s): a party has ${PARTY_TURNS.min} at least (a toast, a dance …)`)
     if (f.host && !t.lines.some(l => l.who === f.host)) errs.push(`${here}: the host (${f.host}) says nothing`)
@@ -134,10 +135,6 @@ export function celebrationErrors(f: Celebration, r: CelebrationRefs): string[] 
       if (l.act || l.choices.some(c => c.reply?.act)) errs.push(`${ln}: a party's people are who is here tonight: no act cue`)
       if (l.sky || l.fx || l.choices.some(c => c.reply?.sky || c.reply?.fx)) errs.push(`${ln}: a party is played over the village: no sky or fx cue`)
       if (l.choices.some(c => c.tap !== undefined)) errs.push(`${ln}: a party has no picture to tap in: no tap turn`)
-      if (l.who && guests.has(l.who) && r.lang === 'sl') {
-        const said = render(String((l as Record<string, unknown>).sl ?? ''), MAN)
-        if (speakerGendered(said)) errs.push(`${ln}: a guest's line says the speaker's gender ("${said}"): another may say it when they're away; say it in the plural or the present`)
-      }
     })
     // its words: each tested by a turn (a wrong choice differs from the right one in it)
     const tested = testedIn(t.lines, r.lang)
