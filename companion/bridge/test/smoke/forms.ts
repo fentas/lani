@@ -5,6 +5,8 @@ import { mkdtempSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { contentLines, FormsBook, formsOf, LineIndex, moodInEnglish, slotsOf, validateFormsBook, type LemmaForms } from '../../src/forms'
+import { withFormsInOrder } from '../../src/features/reviews'
+import { cardInOrder, type FormsCardData } from '../../src/forms-cards'
 import { checkNoun } from '../../src/noun-paradigm'
 import { caseCheck } from '../check-cases'
 import { Lexicon } from '../../src/lexicon'
@@ -234,6 +236,62 @@ export default async function formsSection() {
     }
   }
   for (const n of JSON.parse(readFileSync(join(companion, 'cases/sl/bank.json'), 'utf8')).nouns) if (!packNouns.has(n.lemma)) packNouns.set(n.lemma, n.gender)
+  // a slot's order (docs/plans/05-built/cleanup-code.md, "Forms in their order"): the regular check and Sloleks 3.0, never the
+  // alphabet, on what a new card holds and, read through GET /state, on one made before
+  {
+    const c = caseCheck('sl').forms
+    const slot = (w: string, pos: string, key: string) => formsOf(c, w).find(x => x.pos === pos)?.slots.find(s => s.key === key)
+    check(
+      "a slot shows the regular form, the dictionary's other one accepted: mleku (mleki), vodi (vode), jajcu (jajci), potoku",
+      slot('mleko', 'noun', 'loc.sg')?.forms[0] === 'mleku' && !!slot('mleko', 'noun', 'loc.sg')?.also?.includes('mleki') &&
+        slot('voda', 'noun', 'nom.du')?.forms[0] === 'vodi' && !!slot('voda', 'noun', 'nom.du')?.also?.includes('vode') && !!slot('voda', 'noun', 'gen.pl')?.also?.includes('voda') &&
+        slot('jajce', 'noun', 'loc.sg')?.forms[0] === 'jajcu' && slot('potok', 'noun', 'loc.sg')?.forms[0] === 'potoku',
+      [slot('mleko', 'noun', 'loc.sg'), slot('voda', 'noun', 'nom.du'), slot('jajce', 'noun', 'loc.sg'), slot('potok', 'noun', 'loc.sg')],
+    )
+    check(
+      "… what the alphabet picked and Sloleks 3.0 lacks comes second, still right: aktualizirate before aktualiziraste; the commoner of two first: mesecu, cvetovi",
+      same(slot('aktualizirati', 'verb', 'pres.2pl')?.forms ?? [], ['aktualizirate', 'aktualiziraste']) && slot('mesec', 'noun', 'loc.sg')?.forms[0] === 'mesecu' && slot('cvet', 'noun', 'nom.pl')?.forms[0] === 'cvetovi',
+      [slot('aktualizirati', 'verb', 'pres.2pl'), slot('mesec', 'noun', 'loc.sg'), slot('cvet', 'noun', 'nom.pl')],
+    )
+    const grozdje = formsOf(c, 'grozdje').find(x => x.pos === 'noun')
+    check(
+      "… a collective noun asks no dual or plural (grozdje, by Sloleks 3.0), a noun with them keeps theirs (voda)",
+      !!grozdje?.slots.length && grozdje.slots.every(s => s.key.endsWith('.sg')) && !!slot('voda', 'noun', 'nom.pl'),
+      grozdje?.slots.map(s => s.key),
+    )
+    const old = (lemma: string, gender: 'n' | 'f', rows: [string, string[]][]): FormsCardData => ({
+      v: 1, lemma, pos: 'noun', gender, gloss: [], table: 'wiktionary', tested: rows.map(([k]) => k), fresh: rows.map(([k]) => k).slice(-1),
+      slots: rows.map(([key, forms]) => ({ key, forms, page: 'mestnik' })),
+    })
+    const mleko = cardInOrder(old('mleko', 'n', [['nom.sg', ['mleko']], ['gen.sg', ['mleka']], ['loc.sg', ['mleki', 'mleku']]]), c.book)
+    const inLoc = mleko.slots.find(s => s.key === 'loc.sg')
+    const voda = cardInOrder(old('voda', 'f', [['nom.sg', ['voda']], ['gen.sg', ['vode']], ['nom.du', ['vode', 'vodi']], ['gen.pl', ['vod', 'voda']]]), c.book)
+    check(
+      'a card made before, as GET /state serves it: the regular form first, the other accepted, its slots and what it tests kept',
+      same(inLoc?.forms ?? [], ['mleku']) && same(inLoc?.also ?? [], ['mleki']) && same(mleko.tested, ['nom.sg', 'gen.sg', 'loc.sg']) && same(mleko.fresh ?? [], ['loc.sg']) &&
+        same(voda.slots.find(s => s.key === 'nom.du')?.forms ?? [], ['vodi']) && same(voda.slots.find(s => s.key === 'gen.pl')?.also ?? [], ['voda']),
+      { mleko, voda },
+    )
+    const collective = cardInOrder(old('grozdje', 'n', [['nom.sg', ['grozdje']], ['gen.sg', ['grozdja']], ['nom.du', ['grozdji']], ['gen.pl', ['grozdij']]]), c.book)
+    check(
+      '… a collective noun made before serves no dual or plural, and tests none',
+      same(collective.slots.map(s => s.key), ['nom.sg', 'gen.sg']) && same(collective.tested, ['nom.sg', 'gen.sg']) && same(collective.fresh ?? [], []),
+      collective,
+    )
+    const checked: FormsCardData = { ...old('voda', 'f', [['nom.du', ['vode', 'vodi']]]), table: 'checked' }
+    const italian: FormsCardData = { ...old('voda', 'f', [['nom.du', ['vode', 'vodi']]]), language: 'it' }
+    check("… a hand-checked table's card and another language's come back as they are", cardInOrder(checked, c.book) === checked && cardInOrder(italian, c.book) === italian)
+    const state = { databases: { spaced_repetition: { items: { forms_mleko: { type: 'forms', forms: old('mleko', 'n', [['loc.sg', ['mleki', 'mleku']]]) }, broken: { type: 'forms', forms: { lemma: 1 } }, vocab_a: { type: 'vocabulary' } } } } }
+    const kept = JSON.stringify({ broken: state.databases.spaced_repetition.items.broken, vocab_a: state.databases.spaced_repetition.items.vocab_a })
+    withFormsInOrder(state, c.book)
+    check(
+      '… read through a state: the card in its order, what isn\'t a whole forms card left alone',
+      (state.databases.spaced_repetition.items.forms_mleko.forms as FormsCardData).slots[0].forms[0] === 'mleku' &&
+        JSON.stringify({ broken: state.databases.spaced_repetition.items.broken, vocab_a: state.databases.spaced_repetition.items.vocab_a }) === kept,
+      state,
+    )
+  }
+
   const ctx = caseCheck('sl').forms
   const genders: string[] = []
   const unchecked = new Map<string, string[]>()

@@ -35,7 +35,8 @@ import { z } from 'zod'
 import { answerLine, AnswerLog, fromLabel, fromOf, lookedUpNote, reviewAnswers, timeOf, type NewAnswer, type ReviewAnswer } from '../answers'
 import { fail, ok } from '../tool'
 import { countingErrors, countingNote, countingRuns } from '../counting'
-import { formsCardsNote, formsErrors, formsRuns } from '../forms-cards'
+import type { FormsBook } from '../forms'
+import { cardInOrder, cardOfItem, formsCardsNote, formsErrors, formsRuns } from '../forms-cards'
 import { isParadigmLanguage } from '../paradigms'
 import { countsInDialog, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
@@ -76,6 +77,19 @@ export function withoutOtherFormsCards(state: { databases?: { spaced_repetition?
   const items = state.databases?.spaced_repetition?.items
   if (!items) return
   for (const [id, it] of Object.entries(items)) if (it?.type === 'forms' && it.forms?.language && it.forms.language !== 'sl') delete items[id]
+}
+
+/**
+ * [state] with each Slovene forms card as one made today would show it ([cardInOrder]): what's read changes, not the deck.
+ * A card that doesn't read as one is left to the app, as it is.
+ */
+export function withFormsInOrder(state: { databases?: { spaced_repetition?: { items?: Record<string, Record<string, unknown>> } } }, book: Pick<FormsBook, 'firstForms' | 'singularOnly' | 'animate'>) {
+  const items = state.databases?.spaced_repetition?.items
+  if (!items) return
+  for (const it of Object.values(items)) {
+    const card = it && cardOfItem(it)
+    if (card) it.forms = cardInOrder({ ...card, tested: Array.isArray(card.tested) ? card.tested : [] }, book)
+  }
 }
 const otherFeatures = (language: string): string[] => (isParadigmLanguage(language) ? [OTHER_FORMS_FEATURE] : [])
 
@@ -246,7 +260,7 @@ const whereOf = (d: DialogRun): string => {
   return [d.person, d.title].filter(Boolean).join(', ') + (at ? ` (${at})` : '') || 'a dialog'
 }
 
-export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox, culture }) => {
+export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox, culture, dictionary }) => {
   // what the learner typed or said lately (answers.ts): a rolling log beside the learner's data
   const log = new AnswerLog(join(cfg.appDir, 'answers.json'))
 
@@ -370,6 +384,7 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox, culture
           // Italian's, German's and English's forms cards only to an app that plays them (forms=2): an older one would
           // lay their table out as Slovene's (jaz, ti, on before mangio)
           if (url.searchParams.get('forms') !== '2') withoutOtherFormsCards(state)
+          if (dictionary.language === 'sl') withFormsInOrder(state, dictionary.book)
           return json({ ...state, features: [...stateFeatures(culture.manifest?.language ?? 'sl'), ...otherFeatures(culture.manifest?.language ?? 'sl')] })
         },
       },

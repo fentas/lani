@@ -281,10 +281,25 @@ export function validateFormsBook(input: unknown): FormsBookFile & { errors: str
   }
 }
 
+/**
+ * What Sloleks 3.0 says of a dictionary table (companion/lexicon/<language>.forms-order.json, made by
+ * lexicon/tools/sl-forms-order.ts): [first], by "<pos>:<lemma>", the form each slot shows where the alphabet would pick
+ * another; [singular], the nouns it has no dual or plural of (grozdje).
+ */
+export type FormsOrder = { first: Record<string, Record<string, string>>; singular: string[] }
+
+/** A dictionary slot's forms with the one [first] names in front; the others stay, each still right. */
+export const shownFirst = (forms: string[], first: string | undefined): string[] => (first && forms.includes(first) ? [first, ...forms.filter(f => f !== first)] : forms)
+
+/** Whether [key] is a slot of the dual or the plural. */
+export const isDualOrPlural = (key: string) => /\.(du|pl)$/.test(key)
+
 /** The forms book of a language (companion/lexicon/<language>.forms.json), read again when it changes. */
 export class FormsBook {
   private mtime = -1
   private book: FormsBookFile = { tables: [], partners: [], leaveOut: [], animate: [] }
+  private orderTime = -1
+  private orderFile: FormsOrder = { first: {}, singular: [] }
 
   constructor(private readonly o: { dir: string; language: string; log?: Log }) {}
 
@@ -311,6 +326,33 @@ export class FormsBook {
   }
 
   private norm = (s: string) => normalizeForm(s, this.o.language)
+
+  /** The order file as it is on disk now; empty when there is none (a language without one). */
+  private order(): FormsOrder {
+    const path = join(this.o.dir, `${this.o.language}.forms-order.json`)
+    const mtime = existsSync(path) ? statSync(path).mtimeMs : 0
+    if (mtime === this.orderTime) return this.orderFile
+    this.orderTime = mtime
+    this.orderFile = { first: {}, singular: [] }
+    if (!mtime) return this.orderFile
+    try {
+      const f = JSON.parse(readFileSync(path, 'utf8')) as Partial<FormsOrder>
+      this.orderFile = { first: f.first ?? {}, singular: f.singular ?? [] }
+    } catch (e) {
+      this.o.log?.(`forms order ${path} unreadable: ${(e as Error).message}`)
+    }
+    return this.orderFile
+  }
+
+  /** The form to show first in each slot of [lemma]'s dictionary table, where the order file names one. */
+  firstForms(lemma: string, pos: string): Record<string, string> {
+    return this.order().first[`${pos}:${this.norm(lemma)}`] ?? {}
+  }
+
+  /** Whether [lemma] is a noun of the singular only: its table asks no dual and no plural. */
+  singularOnly(lemma: string): boolean {
+    return this.order().singular.includes(this.norm(lemma))
+  }
 
   /** The hand-checked table of [lemma] of [pos]. */
   table(lemma: string, pos: string): FormsTable | undefined {
@@ -580,7 +622,14 @@ function paradigmOf(c: FormsContext, index: number | null, lemma: string, pos: F
   // the masculine singular of an adjective is the word itself (lepi is its definite form, and the plural)
   const m = p.slots.get('adj.m.sg')
   if (m?.includes(own)) p.slots.set('adj.m.sg', [own])
-  for (const list of p.slots.values()) list.sort((a, b) => Number(b === own) - Number(a === own) || a.localeCompare(b, c.language))
+  // the word's own form, then what Sloleks 3.0 says to show (forms-order.json), the alphabet only for what it leaves
+  const first = c.book.firstForms(lemma, pos)
+  for (const [key, list] of p.slots) {
+    list.sort((a, b) => Number(b === own) - Number(a === own) || a.localeCompare(b, c.language))
+    p.slots.set(key, shownFirst(list, first[key]))
+  }
+  // a collective noun's dual and plural aren't asked (grozdje); its forms stay known (p.all)
+  if (pos === 'noun' && c.book.singularOnly(lemma)) for (const key of [...p.slots.keys()]) if (isDualOrPlural(key)) p.slots.delete(key)
   return p
 }
 
@@ -739,7 +788,11 @@ export function adjectiveForms(c: FormsContext, lemma: string): Map<string, stri
       }
     }
   }
-  for (const list of out.values()) list.sort((a, b) => Number(b === own) - Number(a === own) || a.localeCompare(b, c.language))
+  const first = c.book.firstForms(lemma, 'adj')
+  for (const [key, list] of out) {
+    list.sort((a, b) => Number(b === own) - Number(a === own) || a.localeCompare(b, c.language))
+    out.set(key, shownFirst(list, first[key]))
+  }
   return out
 }
 

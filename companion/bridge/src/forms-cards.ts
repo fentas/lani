@@ -12,7 +12,9 @@
 // mistakes database (FORMS_PATTERNS). Pure: the route is features/forms-cards.ts.
 import { z } from 'zod'
 import { CASE_PAGES, pageOf, type LemmaForms, type SlotPage } from './forms'
+import { isDualOrPlural, shownFirst, type FormsBook } from './forms'
 import { normalizeForm, wordSlug, type WordGender } from './lexicon'
+import { checkNoun } from './noun-paradigm'
 
 /** The item type of a forms card in spaced-repetition.json. */
 export const FORMS_TYPE = 'forms'
@@ -275,6 +277,30 @@ export function cardOfItem(item: Record<string, unknown>): FormsCardData | null 
   if (!f || typeof f !== 'object' || typeof f.lemma !== 'string' || !Array.isArray(f.slots)) return null
   if (!f.slots.every(s => s && typeof s.key === 'string' && Array.isArray(s.forms) && typeof s.page === 'string')) return null
   return f
+}
+
+/**
+ * [card] as a card made today would show it, for a card made before ([FormsBook]'s order file, the regular check): the
+ * deck keeps a card's slots from the day it was made, so an old one still has the alphabet's pick first (mleki before
+ * mleku). A noun's slot its regular declension confirms: the fitting forms, the others also accepted; the form the order
+ * file names first; a collective noun without its dual and plural. Nothing a slot accepted is lost, no slot's key
+ * changes, and nothing is written: only what's served (GET /state) changes, the deck and its history stay as they are.
+ * Another language's card, or a hand-checked table's, comes back as it is.
+ */
+export function cardInOrder(card: FormsCardData, book: Pick<FormsBook, 'firstForms' | 'singularOnly' | 'animate'>): FormsCardData {
+  if ((card.language && card.language !== 'sl') || card.table === 'checked') return card
+  const noun = card.pos === 'noun'
+  const singular = noun && book.singularOnly(card.lemma)
+  const first = book.firstForms(card.lemma, card.pos)
+  const check = noun ? checkNoun(card.lemma, card.gender, new Map(card.slots.map(s => [s.key, s.forms])), book.animate(card.lemma)) : null
+  const slots = card.slots.filter(s => !(singular && isDualOrPlural(s.key))).map(s => {
+    const sure = check?.slots.get(s.key)
+    const forms = shownFirst(sure?.standard ?? s.forms, first[s.key])
+    const also = [...new Set([...(s.also ?? []), ...(sure?.variants ?? [])])].filter(f => !forms.includes(f))
+    return { ...s, forms, ...(also.length ? { also } : {}) }
+  })
+  const kept = new Set(slots.map(s => s.key))
+  return { ...card, slots, tested: card.tested.filter(k => kept.has(k)), ...(card.fresh ? { fresh: card.fresh.filter(k => kept.has(k)) } : {}) }
 }
 
 // --- resurfacing: a part newly introduced brings the card back soon ------------------------------------------------
