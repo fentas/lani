@@ -52,8 +52,8 @@ class KopaCycleTest {
     }
 
     /** [k]'s talk at [level] in [pair] played to its end, every wrong choice first; the number of wrong choices. */
-    private fun play(k: ActiveKeeper, level: String, pair: LangPair, what: String): Int {
-        val d = Keepers.talk(k, level, "sl", pair)
+    private fun play(k: ActiveKeeper, level: String, pair: LangPair, what: String, language: String = "sl"): Int {
+        val d = Keepers.talk(k, level, language, pair)
         assertNotNull(what, d)
         var run = DialogRun.start(d!!, k.keeper.id, seed = 5)
         var wrongs = 0
@@ -297,8 +297,45 @@ class KopaCycleTest {
         }
     }
 
+    @Test fun `Kärnten's pile has its work over the days too, every talk to B2, the race at each level, the charcoal to Toni`() {
+        Cultures.use("kaernten")
+        val levels = listOf("A1", "A2", "B1", "B2")
+        val german = listOf(LangPair(Lang.DE, Lang.SL), LangPair(Lang.DE, Lang.EN), LangPair(Lang.DE, Lang.IT))
+        fun michl(state: GameState, day: LocalDate, hour: Int): ActiveKeeper {
+            SpotCycles.qaDay = day
+            return Keepers.here(state, day.atTime(hour, 0), world).single()
+        }
+        val r = rounds().first()
+        val days = r.spans.map { it.stage.id to it.from } + listOf("rest" to r.until.plusDays(2), "winter" to LocalDate.of(2026, 12, 20))
+        for ((id, day) in days) {
+            val shown = SpotCycles.on(cycle, "kopa", day).shown!!
+            assertEquals(id, SpotCycles.on(cycle, "kopa", day).id)
+            for (hour in listOf(20, 23)) for (n in shown.talks.indices) {
+                val state = village.copy(keepers = mapOf("spot:kopa/koehler" to KeeperTold(1 + n, day.minusDays(1).toString())))
+                val k = michl(state, day, hour)
+                assertEquals(id, k.day?.id)
+                if (k.breakout) continue
+                for (p in german) for (level in levels) assertTrue("$id $hour:00 #$n $level: a wrong choice", play(k, level, p, "$id $hour:00 #$n $level ${p.code}", "de") >= 1)
+                // each level tells it its own way
+                val told = levels.map { lv -> Keepers.talk(k, lv, "de", german[1])!!.lines.mapNotNull { it.sl.takeIf(String::isNotBlank) }.joinToString(" ") }
+                assertEquals("$id: $told", levels.size, told.toSet().size)
+            }
+        }
+        val b = (2026..2030).flatMap { rounds(it) }.first { it.breakout != null }
+        val k = michl(village.copy(keepers = mapOf("spot:kopa/koehler" to KeeperTold(4, b.breakout!!.minusDays(2).toString()))), b.breakout!!, 22)
+        assertTrue(k.breakout)
+        for ((level, seconds) in levels.zip(listOf(25, 18, 18, 18))) {
+            val d = Keepers.talk(k, level, "de", german[1])!!
+            val race = Keepers.race(k, level)!!
+            assertEquals(d.lines.lastIndex, race.turn)
+            assertEquals(level, seconds, race.seconds)
+            assertTrue("$level: saved and lost have their lines", race.saved.isNotEmpty() && race.lost.isNotEmpty())
+        }
+        assertEquals(Cultures.current.chest.smith.id, cycle.delivery?.to)
+    }
+
     @Test fun `the other cultures' piles have no cycle, their burner's talks as before`() {
-        for (id in listOf("friuli", "kaernten", "lakeland")) {
+        for (id in listOf("friuli", "lakeland")) {
             Cultures.use(id)
             assertNull(id, world.spots.getValue("kopa").cycle)
             assertNull(SpotCycles.look(village, "kopa", LocalDate.of(2026, 7, 1)))

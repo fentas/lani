@@ -133,7 +133,7 @@ class ArrivalsContentTest {
                     )
                     val people = Residents.people(s, cast, day) + cast
                     for ((r, speakers) in listOf(newcomer to setOf(newcomer.id), mover to setOf(mover.id), baby to setOf(mum.id, dad.id))) {
-                        for (level in listOf("A1", "A2")) {
+                        for (level in listOf("A1", "A2", "B1", "B2")) {
                             val p = Arrivals.readyFor(s, r.id, day)
                             assertNotNull("$id: ${r.id} not ready", p)
                             val m = Arrivals.meeting(p!!, s, people, level, day)
