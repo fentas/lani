@@ -1,6 +1,7 @@
 # The Lake District's talks at B1 and B2 (talks-en)
 
-Built 2026-11-03 on branch `talks-en` (followups-16.md, section 1, English), from `talks-sl`'s tip (7b009be99). The
+Built 2026-11-03 and 04 on branch `talks-en` (followups-16.md, section 1, English), from `talks-sl`'s tip (7b009be99),
+with `talks-de` (which carries talks-sl, talks-it and packs-en) and main merged in at the end. The
 free talks ("🗣️ Talk": role-plays where the tutor plays someone in a real situation) of the Lake District village were
 eight, A1 and A2 (docs/plans/05-built/scenarios-de-en.md). Now there are six more at B1 and six at B2, for a grown-up, set
 in the dale and in Keswick, with every text the learner reads in Slovene, German and Italian, the village's packs, and
@@ -96,22 +97,23 @@ listed for a native eye.
 
 Twelve role-plays in `companion/scenarios/en/` (`lani.scenario/v0`), each for a grown-up (`audience: "adult"`): its
 title, goals and who in en, sl, de and it, its setting and the meanings of its opener and phrases in sl, de, it and en
-(the tutor's), the village's packs, 9–10 phrases, 5 goals:
+(the tutor's), the village's packs (the B1 and B2 ones that fit, from packs-en, beside the older ones: six at most), 9–10
+phrases, 5 goals:
 
 | Id | Level | Situation | Who | Packs |
 |---|---|---|---|---|
-| `the-leaky-jacket` 🧥 The leaky jacket | B1 | a complaint: a waterproof jacket that let the rain in on Catbells | Ryan, a shop assistant at an outdoor shop in Keswick | weather-and-garden, on-the-fell, in-the-village, numbers-and-time, greetings |
-| `a-gate-from-the-smithy` ⚒️ A gate from the smithy | B1 | a negotiation: an iron garden gate, its price and its day | **Mr Dixon** (the cast's: he plays it) | in-the-smithy, at-the-gate, numbers-and-time, home-and-kitchen, weather-and-garden |
-| `the-car-isnt-ready` 🚗 The car isn't ready | B1 | an appointment that goes wrong: the car failed its MOT, the part comes Thursday, work tomorrow | Darren at a garage in Keswick, on the phone | getting-about, numbers-and-time, in-the-village, greetings |
-| `the-night-the-beck-came-up` 🌧️ The night the beck came up | B1 | telling what happened: the flood in the kitchen, put right for someone who heard it wrong | **Auntie Edna** (the cast's) | weather-and-garden, home-and-kitchen, by-the-beck, on-the-packhorse-bridge, in-the-village |
-| `maggie-goes-to-london` 🚆 Maggie goes to London | B1 | giving advice: Maggie's first train trip to London, for Joan's eightieth | **Granny Maggie** (the cast's) | getting-about, numbers-and-time, family, in-the-kitchen, food |
-| `a-summer-job-at-the-inn` 🍽️ A summer job at the inn | B1 | a job: summer staff at the Packhorse Inn | **Mrs Birkett** (the cast's) | in-the-pub, at-the-b-and-b, food, numbers-and-time, greetings |
-| `a-word-with-the-councillor` 🏛️ A word with the councillor | B2 | explaining a problem to the mayor (here the councillor): walkers' cars on the lane at the head of the dale | Councillor Nicholson at her surgery in the village hall | in-the-village, getting-about, on-the-fell, numbers-and-time |
-| `an-interview-at-the-visitor-centre` 💼 An interview at the visitor centre | B2 | a job interview: a seasonal guide at a lakeside visitor centre | Mr Armstrong, the visitor services manager | on-the-fell, asking-the-way, at-the-viewing-station, weather-and-garden, numbers-and-time |
-| `the-new-patient-check` 📋 The new patient check | B2 | a doctor's history: illnesses, operations, allergies, medicines, family, habits | Nurse Pattinson, the practice nurse in Keswick | at-the-doctors, family, numbers-and-time, food |
-| `a-cottage-to-let` 🏡 A cottage to let | B2 | a negotiation: the rent, the deposit and the repairs of the slate cottage at the end of the lane | Mr Postlethwaite, the owner | home-and-kitchen, in-the-living-room, weather-and-garden, numbers-and-time, in-the-village |
-| `a-statement-for-the-police` 🐑 A statement for the police | B2 | telling what happened, precisely: a dog off its lead chased Jack's ewes into the beck | PC Graham, a rural officer from Keswick | at-the-gate, by-the-beck, on-the-packhorse-bridge, in-the-wood, numbers-and-time |
-| `jack-at-a-crossroads` 🧭 Jack at a crossroads | B2 | giving advice: a year in New Zealand, or lambing at home with his dad's bad knee | **Shepherd Jack** (the cast's) | on-the-fell, at-the-gate, family, by-the-fire, numbers-and-time |
+| `the-leaky-jacket` 🧥 The leaky jacket | B1 | a complaint: a waterproof jacket that let the rain in on Catbells | Ryan, a shop assistant at an outdoor shop in Keswick | shopping-in-keswick, what-to-wear, weather-and-garden, on-the-fell, numbers-and-time, greetings |
+| `a-gate-from-the-smithy` ⚒️ A gate from the smithy | B1 | a negotiation: an iron garden gate, its price and its day | **Mr Dixon** (the cast's: he plays it) | odd-jobs, money-matters, in-the-smithy, at-the-gate, numbers-and-time, weather-and-garden |
+| `the-car-isnt-ready` 🚗 The car isn't ready | B1 | an appointment that goes wrong: the car failed its MOT, the part comes Thursday, work tomorrow | Darren at a garage in Keswick, on the phone | on-the-road, phones-and-messages, getting-about, numbers-and-time, in-the-village, greetings |
+| `the-night-the-beck-came-up` 🌧️ The night the beck came up | B1 | telling what happened: the flood in the kitchen, put right for someone who heard it wrong | **Auntie Edna** (the cast's) | in-an-emergency, friends-and-neighbours, weather-and-garden, home-and-kitchen, by-the-beck, on-the-packhorse-bridge |
+| `maggie-goes-to-london` 🚆 Maggie goes to London | B1 | giving advice: Maggie's first train trip to London, for Joan's eightieth | **Granny Maggie** (the cast's) | going-on-holiday, money-matters, getting-about, numbers-and-time, family, in-the-kitchen |
+| `a-summer-job-at-the-inn` 🍽️ A summer job at the inn | B1 | a job: summer staff at the Packhorse Inn | **Mrs Birkett** (the cast's) | at-work, in-the-pub, at-the-b-and-b, food, numbers-and-time, greetings |
+| `a-word-with-the-councillor` 🏛️ A word with the councillor | B2 | explaining a problem to the mayor (here the councillor): walkers' cars on the lane at the head of the dale | Councillor Nicholson at her surgery in the village hall | the-parish-council, tourists-in-the-lakes, in-the-village, getting-about, on-the-fell, numbers-and-time |
+| `an-interview-at-the-visitor-centre` 💼 An interview at the visitor centre | B2 | a job interview: a seasonal guide at a lakeside visitor centre | Mr Armstrong, the visitor services manager | at-work, tourists-in-the-lakes, on-the-fell, asking-the-way, weather-and-garden, numbers-and-time |
+| `the-new-patient-check` 📋 The new patient check | B2 | a doctor's history: illnesses, operations, allergies, medicines, family, habits | Nurse Pattinson, the practice nurse in Keswick | at-the-health-centre, feeling-poorly, at-the-doctors, family, numbers-and-time, food |
+| `a-cottage-to-let` 🏡 A cottage to let | B2 | a negotiation: the rent, the deposit and the repairs of the slate cottage at the end of the lane | Mr Postlethwaite, the owner | doing-up-the-cottage, paying-the-bills, home-and-kitchen, in-the-living-room, weather-and-garden, numbers-and-time |
+| `a-statement-for-the-police` 🐑 A statement for the police | B2 | telling what happened, precisely: a dog off its lead chased Jack's ewes into the beck | PC Graham, a rural officer from Keswick | law-and-order, what-to-wear, lambing-time, at-the-gate, by-the-beck, numbers-and-time |
+| `jack-at-a-crossroads` 🧭 Jack at a crossroads | B2 | giving advice: a year in New Zealand, or lambing at home with his dad's bad knee | **Shepherd Jack** (the cast's) | the-hill-farmers-year, lambing-time, further-afield, on-the-fell, family, numbers-and-time |
 
 All eight situations of the brief are there: a complaint, two negotiations, an appointment that goes wrong, the mayor (a
 village in the Lakes has a parish and a district councillor, no mayor), a job at each level, a doctor's history, advice at
@@ -130,7 +132,7 @@ by October?").
 **The cast plays its own.** Five talks name a villager of the cast, who plays them by name (their sprite and voice, and
 the friendship grows once met): Mr Dixon, Auntie Edna, Granny Maggie, Mrs Birkett, Shepherd Jack. Each keeps to the
 villager's file: Dixon's few words and plain prices, Edna's radio and her muddled news, Maggie's kettle and Poppy and
-Tibbs, Mrs Birkett's "love" and her walkers, Jack's Herdwicks and his sheepdog. The others stand in by their name (Ryan,
+Tibbs, Mrs Birkett's "love" and her walkers, Jack's Herdwicks. The others stand in by their name (Ryan,
 Darren) or a title (Councillor, Nurse, PC, Mr), with `voice` for their sprite's gender and `who` as their role in the pair;
 no stand-in's last name is a cast id (Cast.find). No Kotlin change was needed.
 
@@ -153,18 +155,16 @@ English talks; Teo's tablet (0.2.698) is in the Italian village and never gets t
 **The tutor's brief** is the scenario's (`scenarioBrief`: title, role, setting and goals in English, the opener, `level`,
 `language: en`, `packs`); the role says how the character speaks and pushes back.
 
-**The dev bridge** answers a B1 or B2 English talk in lines that fit any of the twelve (`ROLEPLAY_ABOVE_A2.en`: "I see.
-And what happened then?", "Right. And why's that, then?", "Aye, that makes sense.", "Grand. Thanks, that's what we'll
-do.", a correction of *would* after *if*), picked by the brief's level; an A1 or A2 talk keeps its own.
+**The dev bridge** answers a B1 or B2 English talk in lines that fit any of the twelve (`ABOVE_A2.en`, which
+`ROLEPLAY_LEVELS` takes for both levels: "I see. And what happened then?", "Right. And why's that, then?", "Aye, that makes
+sense.", "Grand. Thanks, that's what we'll do.", a correction of *would* after *if*), picked by the brief's level; an A1
+or A2 talk keeps its own.
 
 **The supplement** (`companion/lexicon/en.extra.json`): every word of the twelve's lines, phrases and English texts a tap
 meets is known (a script over the files against the supplement's forms, the packs' words and the cast's names: 102 words
 were unknown, 0 now): 90 entries and 13 forms of existing ones (explaining, leading, worrying, parked, Friday's, sooner,
-meals …). Some (receipt, waterproof, deposit) may also come with packs-en; the kit's supp-merge.py joins two entries of one
-lemma.
-
-**make-learner.ts** made a learner above A1 only for a language with curated modules (it read companion/modules/<lang>,
-which English hasn't yet): a language without them now has none to mark played.
+meals …). Where packs-en wrote the same lemma (invite, negotiate, sign …), the merge joined the two entries (the kit's
+supp-merge.py) and every form of both stayed.
 
 ## How to use
 
@@ -206,21 +206,15 @@ After merging main (1311eeb2a) into the branch:
 ## What's left
 
 - **The native check** above.
-- **The B1/B2 packs.** `packs-en` (not on main) adds English B1 and B2 packs that fit these talks better than the A1
-  and A2 ones they name now. Once it is merged, add to each talk's `packs` (at most six; the smoke checks each is the
-  village's): `the-leaky-jacket` shopping-in-keswick, what-to-wear; `a-gate-from-the-smithy` odd-jobs, money-matters;
-  `the-car-isnt-ready` on-the-road, phones-and-messages; `the-night-the-beck-came-up` in-an-emergency,
-  friends-and-neighbours; `maggie-goes-to-london` going-on-holiday, money-matters; `a-summer-job-at-the-inn` at-work,
-  cooking-for-the-inn; `a-word-with-the-councillor` the-parish-council, tourists-in-the-lakes;
-  `an-interview-at-the-visitor-centre` a-new-line-of-work, tourists-in-the-lakes; `the-new-patient-check`
-  at-the-health-centre, feeling-poorly; `a-cottage-to-let` doing-up-the-cottage, paying-the-bills;
-  `a-statement-for-the-police` law-and-order, lambing-time; `jack-at-a-crossroads` the-hill-farmers-year, further-afield.
 - No scene leads into the new talks yet ("keep talking" after a dialog): Mr Dixon's smithy dialogs could lead into
   `a-gate-from-the-smithy`, Jack's on the fell into `jack-at-a-crossroads` (talksOffered already drops a link a learner
   isn't offered).
 - `lexicon-build --coverage` counts an English talk's `en` texts (the meanings) but not its lines (`opener_sl`, the
   phrases' `sl`: "the key is sl in every language"); the new talks' lines were checked by a script of their own. The
   coverage tool could count a non-Slovene scenario's `opener_sl` and `vocabulary_hints[].sl` as the village's language.
+- The list of talks is in the order of its file names (`ScenarioStore.read`), so at B1 a B2 talk stands first ("A cottage
+  to let"), each with its level's chip. Sorting by level would serve a learner better; that is every village's list, so
+  it isn't changed here.
 - A garage, a surgery, a police visit or a village hall have no stage place of their own: the shop and the councillor
   stand on the square, the phone call, the interview, the inn and the cottage in the kitchen, the statement in the field,
   the nurse at a stand-in's home (as the GP's).

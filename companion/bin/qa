@@ -9934,7 +9934,7 @@ VILLAGE_TALKS = {
         "lines": ("Morning", "Half a dozen eggs please"), "replies": ("Lovely! Anything else?", "Really? That's nice!"),
         "foreign": ("Me veseli", "Che bello", "Wie schön"), "titles": ("Na tržnici", "V pekarni", "Al mercato", "Beim Bäcker"),
         # a B1 or B2 talk ($LANI_QA_TALK, the learner at the level below or above: docs/plans/05-built/talks-en.md): the dev
-        # tutor's lines above A2 (test/dev-bridge.ts ROLEPLAY_ABOVE_A2); typed lines in ASCII (adb's input text)
+        # tutor's lines above A2 (test/dev-bridge.ts ABOVE_A2); typed lines in ASCII (adb's input text)
         "levels": {lv: {"lines": ("Morning Mr Dixon", "I can collect it myself so you needn't deliver it"),
                         "replies": ("I see. And what happened then?", "Right. And why's that, then?")} for lv in ("B1", "B2")},
     },
