@@ -150,13 +150,16 @@ class FormsTest {
             for (d in named.dialogs) for (l in d.lines) for (c in l.choices) {
                 if (names) assertNull("${named.id}/${d.id}: a scene that names pages gets no guess", c.guess)
                 val page = c.grammar ?: l.grammar ?: continue
-                if (c.ok) continue
+                // the guess is for the A1/A2 dialogs a scene of before named no page in; a B1/B2 one names its own
+                // (companion/SCENES.md, "Dialogs by level"), and the guess knows no B1/B2 page
+                if (c.ok || d.level != null) continue
                 tagged++
                 if (Forms.rule(c.why) == page) agree++
             }
             // as an older bridge serves it, without them: the guesses, pages of the book
             val s = parseScene(untagged(json.parseToJsonElement(raw)).toString())
             for ((di, d) in s.dialogs.withIndex()) for ((li, l) in d.lines.withIndex()) {
+                if (d.level != null) continue
                 val right = l.choices.indexOfFirst { it.ok }.takeIf { r -> r >= 0 && l.choices.count { it.ok } == 1 } ?: continue
                 val form = Forms.turn(l.choices.map { it.sl }, right) ?: continue
                 for (ci in form.wrong) {
