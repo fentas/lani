@@ -97,14 +97,15 @@ than a month's credits. With the learner's choices 226,000 or so. Jan decides wh
   and the winter's talks to their end at four levels in de·sl, de·en, de·it with a wrong choice each, the meeting, the race's seconds by
   level, the six tales, the delivery to Toni. `ArrivalsContentTest` plays the templates at four levels. `KopaCulturesTest` reads a B2
   learner's history at the highest level told. `DialogReactionsTest` covers a keeper's `levels`, not his cycle, so the cycle's reactions
-  were held to the same rules by a script of mine (80 characters, not saying the right word): 21 rewritten. `SceneCoherenceTest`: 33
-  looks had nothing to look at; 7 rewritten (the stars, the winter's snow, Michl's hands, the orchard's evening sky), 26 reviewed in
+  were held to the same rules by a script of mine (80 characters, not saying the right word): 21 rewritten. `SceneCoherenceTest`: 34
+  looks had nothing to look at; 8 rewritten (the stars, the winter's snow, Michl's hands, the orchard's evening sky), 26 reviewed in
   `looks.json` (the pile in the picture, or no look asked: schaut aus, schaut nach Norden). Its done lines' count takes Kärnten's 46.
 - **The rest:** tsc, the smoke (ports 10960 up, LANI_SMOKE_DRAMA3_PORT=10978; all checks passed, 3,873), `tutor-export --check`, Python
   (253 and 179 tests, 11 skipped).
 - **QA:** the step `kaernten-b2`: a synthetic learner (make-learner.ts --name Teo --target de --base sl), LANI_CULTURE=kaernten,
   LANI_QA_SETUP_PAIR=de-sl; the fountain's second step at B2 from its landmark to its end card with a wrong choice and its reaction,
-  then Schmied Toni's arrival at B2 to its first turn's reaction.
+  then Schmied Toni's arrival at B2 to its first turn's reaction. Passed twice, the second time on the tree merged with main, no crash;
+  the shots read.
 
 ## Findings, unchanged
 
