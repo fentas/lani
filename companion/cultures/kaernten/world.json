@@ -414,6 +414,68 @@
                     ]
                   }
                 }
+              },
+              {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Das ist meine Axt. Sie ist alt.", "sl": "To je moja sekira. Stara je.", "en": "This is my axe. It's old.", "it": "Questa è la mia ascia. È vecchia." },
+                      { "choices": [
+                        { "de": "Ist die Axt schwer?", "sl": "Je sekira težka?", "en": "Is the axe heavy?", "it": "L'ascia è pesante?", "ok": true,
+                          "reply": { "face": "happy", "de": "Ja, schwer! Aber sie ist gut.", "sl": "Ja, težka! Ampak je dobra.", "en": "Yes, heavy! But it's good.", "it": "Sì, pesante! Ma è buona." } },
+                        { "de": "Ist die Milch schwer?", "sl": "Je mleko težko?", "en": "Is the milk heavy?", "it": "Il latte è pesante?",
+                          "why": { "sl": "Michl kaže sekiro: die Axt. Mleka tu ni.", "en": "Michl is showing the axe: die Axt. There's no milk here.", "it": "Michl mostra l'ascia: die Axt. Qui non c'è latte." },
+                          "reply": { "face": "laugh", "de": "Die Milch? Nein, die Axt!", "sl": "Mleko? Ne, sekira!", "en": "The milk? No, the axe!", "it": "Il latte? No, l'ascia!" } }
+                      ] },
+                      { "who": "koehler", "de": "Sie ist von meinem Vater.", "sl": "Od očeta je.", "en": "It was my father's.", "it": "Era di mio padre." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Das Holz muss lange trocknen. Das hier liegt schon seit dem Winter da.", "sl": "Les se mora dolgo sušiti. Tale tu leži že od zime.", "en": "Wood has to dry for a long time. This lot's been lying here since winter.", "it": "La legna deve seccare a lungo. Questa è qui dall'inverno." },
+                      { "choices": [
+                        { "de": "Und was machen Sie mit nassem Holz?", "sl": "Kaj pa naredite z mokrim lesom?", "en": "And what do you do with wet wood?", "it": "E che cosa fa con la legna bagnata?", "ok": true,
+                          "reply": { "face": "proud", "de": "Das lasse ich liegen. Nasses Holz raucht nur.", "sl": "Tega pustim ležati. Moker les se samo kadi.", "en": "I leave that where it lies. Wet wood only smokes.", "it": "Quella la lascio lì. La legna bagnata fa solo fumo." } },
+                        { "de": "Und was machen Sie mit nasses Holz?", "sl": "Kaj pa naredite z mokrim lesom? (nasses)", "en": "And what do you do with wet wood? (nasses)", "it": "E che cosa fa con la legna bagnata? (nasses)", "grammar": "dativ",
+                          "why": { "sl": "Po mit stoji dajalnik: mit nassem Holz.", "en": "After mit comes the dative: mit nassem Holz.", "it": "Dopo mit c'è il dativo: mit nassem Holz." },
+                          "reply": { "face": "thinking", "de": "Mit nasses Holz? Hm. Noch einmal, {m:Bub|f:Mädel}.", "sl": "Mit nasses Holz? Hm. Še enkrat, {m:fant|f:punca}.", "en": "Mit nasses Holz? Hm. Once more, {m:lad|f:lass}.", "it": "Mit nasses Holz? Mah. Ancora una volta, {m:ragazzo|f:ragazza}." } }
+                      ] },
+                      { "who": "koehler", "de": "Im Herbst zeigt mir der Förster die neuen Bäume.", "sl": "Jeseni mi gozdar pokaže nova drevesa.", "en": "In autumn the forester shows me the new trees.", "it": "In autunno la guardia forestale mi indica i nuovi alberi." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Früher, als es noch keine Motorsäge gab, hat mein Vater jeden Stamm mit der Hand gesägt.", "sl": "Nekoč, ko še ni bilo motorne žage, je oče vsako deblo žagal ročno.", "en": "In the old days, before there were chainsaws, my father sawed every trunk by hand.", "it": "Una volta, quando non c'era ancora la motosega, mio padre segava ogni tronco a mano." },
+                      { "choices": [
+                        { "de": "Ist das die Säge, mit der er gearbeitet hat?", "sl": "Je to žaga, s katero je delal?", "en": "Is that the saw he worked with?", "it": "È questa la sega con cui lavorava?", "ok": true,
+                          "reply": { "face": "proud", "de": "Genau die. Sie hängt in der Hütte, und ich hab sie nie hergegeben.", "sl": "Prav ta. Visi v koči in nikoli je nisem dal od sebe.", "en": "That very one. It hangs in the hut, and I've never given it up.", "it": "Proprio quella. È appesa nella capanna e non l'ho mai data via." } },
+                        { "de": "Ist das die Säge, mit die er gearbeitet hat?", "sl": "Je to žaga, s katero je delal? (mit die)", "en": "Is that the saw he worked with? (mit die)", "it": "È questa la sega con cui lavorava? (mit die)", "grammar": "relativsatz",
+                          "why": { "sl": "Po mit stoji dajalnik, tudi v oziralnem stavku: mit der.", "en": "After mit comes the dative, in a relative clause too: mit der.", "it": "Dopo mit c'è il dativo, anche in una relativa: mit der." },
+                          "reply": { "face": "thinking", "de": "Mit die? Hm, das sägt sich nicht gerade.", "sl": "Mit die? Hm, to se ne žaga naravnost.", "en": "Mit die? Hm, that doesn't saw straight.", "it": "Mit die? Mah, così non si sega dritto." } },
+                        { "de": "Ist das die Säge, mit der er geschlafen hat?", "sl": "Je to žaga, s katero je spal?", "en": "Is that the saw he slept with?", "it": "È questa la sega con cui dormiva?",
+                          "why": { "sl": "Z žago se dela, ne spi: gearbeitet.", "en": "A saw is for working, not sleeping: gearbeitet.", "it": "Con la sega si lavora, non si dorme: gearbeitet." },
+                          "reply": { "face": "laugh", "de": "Geschlafen? Mit der Säge? So müde war nicht einmal er!", "sl": "Spal? Z žago? Tako utrujen pa še on ni bil!", "en": "Slept? With the saw? Not even he was that tired!", "it": "Dormiva? Con la sega? Così stanco non era nemmeno lui!" } }
+                      ] },
+                      { "who": "koehler", "de": "Heute hab ich eine Motorsäge. Aber die Axt nehm ich immer noch lieber.", "sl": "Danes imam motorno žago. Ampak sekiro imam še vedno raje.", "en": "I've got a chainsaw today. But I still prefer the axe.", "it": "Oggi ho la motosega. Ma preferisco ancora l'ascia." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Der Förster hat mir heuer weniger Buchen gegeben. Er sagt, der Wald brauche Ruhe.", "sl": "Gozdar mi je letos dal manj bukev. Pravi, da gozd potrebuje mir.", "en": "The forester's given me fewer beeches this year. He says the wood needs rest.", "it": "Quest'anno la guardia forestale mi ha dato meno faggi. Dice che il bosco ha bisogno di riposo." },
+                      { "choices": [
+                        { "de": "Zwar ist das schlecht für den Meiler, aber auf lange Sicht hat er vielleicht recht.", "sl": "To je sicer slabo za kopo, a dolgoročno ima morda prav.", "en": "It's bad for the pile, true, but in the long run he may be right.", "it": "È vero che è un male per la carbonaia, ma a lungo andare forse ha ragione.", "ok": true,
+                          "reply": { "face": "thinking", "de": "Vielleicht. Ein Köhler ohne Wald ist bald kein Köhler mehr.", "sl": "Morda. Oglar brez gozda kmalu ni več oglar.", "en": "Maybe. A charcoal burner with no wood is soon no charcoal burner.", "it": "Forse. Un carbonaio senza bosco presto non è più un carbonaio." } },
+                        { "de": "Zwar ist das schlecht für den Meiler, oder auf lange Sicht hat er vielleicht recht.", "sl": "To je sicer slabo za kopo, a dolgoročno ima morda prav. (oder)", "en": "It's bad for the pile, true, but in the long run he may be right. (oder)", "it": "È vero che è un male per la carbonaia, ma a lungo andare forse ha ragione. (oder)", "grammar": "zwar-aber",
+                          "why": { "sl": "Zwar napove nasprotje, to pa uvede aber.", "en": "Zwar announces a contrast, and aber brings it in.", "it": "Zwar annuncia un contrasto, e lo introduce aber." },
+                          "reply": { "face": "surprised", "de": "Oder? Jetzt weiß ich nicht mehr, was du meinst.", "sl": "Oder? Zdaj ne vem več, kaj misliš.", "en": "Oder? Now I don't know what you mean any more.", "it": "Oder? Ora non so più che cosa intendi." } },
+                        { "de": "Zwar ist das gut für den Meiler, aber auf lange Sicht hat er vielleicht recht.", "sl": "To je sicer dobro za kopo, a dolgoročno ima morda prav.", "en": "It's good for the pile, true, but in the long run he may be right.", "it": "È vero che è un bene per la carbonaia, ma a lungo andare forse ha ragione.",
+                          "why": { "sl": "Manj bukev za kopo ni dobro: schlecht.", "en": "Fewer beeches are no good for the pile: schlecht.", "it": "Meno faggi non sono un bene per la carbonaia: schlecht." },
+                          "reply": { "face": "surprised", "de": "Gut? Weniger Holz ist für einen Meiler nie gut.", "sl": "Dobro? Manj lesa za kopo ni nikoli dobro.", "en": "Good? Less wood is never good for a pile.", "it": "Un bene? Meno legna non è mai un bene per una carbonaia." } }
+                      ] },
+                      { "who": "koehler", "de": "Also nehm ich heuer ein bisschen mehr Fichte, statt mit ihm zu streiten. Der Wald war vor mir da.", "sl": "Letos bom torej vzel malo več smreke, namesto da bi se prepiral z njim. Gozd je bil tu pred mano.", "en": "So I'll take a bit more spruce this year instead of arguing with him. The wood was here before me.", "it": "Allora quest'anno prendo un po' più di abete, invece di litigare con lui. Il bosco c'era prima di me." }
+                    ]
+                  }
+                }
               }
             ]
           },
@@ -501,6 +563,65 @@
                           "reply": { "face": "thinking", "de": "Einen Pfahl? Um den wär's ihm nicht leid gewesen. Um den Meiler schon.", "sl": "Kol? Za tega mu ne bi bilo žal. Za kopo pa.", "en": "A pole? He wouldn't have minded that. The pile, yes.", "it": "Un palo? Per quello non gli sarebbe dispiaciuto. Per la carbonaia sì." } }
                       ] },
                       { "who": "koehler", "de": "So. Die letzte Reihe steht. Morgen deck ich ihn zu, und dann darf er nicht mehr atmen.", "sl": "Tako. Zadnja vrsta stoji. Jutri jo pokrijem, potem pa ne sme več dihati.", "en": "There. The last row's up. Tomorrow I cover it, and then it mustn't breathe any more.", "it": "Ecco. L'ultima fila è su. Domani la copro, e poi non deve più respirare." }
+                    ]
+                  }
+                }
+              },
+              {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "face": "proud", "de": "Das Holz steht. Schau!", "sl": "Les stoji. Poglej!", "en": "The wood's standing. Look!", "it": "La legna è in piedi. Guarda!" },
+                      { "choices": [
+                        { "de": "Das Holz ist hoch!", "sl": "Les je visok!", "en": "The wood's high!", "it": "La legna è alta!", "ok": true,
+                          "reply": { "face": "proud", "de": "Ja, hoch und rund!", "sl": "Ja, visok in okrogel!", "en": "Yes, high and round!", "it": "Sì, alta e rotonda!" } },
+                        { "de": "Das Holz ist blau!", "sl": "Les je moder!", "en": "The wood's blue!", "it": "La legna è blu!",
+                          "why": { "sl": "Les ni moder. Kopa je visoka: hoch.", "en": "Wood isn't blue. The pile is high: hoch.", "it": "La legna non è blu. La carbonaia è alta: hoch." },
+                          "reply": { "face": "laugh", "de": "Blau? Nein! Das Holz ist braun.", "sl": "Moder? Ne! Les je rjav.", "en": "Blue? No! The wood's brown.", "it": "Blu? No! La legna è marrone." } }
+                      ] },
+                      { "who": "koehler", "de": "Morgen kommt noch mehr Holz.", "sl": "Jutri pride še več lesa.", "en": "More wood's coming tomorrow.", "it": "Domani arriva altra legna." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Zwischen den großen Scheitern sind Lücken. Die fülle ich mit kleinem Holz.", "sl": "Med velikimi poleni so vrzeli. Te zapolnim z drobnim lesom.", "en": "There are gaps between the big logs. I fill them with small wood.", "it": "Tra i ciocchi grandi ci sono dei vuoti. Li riempio con legna minuta." },
+                      { "choices": [
+                        { "de": "Warum darf keine Lücke bleiben?", "sl": "Zakaj ne sme ostati nobena vrzel?", "en": "Why mustn't any gap stay?", "it": "Perché non deve restare nessun vuoto?", "ok": true,
+                          "reply": { "face": "proud", "de": "Weil dort die Luft hineinkommt. Und dann brennt das Holz.", "sl": "Ker tam pride noter zrak. In potem les gori.", "en": "Because that's where the air gets in. And then the wood burns.", "it": "Perché lì entra l'aria. E allora la legna brucia." } },
+                        { "de": "Warum darf keine Lücke bleibt?", "sl": "Zakaj ne sme ostati nobena vrzel? (bleibt)", "en": "Why mustn't any gap stay? (bleibt)", "it": "Perché non deve restare nessun vuoto? (bleibt)", "grammar": "modalverben",
+                          "why": { "sl": "Ob naklonskem glagolu stoji drugi glagol v nedoločniku: bleiben.", "en": "With a modal the other verb is in the infinitive: bleiben.", "it": "Con un modale l'altro verbo è all'infinito: bleiben." },
+                          "reply": { "face": "thinking", "de": "Darf bleibt? Hm. Frag noch einmal.", "sl": "Darf bleibt? Hm. Še enkrat vprašaj.", "en": "Darf bleibt? Hm. Ask again.", "it": "Darf bleibt? Mah. Chiedi di nuovo." } }
+                      ] },
+                      { "who": "koehler", "de": "Das kleine Holz ist die Arbeit für den Nachmittag.", "sl": "Drobni les je delo za popoldne.", "en": "The small wood's the afternoon's work.", "it": "La legna minuta è il lavoro del pomeriggio." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Als ich zwölf war, hat mich mein Vater zum ersten Mal schichten lassen. Am nächsten Morgen ist die Hälfte umgefallen.", "sl": "Ko sem bil star dvanajst let, mi je oče prvič pustil zlagati. Naslednje jutro se je polovica podrla.", "en": "When I was twelve, my father let me stack for the first time. The next morning half of it fell over.", "it": "Quando avevo dodici anni, mio padre mi ha fatto accatastare per la prima volta. La mattina dopo metà è crollata." },
+                      { "choices": [
+                        { "de": "Was hat er gesagt, nachdem die Hälfte umgefallen war?", "sl": "Kaj je rekel, potem ko se je polovica podrla?", "en": "What did he say after half of it had fallen over?", "it": "Che cosa ha detto dopo che metà era crollata?", "ok": true,
+                          "reply": { "face": "laugh", "de": "Nichts. Er hat mir nur die Scheiter wieder hingelegt. Das war schlimmer als jedes Wort.", "sl": "Nič. Samo polena mi je spet položil tja. To je bilo huje od vsake besede.", "en": "Nothing. He just laid the logs out for me again. That was worse than any word.", "it": "Niente. Mi ha solo rimesso lì i ciocchi. È stato peggio di qualsiasi parola." } },
+                        { "de": "Was hat er gesagt, nachdem die Hälfte umgefallen hatte?", "sl": "Kaj je rekel, potem ko se je polovica podrla? (hatte)", "en": "What did he say after half of it had fallen over? (hatte)", "it": "Che cosa ha detto dopo che metà era crollata? (hatte)", "grammar": "plusquamperfekt",
+                          "why": { "sl": "Umfallen gre s sein: war umgefallen.", "en": "Umfallen goes with sein: war umgefallen.", "it": "Umfallen vuole sein: war umgefallen." },
+                          "reply": { "face": "thinking", "de": "Umgefallen hatte? Das klingt so schief wie mein Meiler damals.", "sl": "Umgefallen hatte? To zveni tako postrani kot moja kopa takrat.", "en": "Umgefallen hatte? That sounds as crooked as my pile did then.", "it": "Umgefallen hatte? Suona storto come la mia carbonaia di allora." } },
+                        { "de": "Was hat er gesagt, bevor die Hälfte umgefallen war?", "sl": "Kaj je rekel, preden se je polovica podrla?", "en": "What did he say before half of it had fallen over?", "it": "Che cosa ha detto prima che metà crollasse?",
+                          "why": { "sl": "Michl govori o jutru po tem: najprej se je podrlo. Zato nachdem.", "en": "Michl's talking about the morning after: it fell first. So nachdem.", "it": "Michl parla della mattina dopo: prima è crollata. Quindi nachdem." },
+                          "reply": { "face": "surprised", "de": "Bevor? Da hat er noch geschlafen.", "sl": "Preden? Takrat je še spal.", "en": "Before? He was still asleep then.", "it": "Prima? Dormiva ancora." } }
+                      ] },
+                      { "who": "koehler", "de": "Seitdem schichte ich langsam. Ein Meiler verzeiht dir nichts, aber er lehrt dich viel.", "sl": "Od takrat zlagam počasi. Kopa ti ne odpusti ničesar, a te veliko nauči.", "en": "I've stacked slowly ever since. A pile forgives you nothing, but it teaches you a lot.", "it": "Da allora accatasto piano. Una carbonaia non ti perdona niente, ma ti insegna molto." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Die Leute sagen, so ein Meiler sei ein schönes Bild für die Touristen. Dass er Arbeit ist, merkt man erst beim Schichten.", "sl": "Ljudje pravijo, da je taka kopa lepa slika za turiste. Da je delo, opaziš šele pri zlaganju.", "en": "People say a pile like this makes a nice picture for the tourists. That it's work you only notice when you stack.", "it": "La gente dice che una carbonaia così è una bella immagine per i turisti. Che sia lavoro te ne accorgi solo accatastando." },
+                      { "choices": [
+                        { "de": "Sind Sie nicht stolz darauf, dass Sie das noch können?", "sl": "Niste ponosni na to, da to še znate?", "en": "Aren't you proud that you can still do this?", "it": "Non è fiero di saperlo fare ancora?", "ok": true,
+                          "reply": { "face": "proud", "de": "Ein bisschen. Aber sag's nicht dem Toni, der glaubt, nur ein Schmied darf stolz sein.", "sl": "Malo. Ampak ne povej Toniju, ki misli, da sme biti ponosen samo kovač.", "en": "A bit. But don't tell Toni, he thinks only a smith may be proud.", "it": "Un po'. Ma non dirlo a Toni, lui crede che solo un fabbro possa essere fiero." } },
+                        { "de": "Sind Sie nicht stolz daran, dass Sie das noch können?", "sl": "Niste ponosni na to, da to še znate? (daran)", "en": "Aren't you proud that you can still do this? (daran)", "it": "Non è fiero di saperlo fare ancora? (daran)", "grammar": "adjektive-praepositionen",
+                          "why": { "sl": "Stolz gre s predlogom auf: stolz auf etwas, zato darauf.", "en": "Stolz goes with auf: stolz auf etwas, so darauf.", "it": "Stolz vuole auf: stolz auf etwas, quindi darauf." },
+                          "reply": { "face": "thinking", "de": "Stolz daran? Das klingt nach einem schief geschichteten Satz.", "sl": "Stolz daran? To zveni kot postrani zložen stavek.", "en": "Stolz daran? That sounds like a sentence stacked crooked.", "it": "Stolz daran? Suona come una frase accatastata storta." } }
+                      ] },
+                      { "who": "koehler", "de": "Mein Vater hätte über die Touristen nur gelacht. Ich lass sie schauen, solang sie mir nicht im Weg stehen.", "sl": "Oče bi se turistom samo smejal. Jaz jih pustim gledati, dokler mi niso napoti.", "en": "My father would just have laughed at the tourists. I let them look, as long as they're not in my way.", "it": "Mio padre avrebbe solo riso dei turisti. Io li lascio guardare, finché non mi stanno tra i piedi." }
                     ]
                   }
                 }
@@ -596,6 +717,62 @@
                           "reply": { "face": "thinking", "de": "Dem dem? Hm, da hast du ein Wort doppelt und eins zu wenig.", "sl": "Dem dem? Hm, eno besedo imaš dvakrat, ene pa premalo.", "en": "Dem dem? Hm, you've got one word twice and one too few.", "it": "Dem dem? Mah, una parola due volte e una di meno." } }
                       ] },
                       { "who": "koehler", "de": "Morgen zünde ich ihn an. Ab dann schlaf ich in der Hütte, und zwar mit einem Ohr am Meiler.", "sl": "Jutri jo prižgem. Od takrat spim v koči, in to z enim ušesom pri kopi.", "en": "Tomorrow I light it. From then on I sleep in the hut, with one ear on the pile.", "it": "Domani l'accendo. Da allora dormo nella capanna, con un orecchio alla carbonaia." }
+                    ]
+                  }
+                }
+              },
+              {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Heute decke ich den Meiler zu. Mit Erde.", "sl": "Danes pokrivam kopo. Z zemljo.", "en": "I'm covering the pile today. With earth.", "it": "Oggi copro la carbonaia. Con la terra." },
+                      { "choices": [
+                        { "de": "Wo ist die Schaufel?", "sl": "Kje je lopata?", "en": "Where's the shovel?", "it": "Dov'è la pala?", "ok": true,
+                          "reply": { "face": "happy", "de": "Da, bei der Hütte!", "sl": "Tam, pri koči!", "en": "There, by the hut!", "it": "Là, vicino alla capanna!" } },
+                        { "de": "Wo ist der Löffel?", "sl": "Kje je žlica?", "en": "Where's the spoon?", "it": "Dov'è il cucchiaio?",
+                          "why": { "sl": "Zemljo nosimo z lopato: die Schaufel.", "en": "Earth is moved with a shovel: die Schaufel.", "it": "La terra si sposta con la pala: die Schaufel." },
+                          "reply": { "face": "laugh", "de": "Ein Löffel? Für so viel Erde?", "sl": "Žlica? Za toliko zemlje?", "en": "A spoon? For that much earth?", "it": "Un cucchiaio? Per tanta terra?" } }
+                      ] },
+                      { "who": "koehler", "de": "Viel Erde, dann ist er gut zu.", "sl": "Veliko zemlje, pa je dobro pokrita.", "en": "Lots of earth, then it's well covered.", "it": "Tanta terra, così è ben coperta." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Zuerst lege ich den Rasen auf das Holz, mit dem Gras nach unten. Dann kommt die Erde.", "sl": "Najprej položim rušo na les, s travo navzdol. Potem pride zemlja.", "en": "First I lay the turf on the wood, grass side down. Then comes the earth.", "it": "Prima metto le zolle sulla legna, con l'erba in giù. Poi viene la terra." },
+                      { "choices": [
+                        { "de": "Darf ich die Erde auf den Meiler werfen?", "sl": "Smem vreči zemljo na kopo?", "en": "May I throw the earth onto the pile?", "it": "Posso gettare la terra sulla carbonaia?", "ok": true,
+                          "reply": { "face": "happy", "de": "Gern, aber nicht zu viel auf einmal.", "sl": "Seveda, ampak ne preveč naenkrat.", "en": "Gladly, but not too much at once.", "it": "Volentieri, ma non troppa in una volta." } },
+                        { "de": "Darf ich die Erde auf dem Meiler werfen?", "sl": "Smem vreči zemljo na kopo? (auf dem)", "en": "May I throw the earth onto the pile? (auf dem)", "it": "Posso gettare la terra sulla carbonaia? (auf dem)", "grammar": "wechselpraepositionen",
+                          "why": { "sl": "Zemlja gre na kopo, to je smer: tožilnik, auf den Meiler.", "en": "The earth goes onto the pile, a direction: the accusative, auf den Meiler.", "it": "La terra va sulla carbonaia, è una direzione: l'accusativo, auf den Meiler." },
+                          "reply": { "face": "laugh", "de": "Auf dem Meiler? Da müsstest du zuerst hinaufsteigen!", "sl": "Auf dem Meiler? Potem bi {m:moral|f:morala} najprej splezati gor!", "en": "Auf dem Meiler? You'd have to climb up there first!", "it": "Auf dem Meiler? Allora prima dovresti salirci sopra!" } }
+                      ] },
+                      { "who": "koehler", "de": "Oben lasse ich ein Loch frei. Da kommt morgen die Glut hinein.", "sl": "Zgoraj pustim luknjo. Tam pride jutri noter žerjavica.", "en": "I leave a hole free at the top. That's where the embers go in tomorrow.", "it": "In cima lascio un buco libero. Da lì domani entra la brace." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Letztes Jahr hat mir ein Gewitter die halbe Decke weggeschwemmt. Ich hab bis Mitternacht nachschaufeln müssen.", "sl": "Lani mi je nevihta odplaknila pol odeje. Do polnoči sem moral dosipati.", "en": "Last year a storm washed half the cover away. I had to shovel on more until midnight.", "it": "L'anno scorso un temporale mi ha portato via metà della copertura. Ho dovuto spalare fino a mezzanotte." },
+                      { "choices": [
+                        { "de": "Was würden Sie tun, wenn es heute wieder so regnen würde?", "sl": "Kaj bi naredili, če bi danes spet tako deževalo?", "en": "What would you do if it rained like that again today?", "it": "Che cosa farebbe se oggi piovesse di nuovo così?", "ok": true,
+                          "reply": { "face": "thinking", "de": "Dasselbe. Schaufeln, schimpfen, schaufeln.", "sl": "Isto. Kidati, preklinjati, kidati.", "en": "The same. Shovel, curse, shovel.", "it": "Lo stesso. Spalare, imprecare, spalare." } },
+                        { "de": "Was würden Sie tun, wenn es heute wieder so regnen wäre?", "sl": "Kaj bi naredili, če bi danes spet tako deževalo? (regnen wäre)", "en": "What would you do if it rained like that again today? (regnen wäre)", "it": "Che cosa farebbe se oggi piovesse di nuovo così? (regnen wäre)", "grammar": "konjunktiv-zwei",
+                          "why": { "sl": "Konjunktiv II z glagolom: würde + nedoločnik, regnen würde.", "en": "Konjunktiv II with a verb: würde + infinitive, regnen würde.", "it": "Il Konjunktiv II con un verbo: würde + infinito, regnen würde." },
+                          "reply": { "face": "thinking", "de": "Regnen wäre? Hm, das Wetter ist schon schwer genug zu verstehen.", "sl": "Regnen wäre? Hm, vreme je že tako težko razumeti.", "en": "Regnen wäre? Hm, the weather's hard enough to understand as it is.", "it": "Regnen wäre? Mah, il tempo è già abbastanza difficile da capire." } }
+                      ] },
+                      { "who": "koehler", "de": "Darum schau ich jetzt jeden Abend zum Dobratsch. Wenn dort Wolken hängen, weiß ich Bescheid.", "sl": "Zato zdaj vsak večer pogledam proti Dobraču. Če tam visijo oblaki, vem, pri čem sem.", "en": "So now I look over at the Dobratsch every evening. If there's cloud hanging there, I know where I stand.", "it": "Perciò ora ogni sera guardo verso il Dobratsch. Se lì ci sono nuvole, so come stanno le cose." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Die Lösche verwende ich jedes Jahr wieder. Ein Teil davon liegt seit Jahrzehnten auf diesem Platz.", "sl": "Mešanico zemlje in oglenega prahu uporabim vsako leto znova. Del nje leži na tem mestu že desetletja.", "en": "I use the Lösche again every year. Part of it has been on this spot for decades.", "it": "La Lösche la riuso ogni anno. Una parte sta su questo spiazzo da decenni." },
+                      { "choices": [
+                        { "de": "Dann liegt die von Ihrem Vater gesammelte Erde noch immer auf dem Meiler?", "sl": "Potem zemlja, ki jo je nabral vaš oče, še vedno leži na kopi?", "en": "So the earth your father gathered is still lying on the pile?", "it": "Allora la terra raccolta da suo padre sta ancora sulla carbonaia?", "ok": true,
+                          "reply": { "face": "happy", "de": "Ein bisschen schon. So gesehen arbeitet er noch immer mit.", "sl": "Malo že. Tako gledano še vedno dela z mano.", "en": "A bit, yes. Seen that way, he's still working with me.", "it": "Un po' sì. A vederla così, lavora ancora con me." } },
+                        { "de": "Dann liegt die von Ihrem Vater sammelnde Erde noch immer auf dem Meiler?", "sl": "Potem zemlja, ki jo je nabral vaš oče, še vedno leži na kopi? (sammelnde)", "en": "So the earth your father gathered is still lying on the pile? (sammelnde)", "it": "Allora la terra raccolta da suo padre sta ancora sulla carbonaia? (sammelnde)", "grammar": "partizipialattribut",
+                          "why": { "sl": "Zemljo je nekdo nabral, sama ne nabira: trpni deležnik, gesammelte.", "en": "Someone gathered the earth, it doesn't gather: the past participle, gesammelte.", "it": "La terra è stata raccolta, non raccoglie: il participio passato, gesammelte." },
+                          "reply": { "face": "laugh", "de": "Sammelnde Erde? Das wär was! Dann müsste ich nicht mehr schaufeln.", "sl": "Sammelnde Erde? To bi bilo nekaj! Potem mi ne bi bilo treba več kidati.", "en": "Sammelnde Erde? That'd be something! I wouldn't have to shovel any more.", "it": "Sammelnde Erde? Magari! Non dovrei più spalare." } }
+                      ] },
+                      { "who": "koehler", "de": "Ob das Aberglaube ist, lass ich offen. Bessere Erde hätte ich jedenfalls keine.", "sl": "Ali je to vraževerje, puščam odprto. Boljše zemlje pa tako ali tako ne bi imel.", "en": "Whether that's superstition I'll leave open. I wouldn't have better earth in any case.", "it": "Se sia superstizione lo lascio aperto. Terra migliore comunque non ne avrei." }
                     ]
                   }
                 }
@@ -782,6 +959,62 @@
                 }
               },
               {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "face": "happy", "de": "Ich koche Suppe. Riechst du das?", "sl": "Kuham juho. Ali vohaš?", "en": "I'm cooking soup. Can you smell it?", "it": "Cucino la zuppa. La senti?" },
+                      { "choices": [
+                        { "de": "Ist die Suppe heiß?", "sl": "Je juha vroča?", "en": "Is the soup hot?", "it": "La zuppa è calda?", "ok": true,
+                          "reply": { "face": "happy", "de": "Ja, sehr heiß!", "sl": "Ja, zelo vroča!", "en": "Yes, very hot!", "it": "Sì, caldissima!" } },
+                        { "de": "Ist die Suppe kalt?", "sl": "Je juha mrzla?", "en": "Is the soup cold?", "it": "La zuppa è fredda?",
+                          "why": { "sl": "Juha je na ognju: heiß.", "en": "The soup's on the fire: heiß.", "it": "La zuppa è sul fuoco: heiß." },
+                          "reply": { "face": "laugh", "de": "Kalt? Sie ist auf dem Feuer!", "sl": "Mrzla? Na ognju je!", "en": "Cold? It's on the fire!", "it": "Fredda? È sul fuoco!" } }
+                      ] },
+                      { "who": "koehler", "de": "Komm, iss mit mir.", "sl": "Pridi, jej z mano.", "en": "Come, eat with me.", "it": "Vieni, mangia con me." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Wenn der Meiler raucht, wohne ich in der Hütte. Ich koche dort, und ich schlafe dort.", "sl": "Ko se kopa kadi, živim v koči. Tam kuham in tam spim.", "en": "When the pile's smoking, I live in the hut. I cook there and I sleep there.", "it": "Quando la carbonaia fuma, abito nella capanna. Lì cucino e lì dormo." },
+                      { "choices": [
+                        { "de": "Ist es in der Hütte nicht zu klein für Sie?", "sl": "Ni v koči premajhno za vas?", "en": "Isn't it too small for you in the hut?", "it": "Nella capanna non è troppo piccolo per Lei?", "ok": true,
+                          "reply": { "face": "happy", "de": "Für mich und meinen Topf reicht es.", "sl": "Zame in za moj lonec je dovolj.", "en": "It's enough for me and my pot.", "it": "Per me e la mia pentola basta." } },
+                        { "de": "Ist es in die Hütte nicht zu klein für Sie?", "sl": "Ni v koči premajhno za vas? (in die)", "en": "Isn't it too small for you in the hut? (in die)", "it": "Nella capanna non è troppo piccolo per Lei? (in die)", "grammar": "wechselpraepositionen",
+                          "why": { "sl": "Kje? Dajalnik: in der Hütte.", "en": "Where? The dative: in der Hütte.", "it": "Dove? Il dativo: in der Hütte." },
+                          "reply": { "face": "thinking", "de": "In die Hütte? Hm. Frag noch einmal, der Rauch ist mir ins Ohr gegangen.", "sl": "In die Hütte? Hm. Vprašaj še enkrat, dim mi je šel v uho.", "en": "In die Hütte? Hm. Ask again, the smoke's got in my ear.", "it": "In die Hütte? Mah. Chiedi di nuovo, il fumo mi è entrato nell'orecchio." } }
+                      ] },
+                      { "who": "koehler", "de": "In der Hütte riecht alles nach Rauch. Mein Brot auch.", "sl": "V koči vse diši po dimu. Tudi moj kruh.", "en": "Everything in the hut smells of smoke. My bread too.", "it": "Nella capanna tutto sa di fumo. Anche il mio pane." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Das Kochen in der Hütte hab ich von meiner Mutter gelernt, bevor ich zum ersten Mal allein beim Meiler war.", "sl": "Kuhanja v koči sem se naučil od mame, preden sem bil prvič sam pri kopi.", "en": "I learned cooking in the hut from my mother, before I was at the pile on my own for the first time.", "it": "A cucinare nella capanna ho imparato da mia madre, prima di stare per la prima volta da solo alla carbonaia." },
+                      { "choices": [
+                        { "de": "Was haben Sie gekocht, als Sie das erste Mal allein hier waren?", "sl": "Kaj ste kuhali, ko ste bili prvič sami tukaj?", "en": "What did you cook when you were here alone for the first time?", "it": "Che cosa ha cucinato quando è stato qui da solo la prima volta?", "ok": true,
+                          "reply": { "face": "laugh", "de": "Bohnen. Drei Tage lang dieselben Bohnen, weil ich nichts anderes mitgenommen hatte.", "sl": "Fižol. Tri dni isti fižol, ker nisem vzel s seboj nič drugega.", "en": "Beans. The same beans for three days, because I hadn't brought anything else.", "it": "Fagioli. Per tre giorni gli stessi fagioli, perché non avevo portato altro." } },
+                        { "de": "Was haben Sie gekocht, als waren Sie das erste Mal allein hier?", "sl": "Kaj ste kuhali, ko ste bili prvič sami tukaj? (als waren Sie)", "en": "What did you cook when you were here alone for the first time? (als waren Sie)", "it": "Che cosa ha cucinato quando è stato qui da solo la prima volta? (als waren Sie)", "grammar": "temporalsaetze",
+                          "why": { "sl": "V stavku z als je glagol na koncu: als Sie … hier waren.", "en": "In a clause with als the verb goes last: als Sie … hier waren.", "it": "In una frase con als il verbo va in fondo: als Sie … hier waren." },
+                          "reply": { "face": "thinking", "de": "Als waren Sie? Hm, jetzt hab ich den Faden verloren.", "sl": "Als waren Sie? Hm, zdaj sem izgubil nit.", "en": "Als waren Sie? Hm, now I've lost the thread.", "it": "Als waren Sie? Mah, ora ho perso il filo." } }
+                      ] },
+                      { "who": "koehler", "de": "Heute nehm ich Speck, Erdäpfel und Mehl mit. Der Mensch lernt ja dazu.", "sl": "Danes vzamem s seboj slanino, krompir in moko. Človek se pač uči.", "en": "These days I bring bacon, potatoes and flour. You do learn.", "it": "Oggi porto speck, patate e farina. Si impara, no?" }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Neulich hat mich einer gefragt, warum ich das noch mache. Holzkohle gibt's ja im Baumarkt um ein paar Euro.", "sl": "Pred kratkim me je nekdo vprašal, zakaj to še delam. Oglje se pač dobi v trgovini za nekaj evrov.", "en": "Someone asked me recently why I still do this. You can get charcoal at the DIY store for a few euros, after all.", "it": "Di recente uno mi ha chiesto perché lo faccio ancora. Il carbone si trova al negozio di bricolage per pochi euro." },
+                      { "choices": [
+                        { "de": "Die dürfte aber nicht so gut sein wie Ihre, oder?", "sl": "Tisto verjetno ni tako dobro kot vaše, kajne?", "en": "But that's probably not as good as yours, is it?", "it": "Ma quello probabilmente non è buono come il Suo, no?", "ok": true,
+                          "reply": { "face": "proud", "de": "Dürfte? Die ist es nicht! Keiner weiß, woher sie kommt und was drin ist.", "sl": "Verjetno? Ni! Nihče ne ve, od kod je in kaj je notri.", "en": "Probably? It isn't! No one knows where it comes from or what's in it.", "it": "Probabilmente? Non lo è! Nessuno sa da dove viene e che cosa c'è dentro." } },
+                        { "de": "Die darf aber nicht so gut sein wie Ihre, oder?", "sl": "Tisto verjetno ni tako dobro kot vaše, kajne? (darf)", "en": "But that's probably not as good as yours, is it? (darf)", "it": "Ma quello probabilmente non è buono come il Suo, no? (darf)", "grammar": "modalverben-vermutung",
+                          "why": { "sl": "Domnevo izraža oblika Konjunktiv II: dürfte. Darf pomeni dovoljenje.", "en": "The Konjunktiv II form gives a guess: dürfte. Darf means permission.", "it": "La supposizione si esprime col Konjunktiv II: dürfte. Darf vuol dire permesso." },
+                          "reply": { "face": "surprised", "de": "Darf nicht? Wer sollte ihr das verbieten?", "sl": "Ne sme? Kdo naj bi mu to prepovedal?", "en": "Mustn't? Who'd forbid it?", "it": "Non deve? E chi glielo proibisce?" } }
+                      ] },
+                      { "who": "koehler", "de": "Ich mach's aber auch nicht wegen dem Geld, falls du das glaubst. Nur sag das nicht dem Toni, sonst zahlt er mir weniger.", "sl": "Ampak tudi zaradi denarja tega ne delam, če tako misliš. Le Toniju ne povej, sicer mi bo manj plačal.", "en": "I don't do it for the money, though, in case you think so. Just don't tell Toni, or he'll pay me less.", "it": "Ma non lo faccio neanche per i soldi, se lo pensi. Solo non dirlo a Toni, se no mi paga meno." }
+                    ]
+                  }
+                }
+              },
+              {
                 "when": ["night"],
                 "levels": {
                   "A1": {
@@ -834,6 +1067,63 @@
                           "reply": { "face": "thinking", "de": "Hätte abgebrannt? Hm. Abgebrannt ist er nie, und so sagt man's auch nicht.", "sl": "Hätte abgebrannt? Hm. Pogorela ni nikoli, pa tudi tako se ne reče.", "en": "Hätte abgebrannt? Hm. It never burnt down, and that's not how you say it either.", "it": "Hätte abgebrannt? Mah. Non è mai bruciata, e neanche si dice così." } }
                       ] },
                       { "who": "koehler", "de": "Heute ist er ruhig. Schau die Sterne an, über dem Dobratsch. So viele gibt's in Villach nicht.", "sl": "Danes je mirna. Poglej zvezde nad Dobračem. Toliko jih v Beljaku ni.", "en": "It's calm tonight. Look at the stars over the Dobratsch. There aren't that many in Villach.", "it": "Stanotte è tranquilla. Guarda le stelle sopra il Dobratsch. A Villach non ce ne sono così tante." }
+                    ]
+                  }
+                }
+              },
+              {
+                "sky": "rain",
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Es regnet! Das ist gut.", "sl": "Dežuje! To je dobro.", "en": "It's raining! That's good.", "it": "Piove! È un bene." },
+                      { "choices": [
+                        { "de": "Ist der Regen gut für den Meiler?", "sl": "Je dež dober za kopo?", "en": "Is the rain good for the pile?", "it": "La pioggia fa bene alla carbonaia?", "ok": true,
+                          "reply": { "face": "happy", "de": "Ja! Ein bisschen Regen ist gut.", "sl": "Ja! Malo dežja je dobro.", "en": "Yes! A bit of rain is good.", "it": "Sì! Un po' di pioggia fa bene." } },
+                        { "de": "Ist der Schnee gut für den Meiler?", "sl": "Je sneg dober za kopo?", "en": "Is the snow good for the pile?", "it": "La neve fa bene alla carbonaia?",
+                          "why": { "sl": "Dežuje: der Regen. Snega ni.", "en": "It's raining: der Regen. There's no snow.", "it": "Piove: der Regen. Non c'è neve." },
+                          "reply": { "face": "laugh", "de": "Schnee? Im Sommer? Nein!", "sl": "Sneg? Poleti? Ne!", "en": "Snow? In summer? No!", "it": "Neve? D'estate? No!" } }
+                      ] },
+                      { "who": "koehler", "de": "Aber nicht zu viel!", "sl": "Ampak ne preveč!", "en": "But not too much!", "it": "Ma non troppa!" }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Bei Regen steigt der Rauch nicht. Er bleibt unten im Wald.", "sl": "Ob dežju se dim ne dviga. Ostane spodaj v gozdu.", "en": "In the rain the smoke doesn't rise. It stays down in the wood.", "it": "Con la pioggia il fumo non sale. Resta giù nel bosco." },
+                      { "choices": [
+                        { "de": "Müssen Sie heute Nacht auch aufpassen?", "sl": "Morate tudi nocoj paziti?", "en": "Do you have to keep watch tonight too?", "it": "Deve fare la guardia anche stanotte?", "ok": true,
+                          "reply": { "face": "thinking", "de": "Ja, immer. Aber Regen ist besser als Wind.", "sl": "Ja, vedno. Ampak dež je boljši od vetra.", "en": "Yes, always. But rain's better than wind.", "it": "Sì, sempre. Ma la pioggia è meglio del vento." } },
+                        { "de": "Müssen Sie heute Nacht auch aufgepasst?", "sl": "Morate tudi nocoj paziti? (aufgepasst)", "en": "Do you have to keep watch tonight too? (aufgepasst)", "it": "Deve fare la guardia anche stanotte? (aufgepasst)", "grammar": "modalverben",
+                          "why": { "sl": "Po müssen stoji nedoločnik: aufpassen.", "en": "After müssen comes the infinitive: aufpassen.", "it": "Dopo müssen c'è l'infinito: aufpassen." },
+                          "reply": { "face": "thinking", "de": "Aufgepasst? Hm. Noch einmal, {m:Bub|f:Mädel}.", "sl": "Aufgepasst? Hm. Še enkrat, {m:fant|f:punca}.", "en": "Aufgepasst? Hm. Once more, {m:lad|f:lass}.", "it": "Aufgepasst? Mah. Ancora una volta, {m:ragazzo|f:ragazza}." } }
+                      ] },
+                      { "who": "koehler", "de": "Zieh deine Jacke an. Im Wald wird man schnell nass.", "sl": "Obleci jakno. V gozdu se hitro zmočiš.", "en": "Put your jacket on. You get wet fast in the wood.", "it": "Mettiti la giacca. Nel bosco ci si bagna in fretta." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Der Regen macht mir keine Sorgen, solang er nicht die Erde vom Meiler wäscht. Wind wäre viel schlimmer.", "sl": "Dež me ne skrbi, dokler ne spira zemlje s kope. Veter bi bil veliko hujši.", "en": "The rain doesn't worry me, as long as it doesn't wash the earth off the pile. Wind would be much worse.", "it": "La pioggia non mi preoccupa, finché non lava via la terra dalla carbonaia. Il vento sarebbe molto peggio." },
+                      { "choices": [
+                        { "de": "Also ist weder der Regen noch die Nässe das Problem, sondern nur der Wind?", "sl": "Torej ni težava ne dež ne mokrota, ampak samo veter?", "en": "So neither the rain nor the wet is the problem, just the wind?", "it": "Quindi il problema non è né la pioggia né l'umidità, ma solo il vento?", "ok": true,
+                          "reply": { "face": "thinking", "de": "Der Wind und meine Knie. Aber die Knie können nichts dafür.", "sl": "Veter in moja kolena. Ampak kolena niso kriva.", "en": "The wind and my knees. But my knees can't help it.", "it": "Il vento e le mie ginocchia. Ma le ginocchia non ne hanno colpa." } },
+                        { "de": "Also ist weder der Regen oder die Nässe das Problem, sondern nur der Wind?", "sl": "Torej ni težava ne dež ne mokrota, ampak samo veter? (weder … oder)", "en": "So neither the rain nor the wet is the problem, just the wind? (weder … oder)", "it": "Quindi il problema non è né la pioggia né l'umidità, ma solo il vento? (weder … oder)", "grammar": "doppelkonnektoren",
+                          "why": { "sl": "Weder ima svoj par: weder … noch.", "en": "Weder has its own partner: weder … noch.", "it": "Weder ha il suo compagno: weder … noch." },
+                          "reply": { "face": "thinking", "de": "Weder oder? Hm, da hat sich was verschoben.", "sl": "Weder oder? Hm, tu se je nekaj premaknilo.", "en": "Weder oder? Hm, something's slipped there.", "it": "Weder oder? Mah, qui qualcosa si è spostato." } }
+                      ] },
+                      { "who": "koehler", "de": "Als Bub hab ich mich beim Regen in die Hütte verdrückt. Heute steh ich draußen und schau nach der Decke.", "sl": "Kot fant sem se ob dežju zmuznil v kočo. Danes stojim zunaj in gledam odejo.", "en": "As a lad I'd slip off into the hut when it rained. Today I stand out here and check the cover.", "it": "Da ragazzo con la pioggia me la svignavo nella capanna. Oggi sto fuori e controllo la copertura." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Ein leichter Regen schadet nicht. Er hält die Decke feucht, sodass sie nicht reißt.", "sl": "Rahel dež ne škodi. Odejo drži vlažno, tako da ne poka.", "en": "A light rain does no harm. It keeps the cover damp, so it doesn't crack.", "it": "Una pioggia leggera non fa male. Tiene umida la copertura, così non si crepa." },
+                      { "choices": [
+                        { "de": "Sie gießen ihn also, indem Sie nichts tun.", "sl": "Torej ga zalivate tako, da ne delate ničesar.", "en": "So you water it by doing nothing.", "it": "Allora lo annaffia non facendo niente.", "ok": true,
+                          "reply": { "face": "laugh", "de": "So hab ich das noch nie gesehen. Das merk ich mir.", "sl": "Tako tega še nisem videl. To si bom zapomnil.", "en": "I've never seen it that way. I'll remember that.", "it": "Così non l'avevo mai vista. Me lo segno." } },
+                        { "de": "Sie gießen ihn also, sodass Sie nichts tun.", "sl": "Torej ga zalivate tako, da ne delate ničesar. (sodass)", "en": "So you water it by doing nothing. (sodass)", "it": "Allora lo annaffia non facendo niente. (sodass)", "grammar": "indem-sodass",
+                          "why": { "sl": "Indem pove, kako se kaj zgodi; sodass pove posledico.", "en": "Indem says how something happens; sodass says what follows.", "it": "Indem dice come succede una cosa; sodass dice che cosa ne segue." },
+                          "reply": { "face": "thinking", "de": "Sodass? Das ist mir zu hoch. Wer tut da was wodurch?", "sl": "Sodass? To mi je previsoko. Kdo tu kaj dela in s čim?", "en": "Sodass? That's over my head. Who's doing what by what?", "it": "Sodass? Per me è troppo. Chi fa che cosa e come?" } }
+                      ] },
+                      { "who": "koehler", "de": "Nur wenn's drei Tage schüttet, lauf ich mit der Schaufel um den Meiler und schimpf auf jede Wolke einzeln.", "sl": "Samo če lije tri dni, tečem z lopato okrog kope in preklinjam vsak oblak posebej.", "en": "Only if it pours for three days do I run round the pile with the shovel, cursing every cloud one by one.", "it": "Solo se diluvia per tre giorni corro con la pala intorno alla carbonaia e impreco contro ogni nuvola, una per una." }
                     ]
                   }
                 }
@@ -929,6 +1219,119 @@
                     ]
                   }
                 }
+              },
+              {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Der Rauch ist gelb. Er riecht stark.", "sl": "Dim je rumen. Močno diši.", "en": "The smoke's yellow. It smells strong.", "it": "Il fumo è giallo. Ha un odore forte." },
+                      { "choices": [
+                        { "de": "Ich rieche den Rauch!", "sl": "Vonjam dim!", "en": "I can smell the smoke!", "it": "Sento il fumo!", "ok": true,
+                          "reply": { "face": "happy", "de": "Ich auch! Jeden Tag.", "sl": "Jaz tudi! Vsak dan.", "en": "Me too! Every day.", "it": "Anch'io! Ogni giorno." } },
+                        { "de": "Ich trinke den Rauch!", "sl": "Pijem dim!", "en": "I'm drinking the smoke!", "it": "Bevo il fumo!",
+                          "why": { "sl": "Dim se voha: riechen. Piti ga ne moreš.", "en": "Smoke is smelled: riechen. You can't drink it.", "it": "Il fumo si sente col naso: riechen. Non si può bere." },
+                          "reply": { "face": "laugh", "de": "Trinken? Den Rauch? Nein!", "sl": "Piti? Dim? Ne!", "en": "Drink it? The smoke? No!", "it": "Bere? Il fumo? No!" } }
+                      ] },
+                      { "who": "koehler", "de": "Mein Hemd riecht auch. Und meine Haare.", "sl": "Tudi moja srajca diši. In moji lasje.", "en": "My shirt smells too. And my hair.", "it": "Anche la mia camicia ha quell'odore. E i capelli." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Mit dieser Stange mache ich die Löcher. Sie ist zwei Meter lang.", "sl": "S tem drogom delam luknje. Dolg je dva metra.", "en": "I make the holes with this pole. It's two metres long.", "it": "Con questa pertica faccio i buchi. È lunga due metri." },
+                      { "choices": [
+                        { "de": "Darf ich die Stange tragen?", "sl": "Smem nositi drog?", "en": "May I carry the pole?", "it": "Posso portare la pertica?", "ok": true,
+                          "reply": { "face": "happy", "de": "Ja, aber halt sie gut fest.", "sl": "Ja, ampak ga dobro drži.", "en": "Yes, but hold it tight.", "it": "Sì, ma tienila bene." } },
+                        { "de": "Darf ich der Stange tragen?", "sl": "Smem nositi drog? (der Stange)", "en": "May I carry the pole? (der Stange)", "it": "Posso portare la pertica? (der Stange)", "grammar": "akkusativ",
+                          "why": { "sl": "Tragen zahteva tožilnik: die Stange.", "en": "Tragen takes the accusative: die Stange.", "it": "Tragen vuole l'accusativo: die Stange." },
+                          "reply": { "face": "thinking", "de": "Der Stange? Hm. Noch einmal, bitte.", "sl": "Der Stange? Hm. Še enkrat, prosim.", "en": "Der Stange? Hm. Once more, please.", "it": "Der Stange? Mah. Ancora una volta, per favore." } }
+                      ] },
+                      { "who": "koehler", "de": "Rund um den Meiler mache ich zehn Löcher.", "sl": "Okrog kope naredim deset lukenj.", "en": "I make ten holes round the pile.", "it": "Intorno alla carbonaia faccio dieci buchi." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Bevor ich ein neues Loch steche, mach ich das alte zu. Sonst bekommt der Meiler zu viel Luft.", "sl": "Preden prebodem novo luknjo, zaprem staro. Sicer dobi kopa preveč zraka.", "en": "Before I poke a new hole I close the old one. Otherwise the pile gets too much air.", "it": "Prima di fare un buco nuovo chiudo quello vecchio. Altrimenti la carbonaia prende troppa aria." },
+                      { "choices": [
+                        { "de": "Ist es schwer, die richtige Stelle zu finden?", "sl": "Je težko najti pravo mesto?", "en": "Is it hard to find the right spot?", "it": "È difficile trovare il punto giusto?", "ok": true,
+                          "reply": { "face": "thinking", "de": "Am Anfang schon. Jetzt seh ich sie am Rauch, ohne nachzudenken.", "sl": "Na začetku že. Zdaj ga vidim po dimu, ne da bi razmišljal.", "en": "At first, yes. Now I see it from the smoke, without thinking.", "it": "All'inizio sì. Ora lo vedo dal fumo, senza pensarci." } },
+                        { "de": "Ist es schwer, die richtige Stelle finden?", "sl": "Je težko najti pravo mesto? (finden)", "en": "Is it hard to find the right spot? (finden)", "it": "È difficile trovare il punto giusto? (finden)", "grammar": "infinitiv-zu",
+                          "why": { "sl": "Po es ist schwer stoji nedoločnik z zu: zu finden.", "en": "After es ist schwer comes the infinitive with zu: zu finden.", "it": "Dopo es ist schwer c'è l'infinito con zu: zu finden." },
+                          "reply": { "face": "thinking", "de": "Schwer, ja. Aber in deinem Satz fehlt mir was.", "sl": "Težko, ja. Ampak v tvojem stavku mi nekaj manjka.", "en": "Hard, yes. But there's something missing in your sentence.", "it": "Difficile, sì. Ma nella tua frase manca qualcosa." } }
+                      ] },
+                      { "who": "koehler", "de": "Mein Vater hat gesagt, man müsse den Rauch lesen wie eine Zeitung. Er selber hat nie eine gelesen.", "sl": "Oče je rekel, da je treba dim brati kot časopis. Sam ga ni nikoli bral.", "en": "My father said you have to read the smoke like a newspaper. He never read one himself.", "it": "Mio padre diceva che bisogna leggere il fumo come un giornale. Lui non ne ha mai letto uno." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Ein Professor aus Graz war einmal da und hat alles gemessen. Er hat gesagt, im Meiler habe es vierhundert Grad.", "sl": "Nekoč je bil tu profesor iz Gradca in je vse izmeril. Rekel je, da je v kopi štiristo stopinj.", "en": "A professor from Graz was here once and measured everything. He said it was four hundred degrees in the pile.", "it": "Una volta è venuto un professore di Graz e ha misurato tutto. Ha detto che nella carbonaia ci sono quattrocento gradi." },
+                      { "choices": [
+                        { "de": "Mit der Hand lässt sich das also genauso gut messen.", "sl": "Z roko se da to torej prav tako dobro izmeriti.", "en": "So you can measure that just as well with your hand.", "it": "Con la mano quindi si può misurare altrettanto bene.", "ok": true,
+                          "reply": { "face": "proud", "de": "Genauso gut? Besser! Nur schreibt die Hand nichts auf.", "sl": "Prav tako dobro? Bolje! Le roka ničesar ne zapiše.", "en": "Just as well? Better! Only the hand doesn't write anything down.", "it": "Altrettanto bene? Meglio! Solo che la mano non scrive niente." } },
+                        { "de": "Mit der Hand lässt sich das also genauso gut gemessen.", "sl": "Z roko se da to torej prav tako dobro izmeriti. (gemessen)", "en": "So you can measure that just as well with your hand. (gemessen)", "it": "Con la mano quindi si può misurare altrettanto bene. (gemessen)", "grammar": "passiv-ersatz",
+                          "why": { "sl": "Sich lassen stoji z nedoločnikom: lässt sich messen.", "en": "Sich lassen goes with the infinitive: lässt sich messen.", "it": "Sich lassen vuole l'infinito: lässt sich messen." },
+                          "reply": { "face": "thinking", "de": "Lässt sich gemessen? Hm, da klemmt was, wie ein Loch am falschen Platz.", "sl": "Lässt sich gemessen? Hm, tu se nekaj zatika, kot luknja na napačnem mestu.", "en": "Lässt sich gemessen? Hm, something's stuck there, like a hole in the wrong place.", "it": "Lässt sich gemessen? Mah, qui qualcosa non va, come un buco nel posto sbagliato." } }
+                      ] },
+                      { "who": "koehler", "de": "Auf die Zahl geb ich nichts. Wenn ich die Hand auf die Decke leg, weiß ich genug.", "sl": "Na številko ne dam nič. Če položim roko na odejo, vem dovolj.", "en": "I don't care about the number. When I lay my hand on the cover, I know enough.", "it": "Del numero non m'importa. Se metto la mano sulla copertura, so abbastanza." }
+                    ]
+                  }
+                }
+              },
+              {
+                "when": ["night"],
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Es ist Nacht. Ich bin müde.", "sl": "Noč je. Utrujen sem.", "en": "It's night. I'm tired.", "it": "È notte. Sono stanco." },
+                      { "choices": [
+                        { "de": "Schlafen Sie jetzt?", "sl": "Zdaj spite?", "en": "Are you sleeping now?", "it": "Adesso dorme?", "ok": true,
+                          "reply": { "face": "sad", "de": "Nein. Ich passe auf.", "sl": "Ne. Pazim.", "en": "No. I'm keeping watch.", "it": "No. Faccio la guardia." } },
+                        { "de": "Schlafen Sie im Meiler?", "sl": "Spite v kopi?", "en": "Do you sleep in the pile?", "it": "Dorme nella carbonaia?",
+                          "why": { "sl": "V kopi gori. Michl spi v koči.", "en": "There's fire in the pile. Michl sleeps in the hut.", "it": "Nella carbonaia c'è il fuoco. Michl dorme nella capanna." },
+                          "reply": { "face": "laugh", "de": "Im Meiler? Nein! Da ist es heiß!", "sl": "V kopi? Ne! Tam je vroče!", "en": "In the pile? No! It's hot in there!", "it": "Nella carbonaia? No! Lì è caldo!" } }
+                      ] },
+                      { "who": "koehler", "de": "Schlaf gut, {m:Bub|f:Mädel}. Ich bleibe hier.", "sl": "Lahko noč, {m:fant|f:punca}. Jaz ostanem tukaj.", "en": "Sleep well, {m:lad|f:lass}. I'm staying here.", "it": "Dormi bene, {m:ragazzo|f:ragazza}. Io resto qui." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "In der Nacht sieht man den Rauch schlecht. Ich nehme die Laterne und gehe um den Meiler.", "sl": "Ponoči se dim slabo vidi. Vzamem svetilko in grem okrog kope.", "en": "At night you can't see the smoke well. I take the lantern and walk round the pile.", "it": "Di notte il fumo si vede male. Prendo la lanterna e giro intorno alla carbonaia." },
+                      { "choices": [
+                        { "de": "Wie lange sind Sie schon wach?", "sl": "Kako dolgo ste že budni?", "en": "How long have you been awake?", "it": "Da quanto è sveglio?", "ok": true,
+                          "reply": { "face": "sad", "de": "Seit vier Uhr. Aber das macht nichts.", "sl": "Od štirih. Ampak nič hudega.", "en": "Since four o'clock. But it doesn't matter.", "it": "Dalle quattro. Ma non importa." } },
+                        { "de": "Wie lange haben Sie schon wach?", "sl": "Kako dolgo ste že budni? (haben)", "en": "How long have you been awake? (haben)", "it": "Da quanto è sveglio? (haben)", "grammar": "praesens",
+                          "why": { "sl": "Wach je pridevnik, gre s sein: Sie sind wach.", "en": "Wach is an adjective, it goes with sein: Sie sind wach.", "it": "Wach è un aggettivo, vuole sein: Sie sind wach." },
+                          "reply": { "face": "thinking", "de": "Haben Sie wach? Hm. Ich glaub, ich bin wirklich zu müde.", "sl": "Haben Sie wach? Hm. Mislim, da sem res preveč utrujen.", "en": "Haben Sie wach? Hm. I think I really am too tired.", "it": "Haben Sie wach? Mah. Credo di essere davvero troppo stanco." } }
+                      ] },
+                      { "who": "koehler", "de": "Im Herbst schlafe ich dann eine ganze Woche.", "sl": "Jeseni bom potem spal cel teden.", "en": "In autumn I'll sleep for a whole week.", "it": "In autunno poi dormo una settimana intera." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Früher sind die Köhler oft monatelang im Wald geblieben. Mein Großvater hat sogar einen Winter in einer Hütte verbracht, die er selber gebaut hatte.", "sl": "Nekoč so oglarji pogosto ostali v gozdu več mesecev. Moj ded je celo preživel zimo v koči, ki si jo je sam zgradil.", "en": "Charcoal burners used to stay in the woods for months. My grandfather even spent a winter in a hut he'd built himself.", "it": "Una volta i carbonai restavano spesso nel bosco per mesi. Mio nonno ha perfino passato un inverno in una capanna che si era costruito da solo." },
+                      { "choices": [
+                        { "de": "War das die Hütte, in der Sie jetzt wohnen?", "sl": "Je bila to koča, v kateri zdaj živite?", "en": "Was that the hut you live in now?", "it": "Era la capanna in cui abita adesso?", "ok": true,
+                          "reply": { "face": "happy", "de": "Genau die. Nur das Dach ist neu.", "sl": "Prav ta. Samo streha je nova.", "en": "That very one. Only the roof's new.", "it": "Proprio quella. Solo il tetto è nuovo." } },
+                        { "de": "War das die Hütte, in dem Sie jetzt wohnen?", "sl": "Je bila to koča, v kateri zdaj živite? (in dem)", "en": "Was that the hut you live in now? (in dem)", "it": "Era la capanna in cui abita adesso? (in dem)", "grammar": "relativsatz",
+                          "why": { "sl": "Die Hütte je ženskega spola, v dajalniku: in der.", "en": "Die Hütte is feminine, in the dative: in der.", "it": "Die Hütte è femminile, al dativo: in der." },
+                          "reply": { "face": "thinking", "de": "In dem? Hm. Da wackelt was, und nicht das Dach.", "sl": "In dem? Hm. Tu se nekaj maje, in to ni streha.", "en": "In dem? Hm. Something's wobbling there, and it isn't the roof.", "it": "In dem? Mah. Qui c'è qualcosa che traballa, e non è il tetto." } }
+                      ] },
+                      { "who": "koehler", "de": "Damals haben die Eisenwerke jeden Sack gebraucht. Heut ist die Kohle fast nur mehr für den Toni.", "sl": "Takrat so železarne potrebovale vsako vrečo. Danes je oglje skoraj samo še za Tonija.", "en": "The ironworks needed every sack in those days. Today the charcoal's almost only for Toni.", "it": "Allora le ferriere avevano bisogno di ogni sacco. Oggi il carbone è quasi solo per Toni." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Ohne die Köhler wäre in Kärnten kein Eisen geschmolzen worden. Ganze Wälder haben die Herren der Eisenwerke dafür gekauft.", "sl": "Brez oglarjev se na Koroškem ne bi talilo železo. Lastniki železarn so zanj kupovali cele gozdove.", "en": "Without the charcoal burners no iron would have been smelted in Carinthia. The ironmasters bought whole forests for it.", "it": "Senza i carbonai in Carinzia non si sarebbe fuso il ferro. I padroni delle ferriere per questo compravano boschi interi." },
+                      { "choices": [
+                        { "de": "Dann war das ganze Land von den Köhlern abhängig.", "sl": "Potem je bila vsa dežela odvisna od oglarjev.", "en": "Then the whole land depended on the charcoal burners.", "it": "Allora tutta la regione dipendeva dai carbonai.", "ok": true,
+                          "reply": { "face": "proud", "de": "Das sag ich auch immer. Nur hat's keiner aufgeschrieben.", "sl": "To tudi jaz vedno pravim. Le zapisal ni tega nihče.", "en": "That's what I always say. Only no one wrote it down.", "it": "Lo dico sempre anch'io. Solo che nessuno l'ha scritto." } },
+                        { "de": "Dann war das ganze Land an den Köhlern abhängig.", "sl": "Potem je bila vsa dežela odvisna od oglarjev. (an)", "en": "Then the whole land depended on the charcoal burners. (an)", "it": "Allora tutta la regione dipendeva dai carbonai. (an)", "grammar": "adjektive-praepositionen",
+                          "why": { "sl": "Abhängig gre s predlogom von.", "en": "Abhängig goes with von.", "it": "Abhängig vuole von." },
+                          "reply": { "face": "thinking", "de": "An den Köhlern? Hm. So sagt das bei uns keiner.", "sl": "An den Köhlern? Hm. Tako pri nas tega nihče ne reče.", "en": "An den Köhlern? Hm. No one here says it like that.", "it": "An den Köhlern? Mah. Da noi nessuno lo dice così." } }
+                      ] },
+                      { "who": "koehler", "de": "Und reich geworden ist von uns keiner. Die Herren schon, die Köhler nicht.", "sl": "In obogatel ni nihče od nas. Gospodje že, oglarji ne.", "en": "And none of us got rich. The masters did, the charcoal burners didn't.", "it": "E di noi non si è arricchito nessuno. I padroni sì, i carbonai no." }
+                    ]
+                  }
+                }
               }
             ]
           },
@@ -1015,6 +1418,62 @@
                           "reply": { "face": "laugh", "de": "Langweilig? Bei einem Meiler ist keine Nacht langweilig, glaub mir.", "sl": "Dolgočasna? Pri kopi ni nobena noč dolgočasna, verjemi mi.", "en": "Boring? With a pile no night is boring, believe me.", "it": "Noiosa? Con una carbonaia nessuna notte è noiosa, credimi." } }
                       ] },
                       { "who": "koehler", "de": "Zwei Nächte noch. Dann mach ich die Löcher zu, und er darf sich ausruhen. Er hat's verdient.", "sl": "Še dve noči. Potem zaprem luknje in se lahko spočije. Zaslužila si je.", "en": "Two more nights. Then I close the holes, and it can rest. It's earned it.", "it": "Ancora due notti. Poi chiudo i buchi, e può riposare. Se l'è meritato." }
+                    ]
+                  }
+                }
+              },
+              {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "face": "happy", "de": "Der Rauch ist blau. Ich bin froh.", "sl": "Dim je moder. Vesel sem.", "en": "The smoke's blue. I'm glad.", "it": "Il fumo è azzurro. Sono contento." },
+                      { "choices": [
+                        { "de": "Ich bin auch froh!", "sl": "Tudi jaz sem {m:vesel|f:vesela}!", "en": "I'm glad too!", "it": "Anch'io sono {m:contento|f:contenta}!", "ok": true,
+                          "reply": { "face": "happy", "de": "Gut! Bald ist die Kohle fertig.", "sl": "Dobro! Kmalu bo oglje gotovo.", "en": "Good! The charcoal will soon be done.", "it": "Bene! Presto il carbone è pronto." } },
+                        { "de": "Ich bin auch traurig!", "sl": "Tudi jaz sem {m:žalosten|f:žalostna}!", "en": "I'm sad too!", "it": "Anch'io sono triste!",
+                          "why": { "sl": "Michl je vesel: froh. Traurig pomeni žalosten.", "en": "Michl's glad: froh. Traurig means sad.", "it": "Michl è contento: froh. Traurig vuol dire triste." },
+                          "reply": { "face": "surprised", "de": "Traurig? Warum? Das ist doch gut!", "sl": "Žalosten? Zakaj? Saj je dobro!", "en": "Sad? Why? It's good!", "it": "Triste? Perché? È una bella cosa!" } }
+                      ] },
+                      { "who": "koehler", "de": "Komm morgen wieder!", "sl": "Pridi spet jutri!", "en": "Come again tomorrow!", "it": "Torna domani!" }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Heute habe ich die letzten Löcher gemacht. Der Meiler ist jetzt viel kleiner als am Anfang.", "sl": "Danes sem naredil zadnje luknje. Kopa je zdaj veliko manjša kot na začetku.", "en": "I made the last holes today. The pile's much smaller now than at the start.", "it": "Oggi ho fatto gli ultimi buchi. Ora la carbonaia è molto più piccola che all'inizio." },
+                      { "choices": [
+                        { "de": "Warum ist er so klein geworden?", "sl": "Zakaj je postala tako majhna?", "en": "Why has it got so small?", "it": "Perché è diventata così piccola?", "ok": true,
+                          "reply": { "face": "proud", "de": "Weil das Holz zu Kohle wird. Kohle ist viel kleiner und leichter.", "sl": "Ker les postaja oglje. Oglje je veliko manjše in lažje.", "en": "Because the wood's turning into charcoal. Charcoal's much smaller and lighter.", "it": "Perché la legna diventa carbone. Il carbone è molto più piccolo e leggero." } },
+                        { "de": "Warum ist er so klein gewordet?", "sl": "Zakaj je postala tako majhna? (gewordet)", "en": "Why has it got so small? (gewordet)", "it": "Perché è diventata così piccola? (gewordet)", "grammar": "perfekt",
+                          "why": { "sl": "Werden je nepravilen: geworden.", "en": "Werden is irregular: geworden.", "it": "Werden è irregolare: geworden." },
+                          "reply": { "face": "thinking", "de": "Gewordet? Hm. Das klingt komisch.", "sl": "Gewordet? Hm. To zveni čudno.", "en": "Gewordet? Hm. That sounds odd.", "it": "Gewordet? Mah. Suona strano." } }
+                      ] },
+                      { "who": "koehler", "de": "Aus hundert Kilo Holz werden nur zwanzig Kilo Kohle.", "sl": "Iz sto kilogramov lesa nastane samo dvajset kilogramov oglja.", "en": "A hundred kilos of wood make only twenty kilos of charcoal.", "it": "Da cento chili di legna vengono solo venti chili di carbone." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Am Anfang war er so hoch wie die Hütte, und jetzt schau ihn dir an. Das Wasser ist weg, und das Holz wird Kohle.", "sl": "Na začetku je bila visoka kot koča, zdaj pa jo poglej. Voda je šla, les postaja oglje.", "en": "At the start it was as high as the hut, and now look at it. The water's gone and the wood's turning to charcoal.", "it": "All'inizio era alta come la capanna, e adesso guardala. L'acqua se n'è andata e la legna diventa carbone." },
+                      { "choices": [
+                        { "de": "Wie viele Säcke wird es heuer wohl geben?", "sl": "Koliko vreč bo letos verjetno?", "en": "How many sacks will there be this year, do you think?", "it": "Quanti sacchi ci saranno quest'anno, secondo Lei?", "ok": true,
+                          "reply": { "face": "thinking", "de": "Zwölf, wenn nichts passiert. Aber ich zähl sie erst, wenn sie voll sind.", "sl": "Dvanajst, če se nič ne zgodi. Ampak preštejem jih šele, ko so polne.", "en": "Twelve, if nothing happens. But I only count them when they're full.", "it": "Dodici, se non succede niente. Ma li conto solo quando sono pieni." } },
+                        { "de": "Wie viele Säcke wird es heuer wohl gibt?", "sl": "Koliko vreč bo letos verjetno? (gibt)", "en": "How many sacks will there be this year, do you think? (gibt)", "it": "Quanti sacchi ci saranno quest'anno, secondo Lei? (gibt)", "grammar": "werden-futur",
+                          "why": { "sl": "Prihodnjik: werden + nedoločnik, wird … geben.", "en": "The future: werden + infinitive, wird … geben.", "it": "Il futuro: werden + infinito, wird … geben." },
+                          "reply": { "face": "thinking", "de": "Wird gibt? Hm, das zählt mein Kopf nicht zusammen.", "sl": "Wird gibt? Hm, tega moja glava ne sešteje.", "en": "Wird gibt? Hm, my head can't add that up.", "it": "Wird gibt? Mah, la mia testa non ci arriva." } }
+                      ] },
+                      { "who": "koehler", "de": "Mein Vater hat nie vorher gezählt. Er hat gemeint, das bringe Unglück.", "sl": "Oče ni nikoli štel vnaprej. Menil je, da to prinaša nesrečo.", "en": "My father never counted beforehand. He thought it brought bad luck.", "it": "Mio padre non contava mai prima. Diceva che porta sfortuna." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Komisch. Zwei Wochen wünsch ich mir nichts als Schlaf, und wenn er blau raucht, tut's mir leid, dass es bald aus ist.", "sl": "Čudno. Dva tedna si ne želim drugega kot spanja, ko pa se kadi modro, mi je žal, da bo kmalu konec.", "en": "Funny. For two weeks I want nothing but sleep, and when it smokes blue, I'm sorry it'll soon be over.", "it": "Strano. Per due settimane non desidero altro che dormire, e quando fuma azzurro mi dispiace che sia quasi finita." },
+                      { "choices": [
+                        { "de": "Haben Sie je in Betracht gezogen, damit aufzuhören?", "sl": "Ste kdaj razmišljali, da bi s tem prenehali?", "en": "Have you ever considered giving it up?", "it": "Ha mai preso in considerazione di smettere?", "ok": true,
+                          "reply": { "face": "thinking", "de": "Jedes Jahr, in der dritten Nacht. Am Morgen ist es wieder vorbei.", "sl": "Vsako leto, tretjo noč. Zjutraj pa spet mine.", "en": "Every year, on the third night. By morning it's gone again.", "it": "Ogni anno, la terza notte. Al mattino è di nuovo passata." } },
+                        { "de": "Haben Sie je in Betracht genommen, damit aufzuhören?", "sl": "Ste kdaj razmišljali, da bi s tem prenehali? (genommen)", "en": "Have you ever considered giving it up? (genommen)", "it": "Ha mai preso in considerazione di smettere? (genommen)", "grammar": "nomen-verb",
+                          "why": { "sl": "Ustaljena zveza: in Betracht ziehen.", "en": "The fixed phrase: in Betracht ziehen.", "it": "L'espressione fissa: in Betracht ziehen." },
+                          "reply": { "face": "thinking", "de": "In Betracht genommen? Hm, das hab ich noch nie gehört.", "sl": "In Betracht genommen? Hm, tega še nisem slišal.", "en": "In Betracht genommen? Hm, I've never heard that.", "it": "In Betracht genommen? Mah, non l'ho mai sentito." } }
+                      ] },
+                      { "who": "koehler", "de": "Wer hört schon auf, wenn er gerade gelernt hat, wie's geht? Und ganz gelernt hab ich's immer noch nicht.", "sl": "Kdo pa neha, ko se je ravno naučil, kako gre? Pa še vedno se nisem čisto naučil.", "en": "Who gives up just when they've learned how it goes? And I still haven't quite learned it.", "it": "Chi smette proprio quando ha imparato come si fa? E io non ho ancora imparato del tutto." }
                     ]
                   }
                 }
@@ -1106,6 +1565,62 @@
                     ]
                   }
                 }
+              },
+              {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Der Meiler ist noch heiß. Nicht anfassen!", "sl": "Kopa je še vroča. Ne dotikaj se je!", "en": "The pile's still hot. Don't touch!", "it": "La carbonaia è ancora calda. Non toccare!" },
+                      { "choices": [
+                        { "de": "Ist er sehr heiß?", "sl": "Je zelo vroča?", "en": "Is it very hot?", "it": "È molto calda?", "ok": true,
+                          "reply": { "face": "thinking", "de": "Ja! Noch zwei Tage.", "sl": "Ja! Še dva dni.", "en": "Yes! Two more days.", "it": "Sì! Ancora due giorni." } },
+                        { "de": "Ist er sehr kalt?", "sl": "Je zelo mrzla?", "en": "Is it very cold?", "it": "È molto fredda?",
+                          "why": { "sl": "Michl je rekel vroč: heiß.", "en": "Michl said hot: heiß.", "it": "Michl ha detto calda: heiß." },
+                          "reply": { "face": "surprised", "de": "Kalt? Nein! Noch nicht!", "sl": "Mrzla? Ne! Še ne!", "en": "Cold? No! Not yet!", "it": "Fredda? No! Non ancora!" } }
+                      ] },
+                      { "who": "koehler", "de": "Wir warten.", "sl": "Čakava.", "en": "We wait.", "it": "Aspettiamo." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Jeden Morgen lege ich meine Hand auf die Erde. So weiß ich, wie heiß er noch ist.", "sl": "Vsako jutro položim roko na zemljo. Tako vem, kako vroča je še.", "en": "Every morning I lay my hand on the earth. That's how I know how hot it still is.", "it": "Ogni mattina metto la mano sulla terra. Così so quanto è ancora calda." },
+                      { "choices": [
+                        { "de": "Ich komme wieder, wenn der Meiler kalt ist.", "sl": "Pridem spet, ko bo kopa mrzla.", "en": "I'll come back when the pile's cold.", "it": "Torno quando la carbonaia è fredda.", "ok": true,
+                          "reply": { "face": "happy", "de": "Gut! Dann kannst du mir helfen.", "sl": "Dobro! Potem mi lahko pomagaš.", "en": "Good! Then you can help me.", "it": "Bene! Allora puoi aiutarmi." } },
+                        { "de": "Ich komme wieder, wenn der Meiler ist kalt.", "sl": "Pridem spet, ko bo kopa mrzla. (ist kalt)", "en": "I'll come back when the pile's cold. (ist kalt)", "it": "Torno quando la carbonaia è fredda. (ist kalt)", "grammar": "nebensatz",
+                          "why": { "sl": "Po wenn je glagol na koncu: wenn der Meiler kalt ist.", "en": "After wenn the verb goes last: wenn der Meiler kalt ist.", "it": "Dopo wenn il verbo va in fondo: wenn der Meiler kalt ist." },
+                          "reply": { "face": "thinking", "de": "Wenn der Meiler ist kalt? Hm. Noch einmal, bitte.", "sl": "Wenn der Meiler ist kalt? Hm. Še enkrat, prosim.", "en": "Wenn der Meiler ist kalt? Hm. Once more, please.", "it": "Wenn der Meiler ist kalt? Mah. Ancora una volta, per favore." } }
+                      ] },
+                      { "who": "koehler", "de": "Dann brauche ich jede Hand.", "sl": "Takrat potrebujem vsako roko.", "en": "I'll need every hand then.", "it": "Allora avrò bisogno di ogni mano." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Die Tage nutze ich zum Aufräumen. Die Stangen, die Schaufeln, der Rechen: Alles wird hergerichtet, bevor es wieder gebraucht wird.", "sl": "Te dni pospravljam. Drogovi, lopate, grablje: vse se uredi, preden bo spet potrebno.", "en": "I use these days for tidying up. The poles, the shovels, the rake: everything gets seen to before it's needed again.", "it": "Questi giorni li uso per mettere in ordine. Le pertiche, le pale, il rastrello: tutto viene sistemato prima che serva di nuovo." },
+                      { "choices": [
+                        { "de": "Ist der Rechen schon repariert worden?", "sl": "So grablje že popravljene?", "en": "Has the rake been mended yet?", "it": "Il rastrello è già stato riparato?", "ok": true,
+                          "reply": { "face": "laugh", "de": "Noch nicht. Der hat schon mehr Zähne verloren als ich.", "sl": "Še ne. Izgubile so že več zob kot jaz.", "en": "Not yet. It's lost more teeth than I have.", "it": "Non ancora. Ha perso più denti di me." } },
+                        { "de": "Ist der Rechen schon repariert geworden?", "sl": "So grablje že popravljene? (geworden)", "en": "Has the rake been mended yet? (geworden)", "it": "Il rastrello è già stato riparato? (geworden)", "grammar": "passiv",
+                          "why": { "sl": "V trpniku je deležnik od werden krajši: worden.", "en": "In the passive werden's participle is the short one: worden.", "it": "Nel passivo il participio di werden è quello breve: worden." },
+                          "reply": { "face": "thinking", "de": "Geworden? Hm, ein Rechen wird doch nicht erwachsen.", "sl": "Geworden? Hm, grablje vendar ne odrastejo.", "en": "Geworden? Hm, a rake doesn't grow up.", "it": "Geworden? Mah, un rastrello mica cresce." } }
+                      ] },
+                      { "who": "koehler", "de": "Also setz ich mich jetzt hin und schnitz ihm neue.", "sl": "Zato se zdaj usedem in jim izrežem nove.", "en": "So now I'll sit down and carve it new ones.", "it": "Allora adesso mi siedo e gliene intaglio di nuovi." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Einmal wollte mein Vater schon am dritten Tag aufmachen. Meine Mutter hat gesagt, er solle warten. Am Abend ist eine Stelle von selbst aufgebrochen, und die Glut war noch da.", "sl": "Nekoč je hotel oče odpreti že tretji dan. Mama je rekla, naj počaka. Zvečer se je neko mesto samo odprlo in žerjavica je bila še tam.", "en": "Once my father wanted to open it on the third day. My mother said he should wait. That evening a spot broke open by itself, and the embers were still there.", "it": "Una volta mio padre voleva aprire già il terzo giorno. Mia madre gli ha detto di aspettare. La sera un punto si è aperto da solo e la brace c'era ancora." },
+                      { "choices": [
+                        { "de": "Hätte er nicht auf sie gehört, wäre alles verbrannt.", "sl": "Če je ne bi poslušal, bi vse zgorelo.", "en": "If he hadn't listened to her, it would all have burnt.", "it": "Se non l'avesse ascoltata, sarebbe bruciato tutto.", "ok": true,
+                          "reply": { "face": "thinking", "de": "Alles. Seitdem hat bei uns beim Meiler immer die Mutter das letzte Wort gehabt.", "sl": "Vse. Od takrat je imela pri kopi pri nas vedno mama zadnjo besedo.", "en": "All of it. Since then my mother always had the last word on the pile.", "it": "Tutto. Da allora da noi sulla carbonaia l'ultima parola è sempre stata di mia madre." } },
+                        { "de": "Hätte er nicht auf sie gehört, hätte alles verbrannt.", "sl": "Če je ne bi poslušal, bi vse zgorelo. (hätte)", "en": "If he hadn't listened to her, it would all have burnt. (hätte)", "it": "Se non l'avesse ascoltata, sarebbe bruciato tutto. (hätte)", "grammar": "konjunktiv-vergangenheit",
+                          "why": { "sl": "Tu verbrennen pomeni zgoreti in gre s sein: wäre verbrannt.", "en": "Here verbrennen means to burn up and goes with sein: wäre verbrannt.", "it": "Qui verbrennen significa bruciare del tutto e vuole sein: wäre verbrannt." },
+                          "reply": { "face": "thinking", "de": "Hätte alles verbrannt? Wer denn, die Glut? Hm, noch einmal.", "sl": "Hätte alles verbrannt? Kdo pa, žerjavica? Hm, še enkrat.", "en": "Hätte alles verbrannt? Who did, the embers? Hm, once more.", "it": "Hätte alles verbrannt? Chi, la brace? Mah, ancora una volta." } }
+                      ] },
+                      { "who": "koehler", "de": "Das erzähl ich jedes Mal, wenn mich das Warten nervös macht. Es hilft aber nur ein bisschen.", "sl": "To povem vsakič, ko me čakanje naredi živčnega. Ampak pomaga le malo.", "en": "I tell that every time the waiting makes me nervous. It only helps a bit, though.", "it": "Lo racconto ogni volta che l'attesa mi rende nervoso. Ma aiuta solo un po'." }
+                    ]
+                  }
+                }
               }
             ]
           },
@@ -1194,6 +1709,62 @@
                           "reply": { "face": "thinking", "de": "Soll? Wer sagt das? Du hältst sie doch selber in der Hand.", "sl": "Soll? Kdo to pravi? Saj ga sam držiš v roki.", "en": "Soll? Who says? You're holding it in your own hand.", "it": "Soll? Chi lo dice? Lo tieni in mano tu." } }
                       ] },
                       { "who": "koehler", "de": "Hätte ich vor einer Woche aufgemacht, wär die Hälfte noch Holz gewesen. Geduld zahlt sich halt aus.", "sl": "Ko bi odprl pred tednom dni, bi bila polovica še les. Potrpežljivost se pač izplača.", "en": "If I'd opened a week ago, half of it would still have been wood. Patience pays, that's all.", "it": "Se avessi aperto una settimana fa, metà sarebbe stata ancora legno. La pazienza paga." }
+                    ]
+                  }
+                }
+              },
+              {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "koehler", "face": "laugh", "de": "Schau meine Hände! Schwarz!", "sl": "Poglej moje roke! Črne!", "en": "Look at my hands! Black!", "it": "Guarda le mie mani! Nere!" },
+                      { "choices": [
+                        { "de": "Die Hände sind schwarz!", "sl": "Roke so črne!", "en": "The hands are black!", "it": "Le mani sono nere!", "ok": true,
+                          "reply": { "face": "laugh", "de": "Ja! Und das Gesicht auch!", "sl": "Ja! In obraz tudi!", "en": "Yes! And my face too!", "it": "Sì! E anche la faccia!" } },
+                        { "de": "Die Hände sind weiß!", "sl": "Roke so bele!", "en": "The hands are white!", "it": "Le mani sono bianche!",
+                          "why": { "sl": "Oglje je črno, roke tudi: schwarz.", "en": "Charcoal's black, and so are the hands: schwarz.", "it": "Il carbone è nero, e anche le mani: schwarz." },
+                          "reply": { "face": "laugh", "de": "Weiß? Schau noch einmal!", "sl": "Bele? Poglej še enkrat!", "en": "White? Look again!", "it": "Bianche? Guarda di nuovo!" } }
+                      ] },
+                      { "who": "koehler", "de": "Am Abend wasche ich mich im Bach.", "sl": "Zvečer se umijem v potoku.", "en": "In the evening I wash in the stream.", "it": "La sera mi lavo nel ruscello." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Nicht alles ist Kohle. Die braunen Stücke sind noch Holz. Die kommen in den nächsten Meiler.", "sl": "Ni vse oglje. Rjavi kosi so še les. Ti gredo v naslednjo kopo.", "en": "Not everything's charcoal. The brown pieces are still wood. They go in the next pile.", "it": "Non è tutto carbone. I pezzi marroni sono ancora legna. Quelli vanno nella prossima carbonaia." },
+                      { "choices": [
+                        { "de": "Soll ich die braunen Stücke auf die Seite legen?", "sl": "Naj dam rjave kose na stran?", "en": "Shall I put the brown pieces to one side?", "it": "Metto da parte i pezzi marroni?", "ok": true,
+                          "reply": { "face": "happy", "de": "Ja, bitte. Die schwarzen bleiben hier.", "sl": "Ja, prosim. Črni ostanejo tukaj.", "en": "Yes, please. The black ones stay here.", "it": "Sì, per favore. Quelli neri restano qui." } },
+                        { "de": "Soll ich die schwarzen Stücke auf die Seite legen?", "sl": "Naj dam črne kose na stran?", "en": "Shall I put the black pieces to one side?", "it": "Metto da parte i pezzi neri?",
+                          "why": { "sl": "Michl je rekel rjavi: die braunen. Črno je oglje.", "en": "Michl said brown: die braunen. The black is the charcoal.", "it": "Michl ha detto marroni: die braunen. Il nero è il carbone." },
+                          "reply": { "face": "surprised", "de": "Die schwarzen? Nein, das ist doch die Kohle!", "sl": "Črne? Ne, to je vendar oglje!", "en": "The black ones? No, that's the charcoal!", "it": "Quelli neri? No, quello è il carbone!" } }
+                      ] },
+                      { "who": "koehler", "de": "Heute Abend bist du so schwarz wie ich.", "sl": "Nocoj boš tako {m:črn|f:črna} kot jaz.", "en": "Tonight you'll be as black as me.", "it": "Stasera sarai {m:nero|f:nera} come me." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "koehler", "de": "Mein erster eigener Meiler hat fast nur braune Stücke gegeben. Ich hatte ihn viel zu früh zugemacht.", "sl": "Moja prva lastna kopa je dala skoraj same rjave kose. Prezgodaj sem jo zaprl.", "en": "My first pile of my own gave almost nothing but brown pieces. I'd closed it far too early.", "it": "La mia prima carbonaia ha dato quasi solo pezzi marroni. L'avevo chiusa troppo presto." },
+                      { "choices": [
+                        { "de": "Haben Sie damals daran gedacht aufzuhören?", "sl": "Ste takrat pomislili, da bi nehali?", "en": "Did you think of giving up then?", "it": "Allora ha pensato di smettere?", "ok": true,
+                          "reply": { "face": "thinking", "de": "Eine Woche lang. Dann ist mir das Geld ausgegangen, und ich hab wieder gebaut.", "sl": "Teden dni. Potem mi je zmanjkalo denarja in sem spet gradil.", "en": "For a week. Then I ran out of money and built again.", "it": "Per una settimana. Poi ho finito i soldi e ho ricostruito." } },
+                        { "de": "Haben Sie damals darauf gedacht aufzuhören?", "sl": "Ste takrat pomislili, da bi nehali? (darauf)", "en": "Did you think of giving up then? (darauf)", "it": "Allora ha pensato di smettere? (darauf)", "grammar": "wo-da-woerter",
+                          "why": { "sl": "Denken gre s predlogom an: an etwas denken, zato daran.", "en": "Denken goes with an: an etwas denken, so daran.", "it": "Denken vuole an: an etwas denken, quindi daran." },
+                          "reply": { "face": "laugh", "de": "Darauf gedacht? Das klingt, als hättest du dich draufgesetzt.", "sl": "Darauf gedacht? To zveni, kot da bi {m:sedel|f:sedla} na to.", "en": "Darauf gedacht? That sounds as if you'd sat on it.", "it": "Darauf gedacht? Suona come se ti ci fossi {m:seduto|f:seduta} sopra." } }
+                      ] },
+                      { "who": "koehler", "de": "Seither mach ich lieber einen Tag zu spät zu als einen Tag zu früh.", "sl": "Od takrat zaprem raje dan prepozno kot dan prezgodaj.", "en": "Since then I'd rather close a day too late than a day too early.", "it": "Da allora preferisco chiudere un giorno troppo tardi che un giorno troppo presto." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "koehler", "de": "Am Abend wasch ich mich im Bach. Das Wasser läuft schwarz davon, und trotzdem sieht man mir den Meiler noch eine Woche lang an.", "sl": "Zvečer se umijem v potoku. Voda odteka črna, pa se mi kopa vseeno še teden dni pozna.", "en": "In the evening I wash in the stream. The water runs off black, and you can still see the pile on me for a week.", "it": "La sera mi lavo nel ruscello. L'acqua scorre via nera, eppure per una settimana mi si vede ancora addosso la carbonaia." },
+                      { "choices": [
+                        { "de": "Die in den Poren sitzende Kohle geht eben nicht so leicht weg.", "sl": "Oglje, ki sedi v porah, pač ne gre tako zlahka dol.", "en": "The charcoal sitting in the pores just doesn't come off so easily.", "it": "Il carbone che sta nei pori non va via così facilmente.", "ok": true,
+                          "reply": { "face": "laugh", "de": "In den Poren, in den Ohren, überall. In der Kirche setzt sich keiner neben mich.", "sl": "V porah, v ušesih, povsod. V cerkvi nihče ne sede k meni.", "en": "In the pores, in the ears, everywhere. In church no one sits next to me.", "it": "Nei pori, nelle orecchie, dappertutto. In chiesa nessuno si siede vicino a me." } },
+                        { "de": "Die in den Poren gesessene Kohle geht eben nicht so leicht weg.", "sl": "Oglje, ki sedi v porah, pač ne gre tako zlahka dol. (gesessene)", "en": "The charcoal sitting in the pores just doesn't come off so easily. (gesessene)", "it": "Il carbone che sta nei pori non va via così facilmente. (gesessene)", "grammar": "partizipialattribut",
+                          "why": { "sl": "Oglje sedi zdaj: sedanji deležnik, sitzende.", "en": "The charcoal's sitting there now: the present participle, sitzende.", "it": "Il carbone sta lì adesso: il participio presente, sitzende." },
+                          "reply": { "face": "thinking", "de": "Gesessene Kohle? Hm, weg ist sie ja nicht.", "sl": "Gesessene Kohle? Hm, saj ni šlo dol.", "en": "Gesessene Kohle? Hm, it isn't gone, you know.", "it": "Gesessene Kohle? Mah, mica è andato via." } }
+                      ] },
+                      { "who": "koehler", "de": "Aber ich geb zu: Ganz los werden will ich den Geruch gar nicht. Ohne ihn wär ich irgendwer.", "sl": "Ampak priznam: čisto se tega vonja nočem znebiti. Brez njega bi bil kdor koli.", "en": "But I admit it: I don't really want to be rid of the smell. Without it I'd be just anybody.", "it": "Ma lo ammetto: di quest'odore non voglio liberarmi del tutto. Senza sarei uno qualunque." }
                     ]
                   }
                 }
@@ -1440,6 +2011,62 @@
                   ]
                 }
               }
+            },
+            {
+              "levels": {
+                "A1": {
+                  "lines": [
+                    { "who": "koehler", "face": "happy", "de": "Heute keine Kohle. Ich gehe zum Bach.", "sl": "Danes nič oglja. Grem k potoku.", "en": "No charcoal today. I'm going to the stream.", "it": "Oggi niente carbone. Vado al ruscello." },
+                    { "choices": [
+                      { "de": "Fangen Sie Fische?", "sl": "Lovite ribe?", "en": "Are you catching fish?", "it": "Prende dei pesci?", "ok": true,
+                        "reply": { "face": "happy", "de": "Ja! Heute Abend gibt es Fisch.", "sl": "Ja! Nocoj bo riba.", "en": "Yes! There's fish tonight.", "it": "Sì! Stasera c'è pesce." } },
+                      { "de": "Fangen Sie Steine?", "sl": "Lovite kamne?", "en": "Are you catching stones?", "it": "Prende dei sassi?",
+                        "why": { "sl": "V potoku lovimo ribe: Fische.", "en": "In a stream you catch fish: Fische.", "it": "Nel ruscello si prendono i pesci: Fische." },
+                        "reply": { "face": "laugh", "de": "Steine? Nein, Fische!", "sl": "Kamne? Ne, ribe!", "en": "Stones? No, fish!", "it": "Sassi? No, pesci!" } }
+                    ] },
+                    { "who": "koehler", "de": "Der Bach ist kalt und gut.", "sl": "Potok je mrzel in dober.", "en": "The stream's cold and good.", "it": "Il ruscello è freddo e buono." }
+                  ]
+                },
+                "A2": {
+                  "lines": [
+                    { "who": "koehler", "de": "Zwischen den Meilern gehe ich ins Dorf. Ich sitze im Wirtshaus und höre zu, was es Neues gibt.", "sl": "Med kopami grem v vas. Sedim v gostilni in poslušam, kaj je novega.", "en": "Between piles I go down to the village. I sit in the inn and listen to what's new.", "it": "Tra una carbonaia e l'altra vado in paese. Sto all'osteria e ascolto che cosa c'è di nuovo." },
+                    { "choices": [
+                      { "de": "Mit wem sitzen Sie im Wirtshaus?", "sl": "S kom sedite v gostilni?", "en": "Who do you sit with in the inn?", "it": "Con chi sta all'osteria?", "ok": true,
+                        "reply": { "face": "happy", "de": "Mit allen, die zuhören. Viele sind das nicht.", "sl": "Z vsemi, ki poslušajo. Veliko jih ni.", "en": "With anyone who listens. There aren't many.", "it": "Con tutti quelli che ascoltano. Non sono molti." } },
+                      { "de": "Mit wer sitzen Sie im Wirtshaus?", "sl": "S kom sedite v gostilni? (mit wer)", "en": "Who do you sit with in the inn? (mit wer)", "it": "Con chi sta all'osteria? (mit wer)", "grammar": "dativ",
+                        "why": { "sl": "Po mit stoji dajalnik: mit wem.", "en": "After mit comes the dative: mit wem.", "it": "Dopo mit c'è il dativo: mit wem." },
+                        "reply": { "face": "thinking", "de": "Mit wer? Hm. Frag noch einmal.", "sl": "Mit wer? Hm. Še enkrat vprašaj.", "en": "Mit wer? Hm. Ask again.", "it": "Mit wer? Mah. Chiedi di nuovo." } }
+                    ] },
+                    { "who": "koehler", "de": "Nach zwei Wochen allein im Wald rede ich wie ein Wasserfall.", "sl": "Po dveh tednih sam v gozdu govorim kot slap.", "en": "After two weeks alone in the wood I talk like a waterfall.", "it": "Dopo due settimane da solo nel bosco parlo come una cascata." }
+                  ]
+                },
+                "B1": {
+                  "lines": [
+                    { "who": "koehler", "de": "Wenn ich nicht beim Meiler bin, bessere ich die Hütte aus. Das Dach hab ich schon dreimal geflickt.", "sl": "Ko nisem pri kopi, popravljam kočo. Streho sem zakrpal že trikrat.", "en": "When I'm not at the pile I mend the hut. I've patched the roof three times already.", "it": "Quando non sono alla carbonaia riparo la capanna. Il tetto l'ho già rattoppato tre volte." },
+                    { "choices": [
+                      { "de": "Haben Sie nie daran gedacht, ins Dorf zu ziehen?", "sl": "Niste nikoli pomislili, da bi se preselili v vas?", "en": "Have you never thought of moving to the village?", "it": "Non ha mai pensato di trasferirsi in paese?", "ok": true,
+                        "reply": { "face": "thinking", "de": "Einmal, in einem kalten Frühjahr. Aber im Dorf riecht nichts nach Rauch.", "sl": "Enkrat, neke mrzle pomladi. Ampak v vasi nič ne diši po dimu.", "en": "Once, one cold spring. But nothing in the village smells of smoke.", "it": "Una volta, in una primavera fredda. Ma in paese niente sa di fumo." } },
+                      { "de": "Haben Sie nie daran gedacht, ins Dorf ziehen?", "sl": "Niste nikoli pomislili, da bi se preselili v vas? (ziehen)", "en": "Have you never thought of moving to the village? (ziehen)", "it": "Non ha mai pensato di trasferirsi in paese? (ziehen)", "grammar": "infinitiv-zu",
+                        "why": { "sl": "Po daran gedacht stoji nedoločnik z zu: zu ziehen.", "en": "After daran gedacht comes the infinitive with zu: zu ziehen.", "it": "Dopo daran gedacht c'è l'infinito con zu: zu ziehen." },
+                        "reply": { "face": "thinking", "de": "Daran gedacht, ziehen? Hm, da fehlt mir ein kleines Wort.", "sl": "Daran gedacht, ziehen? Hm, tu mi manjka majhna beseda.", "en": "Daran gedacht, ziehen? Hm, I'm missing a little word there.", "it": "Daran gedacht, ziehen? Mah, qui manca una parolina." } }
+                    ] },
+                    { "who": "koehler", "de": "Der Wald ist nicht immer bequem. Aber er redet mir nicht drein.", "sl": "Gozd ni vedno udoben. Ampak ne vtika se v moje stvari.", "en": "The wood isn't always comfortable. But it doesn't tell me what to do.", "it": "Il bosco non è sempre comodo. Ma non si impiccia." }
+                  ]
+                },
+                "B2": {
+                  "lines": [
+                    { "who": "koehler", "de": "Bald fang ich wieder an. Wenn mich die Leute fragen, wer das einmal weitermachen wird, schau ich meistens auf meine Stiefel.", "sl": "Kmalu spet začnem. Ko me ljudje vprašajo, kdo bo to nekoč nadaljeval, večinoma pogledam svoje škornje.", "en": "I'll start again soon. When people ask me who'll carry this on one day, I mostly look at my boots.", "it": "Presto ricomincio. Quando la gente mi chiede chi lo porterà avanti, per lo più mi guardo gli stivali." },
+                    { "choices": [
+                      { "de": "Falls sich niemand findet, geht mit Ihnen ein ganzes Handwerk verloren.", "sl": "Če se nihče ne najde, z vami izgine cela obrt.", "en": "If no one turns up, a whole craft will be lost with you.", "it": "Se non si trova nessuno, con Lei va perso un intero mestiere.", "ok": true,
+                        "reply": { "face": "sad", "de": "Das weiß ich. Darum erklär ich dir ja alles so genau.", "sl": "Vem. Zato ti vse tako natančno razlagam.", "en": "I know. That's why I explain everything to you so carefully.", "it": "Lo so. Per questo ti spiego tutto così per bene." } },
+                      { "de": "Falls findet sich niemand, geht mit Ihnen ein ganzes Handwerk verloren.", "sl": "Če se nihče ne najde, z vami izgine cela obrt. (falls findet)", "en": "If no one turns up, a whole craft will be lost with you. (falls findet)", "it": "Se non si trova nessuno, con Lei va perso un intero mestiere. (falls findet)", "grammar": "nebensatz",
+                        "why": { "sl": "Po falls je glagol na koncu: falls sich niemand findet.", "en": "After falls the verb goes last: falls sich niemand findet.", "it": "Dopo falls il verbo va in fondo: falls sich niemand findet." },
+                        "reply": { "face": "thinking", "de": "Falls findet? Hm, da steht einer am falschen Platz.", "sl": "Falls findet? Hm, tu nekdo stoji na napačnem mestu.", "en": "Falls findet? Hm, someone's standing in the wrong place there.", "it": "Falls findet? Mah, qui qualcuno sta al posto sbagliato." } }
+                    ] },
+                    { "who": "koehler", "de": "Nicht dass du gleich Köhler werden sollst. Aber wer's einmal gesehen hat, vergisst es nicht.", "sl": "Ne da bi {m:moral|f:morala} takoj postati {m:oglar|f:oglarka}. Ampak kdor je to enkrat videl, ne pozabi.", "en": "Not that you should go and become a charcoal burner. But whoever's seen it once doesn't forget it.", "it": "Non che tu debba diventare {m:carbonaio|f:carbonaia} subito. Ma chi l'ha visto una volta non lo dimentica." }
+                  ]
+                }
+              }
             }
           ]
         },
@@ -1502,6 +2129,62 @@
                         "reply": { "face": "thinking", "de": "Für den Winter? Nein, der Winter ist nur das Warten.", "sl": "Za zimo? Ne, zima je samo čakanje.", "en": "For the winter? No, winter's just the waiting.", "it": "Per l'inverno? No, l'inverno è solo l'attesa." } }
                     ] },
                     { "who": "koehler", "de": "Schau, wie der Schnee auf dem Meilerplatz liegt. Man würde nicht glauben, dass hier im Sommer der Wald raucht.", "sl": "Poglej, kako leži sneg na kopišču. Ne bi verjel, da se tu poleti kadi gozd.", "en": "Look how the snow lies on the pile's place. You wouldn't believe the wood smokes here in summer.", "it": "Guarda come sta la neve sulla piazzola. Non si direbbe che qui d'estate il bosco fuma." }
+                  ]
+                }
+              }
+            },
+            {
+              "levels": {
+                "A1": {
+                  "lines": [
+                    { "who": "koehler", "de": "Es ist kalt! Ich mache Feuer.", "sl": "Mrzlo je! Kurim.", "en": "It's cold! I'm making a fire.", "it": "Fa freddo! Accendo il fuoco." },
+                    { "choices": [
+                      { "de": "Ist es warm in der Hütte?", "sl": "Je v koči toplo?", "en": "Is it warm in the hut?", "it": "Fa caldo nella capanna?", "ok": true,
+                        "reply": { "face": "happy", "de": "Ja! Komm herein!", "sl": "Ja! Pridi noter!", "en": "Yes! Come in!", "it": "Sì! Entra!" } },
+                      { "de": "Ist es warm im Schnee?", "sl": "Je v snegu toplo?", "en": "Is it warm in the snow?", "it": "Fa caldo nella neve?",
+                        "why": { "sl": "V snegu ni toplo. Toplo je v koči: in der Hütte.", "en": "It isn't warm in the snow. It's warm in the hut: in der Hütte.", "it": "Nella neve non fa caldo. Fa caldo nella capanna: in der Hütte." },
+                        "reply": { "face": "laugh", "de": "Im Schnee? Nein!", "sl": "V snegu? Ne!", "en": "In the snow? No!", "it": "Nella neve? No!" } }
+                    ] },
+                    { "who": "koehler", "de": "Der Tee ist heiß.", "sl": "Čaj je vroč.", "en": "The tea's hot.", "it": "Il tè è caldo." }
+                  ]
+                },
+                "A2": {
+                  "lines": [
+                    { "who": "koehler", "de": "Im Winter repariere ich meine Schaufeln. Am Abend schnitze ich Löffel.", "sl": "Pozimi popravljam lopate. Zvečer rezljam žlice.", "en": "In winter I mend my shovels. In the evenings I carve spoons.", "it": "D'inverno riparo le mie pale. La sera intaglio cucchiai." },
+                    { "choices": [
+                      { "de": "Für wen sind die Löffel?", "sl": "Za koga so žlice?", "en": "Who are the spoons for?", "it": "Per chi sono i cucchiai?", "ok": true,
+                        "reply": { "face": "proud", "de": "Für den Markt in Villach. Die Leute kaufen sie gern.", "sl": "Za tržnico v Beljaku. Ljudje jih radi kupujejo.", "en": "For the market in Villach. People like buying them.", "it": "Per il mercato di Villach. La gente li compra volentieri." } },
+                      { "de": "Für wem sind die Löffel?", "sl": "Za koga so žlice? (für wem)", "en": "Who are the spoons for? (für wem)", "it": "Per chi sono i cucchiai? (für wem)", "grammar": "akkusativ",
+                        "why": { "sl": "Po für stoji tožilnik: für wen.", "en": "After für comes the accusative: für wen.", "it": "Dopo für c'è l'accusativo: für wen." },
+                        "reply": { "face": "thinking", "de": "Für wem? Hm. Noch einmal, bitte.", "sl": "Für wem? Hm. Še enkrat, prosim.", "en": "Für wem? Hm. Once more, please.", "it": "Für wem? Mah. Ancora una volta, per favore." } }
+                    ] },
+                    { "who": "koehler", "de": "Der Winter ist lang, aber ich habe immer etwas zu tun.", "sl": "Zima je dolga, ampak vedno imam kaj delati.", "en": "Winter's long, but I've always got something to do.", "it": "L'inverno è lungo, ma ho sempre qualcosa da fare." }
+                  ]
+                },
+                "B1": {
+                  "lines": [
+                    { "who": "koehler", "de": "Im Schnee sieht man, wer im Wald war. Gestern sind ein Fuchs und ein Reh um den Meilerplatz gelaufen.", "sl": "V snegu se vidi, kdo je bil v gozdu. Včeraj sta okrog kopišča tekla lisica in srna.", "en": "In the snow you can see who's been in the wood. Yesterday a fox and a deer ran round the pile's place.", "it": "Nella neve si vede chi è stato nel bosco. Ieri una volpe e un capriolo hanno girato intorno allo spiazzo." },
+                    { "choices": [
+                      { "de": "Würden Sie im Winter nicht lieber im Dorf wohnen?", "sl": "Ne bi pozimi raje živeli v vasi?", "en": "Wouldn't you rather live in the village in winter?", "it": "D'inverno non preferirebbe abitare in paese?", "ok": true,
+                        "reply": { "face": "laugh", "de": "Im Dorf? Wo mir der Toni den ganzen Tag ins Ohr hämmert? Nein, danke.", "sl": "V vasi? Kjer mi Toni ves dan kuje v uho? Ne, hvala.", "en": "In the village? With Toni hammering in my ear all day? No, thanks.", "it": "In paese? Con Toni che mi martella nell'orecchio tutto il giorno? No, grazie." } },
+                      { "de": "Würden Sie im Winter nicht lieber im Dorf gewohnt?", "sl": "Ne bi pozimi raje živeli v vasi? (gewohnt)", "en": "Wouldn't you rather live in the village in winter? (gewohnt)", "it": "D'inverno non preferirebbe abitare in paese? (gewohnt)", "grammar": "konjunktiv-zwei",
+                        "why": { "sl": "Würde gre z nedoločnikom: würden … wohnen.", "en": "Würde goes with the infinitive: würden … wohnen.", "it": "Würde vuole l'infinito: würden … wohnen." },
+                        "reply": { "face": "thinking", "de": "Gewohnt? Hm. Frag mich das noch einmal.", "sl": "Gewohnt? Hm. Še enkrat me vprašaj.", "en": "Gewohnt? Hm. Ask me that again.", "it": "Gewohnt? Mah. Chiedimelo di nuovo." } }
+                    ] },
+                    { "who": "koehler", "de": "Ich komm ja hinunter, wenn Kirchtag ist. Das reicht mir.", "sl": "Saj pridem dol, ko je žegnanje. To mi zadošča.", "en": "I do come down for the Kirchtag. That's enough for me.", "it": "Scendo per il Kirchtag. Mi basta." }
+                  ]
+                },
+                "B2": {
+                  "lines": [
+                    { "who": "koehler", "de": "Die Stämme hab ich früher im Schnee mit dem Pferd heruntergezogen. Heute macht das der Traktor, schneller, aber lauter.", "sl": "Debla sem nekoč po snegu vlekel dol s konjem. Danes to naredi traktor, hitreje, a glasneje.", "en": "I used to drag the trunks down through the snow with the horse. Today the tractor does it, faster but louder.", "it": "Una volta tiravo giù i tronchi nella neve con il cavallo. Oggi lo fa il trattore, più in fretta ma con più rumore." },
+                    { "choices": [
+                      { "de": "Das klingt, als ob Sie das Pferd vermissen würden.", "sl": "To zveni, kot da bi pogrešali konja.", "en": "That sounds as if you miss the horse.", "it": "Sembra quasi che le manchi il cavallo.", "ok": true,
+                        "reply": { "face": "thinking", "de": "Das Pferd schon. Den Mist nicht.", "sl": "Konja že. Gnoja pa ne.", "en": "The horse, yes. The muck, no.", "it": "Il cavallo sì. Il letame no." } },
+                      { "de": "Das klingt, als ob vermissen Sie das Pferd.", "sl": "To zveni, kot da bi pogrešali konja. (als ob vermissen Sie)", "en": "That sounds as if you miss the horse. (als ob vermissen Sie)", "it": "Sembra quasi che le manchi il cavallo. (als ob vermissen Sie)", "grammar": "als-ob",
+                        "why": { "sl": "Po als ob je glagol na koncu.", "en": "After als ob the verb goes last.", "it": "Dopo als ob il verbo va in fondo." },
+                        "reply": { "face": "thinking", "de": "Als ob vermissen Sie? Hm, da steht einer falsch im Stall.", "sl": "Als ob vermissen Sie? Hm, tu nekdo stoji narobe v hlevu.", "en": "Als ob vermissen Sie? Hm, someone's standing the wrong way round in the stable.", "it": "Als ob vermissen Sie? Mah, qui qualcuno sta storto nella stalla." } }
+                    ] },
+                    { "who": "koehler", "de": "Das Pferd hat zugehört, wenn ich geredet hab. Der Traktor überhaupt nicht.", "sl": "Konj je poslušal, ko sem govoril. Traktor pa sploh ne.", "en": "The horse listened when I talked. The tractor doesn't at all.", "it": "Il cavallo ascoltava quando parlavo. Il trattore per niente." }
                   ]
                 }
               }
