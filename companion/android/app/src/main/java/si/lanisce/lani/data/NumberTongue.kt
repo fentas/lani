@@ -8,7 +8,7 @@ import si.lanisce.lani.l10n.inBase
  * clock times are said and what else is right, what a learner gets wrong in them and why it is so. The module's ladder,
  * runs, schedule and screens are the same in every language. A new language is one of these plus its texts in the string
  * tables (numbers.it.*, numbers.de.*: each named whole here, as the string tables' test reads them); docs/plans/05-built/practice-it.md
- * says what a language needs, practice-de.md what German's does.
+ * says what a language needs, practice-de.md what German's does. English's is [EnglishNumbers] (its own file).
  */
 abstract class NumberTongue(val lang: Lang) {
     /** The course unit whose intro opens the module, with its first two ranges. */
@@ -126,9 +126,10 @@ abstract class NumberTongue(val lang: Lang) {
         val SL: NumberTongue get() = SloveneNumbers
         val IT: NumberTongue get() = ItalianNumbers
         val DE: NumberTongue get() = GermanNumbers
+        val EN: NumberTongue get() = EnglishNumbers
 
         /** The languages the module speaks. */
-        val ALL: List<NumberTongue> get() = listOf(SloveneNumbers, ItalianNumbers, GermanNumbers)
+        val ALL: List<NumberTongue> get() = listOf(SloveneNumbers, ItalianNumbers, GermanNumbers, EnglishNumbers)
     }
 }
 

@@ -5,7 +5,7 @@
   "title": { "en": "Round the maypole", "sl": "Okoli mlaja", "it": "Intorno all'albero di maggio", "de": "Um den Maibaum" },
   "emoji": "🎀",
   "level": "A1",
-  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not reviewed by a native speaker; check: the clout saying, may blossom, nippy, glog, viža",
+  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not native-checked; check: the clout saying, may blossom, nippy, glog, viža; B1, B2 variants too",
   "art": "square",
   "from": ["project:mlaj"],
   "pack": "round-the-maypole",
@@ -98,7 +98,7 @@
       "when": ["morning", "afternoon"],
       "chance": 0.5,
       "dialog": "bench",
-      "dialogs": ["bench-bess", "bench-clout", "bench"],
+      "dialogs": ["bench-b2-annie", "bench-b1-poppy", "bench-bess", "bench-clout", "bench"],
       "reward": { "wisdom": 20 },
       "marker": "🌸",
       "memory": {
@@ -132,7 +132,7 @@
       "when": ["evening"],
       "chance": 0.6,
       "dialog": "band",
-      "dialogs": ["band-cups", "band"],
+      "dialogs": ["band-b2-trumpet", "band-b1-practise", "band-cups", "band"],
       "reward": { "food": 15 },
       "marker": "🎺",
       "memory": {
@@ -2293,6 +2293,79 @@
           "de": "Braves Mädchen. Sie ist vierzehn, aber den ersten Mai liebt sie immer noch.",
           "fx": { "wag": 1 }
         }
+      ]
+    },
+    {
+      "id": "bench-b2-annie", "level": "B2",
+      "memory": {"en": "the maypole where I first saw Annie", "sl": "majsko drevo, kjer sem prvič zagledal Annie", "it": "l'albero di maggio dove ho visto Annie per la prima volta", "de": "den Maibaum, an dem ich Annie zum ersten Mal sah"},
+      "lines": [
+        {"who": "wilf", "en": "Hello, {m:son|f:lass}. It was here, at this very maypole, that I first saw Annie.", "sl": "Živijo. Prav tu, pri tem majskem drevesu, sem prvič zagledal Annie.", "it": "Ciao, {m:figliolo|f:ragazza}. È stato qui, proprio a quest'albero di maggio, che ho visto Annie per la prima volta.", "de": "Hallo, {m:Junge|f:Mädchen}. Genau hier, an diesem Maibaum, hab ich Annie zum ersten Mal gesehen."},
+        {"who": "wilf", "face": "curious", "en": "And you? What will you remember most about May Day here?", "sl": "Pa ti? Česa se boš najbolj {m:spominjal|f:spominjala} s tukajšnjega prvega maja?", "it": "E tu? Che cosa ricorderai di più del Primo Maggio qui?", "de": "Und du? Woran wirst du dich vom Maitag hier am meisten erinnern?"},
+        { "choices": [
+          {"en": "It's the music that I'll remember most.", "sl": "Najbolj se bom {m:spominjal|f:spominjala} glasbe.", "it": "È la musica che ricorderò di più.", "de": "An die Musik werde ich mich am meisten erinnern.", "ok": true, "reply": {"face": "happy", "en": "The music. Aye. The same old tune, every year.", "sl": "Glasbe. Ja. Ista stara viža, vsako leto.", "it": "La musica. Sì. La stessa vecchia melodia, ogni anno.", "de": "Die Musik. Ja. Dieselbe alte Melodie, jedes Jahr."}},
+          {"en": "It's the music who I'll remember most.", "sl": "Najbolj se bom {m:spominjal|f:spominjala} glasbe.", "it": "È la musica che ricorderò di più.", "de": "An die Musik werde ich mich am meisten erinnern.", "grammar": "emphasis", "why": {"en": "It's + what matters + that, or who for a person: it's the music that I'll remember.", "sl": "It's + tisto, kar šteje + that, ali who za osebo: it's the music that I'll remember.", "it": "It's + ciò che conta + that, o who per una persona: it's the music that I'll remember.", "de": "It's + das Wichtige + that, oder who für eine Person: it's the music that I'll remember."}, "reply": {"face": "curious", "en": "The music who? Music isn't a person, {m:son|f:lass}.", "sl": "The music who? Glasba ni človek.", "it": "The music who? La musica non è una persona, {m:figliolo|f:ragazza}.", "de": "The music who? Musik ist doch kein Mensch, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "face": "thinking", "en": "If I hadn't come to the dance that year, I'd still be a lonely old bachelor.", "sl": "Če tisto leto ne bi prišel na ples, bi bil še danes osamljen star samec.", "it": "Se quell'anno non fossi venuto al ballo, sarei ancora un vecchio scapolo solitario.", "de": "Wäre ich in dem Jahr nicht zum Tanz gekommen, wäre ich heute noch ein einsamer alter Junggeselle."},
+        { "choices": [
+          {"en": "So you met her because you came to the dance.", "sl": "Torej ste se spoznali, ker si prišel na ples.", "it": "Quindi l'hai conosciuta perché sei venuto al ballo.", "de": "Du hast sie also kennengelernt, weil du zum Tanz gekommen bist.", "ok": true, "reply": {"face": "happy", "en": "Best thing I ever did. And I nearly stayed at home.", "sl": "Najboljše, kar sem kdaj storil. Pa bi skoraj ostal doma.", "it": "La cosa migliore che abbia mai fatto. E per poco non restavo a casa.", "de": "Das Beste, was ich je getan hab. Und fast wäre ich zu Hause geblieben."}},
+          {"en": "So you're still a bachelor today.", "sl": "Torej si še danes samec.", "it": "Quindi sei ancora scapolo oggi.", "de": "Du bist also heute noch Junggeselle.", "grammar": "mixed-conditionals", "why": {"en": "If I hadn't come … I'd still be a bachelor: he did come, and he met Annie.", "sl": "Če ne bi prišel … bi bil še samec: prišel je in spoznal Annie.", "it": "Se non fossi venuto … sarei ancora scapolo: è venuto, e ha conosciuto Annie.", "de": "Wäre ich nicht gekommen … wäre ich noch Junggeselle: Er kam und lernte Annie kennen."}, "reply": {"face": "surprised", "en": "A bachelor? Me? I had Annie, {m:son|f:lass}!", "sl": "Samec? Jaz? Imel sem Annie!", "it": "Scapolo? Io? Avevo Annie, {m:figliolo|f:ragazza}!", "de": "Junggeselle? Ich? Ich hatte Annie, {m:Junge|f:Mädchen}!"}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "Look at the ribbons. Red, white and green. Just like her year.", "sl": "Poglej trakove. Rdeči, beli in zeleni. Kot tisto leto.", "it": "Guarda i nastri. Rossi, bianchi e verdi. Proprio come il suo anno.", "de": "Schau dir die Bänder an. Rot, weiß und grün. Genau wie in ihrem Jahr."}
+      ]
+    },
+    {
+      "id": "bench-b1-poppy", "level": "B1",
+      "memory": {"en": "Poppy's crown, like Annie's long ago", "sl": "Poppyjino krono, kot je bila nekoč Anniejina", "it": "la corona di Poppy, come quella di Annie tanto tempo fa", "de": "Poppys Krone, wie die von Annie vor langer Zeit"},
+      "lines": [
+        {"who": "wilf", "face": "happy", "en": "Hello, {m:son|f:lass}. Sit by me and watch the dancers. Poppy's the May Queen this year.", "sl": "Živijo. Sedi k meni in glej plesalce. Poppy je letos majska kraljica.", "it": "Ciao, {m:figliolo|f:ragazza}. Siediti vicino a me e guarda i ballerini. Poppy è la Regina di Maggio quest'anno.", "de": "Hallo, {m:Junge|f:Mädchen}. Setz dich zu mir und schau den Tänzern zu. Poppy ist dieses Jahr Maikönigin."},
+        {"who": "wilf", "face": "curious", "en": "When I was a lad, the whole village danced. Did people dance like this where you grew up?", "sl": "Ko sem bil fant, je plesala vsa vas. So tam, kjer si {m:odraščal|f:odraščala}, tudi tako plesali?", "it": "Quand'ero ragazzo, ballava tutto il villaggio. Dove sei {m:cresciuto|f:cresciuta} si ballava così?", "de": "Als ich ein Junge war, hat das ganze Dorf getanzt. Hat man da, wo du aufgewachsen bist, auch so getanzt?"},
+        { "choices": [
+          {"en": "Yes, my grandparents used to dance like this.", "sl": "Ja, moja stara starša sta včasih tako plesala.", "it": "Sì, i miei nonni ballavano così.", "de": "Ja, meine Großeltern haben früher so getanzt.", "ok": true, "reply": {"face": "happy", "en": "Everyone did, once. Now it's the children's turn.", "sl": "Nekoč so vsi. Zdaj so na vrsti otroci.", "it": "Una volta lo facevano tutti. Ora tocca ai bambini.", "de": "Früher alle. Jetzt sind die Kinder dran."}},
+          {"en": "Yes, my grandparents used to danced like this.", "sl": "Ja, moja stara starša sta včasih tako plesala.", "it": "Sì, i miei nonni ballavano così.", "de": "Ja, meine Großeltern haben früher so getanzt.", "grammar": "used-to", "why": {"en": "Used to + the base form: used to dance. The past is already in used.", "sl": "Used to + osnovna oblika: used to dance. Preteklost je že v used.", "it": "Used to + la forma base: used to dance. Il passato è già in used.", "de": "Used to + Grundform: used to dance. Die Vergangenheit steckt schon in used."}, "reply": {"face": "curious", "en": "Used to danced? Slow and steady, {m:son|f:lass}.", "sl": "Used to danced? Počasi in vztrajno.", "it": "Used to danced? Piano e con calma, {m:figliolo|f:ragazza}.", "de": "Used to danced? Langsam und stetig, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "en": "Tonight there's the dance on the green, for the grown-ups.", "sl": "Nocoj je na trati ples, za odrasle.", "it": "Stasera c'è il ballo sul prato, per i grandi.", "de": "Heute Abend ist der Tanz auf der Wiese, für die Großen."},
+        { "choices": [
+          {"en": "Will you be dancing too, Wilf?", "sl": "Boš tudi ti plesal, Wilf?", "it": "Ballerai anche tu, Wilf?", "de": "Tanzt du auch, Wilf?", "ok": true, "reply": {"face": "laugh", "en": "Me? I'll be sitting right here, tapping my stick.", "sl": "Jaz? Jaz bom sedel prav tukaj in tolkel s palico.", "it": "Io? Starò seduto proprio qui, a battere il bastone.", "de": "Ich? Ich sitz genau hier und klopf mit dem Stock."}},
+          {"en": "Will you be dance too, Wilf?", "sl": "Boš tudi ti plesal, Wilf?", "it": "Ballerai anche tu, Wilf?", "de": "Tanzt du auch, Wilf?", "grammar": "future-continuous", "why": {"en": "Will be + -ing to ask about plans: will you be dancing?", "sl": "Will be + -ing za vprašanje o načrtih: will you be dancing?", "it": "Will be + -ing per chiedere dei programmi: will you be dancing?", "de": "Will be + -ing, um nach Plänen zu fragen: will you be dancing?"}, "reply": {"face": "curious", "en": "Be dance? Gently, {m:son|f:lass}. An ending's gone.", "sl": "Be dance? Nežno. Končnica se je izgubila.", "it": "Be dance? Piano, {m:figliolo|f:ragazza}. Manca una desinenza.", "de": "Be dance? Sachte, {m:Junge|f:Mädchen}. Eine Endung fehlt."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "Look at Poppy's crown. May blossom, like Annie's, long ago.", "sl": "Poglej Poppyjino krono. Glogov cvet, kot Anniejina, nekoč davno.", "it": "Guarda la corona di Poppy. Fiori di biancospino, come quella di Annie, tanto tempo fa.", "de": "Schau dir Poppys Krone an. Weißdornblüten, wie Annies, vor langer Zeit."}
+      ]
+    },
+    {
+      "id": "band-b2-trumpet", "level": "B2",
+      "memory": {"en": "the conductor who walked five miles with his trumpet", "sl": "dirigenta, ki je s trobento prehodil pet milj", "it": "il direttore che ha camminato cinque miglia con la sua tromba", "de": "den Dirigenten, der fünf Meilen mit seiner Trompete gelaufen ist"},
+      "lines": [
+        {"who": "sam", "en": "Now then, {learner}! The band nearly didn't come tonight. Their bus broke down at Thirlmere.", "sl": "Živjo, {learner}! Godba nocoj skoraj ne bi prišla. Avtobus se jim je pokvaril pri Thirlmeru.", "it": "Ehilà, {learner}! La banda stasera per poco non veniva. Il pullman si è rotto a Thirlmere.", "de": "Na, {learner}! Die Kapelle wäre heute fast nicht gekommen. Ihr Bus ist bei Thirlmere liegen geblieben."},
+        {"who": "sam", "face": "laugh", "en": "The conductor wouldn't wait for another one. Five miles he walked, with his trumpet.", "sl": "Dirigent ni hotel čakati drugega. Pet milj je prehodil, s trobento.", "it": "Il direttore non ha voluto aspettarne un altro. Cinque miglia a piedi, con la tromba.", "de": "Der Dirigent wollte auf keinen anderen warten. Fünf Meilen ist er gelaufen, mit seiner Trompete."},
+        {"who": "sam", "face": "curious", "en": "So what did he insist on?", "sl": "Na čem je torej vztrajal?", "it": "Allora, su che cosa ha insistito?", "de": "Worauf hat er also bestanden?"},
+        { "choices": [
+          {"en": "He insisted on walking the last five miles.", "sl": "Vztrajal je, da zadnjih pet milj prehodi peš.", "it": "Ha insistito per fare a piedi le ultime cinque miglia.", "de": "Er hat darauf bestanden, die letzten fünf Meilen zu laufen.", "ok": true, "reply": {"face": "laugh", "en": "Five miles, with a trumpet. Now that's a musician.", "sl": "Pet milj, s trobento. To je pravi glasbenik.", "it": "Cinque miglia, con una tromba. Questo sì che è un musicista.", "de": "Fünf Meilen, mit Trompete. Das ist ein Musiker."}},
+          {"en": "He insisted to walk the last five miles.", "sl": "Vztrajal je, da zadnjih pet milj prehodi peš.", "it": "Ha insistito per fare a piedi le ultime cinque miglia.", "de": "Er hat darauf bestanden, die letzten fünf Meilen zu laufen.", "grammar": "reporting-verbs", "why": {"en": "Insist on + -ing: insisted on walking. A small word, then -ing, as with apologise for.", "sl": "Insist on + -ing: insisted on walking. Majhna beseda, nato -ing, kot pri apologise for.", "it": "Insist on + -ing: insisted on walking. Una parolina, poi -ing, come con apologise for.", "de": "Insist on + -ing: insisted on walking. Ein kleines Wort, dann -ing, wie bei apologise for."}, "reply": {"face": "curious", "en": "Insisted to walk? You've lost me, {learner}.", "sl": "Insisted to walk? {m:Zmedel|f:Zmedla} si me.", "it": "Insisted to walk? Mi sono perso, {learner}.", "de": "Insisted to walk? Da komm ich nicht mit, {learner}."}}
+        ] },
+        {"who": "sam", "en": "The others came on a farmer's tractor in the end. Twenty minutes late.", "sl": "Ostali so na koncu prišli s kmetovim traktorjem. Dvajset minut prepozno.", "it": "Gli altri alla fine sono arrivati col trattore di un contadino. Venti minuti in ritardo.", "de": "Die anderen kamen am Ende mit dem Traktor eines Bauern. Zwanzig Minuten zu spät."},
+        { "choices": [
+          {"en": "Arriving late, they started playing at once.", "sl": "Ker so prišli pozno, so takoj začeli igrati.", "it": "Arrivati in ritardo, hanno cominciato subito a suonare.", "de": "Weil sie spät dran waren, fingen sie sofort an zu spielen.", "ok": true, "reply": {"face": "happy", "en": "Not a minute to spare. Listen, that's them now.", "sl": "Niti minute za izgubiti. Poslušaj, to so oni.", "it": "Senza perdere un minuto. Ascolta, eccoli.", "de": "Keine Minute zu verlieren. Hör mal, das sind sie."}},
+          {"en": "Arrived late, they started playing at once.", "sl": "Ker so prišli pozno, so takoj začeli igrati.", "it": "Arrivati in ritardo, hanno cominciato subito a suonare.", "de": "Weil sie spät dran waren, fingen sie sofort an zu spielen.", "grammar": "participle-clauses", "why": {"en": "For what happened at the same time: -ing, arriving late, they started …", "sl": "Za tisto, kar se je zgodilo hkrati: -ing, arriving late, they started …", "it": "Per ciò che è successo nello stesso momento: -ing, arriving late, they started …", "de": "Für das, was gleichzeitig geschah: -ing, arriving late, they started …"}, "reply": {"face": "confused", "en": "Arrived late? Who did? You or them?", "sl": "Arrived late? Kdo? Ti ali oni?", "it": "Arrived late? Chi? Tu o loro?", "de": "Arrived late? Wer denn? Du oder sie?"}}
+        ] },
+        {"who": "sam", "face": "happy", "en": "Here, a glass of damson juice. To the band, and to walking!", "sl": "Na, kozarec slivovega soka. Na godbo in na hojo!", "it": "Tieni, un bicchiere di succo di susine. Alla banda, e al camminare!", "de": "Hier, ein Glas Pflaumensaft. Auf die Kapelle und aufs Laufen!"}
+      ]
+    },
+    {
+      "id": "band-b1-practise", "level": "B1",
+      "memory": {"en": "the dance I practised under the oak", "sl": "ples, ki sem ga vadil pod hrastom", "it": "il ballo che ho provato sotto la quercia", "de": "den Tanz, den ich unter der Eiche geübt habe"},
+      "lines": [
+        {"who": "sam", "face": "happy", "en": "Now then, {learner}! Can you hear the brass band? They're playing on the green tonight.", "sl": "Živjo, {learner}! Slišiš pihalno godbo? Nocoj igrajo na trati.", "it": "Ehilà, {learner}! Senti la banda? Stasera suonano sul prato.", "de": "Na, {learner}! Hörst du die Blaskapelle? Heute Abend spielen sie auf der Wiese."},
+        {"who": "sam", "face": "curious", "en": "They come every May Day, from the next dale.", "sl": "Vsak prvi maj pridejo iz sosednje doline.", "it": "Vengono ogni Primo Maggio, dalla valle vicina.", "de": "Sie kommen jeden Maitag aus dem Nachbartal."},
+        { "choices": [
+          {"en": "Are they paid to play here?", "sl": "Jih plačajo, da igrajo tukaj?", "it": "Vengono pagati per suonare qui?", "de": "Werden sie dafür bezahlt, hier zu spielen?", "ok": true, "reply": {"face": "laugh", "en": "Paid? In pies and damson juice!", "sl": "Plačajo? S pitami in slivovim sokom!", "it": "Pagati? In torte salate e succo di susine!", "de": "Bezahlt? Mit Pasteten und Pflaumensaft!"}},
+          {"en": "Are they pay to play here?", "sl": "Jih plačajo, da igrajo tukaj?", "it": "Vengono pagati per suonare qui?", "de": "Werden sie dafür bezahlt, hier zu spielen?", "grammar": "passive", "why": {"en": "The passive: are + the participle, are they paid? Pay, paid, paid.", "sl": "Trpnik: are + deležnik, are they paid? Pay, paid, paid.", "it": "Il passivo: are + il participio, are they paid? Pay, paid, paid.", "de": "Das Passiv: are + Partizip, are they paid? Pay, paid, paid."}, "reply": {"face": "curious", "en": "Are they pay? Pay who, {learner}?", "sl": "Are they pay? Komu pa plačajo?", "it": "Are they pay? Pagare chi, {learner}?", "de": "Are they pay? Wen bezahlen, {learner}?"}}
+        ] },
+        {"who": "sam", "face": "curious", "en": "Fancy a dance later, when the tune starts?", "sl": "Bi pozneje {m:zaplesal|f:zaplesala}, ko se začne viža?", "it": "Ti va di ballare dopo, quando parte la melodia?", "de": "Lust auf einen Tanz später, wenn die Melodie losgeht?"},
+        { "choices": [
+          {"en": "I'd love to, but I need to practise dancing first.", "sl": "Z veseljem, ampak najprej moram vaditi ples.", "it": "Volentieri, ma prima devo esercitarmi a ballare.", "de": "Gern, aber erst muss ich das Tanzen üben.", "ok": true, "reply": {"face": "laugh", "en": "Then practise with me. Nobody's watching. Well, everybody is.", "sl": "Potem vadi z mano. Nihče ne gleda. No, vsi gledajo.", "it": "Allora esercitati con me. Nessuno guarda. Be', tutti guardano.", "de": "Dann üb mit mir. Keiner schaut zu. Na ja, alle schauen zu."}},
+          {"en": "I'd love to, but I need to practise to dance first.", "sl": "Z veseljem, ampak najprej moram vaditi ples.", "it": "Volentieri, ma prima devo esercitarmi a ballare.", "de": "Gern, aber erst muss ich das Tanzen üben.", "grammar": "verb-patterns", "why": {"en": "Practise takes -ing: practise dancing. To + the base form goes after want, decide, need.", "sl": "Practise zahteva -ing: practise dancing. To z osnovno obliko gre za want, decide, need.", "it": "Practise vuole -ing: practise dancing. To + la forma base va dopo want, decide, need.", "de": "Practise nimmt -ing: practise dancing. To + Grundform steht nach want, decide, need."}, "reply": {"face": "confused", "en": "Practise to dance? Say again, {learner}. The trumpets are loud.", "sl": "Practise to dance? Še enkrat, trobente so glasne.", "it": "Practise to dance? Ripeti, {learner}. Le trombe sono forti.", "de": "Practise to dance? Noch mal, {learner}. Die Trompeten sind laut."}}
+        ] },
+        {"who": "sam", "face": "happy", "en": "Here, a glass of damson juice first. Then we dance!", "sl": "Na, najprej kozarec slivovega soka. Potem plešemo!", "it": "Tieni, prima un bicchiere di succo di susine. Poi si balla!", "de": "Hier, erst ein Glas Pflaumensaft. Dann wird getanzt!"}
       ]
     }
   ]

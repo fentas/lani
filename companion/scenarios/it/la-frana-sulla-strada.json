@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "la-frana-sulla-strada",
+  "language": "it",
+  "title": { "it": "La frana sulla strada", "de": "Der Erdrutsch auf der Straße", "sl": "Plaz na cesti", "en": "The landslide on the road" },
+  "emoji": "🚧",
+  "level": "B2",
+  "setting": {
+    "de": "Im Rathaus von Cormòns, in der Sprechstunde der Bürgermeisterin. Nach dem Unwetter letzte Woche ist ein Hang abgerutscht: Die Straße zur Mühle ist gesperrt, und in drei Wochen beginnt die Weinlese. Du sprichst für das Dorf.",
+    "sl": "Na občini v Krminu, v županjinih uradnih urah. Po neurju prejšnji teden se je utrgal plaz: cesta do mlina je zaprta, čez tri tedne pa se začne trgatev. Govoriš v imenu vasi.",
+    "en": "At Cormòns town hall, during the mayor's office hours. After last week's storm a slope slid away: the road to the mill is closed, and the grape harvest starts in three weeks. You are speaking for the village."
+  },
+  "role": "Signora Cossar, the mayor of Cormòns. Courteous, practical, short of money: says the region pays for such works and it takes time, asks for facts and numbers, and is won over by a concrete plan the village helps with; commits to a date only when pressed. Says Lei. Asks nothing personal.",
+  "who": { "it": "La sindaca", "de": "Die Bürgermeisterin", "sl": "Županja", "en": "The mayor" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "square",
+  "goals": [
+    { "it": "Descrivi il danno con precisione", "de": "Beschreib den Schaden genau", "sl": "Natančno opiši škodo", "en": "Describe the damage precisely" },
+    { "it": "Spiega le conseguenze per il villaggio", "de": "Erklär die Folgen für das Dorf", "sl": "Pojasni posledice za vas", "en": "Explain what it means for the village" },
+    { "it": "Insisti perché si intervenga presto", "de": "Dräng darauf, dass bald etwas geschieht", "sl": "Vztrajaj, da ukrepajo kmalu", "en": "Press for action soon" },
+    { "it": "Proponi l'aiuto del villaggio", "de": "Biete die Hilfe des Dorfes an", "sl": "Ponudi pomoč vasi", "en": "Offer the village's help" },
+    { "it": "Fatti promettere una data", "de": "Lass dir einen Termin versprechen", "sl": "Izprosi obljubo z datumom", "en": "Get her to promise a date" }
+  ],
+  "opener_sl": "Buongiorno, si accomodi. Mi hanno detto che è {m:venuto|f:venuta} per la frana in via del Mulino. Mi racconti.",
+  "opener_en": {
+    "de": "Guten Tag, nehmen Sie Platz. Man hat mir gesagt, Sie kommen wegen des Erdrutsches an der Mühlenstraße. Erzählen Sie.",
+    "sl": "Dober dan, sedite. Rekli so mi, da ste prišli zaradi plazu na Mlinski cesti. Povejte.",
+    "en": "Good morning, do sit down. I'm told you've come about the landslide on Mill Road. Tell me about it."
+  },
+  "vocabulary_hints": [
+    { "sl": "La strada è chiusa da una settimana.", "en": { "de": "Die Straße ist seit einer Woche gesperrt.", "sl": "Cesta je zaprta že en teden.", "en": "The road has been closed for a week." } },
+    { "sl": "Il fango ha coperto metà della strada.", "en": { "de": "Der Schlamm hat die halbe Straße bedeckt.", "sl": "Blato je prekrilo pol ceste.", "en": "The mud has covered half the road." } },
+    { "sl": "Senza la strada, i contadini non arrivano ai campi.", "en": { "de": "Ohne die Straße kommen die Bauern nicht zu den Feldern.", "sl": "Brez ceste kmetje ne pridejo do njiv.", "en": "Without the road, the farmers can't get to the fields." } },
+    { "sl": "Bisogna che la strada venga riaperta prima della vendemmia.", "en": { "de": "Die Straße muss vor der Weinlese wieder offen sein.", "sl": "Cesta mora biti odprta pred trgatvijo.", "en": "The road must be reopened before the grape harvest." } },
+    { "sl": "Benché capisca le difficoltà del Comune, non possiamo aspettare.", "en": { "de": "Obwohl ich die Lage der Gemeinde verstehe, können wir nicht warten.", "sl": "Čeprav razumem težave občine, ne moremo čakati.", "en": "Although I understand the council's problems, we can't wait." } },
+    { "sl": "Se il Comune ci desse i materiali, il lavoro lo faremmo noi.", "en": { "de": "Wenn die Gemeinde uns das Material gäbe, würden wir die Arbeit machen.", "sl": "Če bi nam občina dala material, bi delo opravili mi.", "en": "If the council gave us the materials, we'd do the work." } },
+    { "sl": "Mi sa dire entro quando sarà finito?", "en": { "de": "Können Sie mir sagen, bis wann es fertig ist?", "sl": "Mi lahko poveste, do kdaj bo končano?", "en": "Can you tell me by when it will be done?" } },
+    { "sl": "Allora contiamo su di Lei.", "en": { "de": "Dann verlassen wir uns auf Sie.", "sl": "Potem računamo na vas.", "en": "Then we're counting on you." } }
+  ],
+  "packs": ["nel-mulino", "nel-campo", "festa-vendemmia", "in-paese"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

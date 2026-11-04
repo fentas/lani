@@ -633,4 +633,18 @@ class GradingLanguagesTest {
         assertTrue("German's known wrong forms: the plural's and the present's umlaut, kein, the numbers", Spelling.of(Lang.DE).wrong.isNotEmpty())
         assertEquals(Hint.NONE, Spelling.of(Lang.EN).foldHint)
     }
+
+    // --- Slovene: what people say ------------------------------------------------------------------------------
+
+    @Test fun `slovene the infinitive people say after a verb of going is almost, the supine shown, and only there`() {
+        val gap = Grading.check("plesati", listOf("plesat"), Lang.SL, before = "Nocoj gremo vsi ")
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, gap)
+        assertEquals("plesat", gap.expected)
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, Grading.check("Nocoj gremo vsi plesati!", listOf("Nocoj gremo vsi plesat!"), Lang.SL))
+        assertGraded(Verdict.ALMOST, Hint.NONSTANDARD, Grading.check("plesati", listOf("plesat"), Lang.SL, before = "Sinoči so šli "))
+        assertGraded(Verdict.CORRECT, Hint.NONE, Grading.check("plesat", listOf("plesat"), Lang.SL, before = "Nocoj gremo vsi "))
+        // with no verb of going before it the row says nothing, and another word is never the supine's stand-in
+        assertTrue(Grading.check("plesati", listOf("plesat"), Lang.SL, before = "Nocoj znamo vsi ").hint != Hint.NONSTANDARD)
+        assertTrue(Grading.check("delati", listOf("plesat"), Lang.SL, before = "Nocoj gremo vsi ").verdict == Verdict.WRONG)
+    }
 }

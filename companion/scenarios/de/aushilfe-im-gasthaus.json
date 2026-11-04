@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "aushilfe-im-gasthaus",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Aushilfe im Gasthaus", "sl": "Pomoč v gostilni", "en": "Summer help at the inn", "it": "Un aiuto in trattoria" },
+  "emoji": "🍽️",
+  "level": "B1",
+  "setting": {
+    "sl": "Na vratih gostilne Zur Linde na vaškem trgu visi listek: »Iščemo pomoč za poletje«. Gostilničarka Kathi potrebuje nekoga za strežbo, posebej za konec tedna, ko je žegnanje (der Kirchtag). Z njo se pogovoriš o delu.",
+    "en": "On the door of the Gasthaus zur Linde on the village square there's a note: 'Summer help wanted'. Kathi the innkeeper needs someone to wait at tables, above all for the Kirchtag weekend. You talk to her about the job.",
+    "it": "Sulla porta della trattoria Zur Linde, sulla piazza del paese, c'è un foglio: «Cercasi aiuto per l'estate». L'ostessa Kathi ha bisogno di qualcuno che serva ai tavoli, soprattutto per il fine settimana della sagra (il Kirchtag). Ne parli con lei."
+  },
+  "role": "Wirtin Kathi, the innkeeper of the Gasthaus zur Linde, between two orders. Warm and quick, three plates on one arm: asks about experience, the weekends, the Kirchtag; tells the pay (by the hour, the tips shared) and the hours; offers a trial day. Says du; {learner} says Sie to her (Frau Kathi).",
+  "who": { "de": "Die Wirtin", "sl": "Gostilničarka", "en": "The innkeeper", "it": "L'ostessa" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "kitchen",
+  "goals": [
+    { "de": "Sag, warum du kommst, und stell dich vor", "sl": "Povej, zakaj si {m:prišel|f:prišla}, in se predstavi", "en": "Say why you've come and introduce yourself", "it": "Di' perché sei {m:venuto|f:venuta} e presentati" },
+    { "de": "Erzähl von deiner Erfahrung", "sl": "Povej o svojih izkušnjah", "en": "Talk about your experience", "it": "Racconta la tua esperienza" },
+    { "de": "Sag, wann du arbeiten kannst", "sl": "Povej, kdaj lahko delaš", "en": "Say when you can work", "it": "Di' quando puoi lavorare" },
+    { "de": "Frag nach dem Lohn und den Arbeitszeiten", "sl": "Vprašaj za plačilo in delovni čas", "en": "Ask about the pay and the hours", "it": "Chiedi della paga e degli orari" },
+    { "de": "Vereinbare einen Probetag", "sl": "Dogovori se za poskusni dan", "en": "Arrange a trial day", "it": "Concorda una giornata di prova" }
+  ],
+  "opener_sl": "Grüß dich! Sofort, sofort … So. Du kommst wegen dem Zettel an der Tür, gell? Wir suchen jemanden für den Sommer.",
+  "opener_en": {
+    "sl": "Živjo! Takoj, takoj … Tako. {m:Prišel|f:Prišla} si zaradi listka na vratih, kajne? Za poletje iščemo nekoga.",
+    "en": "Hello! Right away, right away … There. You've come about the note on the door, haven't you? We're looking for someone for the summer.",
+    "it": "Ciao! Subito, subito… Ecco. Sei {m:venuto|f:venuta} per il foglio sulla porta, vero? Cerchiamo qualcuno per l'estate."
+  },
+  "vocabulary_hints": [
+    { "sl": "Ich komme wegen der Aushilfe für den Sommer.", "en": { "sl": "Prihajam zaradi dela za poletje.", "en": "I've come about the summer job.", "it": "Vengo per il lavoro estivo." } },
+    { "sl": "Ich habe schon zwei Sommer in einem Hotel gekellnert.", "en": { "sl": "Že dve poletji sem {m:stregel|f:stregla} v hotelu.", "en": "I've already waited tables in a hotel for two summers.", "it": "Ho già fatto {m:il cameriere|f:la cameriera} in un albergo per due estati." } },
+    { "sl": "Am Wochenende hätte ich Zeit.", "en": { "sl": "Ob koncih tedna bi {m:imel|f:imela} čas.", "en": "I'd have time at the weekends.", "it": "Nel fine settimana avrei tempo." } },
+    { "sl": "Unter der Woche kann ich erst ab vier.", "en": { "sl": "Med tednom lahko šele od štirih naprej.", "en": "During the week I can only come from four.", "it": "In settimana posso solo dalle quattro in poi." } },
+    { "sl": "Wie viele Stunden wären das in der Woche?", "en": { "sl": "Koliko ur na teden bi bilo to?", "en": "How many hours a week would that be?", "it": "Quante ore alla settimana sarebbero?" } },
+    { "sl": "Was zahlen Sie in der Stunde?", "en": { "sl": "Koliko plačate na uro?", "en": "What do you pay an hour?", "it": "Quanto paga all'ora?" } },
+    { "sl": "Wie ist das mit dem Trinkgeld?", "en": { "sl": "Kako je z napitnino?", "en": "How does it work with the tips?", "it": "E come funziona con le mance?" } },
+    { "sl": "Drei Teller auf einem Arm kann ich noch nicht.", "en": { "sl": "Treh krožnikov na eni roki pa še ne znam nositi.", "en": "I can't carry three plates on one arm yet.", "it": "Tre piatti su un braccio solo non li so ancora portare." } },
+    { "sl": "Wann könnte ich zum Probearbeiten kommen?", "en": { "sl": "Kdaj bi lahko {m:prišel|f:prišla} na poskusni dan?", "en": "When could I come for a trial day?", "it": "Quando potrei venire per una giornata di prova?" } }
+  ],
+  "packs": ["im-gasthaus", "essen", "zahlen-und-uhrzeit", "gruesse", "arbeit-und-beruf", "kochen-und-backen"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

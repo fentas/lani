@@ -5,7 +5,7 @@
   "title": { "it": "Sulla torre panoramica", "sl": "Na razglednem stolpu", "en": "On the lookout tower", "de": "Auf dem Aussichtsturm" },
   "emoji": "⛰️",
   "level": "A1",
-  "review": "lines, reactions, variants (it, sl, en, de): machine-written, not reviewed by a native speaker; check: il Tricorno, il binocolo, la poiana, wunderschön",
+  "review": "lines, reactions, variants (it, sl, en, de): machine-written, not reviewed by a native speaker; check: il Tricorno, il binocolo, la poiana, wunderschön; B1, B2 variants: machine-written, unreviewed",
   "art": "lookout",
   "from": ["project:razgledni_stolp"],
   "pack": "sulla-torre-panoramica",
@@ -41,7 +41,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "panorama",
-      "dialogs": ["panorama-mare", "panorama-nebbia", "panorama"],
+      "dialogs": ["panorama-b2-ospite", "panorama-b1-alba", "panorama-mare", "panorama-nebbia", "panorama"],
       "reward": { "wisdom": 20},
       "marker": "🏔️",
       "memory": { "it": "il panorama dalla torre, fino al Tricorno", "sl": "razgled s stolpa, vse do Triglava", "en": "the view from the tower, all the way to Triglav", "de": "die Aussicht vom Turm, bis zum Triglav" }
@@ -65,7 +65,7 @@
       "when": ["afternoon"],
       "chance": 0.45,
       "dialog": "scalini",
-      "dialogs": ["scalini-pause", "scalini-tricorno", "scalini"],
+      "dialogs": ["scalini-b2-montagna", "scalini-b1-pause", "scalini-pause", "scalini-tricorno", "scalini"],
       "reward": { "wisdom": 15},
       "marker": "🪜",
       "memory": { "it": "i cento scalini che abbiamo salito piano piano", "sl": "sto stopnic, ki sva jih počasi prehodila", "en": "the hundred steps we climbed slowly", "de": "die hundert Stufen, die wir langsam hinaufgestiegen sind" }
@@ -960,6 +960,106 @@
           "de": "Gehen wir runter? Hundert Stufen, und dann gibt's Abendessen!",
           "fx": { "bell": 0}
         }
+      ]
+    },
+    {
+      "id": "panorama-b1-alba",
+      "level": "B1",
+      "memory": { "it": "l'alba che ho perso sulla torre", "sl": "zoro, ki sem jo zamudila na stolpu", "en": "the dawn I missed on the tower", "de": "den Sonnenaufgang, den ich auf dem Turm verpasst habe" },
+      "lines": [
+        { "who": "marisa", "it": "Buongiorno, {learner}! Vieni alla ringhiera. Oggi l'aria è pulita: si vede il Tricorno!", "sl": "Dobro jutro, {learner}! Pridi k ograji. Danes je zrak čist: vidi se Triglav!", "en": "Good morning, {learner}! Come to the railing. The air's clear today: you can see Triglav!", "de": "Guten Morgen, {learner}! Komm ans Geländer. Heute ist die Luft klar: Man sieht den Triglav!" },
+        { "who": "marisa", "face": "laugh", "it": "Ieri sono salita qui alle sei, per vedere l'alba sulle montagne. Ma sono arrivata tardi!", "sl": "Včeraj sem prišla gor ob šestih, da bi videla zoro nad gorami. Ampak prišla sem prepozno!", "en": "Yesterday I came up here at six, to see the dawn over the mountains. But I got here too late!", "de": "Gestern bin ich um sechs hier hochgestiegen, um den Sonnenaufgang über den Bergen zu sehen. Aber ich kam zu spät!" },
+        { "choices": [
+          { "it": "Il sole era già sorto quando è arrivata?", "sl": "Je bilo sonce že vzšlo, ko ste prišli?", "en": "Had the sun already risen when you got there?", "de": "War die Sonne schon aufgegangen, als Sie ankamen?", "ok": true,
+            "reply": { "face": "laugh", "it": "Sorto e anche bello alto! Tommaso non trovava le scarpe, e così…", "sl": "Vzšlo in že visoko! Tommaso ni našel čevljev, in tako …", "en": "Risen and already nice and high! Tommaso couldn't find his shoes, and so…", "de": "Aufgegangen und schon schön hoch! Tommaso fand seine Schuhe nicht, und so …" } },
+          { "it": "Il sole aveva già sorto quando è arrivata?", "sl": "Je bilo sonce že vzšlo, ko ste prišli?", "en": "Had the sun already risen when you got there?", "de": "War die Sonne schon aufgegangen, als Sie ankamen?",
+            "grammar": "trapassato", "why": { "sl": "Sorgere ima essere: è sorto, zato era già sorto.", "en": "Sorgere takes essere: è sorto, so era già sorto.", "de": "Sorgere bildet mit essere: è sorto, also era già sorto." },
+            "reply": { "face": "curious", "it": "Aveva sorto? Mmm, il sole sale in cielo con essere, come noi sulle scale!", "sl": "Aveva sorto? Hm, sonce se dviga na nebo z essere, kot midva po stopnicah!", "en": "Aveva sorto? Hmm, the sun climbs the sky with essere, like us on the stairs!", "de": "Aveva sorto? Hm, die Sonne steigt mit essere in den Himmel, wie wir die Treppe hinauf!" } }
+        ] },
+        { "who": "marisa", "face": "thinking", "it": "Il mare, invece, si vede solo dopo la bora, quando il vento pulisce l'aria.", "sl": "Morje pa se vidi samo po burji, ko veter očisti zrak.", "en": "The sea, though, you only see after the bora, when the wind cleans the air.", "de": "Das Meer sieht man dagegen nur nach der Bora, wenn der Wind die Luft putzt." },
+        { "choices": [
+          { "it": "Allora se domani c'è la bora, salgo a guardare il mare!", "sl": "Potem, če bo jutri burja, pridem gor gledat morje!", "en": "Then if there's a bora tomorrow, I'll come up to look at the sea!", "de": "Dann komm ich hoch und schau aufs Meer, wenn morgen Bora ist!", "ok": true,
+            "reply": { "face": "happy", "it": "Bell'idea! Ma copriti bene: la bora, quassù, ti porta via il cappello.", "sl": "Dobra ideja! Ampak se dobro obleci: burja ti tu gori odnese klobuk.", "en": "Great idea! But wrap up well: up here, the bora takes your hat away.", "de": "Gute Idee! Aber zieh dich warm an: Die Bora weht dir hier oben den Hut weg." } },
+          { "it": "Allora se domani ci sarebbe la bora, salgo a guardare il mare!", "sl": "Potem, če bo jutri burja, pridem gor gledat morje!", "en": "Then if there's a bora tomorrow, I'll come up to look at the sea!", "de": "Dann komm ich hoch und schau aufs Meer, wenn morgen Bora ist!",
+            "grammar": "periodo-ipotetico", "why": { "sl": "Kar se res lahko zgodi: se in sedanjik, se domani c'è. Za se nikoli pogojnik.", "en": "What can really happen: se and the present, se domani c'è. After se, never the conditional.", "de": "Was wirklich passieren kann: se und Präsens, se domani c'è. Nach se nie der Konditional." },
+            "reply": { "face": "curious", "it": "Se ci sarebbe? Mmm, la bora non aspetta i «se», arriva e basta!", "sl": "Se ci sarebbe? Hm, burja ne čaka na »če«, kar pride!", "en": "Se ci sarebbe? Hmm, the bora doesn't wait for «ifs», it just comes!", "de": "Se ci sarebbe? Hm, die Bora wartet nicht auf «wenns», die kommt einfach!" } }
+        ] },
+        { "who": "marisa", "face": "happy", "it": "Goditi il panorama. Io torno giù: il pranzo aspetta, subito, subito!", "sl": "Uživaj v razgledu. Jaz grem dol: kosilo čaka, takoj, takoj!", "en": "Enjoy the view. I'm going back down: lunch is waiting, right away, right away!", "de": "Genieß die Aussicht. Ich geh wieder runter: Das Mittagessen wartet, sofort, sofort!" }
+      ]
+    },
+    {
+      "id": "panorama-b2-ospite",
+      "level": "B2",
+      "memory": { "it": "l'ospite di Salisburgo e il mare dalla torre", "sl": "gosta iz Salzburga in morje s stolpa", "en": "the guest from Salzburg and the sea from the tower", "de": "den Gast aus Salzburg und das Meer vom Turm" },
+      "lines": [
+        { "who": "marisa", "face": "thinking", "it": "Sai, {learner}, quassù porto sempre i miei ospiti. Un signore di Salisburgo, una volta, rimase a bocca aperta davanti al mare.", "sl": "Veš, {learner}, sem gor vedno pripeljem svoje goste. Neki gospod iz Salzburga je nekoč pred morjem obstal z odprtimi usti.", "en": "You know, {learner}, I always bring my guests up here. A gentleman from Salzburg once stood open-mouthed at the sight of the sea.", "de": "Weißt du, {learner}, ich bring meine Gäste immer hier herauf. Ein Herr aus Salzburg stand einmal mit offenem Mund vor dem Meer." },
+        { "who": "marisa", "it": "Mi disse che, se l'avesse saputo prima, sarebbe venuto in vacanza qui invece che al lago.", "sl": "Rekel mi je, da bi bil prišel na počitnice sem namesto na jezero, če bi to vedel prej.", "en": "He told me that if he'd known sooner, he'd have come on holiday here instead of to the lake.", "de": "Er sagte mir, hätte er das früher gewusst, wäre er hier in Urlaub gefahren statt an den See." },
+        { "choices": [
+          { "it": "Quindi gli era piaciuto più il nostro panorama che il suo lago?", "sl": "Torej mu je bil naš razgled bolj všeč kot njegovo jezero?", "en": "So he'd liked our view more than his lake?", "de": "Dann hat ihm unsere Aussicht besser gefallen als sein See?", "ok": true,
+            "reply": { "face": "laugh", "it": "Proprio così! Da allora torna ogni estate, e la prima cosa che chiede è la torre.", "sl": "Prav tako! Od takrat pride vsako poletje, in najprej vpraša za stolp.", "en": "Exactly! Since then he comes back every summer, and the first thing he asks for is the tower.", "de": "Genau! Seitdem kommt er jeden Sommer wieder, und als Erstes fragt er nach dem Turm." } },
+          { "it": "Quindi è andato al lago, perché qui non gli piaceva.", "sl": "Torej je šel na jezero, ker mu tu ni bilo všeč.", "en": "So he went to the lake, because he didn't like it here.", "de": "Dann ist er an den See gefahren, weil es ihm hier nicht gefiel.",
+            "why": { "sl": "Gost je rekel, da bi bil prišel sem, če bi vedel: tu mu je bilo všeč.", "en": "The guest said he'd have come here, had he known: he liked it here.", "de": "Der Gast sagte, er wäre hergekommen, hätte er es gewusst: Es gefiel ihm hier." },
+            "reply": { "face": "surprised", "it": "Non gli piaceva? Ma se adesso torna tutte le estati!", "sl": "Ni mu bilo všeč? Saj zdaj pride vsako poletje!", "en": "Didn't like it? But now he comes back every summer!", "de": "Gefiel ihm nicht? Er kommt doch jetzt jeden Sommer!" } }
+        ] },
+        { "who": "marisa", "face": "curious", "it": "Quest'anno viene con tutta la famiglia, e vuole che li porti quassù. Secondo te, è meglio l'alba o il tramonto?", "sl": "Letos pride z vso družino in hoče, da jih pripeljem sem gor. Kaj misliš, je boljša zora ali sončni zahod?", "en": "This year he's coming with his whole family, and wants me to bring them up here. Do you think dawn or sunset is better?", "de": "Dieses Jahr kommt er mit der ganzen Familie und will, dass ich sie hier heraufbringe. Ist der Sonnenaufgang besser oder der Sonnenuntergang, meinst du?" },
+        { "choices": [
+          { "it": "Il tramonto. In effetti, con il sole basso, le montagne diventano tutte rosa.", "sl": "Sončni zahod. Pravzaprav: ob nizkem soncu gore postanejo vse rožnate.", "en": "Sunset. Indeed, with the sun low, the mountains turn all pink.", "de": "Der Sonnenuntergang. Tatsächlich werden die Berge bei tiefer Sonne ganz rosa.", "ok": true,
+            "reply": { "face": "happy", "it": "Hai ragione! Rosa come il prosciutto di San Daniele, dice sempre Tommaso.", "sl": "Prav imaš! Rožnate kot pršut iz San Daniela, vedno pravi Tommaso.", "en": "You're right! Pink as San Daniele ham, Tommaso always says.", "de": "Du hast recht! Rosa wie der Schinken aus San Daniele, sagt Tommaso immer." } },
+          { "it": "Il tramonto. Tuttavia, con il sole basso, le montagne diventano tutte rosa.", "sl": "Sončni zahod. Pravzaprav: ob nizkem soncu gore postanejo vse rožnate.", "en": "Sunset. Indeed, with the sun low, the mountains turn all pink.", "de": "Der Sonnenuntergang. Tatsächlich werden die Berge bei tiefer Sonne ganz rosa.",
+            "grammar": "connettivi", "why": { "sl": "In effetti potrdi, kar si {m:rekel|f:rekla}; tuttavia bi nekaj postavil nasproti, tu pa ni ničesar nasproti.", "en": "In effetti confirms what you said; tuttavia would set something against it, and nothing's against here.", "de": "In effetti bestätigt, was du gesagt hast; tuttavia würde etwas dagegenstellen, und hier ist nichts dagegen." },
+            "reply": { "face": "thinking", "it": "Tuttavia? Allora il tramonto è meglio… però? Però che cosa, {learner}?", "sl": "Tuttavia? Torej je zahod boljši … ampak? Ampak kaj, {learner}?", "en": "Tuttavia? So sunset's better… but? But what, {learner}?", "de": "Tuttavia? Der Sonnenuntergang ist also besser … aber? Aber was, {learner}?" } }
+        ] },
+        { "who": "marisa", "face": "happy", "it": "Allora tramonto. E poi tutti all'osteria, a mangiare il frico. Subito, subito!", "sl": "Potem sončni zahod. Potem pa vsi v gostilno jest frico. Takoj, takoj!", "en": "Sunset, then. And afterwards everyone to the osteria, to eat frico. Right away, right away!", "de": "Dann Sonnenuntergang. Und danach alle in die Osteria, Frico essen. Sofort, sofort!" }
+      ]
+    },
+    {
+      "id": "scalini-b1-pause",
+      "level": "B1",
+      "memory": { "it": "le pause sui cento scalini", "sl": "postanke na sto stopnicah", "en": "the rests on the hundred steps", "de": "die Pausen auf den hundert Stufen" },
+      "lines": [
+        { "who": "bepi", "it": "Uff… {learner}… cento scalini. Siamo a settanta. Chi va piano va sano e va lontano.", "sl": "Uf … {learner} … sto stopnic. Sva pri sedemdesetih. Kdor počasi hodi, daleč pride.", "en": "Phew… {learner}… a hundred steps. We're at seventy. Slow and steady goes far.", "de": "Puh … {learner} … hundert Stufen. Wir sind bei siebzig. Wer langsam geht, kommt weit." },
+        { "who": "bepi", "face": "curious", "it": "Quando arriviamo in cima, secondo te?", "sl": "Kdaj bova na vrhu, kaj misliš?", "en": "When will we get to the top, do you think?", "de": "Wann sind wir oben, meinst du?" },
+        { "choices": [
+          { "it": "Fra poco: quando avremo fatto altri trenta scalini!", "sl": "Kmalu: ko bova prehodila še trideset stopnic!", "en": "Soon: when we've done another thirty steps!", "de": "Bald: wenn wir noch dreißig Stufen geschafft haben!", "ok": true,
+            "reply": { "face": "laugh", "it": "Trenta, sì. Facile da dire, con le tue gambe!", "sl": "Trideset, ja. Lahko je reči s tvojimi nogami!", "en": "Thirty, yes. Easy to say, with your legs!", "de": "Dreißig, ja. Leicht gesagt, mit deinen Beinen!" } },
+          { "it": "Fra poco: quando saremo fatto altri trenta scalini!", "sl": "Kmalu: ko bova prehodila še trideset stopnic!", "en": "Soon: when we've done another thirty steps!", "de": "Bald: wenn wir noch dreißig Stufen geschafft haben!",
+            "grammar": "futuro-anteriore", "why": { "sl": "Fare ima avere: abbiamo fatto, zato avremo fatto.", "en": "Fare takes avere: abbiamo fatto, so avremo fatto.", "de": "Fare bildet mit avere: abbiamo fatto, also avremo fatto." },
+            "reply": { "face": "curious", "it": "Saremo fatto? Mmm, gli scalini li facciamo noi, non ci fanno loro!", "sl": "Saremo fatto? Hm, stopnice prehodiva midva, ne one naju!", "en": "Saremo fatto? Hmm, we do the steps, they don't do us!", "de": "Saremo fatto? Hm, wir machen die Stufen, nicht sie uns!" } }
+        ] },
+        { "who": "bepi", "face": "thinking", "it": "Il mio cuore batte come il tamburo della sagra. Che cosa facciamo?", "sl": "Srce mi bije kot boben na vaškem prazniku. Kaj naj narediva?", "en": "My heart's beating like the drum at the sagra. What shall we do?", "de": "Mein Herz schlägt wie die Trommel beim Dorffest. Was machen wir?" },
+        { "choices": [
+          { "it": "Ci fermiamo un minuto, siccome hai il fiatone, e poi ripartiamo.", "sl": "Ustaviva se za minuto, ker te je zmanjkalo sape, potem pa greva naprej.", "en": "We'll stop for a minute, since you're out of breath, and then carry on.", "de": "Wir halten eine Minute an, weil du außer Atem bist, und dann geht's weiter.", "ok": true,
+            "reply": { "face": "proud", "it": "{m:Bravo|f:Brava}, {m:saggio|f:saggia} come un vecchio. Una pausa, e il cuore torna piano.", "sl": "{m:Priden|f:Pridna}, {m:moder|f:modra} kot starec. Postanek, in srce se umiri.", "en": "Good, as wise as an old man. A rest, and the heart slows down.", "de": "Gut, so weise wie ein Alter. Eine Pause, und das Herz wird ruhig." } },
+          { "it": "Ci fermiamo un minuto, anche se hai il fiatone, e poi ripartiamo.", "sl": "Ustaviva se za minuto, ker te je zmanjkalo sape, potem pa greva naprej.", "en": "We'll stop for a minute, since you're out of breath, and then carry on.", "de": "Wir halten eine Minute an, weil du außer Atem bist, und dann geht's weiter.",
+            "grammar": "congiunzioni", "why": { "sl": "Anche se pomeni čeprav; razlog za postanek pove siccome (ker).", "en": "Anche se means even though; the reason for the stop is siccome (since).", "de": "Anche se heißt obwohl; den Grund für die Pause nennt siccome (weil)." },
+            "reply": { "face": "confused", "it": "Anche se ho il fiatone? Allora ci fermiamo per sbaglio? Non ti seguo!", "sl": "Čeprav sem brez sape? Se potem ustaviva po pomoti? Ne sledim ti!", "en": "Even though I'm out of breath? So we stop by mistake? I can't follow you!", "de": "Obwohl ich außer Atem bin? Halten wir dann aus Versehen an? Ich komm nicht mit!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Ecco la cima! Guarda che panorama. Vale tutti i cento scalini, e tutte le pause!", "sl": "Tu je vrh! Poglej, kakšen razgled. Vreden je vseh sto stopnic in vseh postankov!", "en": "Here's the top! Look at that view. Worth all hundred steps, and all the rests!", "de": "Da ist die Spitze! Schau, was für eine Aussicht. Die ist alle hundert Stufen wert, und alle Pausen!" }
+      ]
+    },
+    {
+      "id": "scalini-b2-montagna",
+      "level": "B2",
+      "memory": { "it": "la vecchiaia, una montagna che si sale piano", "sl": "starost, gora, na katero se vzpenjaš počasi", "en": "old age, a mountain you climb slowly", "de": "das Alter, ein Berg, den man langsam besteigt" },
+      "lines": [
+        { "who": "bepi", "face": "laugh", "it": "Da giovane questi scalini li facevo di corsa, due alla volta. Adesso li conto uno per uno, come Franco con i sacchi.", "sl": "Kot mlad sem te stopnice pretekel, po dve naenkrat. Zdaj jih štejem eno za drugo, kot Franco vreče.", "en": "As a young man I ran up these steps, two at a time. Now I count them one by one, like Franco with his sacks.", "de": "Als junger Mann bin ich diese Stufen hochgerannt, zwei auf einmal. Jetzt zähle ich sie einzeln, wie Franco seine Säcke." },
+        { "who": "bepi", "face": "thinking", "it": "Mio padre diceva che la vecchiaia è una montagna che si sale piano. Allora non lo capivo; adesso sì.", "sl": "Moj oče je rekel, da je starost gora, na katero se vzpenjaš počasi. Takrat tega nisem razumel; zdaj ga.", "en": "My father used to say old age is a mountain you climb slowly. Back then I didn't understand; now I do.", "de": "Mein Vater sagte, das Alter sei ein Berg, den man langsam besteigt. Damals verstand ich das nicht; jetzt schon." },
+        { "choices": [
+          { "it": "Forse voleva dire che anche da vecchi si arriva in cima, basta non avere fretta.", "sl": "Morda je hotel reči, da tudi kot star prideš na vrh, samo hiteti ne smeš.", "en": "Maybe he meant that even when old you reach the top, as long as you don't hurry.", "de": "Vielleicht meinte er, dass man auch im Alter oben ankommt, man darf nur keine Eile haben.", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così. Lenti, ma in cima. Come le lumache dopo la pioggia.", "sl": "Prav tako. Počasi, ampak na vrhu. Kot polži po dežju.", "en": "Exactly. Slow, but at the top. Like snails after the rain.", "de": "Genau. Langsam, aber oben. Wie die Schnecken nach dem Regen." } },
+          { "it": "Forse voleva dire che i vecchi non devono più salire le scale.", "sl": "Morda je hotel reči, da stari ne smejo več hoditi po stopnicah.", "en": "Maybe he meant old people shouldn't climb stairs any more.", "de": "Vielleicht meinte er, alte Leute sollten keine Treppen mehr steigen.",
+            "why": { "sl": "Oče je rekel, da se gora pri starosti vzpenja počasi, ne da se ne vzpenja.", "en": "His father said the mountain of age is climbed slowly, not that it isn't climbed.", "de": "Der Vater sagte, den Berg des Alters steigt man langsam, nicht, dass man ihn nicht steigt." },
+            "reply": { "face": "surprised", "it": "Non devono più salire? E io allora che cosa ci faccio qui, a metà torre?", "sl": "Ne smejo več? Kaj pa potem jaz delam tukaj, na pol stolpa?", "en": "Shouldn't climb any more? Then what am I doing here, halfway up the tower?", "de": "Sollten nicht mehr steigen? Was mach ich dann hier, mitten auf dem Turm?" } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "Stamattina pensavo di non farcela, sai. E invece eccomi. Tu che cosa pensavi, quando mi hai visto ai piedi della torre?", "sl": "Zjutraj sem mislil, da ne bom zmogel, veš. Pa sem tukaj. Kaj pa si {m:mislil|f:mislila} ti, ko si me {m:videl|f:videla} ob vznožju stolpa?", "en": "This morning I thought I wouldn't make it, you know. And yet here I am. What did you think when you saw me at the foot of the tower?", "de": "Heute früh dachte ich, ich schaff es nicht, weißt du. Und doch bin ich hier. Was hast du gedacht, als du mich unten am Turm gesehen hast?" },
+        { "choices": [
+          { "it": "Pensavo che mi avessi aspettato giù, per salire insieme.", "sl": "{m:Mislil|f:Mislila} sem, da si me čakal spodaj, da greva gor skupaj.", "en": "I thought you'd waited for me down below, so we could climb together.", "de": "Ich dachte, du hättest unten auf mich gewartet, damit wir zusammen hochsteigen.", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così. Insieme si sale meglio, anche a ottantadue anni.", "sl": "Prav tako. Skupaj se bolje vzpenja, tudi pri dvainosemdesetih.", "en": "Exactly. Together you climb better, even at eighty-two.", "de": "Genau. Zusammen steigt man besser, auch mit zweiundachtzig." } },
+          { "it": "Pensavo che mi fossi aspettato giù, per salire insieme.", "sl": "{m:Mislil|f:Mislila} sem, da si me čakal spodaj, da greva gor skupaj.", "en": "I thought you'd waited for me down below, so we could climb together.", "de": "Ich dachte, du hättest unten auf mich gewartet, damit wir zusammen hochsteigen.",
+            "grammar": "congiuntivo-trapassato", "why": { "sl": "Aspettare ima avere: mi hai aspettato, zato mi avessi aspettato.", "en": "Aspettare takes avere: mi hai aspettato, so mi avessi aspettato.", "de": "Aspettare bildet mit avere: mi hai aspettato, also mi avessi aspettato." },
+            "reply": { "face": "curious", "it": "Mi fossi aspettato? Io aspettavo me stesso? Ah, ah! A volte sì, sulle scale!", "sl": "Mi fossi aspettato? Jaz sem čakal sebe? Ha, ha! Včasih ja, na stopnicah!", "en": "Mi fossi aspettato? I was waiting for myself? Ha, ha! Sometimes, yes, on the stairs!", "de": "Mi fossi aspettato? Ich hab auf mich selbst gewartet? Ha, ha! Manchmal schon, auf der Treppe!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Eccoci in cima. Guarda: il Canin, il Tricorno, e laggiù il nostro paese. Tutto in una volta!", "sl": "Tu sva, na vrhu. Poglej: Kanin, Triglav, tam spodaj pa naša vas. Vse naenkrat!", "en": "Here we are at the top. Look: the Canin, Triglav, and down there our village. All at once!", "de": "Da sind wir oben. Schau: der Canin, der Triglav, und da unten unser Dorf. Alles auf einmal!" }
       ]
     }
   ]

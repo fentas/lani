@@ -4,7 +4,7 @@
   "title": { "sl": "V delavnici", "en": "In the workshop", "de": "In der Werkstatt", "it": "Nel laboratorio" },
   "emoji": "🪚",
   "level": "A2",
-  "review": "sl, en, de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "sl, en, de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "workshop",
   "from": ["house"],
   "household": ["france", "tine"],
@@ -32,10 +32,10 @@
   ],
   "happenings": [
     { "id": "klop", "title": { "sl": "France popravlja klop", "en": "France is mending the bench", "de": "France repariert die Bank", "it": "France aggiusta la panca" }, "who": "france",
-      "when": ["morning"], "chance": 0.5, "dialog": "klop", "dialogs": ["klop-zeblji", "klop-bova", "klop"],"reward": { "wood": 15 }, "marker": "🔨",
+      "when": ["morning"], "chance": 0.5, "dialog": "klop", "dialogs": ["klop-b2-denar", "klop-b1-noga", "klop-zeblji", "klop-bova", "klop"],"reward": { "wood": 15 }, "marker": "🔨",
       "memory": { "sl": "klop, ki sva jo popravila", "en": "the bench we mended", "de": "die Bank, die wir repariert haben", "it": "la panca che abbiamo aggiustato" } },
     { "id": "zaga", "title": { "sl": "France žaga deske", "en": "France is sawing boards", "de": "France sägt Bretter", "it": "France sega delle assi" }, "who": "france",
-      "when": ["afternoon"], "chance": 0.5, "dialog": "zaga", "dialogs": ["zaga-deske", "zaga-smem", "zaga"],"reward": { "wood": 20 }, "marker": "🪚", "needs": { "level": 2 },
+      "when": ["afternoon"], "chance": 0.5, "dialog": "zaga", "dialogs": ["zaga-b2-voz", "zaga-b1-polica", "zaga-deske", "zaga-smem", "zaga"],"reward": { "wood": 20 }, "marker": "🪚", "needs": { "level": 2 },
       "memory": { "sl": "desko, ki sva jo skupaj prežagala", "en": "the board we sawed through together", "de": "das Brett, das wir zusammen durchgesägt haben", "it": "l'asse che abbiamo segato insieme" } },
     { "id": "konjicek", "title": { "sl": "Tine in lesen konjiček", "en": "Tine and the wooden horse", "de": "Tine und das Holzpferdchen", "it": "Tine e il cavallino di legno" }, "who": "tine",
       "when": ["evening"], "chance": 0.5, "dialog": "konjicek", "dialogs": ["konjicek-seno", "konjicek-vecji", "konjicek"],"reward": { "stone": 15 }, "marker": "🐴", "needs": { "level": 3 },
@@ -315,6 +315,668 @@
             "reply": { "face": "laugh", "sl": "Ja! Hop, hop, Sivko! Hitreje!", "en": "Yes! Giddy-up, Sivko! Faster!", "de": "Ja! Hopp, hopp, Sivko! Schneller!", "it": "Sì! Hop, hop, Sivko! Più veloce!" } }
         ] },
         { "who": "tine", "sl": "Ampak ponoči tudi najhitrejši konj spi. Lahko noč!", "en": "But at night even the fastest horse sleeps. Good night!", "de": "Aber nachts schläft auch das schnellste Pferd. Gute Nacht!", "it": "Ma di notte anche il cavallo più veloce dorme. Buonanotte!" }
+      ]
+    },
+    {
+      "id": "klop-b1-noga",
+      "level": "B1",
+      "memory": {
+        "sl": "klop, ki ji je Tine zlomil nogo",
+        "en": "the bench Tine broke a leg off",
+        "de": "die Bank, der Tine ein Bein abgebrochen hat",
+        "it": "la panca a cui Tine ha rotto una gamba"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}! Tine je včeraj skakal po klopi, pa se ji je zlomila noga.",
+          "en": "Good morning, {learner}! Yesterday Tine was jumping on the bench, and one of its legs broke.",
+          "de": "Guten Morgen, {learner}! Gestern ist Tine auf der Bank herumgesprungen, und da ist ihr ein Bein abgebrochen.",
+          "it": "Buongiorno, {learner}! Ieri Tine saltava sulla panca, e le si è rotta una gamba."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ojoj! Se je Tine kaj udaril?",
+              "en": "Oh dear! Did Tine hurt himself at all?",
+              "de": "Oje! Hat sich Tine wehgetan?",
+              "it": "Oddio! Tine si è fatto male?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ne, ne. Tine je cel, klop pa ne. Ha!",
+                "en": "No, no. Tine's in one piece, the bench isn't. Ha!",
+                "de": "Nein, nein. Tine ist heil, die Bank nicht. Ha!",
+                "it": "No, no. Tine è tutto intero, la panca no. Ah!"
+              }
+            },
+            {
+              "sl": "Ojoj! Se je Tine nekaj udaril?",
+              "en": "Oh dear! Did Tine hit something?",
+              "de": "Oje! Hat sich Tine an etwas gestoßen?",
+              "it": "Oddio! Tine ha sbattuto contro qualcosa?",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "In a question plain kaj is at all, anything: se je kaj udaril? Nekaj is something particular.",
+                "de": "In einer Frage heißt einfaches kaj überhaupt, irgendwas: se je kaj udaril? Nekaj ist etwas Bestimmtes.",
+                "it": "In una domanda kaj da solo vuol dire in qualche modo, qualcosa: se je kaj udaril? Nekaj è una cosa precisa."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Nekaj? Ja, klop! Z obema nogama.",
+                "en": "Something? Yes, the bench! With both feet.",
+                "de": "Etwas? Ja, die Bank! Mit beiden Füßen.",
+                "it": "Qualcosa? Sì, la panca! Con tutti e due i piedi."
+              }
+            },
+            {
+              "sl": "Ojoj! Se je Tine kaj udarila?",
+              "en": "Oh dear! Did Tine (feminine) hurt herself at all?",
+              "de": "Oje! Hat sich Tine (weiblich) wehgetan?",
+              "it": "Oddio! Tine si è fatta (femminile) male?",
+              "grammar": "pretekli-cas",
+              "why": {
+                "en": "The l-form agrees with its subject: Tine is a boy, se je udaril. Udarila is feminine.",
+                "de": "Die l-Form richtet sich nach dem Subjekt: Tine ist ein Junge, se je udaril. Udarila ist weiblich.",
+                "it": "La forma in -l concorda col soggetto: Tine è un bambino, se je udaril. Udarila è femminile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Udarila? Tine ni punčka, {learner}! Ha!",
+                "en": "Herself? Tine's no little girl, {learner}! Ha!",
+                "de": "Sie? Tine ist doch kein Mädchen, {learner}! Ha!",
+                "it": "Fatta male lei? Tine non è una bambina, {learner}! Ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Zdaj moram klečati na tleh, kolena pa me bolijo že od jutra.",
+          "en": "Now I have to kneel on the floor, and my knees have been aching since morning.",
+          "de": "Jetzt muss ich auf dem Boden knien, und die Knie tun mir schon seit dem Morgen weh.",
+          "it": "Adesso devo inginocchiarmi per terra, e le ginocchia mi fanno male da stamattina."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če vas bolijo kolena, bom jaz {m:klečal|f:klečala}. Vi pa mi podajajte žeblje.",
+              "en": "If your knees hurt, I'll kneel. You hand me the nails.",
+              "de": "Wenn Ihnen die Knie wehtun, knie ich. Sie reichen mir die Nägel.",
+              "it": "Se Le fanno male le ginocchia, mi inginocchio io. Lei mi passi i chiodi.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Dogovorjeno! Mlade noge, stara glava. Dober par sva.",
+                "en": "It's a deal! Young legs, old head. We make a good pair.",
+                "de": "Abgemacht! Junge Beine, alter Kopf. Wir sind ein gutes Paar.",
+                "it": "D'accordo! Gambe giovani, testa vecchia. Siamo una bella coppia."
+              }
+            },
+            {
+              "sl": "Če bolite kolena, bom jaz {m:klečal|f:klečala}. Vi pa mi podajajte žeblje.",
+              "en": "If you hurt the knees, I'll kneel. You hand me the nails.",
+              "de": "Wenn Sie die Knie wehtun, knie ich. Sie reichen mir die Nägel.",
+              "it": "Se Lei fa male le ginocchia, mi inginocchio io. Lei mi passi i chiodi.",
+              "grammar": "custva",
+              "why": {
+                "en": "Boli (it hurts) agrees with what hurts, the knees: bolijo; whose knees they are is the accusative, vas. Bolite makes you the pain.",
+                "de": "Boli (es tut weh) richtet sich nach dem, was wehtut, den Knien: bolijo; wessen Knie, steht im Akkusativ, vas. Bolite macht Sie zum Schmerz.",
+                "it": "Boli (fa male) concorda con ciò che fa male, le ginocchia: bolijo; di chi sono va all'accusativo, vas. Bolite fa di Lei il dolore."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Jaz bolim? Ha, jaz samo stokam!",
+                "en": "I hurt? Ha, I only groan!",
+                "de": "Ich tue weh? Ha, ich stöhne nur!",
+                "it": "Io faccio male? Ah, io mi lamento e basta!"
+              }
+            },
+            {
+              "sl": "Če vas bolijo kolena, bom jaz {m:klečal|f:klečala}. Ti pa mi podajaj žeblje.",
+              "en": "If your knees hurt, I'll kneel. You (ti) hand me the nails.",
+              "de": "Wenn Ihnen die Knie wehtun, knie ich. Du reichst mir die Nägel.",
+              "it": "Se Le fanno male le ginocchia, mi inginocchio io. Tu passami i chiodi.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "France says ti to you but expects vi back: vi pa mi podajajte. Ti is for friends and children.",
+                "de": "France sagt ti zu dir, erwartet aber vi: vi pa mi podajajte. Ti ist für Freunde und Kinder.",
+                "it": "France ti dà del ti ma si aspetta il vi: vi pa mi podajajte. Il ti è per amici e bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ti? Ha, kolena so stara, ušesa pa še dobro slišijo!",
+                "en": "Ti? Ha, the knees are old, but the ears still hear fine!",
+                "de": "Du? Ha, die Knie sind alt, aber die Ohren hören noch gut!",
+                "it": "Tu? Ah, le ginocchia sono vecchie, ma le orecchie ci sentono ancora bene!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Tako. Noga je nova, klop je trdna. Tine bo lahko spet skakal po njej … ampak ne preveč!",
+          "en": "There. The leg is new, the bench is sturdy. Tine can jump on it again … but not too much!",
+          "de": "So. Das Bein ist neu, die Bank ist fest. Tine kann wieder darauf springen … aber nicht zu viel!",
+          "it": "Ecco. La gamba è nuova, la panca è solida. Tine potrà di nuovo saltarci sopra … ma non troppo!"
+        }
+      ]
+    },
+    {
+      "id": "klop-b2-denar",
+      "level": "B2",
+      "memory": {
+        "sl": "klopi za soseda, ki je plačal les",
+        "en": "the benches for the neighbour who paid for the wood",
+        "de": "die Bänke für den Nachbarn, der das Holz bezahlt hat",
+        "it": "le panche per il vicino che ha pagato il legno"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "{learner}, sosed iz doline je videl mojo klop. Hoče, da mu naredim dve taki. In ponuja denar.",
+          "en": "{learner}, a neighbour from the valley saw my bench. He wants me to make him two like it. And he's offering money.",
+          "de": "{learner}, ein Nachbar aus dem Tal hat meine Bank gesehen. Er will, dass ich ihm zwei solche mache. Und er bietet Geld an.",
+          "it": "{learner}, un vicino della valle ha visto la mia panca. Vuole che gliene faccia due così. E offre dei soldi."
+        },
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Ampak jaz od soseda ne vzamem denarja. Nikoli. Kaj bi ti {m:naredil|f:naredila}?",
+          "en": "But I don't take money from a neighbour. Never. What would you do?",
+          "de": "Aber ich nehme von einem Nachbarn kein Geld. Nie. Was würdest du tun?",
+          "it": "Ma io da un vicino non prendo soldi. Mai. Tu cosa faresti?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda ste sosedje, ampak delo je delo. Naj vam plača vsaj les.",
+              "en": "Of course you're neighbours, but work is work. Let him at least pay for the wood.",
+              "de": "Natürlich sind Sie Nachbarn, aber Arbeit ist Arbeit. Er soll Ihnen wenigstens das Holz bezahlen.",
+              "it": "Certo che siete vicini, ma il lavoro è lavoro. Che Le paghi almeno il legno.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Les … Hm. To bi bilo pošteno. Sedem desk, sedem!",
+                "en": "The wood … Hm. That would be fair. Seven boards, seven!",
+                "de": "Das Holz … Hm. Das wäre gerecht. Sieben Bretter, sieben!",
+                "it": "Il legno … Mm. Sarebbe onesto. Sette assi, sette!"
+              }
+            },
+            {
+              "sl": "Seveda ste sosedje, ampak delo je delo. Naj vam plačate vsaj les.",
+              "en": "Of course you're neighbours, but work is work. Let you (vi) at least pay for the wood.",
+              "de": "Natürlich sind Sie Nachbarn, aber Arbeit ist Arbeit. Sie sollen sich wenigstens das Holz bezahlen.",
+              "it": "Certo che siete vicini, ma il lavoro è lavoro. Che si paghi Lei almeno il legno.",
+              "grammar": "ukazi",
+              "why": {
+                "en": "For someone else, the neighbour, it's naj + the present in his own person (he): naj plača. Plačate would be you.",
+                "de": "Für jemand anderen, den Nachbarn, heißt es naj + Präsens in seiner Person (er): naj plača. Plačate wären Sie.",
+                "it": "Per un altro, il vicino, si dice naj + il presente nella sua persona (lui): naj plača. Plačate sarebbe Lei."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Jaz naj plačam? Za svojo klop? Ha, to pa ne!",
+                "en": "I should pay? For my own bench? Ha, certainly not!",
+                "de": "Ich soll zahlen? Für meine eigene Bank? Ha, das nicht!",
+                "it": "Devo pagare io? Per la mia panca? Ah, questo no!"
+              }
+            },
+            {
+              "sl": "Res je, denar je denar. Vzemite, kolikor vam da.",
+              "en": "That's right, money is money. Take whatever he gives you.",
+              "de": "Stimmt, Geld ist Geld. Nehmen Sie, so viel er Ihnen gibt.",
+              "it": "È vero, i soldi sono soldi. Prenda quanto Le dà.",
+              "why": {
+                "en": "France never takes money from a neighbour: grant him that (seveda) and find a fair middle, not tell him to take the money.",
+                "de": "France nimmt nie Geld von einem Nachbarn: gib ihm darin recht (seveda) und finde eine faire Mitte, statt ihm zu raten, das Geld zu nehmen.",
+                "it": "France non prende mai soldi da un vicino: dagli ragione (seveda) e trova una giusta via di mezzo, invece di dirgli di prendere i soldi."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Denar je denar? Ne, {learner}, sosed je sosed!",
+                "en": "Money is money? No, {learner}, a neighbour is a neighbour!",
+                "de": "Geld ist Geld? Nein, {learner}, Nachbar ist Nachbar!",
+                "it": "I soldi sono soldi? No, {learner}, il vicino è il vicino!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi s številkami, {learner}!",
+            "en": "How's that? Tell me in numbers, {learner}!",
+            "de": "Wie bitte? Sag's mir in Zahlen, {learner}!",
+            "it": "Come? Dimmelo coi numeri, {learner}!"
+          }
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Lepo. Ampak ko bi le vedel, koliko lesa bo šlo. Dve klopi, štiri noge vsaka …",
+          "en": "Good. But if only I knew how much wood it'll take. Two benches, four legs each …",
+          "de": "Gut. Aber wenn ich nur wüsste, wie viel Holz das braucht. Zwei Bänke, je vier Beine …",
+          "it": "Bene. Ma se solo sapessi quanto legno ci vorrà. Due panche, quattro gambe ciascuna …"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Dve klopi po štiri noge, to je osem nog.",
+              "en": "Two benches with four legs each, that's eight legs.",
+              "de": "Zwei Bänke mit je vier Beinen, das sind acht Beine.",
+              "it": "Due panche da quattro gambe l'una, fanno otto gambe.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Osem nog! Tako je. In po dve deski za sedež. Ti pa znaš računati!",
+                "en": "Eight legs! That's it. And two boards each for the seat. You can count, you!",
+                "de": "Acht Beine! Genau. Und je zwei Bretter für den Sitz. Du kannst aber rechnen!",
+                "it": "Otto gambe! Giusto. E due assi a testa per il sedile. Tu sì che sai contare!"
+              }
+            },
+            {
+              "sl": "Dve klopi po štirih nogah, to je osem nog.",
+              "en": "Two benches on all fours, that's eight legs.",
+              "de": "Zwei Bänke auf allen vieren, das sind acht Beine.",
+              "it": "Due panche a quattro zampe, fanno otto gambe.",
+              "grammar": "stevniki",
+              "why": {
+                "en": "Po before a number is each, and the number stays in the accusative: po štiri noge. Po štirih nogah is on all fours.",
+                "de": "Po vor einer Zahl heißt je, und die Zahl bleibt im Akkusativ: po štiri noge. Po štirih nogah heißt auf allen vieren.",
+                "it": "Po davanti a un numero vuol dire ciascuno, e il numero resta all'accusativo: po štiri noge. Po štirih nogah è a quattro zampe."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Po štirih nogah? Kot Sivko? Ha, klopi ne bodo hodile!",
+                "en": "On all fours? Like Sivko? Ha, the benches won't be walking!",
+                "de": "Auf allen vieren? Wie Sivko? Ha, die Bänke laufen nicht!",
+                "it": "A quattro zampe? Come Sivko? Ah, le panche non cammineranno!"
+              }
+            },
+            {
+              "sl": "Dve klopi po štiri noge, to je osem noge.",
+              "en": "Two benches with four legs each, that's eight leg (wrong form).",
+              "de": "Zwei Bänke mit je vier Beinen, das sind acht Beine (falsche Form).",
+              "it": "Due panche da quattro gambe l'una, fanno otto gambe (forma sbagliata).",
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "From five on, the noun is in the genitive plural: osem nog. Noge is for three and four.",
+                "de": "Ab fünf steht das Nomen im Genitiv Plural: osem nog. Noge ist für drei und vier.",
+                "it": "Da cinque in su il nome va al genitivo plurale: osem nog. Noge è per tre e quattro."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Osem noge? Hm, sedem, sedem … ne, osem. Ampak česa?",
+                "en": "Eight leg? Hm, seven, seven … no, eight. But eight what?",
+                "de": "Acht Bein? Hm, sieben, sieben … nein, acht. Aber acht was?",
+                "it": "Otto gamba? Mm, sette, sette … no, otto. Ma otto cosa?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi s številkami, {learner}!",
+            "en": "How's that? Tell me in numbers, {learner}!",
+            "de": "Wie bitte? Sag's mir in Zahlen, {learner}!",
+            "it": "Come? Dimmelo coi numeri, {learner}!"
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Jutri začneva. Sosed plača les, midva delo, klopi pa so za vse.",
+          "en": "We'll start tomorrow. The neighbour pays for the wood, we do the work, and the benches are for everyone.",
+          "de": "Morgen fangen wir an. Der Nachbar zahlt das Holz, wir die Arbeit, und die Bänke sind für alle.",
+          "it": "Cominciamo domani. Il vicino paga il legno, noi il lavoro, e le panche sono per tutti."
+        }
+      ]
+    },
+    {
+      "id": "zaga-b1-polica",
+      "level": "B1",
+      "memory": {
+        "sl": "poličko iz prekratke deske",
+        "en": "the little shelf from the board that was too short",
+        "de": "das Regalbrett aus dem zu kurzen Brett",
+        "it": "la mensolina fatta con l'asse troppo corta"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Ojoj, {learner}! Desko sem odrezal prekratko. Za vrata ni več dobra.",
+          "en": "Oh dear, {learner}! I've cut the board too short. It's no good for the door any more.",
+          "de": "Oje, {learner}! Ich habe das Brett zu kurz abgeschnitten. Für die Tür taugt es nicht mehr.",
+          "it": "Oddio, {learner}! Ho tagliato l'asse troppo corta. Per la porta non va più bene."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Iz nje bi lahko naredili poličko za Tinetove igrače.",
+              "en": "We could make a little shelf for Tine's toys out of it.",
+              "de": "Daraus könnten wir ein Regalbrettchen für Tines Spielsachen machen.",
+              "it": "Potremmo farci una mensolina per i giocattoli di Tine.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Poličko! Za Sivka in vse njegove prijatelje. Dobra misel!",
+                "en": "A shelf! For Sivko and all his friends. Good idea!",
+                "de": "Ein Regalbrett! Für Sivko und alle seine Freunde. Gute Idee!",
+                "it": "Una mensolina! Per Sivko e tutti i suoi amici. Buona idea!"
+              }
+            },
+            {
+              "sl": "Iz nje bi lahko naredili poličko za Tinove igrače.",
+              "en": "We could make a little shelf for Tine's (wrong form) toys out of it.",
+              "de": "Daraus könnten wir ein Regalbrettchen für Tines (falsche Form) Spielsachen machen.",
+              "it": "Potremmo farci una mensolina per i giocattoli di Tine (forma sbagliata).",
+              "grammar": "cigav",
+              "why": {
+                "en": "The possessive of a masculine name adds -ov, and a name in -e grows a t first, as in its cases: Tinetove igrače (Tone → Tonetov).",
+                "de": "Das Possessiv eines männlichen Namens bekommt -ov, und ein Name auf -e vorher ein t, wie in seinen Fällen: Tinetove igrače (Tone → Tonetov).",
+                "it": "Il possessivo di un nome maschile aggiunge -ov, e un nome in -e prende prima una t, come nei suoi casi: Tinetove igrače (Tone → Tonetov)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Tinove? Kdo je pa Tino? Moj vnuk je Tine!",
+                "en": "Tino's? Who's Tino? My grandson is Tine!",
+                "de": "Tinos? Wer ist denn Tino? Mein Enkel heißt Tine!",
+                "it": "Di Tino? E chi è Tino? Mio nipote è Tine!"
+              }
+            },
+            {
+              "sl": "Iz njo bi lahko naredili poličko za Tinetove igrače.",
+              "en": "We could make a little shelf for Tine's toys out of it (accusative).",
+              "de": "Daraus (Akkusativ) könnten wir ein Regalbrettchen für Tines Spielsachen machen.",
+              "it": "Potremmo farci (accusativo) una mensolina per i giocattoli di Tine.",
+              "grammar": "rodilnik-predlogi",
+              "why": {
+                "en": "Iz (out of) takes the genitive: iz nje, out of the board. Njo is the accusative or the instrumental.",
+                "de": "Iz (aus) verlangt den Genitiv: iz nje, aus dem Brett. Njo ist Akkusativ oder Instrumental.",
+                "it": "Iz (da, fuori da) vuole il genitivo: iz nje, dall'asse. Njo è accusativo o strumentale."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Iz njo? Hm, iz deske že, ampak besede ne razumem.",
+                "en": "Out of her? Hm, out of the board, sure, but I don't get the word.",
+                "de": "Aus sie? Hm, aus dem Brett schon, aber das Wort verstehe ich nicht.",
+                "it": "Da lei? Mm, dall'asse sì, ma la parola non la capisco."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Ampak zdaj mi manjka deska za vrata. Kaj misliš, kje bi jo dobil?",
+          "en": "But now I'm a board short for the door. Where do you think I could get one?",
+          "de": "Aber jetzt fehlt mir ein Brett für die Tür. Was meinst du, wo bekäme ich eins?",
+          "it": "Ma adesso mi manca un'asse per la porta. Dove pensi che potrei trovarla?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vprašajte na žagi v dolini. Tam imajo deske vseh dolžin.",
+              "en": "Ask at the sawmill in the valley. They have boards of every length.",
+              "de": "Fragen Sie im Sägewerk im Tal. Dort haben sie Bretter in allen Längen.",
+              "it": "Chieda alla segheria della valle. Lì hanno assi di tutte le lunghezze.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Na žagi, seveda! Tam me vsi poznajo. Sosedje smo, pravim.",
+                "en": "The sawmill, of course! They all know me there. We're neighbours, I say.",
+                "de": "Im Sägewerk, natürlich! Dort kennen mich alle. Wir sind Nachbarn, sag ich.",
+                "it": "Alla segheria, certo! Lì mi conoscono tutti. Siamo vicini, dico io."
+              }
+            },
+            {
+              "sl": "Vprašajte na žagi v dolini. Tam imajo deske vseh dolžinov.",
+              "en": "Ask at the sawmill in the valley. They have boards of every length (masculine ending).",
+              "de": "Fragen Sie im Sägewerk im Tal. Dort haben sie Bretter in allen Längen (männliche Endung).",
+              "it": "Chieda alla segheria della valle. Lì hanno assi di tutte le lunghezze (desinenza maschile).",
+              "grammar": "sklanjatev-zenski",
+              "why": {
+                "en": "Dolžina is feminine in -a: its genitive plural has no ending, vseh dolžin (as pet knjig). -ov is the masculine ending.",
+                "de": "Dolžina ist weiblich auf -a: der Genitiv Plural hat keine Endung, vseh dolžin (wie pet knjig). -ov ist die männliche Endung.",
+                "it": "Dolžina è femminile in -a: il genitivo plurale non ha desinenza, vseh dolžin (come pet knjig). -ov è la desinenza maschile."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Dolžinov? Hm, na žagi tega ne bodo razumeli. Jaz tudi ne.",
+                "en": "Dolžinov? Hm, they won't understand that at the sawmill. Nor do I.",
+                "de": "Dolžinov? Hm, im Sägewerk wird das keiner verstehen. Ich auch nicht.",
+                "it": "Dolžinov? Mm, alla segheria non lo capiranno. E nemmeno io."
+              }
+            },
+            {
+              "sl": "Vprašaj na žagi v dolini. Tam imajo deske vseh dolžin.",
+              "en": "Ask (ti) at the sawmill in the valley. They have boards of every length.",
+              "de": "Frag im Sägewerk im Tal. Dort haben sie Bretter in allen Längen.",
+              "it": "Chiedi alla segheria della valle. Lì hanno assi di tutte le lunghezze.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "France says ti to you but expects vi back: vprašajte. Vprašaj is ti, for friends and children.",
+                "de": "France sagt ti zu dir, erwartet aber vi: vprašajte. Vprašaj ist ti, für Freunde und Kinder.",
+                "it": "France ti dà del ti ma si aspetta il vi: vprašajte. Vprašaj è il ti, per amici e bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Vprašaj? Hm, mladina dandanes … No, prav, vprašam.",
+                "en": "Ask (ti)? Hm, young folk these days … Well, all right, I'll ask.",
+                "de": "Frag? Hm, die Jugend von heute … Na gut, ich frage.",
+                "it": "Chiedi? Mm, i giovani d'oggi … Va be', chiederò."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Tako bova imela vrata in še poličko. Iz ene napake dve stvari!",
+          "en": "So we'll have a door and a shelf too. Two things out of one mistake!",
+          "de": "So haben wir eine Tür und noch ein Regalbrett. Aus einem Fehler zwei Sachen!",
+          "it": "Così avremo la porta e pure la mensolina. Da un errore, due cose!"
+        }
+      ]
+    },
+    {
+      "id": "zaga-b2-voz",
+      "level": "B2",
+      "memory": {
+        "sl": "očetov voz, ki sva mu dala novo dno",
+        "en": "my father's cart that we gave a new bottom",
+        "de": "den Wagen meines Vaters, dem wir einen neuen Boden gegeben haben",
+        "it": "il carro di mio padre a cui abbiamo dato un fondo nuovo"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "{learner}, te deske so za voz. Staro dno je trhlo, ampak voz je naredil moj oče, ko sem bil star toliko kot Tine.",
+          "en": "{learner}, these boards are for the cart. The old bottom is rotten, but my father made that cart when I was as old as Tine.",
+          "de": "{learner}, diese Bretter sind für den Wagen. Der alte Boden ist morsch, aber den Wagen hat mein Vater gebaut, als ich so alt war wie Tine.",
+          "it": "{learner}, queste assi sono per il carro. Il vecchio fondo è marcio, ma il carro l'ha fatto mio padre quando avevo l'età di Tine."
+        },
+        {
+          "who": "france",
+          "face": "sad",
+          "sl": "Škoda bi ga bilo zavreči. Z njim sva z očetom vozila seno trideset let.",
+          "en": "It would be a shame to throw it away. My father and I carted hay with it for thirty years.",
+          "de": "Es wäre schade, ihn wegzuwerfen. Mit ihm haben mein Vater und ich dreißig Jahre lang Heu gefahren.",
+          "it": "Sarebbe un peccato buttarlo. Con lui io e mio padre abbiamo portato il fieno per trent'anni."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda bo dno novo, ampak kolesa lahko ostanejo očetova.",
+              "en": "Of course the bottom will be new, but the wheels can stay your father's.",
+              "de": "Natürlich wird der Boden neu, aber die Räder können die Ihres Vaters bleiben.",
+              "it": "Certo, il fondo sarà nuovo, ma le ruote possono restare quelle di Suo padre.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res je! Kolesa so še trdna kot takrat. Oče bi bil vesel.",
+                "en": "That's true! The wheels are still as sturdy as back then. Father would be pleased.",
+                "de": "Stimmt! Die Räder sind noch so fest wie damals. Vater würde sich freuen.",
+                "it": "È vero! Le ruote sono ancora solide come allora. Mio padre ne sarebbe contento."
+              }
+            },
+            {
+              "sl": "Seveda bo dno novo, ampak kolesa lahko ostanejo očetovi.",
+              "en": "Of course the bottom will be new, but the wheels can stay your father's (masculine plural).",
+              "de": "Natürlich wird der Boden neu, aber die Räder können die Ihres Vaters (männlicher Plural) bleiben.",
+              "it": "Certo, il fondo sarà nuovo, ma le ruote possono restare quelli di Suo padre (maschile plurale).",
+              "grammar": "cigav",
+              "why": {
+                "en": "A possessive agrees with what is owned, never with the owner: kolesa is neuter plural, so očetova. Očetovi is masculine plural.",
+                "de": "Ein Possessiv richtet sich nach dem Besitz, nie nach dem Besitzer: kolesa ist Neutrum Plural, also očetova. Očetovi ist männlicher Plural.",
+                "it": "Un possessivo concorda con la cosa posseduta, mai col possessore: kolesa è neutro plurale, quindi očetova. Očetovi è maschile plurale."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Očetovi? Kateri očetovi? Kolesa, {learner}, kolesa!",
+                "en": "Father's, masculine? Which ones? The wheels, {learner}, the wheels!",
+                "de": "Vaters, männlich? Welche denn? Die Räder, {learner}, die Räder!",
+                "it": "Di mio padre, maschili? Quali? Le ruote, {learner}, le ruote!"
+              }
+            },
+            {
+              "sl": "Potem pa voz kar zažgite, saj je star.",
+              "en": "Then just burn the cart, it's old anyway.",
+              "de": "Dann verbrennen Sie den Wagen doch, er ist ja alt.",
+              "it": "Allora bruci pure il carro, tanto è vecchio.",
+              "why": {
+                "en": "The cart is a keepsake of France's father: weigh it, keep what can be kept, not burn it.",
+                "de": "Der Wagen ist ein Andenken an Frances Vater: wäge ab und behalte, was zu behalten ist, statt ihn zu verbrennen.",
+                "it": "Il carro è un ricordo del padre di France: soppesa, tieni ciò che si può tenere, non bruciarlo."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Zažgati? Očetov voz? Joj, {learner}, nikoli!",
+                "en": "Burn it? My father's cart? Oh, {learner}, never!",
+                "de": "Verbrennen? Vaters Wagen? Ach, {learner}, niemals!",
+                "it": "Bruciarlo? Il carro di mio padre? Oh, {learner}, mai!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Ampak eno kolo škriplje. Mislim, da ga ni več mogoče popraviti.",
+          "en": "But one wheel creaks. I don't think it can be mended any more.",
+          "de": "Aber ein Rad quietscht. Ich glaube, es lässt sich nicht mehr reparieren.",
+          "it": "Però una ruota cigola. Credo che non si possa più aggiustare."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem ga je treba zamenjati. Staro pa obesite na steno, za spomin.",
+              "en": "Then it has to be replaced. And hang the old one on the wall, as a keepsake.",
+              "de": "Dann muss es ersetzt werden. Und das alte hängen Sie an die Wand, zur Erinnerung.",
+              "it": "Allora va sostituita. E quella vecchia la appenda al muro, per ricordo.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Na steno, za spomin. Ti pa imaš srce, {learner}.",
+                "en": "On the wall, as a keepsake. You've got a heart, {learner}.",
+                "de": "An die Wand, zur Erinnerung. Du hast ein Herz, {learner}.",
+                "it": "Al muro, per ricordo. Tu sì che hai cuore, {learner}."
+              }
+            },
+            {
+              "sl": "Potem je treba zamenjati ga. Staro pa obesite na steno, za spomin.",
+              "en": "Then it has to be replaced (the short word at the end). And hang the old one on the wall, as a keepsake.",
+              "de": "Dann muss man es ersetzen (das kurze Wort am Ende). Und das alte hängen Sie an die Wand, zur Erinnerung.",
+              "it": "Allora bisogna sostituirla (la parola breve in fondo). E quella vecchia la appenda al muro, per ricordo.",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words stand together in second place, the infinitive's ga too: treba ga je zamenjati (as moram ti ga vrniti).",
+                "de": "Die kurzen Wörter stehen zusammen an zweiter Stelle, auch das ga des Infinitivs: treba ga je zamenjati (wie moram ti ga vrniti).",
+                "it": "Le parole brevi stanno insieme al secondo posto, anche il ga dell'infinito: treba ga je zamenjati (come moram ti ga vrniti)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Kaj je treba? Tvoje besede so zbežale na konec.",
+                "en": "Hm? What has to be done? Your words ran off to the end.",
+                "de": "Hm? Was muss man? Deine Wörter sind ans Ende gelaufen.",
+                "it": "Mm? Che cosa bisogna? Le tue parole sono scappate in fondo."
+              }
+            },
+            {
+              "sl": "Potem ga je treba zamenjati. Staro pa obesite na steni, za spomin.",
+              "en": "Then it has to be replaced. And hang the old one on the wall (locative), as a keepsake.",
+              "de": "Dann muss es ersetzt werden. Und das alte hängen Sie an der Wand (Lokativ) auf, zur Erinnerung.",
+              "it": "Allora va sostituita. E quella vecchia la appenda sul muro (locativo), per ricordo.",
+              "grammar": "kam-tozilnik",
+              "why": {
+                "en": "Where to: na and the accusative, na steno. Na steni (locative) is where it already hangs.",
+                "de": "Wohin: na und der Akkusativ, na steno. Na steni (Lokativ) ist, wo es schon hängt.",
+                "it": "Dove (moto): na e l'accusativo, na steno. Na steni (locativo) è dove già sta appeso."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Na steni? Saj kolo še ni tam, še je na vozu!",
+                "en": "On the wall? But the wheel isn't there yet, it's still on the cart!",
+                "de": "An der Wand? Das Rad ist doch noch nicht dort, es ist noch am Wagen!",
+                "it": "Sul muro? Ma la ruota non c'è ancora, è ancora sul carro!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej mi počasi, {learner}.",
+            "en": "How's that? Tell me slowly, {learner}.",
+            "de": "Wie bitte? Sag's mir langsam, {learner}.",
+            "it": "Come? Dimmelo piano, {learner}."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Prav. Novo dno, novo kolo, očetov voz. Sosedje bodo rekli: France ima nov voz! Pa ni čisto nov.",
+          "en": "Right. A new bottom, a new wheel, my father's cart. The neighbours will say: France has a new cart! But it's not quite new.",
+          "de": "Gut. Neuer Boden, neues Rad, Vaters Wagen. Die Nachbarn werden sagen: France hat einen neuen Wagen! Dabei ist er nicht ganz neu.",
+          "it": "Bene. Fondo nuovo, ruota nuova, il carro di mio padre. I vicini diranno: France ha un carro nuovo! E invece non è proprio nuovo."
+        }
       ]
     }
   ]

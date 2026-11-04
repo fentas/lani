@@ -26,7 +26,7 @@ import java.time.LocalDateTime
 
 /**
  * Primorska's charcoal pile over the days (world.json `spots.kopa.cycle`; companion/VILLAGERS.md, "The pile over the days"):
- * Oglar Miha's talk is the day's, at every stage, in the rest and the winter, each variant playing to its end at A1 and A2
+ * Oglar Miha's talk is the day's, at every stage, in the rest and the winter, each variant playing to its end at every level
  * with a wrong choice to learn from; a visit after another hears another; he tells what the learner missed; the night his
  * pile breaks out it is a race, saved or lost; his own story comes a part at a time; the charcoal goes to Tone, who says
  * so, and burns in his forge.
@@ -72,9 +72,11 @@ class KopaCycleTest {
         return wrongs
     }
 
+    private val LEVELS = listOf("A1", "A2", "B1", "B2")
+
     private fun rounds(year: Int = 2026) = SpotCycles.rounds(cycle, "kopa", year)
 
-    @Test fun `every stage, the rest and the winter, each of his talks plays to its end at A1 and A2, with a wrong choice to learn from`() {
+    @Test fun `every stage, the rest and the winter, each of his talks plays to its end at every level, with a wrong choice to learn from`() {
         Cultures.use("primorska")
         val r = rounds().first()
         val days = r.spans.map { it.stage.id to it.from } +
@@ -89,7 +91,7 @@ class KopaCycleTest {
                 val k = miha(state, day, hour)
                 assertEquals(id, k.day?.id)
                 if (k.breakout) continue
-                for (p in pairs) for (level in listOf("A1", "A2")) assertTrue("$id $hour:00 #$n $level: a wrong choice", play(k, level, p, "$id $hour:00 #$n $level ${p.code}") >= 1)
+                for (p in pairs) for (level in LEVELS) assertTrue("$id $hour:00 #$n $level: a wrong choice", play(k, level, p, "$id $hour:00 #$n $level ${p.code}") >= 1)
             }
         }
     }
@@ -182,7 +184,7 @@ class KopaCycleTest {
         val k = miha(state, night, 22)
         assertTrue(k.breakout)
         assertEquals("Kopa gori! Oglar Miha kliče na pomoč · The pile is on fire! Miha calls for help", k.title.bi())
-        for (level in listOf("A1", "A2")) {
+        for (level in LEVELS) {
             val d = Keepers.talk(k, level, "sl")!!
             val race = Keepers.race(k, level)!!
             assertEquals(d.lines.lastIndex, race.turn)
@@ -249,7 +251,7 @@ class KopaCycleTest {
             val st = village.copy(keepers = mapOf("spot:kopa/oglar" to KeeperTold(t.after, day.minusDays(1).toString(), tales = i)))
             val kk = miha(st, day)
             assertEquals(t.id, kk.tale?.id)
-            for (p in pairs) for (level in listOf("A1", "A2")) play(kk, level, p, "tale ${t.id} $level ${p.code}")
+            for (p in pairs) for (level in LEVELS) play(kk, level, p, "tale ${t.id} $level ${p.code}")
         }
     }
 
@@ -298,7 +300,8 @@ class KopaCycleTest {
     }
 
     @Test fun `the other cultures' piles have no cycle, their burner's talks as before`() {
-        for (id in listOf("friuli", "kaernten")) {
+        // Friuli's has its own since village-b2-friuli (FriuliKopaCycleTest), the Lake District's since village-b2-lakeland (LakelandPitTest)
+        for (id in listOf("kaernten")) {
             Cultures.use(id)
             assertNull(id, world.spots.getValue("kopa").cycle)
             assertNull(SpotCycles.look(village, "kopa", LocalDate.of(2026, 7, 1)))

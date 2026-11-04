@@ -139,6 +139,8 @@ object Words {
             .apply {
                 line?.trim()?.takeIf { it.isNotEmpty() }?.let { addQueryParameter("line", it.take(MAX_LINE)) }
                 if (nth > 0 && !line.isNullOrBlank()) addQueryParameter("n", nth.toString())
+                // this app reads a language's own cases (German's four, docs/plans/05-built/case-de.md): an older one gets Slovene's only
+                if (!line.isNullOrBlank()) addQueryParameter("lens", "2")
                 en?.trim()?.takeIf { it.isNotEmpty() }?.let { addQueryParameter("en", it.take(MAX_LINE)) }
                 language?.let { addQueryParameter("language", it) }
                 meaningIn?.takeIf { it != language }?.let { addQueryParameter("base", it) }

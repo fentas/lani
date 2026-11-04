@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "l-aquilone-rotto",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "L'aquilone rotto", "de": "Der kaputte Drachen", "sl": "Polomljeni zmaj", "en": "The broken kite" },
+  "emoji": "🪁",
+  "level": "B1",
+  "setting": {
+    "de": "Im Spielzeugladen in Görz. Gestern hast du hier einen Drachen gekauft, aber beim ersten Flug ist ein Stäbchen gebrochen. Papa ist bei dir und lässt dich erzählen.",
+    "sl": "V trgovini z igračami v Gorici. Včeraj si tu {m:kupil|f:kupila} zmaja, a pri prvem letu se je zlomila palčka. Oči je s tabo in te pusti, da {m:sam|f:sama} poveš.",
+    "en": "At the toy shop in Gorizia. Yesterday you bought a kite here, but a stick broke on its first flight. Papà is with you and lets you do the talking."
+  },
+  "role": "Signora Paola, who runs the toy shop in Gorizia. Friendly and fair: asks what happened and when, what {learner} would like (a new kite or the money back), then offers a swap. Says tu to {learner}, who may say tu or Lei. Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "La negoziante di giocattoli", "de": "Die Spielzeughändlerin", "sl": "Prodajalka igrač", "en": "The toy shop owner" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "square",
+  "goals": [
+    { "it": "Di' che cosa hai comprato e quando", "de": "Sag, was du gekauft hast und wann", "sl": "Povej, kaj si {m:kupil|f:kupila} in kdaj", "en": "Say what you bought and when" },
+    { "it": "Racconta che cosa è successo", "de": "Erzähl, was passiert ist", "sl": "Povej, kaj se je zgodilo", "en": "Tell her what happened" },
+    { "it": "Di' che cosa vorresti", "de": "Sag, was du gern hättest", "sl": "Povej, kaj bi {m:rad|f:rada}", "en": "Say what you would like" },
+    { "it": "Accetta la sua proposta", "de": "Nimm ihren Vorschlag an", "sl": "Sprejmi njen predlog", "en": "Accept her offer" },
+    { "it": "Ringrazia e saluta", "de": "Bedank dich und verabschiede dich", "sl": "Zahvali se in se poslovi", "en": "Say thank you and goodbye" }
+  ],
+  "opener_sl": "Ciao! Oh, ma questo è l'aquilone di ieri! Che cosa è successo?",
+  "opener_en": {
+    "de": "Hallo! Oh, das ist ja der Drachen von gestern! Was ist passiert?",
+    "sl": "Živjo! Oh, to je pa včerajšnji zmaj! Kaj se je zgodilo?",
+    "en": "Hello! Oh, that's yesterday's kite! What happened?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ieri ho comprato qui questo aquilone.", "en": { "de": "Gestern habe ich hier diesen Drachen gekauft.", "sl": "Včeraj sem tu {m:kupil|f:kupila} tega zmaja.", "en": "Yesterday I bought this kite here." } },
+    { "sl": "Mentre volava, si è rotto un bastoncino.", "en": { "de": "Während er geflogen ist, ist ein Stäbchen gebrochen.", "sl": "Med letenjem se je zlomila palčka.", "en": "While it was flying, a stick broke." } },
+    { "sl": "Non è colpa mia: c'era solo un po' di vento.", "en": { "de": "Es ist nicht meine Schuld: Es war nur ein bisschen Wind.", "sl": "Nisem {m:kriv|f:kriva}: bilo je le malo vetra.", "en": "It isn't my fault: there was only a little wind." } },
+    { "sl": "Vorrei un aquilone nuovo, per favore.", "en": { "de": "Ich hätte gern einen neuen Drachen, bitte.", "sl": "{m:Rad|f:Rada} bi novega zmaja, prosim.", "en": "I'd like a new kite, please." } },
+    { "sl": "Me lo può cambiare, per favore?", "en": { "de": "Können Sie ihn mir bitte umtauschen?", "sl": "Mi ga lahko zamenjate, prosim?", "en": "Could you swap it for me, please?" } },
+    { "sl": "Potrei riavere i soldi?", "en": { "de": "Könnte ich das Geld zurückbekommen?", "sl": "Bi lahko {m:dobil|f:dobila} denar nazaj?", "en": "Could I have my money back?" } },
+    { "sl": "Va bene, grazie mille!", "en": { "de": "Gut, vielen Dank!", "sl": "Prav, najlepša hvala!", "en": "All right, thank you so much!" } }
+  ],
+  "packs": ["in-paese", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

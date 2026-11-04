@@ -1,6 +1,6 @@
 {
   "name": "assign_cases",
-  "description": "Assign the learner a case trainer session focused on one case or rule: focus = a case id (imenovalnik, rodilnik, dajalnik, tozilnik, mestnik, orodnik) or a rule id (the grammar page: rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni; predlogi-dva-sklona: the prepositions with two cases, po kruh / po vasi, both cases), with a one-line note in the learner's base. Home and the trainer offer it until a session with that focus is played (cases_done says so); focus null takes it back.",
+  "description": "Assign the learner a case trainer session focused on one case or rule: focus = a case id (imenovalnik, rodilnik, dajalnik, tozilnik, mestnik, orodnik) or a rule id (the grammar page: rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni; predlogi-dva-sklona: the prepositions with two cases, po kruh / po vasi, both cases), with a one-line note in the learner's base. Home and the trainer offer it until a session with that focus is played (cases_done says so); focus null takes it back. In a German village: nominativ, akkusativ, dativ, genitiv, or a German page (dativ, wechselpraepositionen, praepositionen-genitiv …).",
   "input_schema": {
     "type": "object",
     "properties": {

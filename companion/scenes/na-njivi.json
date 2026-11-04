@@ -4,7 +4,7 @@
   "title": { "sl": "Na njivi", "en": "In the field", "de": "Auf dem Feld", "it": "Nel campo" },
   "emoji": "🌾",
   "level": "A1",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "field",
   "from": ["field", "kozolec"],
   "pack": "na-njivi",
@@ -38,7 +38,7 @@
   ],
   "happenings": [
     { "id": "zetev", "title": { "sl": "France žanje pšenico", "en": "France is harvesting wheat", "de": "France erntet Weizen", "it": "France miete il grano" }, "who": "france",
-      "when": ["morning", "afternoon"], "months": [6, 7, 8], "weekdays": [1, 2, 3, 4, 5, 6], "chance": 0.5, "dialog": "zetev", "dialogs": ["zetev-grablje", "zetev-oblaki", "zetev"], "reward": { "food": 20 }, "marker": "🌾",
+      "when": ["morning", "afternoon"], "months": [6, 7, 8], "weekdays": [1, 2, 3, 4, 5, 6], "chance": 0.5, "dialog": "zetev", "dialogs": ["zetev-b2-pesmi", "zetev-b1-snopi", "zetev-grablje", "zetev-oblaki", "zetev"], "reward": { "food": 20 }, "marker": "🌾",
       "memory": { "sl": "žetev, ko si mi {m:pomagal|f:pomagala} na njivi", "en": "the harvest, when you helped me in the field", "de": "die Ernte, als du mir auf dem Feld geholfen hast", "it": "la mietitura, quando mi hai aiutato nel campo" } },
     { "id": "krompir", "title": { "sl": "France koplje krompir", "en": "France is digging potatoes", "de": "France gräbt Kartoffeln aus", "it": "France cava le patate" }, "who": "france",
       "when": ["afternoon"], "months": [7, 8, 9, 10], "chance": 0.4, "dialog": "krompir", "dialogs": ["krompir-kosare", "krompir-roke", "krompir"], "reward": { "food": 15 }, "marker": "🥔",
@@ -50,7 +50,7 @@
       "when": ["morning"], "chance": 0.4, "dialog": "strasilo", "dialogs": ["strasilo-klobuk", "strasilo"], "reward": { "food": 15 }, "marker": "🌾",
       "memory": { "sl": "strašilo, ki si mu {m:narisal|f:narisala} obraz", "en": "the scarecrow you drew a face on", "de": "die Vogelscheuche, der du ein Gesicht gemalt hast", "it": "lo spaventapasseri a cui hai disegnato la faccia" } },
     { "id": "konj", "title": { "sl": "Francetov konj Sivko", "en": "France's horse Sivko", "de": "Frances Pferd Sivko", "it": "Sivko, il cavallo di France" }, "who": "france",
-      "when": ["evening"], "chance": 0.3, "dialog": "konj", "dialogs": ["konj-hlev", "konj"], "reward": { "wisdom": 15 }, "marker": "🐴",
+      "when": ["evening"], "chance": 0.3, "dialog": "konj", "dialogs": ["konj-b2-most", "konj-b1-traktor", "konj-hlev", "konj"], "reward": { "wisdom": 15 }, "marker": "🐴",
       "memory": { "sl": "Sivka, ki si ga {m:božal|f:božala} na njivi", "en": "Sivko, whom you stroked in the field", "de": "Sivko, den du auf dem Feld gestreichelt hast", "it": "Sivko, che hai accarezzato nel campo" } },
     { "id": "kosnja", "title": { "sl": "France kosi v rosi", "en": "France mows in the dew", "de": "France mäht im Tau", "it": "France falcia nella rugiada" }, "who": "france",
       "when": ["dawn"], "months": [5, 6, 7, 8, 9], "chance": 0.6, "dialog": "kosnja", "dialogs": ["kosnja-vrste", "kosnja-zajec", "kosnja"], "reward": { "food": 15 }, "marker": "🌾",
@@ -549,6 +549,650 @@
             "reply": { "face": "laugh", "sl": "Ha ha! {m:Dva velika moža|f:Dva velika človeka}, pa en majhen zajec.", "en": "Ha ha! {m:Two big men|f:Two big people}, and one little hare.", "de": "Ha ha! {m:Zwei große Männer|f:Zwei große Leute}, und ein kleiner Hase.", "it": "Ah ah! {m:Due omoni|f:Due persone grandi e grosse}, e una piccola lepre." } }
         ] },
         { "who": "france", "sl": "No, zdaj pa naprej. Zajec je šel spat, midva pa kosiva.", "en": "Well, onwards now. The hare's gone to bed, and we two mow on.", "de": "Na, jetzt weiter. Der Hase ist schlafen gegangen, und wir zwei mähen.", "it": "Be', adesso avanti. La lepre è andata a dormire, e noi due falciamo." }
+      ]
+    },
+    {
+      "id": "zetev-b1-snopi",
+      "level": "B1",
+      "memory": {
+        "sl": "snope, ki so padli z voza",
+        "en": "the sheaves that fell off the cart",
+        "de": "die Garben, die vom Wagen gefallen sind",
+        "it": "i covoni caduti dal carro"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Dober dan, {learner}. Joj, pet snopov je padlo z voza, ko sem peljal čez jarek.",
+          "en": "Good afternoon, {learner}. Oh dear, five sheaves fell off the cart when I drove over the ditch.",
+          "de": "Guten Tag, {learner}. Oje, fünf Garben sind vom Wagen gefallen, als ich über den Graben gefahren bin.",
+          "it": "Buongiorno, {learner}. Accidenti, cinque covoni sono caduti dal carro mentre passavo il fosso."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Nič hudega. Dva snopa sta ostala cela, ostale bova pobrala.",
+              "en": "Never mind. Two sheaves stayed whole, we'll pick up the others.",
+              "de": "Halb so schlimm. Zwei Garben sind ganz geblieben, die anderen sammeln wir auf.",
+              "it": "Niente di grave. Due covoni sono rimasti interi, gli altri li raccogliamo noi.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav. Ti pobiraj, jaz štejem: ena, dve, tri …",
+                "en": "Right. You pick them up, I'll count: one, two, three …",
+                "de": "Gut. Du sammelst, ich zähle: eins, zwei, drei …",
+                "it": "Bene. Tu raccogli, io conto: uno, due, tre …"
+              }
+            },
+            {
+              "sl": "Nič hudega. Dva snopa so ostala cela, ostale bova pobrala.",
+              "en": "Never mind. Two sheaves (so) stayed whole, we'll pick up the others.",
+              "de": "Halb so schlimm. Zwei Garben (so) sind ganz geblieben, die anderen sammeln wir auf.",
+              "it": "Niente di grave. Due covoni (so) sono rimasti interi, gli altri li raccogliamo noi.",
+              "grammar": "stevila-glagol",
+              "why": {
+                "en": "Two (dva, dve) takes the dual verb: dva snopa sta ostala. So is for three and four.",
+                "de": "Zwei (dva, dve) verlangt das Verb im Dual: dva snopa sta ostala. So gilt für drei und vier.",
+                "it": "Due (dva, dve) vuole il verbo al duale: dva snopa sta ostala. So vale per tre e quattro."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "So? Koliko pa jih vidiš? Jaz samo dva.",
+                "en": "So? How many can you see? I see only two.",
+                "de": "So? Wie viele siehst du denn? Ich nur zwei.",
+                "it": "So? Quanti ne vedi? Io solo due."
+              }
+            },
+            {
+              "sl": "Nič hudega. Dva snopa je ostalo celih, ostale bova pobrala.",
+              "en": "Never mind. Two sheaves (je … -o) stayed whole, we'll pick up the others.",
+              "de": "Halb so schlimm. Zwei Garben (je … -o) sind ganz geblieben, die anderen sammeln wir auf.",
+              "it": "Niente di grave. Due covoni (je … -o) sono rimasti interi, gli altri li raccogliamo noi.",
+              "grammar": "stevila-glagol",
+              "why": {
+                "en": "Only from five up is it je … -o (pet snopov je padlo). Two takes the dual: dva snopa sta ostala.",
+                "de": "Erst ab fünf heißt es je … -o (pet snopov je padlo). Zwei verlangt den Dual: dva snopa sta ostala.",
+                "it": "Solo da cinque in su si dice je … -o (pet snopov je padlo). Due vuole il duale: dva snopa sta ostala."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Je ostalo? Kot pet? Saj jih je samo par, {learner}.",
+                "en": "Je ostalo? Like five? There are only a couple, {learner}.",
+                "de": "Je ostalo? Wie bei fünf? Es sind doch nur ein paar, {learner}.",
+                "it": "Je ostalo? Come per cinque? Sono solo un paio, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Lani je bila pšenica posejana prepozno. Letos sem jo posejal že oktobra.",
+          "en": "Last year the wheat was sown too late. This year I sowed it back in October.",
+          "de": "Letztes Jahr wurde der Weizen zu spät gesät. Heuer habe ich ihn schon im Oktober gesät.",
+          "it": "L'anno scorso il grano è stato seminato troppo tardi. Quest'anno l'ho seminato già a ottobre."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Zato je letos žito tako lepo. Ko bo požeto, ga bova peljala v mlin.",
+              "en": "That's why the grain is so fine this year. Once it's reaped, we'll take it to the mill.",
+              "de": "Darum ist das Getreide heuer so schön. Wenn es geschnitten ist, fahren wir es in die Mühle.",
+              "it": "Per questo quest'anno il grano è così bello. Quando sarà mietuto, lo portiamo al mulino.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako je. In iz moke bo kruh za vso vas.",
+                "en": "That's it. And from the flour there'll be bread for the whole village.",
+                "de": "So ist es. Und aus dem Mehl wird Brot für das ganze Dorf.",
+                "it": "Proprio così. E con la farina ci sarà pane per tutto il paese."
+              }
+            },
+            {
+              "sl": "Zato je letos žito tako lepo. Ko bo požel, ga bova peljala v mlin.",
+              "en": "That's why the grain is so fine this year. Once it has reaped, we'll take it to the mill.",
+              "de": "Darum ist das Getreide heuer so schön. Wenn es geschnitten hat, fahren wir es in die Mühle.",
+              "it": "Per questo quest'anno il grano è così bello. Quando avrà mietuto, lo portiamo al mulino.",
+              "grammar": "trpnik",
+              "why": {
+                "en": "Someone reaps the grain: the passive participle, ko bo požeto (žito is neuter). Požel is the reaper's l-form.",
+                "de": "Jemand schneidet das Getreide: das Passivpartizip, ko bo požeto (žito ist sächlich). Požel ist die l-Form des Schnitters.",
+                "it": "Qualcuno miete il grano: il participio passivo, ko bo požeto (žito è neutro). Požel è la forma in -l di chi miete."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ko bo požel? Kdo, žito samo sebe? Ha!",
+                "en": "When it has reaped? Who, the grain itself? Ha!",
+                "de": "Wenn es geschnitten hat? Wer, das Getreide sich selbst? Ha!",
+                "it": "Quando avrà mietuto? Chi, il grano da solo? Ah!"
+              }
+            },
+            {
+              "sl": "Zato je letos žito tako lepo. Ko bo požet, ga bova peljala v mlin.",
+              "en": "That's why the grain is so fine this year. Once he's (?) reaped, we'll take it to the mill.",
+              "de": "Darum ist das Getreide heuer so schön. Wenn er (?) geschnitten ist, fahren wir es in die Mühle.",
+              "it": "Per questo quest'anno il grano è così bello. Quando sarà mietuto (lui?), lo portiamo al mulino.",
+              "grammar": "trpnik",
+              "why": {
+                "en": "The participle agrees with what is reaped: žito is neuter, so požeto.",
+                "de": "Das Partizip richtet sich nach dem, was geschnitten wird: žito ist sächlich, also požeto.",
+                "it": "Il participio si accorda con ciò che si miete: žito è neutro, quindi požeto."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Požet? Kdo, jaz? Najprej žito, {learner}.",
+                "en": "Reaped (masculine)? Who, me? The grain first, {learner}.",
+                "de": "Geschnitten, männlich? Wer, ich? Zuerst das Getreide, {learner}.",
+                "it": "Mietuto chi, io? Prima il grano, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "{m:Dober|f:Dobra} si za žetev. Če bi bilo vse leto tako, bi bil jaz najsrečnejši kmet v dolini.",
+          "en": "You're good at harvesting. If the whole year were like this, I'd be the happiest farmer in the valley.",
+          "de": "Du taugst zur Ernte. Wäre das ganze Jahr so, wäre ich der glücklichste Bauer im Tal.",
+          "it": "Sei {m:bravo|f:brava} a mietere. Se tutto l'anno fosse così, sarei il contadino più felice della valle."
+        }
+      ]
+    },
+    {
+      "id": "zetev-b2-pesmi",
+      "level": "B2",
+      "memory": {
+        "sl": "stare žetvene pesmi",
+        "en": "the old harvest songs",
+        "de": "die alten Erntelieder",
+        "it": "le vecchie canzoni della mietitura"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Dober dan, {learner}. Letos je pšenica zlata kot že dolgo ne.",
+          "en": "Good afternoon, {learner}. This year the wheat is as golden as it hasn't been in a long time.",
+          "de": "Guten Tag, {learner}. Heuer ist der Weizen so golden wie schon lange nicht.",
+          "it": "Buongiorno, {learner}. Quest'anno il grano è dorato come non lo era da tempo."
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Veš, včasih je vsa vas žela skupaj, pojoč od jutra do večera. Zdaj sem pa sam.",
+          "en": "You know, the whole village used to reap together, singing from morning till night. Now I'm on my own.",
+          "de": "Weißt du, früher hat das ganze Dorf zusammen geschnitten, singend vom Morgen bis zum Abend. Jetzt bin ich allein.",
+          "it": "Sai, una volta tutto il paese mieteva insieme, cantando dalla mattina alla sera. Adesso sono solo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pojoč? Potem je delo gotovo hitreje minilo.",
+              "en": "Singing? Then the work surely went by faster.",
+              "de": "Singend? Dann ist die Arbeit sicher schneller vergangen.",
+              "it": "Cantando? Allora il lavoro passava di sicuro più in fretta.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Seveda. Pesem je boljša od žganja, je rekel moj oče.",
+                "en": "Of course. A song is better than schnapps, my father used to say.",
+                "de": "Freilich. Ein Lied ist besser als Schnaps, hat mein Vater gesagt.",
+                "it": "Certo. Una canzone è meglio della grappa, diceva mio padre."
+              }
+            },
+            {
+              "sl": "Pojoča? Potem je delo gotovo hitreje minilo.",
+              "en": "Singing (feminine)? Then the work surely went by faster.",
+              "de": "Singend (weiblich)? Dann ist die Arbeit sicher schneller vergangen.",
+              "it": "Cantante? Allora il lavoro passava di sicuro più in fretta.",
+              "grammar": "delezja",
+              "why": {
+                "en": "A gerund (deležje) never changes and never agrees: pojoč, whoever sings, man, woman or a whole village.",
+                "de": "Ein Adverbialpartizip (deležje) ändert sich nie und richtet sich nach nichts: pojoč, wer auch immer singt.",
+                "it": "Un gerundio (deležje) non cambia mai e non si accorda: pojoč, chiunque canti."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Pojoča? Kdo, vas? Hm, ja … ampak tako se ne reče.",
+                "en": "Pojoča? Who, the village? Hm, yes … but that's not how you say it.",
+                "de": "Pojoča? Wer, das Dorf? Hm, ja … aber so sagt man das nicht.",
+                "it": "Pojoča? Chi, il paese? Mm, sì … ma non si dice così."
+              }
+            },
+            {
+              "sl": "Pojoč? Kdo je pa pel, pšenica?",
+              "en": "Singing? Who was singing, the wheat?",
+              "de": "Singend? Wer hat denn gesungen, der Weizen?",
+              "it": "Cantando? E chi cantava, il grano?",
+              "why": {
+                "en": "A gerund's subject is the main verb's: the village reaped and sang, not the wheat.",
+                "de": "Das Subjekt des Adverbialpartizips ist das des Hauptverbs: das Dorf hat geschnitten und gesungen, nicht der Weizen.",
+                "it": "Il soggetto del gerundio è quello del verbo principale: mieteva e cantava il paese, non il grano."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Pšenica? Ha! Ne, ne, ljudje so peli. Jaz tudi.",
+                "en": "The wheat? Ha! No, no, the people sang. Me too.",
+                "de": "Der Weizen? Ha! Nein, nein, die Leute haben gesungen. Ich auch.",
+                "it": "Il grano? Ah! No, no, cantava la gente. Anch'io."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "sad",
+          "sl": "Če bi bil vedel, da bo tako, bi bil takrat zapisal več pesmi. Zdaj se jih spomnim komaj polovice.",
+          "en": "If I had known it would come to this, I would have written down more songs back then. Now I barely remember half of them.",
+          "de": "Hätte ich gewusst, dass es so kommt, hätte ich damals mehr Lieder aufgeschrieben. Jetzt erinnere ich mich kaum an die Hälfte.",
+          "it": "Se avessi saputo che sarebbe finita così, allora avrei scritto più canzoni. Adesso me ne ricordo appena la metà."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Škoda je, seveda, ampak tiste, ki se jih spomnite, zapišite za Tineta.",
+              "en": "It's a pity, of course, but write down the ones you remember for Tine.",
+              "de": "Schade ist es, sicher, aber schreiben Sie die, an die Sie sich erinnern, für Tine auf.",
+              "it": "È un peccato, certo, ma quelle che ricorda le scriva per Tine.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Za Tineta … Ja. Nocoj mu jih zapojem, pa jih zapiše on.",
+                "en": "For Tine … Yes. Tonight I'll sing them to him, and he'll write them down.",
+                "de": "Für Tine … Ja. Heute Abend singe ich sie ihm vor, und er schreibt sie auf.",
+                "it": "Per Tine … Sì. Stasera gliele canto, e le scrive lui."
+              }
+            },
+            {
+              "sl": "Škoda je, seveda, ampak tiste, ki se jih spomnite, zapišite za Tinetom.",
+              "en": "It's a pity, of course, but write down the ones you remember behind Tine.",
+              "de": "Schade ist es, sicher, aber schreiben Sie die, an die Sie sich erinnern, hinter Tine auf.",
+              "it": "È un peccato, certo, ma quelle che ricorda le scriva dietro a Tine.",
+              "grammar": "predlogi-dva-sklona",
+              "why": {
+                "en": "For whom is za + the accusative: za Tineta. Za with the instrumental, za Tinetom, is behind him.",
+                "de": "Für wen heißt za + Akkusativ: za Tineta. Za mit dem Instrumental, za Tinetom, heißt hinter ihm.",
+                "it": "Per chi è za + l'accusativo: za Tineta. Za con lo strumentale, za Tinetom, vuol dire dietro di lui."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Za njim? Naj tečem za njim s pesmarico? Ha!",
+                "en": "Behind him? Shall I run after him with a songbook? Ha!",
+                "de": "Hinter ihm? Soll ich ihm mit dem Liederbuch nachlaufen? Ha!",
+                "it": "Dietro di lui? Devo corrergli dietro col canzoniere? Ah!"
+              }
+            },
+            {
+              "sl": "Res je, škoda. Ampak stare pesmi danes itak nikogar več ne zanimajo.",
+              "en": "True, a pity. But old songs don't interest anyone any more anyway.",
+              "de": "Stimmt, schade. Aber alte Lieder interessieren heute sowieso niemanden mehr.",
+              "it": "È vero, peccato. Ma le vecchie canzoni oggi non interessano più a nessuno comunque.",
+              "why": {
+                "en": "France is sad to have forgotten them: grant it and help, don't wave the songs away.",
+                "de": "France ist traurig, dass er sie vergessen hat: gib ihm recht und hilf, statt die Lieder abzutun.",
+                "it": "France è triste di averle dimenticate: dagli ragione e aiutalo, invece di liquidare le canzoni."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Nikogar? Tine jih poje vsak dan, {learner}!",
+                "en": "Nobody? Tine sings them every day, {learner}!",
+                "de": "Niemanden? Tine singt sie jeden Tag, {learner}!",
+                "it": "A nessuno? Tine le canta ogni giorno, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Tako bo ostala vsaj polovica. Kar je zapisano, ne izgine.",
+          "en": "That way at least half will stay. What's written down doesn't vanish.",
+          "de": "So bleibt wenigstens die Hälfte. Was aufgeschrieben ist, verschwindet nicht.",
+          "it": "Così ne resterà almeno la metà. Quello che è scritto non sparisce."
+        }
+      ]
+    },
+    {
+      "id": "konj-b1-traktor",
+      "level": "B1",
+      "memory": {
+        "sl": "večer, ko sva se odločala o Sivku",
+        "en": "the evening we made up our minds about Sivko",
+        "de": "den Abend, an dem wir über Sivko entschieden haben",
+        "it": "la sera in cui abbiamo deciso di Sivko"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Dober večer, {learner}. Tine bi rad, da kupim traktor. Pravi, da je Sivko prestar za voz.",
+          "en": "Good evening, {learner}. Tine would like me to buy a tractor. He says Sivko is too old for the cart.",
+          "de": "Guten Abend, {learner}. Tine hätte gern, dass ich einen Traktor kaufe. Er sagt, Sivko ist zu alt für den Wagen.",
+          "it": "Buonasera, {learner}. Tine vorrebbe che comprassi un trattore. Dice che Sivko è troppo vecchio per il carro."
+        },
+        {
+          "who": "france",
+          "face": "curious",
+          "sl": "Kaj praviš, naj Sivka prodam?",
+          "en": "What do you say, should I sell Sivko?",
+          "de": "Was meinst du, soll ich Sivko verkaufen?",
+          "it": "Che ne dici, vendo Sivko?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jaz bi ga {m:obdržal|f:obdržala}. Traktor ne more biti prijatelj, Sivko pa je.",
+              "en": "I'd keep him. A tractor can't be a friend, but Sivko is one.",
+              "de": "Ich würde ihn behalten. Ein Traktor kann kein Freund sein, Sivko aber ist einer.",
+              "it": "Io lo terrei. Un trattore non può essere un amico, Sivko invece lo è.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav imaš. Dvajset let sva skupaj. Tega se ne proda.",
+                "en": "You're right. We've been together twenty years. You don't sell that.",
+                "de": "Du hast recht. Zwanzig Jahre sind wir zusammen. So etwas verkauft man nicht.",
+                "it": "Hai ragione. Siamo insieme da vent'anni. Queste cose non si vendono."
+              }
+            },
+            {
+              "sl": "Jaz bi {m:kupil|f:kupila} traktor, Sivko pa bi lahko užival na travniku.",
+              "en": "I'd buy a tractor, and Sivko could enjoy himself in the meadow.",
+              "de": "Ich würde einen Traktor kaufen, und Sivko könnte die Wiese genießen.",
+              "it": "Io comprerei un trattore, e Sivko potrebbe godersi il prato.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Upokojen konj … Ha! To bi mu bilo všeč.",
+                "en": "A retired horse … Ha! He'd like that.",
+                "de": "Ein Pferd in Rente … Ha! Das würde ihm gefallen.",
+                "it": "Un cavallo in pensione … Ah! Gli piacerebbe."
+              }
+            },
+            {
+              "sl": "Jaz bi {m:obdržal|f:obdržala} ga. Traktor ne more biti prijatelj, Sivko pa je.",
+              "en": "I'd keep (word order?) him. A tractor can't be a friend, but Sivko is one.",
+              "de": "Ich würde (Wortstellung?) ihn behalten. Ein Traktor kann kein Freund sein, Sivko aber ist einer.",
+              "it": "Io (ordine?) lo terrei. Un trattore non può essere un amico, Sivko invece lo è.",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words stand together in second place, after the first word: jaz bi ga {m:obdržal|f:obdržala}.",
+                "de": "Die kurzen Wörter stehen zusammen an zweiter Stelle, nach dem ersten Wort: jaz bi ga {m:obdržal|f:obdržala}.",
+                "it": "Le paroline stanno insieme al secondo posto, dopo la prima parola: jaz bi ga {m:obdržal|f:obdržala}."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kako? Počasi, {learner}, moja ušesa so stara kot Sivko.",
+                "en": "What? Slowly, {learner}, my ears are as old as Sivko.",
+                "de": "Wie? Langsam, {learner}, meine Ohren sind so alt wie Sivko.",
+                "it": "Come? Piano, {learner}, le mie orecchie sono vecchie come Sivko."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Sivko zna sam domov, tudi v megli. Traktor tega ne zna.",
+          "en": "Sivko can find his own way home, even in the fog. A tractor can't do that.",
+          "de": "Sivko findet allein nach Hause, auch im Nebel. Ein Traktor kann das nicht.",
+          "it": "Sivko sa tornare a casa da solo, anche nella nebbia. Un trattore non lo sa fare."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Res je. Konj, ki pozna pot, je več vreden kot nov traktor.",
+              "en": "That's true. A horse that knows the way is worth more than a new tractor.",
+              "de": "Das stimmt. Ein Pferd, das den Weg kennt, ist mehr wert als ein neuer Traktor.",
+              "it": "È vero. Un cavallo che conosce la strada vale più di un trattore nuovo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako. Ti razumeš konje, {learner}.",
+                "en": "That's it. You understand horses, {learner}.",
+                "de": "Genau. Du verstehst was von Pferden, {learner}.",
+                "it": "Ecco. Tu i cavalli li capisci, {learner}."
+              }
+            },
+            {
+              "sl": "Res je. Konj, ki ga pozna pot, je več vreden kot nov traktor.",
+              "en": "That's true. A horse whom the way knows is worth more than a new tractor.",
+              "de": "Das stimmt. Ein Pferd, das der Weg kennt, ist mehr wert als ein neuer Traktor.",
+              "it": "È vero. Un cavallo che la strada conosce vale più di un trattore nuovo.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "The horse knows the way, it's the relative clause's subject: ki pozna, with no short word. Ki ga pozna makes the way know him.",
+                "de": "Das Pferd kennt den Weg, es ist das Subjekt des Relativsatzes: ki pozna, ohne kurzes Wort. Ki ga pozna ließe den Weg das Pferd kennen.",
+                "it": "Il cavallo conosce la strada, è il soggetto della relativa: ki pozna, senza parolina. Ki ga pozna farebbe conoscere il cavallo alla strada."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Pot pozna njega? Ha, pot ima pa dobre oči!",
+                "en": "The way knows him? Ha, the way must have good eyes!",
+                "de": "Der Weg kennt ihn? Ha, der Weg hat aber gute Augen!",
+                "it": "La strada conosce lui? Ah, la strada ha buona vista!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Prav. Tinetu bom rekel, naj počaka. Sivko ostane, dokler sam ne reče, da je dovolj.",
+          "en": "Right. I'll tell Tine to wait. Sivko stays until he says himself that it's enough.",
+          "de": "Gut. Ich sage Tine, er soll warten. Sivko bleibt, bis er selbst sagt, dass es genug ist.",
+          "it": "Va bene. Dirò a Tine di aspettare. Sivko resta, finché non dice lui che basta."
+        }
+      ]
+    },
+    {
+      "id": "konj-b2-most",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o tem, kako me je Sivko rešil",
+        "en": "the story of how Sivko saved me",
+        "de": "die Geschichte, wie Sivko mich gerettet hat",
+        "it": "la storia di come Sivko mi ha salvato"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Veš, {learner}, pred leti me je Sivko rešil. Pozimi sem peljal drva čez zaledenel most.",
+          "en": "You know, {learner}, years ago Sivko saved me. In winter I was taking wood over the icy bridge.",
+          "de": "Weißt du, {learner}, vor Jahren hat mich Sivko gerettet. Im Winter fuhr ich Holz über die vereiste Brücke.",
+          "it": "Sai, {learner}, anni fa Sivko mi ha salvato. D'inverno portavo la legna sul ponte ghiacciato."
+        },
+        {
+          "who": "france",
+          "face": "worried",
+          "sl": "Na sredini je Sivko nenadoma obstal. Nisem vedel, da je bila ograja že popustila.",
+          "en": "In the middle Sivko suddenly stopped. I didn't know the railing had already given way.",
+          "de": "In der Mitte blieb Sivko plötzlich stehen. Ich wusste nicht, dass das Geländer schon nachgegeben hatte.",
+          "it": "A metà Sivko si fermò di colpo. Non sapevo che il parapetto aveva già ceduto."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če ne bi bil obstal, bi bila oba padla v potok, kajne?",
+              "en": "If he hadn't stopped, you'd both have fallen into the stream, wouldn't you?",
+              "de": "Wäre er nicht stehen geblieben, wärt ihr beide in den Bach gestürzt, oder?",
+              "it": "Se non si fosse fermato, sareste caduti tutti e due nel ruscello, vero?",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "sl": "Oba. Z vozom in drvmi vred. Sreča v nesreči, pravimo.",
+                "en": "Both of us. Cart, wood and all. Luck in misfortune, as we say.",
+                "de": "Wir beide. Samt Wagen und Holz. Glück im Unglück, sagen wir.",
+                "it": "Tutti e due. Con carro e legna. Fortuna nella sfortuna, diciamo."
+              }
+            },
+            {
+              "sl": "Če ne bi bil obstal, bi bili oba padli v potok, kajne?",
+              "en": "If he hadn't stopped, you (plural) would both have fallen into the stream, wouldn't you?",
+              "de": "Wäre er nicht stehen geblieben, wärt ihr (Plural) beide in den Bach gestürzt, oder?",
+              "it": "Se non si fosse fermato, sareste (plurale) caduti tutti e due nel ruscello, vero?",
+              "grammar": "dvojina",
+              "why": {
+                "en": "Oba (both of them) is two: the dual, bi bila … padla, not the plural.",
+                "de": "Oba (beide) sind zwei: der Dual, bi bila … padla, nicht der Plural.",
+                "it": "Oba (tutti e due) sono due: il duale, bi bila … padla, non il plurale."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bili? Kdo še? Samo jaz in Sivko, {learner}.",
+                "en": "Bili? Who else? Only me and Sivko, {learner}.",
+                "de": "Bili? Wer noch? Nur ich und Sivko, {learner}.",
+                "it": "Bili? Chi altro? Solo io e Sivko, {learner}."
+              }
+            },
+            {
+              "sl": "Če ne bi bil obstal, bi bil most danes nov, kajne?",
+              "en": "If he hadn't stopped, the bridge would be new today, wouldn't it?",
+              "de": "Wäre er nicht stehen geblieben, wäre die Brücke heute neu, oder?",
+              "it": "Se non si fosse fermato, oggi il ponte sarebbe nuovo, vero?",
+              "why": {
+                "en": "France means the danger: without Sivko's stop, he and the horse would have fallen.",
+                "de": "France meint die Gefahr: ohne Sivkos Halt wären er und das Pferd gestürzt.",
+                "it": "France parla del pericolo: senza la fermata di Sivko, lui e il cavallo sarebbero caduti."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Nov most? Ne, ne, mene bi bilo konec, {learner}!",
+                "en": "A new bridge? No, no, I'd have been done for, {learner}!",
+                "de": "Eine neue Brücke? Nein, nein, mit mir wäre es aus gewesen, {learner}!",
+                "it": "Un ponte nuovo? No, no, per me sarebbe stata la fine, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Od takrat mu verjamem bolj kot sebi. Kadar Sivko noče naprej, ne grem niti jaz.",
+          "en": "Since then I trust him more than myself. When Sivko won't go on, I don't either.",
+          "de": "Seitdem vertraue ich ihm mehr als mir selbst. Wenn Sivko nicht weiter will, gehe ich auch nicht.",
+          "it": "Da allora mi fido di lui più che di me stesso. Quando Sivko non vuole andare avanti, non ci vado neanch'io."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pametno. Živali začutijo nevarnost veliko prej kot mi.",
+              "en": "Wise. Animals sense danger much earlier than we do.",
+              "de": "Klug. Tiere spüren Gefahr viel früher als wir.",
+              "it": "Saggio. Gli animali sentono il pericolo molto prima di noi.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ja. Sivko ima pamet v nogah, jaz pa v glavi. Skupaj sva cel človek.",
+                "en": "Yes. Sivko has his brains in his legs, and I in my head. Together we make one whole person.",
+                "de": "Ja. Sivko hat den Verstand in den Beinen, ich im Kopf. Zusammen sind wir ein ganzer Mensch.",
+                "it": "Sì. Sivko ha il cervello nelle gambe, io nella testa. Insieme facciamo una persona intera."
+              }
+            },
+            {
+              "sl": "Pametno. Živali začutijo nevarnost veliko bolj prej kot mi.",
+              "en": "Wise. Animals sense danger much more earlier than we do.",
+              "de": "Klug. Tiere spüren Gefahr viel mehr früher als wir.",
+              "it": "Saggio. Gli animali sentono il pericolo molto più prima di noi.",
+              "grammar": "stopnjevanje",
+              "why": {
+                "en": "Prej is already a comparative (earlier, of zgodaj): veliko prej. Bolj goes with words that have no comparative of their own.",
+                "de": "Prej ist schon ein Komparativ (früher, zu zgodaj): veliko prej. Bolj steht nur bei Wörtern ohne eigene Steigerung.",
+                "it": "Prej è già un comparativo (prima, di zgodaj): veliko prej. Bolj va solo con le parole senza un comparativo proprio."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bolj prej? Ha, še Sivko ve, da se tako ne reče.",
+                "en": "More earlier? Ha, even Sivko knows that's not how you say it.",
+                "de": "Mehr früher? Ha, sogar Sivko weiß, dass man das nicht sagt.",
+                "it": "Più prima? Ah, perfino Sivko sa che non si dice."
+              }
+            },
+            {
+              "sl": "Pametno. Zato bi moral Sivka čim prej prodati.",
+              "en": "Wise. That's why you ought to sell Sivko as soon as possible.",
+              "de": "Klug. Deshalb solltest du Sivko so bald wie möglich verkaufen.",
+              "it": "Saggio. Per questo dovresti vendere Sivko al più presto.",
+              "why": {
+                "en": "France trusts Sivko more for what he did: it's a reason to keep him, not to sell him.",
+                "de": "France vertraut Sivko wegen dieser Sache umso mehr: das ist ein Grund, ihn zu behalten, nicht zu verkaufen.",
+                "it": "France si fida di Sivko proprio per questo: è un motivo per tenerlo, non per venderlo."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Prodati? Ker me je rešil? Kakšna logika je pa to?",
+                "en": "Sell him? Because he saved me? What kind of logic is that?",
+                "de": "Verkaufen? Weil er mich gerettet hat? Was ist denn das für eine Logik?",
+                "it": "Venderlo? Perché mi ha salvato? Che logica è questa?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Zdaj pa ga peljiva v hlev. Danes si je zaslužil dvojno porcijo ovsa.",
+          "en": "Now let's take him to the stable. Today he's earned a double helping of oats.",
+          "de": "Jetzt bringen wir ihn in den Stall. Heute hat er sich eine doppelte Portion Hafer verdient.",
+          "it": "Adesso portiamolo nella stalla. Oggi si è guadagnato una doppia razione d'avena."
+        }
       ]
     }
   ]

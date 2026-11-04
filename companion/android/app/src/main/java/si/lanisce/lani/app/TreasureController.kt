@@ -85,7 +85,9 @@ class TreasureController(
         val named = LevelReadiness.named(scenes(), exercises(), drills())
         // a level the treasure just brought began the day it was found, whatever the node says yet
         val found = game.state?.treasure?.takeIf { it.found.isNotEmpty() && it.to == lv }?.found?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
-        val since = listOfNotNull(d.levelSince, found).maxOrNull()
+        // … and so did a level the placement test raised it to (game/LevelPlacement), until the node has it
+        val placed = game.state?.course?.placements?.get(language)?.takeIf { !it.confirmed && it.level == lv }?.day?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+        val since = listOfNotNull(d.levelSince, found, placed).maxOrNull()
         return LevelReadiness.of(lv, grammar.pages, named, grammar::mastery, d.reviewMarks, d.practised, since, today)
     }
 

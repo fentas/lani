@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "razgovor-za-sluzbo",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Razgovor za službo", "en": "A job interview", "de": "Ein Vorstellungsgespräch", "it": "Un colloquio di lavoro" },
+  "emoji": "💼",
+  "level": "B2",
+  "setting": {
+    "en": "A wine cellar in the Vipava valley is looking for someone to lead tastings and tours for guests from abroad. You sent your CV and have been invited to an interview with the head of sales.",
+    "de": "Eine Weinkellerei im Vipava-Tal sucht jemanden, der Verkostungen und Führungen für Gäste aus dem Ausland leitet. Du hast deinen Lebenslauf geschickt und bist zu einem Gespräch mit dem Verkaufsleiter eingeladen.",
+    "it": "Una cantina della valle del Vipacco cerca qualcuno che guidi degustazioni e visite per gli ospiti stranieri. Hai mandato il curriculum e ti hanno invitato a un colloquio con il responsabile vendite."
+  },
+  "role": "Gospod Aleš, head of sales at a wine cellar in the Vipava valley, interviewing {learner} for a job leading tastings for foreign guests. Professional and friendly, asks open questions: experience, why this job, a difficult case and how it was solved, strengths, a weakness. Says vi.",
+  "who": { "sl": "Vodja prodaje v vinski kleti", "en": "The head of sales at the wine cellar", "de": "Der Verkaufsleiter der Weinkellerei", "it": "Il responsabile vendite della cantina" },
+  "voice": "male",
+  "place": "kitchen",
+  "goals": [
+    { "sl": "Predstavi se in povej o svojih izkušnjah", "en": "Introduce yourself and talk about your experience", "de": "Stell dich vor und erzähl von deiner Erfahrung", "it": "Presentati e parla della tua esperienza" },
+    { "sl": "Pojasni, zakaj te to delo zanima", "en": "Explain why this job interests you", "de": "Erklär, warum dich die Stelle interessiert", "it": "Spiega perché ti interessa questo lavoro" },
+    { "sl": "Opiši težaven primer in kako si ga {m:rešil|f:rešila}", "en": "Describe a difficult case and how you solved it", "de": "Beschreib einen schwierigen Fall und wie du ihn gelöst hast", "it": "Descrivi un caso difficile e come l'hai risolto" },
+    { "sl": "Povej svoje prednosti in eno slabost", "en": "Name your strengths and one weakness", "de": "Nenne deine Stärken und eine Schwäche", "it": "Di' i tuoi punti di forza e una debolezza" },
+    { "sl": "Vprašaj o pogojih dela", "en": "Ask about the terms of the job", "de": "Frag nach den Arbeitsbedingungen", "it": "Chiedi delle condizioni di lavoro" }
+  ],
+  "opener_sl": "Dober dan, lepo, da ste prišli. Vaš življenjepis sem že prebral. Mi lahko za začetek poveste kaj o sebi?",
+  "opener_en": {
+    "en": "Good morning, thank you for coming. I've already read your CV. To start with, could you tell me a little about yourself?",
+    "de": "Guten Tag, schön, dass Sie gekommen sind. Ihren Lebenslauf habe ich schon gelesen. Können Sie mir zuerst etwas über sich erzählen?",
+    "it": "Buongiorno, grazie di essere {m:venuto|f:venuta}. Ho già letto il suo curriculum. Per cominciare, mi racconta qualcosa di sé?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Pet let sem {m:delal|f:delala} v turizmu.", "en": { "en": "I worked in tourism for five years.", "de": "Ich habe fünf Jahre im Tourismus gearbeitet.", "it": "Ho lavorato cinque anni nel turismo." } },
+    { "sl": "{m:Rad|f:Rada} delam z ljudmi, posebej s tujimi gosti.", "en": { "en": "I like working with people, especially guests from abroad.", "de": "Ich arbeite gern mit Menschen, besonders mit ausländischen Gästen.", "it": "Mi piace lavorare con la gente, soprattutto con gli ospiti stranieri." } },
+    { "sl": "Vino me zanima že dolgo, {m:opravil|f:opravila} sem tudi tečaj.", "en": { "en": "I've been interested in wine for a long time; I've done a course too.", "de": "Wein interessiert mich schon lange, ich habe auch einen Kurs gemacht.", "it": "Il vino mi interessa da tempo, ho fatto anche un corso." } },
+    { "sl": "Nekoč je skupina zamudila dve uri, pa sem program {m:prilagodil|f:prilagodila}.", "en": { "en": "Once a group was two hours late, so I changed the programme.", "de": "Einmal kam eine Gruppe zwei Stunden zu spät, da habe ich das Programm angepasst.", "it": "Una volta un gruppo era in ritardo di due ore e ho adattato il programma." } },
+    { "sl": "Moja prednost je, da ostanem {m:miren|f:mirna} tudi pod pritiskom.", "en": { "en": "My strength is that I stay calm even under pressure.", "de": "Meine Stärke ist, dass ich auch unter Druck ruhig bleibe.", "it": "Il mio punto di forza è che resto {m:calmo|f:calma} anche sotto pressione." } },
+    { "sl": "Včasih sem {m:preveč natančen|f:preveč natančna}, a se tega zavedam.", "en": { "en": "Sometimes I'm too exacting, but I know it.", "de": "Manchmal bin ich zu genau, aber das ist mir bewusst.", "it": "A volte sono {m:troppo pignolo|f:troppo pignola}, ma lo so." } },
+    { "sl": "Kako bi bil videti običajen delovni dan?", "en": { "en": "What would a normal working day look like?", "de": "Wie würde ein normaler Arbeitstag aussehen?", "it": "Come sarebbe una normale giornata di lavoro?" } },
+    { "sl": "Je zaposlitev za nedoločen ali za določen čas?", "en": { "en": "Is the job permanent or for a fixed term?", "de": "Ist die Stelle unbefristet oder befristet?", "it": "Il contratto è a tempo indeterminato o determinato?" } },
+    { "sl": "Kdaj se boste odločili?", "en": { "en": "When will you decide?", "de": "Wann werden Sie sich entscheiden?", "it": "Quando prenderete una decisione?" } }
+  ],
+  "packs": ["delo-in-pisarna", "v-kleti", "cas-in-koledar", "glagoli-vsak-dan", "kariera", "turizem"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

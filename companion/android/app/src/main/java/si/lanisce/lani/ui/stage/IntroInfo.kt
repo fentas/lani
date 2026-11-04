@@ -337,7 +337,8 @@ object Intros {
         is Exercise.Free -> bi("introInfo.writing")
         is Exercise.Multi -> bi("introInfo.pickAll")
         is Exercise.Scenario -> bi("introInfo.scene")
-        is Exercise.Speak -> bi("introInfo.speaking")
+        is Exercise.Speak, is Exercise.Speaking -> bi("introInfo.speaking")
+        is Exercise.Writing -> bi("introInfo.writing")
         is Exercise.Unsupported -> null
         is Exercise.GapText -> bi("introInfo.gapText")
         is Exercise.Table -> bi("introInfo.table")

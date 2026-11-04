@@ -5,7 +5,7 @@
   "title": { "it": "Dai pompieri", "sl": "V gasilskem domu", "en": "At the fire station", "de": "Bei der Feuerwehr" },
   "emoji": "🚒",
   "level": "A1",
-  "review": "lines, reactions, variants (it, sl, en, de): machine-written, not reviewed by a native speaker; check: il tubo, la prova, Santa Barbara on 4 December, the 112",
+  "review": "lines, reactions, variants (it, sl, en, de): machine-written, not reviewed by a native speaker; check: il tubo, la prova, Santa Barbara on 4 December, the 112; B1, B2 variants too",
   "art": "firestation",
   "from": ["project:gasilski_dom"],
   "pack": "dai-pompieri",
@@ -66,7 +66,7 @@
       "when": ["morning"],
       "chance": 0.45,
       "dialog": "tubi",
-      "dialogs": ["tubi-conto", "tubi"],
+      "dialogs": ["tubi-b2-quaderno", "tubi-b1-toppa", "tubi-conto", "tubi"],
       "reward": { "stone": 15},
       "marker": "🧯",
       "memory": { "it": "i tubi che abbiamo controllato insieme", "sl": "cevi, ki sva jih skupaj pregledala", "en": "the hoses we checked together", "de": "die Schläuche, die wir zusammen geprüft haben" }
@@ -91,7 +91,7 @@
       "when": ["evening"],
       "chance": 0.45,
       "dialog": "sera",
-      "dialogs": ["sera-corno", "sera"],
+      "dialogs": ["sera-b2-secchi", "sera-b1-elmo", "sera-corno", "sera"],
       "reward": { "wisdom": 15},
       "marker": "🏮",
       "memory": { "it": "la sera in cui abbiamo chiuso il portone", "sl": "večer, ko sva zaprla velika vrata", "en": "the evening we shut the big gate", "de": "den Abend, an dem wir das große Tor geschlossen haben" }
@@ -1084,6 +1084,105 @@
           "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
         },
         { "who": "tommaso", "face": "proud", "it": "Adesso lo sai anche tu. Siamo una squadra!", "sl": "Zdaj to veš tudi ti. Sva ekipa!", "en": "Now you know it too. We're a team!", "de": "Jetzt weißt du es auch. Wir sind ein Team!" }
+      ]
+    },
+    {
+      "id": "tubi-b1-toppa",
+      "level": "B1",
+      "memory": { "it": "la toppa sul tubo rosso", "sl": "krpo na rdeči cevi", "en": "the patch on the red hose", "de": "der Flicken auf dem roten Schlauch" },
+      "lines": [
+        { "who": "bruno", "it": "{learner}. Guarda questo tubo. Ieri aveva un buco. L'ho riparato io, con una toppa di gomma.", "sl": "{learner}. Poglej to cev. Včeraj je imela luknjo. Popravil sem jo jaz, z gumijasto krpo.", "en": "{learner}. Look at this hose. Yesterday it had a hole. I mended it, with a rubber patch.", "de": "{learner}. Schau dir diesen Schlauch an. Gestern hatte er ein Loch. Ich hab ihn geflickt, mit einem Gummiflicken." },
+        { "choices": [
+          { "it": "Quindi è stato riparato da Lei, signor Bruno?", "sl": "Torej ste jo popravili vi, gospod Bruno?", "en": "So it was mended by you, Signor Bruno?", "de": "Er wurde also von Ihnen geflickt, Herr Bruno?", "ok": true,
+            "reply": { "face": "proud", "it": "Sì. Da me. E tiene. Guarda il tubo: nemmeno una goccia.", "sl": "Ja. Od mene. In drži. Poglej cev: niti kaplje.", "en": "Yes. By me. And it holds. Look at the hose: not a single drop.", "de": "Ja. Von mir. Und er hält. Schau den Schlauch an: kein einziger Tropfen." } },
+          { "it": "Quindi è stato riparato di Lei, signor Bruno?", "sl": "Torej ste jo popravili vi, gospod Bruno?", "en": "So it was mended by you, Signor Bruno?", "de": "Er wurde also von Ihnen geflickt, Herr Bruno?",
+            "grammar": "passivo", "why": { "sl": "Kdo je to naredil, pove da: è stato riparato da Lei.", "en": "Who did it comes after da: è stato riparato da Lei.", "de": "Wer es getan hat, steht nach da: è stato riparato da Lei." },
+            "reply": { "face": "cross", "it": "Di me? Il tubo non è mio. È dei pompieri. Io l'ho solo aggiustato.", "sl": "Di me? Cev ni moja. Od gasilcev je. Jaz sem jo samo popravil.", "en": "Di me? The hose isn't mine. It's the firefighters'. I only fixed it.", "de": "Di me? Der Schlauch gehört nicht mir. Er gehört der Feuerwehr. Ich hab ihn nur geflickt." } }
+        ] },
+        { "who": "bruno", "it": "Adesso il tubo va attaccato alla pompa. Quella rossa, vicino al portone.", "sl": "Zdaj je treba cev priklopiti na črpalko. Na tisto rdečo, pri vratih.", "en": "Now the hose has to be fixed to the pump. The red one, by the big door.", "de": "Jetzt muss der Schlauch an die Pumpe. Die rote, beim Tor." },
+        { "choices": [
+          { "it": "È la pompa con cui fate la prova d'estate?", "sl": "Je to črpalka, s katero imate poleti vajo?", "en": "Is that the pump you do the drill with in summer?", "de": "Ist das die Pumpe, mit der ihr im Sommer die Übung macht?", "ok": true,
+            "reply": { "face": "happy", "it": "Sì. Con quella. Ogni estate, tutti in piazza.", "sl": "Ja. S tisto. Vsako poletje, vsi na trgu.", "en": "Yes. That one. Every summer, everyone on the square.", "de": "Ja. Mit der. Jeden Sommer, alle auf dem Platz." } },
+          { "it": "È la pompa con che fate la prova d'estate?", "sl": "Je to črpalka, s katero imate poleti vajo?", "en": "Is that the pump you do the drill with in summer?", "de": "Ist das die Pumpe, mit der ihr im Sommer die Übung macht?",
+            "grammar": "relativi-cui", "why": { "sl": "Za predlogom ni che, ampak cui: con cui (s katero).", "en": "After a preposition it isn't che but cui: con cui.", "de": "Nach einer Präposition steht nicht che, sondern cui: con cui." },
+            "reply": { "face": "cross", "it": "Con che…? Con che cosa? Frase a metà. Di nuovo.", "sl": "Con che …? S čim? Pol stavka. Še enkrat.", "en": "Con che…? With what? Half a sentence. Again.", "de": "Con che …? Womit? Ein halber Satz. Nochmal." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Tubo riparato, pompa pronta. O è giusto, o non è giusto. Questo è giusto.", "sl": "Dobro. Cev popravljena, črpalka pripravljena. Ali je prav ali ni prav. To je prav.", "en": "Good. Hose mended, pump ready. Either it's right, or it isn't. This is right.", "de": "Gut. Schlauch geflickt, Pumpe bereit. Entweder es stimmt, oder es stimmt nicht. Das stimmt." }
+      ]
+    },
+    {
+      "id": "tubi-b2-quaderno",
+      "level": "B2",
+      "memory": { "it": "il quaderno dei controlli", "sl": "zvezek pregledov", "en": "the notebook of the checks", "de": "das Heft der Kontrollen" },
+      "lines": [
+        { "who": "bruno", "it": "Ogni tubo va controllato metro per metro. Un buco piccolo oggi diventa un problema grande domani.", "sl": "Vsako cev je treba pregledati meter za metrom. Majhna luknja danes je jutri velika težava.", "en": "Every hose must be checked metre by metre. A small hole today becomes a big problem tomorrow.", "de": "Jeder Schlauch muss Meter für Meter geprüft werden. Ein kleines Loch heute wird morgen ein großes Problem." },
+        { "who": "bruno", "face": "thinking", "it": "L'anno scorso, a Cormòns, un tubo si è rotto durante la prova. Se l'avessero controllato prima, non sarebbe successo. Nessuno si è fatto male. Ma che figura.", "sl": "Lani se je v Krminu med vajo počila cev. Če bi jo bili prej pregledali, se to ne bi zgodilo. Nihče se ni poškodoval. Ampak kakšna sramota.", "en": "Last year, in Cormòns, a hose burst during the drill. If they'd checked it beforehand, it wouldn't have happened. Nobody was hurt. But how embarrassing.", "de": "Letztes Jahr ist in Cormòns bei der Übung ein Schlauch geplatzt. Hätte man ihn vorher geprüft, wäre das nicht passiert. Keiner wurde verletzt. Aber wie peinlich." },
+        { "choices": [
+          { "it": "Dopo aver controllato tutti i tubi, li arrotoliamo di nuovo?", "sl": "Ko pregledamo vse cevi, jih spet zvijemo?", "en": "After checking all the hoses, do we roll them up again?", "de": "Wenn wir alle Schläuche geprüft haben, rollen wir sie wieder auf?", "ok": true,
+            "reply": { "face": "happy", "it": "Sì. Arrotolati bene, sempre dalla stessa parte. Come la polenta di Rosa.", "sl": "Ja. Lepo zviti, vedno v isto smer. Kot Rosina polenta.", "en": "Yes. Rolled up neatly, always the same way. Like Rosa's polenta.", "de": "Ja. Ordentlich aufgerollt, immer in dieselbe Richtung. Wie Rosas Polenta." } },
+          { "it": "Dopo essere controllato tutti i tubi, li arrotoliamo di nuovo?", "sl": "Ko pregledamo vse cevi, jih spet zvijemo?", "en": "After checking all the hoses, do we roll them up again?", "de": "Wenn wir alle Schläuche geprüft haben, rollen wir sie wieder auf?",
+            "grammar": "infinito-passato", "why": { "sl": "Controllare ima avere: ho controllato, zato dopo aver controllato.", "en": "Controllare takes avere: ho controllato, so dopo aver controllato.", "de": "Controllare bildet mit avere: ho controllato, also dopo aver controllato." },
+            "reply": { "face": "cross", "it": "Essere controllato? Tu? No. I tubi, li controlliamo noi. Di nuovo.", "sl": "Essere controllato? Ti? Ne. Cevi pregledujemo mi. Še enkrat.", "en": "Essere controllato? You? No. The hoses, we check them. Again.", "de": "Essere controllato? Du? Nein. Die Schläuche prüfen wir. Nochmal." } }
+        ] },
+        { "who": "bruno", "it": "Tu sei {m:attento|f:attenta}. Davide cerca qualcuno che tenga il quaderno dei controlli. Ci scrive solo lui, e scrive male.", "sl": "Ti si {m:pazljiv|f:pazljiva}. Davide išče nekoga, ki bi vodil zvezek pregledov. Piše vanj samo on, in piše slabo.", "en": "You're careful. Davide is looking for someone to keep the notebook of the checks. Only he writes in it, and he writes badly.", "de": "Du bist sorgfältig. Davide sucht jemanden, der das Kontrollheft führt. Nur er schreibt hinein, und er schreibt schlecht." },
+        { "choices": [
+          { "it": "Allora potrei scriverci io le date dei controlli, come faccio per i Suoi ordini.", "sl": "Potem bi lahko jaz vanj {m:pisal|f:pisala} datume pregledov, kot to delam za vaša naročila.", "en": "Then I could write the dates of the checks in it, as I do for your orders.", "de": "Dann könnte ich die Daten der Kontrollen hineinschreiben, wie ich es für Ihre Bestellungen mache.", "ok": true,
+            "reply": { "face": "proud", "it": "Giusto. Tu scrivi, io controllo. Squadra perfetta.", "sl": "Prav. Ti pišeš, jaz pregledujem. Popolna ekipa.", "en": "Right. You write, I check. Perfect team.", "de": "Richtig. Du schreibst, ich prüfe. Perfektes Team." } },
+          { "it": "Allora Davide non vuole più fare i controlli?", "sl": "Potem Davide noče več delati pregledov?", "en": "So Davide doesn't want to do the checks any more?", "de": "Dann will Davide keine Kontrollen mehr machen?",
+            "why": { "sl": "Davide išče nekoga, ki bi pisal v zvezek; preglede še naprej delata on in Bruno.", "en": "Davide is looking for someone to write in the notebook; he and Bruno still do the checks.", "de": "Davide sucht jemanden, der ins Heft schreibt; die Kontrollen machen er und Bruno weiter." },
+            "reply": { "face": "cross", "it": "Non vuole? No. Vuole solo qualcuno che scriva bene. Ascolta.", "sl": "Noče? Ne. Hoče samo nekoga, ki lepo piše. Poslušaj.", "en": "Doesn't want to? No. He just wants someone who writes well. Listen.", "de": "Will nicht? Nein. Er will nur jemanden, der gut schreibt. Hör zu." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Il primo controllo lo segniamo oggi. Data, tubo, firma. Nessun errore.", "sl": "Dobro. Prvi pregled zapišemo danes. Datum, cev, podpis. Brez napake.", "en": "Good. We'll note the first check today. Date, hose, signature. No mistakes.", "de": "Gut. Die erste Kontrolle tragen wir heute ein. Datum, Schlauch, Unterschrift. Kein Fehler." }
+      ]
+    },
+    {
+      "id": "sera-b1-elmo",
+      "level": "B1",
+      "memory": { "it": "l'elmo che era sparito", "sl": "čelado, ki je izginila", "en": "the helmet that had gone missing", "de": "der Helm, der verschwunden war" },
+      "lines": [
+        { "who": "franco", "it": "Buonasera, {learner}. Prima di chiudere, conto gli elmi. Dieci elmi, dieci pompieri.", "sl": "Dober večer, {learner}. Preden zaprem, preštejem čelade. Deset čelad, deset gasilcev.", "en": "Good evening, {learner}. Before I shut up, I count the helmets. Ten helmets, ten firefighters.", "de": "Guten Abend, {learner}. Bevor ich zusperre, zähle ich die Helme. Zehn Helme, zehn Feuerwehrleute." },
+        { "who": "franco", "face": "surprised", "it": "Nove? Uno è sparito! Chi l'avrà preso, secondo te?", "sl": "Devet? Ena je izginila! Kdo jo je neki vzel, kaj misliš?", "en": "Nine? One's gone! Who can have taken it, do you think?", "de": "Neun? Einer ist weg! Wer hat ihn wohl genommen, meinst du?" },
+        { "choices": [
+          { "it": "L'avrà preso Tommaso per giocare: lui vuole sempre fare il pompiere!", "sl": "Najbrž jo je vzel Tommaso za igro: on bi bil vedno rad gasilec!", "en": "Tommaso will have taken it to play with: he always wants to be a firefighter!", "de": "Den wird Tommaso zum Spielen genommen haben: Er will immer Feuerwehrmann sein!", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah, Tommaso! Con l'elmo sulla testa sembra un fungo.", "sl": "Ah, Tommaso! S čelado na glavi je videti kot goba.", "en": "Ah, Tommaso! With the helmet on his head he looks like a mushroom.", "de": "Ah, Tommaso! Mit dem Helm auf dem Kopf sieht er aus wie ein Pilz." } },
+          { "it": "L'avrà presa Tommaso per giocare: lui vuole sempre fare il pompiere!", "sl": "Najbrž jo je vzel Tommaso za igro: on bi bil vedno rad gasilec!", "en": "Tommaso will have taken it to play with: he always wants to be a firefighter!", "de": "Den wird Tommaso zum Spielen genommen haben: Er will immer Feuerwehrmann sein!",
+            "grammar": "futuro-anteriore", "why": { "sl": "L'elmo je moškega spola: l'avrà preso.", "en": "L'elmo is masculine: l'avrà preso.", "de": "L'elmo ist männlich: l'avrà preso." },
+            "reply": { "face": "confused", "it": "Presa? Chi, la lanterna? No, no, io cerco l'elmo!", "sl": "Presa? Kaj, svetilko? Ne, ne, jaz iščem čelado!", "en": "Presa? What, the lantern? No, no, I'm looking for the helmet!", "de": "Presa? Was, die Laterne? Nein, nein, ich suche den Helm!" } }
+        ] },
+        { "who": "franco", "it": "Domani glielo chiedo. Tu intanto mi aiuti a cercarlo?", "sl": "Jutri ga vprašam. Mi medtem pomagaš iskati?", "en": "Tomorrow I'll ask him. Meanwhile, will you help me look for it?", "de": "Morgen frag ich ihn. Hilfst du mir inzwischen beim Suchen?" },
+        { "choices": [
+          { "it": "Va bene, signor Franco. Comincio a cercarlo domattina, prima della scuola.", "sl": "Prav, gospod Franco. Začnem jo iskati jutri zjutraj, pred šolo.", "en": "All right, Signor Franco. I'll start looking for it tomorrow morning, before school.", "de": "In Ordnung, Herr Franco. Ich fang morgen früh an, ihn zu suchen, vor der Schule.", "ok": true,
+            "reply": { "face": "happy", "it": "{m:Bravo|f:Brava}. Così domani i conti tornano: dieci elmi.", "sl": "{m:Priden|f:Pridna}. Tako se jutri številke ujemajo: deset čelad.", "en": "Good. Then tomorrow the numbers add up: ten helmets.", "de": "Gut. Dann stimmt morgen die Rechnung: zehn Helme." } },
+          { "it": "Va bene, signor Franco. Comincio di cercarlo domattina, prima della scuola.", "sl": "Prav, gospod Franco. Začnem jo iskati jutri zjutraj, pred šolo.", "en": "All right, Signor Franco. I'll start looking for it tomorrow morning, before school.", "de": "In Ordnung, Herr Franco. Ich fang morgen früh an, ihn zu suchen, vor der Schule.",
+            "grammar": "infinito-preposizioni", "why": { "sl": "Cominciare gre z a: comincio a cercare.", "en": "Cominciare takes a: comincio a cercare.", "de": "Cominciare steht mit a: comincio a cercare." },
+            "reply": { "face": "curious", "it": "Comincio di…? Mmm, Lorenzo conta meglio, e parla meglio! Riprova.", "sl": "Comincio di …? Hm, Lorenzo bolje šteje in bolje govori! Še enkrat.", "en": "Comincio di…? Hmm, Lorenzo counts better, and talks better! Try again.", "de": "Comincio di …? Hm, Lorenzo zählt besser und redet besser! Nochmal." } }
+        ] },
+        { "who": "franco", "face": "happy", "it": "Nove elmi più uno, dieci. Il pompiere più piccolo del paese lo restituirà, ne sono sicuro. Buonanotte, {learner}.", "sl": "Devet čelad in še ena, deset. Najmanjši gasilec v vasi jo bo vrnil, prepričan sem. Lahko noč, {learner}.", "en": "Nine helmets plus one, ten. The village's littlest firefighter will give it back, I'm sure. Good night, {learner}.", "de": "Neun Helme plus einer, zehn. Der kleinste Feuerwehrmann im Dorf gibt ihn zurück, da bin ich sicher. Gute Nacht, {learner}." }
+      ]
+    },
+    {
+      "id": "sera-b2-secchi",
+      "level": "B2",
+      "memory": { "it": "la catena dei secchi di una volta", "sl": "verigo veder iz starih časov", "en": "the bucket chain of the old days", "de": "die Eimerkette von früher" },
+      "lines": [
+        { "who": "franco", "face": "thinking", "it": "Quando ero giovane, qui non c'era la caserma. Per un fuoco nel fienile di Toni, tutto il paese fece la catena dei secchi.", "sl": "Ko sem bil mlad, tu ni bilo gasilskega doma. Ko je gorelo v Tonijevem seniku, je vsa vas naredila verigo veder.", "en": "When I was young, there was no fire station here. For a fire in Toni's barn, the whole village made a bucket chain.", "de": "Als ich jung war, gab es hier kein Feuerwehrhaus. Bei einem Feuer in Tonis Scheune bildete das ganze Dorf eine Eimerkette." },
+        { "who": "franco", "it": "Passati i secchi di mano in mano, dal ruscello al fienile, alla fine il fuoco si spense. Nessuno si fece male, per fortuna.", "sl": "Vedra so šla iz rok v roke, od potoka do senika, in na koncu je ogenj ugasnil. Nihče se ni poškodoval, na srečo.", "en": "With the buckets passed from hand to hand, from the stream to the barn, in the end the fire went out. Nobody was hurt, luckily.", "de": "Die Eimer gingen von Hand zu Hand, vom Bach zur Scheune, und am Ende war das Feuer aus. Zum Glück wurde niemand verletzt." },
+        { "choices": [
+          { "it": "Quindi, se ci fosse stata la pompa, avreste fatto prima?", "sl": "Torej bi bili hitrejši, če bi bila že črpalka?", "en": "So if there'd been the pump, you'd have been quicker?", "de": "Also, wenn es die Pumpe gegeben hätte, wärt ihr schneller gewesen?", "ok": true,
+            "reply": { "face": "thinking", "it": "Molto prima. Con la pompa, oggi, in dieci minuti è tutto finito.", "sl": "Veliko hitrejši. S črpalko je danes v desetih minutah vse končano.", "en": "Much quicker. With the pump, today, it's all over in ten minutes.", "de": "Viel schneller. Mit der Pumpe ist heute in zehn Minuten alles vorbei." } },
+          { "it": "Quindi, se ci avesse stata la pompa, avreste fatto prima?", "sl": "Torej bi bili hitrejši, če bi bila že črpalka?", "en": "So if there'd been the pump, you'd have been quicker?", "de": "Also, wenn es die Pumpe gegeben hätte, wärt ihr schneller gewesen?",
+            "grammar": "congiuntivo-trapassato", "why": { "sl": "Esserci ima essere: c'è stata, zato se ci fosse stata.", "en": "Esserci takes essere: c'è stata, so se ci fosse stata.", "de": "Esserci bildet mit essere: c'è stata, also se ci fosse stata." },
+            "reply": { "face": "curious", "it": "Ci avesse stata? Mmm, nel mio quaderno questa non torna. Riprova.", "sl": "Ci avesse stata? Hm, v mojem zvezku se to ne izide. Še enkrat.", "en": "Ci avesse stata? Hmm, in my notebook that doesn't add up. Try again.", "de": "Ci avesse stata? Hm, in meinem Heft geht das nicht auf. Nochmal." } }
+        ] },
+        { "who": "franco", "face": "curious", "it": "Eppure quella sera mi è rimasta nel cuore. Tutti insieme, grandi e piccoli, anche quelli che non si parlavano. Tu capisci perché?", "sl": "Pa vendar mi je tisti večer ostal v srcu. Vsi skupaj, veliki in mali, tudi tisti, ki se niso pogovarjali. Razumeš, zakaj?", "en": "And yet that evening stayed in my heart. Everyone together, big and small, even those who weren't on speaking terms. Do you understand why?", "de": "Und doch ist mir dieser Abend im Herzen geblieben. Alle zusammen, Groß und Klein, sogar die, die nicht miteinander redeten. Verstehst du, warum?" },
+        { "choices": [
+          { "it": "Perché, pur essendo una brutta sera, il paese ha lavorato insieme come una famiglia.", "sl": "Ker je vas delala skupaj kot družina, čeprav je bil to grd večer.", "en": "Because, though it was a bad evening, the village worked together like a family.", "de": "Weil das Dorf, obwohl es ein schlimmer Abend war, wie eine Familie zusammengearbeitet hat.", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così. E il giorno dopo, Toni e il suo vicino si sono stretti la mano.", "sl": "Prav tako. In naslednji dan sta si Toni in njegov sosed segla v roke.", "en": "Exactly. And the next day, Toni and his neighbour shook hands.", "de": "Genau. Und am nächsten Tag haben sich Toni und sein Nachbar die Hand gegeben." } },
+          { "it": "Perché il fienile era nuovo, e tutti erano contenti del fuoco.", "sl": "Ker je bil senik nov in so bili vsi veseli ognja.", "en": "Because the barn was new, and everyone was glad of the fire.", "de": "Weil die Scheune neu war und sich alle über das Feuer gefreut haben.",
+            "why": { "sl": "Franco se spominja ljudi, ki so delali skupaj, ne ognja: ogenj ni bil nikomur v veselje.", "en": "Franco remembers the people working together, not the fire: nobody was glad of the fire.", "de": "Franco erinnert sich an die Menschen, die zusammengearbeitet haben, nicht ans Feuer: Darüber hat sich keiner gefreut." },
+            "reply": { "face": "confused", "it": "Contenti del fuoco? No, no! Contenti di essere tutti lì, quello sì.", "sl": "Veseli ognja? Ne, ne! Veseli, da so bili vsi tam, to pa ja.", "en": "Glad of the fire? No, no! Glad to all be there, that yes.", "de": "Froh über das Feuer? Nein, nein! Froh, dass alle da waren, das schon." } }
+        ] },
+        { "who": "franco", "face": "happy", "it": "La pompa è comoda. Ma la catena dei secchi ci ha insegnato che un paese è forte solo insieme. Buonanotte, {learner}.", "sl": "Črpalka je priročna. Ampak veriga veder nas je naučila, da je vas močna samo skupaj. Lahko noč, {learner}.", "en": "The pump is handy. But the bucket chain taught us that a village is only strong together. Good night, {learner}.", "de": "Die Pumpe ist praktisch. Aber die Eimerkette hat uns gelehrt, dass ein Dorf nur gemeinsam stark ist. Gute Nacht, {learner}." }
       ]
     }
   ]

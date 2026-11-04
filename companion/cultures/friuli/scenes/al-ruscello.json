@@ -5,7 +5,7 @@
   "title": { "it": "Al ruscello", "sl": "Ob potoku", "en": "By the stream", "de": "Am Bach" },
   "emoji": "🏞️",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "stream",
   "from": ["spot:riverbank"],
   "pack": "al-ruscello",
@@ -40,12 +40,12 @@
     },
     {
       "id": "bucato", "title": { "it": "Nonna Rosa lava il bucato", "sl": "Babica Rosa pere perilo", "en": "Nonna Rosa is doing the laundry", "de": "Nonna Rosa wäscht die Wäsche" }, "who": "rosa",
-      "when": ["afternoon"], "chance": 0.45, "dialog": "bucato", "dialogs": ["bucato-vento", "bucato"], "reward": { "food": 15 }, "marker": "🧺",
+      "when": ["afternoon"], "chance": 0.45, "dialog": "bucato", "dialogs": ["bucato-b2-lavandaie", "bucato-b1-cenere", "bucato-vento", "bucato"], "reward": { "food": 15 }, "marker": "🧺",
       "memory": { "it": "il bucato che abbiamo lavato nel ruscello", "sl": "perilo, ki sva ga {m:oprala|f:oprali} v potoku", "en": "the laundry we washed in the stream", "de": "die Wäsche, die wir im Bach gewaschen haben" }
     },
     {
       "id": "pecore", "title": { "it": "Davide porta le pecore a bere", "sl": "Davide napaja ovce", "en": "Davide is watering the sheep", "de": "Davide tränkt die Schafe" }, "who": "davide",
-      "when": ["evening"], "chance": 0.5, "dialog": "pecore", "dialogs": ["pecore-conto", "pecore"], "reward": { "wood": 15 }, "marker": "🐑",
+      "when": ["evening"], "chance": 0.5, "dialog": "pecore", "dialogs": ["pecore-b2-pallina", "pecore-b1-bianca", "pecore-conto", "pecore"], "reward": { "wood": 15 }, "marker": "🐑",
       "memory": { "it": "la sera che le pecore hanno bevuto al ruscello", "sl": "večer, ko so ovce pile pri potoku", "en": "the evening the sheep drank at the stream", "de": "den Abend, an dem die Schafe am Bach getrunken haben" }
     }
   ],
@@ -188,6 +188,106 @@
         ] },
         { "who": "davide", "it": "E Bianca? Bianca beve sempre per ultima!", "sl": "Pa Bianca? Bianca vedno pije zadnja!", "en": "And Bianca? Bianca always drinks last!", "de": "Und Bianca? Bianca trinkt immer als Letzte!",
           "fx": { "straggler": 1 } }
+      ]
+    },
+    {
+      "id": "bucato-b1-cenere",
+      "level": "B1",
+      "memory": { "it": "il bucato con la cenere, come una volta", "sl": "perilo s pepelom, kot nekoč", "en": "the washing with ash, as in the old days", "de": "die Wäsche mit Asche, wie früher" },
+      "lines": [
+        { "who": "rosa", "it": "Ciao, tesoro! Lo sai che una volta il bucato si faceva con la cenere del fogolâr?", "sl": "Živjo, srček! Veš, da so nekoč perilo prali s pepelom z ognjišča?", "en": "Hi, sweetheart! Did you know that in the old days the washing was done with ash from the fogolâr?", "de": "Hallo, Schatz! Weißt du, dass man früher die Wäsche mit Asche vom Fogolâr gewaschen hat?" },
+        { "who": "rosa", "face": "curious", "it": "La cenere si metteva in un pentolone d'acqua calda. Secondo te, a che cosa serviva quell'acqua?", "sl": "Pepel so dali v velik lonec vroče vode. Kaj misliš, za kaj je bila tista voda?", "en": "The ash went into a big pot of hot water. What do you think that water was for?", "de": "Die Asche kam in einen großen Topf mit heißem Wasser. Wozu war das Wasser wohl gut, meinst du?" },
+        { "choices": [
+          { "it": "Era l'acqua in cui si lavavano le lenzuola!", "sl": "To je bila voda, v kateri so prali rjuhe!", "en": "It was the water the sheets were washed in!", "de": "Das war das Wasser, in dem man die Laken gewaschen hat!", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così! La cenere toglieva lo sporco meglio del sapone.", "sl": "Prav tako! Pepel je odstranil umazanijo bolje kot milo.", "en": "Exactly! The ash took the dirt out better than soap.", "de": "Genau! Die Asche hat den Schmutz besser rausgeholt als Seife." } },
+          { "it": "Era l'acqua in che si lavavano le lenzuola!", "sl": "To je bila voda, v kateri so prali rjuhe!", "en": "It was the water the sheets were washed in!", "de": "Das war das Wasser, in dem man die Laken gewaschen hat!",
+            "grammar": "relativi-cui", "why": { "sl": "Za predlogom ni che, ampak cui: in cui (v kateri).", "en": "After a preposition it isn't che but cui: in cui.", "de": "Nach einer Präposition steht nicht che, sondern cui: in cui." },
+            "reply": { "face": "curious", "it": "In che…? In che cosa, tesoro? Nel pentolone o nel ruscello?", "sl": "In che …? V čem, srček? V loncu ali v potoku?", "en": "In che…? In what, sweetheart? In the pot or in the stream?", "de": "In che …? Worin, Schatz? Im Topf oder im Bach?" } }
+        ] },
+        { "who": "rosa", "face": "worried", "it": "Oggi però il ruscello è freddo, e ho dimenticato i guanti a casa. Che sbadata!", "sl": "Danes pa je potok mrzel, jaz pa sem pozabila rokavice doma. Kako raztresena sem!", "en": "But today the stream is cold, and I've left my gloves at home. How scatterbrained of me!", "de": "Heute ist der Bach aber kalt, und ich hab die Handschuhe zu Hause vergessen. Wie schusselig!" },
+        { "choices": [
+          { "it": "Vado io a prenderli! Ci metto un minuto.", "sl": "Grem jaz ponje! Rabim samo minuto.", "en": "I'll go and get them! It'll take me a minute.", "de": "Ich hol sie! Ich brauch nur eine Minute.", "ok": true,
+            "reply": { "face": "happy", "it": "Che {m:caro|f:cara}! Intanto io lavo il lenzuolo più grande.", "sl": "Kako {m:ljub|f:ljuba} si! Medtem bom oprala največjo rjuho.", "en": "How sweet of you! Meanwhile I'll wash the biggest sheet.", "de": "Wie lieb! Inzwischen wasch ich das größte Laken." } },
+          { "it": "Vado io a prenderli! Mi metto un minuto.", "sl": "Grem jaz ponje! Rabim samo minuto.", "en": "I'll go and get them! It'll take me a minute.", "de": "Ich hol sie! Ich brauch nur eine Minute.",
+            "grammar": "verbi-pronominali", "why": { "sl": "Za čas, ki ga porabiš, je metterci: ci metto un minuto. Mettersi je obleči se.", "en": "For the time something takes, it's metterci: ci metto un minuto. Mettersi is to put on.", "de": "Für die Zeit, die du brauchst, steht metterci: ci metto un minuto. Mettersi heißt anziehen." },
+            "reply": { "face": "laugh", "it": "Ti metti un minuto? Come un cappotto? Ah, ah! Corri, va'.", "sl": "Si oblečeš minuto? Kot plašč? Ha, ha! Kar teci.", "en": "You put on a minute? Like a coat? Ha, ha! Off you run.", "de": "Du ziehst eine Minute an? Wie einen Mantel? Ha, ha! Lauf schon." } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Eccoti qua, e con i guanti! Adesso lavare è un piacere. Grazie, tesoro.", "sl": "Tu si, in z rokavicami! Zdaj je pranje veselje. Hvala, srček.", "en": "Here you are, and with the gloves! Now washing is a pleasure. Thank you, sweetheart.", "de": "Da bist du ja, mit den Handschuhen! Jetzt ist Waschen eine Freude. Danke, Schatz." }
+      ]
+    },
+    {
+      "id": "bucato-b2-lavandaie",
+      "level": "B2",
+      "memory": { "it": "le lavandaie che cantavano al ruscello", "sl": "perice, ki so pele ob potoku", "en": "the washerwomen who sang by the stream", "de": "die Wäscherinnen, die am Bach sangen" },
+      "lines": [
+        { "who": "rosa", "face": "thinking", "it": "Quando ero ragazza, qui al ruscello venivano tutte le donne del paese. Lavando, cantavano le villotte friulane.", "sl": "Ko sem bila dekle, so sem k potoku prihajale vse ženske iz vasi. Med pranjem so pele furlanske villotte.", "en": "When I was a girl, all the women of the village came here to the stream. While washing, they sang Friulian villotte.", "de": "Als ich ein Mädchen war, kamen alle Frauen des Dorfes hierher an den Bach. Beim Waschen sangen sie friaulische Villotte." },
+        { "who": "rosa", "it": "Mia zia Pina aveva la voce più bella di tutte. Cominciava sempre lei, e dopo di lei cantava tutta la riva.", "sl": "Moja teta Pina je imela najlepši glas od vseh. Vedno je začela ona, za njo pa je pel ves breg.", "en": "My aunt Pina had the loveliest voice of all. She always started, and after her the whole bank sang.", "de": "Meine Tante Pina hatte die schönste Stimme von allen. Sie fing immer an, und nach ihr sang das ganze Ufer." },
+        { "choices": [
+          { "it": "E le canzoni delle quali parli, le sai ancora?", "sl": "Pa pesmi, o katerih govoriš, jih še znaš?", "en": "And the songs you're talking about, do you still know them?", "de": "Und die Lieder, von denen du sprichst, kannst du sie noch?", "ok": true,
+            "reply": { "face": "happy", "it": "Qualcuna sì. Le canto piano, quando stendo i panni.", "sl": "Nekatere ja. Tiho jih pojem, ko obešam perilo.", "en": "Some, yes. I sing them softly when I hang out the washing.", "de": "Ein paar schon. Ich sing sie leise, wenn ich die Wäsche aufhänge." } },
+          { "it": "E le canzoni dei quali parli, le sai ancora?", "sl": "Pa pesmi, o katerih govoriš, jih še znaš?", "en": "And the songs you're talking about, do you still know them?", "de": "Und die Lieder, von denen du sprichst, kannst du sie noch?",
+            "grammar": "relativi-il-quale", "why": { "sl": "Il quale se ujema s tem, o čemer govoriš: le canzoni, delle quali.", "en": "Il quale agrees with what it stands for: le canzoni, delle quali.", "de": "Il quale richtet sich nach dem, wofür es steht: le canzoni, delle quali." },
+            "reply": { "face": "curious", "it": "Dei quali? Mmm, le canzoni sono femmine, come le lavandaie!", "sl": "Dei quali? Hm, pesmi so ženskega spola, kot perice!", "en": "Dei quali? Hmm, songs are feminine, like the washerwomen!", "de": "Dei quali? Hm, Lieder sind hier weiblich, wie die Wäscherinnen!" } }
+        ] },
+        { "who": "rosa", "face": "thinking", "it": "Oggi le lavatrici fanno tutto da sole. Più comodo, certo. Tuttavia al ruscello si parlava, si rideva, si stava insieme.", "sl": "Danes pralni stroji naredijo vse sami. Bolj udobno, seveda. Vendar smo se ob potoku pogovarjali, smejali, bili skupaj.", "en": "Today washing machines do it all on their own. More comfortable, of course. However, by the stream people talked, laughed, were together.", "de": "Heute machen die Waschmaschinen alles allein. Bequemer, sicher. Trotzdem hat man am Bach geredet, gelacht, war zusammen." },
+        { "choices": [
+          { "it": "Allora, anche se era più faticoso, era più bello?", "sl": "Torej je bilo lepše, čeprav je bilo bolj naporno?", "en": "So even though it was harder work, it was nicer?", "de": "Also war es schöner, obwohl es anstrengender war?", "ok": true,
+            "reply": { "face": "thinking", "it": "In un certo senso sì. La fatica in compagnia pesa la metà.", "sl": "Na neki način ja. Trud v družbi je pol lažji.", "en": "In a way, yes. Hard work in company weighs half as much.", "de": "Irgendwie schon. Mühe in Gesellschaft wiegt nur halb so viel." } },
+          { "it": "Allora con la lavatrice si parla di più?", "sl": "Potem se ob pralnem stroju več pogovarjamo?", "en": "So with the washing machine people talk more?", "de": "Dann redet man bei der Waschmaschine mehr?",
+            "why": { "sl": "Rosa pravi nasprotno: ob potoku so se ljudje pogovarjali, stroj dela sam.", "en": "Rosa says the opposite: by the stream people talked, the machine works on its own.", "de": "Rosa sagt das Gegenteil: Am Bach hat man geredet, die Maschine arbeitet allein." },
+            "reply": { "face": "laugh", "it": "Di più? La lavatrice non dice una parola, tesoro! Fa solo glu glu.", "sl": "Več? Pralni stroj ne reče niti besede, srček! Samo glu glu dela.", "en": "More? The washing machine doesn't say a word, sweetheart! It just goes glug glug.", "de": "Mehr? Die Waschmaschine sagt kein Wort, Schatz! Die macht nur gluck gluck." } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Facciamo così: finito il bucato, ti insegno una villotta. Così il ruscello sente di nuovo cantare.", "sl": "Narediva tako: ko bo perilo oprano, te naučim eno villotto. Tako bo potok spet slišal petje.", "en": "Let's do this: washing done, I'll teach you a villotta. Then the stream will hear singing again.", "de": "Machen wir es so: Ist die Wäsche fertig, bring ich dir eine Villotta bei. Dann hört der Bach wieder Gesang." }
+      ]
+    },
+    {
+      "id": "pecore-b1-bianca",
+      "level": "B1",
+      "memory": { "it": "la sera in cui Bianca ha imparato a bere", "sl": "večer, ko se je Bianca naučila piti", "en": "the evening Bianca learnt to drink", "de": "der Abend, an dem Bianca trinken gelernt hat" },
+      "lines": [
+        { "who": "davide", "it": "Ciao, {learner}! Hai visto? Le pecore bevono tutte, ma Bianca resta lì, sulla riva.", "sl": "Živjo, {learner}! Si {m:videl|f:videla}? Vse ovce pijejo, Bianca pa stoji tam, na bregu.", "en": "Hi, {learner}! See that? All the sheep are drinking, but Bianca stays there, on the bank.", "de": "Hallo, {learner}! Hast du gesehen? Alle Schafe trinken, aber Bianca bleibt da am Ufer stehen." },
+        { "who": "davide", "face": "worried", "it": "Ha paura dell'acqua che corre. Secondo te, come la possiamo aiutare?", "sl": "Boji se tekoče vode. Kaj misliš, kako ji lahko pomagava?", "en": "She's scared of running water. How do you think we can help her?", "de": "Sie hat Angst vor dem fließenden Wasser. Wie können wir ihr helfen, meinst du?" },
+        { "choices": [
+          { "it": "Le insegniamo a bere dove l'acqua è ferma, vicino ai sassi.", "sl": "Naučiva jo piti tam, kjer voda miruje, pri kamnih.", "en": "Let's teach her to drink where the water is still, by the stones.", "de": "Wir bringen ihr bei, da zu trinken, wo das Wasser still steht, bei den Steinen.", "ok": true,
+            "reply": { "face": "happy", "it": "Bella idea! Lì l'acqua non fa rumore. Vieni, Bianca!", "sl": "Dobra ideja! Tam voda ne šumi. Pridi, Bianca!", "en": "Good idea! There the water doesn't make a noise. Come on, Bianca!", "de": "Gute Idee! Da rauscht das Wasser nicht. Komm, Bianca!" } },
+          { "it": "Le insegniamo di bere dove l'acqua è ferma, vicino ai sassi.", "sl": "Naučiva jo piti tam, kjer voda miruje, pri kamnih.", "en": "Let's teach her to drink where the water is still, by the stones.", "de": "Wir bringen ihr bei, da zu trinken, wo das Wasser still steht, bei den Steinen.",
+            "grammar": "infinito-preposizioni", "why": { "sl": "Insegnare gre z a: insegnare a bere, imparare a nuotare.", "en": "Insegnare takes a: insegnare a bere, imparare a nuotare.", "de": "Insegnare steht mit a: insegnare a bere, imparare a nuotare." },
+            "reply": { "face": "curious", "it": "Insegniamo di…? Mmm, anche Bianca ti fa una faccia strana!", "sl": "Insegniamo di …? Hm, še Bianca se čudno drži!", "en": "Insegniamo di…? Hmm, even Bianca's pulling a funny face at you!", "de": "Insegniamo di …? Hm, sogar Bianca macht ein komisches Gesicht!" } }
+        ] },
+        { "who": "davide", "face": "surprised", "it": "Guarda, guarda! Ha messo il muso nell'acqua! Beve! Ci sono ancora pecore che hanno sete?", "sl": "Glej, glej! Gobček je dala v vodo! Pije! Je zdaj še kakšna ovca žejna?", "en": "Look, look! She's put her nose in the water! She's drinking! Are there any sheep still thirsty now?", "de": "Schau, schau! Sie hat die Schnauze ins Wasser gesteckt! Sie trinkt! Hat jetzt noch ein Schaf Durst?" },
+        { "choices": [
+          { "it": "No, non ce n'è più nessuna: hanno bevuto tutte, anche Bianca.", "sl": "Ne, nobene ni več: vse so pile, tudi Bianca.", "en": "No, there aren't any left: they've all drunk, Bianca too.", "de": "Nein, keins mehr: Alle haben getrunken, auch Bianca.", "ok": true,
+            "reply": { "face": "laugh", "it": "Evviva! Stasera tutte a letto con la pancia piena d'acqua.", "sl": "Juhu! Nocoj gredo vse spat s polnim trebuščkom vode.", "en": "Hooray! Tonight they all go to bed with tummies full of water.", "de": "Hurra! Heute gehen alle mit einem Bauch voll Wasser ins Bett." } },
+          { "it": "No, non ce n'è più qualcuna: hanno bevuto tutte, anche Bianca.", "sl": "Ne, nobene ni več: vse so pile, tudi Bianca.", "en": "No, there aren't any left: they've all drunk, Bianca too.", "de": "Nein, keins mehr: Alle haben getrunken, auch Bianca.",
+            "grammar": "indefiniti", "why": { "sl": "Zanikano qualcuna je nessuna: non ce n'è più nessuna.", "en": "The no of qualcuna is nessuna: non ce n'è più nessuna.", "de": "Das Nein zu qualcuna ist nessuna: non ce n'è più nessuna." },
+            "reply": { "face": "confused", "it": "Non qualcuna? Allora qualcuna c'è o non c'è? Mi hai confuso, {learner}!", "sl": "Ne kakšna? Je potem kakšna ali je ni? Zmedel si me, {learner}!", "en": "Not some? So is there one or not? You've muddled me, {learner}!", "de": "Nicht irgendeins? Gibt es jetzt eins oder nicht? Du hast mich verwirrt, {learner}!" } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Brava Bianca! E grazie, {learner}. Domani sera di nuovo qui, a bere… cioè, loro bevono, noi guardiamo!", "sl": "Pridna Bianca! In hvala, {learner}. Jutri zvečer spet tukaj, pit … no, one pijejo, midva gledava!", "en": "Good girl, Bianca! And thanks, {learner}. Tomorrow evening here again for a drink… I mean, they drink, we watch!", "de": "Brave Bianca! Und danke, {learner}. Morgen Abend wieder hier zum Trinken … also, sie trinken, wir schauen zu!" }
+      ]
+    },
+    {
+      "id": "pecore-b2-pallina",
+      "level": "B2",
+      "memory": { "it": "la sera in cui Pallina era rimasta al ruscello", "sl": "večer, ko je Pallina ostala pri potoku", "en": "the evening Pallina had stayed behind at the stream", "de": "der Abend, an dem Pallina am Bach geblieben war" },
+      "lines": [
+        { "who": "davide", "face": "thinking", "it": "Sai che cosa mi è successo ieri, {learner}? Ho riportato le pecore al recinto e le ho contate. Ero convinto di averle tutte.", "sl": "Veš, kaj se mi je zgodilo včeraj, {learner}? Ovce sem odpeljal nazaj v stajo in jih preštel. Bil sem prepričan, da so vse tam.", "en": "Do you know what happened to me yesterday, {learner}? I took the sheep back to the fold and counted them. I was sure I had them all.", "de": "Weißt du, was mir gestern passiert ist, {learner}? Ich hab die Schafe in den Pferch zurückgebracht und gezählt. Ich war sicher, ich hab alle." },
+        { "who": "davide", "it": "Invece, tornando qui per prendere il secchio, ho trovato Pallina che beveva da sola, sotto la luna, tranquillissima.", "sl": "Ko pa sem se vrnil sem po vedro, sem našel Pallino, ki je čisto sama mirno pila pod luno.", "en": "Instead, coming back here for the bucket, I found Pallina drinking all alone, under the moon, as calm as you like.", "de": "Stattdessen, als ich zurückkam, um den Eimer zu holen, fand ich Pallina, die ganz allein im Mondschein trank, seelenruhig." },
+        { "choices": [
+          { "it": "Quindi pensavi che fosse già tornata con le altre?", "sl": "Torej si mislil, da se je že vrnila z drugimi?", "en": "So you thought she'd already gone back with the others?", "de": "Du dachtest also, sie wäre schon mit den anderen zurückgegangen?", "ok": true,
+            "reply": { "face": "laugh", "it": "Esatto! E lei, con calma, si godeva il ruscello tutto per sé.", "sl": "Tako je! Ona pa je mirno uživala potok čisto zase.", "en": "Exactly! And she was calmly enjoying the stream all to herself.", "de": "Genau! Und sie hat in aller Ruhe den Bach für sich allein genossen." } },
+          { "it": "Quindi pensavi che avesse già tornata con le altre?", "sl": "Torej si mislil, da se je že vrnila z drugimi?", "en": "So you thought she'd already gone back with the others?", "de": "Du dachtest also, sie wäre schon mit den anderen zurückgegangen?",
+            "grammar": "congiuntivo-trapassato", "why": { "sl": "Tornare ima essere: è tornata, zato fosse già tornata.", "en": "Tornare takes essere: è tornata, so fosse già tornata.", "de": "Tornare bildet mit essere: è tornata, also fosse già tornata." },
+            "reply": { "face": "curious", "it": "Avesse tornata? Mmm, le pecore tornano con le zampe, non con il verbo avere!", "sl": "Avesse tornata? Hm, ovce se vrnejo na nogah, ne z glagolom avere!", "en": "Avesse tornata? Hmm, sheep come back on their legs, not with the verb avere!", "de": "Avesse tornata? Hm, Schafe kommen auf ihren Beinen zurück, nicht mit dem Verb avere!" } }
+        ] },
+        { "who": "davide", "face": "curious", "it": "Il signor Franco dice che dovrei contarle due volte, la sera. Io dico che basta guardarle negli occhi. Chi ha ragione?", "sl": "Gospod Franco pravi, da bi jih moral zvečer prešteti dvakrat. Jaz pravim, da jih je dovolj pogledati v oči. Kdo ima prav?", "en": "Signor Franco says I should count them twice in the evening. I say it's enough to look them in the eye. Who's right?", "de": "Herr Franco sagt, ich sollte sie abends zweimal zählen. Ich sag, es reicht, ihnen in die Augen zu schauen. Wer hat recht?" },
+        { "choices": [
+          { "it": "Il signor Franco, credo. Lasciale pure guardare la luna, ma contale due volte!", "sl": "Mislim, da gospod Franco. Le pusti jih, naj gledajo luno, ampak preštej jih dvakrat!", "en": "Signor Franco, I think. Let them look at the moon all they like, but count them twice!", "de": "Herr Franco, glaub ich. Lass sie ruhig den Mond anschauen, aber zähl sie zweimal!", "ok": true,
+            "reply": { "face": "laugh", "it": "Va bene, va bene, avete vinto tu e il signor Franco. Due volte, d'ora in poi.", "sl": "Prav, prav, zmagala sta ti in gospod Franco. Od zdaj naprej dvakrat.", "en": "All right, all right, you and Signor Franco win. Twice, from now on.", "de": "Na gut, na gut, du und Herr Franco habt gewonnen. Ab jetzt zweimal." } },
+          { "it": "Il signor Franco, credo. Falle pure guardare la luna, ma contale due volte!", "sl": "Mislim, da gospod Franco. Le pusti jih, naj gledajo luno, ampak preštej jih dvakrat!", "en": "Signor Franco, I think. Let them look at the moon all they like, but count them twice!", "de": "Herr Franco, glaub ich. Lass sie ruhig den Mond anschauen, aber zähl sie zweimal!",
+            "grammar": "fare-lasciare", "why": { "sl": "Fare + nedoločnik pomeni prisiliti; da jim pustiš, je lasciare: lasciale guardare.", "en": "Fare + infinitive is to make them; to let them is lasciare: lasciale guardare.", "de": "Fare + Grundform heißt jemanden dazu bringen; lassen ist lasciare: lasciale guardare." },
+            "reply": { "face": "surprised", "it": "Falle guardare? Devo obbligarle a guardare la luna? Come si fa con una pecora?", "sl": "Falle guardare? Naj jih prisilim gledati luno? Kako se to naredi z ovco?", "en": "Falle guardare? I've got to make them look at the moon? How do you do that with a sheep?", "de": "Falle guardare? Ich soll sie zwingen, den Mond anzuschauen? Wie macht man das bei einem Schaf?" } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Stasera però ci sono tutte, le ho contate tre volte. Grazie della compagnia, {learner}. Buonanotte!", "sl": "Nocoj so pa vse tukaj, preštel sem jih trikrat. Hvala za družbo, {learner}. Lahko noč!", "en": "Tonight they're all here, though, I counted them three times. Thanks for the company, {learner}. Good night!", "de": "Heute sind aber alle da, ich hab sie dreimal gezählt. Danke für die Gesellschaft, {learner}. Gute Nacht!" }
       ]
     }
   ]
