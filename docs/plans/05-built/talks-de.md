@@ -158,8 +158,9 @@ is the bridge's (`GET /scenarios`, `GET /scenarios/:id` 404s above, a scene's "k
 gets it at once. talks-it built the same rule under another name; on its merge into talks-de (73306bae1) one was kept,
 and its callers and checks point at `talkLevelOffered`.
 
-**The list's order.** `ScenarioStore.offered` sorts by level, easiest first, in every language: by file name an A2 learner's
-first row was a B1 talk. `talkLevelOffered` itself is unchanged.
+**The list's order.** `ScenarioStore.all` sorts by level, easiest first, in every language: by file name an A2 learner's
+first row was a B1 talk. It sits in `all`, not `offered`, so that `offered` and `talkLevelOffered` stay word for word what
+case-de carries and that merge stays clean.
 
 **Older apps.** No format change: the twelve are `lani.scenario/v0` as the eight German ones are, served as strings in
 the pair. Teo's tablet (0.2.698) is in an Italian village, which is served only Italian talks; a child is never offered

@@ -150,7 +150,7 @@ app gets the talks of its learner's level and reads them as it read the A2 ones.
 - The packs above A2 don't exist in Italian (all A1/A2): the talks name the nearest the village has. The common-words
   and pack branches may give them better ones.
 - **The list's order** was by file name, so a learner's easiest talks didn't come first: at A2 the first row was a B1
-  talk. Done on talks-de: `ScenarioStore.offered` sorts by level, easiest first, for every language.
+  talk. Done on talks-de: `ScenarioStore.all` sorts by level, easiest first, for every language.
 - Voice: the twelve openers and 93 hints (105 lines, 4,454 characters for one gender; 109 lines and 4,691 characters
   with both forms of the 4 gendered lines) join the Italian voice corpus; Teo's node voices them ahead with its engine, which may spend
   ElevenLabs credits: ask Jan before a voice build. Nothing was spent.
