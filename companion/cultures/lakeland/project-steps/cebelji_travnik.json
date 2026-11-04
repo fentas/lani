@@ -273,6 +273,202 @@
               }
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "This old grass is so thick that wild flowers can't get through it. It has to be cut.",
+              "sl": "Ta stara trava je tako gosta, da divje rože ne pridejo skozi. Treba jo je pokositi.",
+              "it": "Quest'erba vecchia è così fitta che i fiori selvatici non passano. Va tagliata.",
+              "de": "Dieses alte Gras ist so dicht, dass keine Wildblumen durchkommen. Es muss gemäht werden."
+            },
+            {
+              "who": "maggie",
+              "en": "My father used to cut this field with a scythe. Swish, swish, all morning.",
+              "sl": "Moj oče je to polje kosil s koso. Švis, švis, vse jutro.",
+              "it": "Mio padre tagliava questo campo con la falce. Sciac, sciac, tutta la mattina.",
+              "de": "Mein Vater hat dieses Feld mit der Sense gemäht. Wisch, wisch, den ganzen Morgen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Shall we mow the whole field, or just the top half?",
+                  "sl": "Naj pokosimo vse polje ali samo zgornjo polovico?",
+                  "it": "Falciamo tutto il campo, o solo la metà alta?",
+                  "de": "Sollen wir das ganze Feld mähen oder nur die obere Hälfte?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "All of it, friend. Gently, and from the middle out.",
+                    "sl": "Vse, {m:prijatelj|f:prijateljica}. Nežno, od sredine navzven.",
+                    "it": "Tutto, {m:amico|f:amica}. Piano, dal centro verso fuori.",
+                    "de": "Alles, {m:mein Freund|f:meine Freundin}. Sanft, von der Mitte nach außen."
+                  }
+                },
+                {
+                  "en": "Shall we move the whole field, or just the top half?",
+                  "sl": "Naj premaknemo vse polje ali samo zgornjo polovico?",
+                  "it": "Spostiamo tutto il campo, o solo la metà alta?",
+                  "de": "Sollen wir das ganze Feld verschieben oder nur die obere Hälfte?",
+                  "why": {
+                    "sl": "Mow pomeni kositi; move pomeni premakniti.",
+                    "it": "Mow vuol dire falciare; move vuol dire spostare.",
+                    "de": "Mow heißt mähen; move heißt verschieben."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Move it? Hm … where to, friend?",
+                    "sl": "Premakniti? Hm … kam?",
+                    "it": "Spostarlo? Mh … dove?",
+                    "de": "Verschieben? Hm … wohin denn?"
+                  }
+                }
+              ],
+              "to": "arthur"
+            },
+            {
+              "who": "arthur",
+              "en": "The scythe's blade has to be sharp, or it only bends the grass.",
+              "sl": "Rezilo kose mora biti ostro, sicer travo le upogne.",
+              "it": "La lama della falce dev'essere affilata, o piega soltanto l'erba.",
+              "de": "Die Klinge der Sense muss scharf sein, sonst biegt sie das Gras nur."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Has the blade been sharpened since yesterday?",
+                  "sl": "Je bilo rezilo od včeraj nabrušeno?",
+                  "it": "La lama è stata affilata da ieri?",
+                  "de": "Ist die Klinge seit gestern geschärft worden?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "This morning, with the stone. Listen to it sing.",
+                    "sl": "Danes zjutraj, s kamnom. Poslušaj, kako poje.",
+                    "it": "Stamattina, con la pietra. Senti come canta.",
+                    "de": "Heute Morgen, mit dem Stein. Hör, wie sie singt."
+                  }
+                },
+                {
+                  "en": "Has the blanket been sharpened since yesterday?",
+                  "sl": "Je bila odeja od včeraj nabrušena?",
+                  "it": "La coperta è stata affilata da ieri?",
+                  "de": "Ist die Decke seit gestern geschärft worden?",
+                  "why": {
+                    "sl": "Blade je rezilo; blanket je odeja.",
+                    "it": "Blade è la lama; blanket è la coperta.",
+                    "de": "Blade ist die Klinge; blanket ist die Decke."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A sharp blanket? That would be a poor night's sleep.",
+                    "sl": "Ostra odeja? To bi bilo slabo spanje.",
+                    "it": "Una coperta affilata? Sarebbe una brutta notte.",
+                    "de": "Eine scharfe Decke? Das wäre eine schlechte Nacht."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "Nobody's cut this meadow for twenty years, and the grass has choked everything that the bees would like.",
+              "sl": "Tega travnika nihče ni kosil dvajset let in trava je zadušila vse, kar imajo čebele rade.",
+              "it": "Nessuno falcia questo prato da vent'anni, e l'erba ha soffocato tutto ciò che piace alle api.",
+              "de": "Diese Wiese hat seit zwanzig Jahren keiner gemäht, und das Gras hat alles erstickt, was die Bienen mögen."
+            },
+            {
+              "who": "maggie",
+              "en": "When I was a girl, you'd hear the scythes all down the dale in June.",
+              "sl": "Ko sem bila deklica, so se junija po vsej dolini slišale kose.",
+              "it": "Quando ero bambina, a giugno si sentivano le falci per tutta la valle.",
+              "de": "Als ich ein Mädchen war, hörte man im Juni die Sensen durchs ganze Tal."
+            },
+            {
+              "choices": [
+                {
+                  "en": "If we mow it every year from now on, the flowers will gradually come back.",
+                  "sl": "Če ga bomo odslej kosili vsako leto, se bodo rože postopoma vrnile.",
+                  "it": "Se d'ora in poi lo falciamo ogni anno, i fiori torneranno a poco a poco.",
+                  "de": "Wenn wir sie von nun an jedes Jahr mähen, kommen die Blumen nach und nach zurück.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Slowly. As everything does that's worth having.",
+                    "sl": "Počasi. Kot vse, kar je vredno imeti.",
+                    "it": "Piano. Come tutto ciò che vale.",
+                    "de": "Langsam. Wie alles, was sich lohnt."
+                  }
+                },
+                {
+                  "en": "If we mock it every year from now on, the flowers will gradually come back.",
+                  "sl": "Če se mu bomo odslej vsako leto posmehovali, se bodo rože postopoma vrnile.",
+                  "it": "Se d'ora in poi lo prendiamo in giro ogni anno, i fiori torneranno a poco a poco.",
+                  "de": "Wenn wir sie von nun an jedes Jahr verspotten, kommen die Blumen nach und nach zurück.",
+                  "why": {
+                    "sl": "Mow pomeni kositi; mock pomeni posmehovati se.",
+                    "it": "Mow vuol dire falciare; mock vuol dire prendere in giro.",
+                    "de": "Mow heißt mähen; mock heißt verspotten."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "Mock it? It's a meadow, friend. It's done nothing to us.",
+                    "sl": "Posmehovati? To je travnik. Nič nam ni naredil.",
+                    "it": "Prenderlo in giro? È un prato. Non ci ha fatto niente.",
+                    "de": "Verspotten? Das ist eine Wiese. Die hat uns nichts getan."
+                  }
+                }
+              ],
+              "to": "arthur"
+            },
+            {
+              "who": "arthur",
+              "en": "A blunt scythe is worse than none. Hold the stone like this, and draw it along the edge.",
+              "sl": "Topa kosa je slabša kot nobena. Drži kamen tako in ga povleci po robu.",
+              "it": "Una falce spuntata è peggio di niente. Tieni la pietra così, e passala lungo il filo.",
+              "de": "Eine stumpfe Sense ist schlimmer als keine. Halt den Stein so und zieh ihn an der Schneide entlang."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I think I've got the blade sharp enough now. Would you like to check it?",
+                  "sl": "Mislim, da je rezilo zdaj dovolj ostro. Bi preveril?",
+                  "it": "Credo di aver affilato abbastanza la lama. Vuoi controllare?",
+                  "de": "Ich glaube, die Klinge ist jetzt scharf genug. Willst du es prüfen?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "It'll do. I've seen worse, and I've used worse.",
+                    "sl": "Bo že. Videl sem slabše in uporabljal slabše.",
+                    "it": "Va bene. Ne ho viste di peggiori, e usate di peggiori.",
+                    "de": "Das geht. Ich hab Schlechteres gesehen und benutzt."
+                  }
+                },
+                {
+                  "en": "I think I've got the blame sharp enough now. Would you like to check it?",
+                  "sl": "Mislim, da je krivda zdaj dovolj ostra. Bi preveril?",
+                  "it": "Credo di aver affilato abbastanza la colpa. Vuoi controllare?",
+                  "de": "Ich glaube, die Schuld ist jetzt scharf genug. Willst du es prüfen?",
+                  "why": {
+                    "sl": "Blade je rezilo; blame je krivda.",
+                    "it": "Blade è la lama; blame è la colpa.",
+                    "de": "Blade ist die Klinge; blame ist die Schuld."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The blame? Hm … the bees won't care whose fault it is.",
+                    "sl": "Krivda? Hm … čebelam je vseeno, kdo je kriv.",
+                    "it": "La colpa? Mh … alle api non importa di chi sia.",
+                    "de": "Die Schuld? Hm … den Bienen ist es egal, wer schuld ist."
+                  }
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -539,6 +735,202 @@
               ]
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "These are the seeds of the wild flowers. There are thousands of them in this little bag.",
+              "sl": "To so semena divjih rož. V tej vrečki jih je na tisoče.",
+              "it": "Questi sono i semi dei fiori selvatici. In questo sacchetto ce ne sono migliaia.",
+              "de": "Das sind die Samen der Wildblumen. In diesem Beutelchen sind Tausende."
+            },
+            {
+              "who": "harry",
+              "en": "They're tiny! I can hardly see them.",
+              "sl": "Drobcena so! Komaj jih vidim.",
+              "it": "Sono piccolissimi! Li vedo appena.",
+              "de": "Die sind winzig! Ich kann sie kaum sehen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "How long do the seeds take to come up?",
+                  "sl": "Koliko časa rabijo semena, da vzklijejo?",
+                  "it": "Quanto ci mettono i semi a spuntare?",
+                  "de": "Wie lange brauchen die Samen, bis sie aufgehen?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "A few weeks, if the rain's kind.",
+                    "sl": "Nekaj tednov, če je dež prijazen.",
+                    "it": "Qualche settimana, se la pioggia è gentile.",
+                    "de": "Ein paar Wochen, wenn der Regen freundlich ist."
+                  }
+                },
+                {
+                  "en": "How long do the sheets take to come up?",
+                  "sl": "Koliko časa rabijo rjuhe, da vzklijejo?",
+                  "it": "Quanto ci mettono le lenzuola a spuntare?",
+                  "de": "Wie lange brauchen die Laken, bis sie aufgehen?",
+                  "why": {
+                    "sl": "Seed je seme; sheet je rjuha.",
+                    "it": "Seed è il seme; sheet è il lenzuolo.",
+                    "de": "Seed ist der Samen; sheet ist das Laken."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Sheets? Hm … you've been helping with the washing.",
+                    "sl": "Rjuhe? Hm … {m:pomagal|f:pomagala} si pri pranju.",
+                    "it": "Lenzuola? Mh … hai aiutato col bucato.",
+                    "de": "Laken? Hm … du hast bei der Wäsche geholfen."
+                  }
+                }
+              ],
+              "to": "arthur"
+            },
+            {
+              "who": "arthur",
+              "en": "We don't sow them in rows. We throw them, and they come up wherever they like.",
+              "sl": "Ne sejemo jih v vrste. Vržemo jih in vzklijejo, kjer hočejo.",
+              "it": "Non li seminiamo in file. Li lanciamo, e spuntano dove vogliono.",
+              "de": "Wir säen sie nicht in Reihen. Wir werfen sie, und sie kommen hoch, wo sie wollen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I prefer wild flowers to the ones you buy in shops.",
+                  "sl": "Divje rože imam raje kot tiste iz trgovine.",
+                  "it": "Preferisco i fiori selvatici a quelli che si comprano nei negozi.",
+                  "de": "Ich mag Wildblumen lieber als die aus dem Laden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "So do the bees, friend.",
+                    "sl": "Čebele tudi.",
+                    "it": "Anche le api.",
+                    "de": "Die Bienen auch."
+                  }
+                },
+                {
+                  "en": "I prefer wide flowers to the ones you buy in shops.",
+                  "sl": "Široke rože imam raje kot tiste iz trgovine.",
+                  "it": "Preferisco i fiori larghi a quelli che si comprano nei negozi.",
+                  "de": "Ich mag breite Blumen lieber als die aus dem Laden.",
+                  "why": {
+                    "sl": "Wild pomeni divji; wide pomeni širok.",
+                    "it": "Wild vuol dire selvatico; wide vuol dire largo.",
+                    "de": "Wild heißt wild; wide heißt breit."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "Wide? Hm … how wide, friend?",
+                    "sl": "Široke? Hm … kako široke?",
+                    "it": "Larghi? Mh … quanto larghi?",
+                    "de": "Breit? Hm … wie breit denn?"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "Each of these seeds was gathered by hand from the old meadows up the dale. They're worth more than you'd think.",
+              "sl": "Vsako od teh semen je bilo nabrano ročno na starih travnikih v dolini. Vredna so več, kot se zdi.",
+              "it": "Ognuno di questi semi è stato raccolto a mano dai vecchi prati della valle. Valgono più di quanto sembri.",
+              "de": "Jeder dieser Samen wurde von Hand auf den alten Wiesen im Tal gesammelt. Sie sind mehr wert, als man denkt."
+            },
+            {
+              "who": "harry",
+              "en": "Can I throw some? I'm good at throwing!",
+              "sl": "Lahko jih malo vržem? Dober sem v metanju!",
+              "it": "Posso lanciarne un po'? Sono bravo!",
+              "de": "Darf ich welche werfen? Ich kann gut werfen!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Why don't we just sow the seeds in straight lines? It would be much quicker.",
+                  "sl": "Zakaj semen ne bi posejali kar v ravne vrste? Bilo bi veliko hitreje.",
+                  "it": "Perché non seminiamo i semi in file dritte? Sarebbe molto più veloce.",
+                  "de": "Warum säen wir die Samen nicht einfach in geraden Reihen? Das ginge viel schneller.",
+                  "ok": true,
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Nature doesn't like a ruler, friend. Let them fall where they fall.",
+                    "sl": "Narava ne mara ravnila. Naj padejo, kamor padejo.",
+                    "it": "Alla natura non piace il righello. Che cadano dove cadono.",
+                    "de": "Die Natur mag kein Lineal. Lass sie fallen, wo sie fallen."
+                  }
+                },
+                {
+                  "en": "Why don't we just sow the seats in straight lines? It would be much quicker.",
+                  "sl": "Zakaj sedežev ne bi posejali kar v ravne vrste? Bilo bi veliko hitreje.",
+                  "it": "Perché non seminiamo i sedili in file dritte? Sarebbe molto più veloce.",
+                  "de": "Warum säen wir die Sitze nicht einfach in geraden Reihen? Das ginge viel schneller.",
+                  "why": {
+                    "sl": "Seed je seme; seat je sedež.",
+                    "it": "Seed è il seme; seat è il sedile.",
+                    "de": "Seed ist der Samen; seat ist der Sitz."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Seats? In a meadow? That would grow into a theatre.",
+                    "sl": "Sedeži? Na travniku? Zrasel bi teater.",
+                    "it": "Sedili? In un prato? Verrebbe fuori un teatro.",
+                    "de": "Sitze? Auf einer Wiese? Das gäbe ein Theater."
+                  }
+                }
+              ],
+              "to": "arthur"
+            },
+            {
+              "who": "arthur",
+              "en": "Clover, cornflowers, daisies. In three years you won't know the place.",
+              "sl": "Detelja, plavice, marjetice. Čez tri leta tega kraja ne boš {m:prepoznal|f:prepoznala}.",
+              "it": "Trifoglio, fiordalisi, margherite. Fra tre anni non riconoscerai il posto.",
+              "de": "Klee, Kornblumen, Gänseblümchen. In drei Jahren erkennst du die Stelle nicht wieder."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I wish I'd seen these meadows when they were all wild.",
+                  "sl": "{m:Želel|f:Želela} bi si, da bi {m:videl|f:videla} te travnike, ko so bili še vsi divji.",
+                  "it": "Vorrei aver visto questi prati quando erano tutti selvatici.",
+                  "de": "Ich wünschte, ich hätte diese Wiesen gesehen, als sie noch wild waren.",
+                  "ok": true,
+                  "reply": {
+                    "face": "thinking",
+                    "en": "I did, as a boy. You'd hear the bees from the road.",
+                    "sl": "Jaz sem jih, kot fant. Čebele si slišal že s ceste.",
+                    "it": "Io sì, da ragazzo. Le api si sentivano dalla strada.",
+                    "de": "Ich schon, als Junge. Man hörte die Bienen von der Straße."
+                  }
+                },
+                {
+                  "en": "I wish I'd seen these meadows when they were all wet.",
+                  "sl": "{m:Želel|f:Želela} bi si, da bi {m:videl|f:videla} te travnike, ko so bili vsi mokri.",
+                  "it": "Vorrei aver visto questi prati quando erano tutti bagnati.",
+                  "de": "Ich wünschte, ich hätte diese Wiesen gesehen, als sie noch nass waren.",
+                  "why": {
+                    "sl": "Wild pomeni divji; wet pomeni moker.",
+                    "it": "Wild vuol dire selvatico; wet vuol dire bagnato.",
+                    "de": "Wild heißt wild; wet heißt nass."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Wet? Stay till Thursday, friend. You'll see them.",
+                    "sl": "Mokre? Ostani do četrtka. Boš jih {m:videl|f:videla}.",
+                    "it": "Bagnati? Resta fino a giovedì. Li vedrai.",
+                    "de": "Nass? Bleib bis Donnerstag. Dann siehst du sie."
+                  }
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -800,6 +1192,202 @@
                     "sl": "Luknja? To je lep lesen panj, prijatelj!",
                     "it": "Un buco? È una bella arnia di legno, amico!",
                     "de": "Ein Loch? Das ist ein schöner Holzstock, mein Freund!"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "A hive is a wooden house with a lid on top and frames inside, where the bees build their comb.",
+              "sl": "Panj je lesena hiša s pokrovom na vrhu in okvirji znotraj, kjer čebele gradijo satje.",
+              "it": "Un'arnia è una casa di legno con un coperchio e dei telai dentro, dove le api costruiscono il favo.",
+              "de": "Ein Bienenstock ist ein Holzhaus mit einem Deckel und Rähmchen darin, wo die Bienen ihre Waben bauen."
+            },
+            {
+              "who": "poppy",
+              "en": "Why does it need a lid? Bees can't open things.",
+              "sl": "Zakaj rabi pokrov? Čebele ne znajo odpirati.",
+              "it": "Perché ha bisogno di un coperchio? Le api non aprono le cose.",
+              "de": "Warum braucht er einen Deckel? Bienen können nichts aufmachen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "The lid must be there to keep the rain out.",
+                  "sl": "Pokrov je gotovo zato, da drži dež zunaj.",
+                  "it": "Il coperchio dev'essere lì per tenere fuori la pioggia.",
+                  "de": "Der Deckel ist bestimmt da, um den Regen abzuhalten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "That's it. And to let me in, slowly.",
+                    "sl": "Tako je. In da pride noter jaz, počasi.",
+                    "it": "Esatto. E per far entrare me, piano.",
+                    "de": "Genau. Und damit ich rein kann, langsam."
+                  }
+                },
+                {
+                  "en": "The lip must be there to keep the rain out.",
+                  "sl": "Ustnica je gotovo zato, da drži dež zunaj.",
+                  "it": "Il labbro dev'essere lì per tenere fuori la pioggia.",
+                  "de": "Die Lippe ist bestimmt da, um den Regen abzuhalten.",
+                  "why": {
+                    "sl": "Lid je pokrov; lip je ustnica.",
+                    "it": "Lid è il coperchio; lip è il labbro.",
+                    "de": "Lid ist der Deckel; lip ist die Lippe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A lip? Hm … I've never kissed a hive.",
+                    "sl": "Ustnica? Hm … panja še nisem poljubil.",
+                    "it": "Un labbro? Mh … non ho mai baciato un'arnia.",
+                    "de": "Eine Lippe? Hm … ich hab noch nie einen Bienenstock geküsst."
+                  }
+                }
+              ],
+              "to": "arthur"
+            },
+            {
+              "who": "arthur",
+              "en": "There. Sound and dry, and ready for its bees.",
+              "sl": "Tako. Trden in suh, pripravljen za čebele.",
+              "it": "Ecco. Solida e asciutta, pronta per le api.",
+              "de": "So. Fest und trocken, bereit für seine Bienen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "This will be a good home for them, won't it?",
+                  "sl": "To jim bo dober dom, kajne?",
+                  "it": "Sarà una buona casa per loro, vero?",
+                  "de": "Das wird ein gutes Zuhause für sie, oder?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "The best they've had. They'll tell me if it isn't.",
+                    "sl": "Najboljši, kar so ga imele. Povedale mi bodo, če ni.",
+                    "it": "La migliore che abbiano avuto. Me lo diranno, se non lo è.",
+                    "de": "Das beste, das sie je hatten. Sie sagen's mir, wenn nicht."
+                  }
+                },
+                {
+                  "en": "This will be a good hole for them, won't it?",
+                  "sl": "To jim bo dobra luknja, kajne?",
+                  "it": "Sarà un buon buco per loro, vero?",
+                  "de": "Das wird ein gutes Loch für sie, oder?",
+                  "why": {
+                    "sl": "Home je dom; hole je luknja.",
+                    "it": "Home è la casa; hole è il buco.",
+                    "de": "Home ist das Zuhause; hole ist das Loch."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "A hole? Hm … it's got a roof, friend.",
+                    "sl": "Luknja? Hm … streho ima.",
+                    "it": "Un buco? Mh … ha un tetto.",
+                    "de": "Ein Loch? Hm … es hat doch ein Dach."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "I've been making hives since before you were born, and I've never made two the same. The bees wouldn't thank me if I did.",
+              "sl": "Panje delam, še preden si se {m:rodil|f:rodila}, in nikoli nisem naredil dveh enakih. Čebele mi ne bi bile hvaležne.",
+              "it": "Faccio arnie da prima che tu nascessi, e non ne ho mai fatte due uguali. Le api non mi ringrazierebbero.",
+              "de": "Ich baue Stöcke, seit bevor du geboren warst, und nie zwei gleich. Die Bienen würden es mir nicht danken."
+            },
+            {
+              "who": "poppy",
+              "en": "What's the lid for, if the bees never open it?",
+              "sl": "Čemu je pokrov, če ga čebele nikoli ne odprejo?",
+              "it": "A cosa serve il coperchio, se le api non lo aprono mai?",
+              "de": "Wozu ist der Deckel, wenn die Bienen ihn nie aufmachen?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "I imagine the lid's there so that the rain stays out and the beekeeper can get in.",
+                  "sl": "Predstavljam si, da je pokrov tam zato, da dež ostane zunaj in čebelar lahko pride noter.",
+                  "it": "Immagino che il coperchio serva a tenere fuori la pioggia e a far entrare l'apicoltore.",
+                  "de": "Ich nehme an, der Deckel ist da, damit der Regen draußen bleibt und der Imker reinkommt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Both of those. And a lid that fits well keeps the warmth in.",
+                    "sl": "Oboje. In dobro prilegajoč pokrov drži toploto notri.",
+                    "it": "Tutte e due. E un coperchio ben fatto tiene il calore dentro.",
+                    "de": "Beides. Und ein gut sitzender Deckel hält die Wärme drin."
+                  }
+                },
+                {
+                  "en": "I imagine the lift's there so that the rain stays out and the beekeeper can get in.",
+                  "sl": "Predstavljam si, da je dvigalo tam zato, da dež ostane zunaj in čebelar lahko pride noter.",
+                  "it": "Immagino che l'ascensore serva a tenere fuori la pioggia e a far entrare l'apicoltore.",
+                  "de": "Ich nehme an, der Aufzug ist da, damit der Regen draußen bleibt und der Imker reinkommt.",
+                  "why": {
+                    "sl": "Lid je pokrov; lift je dvigalo.",
+                    "it": "Lid è il coperchio; lift è l'ascensore.",
+                    "de": "Lid ist der Deckel; lift ist der Aufzug."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A lift? For the bees? They've got wings, friend.",
+                    "sl": "Dvigalo? Za čebele? Saj imajo krila.",
+                    "it": "Un ascensore? Per le api? Hanno le ali.",
+                    "de": "Ein Aufzug? Für die Bienen? Die haben doch Flügel."
+                  }
+                }
+              ],
+              "to": "arthur"
+            },
+            {
+              "who": "arthur",
+              "en": "That's the last hive made. When the bees move in, it'll stop being a box.",
+              "sl": "To je zadnji panj. Ko se čebele vselijo, ne bo več škatla.",
+              "it": "Quest'è l'ultima arnia. Quando le api entreranno, non sarà più una scatola.",
+              "de": "Das ist der letzte Stock. Wenn die Bienen einziehen, ist er keine Kiste mehr."
+            },
+            {
+              "choices": [
+                {
+                  "en": "It's strange to think that this will be home to fifty thousand bees.",
+                  "sl": "Čudno je pomisliti, da bo to dom petdesetih tisoč čebel.",
+                  "it": "È strano pensare che questa sarà la casa di cinquantamila api.",
+                  "de": "Seltsam, dass das das Zuhause von fünfzigtausend Bienen wird.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Fifty thousand, and one queen. Less trouble than a village.",
+                    "sl": "Petdeset tisoč in ena matica. Manj težav kot vas.",
+                    "it": "Cinquantamila, e una regina. Meno guai di un paese.",
+                    "de": "Fünfzigtausend und eine Königin. Weniger Ärger als ein Dorf."
+                  }
+                },
+                {
+                  "en": "It's strange to think that this will be hope to fifty thousand bees.",
+                  "sl": "Čudno je pomisliti, da bo to upanje petdesetih tisoč čebel.",
+                  "it": "È strano pensare che questa sarà la speranza di cinquantamila api.",
+                  "de": "Seltsam, dass das die Hoffnung von fünfzigtausend Bienen wird.",
+                  "why": {
+                    "sl": "Home je dom; hope je upanje.",
+                    "it": "Home è la casa; hope è la speranza.",
+                    "de": "Home ist das Zuhause; hope ist die Hoffnung."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Hope? Hm … that's a kind thought, friend.",
+                    "sl": "Upanje? Hm … lepa misel.",
+                    "it": "Speranza? Mh … bel pensiero.",
+                    "de": "Hoffnung? Hm … schöner Gedanke."
                   }
                 }
               ]
@@ -1075,6 +1663,200 @@
               ]
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "Our hives are always white, friend. White stays cool in the summer sun.",
+              "sl": "Naši panji so vedno beli. Bela ostane hladna v poletnem soncu.",
+              "it": "Le nostre arnie sono sempre bianche. Il bianco resta fresco al sole d'estate.",
+              "de": "Unsere Stöcke sind immer weiß. Weiß bleibt kühl in der Sommersonne."
+            },
+            {
+              "who": "harry",
+              "en": "Can I paint mine red, like Carlisle United?",
+              "sl": "Lahko svojega pobarvam rdeče, kot Carlisle United?",
+              "it": "Posso dipingere la mia di rosso, come il Carlisle United?",
+              "de": "Darf ich meinen rot malen, wie Carlisle United?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Bees can't see red very well, so white's the best colour.",
+                  "sl": "Čebele rdeče ne vidijo dobro, zato je bela najboljša barva.",
+                  "it": "Le api non vedono bene il rosso, quindi il bianco è il colore migliore.",
+                  "de": "Bienen sehen Rot nicht gut, also ist Weiß die beste Farbe.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Listen to that, the pair of you. It's quite right.",
+                    "sl": "Poslušajta, vidva. Čisto prav.",
+                    "it": "Ascoltate, voi due. È proprio così.",
+                    "de": "Hört euch das an, ihr beiden. Ganz richtig."
+                  }
+                },
+                {
+                  "en": "Bees can't see red very well, so white's the best collar.",
+                  "sl": "Čebele rdeče ne vidijo dobro, zato je bela najboljša ovratnica.",
+                  "it": "Le api non vedono bene il rosso, quindi il bianco è il collare migliore.",
+                  "de": "Bienen sehen Rot nicht gut, also ist Weiß das beste Halsband.",
+                  "why": {
+                    "sl": "Colour je barva; collar je ovratnica.",
+                    "it": "Colour è il colore; collar è il collare.",
+                    "de": "Colour ist die Farbe; collar ist das Halsband."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A collar? On a bee? It'd be a very small dog.",
+                    "sl": "Ovratnica? Na čebeli? To bi bil zelo majhen pes.",
+                    "it": "Un collare? Su un'ape? Sarebbe un cane molto piccolo.",
+                    "de": "Ein Halsband? Auf einer Biene? Das wär ein sehr kleiner Hund."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "arthur",
+              "en": "Here's a brush for each of you. Small strokes, friend, and not too much paint.",
+              "sl": "Tukaj je čopič za vsakega. Majhne poteze in ne preveč barve.",
+              "it": "Ecco un pennello per ciascuno. Tratti piccoli, e non troppa vernice.",
+              "de": "Hier ist für jeden ein Pinsel. Kleine Striche und nicht zu viel Farbe."
+            },
+            {
+              "choices": [
+                {
+                  "en": "This brush is much better than the one I used yesterday.",
+                  "sl": "Ta čopič je veliko boljši od tistega, ki sem ga {m:uporabljal|f:uporabljala} včeraj.",
+                  "it": "Questo pennello è molto meglio di quello che ho usato ieri.",
+                  "de": "Dieser Pinsel ist viel besser als der von gestern.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "It's an old one. Old brushes know the way.",
+                    "sl": "Star je. Stari čopiči poznajo pot.",
+                    "it": "È vecchio. I vecchi pennelli conoscono la strada.",
+                    "de": "Der ist alt. Alte Pinsel kennen den Weg."
+                  }
+                },
+                {
+                  "en": "This bridge is much better than the one I used yesterday.",
+                  "sl": "Ta most je veliko boljši od tistega, ki sem ga {m:uporabljal|f:uporabljala} včeraj.",
+                  "it": "Questo ponte è molto meglio di quello che ho usato ieri.",
+                  "de": "Diese Brücke ist viel besser als die von gestern.",
+                  "why": {
+                    "sl": "Brush je čopič; bridge je most.",
+                    "it": "Brush è il pennello; bridge è il ponte.",
+                    "de": "Brush ist der Pinsel; bridge ist die Brücke."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "A bridge? Hm … we're painting hives, friend.",
+                    "sl": "Most? Hm … barvamo panje.",
+                    "it": "Un ponte? Mh … stiamo dipingendo arnie.",
+                    "de": "Eine Brücke? Hm … wir malen Bienenstöcke."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "Every summer somebody asks why they can't have a blue hive. It's a fair question, and the answer is heat.",
+              "sl": "Vsako poletje kdo vpraša, zakaj ne sme imeti modrega panja. Pošteno vprašanje, odgovor pa je vročina.",
+              "it": "Ogni estate qualcuno chiede perché non può avere un'arnia blu. È una domanda giusta, e la risposta è il caldo.",
+              "de": "Jeden Sommer fragt jemand, warum es keinen blauen Stock geben kann. Faire Frage, und die Antwort ist die Hitze."
+            },
+            {
+              "who": "harry",
+              "en": "I've got a tin of red left over from the maypole!",
+              "sl": "Ostala mi je pločevinka rdeče od mlaja!",
+              "it": "Mi è avanzato un barattolo di rosso dall'albero di maggio!",
+              "de": "Ich hab noch eine Dose Rot vom Maibaum übrig!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "A dark colour would absorb the heat, and the bees would spend all day fanning it out.",
+                  "sl": "Temna barva bi vpijala vročino in čebele bi jo ves dan odganjale s krili.",
+                  "it": "Un colore scuro assorbirebbe il calore, e le api passerebbero il giorno a farsi aria.",
+                  "de": "Eine dunkle Farbe würde die Hitze aufnehmen, und die Bienen würden den ganzen Tag fächeln.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "You've been reading, friend. That's it exactly.",
+                    "sl": "{m:Bral|f:Brala} si. Točno tako.",
+                    "it": "Hai letto. È proprio così.",
+                    "de": "Du hast gelesen. Genau so ist es."
+                  }
+                },
+                {
+                  "en": "A dark collar would absorb the heat, and the bees would spend all day fanning it out.",
+                  "sl": "Temna ovratnica bi vpijala vročino in čebele bi jo ves dan odganjale s krili.",
+                  "it": "Un collare scuro assorbirebbe il calore, e le api passerebbero il giorno a farsi aria.",
+                  "de": "Ein dunkles Halsband würde die Hitze aufnehmen, und die Bienen würden den ganzen Tag fächeln.",
+                  "why": {
+                    "sl": "Colour je barva; collar je ovratnica.",
+                    "it": "Colour è il colore; collar è il collare.",
+                    "de": "Colour ist die Farbe; collar ist das Halsband."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A collar? Hm … we'd have to catch them first.",
+                    "sl": "Ovratnica? Hm … najprej bi jih morali ujeti.",
+                    "it": "Un collare? Mh … prima dovremmo prenderle.",
+                    "de": "Ein Halsband? Hm … die müssten wir erst fangen."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "arthur",
+              "en": "Thin coats, friend. Two thin ones will outlast one thick one.",
+              "sl": "Tanki sloji. Dva tanka zdržita dlje kot en debel.",
+              "it": "Mani sottili. Due sottili durano più di una spessa.",
+              "de": "Dünne Schichten. Zwei dünne halten länger als eine dicke."
+            },
+            {
+              "choices": [
+                {
+                  "en": "My brush has gone stiff. I should have cleaned it last night.",
+                  "sl": "Moj čopič je trd. Sinoči bi ga moral očistiti.",
+                  "it": "Il mio pennello è diventato duro. Avrei dovuto pulirlo ieri sera.",
+                  "de": "Mein Pinsel ist steif geworden. Ich hätte ihn gestern Abend säubern sollen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "thinking",
+                    "en": "You should. It'll soften in the jar by morning.",
+                    "sl": "Res bi {m:moral|f:morala}. Do jutra se v kozarcu zmehča.",
+                    "it": "Sì. Nel barattolo si ammorbidisce entro domani.",
+                    "de": "Stimmt. Bis morgen wird er im Glas weich."
+                  }
+                },
+                {
+                  "en": "My brother has gone stiff. I should have cleaned it last night.",
+                  "sl": "Moj brat je trd. Sinoči bi ga moral očistiti.",
+                  "it": "Mio fratello è diventato duro. Avrei dovuto pulirlo ieri sera.",
+                  "de": "Mein Bruder ist steif geworden. Ich hätte ihn gestern Abend säubern sollen.",
+                  "why": {
+                    "sl": "Brush je čopič; brother je brat.",
+                    "it": "Brush è il pennello; brother è il fratello.",
+                    "de": "Brush ist der Pinsel; brother ist der Bruder."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "en": "Your brother? Hm … I'd send for the doctor, friend.",
+                    "sl": "Brat? Hm … poklical bi zdravnika.",
+                    "it": "Tuo fratello? Mh … chiamerei il dottore.",
+                    "de": "Dein Bruder? Hm … ich würde den Arzt rufen."
+                  }
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -1334,6 +2116,202 @@
                     "sl": "Na jajcu? Ha! Kje je kokoš?",
                     "it": "All'uovo? Ah! E la gallina dov'è?",
                     "de": "Am Ei? Ha! Wo ist das Huhn?"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "The shed will stand at the edge of the meadow, by the wall, where it won't take up the flowers' room.",
+              "sl": "Lopa bo stala na robu travnika, ob zidu, kjer ne bo jemala prostora rožam.",
+              "it": "La tettoia starà al margine del prato, vicino al muro, dove non toglie spazio ai fiori.",
+              "de": "Der Schuppen kommt an den Rand der Wiese, an die Mauer, wo er den Blumen keinen Platz nimmt."
+            },
+            {
+              "who": "harry",
+              "en": "I'll bring the hammer! Where's the hammer?",
+              "sl": "Prinesem kladivo! Kje je kladivo?",
+              "it": "Porto il martello! Dov'è il martello?",
+              "de": "Ich hol den Hammer! Wo ist der Hammer?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "When it's finished, the shed will keep the hives dry all winter.",
+                  "sl": "Ko bo končana, bo lopa čez zimo držala panje suhe.",
+                  "it": "Quando sarà finita, la tettoia terrà asciutte le arnie tutto l'inverno.",
+                  "de": "Wenn er fertig ist, hält der Schuppen die Stöcke den ganzen Winter trocken.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "That's what it's for, friend.",
+                    "sl": "Za to je tam.",
+                    "it": "Serve a questo.",
+                    "de": "Dafür ist er da."
+                  }
+                },
+                {
+                  "en": "When it's finished, the sheep will keep the hives dry all winter.",
+                  "sl": "Ko bo končana, bo ovca čez zimo držala panje suhe.",
+                  "it": "Quando sarà finita, la pecora terrà asciutte le arnie tutto l'inverno.",
+                  "de": "Wenn es fertig ist, hält das Schaf die Stöcke den ganzen Winter trocken.",
+                  "why": {
+                    "sl": "Shed je lopa; sheep je ovca.",
+                    "it": "Shed è la tettoia; sheep è la pecora.",
+                    "de": "Shed ist der Schuppen; sheep ist das Schaf."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The sheep? Hm … they'd want paying, friend.",
+                    "sl": "Ovce? Hm … hotele bi plačilo.",
+                    "it": "Le pecore? Mh … vorrebbero essere pagate.",
+                    "de": "Die Schafe? Hm … die wollen bezahlt werden."
+                  }
+                }
+              ],
+              "to": "arthur"
+            },
+            {
+              "who": "arthur",
+              "en": "And not in the middle, mind, where the clover is.",
+              "sl": "In ne na sredino, kjer je detelja.",
+              "it": "E non in mezzo, dov'è il trifoglio.",
+              "de": "Und nicht in die Mitte, wo der Klee ist."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Right, by the wall, at the very edge of the meadow.",
+                  "sl": "Prav, ob zidu, čisto na robu travnika.",
+                  "it": "Bene, vicino al muro, proprio al margine del prato.",
+                  "de": "Gut, an der Mauer, ganz am Rand der Wiese.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "That's the place. Mark it with a stick.",
+                    "sl": "To je pravo mesto. Označi s palico.",
+                    "it": "È il posto giusto. Segnalo con un bastone.",
+                    "de": "Das ist die Stelle. Markier sie mit einem Stock."
+                  }
+                },
+                {
+                  "en": "Right, by the wall, at the very egg of the meadow.",
+                  "sl": "Prav, ob zidu, čisto na jajcu travnika.",
+                  "it": "Bene, vicino al muro, proprio all'uovo del prato.",
+                  "de": "Gut, an der Mauer, ganz am Ei der Wiese.",
+                  "why": {
+                    "sl": "Edge je rob; egg je jajce.",
+                    "it": "Edge è il margine; egg è l'uovo.",
+                    "de": "Edge ist der Rand; egg ist das Ei."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The egg? Hm … that's a very big hen, friend.",
+                    "sl": "Jajce? Hm … to je zelo velika kokoš.",
+                    "it": "L'uovo? Mh … è una gallina molto grande.",
+                    "de": "Das Ei? Hm … das wäre ein sehr großes Huhn."
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "arthur",
+              "en": "I'd sooner have the shed by the wall than in the middle, where we'd lose the best of the clover.",
+              "sl": "Lopo imam raje ob zidu kot na sredini, kjer bi izgubili najboljšo deteljo.",
+              "it": "Preferisco la tettoia vicino al muro che in mezzo, dove perderemmo il trifoglio migliore.",
+              "de": "Mir ist der Schuppen an der Mauer lieber als in der Mitte, wo wir den besten Klee verlieren würden."
+            },
+            {
+              "who": "harry",
+              "en": "Can we make it big enough to play in?",
+              "sl": "Jo lahko naredimo dovolj veliko, da se bomo v njej igrali?",
+              "it": "Possiamo farla grande abbastanza da giocarci?",
+              "de": "Können wir ihn groß genug machen, um darin zu spielen?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "The shed only has to be big enough to keep the winter off the hives.",
+                  "sl": "Lopa mora biti le dovolj velika, da varuje panje pred zimo.",
+                  "it": "La tettoia deve solo essere abbastanza grande da proteggere le arnie dall'inverno.",
+                  "de": "Der Schuppen muss nur groß genug sein, um den Winter von den Stöcken abzuhalten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Quite right. The bees won't be wanting a football pitch.",
+                    "sl": "Čisto prav. Čebele ne bodo rabile nogometnega igrišča.",
+                    "it": "Giustissimo. Alle api non serve un campo da calcio.",
+                    "de": "Ganz recht. Die Bienen brauchen keinen Fußballplatz."
+                  }
+                },
+                {
+                  "en": "The shell only has to be big enough to keep the winter off the hives.",
+                  "sl": "Školjka mora biti le dovolj velika, da varuje panje pred zimo.",
+                  "it": "La conchiglia deve solo essere abbastanza grande da proteggere le arnie dall'inverno.",
+                  "de": "Die Muschel muss nur groß genug sein, um den Winter von den Stöcken abzuhalten.",
+                  "why": {
+                    "sl": "Shed je lopa; shell je školjka.",
+                    "it": "Shed è la tettoia; shell è la conchiglia.",
+                    "de": "Shed ist der Schuppen; shell ist die Muschel."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "A shell? This far from the sea? Hm.",
+                    "sl": "Školjka? Tako daleč od morja? Hm.",
+                    "it": "Una conchiglia? Così lontano dal mare? Mh.",
+                    "de": "Eine Muschel? So weit weg vom Meer? Hm."
+                  }
+                }
+              ],
+              "to": "arthur"
+            },
+            {
+              "who": "arthur",
+              "en": "Bees fly out from the edge of a meadow, not the middle. They like a wall at their backs.",
+              "sl": "Čebele letijo z roba travnika, ne s sredine. Rade imajo zid za hrbtom.",
+              "it": "Le api volano dal margine del prato, non dal centro. Amano avere un muro alle spalle.",
+              "de": "Bienen fliegen vom Rand der Wiese los, nicht aus der Mitte. Sie mögen eine Mauer im Rücken."
+            },
+            {
+              "choices": [
+                {
+                  "en": "So the edge of the field is actually the best spot for them.",
+                  "sl": "Rob polja je torej pravzaprav najboljše mesto zanje.",
+                  "it": "Quindi il margine del campo è in realtà il posto migliore per loro.",
+                  "de": "Der Rand des Feldes ist also eigentlich die beste Stelle für sie.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "It is. Quiet, sheltered, and out of everyone's way.",
+                    "sl": "Je. Tiho, zavetno in nikomur na poti.",
+                    "it": "Sì. Tranquillo, riparato, e fuori dai piedi.",
+                    "de": "Ja. Ruhig, geschützt und keinem im Weg."
+                  }
+                },
+                {
+                  "en": "So the egg of the field is actually the best spot for them.",
+                  "sl": "Jajce polja je torej pravzaprav najboljše mesto zanje.",
+                  "it": "Quindi l'uovo del campo è in realtà il posto migliore per loro.",
+                  "de": "Das Ei des Feldes ist also eigentlich die beste Stelle für sie.",
+                  "why": {
+                    "sl": "Edge je rob; egg je jajce.",
+                    "it": "Edge è il margine; egg è l'uovo.",
+                    "de": "Edge ist der Rand; egg ist das Ei."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The egg of the field? Hm … you need some breakfast, friend.",
+                    "sl": "Jajce polja? Hm … rabiš zajtrk.",
+                    "it": "L'uovo del campo? Mh … ti serve la colazione.",
+                    "de": "Das Ei des Feldes? Hm … du brauchst Frühstück."
                   }
                 }
               ]
@@ -1600,7 +2578,45 @@
               ]
             }
           ]
-        }
+        },
+        "B1": { "lines": [
+          { "who": "arthur", "en": "The first meadow honey is ready. You can taste the clover and the cornflowers in it.", "sl": "Prvi med s travnika je pripravljen. V njem se čutita detelja in plavice.", "it": "Il primo miele del prato è pronto. Si sentono il trifoglio e i fiordalisi.", "de": "Der erste Wiesenhonig ist fertig. Man schmeckt den Klee und die Kornblumen.", "fx": {"honey": 1} },
+          { "who": "maggie", "en": "And the scones are still warm. Sit down, everyone!", "sl": "Pogačice so še tople. Sedite, vsi!", "it": "E gli scone sono ancora caldi. Sedetevi, tutti!", "de": "Und die Scones sind noch warm. Setzt euch, alle!" },
+          { "to": "arthur", "choices": [
+            { "en": "This honey is sweeter than any I've ever tasted.", "sl": "Ta med je slajši od vseh, kar sem jih {m:poskusil|f:poskusila}.", "it": "Questo miele è più dolce di tutti quelli che ho mai assaggiato.", "de": "Dieser Honig ist süßer als alle, die ich je probiert habe.", "ok": true,
+              "reply": { "face": "happy", "en": "That's the clover. And the patience.", "sl": "To je detelja. In potrpežljivost.", "it": "È il trifoglio. E la pazienza.", "de": "Das ist der Klee. Und die Geduld." } },
+            { "en": "This honey is saltier than any I've ever tasted.", "sl": "Ta med je bolj slan od vseh, kar sem jih {m:poskusil|f:poskusila}.", "it": "Questo miele è più salato di tutti quelli che ho mai assaggiato.", "de": "Dieser Honig ist salziger als alle, die ich je probiert habe.",
+              "why": { "sl": "Med je sladek (sweet, sweeter); salty pomeni slan.", "it": "Il miele è dolce (sweet, sweeter); salty vuol dire salato.", "de": "Honig ist süß (sweet, sweeter); salty heißt salzig." },
+              "reply": { "face": "surprised", "en": "Saltier? Hm … what have you been eating, friend?", "sl": "Bolj slan? Hm … kaj si pa {m:jedel|f:jedla}?", "it": "Più salato? Mh … che cosa hai mangiato?", "de": "Salziger? Hm … was hast du denn gegessen?" } }
+          ] },
+          { "who": "arthur", "en": "Careful, friend, it drips.", "sl": "Pazi, kaplja.", "it": "Attenzione, gocciola.", "de": "Vorsicht, das tropft." },
+          { "choices": [
+            { "en": "Too late! Now the whole table's sticky.", "sl": "Prepozno! Zdaj je vsa miza lepljiva.", "it": "Troppo tardi! Adesso tutto il tavolo è appiccicoso.", "de": "Zu spät! Jetzt ist der ganze Tisch klebrig.", "ok": true,
+              "reply": { "face": "laugh", "en": "That's the sign of a good breakfast.", "sl": "To je znak dobrega zajtrka.", "it": "È il segno di una buona colazione.", "de": "Das ist das Zeichen eines guten Frühstücks." } },
+            { "en": "Too late! Now the whole table's stinky.", "sl": "Prepozno! Zdaj vsa miza smrdi.", "it": "Troppo tardi! Adesso tutto il tavolo puzza.", "de": "Zu spät! Jetzt stinkt der ganze Tisch.",
+              "why": { "sl": "Sticky pomeni lepljiv; stinky pomeni smrdljiv.", "it": "Sticky vuol dire appiccicoso; stinky vuol dire puzzolente.", "de": "Sticky heißt klebrig; stinky heißt stinkend." },
+              "reply": { "face": "laugh", "en": "Stinky? Honey? Hm … hold your nose, friend.", "sl": "Smrdi? Med? Hm … drži se za nos.", "it": "Puzza? Il miele? Mh … tappati il naso.", "de": "Stinkt? Honig? Hm … halt dir die Nase zu." } }
+          ] }
+        ] },
+        "B2": { "lines": [
+          { "who": "arthur", "en": "Three years ago this was rough grass. Today the bees have turned it into the first honey the meadow's ever given.", "sl": "Pred tremi leti je bila tu groba trava. Danes so jo čebele spremenile v prvi med tega travnika.", "it": "Tre anni fa qui c'era erba grossolana. Oggi le api l'hanno trasformata nel primo miele di questo prato.", "de": "Vor drei Jahren war hier grobes Gras. Heute haben die Bienen daraus den ersten Honig dieser Wiese gemacht.", "fx": {"honey": 1} },
+          { "who": "maggie", "en": "Scones are on the table, and there's no sitting down till the kettle's boiled.", "sl": "Pogačice so na mizi, sedli pa bomo, ko bo čajnik zavrel.", "it": "Gli scone sono in tavola, e non ci si siede finché non bolle il bollitore.", "de": "Die Scones stehen auf dem Tisch, und gesessen wird erst, wenn der Kessel kocht." },
+          { "to": "arthur", "choices": [
+            { "en": "It's far sweeter than the heather honey, though it hasn't got the same strength.", "sl": "Veliko slajši je od medu iz rese, čeprav nima enake moči.", "it": "È molto più dolce del miele d'erica, anche se non ha la stessa forza.", "de": "Er ist viel süßer als der Heidehonig, auch wenn er nicht dieselbe Kraft hat.", "ok": true,
+              "reply": { "face": "happy", "en": "You've a good tongue. They're cousins, not twins.", "sl": "Dober jezik imaš. Sta bratranca, ne dvojčka.", "it": "Hai un buon palato. Sono cugini, non gemelli.", "de": "Du hast eine gute Zunge. Das sind Cousins, keine Zwillinge." } },
+            { "en": "It's far sweatier than the heather honey, though it hasn't got the same strength.", "sl": "Veliko bolj poten je od medu iz rese, čeprav nima enake moči.", "it": "È molto più sudato del miele d'erica, anche se non ha la stessa forza.", "de": "Er ist viel verschwitzter als der Heidehonig, auch wenn er nicht dieselbe Kraft hat.",
+              "why": { "sl": "Sweet (sweeter) pomeni sladek; sweaty (sweatier) pomeni poten.", "it": "Sweet (sweeter) vuol dire dolce; sweaty (sweatier) vuol dire sudato.", "de": "Sweet (sweeter) heißt süß; sweaty (sweatier) heißt verschwitzt." },
+              "reply": { "face": "laugh", "en": "Sweatier? Hm … that's the beekeeper, friend, not the honey.", "sl": "Bolj poten? Hm … to je čebelar, ne med.", "it": "Più sudato? Mh … quello è l'apicoltore, non il miele.", "de": "Verschwitzter? Hm … das ist der Imker, nicht der Honig." } }
+          ] },
+          { "who": "arthur", "en": "It's running down your wrist, friend. Honey's in no hurry, but it does get everywhere.", "sl": "Teče ti po zapestju. Med se ne mudi, a pride povsod.", "it": "Ti sta colando sul polso. Il miele non ha fretta, ma arriva dappertutto.", "de": "Es läuft dir übers Handgelenk. Honig hat es nicht eilig, aber er kommt überall hin." },
+          { "choices": [
+            { "en": "My fingers are so sticky that the spoon won't come off.", "sl": "Prsti so mi tako lepljivi, da žlice ne morem odlepiti.", "it": "Ho le dita così appiccicose che il cucchiaio non si stacca.", "de": "Meine Finger sind so klebrig, dass der Löffel nicht abgeht.", "ok": true,
+              "reply": { "face": "laugh", "en": "Then you've eaten it properly.", "sl": "Potem si ga {m:jedel|f:jedla}, kot je treba.", "it": "Allora l'hai mangiato come si deve.", "de": "Dann hast du ihn richtig gegessen." } },
+            { "en": "My fingers are so stingy that the spoon won't come off.", "sl": "Prsti so mi tako skopi, da žlice ne morem odlepiti.", "it": "Ho le dita così avare che il cucchiaio non si stacca.", "de": "Meine Finger sind so geizig, dass der Löffel nicht abgeht.",
+              "why": { "sl": "Sticky pomeni lepljiv; stingy pomeni skop.", "it": "Sticky vuol dire appiccicoso; stingy vuol dire avaro.", "de": "Sticky heißt klebrig; stingy heißt geizig." },
+              "reply": { "face": "laugh", "en": "Stingy? Hm … they won't give the spoon back, you mean?", "sl": "Skopi? Hm … nočejo vrniti žlice?", "it": "Avare? Mh … non restituiscono il cucchiaio?", "de": "Geizig? Hm … sie geben den Löffel nicht zurück?" } }
+          ] }
+        ] }
       }
     }
   ]
