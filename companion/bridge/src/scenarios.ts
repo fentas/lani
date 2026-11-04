@@ -135,6 +135,21 @@ export function scenarioBrief(s: Scenario, child = false) {
   }
 }
 
+/** The levels a talk and a learner have, in order. */
+const LEVEL_ORDER: readonly string[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
+/**
+ * Whether a curated talk at [talk] is offered to a learner at [learner]: at their level or below, or one above. A talk is
+ * chosen from a list, not met on the way, and the tutor plays it at the learner's level, so one level up is a stretch the
+ * learner takes on (i+1), two are a wall: an A1 learner is offered A1 and A2 talks, never B1 or B2; an A2 learner up to
+ * B1; a B1 learner up to B2. A level the bridge doesn't know (an unknown learner's) counts as A1.
+ */
+export function talkLevelOffered(talk: string, learner: string): boolean {
+  const at = Math.max(0, LEVEL_ORDER.indexOf(learner))
+  const t = LEVEL_ORDER.indexOf(talk)
+  return t < 0 || t <= at + 1
+}
+
 /** The packs [s] names that the village doesn't have ([packs]: its packs' ids). */
 export function scenarioPackErrors(s: Pick<Scenario, 'id' | 'packs'>, packs: Iterable<string>): string[] {
   const have = new Set(packs)
@@ -189,9 +204,13 @@ export class ScenarioStore {
     return [...curated, ...this.read(this.tutorDir, 'tutor').filter(s => !ids.has(s.id))]
   }
 
-  /** The role-plays offered to the learner: a child ([child]) is never offered a grown-up's (audience adult). */
-  offered(child: boolean): LoadedScenario[] {
-    return this.all().filter(s => !(child && s.audience === 'adult'))
+  /**
+   * The role-plays offered to the learner: a child ([child]) is never offered a grown-up's (audience adult); a learner at
+   * [level] no curated one more than a level above theirs (talkLevelOffered). The tutor's are offered at any level: the
+   * tutor wrote them for this learner. Without [level], every level.
+   */
+  offered(child: boolean, level?: string): LoadedScenario[] {
+    return this.all().filter(s => !(child && s.audience === 'adult') && (level === undefined || s.source === 'tutor' || talkLevelOffered(s.level, level)))
   }
 
   get(id: string): LoadedScenario | undefined {
