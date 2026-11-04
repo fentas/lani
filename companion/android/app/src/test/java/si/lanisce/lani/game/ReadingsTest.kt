@@ -170,4 +170,18 @@ class ReadingsTest {
         assertEquals(all.size, order.size)
         assertEquals("🥣" to "📖", Readings.Readable.of(Cultures.load("primorska").readings.getValue("potica")).item.emoji to Readings.emojiOf("story"))
     }
+
+    @Test fun `every reading of the corner, the bridge's as the app gets them, passes the app's own check`() {
+        val root = listOf(java.io.File("../.."), java.io.File(".."), java.io.File("companion")).first { java.io.File(it, "cultures").isDirectory }
+        var read = 0
+        for (culture in listOf("primorska", "friuli", "kaernten", "lakeland")) {
+            for (f in java.io.File(root, "cultures/$culture/readings").listFiles { x -> x.extension == "json" }.orEmpty().sortedBy { it.name }) {
+                val r = si.lanisce.lani.data.ReadingPractice.parseServed("[${f.readText()}]").singleOrNull()
+                assertTrue("$culture/${f.name}: the app can't read it", r != null)
+                assertEquals("$culture/${f.name}", emptyList<String>(), Cultures.check(culture, r!!))
+                read++
+            }
+        }
+        assertTrue("$read readings", read >= 41)
+    }
 }
