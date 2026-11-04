@@ -543,6 +543,8 @@ hint chip": the bare case question doesn't help a learner, its trigger and a mod
   numbers page, the rows of v and na on the Kam? page, the orodnik page's row of its preposition);
 - "📖 V knjigo · To the book: <title>" for each of its pages, the page on a sheet over the dialog.
 
+The card opens under the chip and scrolls into view: with long choices the chip already stands at the panel's foot.
+
 Its rule is the pages its wrong choices name (at a form turn, those of the form's wrong choices), else the turn's, else the
 right choice's (a tap turn names it there), else the page the app guessed from the whys (`DialogChoice.rule`). The cases'
 questions, the pages' rules in words and the models are a small table in the code, not a field of the pages (every page
@@ -606,7 +608,7 @@ that decides sein or haben, kein by its noun and nicht by its verb, du or Sie by
 to leave out, but in German the order is the form, so the card names what decides it ("«Morgen» comes first: the verb comes
 next"; "after «dass»: the verb goes last"). **What people say in Kärnten is never taught against:** after weil and obwohl the
 line says the verb goes last in writing and second in talk too (grading's own `verb_second`), after wegen the same of the
-dative (the table's `spoken`), and a turn with both right names no form. On the curated German turns (2026-11-04) @@NUM@@;
+dative (the table's `spoken`), and a turn with both right names no form. On the curated German turns (2026-11-04) 1,349 have a hint, 1,303 of them a rule or a trigger, 832 of the 978 form turns name what decides, and 57 turns of word order say where the verb goes;
 `GermanHintTest` checks that nothing shown or said gives the answer away (in sl, en and it), and writes every form turn's first
 line to build/reports/hints/de.txt.
 

@@ -116,7 +116,7 @@ takes the dative, «Wohin?» the accusative.", the German by the app's German vo
 5. **The chip** (`TurnHints.of`): a German turn takes German's table; the models' choice and the rows are the shared `finish`.
    Slovene's, Italian's and English's turns are unchanged: the German branch comes after theirs, and the one line of shared
    code that changes (a turn of whole phrases: what isn't its answer) keeps `CaseTriggers.isPreposition` for them.
-6. **Tests**: `GermanHintTest` (@@TESTS@@): every page's rule, sentence and models in every table; the table read, not repeated;
+6. **Tests**: `GermanHintTest` (18): every page's rule, sentence and models in every table; the table read, not repeated;
    the triggers on the content's own turns; what people say in Kärnten; word order; models with no form of the turn; an English
    and an Italian base; and over every curated German turn (Kärnten's scenes with their counting dialogs at a number of each
    category, steps, stories, parties, arrivals), in sl, en and it: no line, row, title, model or spoken sentence gives the answer
@@ -146,8 +146,8 @@ takes the dative, «Wohin?» the accusative.", the German by the app's German vo
   its table and the helpers: 46 such hints are left. This is looser than a form turn on purpose, and only there: a rule may name
   *mir* among the pronouns at *Mir ist kalt* against *Ich bin kalt*, as it names both at a form turn. A turn of one word's form
   keeps every form, and nothing changes for the other languages.
-- **Word order, past the English shape.** English and Italian say the rule alone at a turn of no one word; in German about
-  @@ORDER@@ turns are exactly that and the order is what they test, so the chip names what decides. A separable verb's turn
+- **Word order, past the English shape.** English and Italian say the rule alone at a turn of no one word; in German 57
+  turns are exactly that and the order is what they test, so the chip names what decides. A separable verb's turn
   (*Ich mache die Tür zu* against *Ich zumache die Tür*) has other words, so it stays the rule alone: a line there would say
   the answer.
 - **No bridge, no content.** The rules are in the app, as the others'; nothing the bridge serves changes, so an older app
@@ -158,11 +158,19 @@ takes the dative, «Wohin?» the accusative.", the German by the app's German vo
 Over the curated German turns, `GermanHintTest` (its reports: build/reports/hints/de.txt, each form turn's first line, and
 de-silent.txt, the hints that show only their link):
 
-@@TABLE@@
+| | Turns |
+|---|---|
+| German turns (choices ≥ 2) | 2,037 |
+| with a hint (a page of the book) | 1,349 |
+| with a rule or a trigger on the card | 1,303 (97 %) |
+| form turns (one word differs) | 978 |
+| naming what decides | 832 (85 %) |
+| turns of word order, saying where the verb goes | 57 |
+| the 🔊 says something (the longest about 17 s) | 1,349 |
 
-The same in sl, en and it. By line: @@BYLINE@@
+The same in sl, en and it. By line, every hint: who 144, more than one 139, the gender 82, the object 65, the infinitive 46, sein or haben by the participle 33, the verb next 26, after a dative's preposition 25, a verb with the dative 22, the participle 21, kein by its noun 17, a two-way preposition with both 17, the verb last 15 and with what people say 7, how something is 13, the article shows the case 13, who gets it 13, Wo? 11, Wohin? 11, the rest 1 to 10 each. The cast adds no turn in German: a name at its clause's start is taken for who does it with or without it.
 
-All @@READ@@ form turns' lines were read one by one, run through the real `GermanHints.kt` (compiled alone with stubs: the
+The 755 distinct form sentences' lines were read one by one, run through the real `GermanHints.kt` (compiled alone with stubs: the
 machine's Gradle slots were taken). Wrong, and fixed: *Alte Pfähle aus Holz.* took a plural for a verb's person; *Mit „Sehr
 geehrter Herr …* read a dative into a quoted greeting; *Was ist das für ein Stein?* would have read für as a preposition;
 *sein Stück Brot* took the possessive for a helper; *Das heißt Honig* named Honig; *Ja, es quietscht* took Ja for a noun; *Er
@@ -176,7 +184,7 @@ before it explains (*Dann hätten wir vielleicht zu wenig Heu.*).
 
 ## What's left
 
-- **`EnglishHintTest` fails on this base, and not by this branch.** See "Tests".
+- **Three tests fail on this base, none by this branch.** See "Tests".
 - **Pages with no curated form turn** (uhrzeit, zahlen, ordinalzahlen, als-ob, indirekte-rede, steigerung's forms) have their
   rule, sentence and models and no looks to speak of: nothing to read them against yet. A tutor's turn there gets the rule.
 - **A pronoun's gender** is named only when a sentence of its own names the noun (*Ein Fuchs! Er ist rot.*); the line before
