@@ -782,6 +782,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** The first moment over ([won]: the first word said back, the fire lit, a little food for it): the map. */
     fun firstMomentDone(won: Boolean) {
         firstRun.settle(si.lanisce.lani.app.FirstRun.Ask.MOMENT)
+        // the founding day's own news isn't "while you were away": they were here (the chronicle keeps it)
+        game.dismissNews()
         game.finishIntro()
         if (won) game.apply { s -> s.copy(resources = s.resources + (si.lanisce.lani.game.Res.FOOD to s.res(si.lanisce.lani.game.Res.FOOD) + FIRST_WORD_FOOD)) }
     }

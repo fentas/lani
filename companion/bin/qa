@@ -1232,7 +1232,9 @@ def first_launch(way_key="setup.computerTitle"):
 def first_link(way_key: str):
     """The first screen's small link, to the way titled [way_key]."""
     link = say("setup.otherLink", 1)
-    assert wait_for(link, 30) or scroll_to(link, 3), "the first screen's small link"
+    if not wait_for(link, 30):
+        print("    on screen:", [t for t, _ in nodes() if t][:24], "dump:", adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False)[:120])
+        raise AssertionError(f"the first screen's small link «{link}»")
     assert tap(link, 4), "the small link"
     assert wait_for(say("setup.otherTitle", 0), 8), "the other ways in"
     setup_heard("other", 3)
