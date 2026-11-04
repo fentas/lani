@@ -140,4 +140,11 @@ class GradingNonstandardTest {
             assertEquals(Hint.APOSTROPHE, t.looseHint)
         }
     }
+
+    @Test fun `a table's rule that joins words across a comma doesn't break the verb second`() {
+        // so, dass folds to sodass: a word fewer than the clauses add up to, which used to run off the sentence's end
+        val right = "Ich halte ihn so, dass kein Stück auf den Boden fällt."
+        assertEquals(Verdict.WRONG, Grading.check("Ich halte ihn so, dass kein Stück fällt auf den Boden.", listOf(right), Lang.DE).verdict)
+        assertEquals(Verdict.CORRECT, Grading.check(right, listOf(right), Lang.DE).verdict)
+    }
 }

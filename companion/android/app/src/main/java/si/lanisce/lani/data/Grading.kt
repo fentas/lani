@@ -144,8 +144,11 @@ object Grading {
         val typed = answer.split(' ')
         return accept.firstOrNull { x ->
             val right = fold(x, lang).split(' ')
+            val parts = x.split(',').map { fold(it, lang) }.filter { it.isNotEmpty() }
+            // a rule of the table may join words across a comma ("so, dass" folds to sodass): the parts no longer add up to the sentence
+            if (parts.sumOf { it.split(' ').size } != right.size) return@firstOrNull false
             var from = 0
-            x.split(',').map { fold(it, lang) }.filter { it.isNotEmpty() }.any { part ->
+            parts.any { part ->
                 val end = from + part.split(' ').size
                 val found = (from until end).any { c ->
                     val after = right.size - end
