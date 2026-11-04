@@ -132,3 +132,33 @@ family and not for resale (Anthropic's terms allow a key for the owner's own aut
 no card) and the paid add-on answer the same routes, so they go there as another `BridgeConfig`; when they end it gives the
 connection back, the clips on the device stay and lines fall back to Piper and the phone's voices.
 
+## Tap counts and seconds
+
+QA's step `first-run`, on the emulator, a busy machine, from the first screen to the village's map on this device, the defaults
+kept. A tap counts a field's tap (typing the name) and the system's notification question. The seconds are QA's, with no
+reading or listening: every look at the screen costs a second or two of uiautomator, the same before and after, so compare
+them with each other, not with a person. Before: an APK from an ancestor of this branch (talks-de, the same setup code).
+
+| Journey | Before | After |
+|---|---|---|
+| An adult, a phone, sl · en: taps to the map | 12 | 6 |
+| Seconds to the founding | 71.4 | 26.3 |
+| Seconds to the first line said aloud | 97.6 | 40.6 (34.2 on the first run) |
+| Seconds to the map | 114.0 | 49.0 (45.7) |
+| A child, a tablet on its side, it · de: taps to the map | 13 | 7 |
+| Seconds to the founding | 74.9 | 30.4 |
+| Seconds to the first line said aloud | 95.3 | 42.2 |
+| Seconds to the map | 110.0 | 51.6 |
+| Questions on screen before the village | 9 | 2 (language, name) and "For a child" |
+
+The taps after: the language, the name, "Found my village", "My village will be here", the greeting, "Light the fire"; a child's
+adds "For a child". The founding's own choices (a landscape, another place) stay, optional.
+
+Other ways, from the first screen:
+
+| Journey | Before | After |
+|---|---|---|
+| The family's computer, QR code | 5 (language, Next, the way, Scan, "To my village") | 3 (the link, the way, Scan) |
+| The family's computer, typed | 8 | 6 (the link, the way, "Ročno", the address, the token, Connect) |
+| A new family member, from a set-up device | 7 or more, and a key typed by hand | 5 on the new device (the link, the way, the name, Found, here) and a hold on the parent's, before the first word |
+

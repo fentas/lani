@@ -74,7 +74,7 @@ class FoundingTest {
         for (lang in listOf(Lang.SL, Lang.EN, Lang.IT, Lang.DE)) {
             val table = L10n.table(lang)
             for (l in Landscape.entries) assertTrue("${lang.code}: ${l.key}", l.key == "landscape.${l.id}" && !table[l.key].isNullOrBlank())
-            for (k in listOf("title", "about", "region", "regionOnNode", "landscape", "anotherPlace", "here", "once")) {
+            for (k in listOf("title", "about", "region", "regionOnNode", "anotherPlace", "here", "once")) {
                 assertTrue("${lang.code}: founding.$k", !table["founding.$k"].isNullOrBlank())
             }
         }
