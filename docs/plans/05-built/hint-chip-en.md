@@ -190,6 +190,12 @@ for a habit; *the other side*, *the family's luck*, *The Vikings* lost their fir
 wasn't a question; *Are you scared?* (do's page) and *some* in a yes sentence named nothing. Five rules said the
 village's own answers and so were left out at those turns: reworded (see the native check's first paragraph).
 
+**B1 and B2.** Main's Lakeland names no B1 or B2 page yet, so those pages' looks have no curated turn here. Run over the
+dialogs-lakeland branch's scenes (16ff71c2a, read only: 124 form turns of 31 B1 and B2 pages), 67 first name what decides
+and the lines read right, after four fixes (*that the oak*, a pronoun after *told*, *for months*, *since I was a child*).
+The 57 that name nothing are mostly a meaning or a pattern of their own (*Sitting by the window, …*, *do* or *make*, *un-*
+or *dis-*, *wish*). Look at build/reports/hints/en.txt again once that branch has landed.
+
 **The 65 hints with the link alone** are turns of two right choices or of another length (*I'm fine, thank you.* and *Very
 well, thank you.*; *I can't see the river.* against *I don't can see*): the whole of their sentence is the answer, so a
 card that names *I'm*, *can't* or *don't* is left out. Hence the test's 90 %, not Italian's 95 %.
