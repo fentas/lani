@@ -149,7 +149,7 @@ takes the dative, «Wohin?» the accusative.", the German by the app's German vo
   every turn, so at a German one *unter*, *dem*, *mir*, *Sie*, *hätte* counted as answers and hid the rule that names them: 168
   hints showed their link alone, among them most of du or Sie (*Tanzen Sie, Herr Toni?* against *Tanzt du …*: its rule can't be
   said without both) and of the where-is-it turns (*Da, unter dem Bankerl!*). German now leaves out its own small words, from
-  its table and the helpers: 46 such hints are left. This is looser than a form turn on purpose, and only there: a rule may name
+  its table and the helpers: 44 such hints are left (with the rules below). This is looser than a form turn on purpose, and only there: a rule may name
   *mir* among the pronouns at *Mir ist kalt* against *Ich bin kalt*, as it names both at a form turn. A turn of one word's form
   keeps every form, and nothing changes for the other languages.
 - **A rule shows both forms where it can.** `TurnHints.fair` hides a line that shows the turn's answer, unless it sets every form
@@ -175,7 +175,7 @@ de-silent.txt, the hints that show only their link):
 |---|---|
 | German turns (choices ≥ 2) | 2,037 |
 | with a hint (a page of the book) | 1,349 |
-| with a rule or a trigger on the card | 1,303 (97 %) |
+| with a rule or a trigger on the card | 1,305 (97 %) |
 | form turns (one word differs) | 978 |
 | naming what decides | 832 (85 %) |
 | turns of word order, saying where the verb goes | 57 |
@@ -214,7 +214,7 @@ On this branch at 538ac50ee (the app's code last changed at b091482c0; only QA's
 - Bridge (untouched, run anyway): `bunx tsc --noEmit -p .` clean; the smoke 4,198 checks, all passed; `tutor-export --check` 140
   files match.
 - Python: `python3 -m unittest discover -s tests` 253 OK, `-s companion/tests` 185 OK (11 skipped).
-- App: the full unit suite through lani-slot.sh: @@FULL@@. Among them: `GermanHintTest` 18, `TurnHintTest` 18 and
+- App: the full unit suite through lani-slot.sh: 4,293 tests in 540 classes, 3 failures (below), 2 skipped, no errors. Among them: `GermanHintTest` 18, `TurnHintTest` 18 and
   `ItalianHintTest` 14 and `HintSpeechTest` 11 unchanged and passing, `L10nTablesTest` 6.
 - **Three tests fail, and they fail on the base too.** Run alone on a clean checkout of 6bdf652af, a throwaway worktree, the same
   three fail with the same messages, so none comes from this branch (which changes no file of cultures/, grammar/ or grading/):
