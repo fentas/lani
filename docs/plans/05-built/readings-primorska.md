@@ -137,6 +137,10 @@ uses, not whole paradigms as lens-unknown-forms's do, so a tap on another form o
 
 - **Final run, on b59c4388 (merged with main, 2026-11-04):** the smoke 3,825 checks passed; the Android suite 4,124 tests, 0
   failures, 2 skipped; tsc clean; `tutor-export --check` 140 files match; Python 179 (11 skipped) and 253 tests OK.
+- **After it, one more merge of main (aa09891f):** the supplement conflicted (both sides appended) and went through the kit's
+  supp-merge.py, every lemma and form of both sides kept, 83 lemmas joined, 2,679 entries with main's; the lens's unknown forms
+  59 with main's new content. tsc, check-culture, `tutor-export --check` and the reactions' rules pass on it; the Android suite
+  and the emulator QA were not run again on that merge.
 - `bun test/check-culture.ts primorska`: ok after every story. `bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed
   placeholders, 0 turns the same for one gender.
 - **The smoke** (`test/smoke/stories.ts`): every one of Janez's stories at A1, A2, B1 and B2; the notebook's count now counts
@@ -185,4 +189,4 @@ deklica; ea99d305 Mojca Pokrajculja; 4badcfda Kekec; 2d4ad96f Zlatorog B2; 68167
 4a5f26b8 Zmaj B2; e029de2c tests; bef3e2c8 Bogatinovo zlato B2; 2ad7f242 Pegam in Lambergar B2; 27e24473 Veronika B2;
 49e88e90 Krpan B1; 8823d356 Kozjak B1; 94995cbb Krpan B2; fc6cfcb7 Kozjak B2; 1570029a tests, SCENES.md, QA; 05ee82fc,
 a7ad04ef source fixes; 64e0bc01 this doc; df664a50 what the first full run found (the reactions, prekleti, the supplement,
-the looks, QA's reach); b59c4388 Sloleks. Merges of main: e82e345c, 751348ae.
+the looks, QA's reach); b59c4388 Sloleks; 28621f06 this doc's numbers. Merges of main: e82e345c, 751348ae, aa09891f.
