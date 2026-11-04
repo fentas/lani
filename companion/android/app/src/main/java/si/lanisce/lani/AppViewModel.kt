@@ -713,10 +713,10 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         live.familyShare().copy(target = langPair.target.code, base = langPair.base.code)
     }
 
-    /** What the sending device will share, in words for the parent who decides. */
-    suspend fun familyWhat(): String {
+    /** What the sending device will share, a line each, in words for the parent who decides. */
+    suspend fun familyWhat(): List<String> {
         val p = live.familyShare().provider?.let { id -> si.lanisce.lani.tutor.ProviderId.entries.firstOrNull { it.id == id } }
-        return listOfNotNull(p?.let { bi("family.whatKey", "provider" to it.label) }, bi("family.whatLanguages")).joinToString("; ")
+        return listOfNotNull(p?.let { bi("family.whatKey", "provider" to it.label) }, bi("family.whatLanguages"))
     }
 
     /** The receiving side: a code being fetched, or why one gave nothing; null: the camera is on. */

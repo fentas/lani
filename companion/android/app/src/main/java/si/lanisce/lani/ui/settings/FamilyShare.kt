@@ -36,14 +36,16 @@ import si.lanisce.lani.ui.towns.QrImage
 fun FamilyShare(vm: AppViewModel) {
     val c = vm.familyShare
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
-    var what by remember { mutableStateOf<String?>(null) }
+    var what by remember { mutableStateOf<List<String>>(emptyList()) }
     LaunchedEffect(Unit) { what = vm.familyWhat() }
     DisposableEffect(Unit) { onDispose { c.close() } }
-    Text(bi("family.what"), style = MaterialTheme.typography.bodyMedium)
-    Text(bi("family.whoPays"), style = MaterialTheme.typography.bodySmall, color = muted)
-    Text(bi("family.chatgptNot"), style = MaterialTheme.typography.bodySmall, color = muted)
-    // a family's computer has a learner of its own for each of them: this code doesn't make one (lani-profile add, lani-pair)
-    if (!vm.hosted.active) Text(bi("family.computerNot"), style = MaterialTheme.typography.bodySmall, color = muted)
+    // what it is before a code is shown; once someone claimed one, only what the parent decides on
+    if (c.phase !is Phase.Asking && c.phase !is Phase.Sent) {
+        Text(bi("family.what"), style = MaterialTheme.typography.bodyMedium)
+        Text(bi("family.chatgptNot"), style = MaterialTheme.typography.bodySmall, color = muted)
+        // a family's computer has a learner of its own for each of them: this code doesn't make one (lani-profile add, lani-pair)
+        if (!vm.hosted.active) Text(bi("family.computerNot"), style = MaterialTheme.typography.bodySmall, color = muted)
+    }
     when (val p = c.phase) {
         Phase.Idle, Phase.Over, Phase.NoWifi -> {
             if (p == Phase.NoWifi) Text("📶 ${bi("family.noWifi")}", color = MaterialTheme.colorScheme.error)
@@ -58,7 +60,9 @@ fun FamilyShare(vm: AppViewModel) {
         }
         is Phase.Asking -> Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Text("👪 ${bi("family.confirmTitle", "device" to p.device)}", style = MaterialTheme.typography.titleMedium)
-            Text(bi("family.willShare", "what" to (what ?: "…")), style = MaterialTheme.typography.bodyMedium)
+            Text(bi("family.willShare"), style = MaterialTheme.typography.titleSmall)
+            for (w in what) Text("• $w", style = MaterialTheme.typography.bodyMedium)
+            Text(bi("family.whoPays"), style = MaterialTheme.typography.bodySmall, color = muted)
             HoldToOpen("🔒 ${bi("family.hold")}", onLight = true, onOpen = c::confirm)
             OutlinedButton(onClick = c::refuse, modifier = Modifier.fillMaxWidth()) { Text(bi("family.no")) }
         }
