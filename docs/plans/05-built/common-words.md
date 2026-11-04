@@ -1,7 +1,7 @@
 # Built: the commonest words in a pack (common-words)
 
-*Built 2026-11-03, branch `common-words` (followups-16, section 5), from main 1311eeb2a with `packs-sl` and `packs-de`
-merged in (no rebase). The words the course and the village use most were in no pack, so learning them never counted as
+*Built 2026-11-03 and 04, branch `common-words` (followups-16, section 5), from main 1311eeb2a with `packs-sl` and
+`packs-de` merged in (no rebase), then main 85917a636 with `packs-it`. The words the course and the village use most were in no pack, so learning them never counted as
 a learned word (GAME.md, "Words learned": only a pack's card counts). This branch measures them in every language, adds
 one A1 pack per language of the 24 commonest, and settles Italian "dopo mangiato". Everything here is machine-written
 (Claude) and waits for a native speaker's check (the list comes first). The Slovene was settled against Sloleks and
@@ -43,7 +43,8 @@ prompts.
   Hier!), *stare* "to remain, to stay put" / "bleiben" / "ostati", *sapere* "to know how, to know a fact", *non* "ne pred
   glagolom".
 - German for a child: *Ich hab dich so lieb, Oma!*, *Komm her, Moro!*, *Jetzt bist du dran!*.
-- packs-it's *basso* asks "majhen" and "klein", as *piccolo* does (below, for the lead).
+- packs-it's *basso* now asks "nizke rasti" and "klein gewachsen", no longer piccolo's "majhen" and "klein" (SSKJ² has *biti nizke
+  rasti*, https://fran.si/iskanje?View=1&Query=nizek&FilteredDictionaryIds=133).
 
 **German (woerter-fuer-jeden-tag, Oma Resi)**
 - Austrian German: *Jause*, *Ich muss jetzt in den Stall.*, *baden gehen*, the note "in Austria the perfect takes sein:
@@ -116,8 +117,9 @@ share a prompt as English and Italian say it and are in the baseline (`test/prom
 synonyms are: *dober* and Miklavž's *priden* ("good", "buono"), *gut* and Nikolo's *brav* ("good", "buono"). Both
 festival packs are bundled in the app and Primorska's is frozen by CultureParityTest, so they stay.
 
-**Homonyms:** none (no spelling of a new word is another pack word's). **The supplement:** Italian `collare` and `orto`
-(`companion/lexicon/tools/it_cov_70_common_words.txt`, it.extra.json rebuilt from the tables); German `schneidest`
+**Homonyms:** none (no spelling of a new word is another pack word's). **The supplement:** Italian `collare`
+(`companion/lexicon/tools/it_cov_70_common_words.txt`, it.extra.json rebuilt from the tables; `orto` needs none, it is
+in-piazza's pack word); German `schneidest`
 (schneiden's du-form, de.extra.json). Every token of every example is known to the tap. Each pack word's meaning stays
 close to the supplement's entry of the word.
 
@@ -135,8 +137,8 @@ words: *can* and *was* are verbs, but a bare English pack word was taken for a n
 aside ("can: pločevinka, konzerva", a tin, on the can unit). `prints/sheet.ts` now keeps the verb when the pack's word
 means it (f8546b0eb). German's *sein* lost its auxiliary to the possessive (*njegov*) on partizip-perfekt, because the
 pack's "biti" repeated the supplement's verb entry; the pack now says "biti (ich bin, du bist)". What changed after that:
-Slovene's *povedati* and *veliko* meant in German and Italian (before, the English fallback), and Italian's *orto*
-"zelenjavni vrt". Those twelve sheets were made as PDFs (`school-prints`): every one fits (stevila, odvisni-govor,
+Slovene's *povedati* and *veliko* meant in German and Italian (before, the English fallback). No Italian sheet changed
+(compared again against main 85917a636). The changed sheets, and those of can, partizip-perfekt and preposizioni, were made as PDFs (`school-prints`): every one fits (stevila, odvisni-govor,
 preposizioni and can on one page; dajalnik, velelnik-napredno and partizip-perfekt on two, the most a unit may take).
 
 ## "Dopo mangiato"
@@ -161,25 +163,25 @@ no clip was lost; the meanings changed are not voiced.
 ## Checks
 
 - `bunx tsc --noEmit -p .`; `bun build --no-bundle companion/prints/sheet.ts`; `bun test/prompt-clashes.ts` (no new
-  clash; packs-it's and packs-en's packs checked beside them with a scratch script: one clash left, below);
+  clash on the merged tip; packs-en's packs checked beside them with a scratch script);
   `check-culture`, `check-celebrations` and `check-steps` for all four cultures; `tutor-export --check`; every new pack
   through `validatePack` and `unmarkedHomonyms`; `it_cov_build.py --prompts` (the six clashes it lists are older).
 - Python: `python3 -m unittest discover -s companion/tests`, 182 tests (3 new).
-- The smoke and the Android suite: see the report (they ran through lani-slot.sh after this doc).
-- Not done: an emulator QA (the packs screen shows a pack as any other; no app code changed).
+- Before merging main (469865cc6): the smoke, 3,833 checks, none failed; the Android suite, 4,140 tests, none failed, 2
+  skipped. The first smoke failed one check, Friuli's *sono*, now a pack word's: the check follows it, and the
+  supplement's meaning is checked on *parlo*.
+- Not done: an emulator QA (the packs screen shows a pack as any other; only a sheet's word lookup changed in code).
 
 ## For the lead
 
-- **packs-it's *basso*** (come-sei, B1) asks "majhen (po rasti)" and "klein (an Größe)", whose prompts are "majhen" and
-  "klein", as *piccolo*'s here. When packs-it is merged after this branch the smoke lists `it → sl: basso | piccolo` and
-  `it → de: basso | piccolo`. The fix belongs to basso (Slovene says *nizek* for a short person): sl "nizek", de "klein
-  gewachsen, niedrig".
-- packs-it and packs-en aren't on main; this branch measured against their tips without merging them, and its
-  English and Italian prompts don't clash with theirs (but basso).
+- **packs-en** isn't on main and its branch name is gone from this repository; this branch measured against its tip of
+  2026-11-03 (46 packs, a scratch copy) without merging it, and its English prompts didn't clash with those. When it is
+  merged, run `bun test/prompt-clashes.ts` and `common_words.py --lang en` again.
 - The commonest words come first in no order: `Packs.suggest` follows the files' order. A first-pack hint for a new
   learner (these four first) would be a small change in Packs.kt; not made.
 
 ## Commits
 
 077a0c0fb (the measure), ddf82de52 (dopo mangiato), 24f213bed (Italian), 497c323f3 (Slovene), c207f946a (German),
-b6ed8b463 (English), f8546b0eb (the sheets), 78ab7c7ce (the test, README).
+b6ed8b463 (English), f8546b0eb (the sheets), 78ab7c7ce (the test, README), b4f48e16c (this doc), 469865cc6 (the smoke's
+sono), 3a88ffb4b (main merged: basso, orto).
