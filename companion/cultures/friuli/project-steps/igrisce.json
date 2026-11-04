@@ -447,6 +447,147 @@
               "de": "Vom Wischen und Neuzeichnen ist die Tafel schon voller Rutschen!"
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Immaginate un parco giochi senza regole. Se poteste scegliere tutto, che cosa ci mettereste?",
+              "sl": "Predstavljajte si igrišče brez pravil. Če bi lahko izbrali vse, kaj bi postavili nanj?",
+              "en": "Imagine a playground with no rules. If you could choose everything, what would you put in it?",
+              "de": "Stellt euch einen Spielplatz ohne Regeln vor. Wenn ihr alles aussuchen dürftet, was käme hinein?"
+            },
+            {
+              "who": "giulia",
+              "face": "happy",
+              "it": "Se fosse per me, ci sarebbe un'altalena fino al cielo.",
+              "sl": "Če bi bilo po moje, bi bila tam gugalnica do neba.",
+              "en": "If it were up to me, there'd be a swing up to the sky.",
+              "de": "Wenn es nach mir ginge, gäbe es eine Schaukel bis zum Himmel."
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Vorrei che lo facessi vedere a tutti, {learner}. Che cosa ti servirebbe, alla lavagna?",
+              "sl": "Rada bi, da to pokažeš vsem, {learner}. Kaj bi {m:potreboval|f:potrebovala} pri tabli?",
+              "en": "I'd like you to show it to everyone, {learner}. What would you need at the blackboard?",
+              "de": "Ich möchte, dass du es allen zeigst, {learner}. Was bräuchtest du an der Tafel?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Mi servirebbe un pezzo di gesso.",
+                  "sl": "{m:Potreboval|f:Potrebovala} bi kos krede.",
+                  "en": "I'd need a piece of chalk.",
+                  "de": "Ich bräuchte ein Stück Kreide.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Certo. Ecco anche la spugna, non si sa mai.",
+                    "sl": "Seveda. Tu je še goba, za vsak primer.",
+                    "en": "Of course. Here's the sponge too, just in case.",
+                    "de": "Natürlich. Hier ist auch der Schwamm, man weiß ja nie."
+                  }
+                },
+                {
+                  "it": "Mi servirebbe un pezzo di pettine.",
+                  "sl": "{m:Potreboval|f:Potrebovala} bi kos glavnika.",
+                  "en": "I'd need a piece of comb.",
+                  "de": "Ich bräuchte ein Stück Kamm.",
+                  "why": {
+                    "sl": "Na tablo rišeš s kredo: il gesso. Glavnik je za lase.",
+                    "en": "On the blackboard you draw with chalk: il gesso. A comb is for hair.",
+                    "de": "An die Tafel zeichnet man mit Kreide: il gesso. Ein Kamm ist für die Haare."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il pettine? Per pettinare la lavagna?",
+                    "sl": "Glavnik? Da počešemo tablo?",
+                    "en": "A comb? To comb the blackboard?",
+                    "de": "Einen Kamm? Um die Tafel zu kämmen?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "thinking",
+              "it": "Secondo te, perché cominciamo con la lavagna e non con il martello?",
+              "sl": "Kaj misliš, zakaj začnemo s tablo in ne s kladivom?",
+              "en": "Why do you think we start with the blackboard and not with the hammer?",
+              "de": "Was meinst du, warum fangen wir mit der Tafel an und nicht mit dem Hammer?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Perché, prima di costruire, va disegnato tutto.",
+                  "sl": "Ker je treba pred gradnjo vse narisati.",
+                  "en": "Because, before building, everything has to be drawn.",
+                  "de": "Weil man vor dem Bauen alles zeichnen muss.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto: un errore sulla lavagna si cancella con la spugna.",
+                    "sl": "Natanko: napako na tabli zbrišeš z gobo.",
+                    "en": "Exactly: a mistake on the blackboard comes off with the sponge.",
+                    "de": "Genau: Einen Fehler an der Tafel wischt man mit dem Schwamm weg."
+                  }
+                },
+                {
+                  "it": "Perché, prima di costruire, va disegnata tutto.",
+                  "sl": "Ker je treba pred gradnjo vse narisati.",
+                  "en": "Because, before building, everything has to be drawn.",
+                  "de": "Weil man vor dem Bauen alles zeichnen muss.",
+                  "grammar": "passivo-venire-andare",
+                  "why": {
+                    "sl": "Pri andare se deležnik ujema: tutto je moškega spola, torej va disegnato.",
+                    "en": "With andare the participle agrees: tutto is masculine, so va disegnato.",
+                    "de": "Bei andare richtet sich das Partizip: tutto ist männlich, also va disegnato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Disegnata? Mi suona strano.",
+                    "sl": "Disegnata? Čudno mi zveni.",
+                    "en": "Disegnata? That sounds odd to me.",
+                    "de": "Disegnata? Das klingt für mich seltsam."
+                  }
+                },
+                {
+                  "it": "Perché, prima di costruire, va mangiato tutto.",
+                  "sl": "Ker je treba pred gradnjo vse pojesti.",
+                  "en": "Because, before building, everything has to be eaten.",
+                  "de": "Weil man vor dem Bauen alles aufessen muss.",
+                  "why": {
+                    "sl": "Najprej se nariše načrt: disegnare. Mangiare je jesti.",
+                    "en": "First you draw the plan: disegnare. Mangiare is to eat.",
+                    "de": "Zuerst zeichnet man den Plan: disegnare. Mangiare heißt essen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Mangiato? La merenda è dopo, {learner}!",
+                    "sl": "Pojesti? Malica je pozneje, {learner}!",
+                    "en": "Eaten? Snack time's later, {learner}!",
+                    "de": "Aufessen? Die Pause kommt später, {learner}!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "giulia",
+              "face": "laugh",
+              "it": "Cancellando e ridisegnando, ormai la lavagna è piena di scivoli!",
+              "sl": "Ker brišemo in znova rišemo, je tabla že polna toboganov!",
+              "en": "With all the rubbing out and drawing again, the board's full of slides by now!",
+              "de": "Vom Wegwischen und Neuzeichnen ist die Tafel schon voller Rutschen!"
+            }
+          ]
         }
       }
     },
@@ -954,6 +1095,176 @@
               "de": "Sechs volle Eimer! Und jetzt sieht der Rasen ganz anders aus."
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "elena",
+              "face": "thinking",
+              "it": "Prima che si possa giocare qui, c'è un lavoro da fare. Che cosa faresti tu, {learner}?",
+              "sl": "Preden se bo tu lahko igralo, je treba nekaj narediti. Kaj bi {m:naredil|f:naredila} ti, {learner}?",
+              "en": "Before anyone can play here, there's a job to do. What would you do, {learner}?",
+              "de": "Bevor man hier spielen kann, gibt es Arbeit. Was würdest du tun, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Avrei pulito il prato già ieri, se l'avessi saputo!",
+                  "sl": "Travnik bi {m:očistil|f:očistila} že včeraj, ko bi {m:vedel|f:vedela}!",
+                  "en": "I'd have cleared the meadow yesterday, if I'd known!",
+                  "de": "Ich hätte die Wiese schon gestern aufgeräumt, wenn ich das gewusst hätte!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Non importa, oggi va bene lo stesso. Qui si va a piedi nudi.",
+                    "sl": "Nič hudega, danes je tudi prav. Tu se hodi bos.",
+                    "en": "Never mind, today's fine too. People go barefoot here.",
+                    "de": "Macht nichts, heute geht es auch. Hier läuft man barfuß."
+                  }
+                },
+                {
+                  "it": "Sarei pulito il prato già ieri, se l'avessi saputo!",
+                  "sl": "Travnik bi {m:očistil|f:očistila} že včeraj, ko bi {m:vedel|f:vedela}!",
+                  "en": "I'd have cleared the meadow yesterday, if I'd known!",
+                  "de": "Ich hätte die Wiese schon gestern aufgeräumt, wenn ich das gewusst hätte!",
+                  "grammar": "condizionale-passato",
+                  "why": {
+                    "sl": "Pulire s predmetom tvori preteklik z avere: avrei pulito.",
+                    "en": "Pulire with an object forms its past with avere: avrei pulito.",
+                    "de": "Pulire mit Objekt bildet die Vergangenheit mit avere: avrei pulito."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Sarei pulito? Tu, forse. Il prato no!",
+                    "sl": "Sarei pulito? Ti morda. Travnik pa ne!",
+                    "en": "Sarei pulito? You, maybe. Not the meadow!",
+                    "de": "Sarei pulito? Du vielleicht. Die Wiese nicht!"
+                  }
+                },
+                {
+                  "it": "Avrei pulito il forno già ieri, se l'avessi saputo!",
+                  "sl": "Pečico bi {m:očistil|f:očistila} že včeraj, ko bi {m:vedel|f:vedela}!",
+                  "en": "I'd have cleaned the oven yesterday, if I'd known!",
+                  "de": "Ich hätte den Ofen schon gestern geputzt, wenn ich das gewusst hätte!",
+                  "why": {
+                    "sl": "Pred igro je treba očistiti travnik: il prato.",
+                    "en": "Before playing, the meadow must be cleared: il prato.",
+                    "de": "Vor dem Spielen muss die Wiese aufgeräumt werden: il prato."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il forno? Non facciamo mica il pane!",
+                    "sl": "Pečico? Saj ne pečemo kruha!",
+                    "en": "The oven? We're not baking bread!",
+                    "de": "Den Ofen? Wir backen doch kein Brot!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "giulia",
+              "face": "curious",
+              "it": "Uffa! Che cosa sono tutte queste cose dure nell'erba?",
+              "sl": "Uf! Kaj so vse te trde stvari v travi?",
+              "en": "Ugh! What are all these hard things in the grass?",
+              "de": "Uff! Was sind all die harten Dinger im Gras?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sono sassi, portati qui dalla piena del ruscello.",
+                  "sl": "To so kamni, ki jih je sem prinesla povodenj potoka.",
+                  "en": "They're stones, brought here by the stream in flood.",
+                  "de": "Das sind Steine, vom Hochwasser des Bachs hergebracht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "surprised",
+                    "it": "Dalla piena? Allora il ruscello è più forte di noi!",
+                    "sl": "S povodnijo? Potem je potok močnejši od nas!",
+                    "en": "By the flood? Then the stream's stronger than us!",
+                    "de": "Vom Hochwasser? Dann ist der Bach stärker als wir!"
+                  }
+                },
+                {
+                  "it": "Sono dolci, portati qui dalla piena del ruscello.",
+                  "sl": "To so sladkarije, ki jih je sem prinesla povodenj potoka.",
+                  "en": "They're sweets, brought here by the stream in flood.",
+                  "de": "Das sind Süßigkeiten, vom Hochwasser des Bachs hergebracht.",
+                  "why": {
+                    "sl": "Trde stvari v travi so kamni: i sassi.",
+                    "en": "Hard things in the grass are stones: i sassi.",
+                    "de": "Harte Dinger im Gras sind Steine: i sassi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dolci? Allora assaggiali tu!",
+                    "sl": "Sladkarije? Pa jih ti poskusi!",
+                    "en": "Sweets? Then you taste them!",
+                    "de": "Süßigkeiten? Dann probier du sie!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "Sono tanti. E se facessimo una gara? Spiegalo tu, {learner}.",
+              "sl": "Veliko jih je. Kaj pa, če bi tekmovali? Razloži ti, {learner}.",
+              "en": "There are lots. And what if we had a race? You explain, {learner}.",
+              "de": "Es sind viele. Und wenn wir ein Wettrennen machten? Erklär du es, {learner}."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Con una gara, li raccoglieremmo in un attimo.",
+                  "sl": "S tekmo bi jih pobrali v hipu.",
+                  "en": "With a race, we'd pick them up in no time.",
+                  "de": "Mit einem Wettrennen hätten wir sie im Nu aufgesammelt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Brillante! Chi riempie più secchi, sceglie il primo gioco.",
+                    "sl": "Sijajno! Kdor napolni več veder, izbere prvo igro.",
+                    "en": "Brilliant! Whoever fills the most buckets picks the first game.",
+                    "de": "Großartig! Wer die meisten Eimer füllt, sucht das erste Spiel aus."
+                  }
+                },
+                {
+                  "it": "Con una gara, li perderemmo in un attimo.",
+                  "sl": "S tekmo bi jih izgubili v hipu.",
+                  "en": "With a race, we'd lose them in no time.",
+                  "de": "Mit einem Wettrennen hätten wir sie im Nu verloren.",
+                  "why": {
+                    "sl": "Pri tekmi se kamne pobira: raccogliere. Perdere je izgubiti.",
+                    "en": "In a race, the stones get picked up: raccogliere. Perdere is to lose.",
+                    "de": "Beim Wettrennen sammelt man die Steine auf: raccogliere. Perdere heißt verlieren."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Perderli? Ma se sono tutti qui per terra!",
+                    "sl": "Izgubiti? Saj so vsi tu na tleh!",
+                    "en": "Lose them? They're all here on the ground!",
+                    "de": "Verlieren? Die liegen doch alle hier am Boden!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "giulia",
+              "face": "happy",
+              "it": "Sei secchi pieni! E adesso il prato sembra un altro.",
+              "sl": "Šest polnih veder! In zdaj je travnik videti kot nov.",
+              "en": "Six full buckets! And now the meadow looks like a different one.",
+              "de": "Sechs volle Eimer! Und jetzt sieht die Wiese ganz anders aus."
+            }
+          ]
         }
       }
     },
@@ -1369,6 +1680,139 @@
               "sl": "Ko smo jo skupaj zazibali, se ni premaknila niti za milimeter!",
               "en": "We all rocked it together, and it didn't move a millimetre!",
               "de": "Als wir alle zusammen geschaukelt haben, hat sie sich keinen Millimeter bewegt!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "elena",
+              "it": "Se i vicini non avessero controllato ogni nodo, nessuno di voi ci salirebbe.",
+              "sl": "Ko sosedje ne bi preverili vsakega vozla, ne bi nihče od vas splezal gor.",
+              "en": "If the neighbours hadn't checked every knot, none of you would get on it.",
+              "de": "Hätten die Nachbarn nicht jeden Knoten geprüft, würde keiner von euch daraufsteigen."
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "{learner}, per il giornale della classe: che cosa è successo oggi?",
+              "sl": "{learner}, za razredni časopis: kaj se je danes zgodilo?",
+              "en": "{learner}, for the class newspaper: what happened today?",
+              "de": "{learner}, für die Klassenzeitung: Was ist heute passiert?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Montata la nuova altalena, i vicini hanno controllato ogni nodo.",
+                  "sl": "Ko je bila gugalnica postavljena, so sosedje preverili vsak vozel.",
+                  "en": "With the swing put up, the neighbours checked every knot.",
+                  "de": "Als die Schaukel stand, haben die Nachbarn jeden Knoten geprüft.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Perfetto, lo scrivo così.",
+                    "sl": "Odlično, tako bom zapisala.",
+                    "en": "Perfect, I'll write it like that.",
+                    "de": "Perfekt, so schreibe ich es."
+                  }
+                },
+                {
+                  "it": "Montato la nuova altalena, i vicini hanno controllato ogni nodo.",
+                  "sl": "Ko je bila gugalnica postavljena, so sosedje preverili vsak vozel.",
+                  "en": "With the swing put up, the neighbours checked every knot.",
+                  "de": "Als die Schaukel stand, haben die Nachbarn jeden Knoten geprüft.",
+                  "grammar": "participio-assoluto",
+                  "why": {
+                    "sl": "Samostojni deležnik se ujema: l'altalena, torej montata.",
+                    "en": "The participle on its own agrees: l'altalena, so montata.",
+                    "de": "Das Partizip allein richtet sich: l'altalena, also montata."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Montato? L'altalena è una lei: mi suona strano.",
+                    "sl": "Montato? Gugalnica je ženskega spola: čudno mi zveni.",
+                    "en": "Montato? Altalena is a she: that sounds odd to me.",
+                    "de": "Montato? Altalena ist weiblich: Das klingt seltsam."
+                  }
+                },
+                {
+                  "it": "Montata la nuova astronave, i vicini hanno controllato ogni nodo.",
+                  "sl": "Ko je bila vesoljska ladja postavljena, so sosedje preverili vsak vozel.",
+                  "en": "With the spaceship put up, the neighbours checked every knot.",
+                  "de": "Als das Raumschiff stand, haben die Nachbarn jeden Knoten geprüft.",
+                  "why": {
+                    "sl": "Sosedje so postavili gugalnico: l'altalena.",
+                    "en": "The neighbours put up a swing: l'altalena.",
+                    "de": "Die Nachbarn haben eine Schaukel aufgebaut: l'altalena."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "L'astronave? Allora partiamo stasera!",
+                    "sl": "Vesoljsko ladjo? Potem odletimo nocoj!",
+                    "en": "The spaceship? Then we take off tonight!",
+                    "de": "Das Raumschiff? Dann starten wir heute Abend!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "elena",
+              "face": "thinking",
+              "it": "E prima che un bambino salga, che cosa bisogna controllare?",
+              "sl": "Kaj pa je treba preveriti, preden otrok spleza gor?",
+              "en": "And before a child gets on, what must be checked?",
+              "de": "Und bevor ein Kind daraufsteigt, was muss man prüfen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Bisogna controllare che le corde siano sicure.",
+                  "sl": "Preveriti je treba, ali so vrvi varne.",
+                  "en": "You have to check that the ropes are safe.",
+                  "de": "Man muss prüfen, ob die Seile sicher sind.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Proprio così. E lo si controlla ogni settimana.",
+                    "sl": "Prav tako. In to se preverja vsak teden.",
+                    "en": "Exactly. And it's checked every week.",
+                    "de": "Genau. Und das wird jede Woche geprüft."
+                  }
+                },
+                {
+                  "it": "Bisogna controllare che le corde siano dolci.",
+                  "sl": "Preveriti je treba, ali so vrvi sladke.",
+                  "en": "You have to check that the ropes are sweet.",
+                  "de": "Man muss prüfen, ob die Seile süß sind.",
+                  "why": {
+                    "sl": "Vrvi morajo biti varne: sicure. Dolci pomeni sladke.",
+                    "en": "The ropes have to be safe: sicure. Dolci means sweet.",
+                    "de": "Die Seile müssen sicher sein: sicure. Dolci heißt süß."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dolci? Vuoi assaggiarle?",
+                    "sl": "Sladke? Jih hočeš poskusiti?",
+                    "en": "Sweet? Do you want to taste them?",
+                    "de": "Süß? Willst du sie probieren?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "giulia",
+              "face": "happy",
+              "it": "L'abbiamo fatta dondolare tutti insieme, e non si è mossa di un millimetro!",
+              "sl": "Vsi skupaj smo jo zazibali, pa se ni premaknila niti za milimeter!",
+              "en": "We all swung it together, and it didn't budge a millimetre!",
+              "de": "Wir haben sie alle zusammen schaukeln lassen, und sie hat sich keinen Millimeter bewegt!"
             }
           ]
         }
@@ -1889,6 +2333,176 @@
               "de": "Wenn sie fertig ist, probieren wir sie vor den Kleinen aus!"
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "{learner}, lì c'è un quadrato di legno che ieri non c'era. Che cos'è, per i piccoli?",
+              "sl": "{learner}, tam je lesen kvadrat, ki ga včeraj ni bilo. Kaj je to, za malčke?",
+              "en": "{learner}, there's a wooden square over there that wasn't there yesterday. What is it, for the little ones?",
+              "de": "{learner}, da ist ein Holzquadrat, das gestern nicht da war. Was ist das, für die Kleinen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È la sabbiera nella quale giocheranno i piccoli.",
+                  "sl": "To je peskovnik, v katerem se bodo igrali malčki.",
+                  "en": "It's the sandpit the little ones will play in.",
+                  "de": "Das ist der Sandkasten, in dem die Kleinen spielen werden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Esatto. E il bordo serve per sedersi.",
+                    "sl": "Natanko. In rob je za sedenje.",
+                    "en": "Exactly. And the edge is for sitting on.",
+                    "de": "Genau. Und der Rand ist zum Sitzen."
+                  }
+                },
+                {
+                  "it": "È la sabbiera nel quale giocheranno i piccoli.",
+                  "sl": "To je peskovnik, v katerem se bodo igrali malčki.",
+                  "en": "It's the sandpit the little ones will play in.",
+                  "de": "Das ist der Sandkasten, in dem die Kleinen spielen werden.",
+                  "grammar": "relativi-il-quale",
+                  "why": {
+                    "sl": "Il quale se ujema: la sabbiera, torej nella quale.",
+                    "en": "Il quale agrees: la sabbiera, so nella quale.",
+                    "de": "Il quale richtet sich: la sabbiera, also nella quale."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Nel quale? Forse lo diresti in un altro modo.",
+                    "sl": "Nel quale? Morda bi {m:rekel|f:rekela} drugače.",
+                    "en": "Nel quale? Maybe you'd say it another way.",
+                    "de": "Nel quale? Vielleicht würdest du es anders sagen."
+                  }
+                },
+                {
+                  "it": "È la cantina nella quale giocheranno i piccoli.",
+                  "sl": "To je klet, v kateri se bodo igrali malčki.",
+                  "en": "It's the cellar the little ones will play in.",
+                  "de": "Das ist der Keller, in dem die Kleinen spielen werden.",
+                  "why": {
+                    "sl": "Lesen kvadrat, poln peska, je peskovnik: la sabbiera.",
+                    "en": "A wooden square full of sand is a sandpit: la sabbiera.",
+                    "de": "Ein Holzquadrat voller Sand ist ein Sandkasten: la sabbiera."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La cantina? Al buio, con i ragni?",
+                    "sl": "Klet? V temi, s pajki?",
+                    "en": "The cellar? In the dark, with the spiders?",
+                    "de": "Der Keller? Im Dunkeln, mit den Spinnen?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "lorenzo",
+              "face": "thinking",
+              "it": "Se ci mettessimo la terra, con la pioggia diventerebbe fango. Che cosa ci vorrebbe?",
+              "sl": "Če bi dali noter zemljo, bi se ob dežju spremenila v blato. Kaj bi bilo treba?",
+              "en": "If we put earth in it, the rain would turn it to mud. What would we need?",
+              "de": "Wenn wir Erde hineintäten, würde der Regen Matsch daraus machen. Was bräuchte man?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ci vorrebbe la sabbia del fiume, fine fine.",
+                  "sl": "Potreben bi bil rečni pesek, čisto droben.",
+                  "en": "We'd need sand from the river, nice and fine.",
+                  "de": "Man bräuchte Sand vom Fluss, ganz fein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì! E ci si fanno i castelli.",
+                    "sl": "Ja! In iz njega se delajo gradovi.",
+                    "en": "Yes! And you can make castles with it.",
+                    "de": "Ja! Und man kann Burgen daraus bauen."
+                  }
+                },
+                {
+                  "it": "Ci vorrebbe la panna del fiume, fine fine.",
+                  "sl": "Potrebna bi bila rečna smetana, čisto drobna.",
+                  "en": "We'd need cream from the river, nice and fine.",
+                  "de": "Man bräuchte Sahne vom Fluss, ganz fein.",
+                  "why": {
+                    "sl": "Peskovnik napolniš s peskom: la sabbia.",
+                    "en": "A sandpit is filled with sand: la sabbia.",
+                    "de": "Einen Sandkasten füllt man mit Sand: la sabbia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La panna? Un castello da mangiare?",
+                    "sl": "Smetana? Grad za pojest?",
+                    "en": "Cream? A castle to eat?",
+                    "de": "Sahne? Eine Burg zum Essen?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "thinking",
+              "it": "E perché nessuno abbia paura, che cosa dovrebbe essere basso?",
+              "sl": "Kaj pa bi moralo biti nizko, da se nihče ne bi bal?",
+              "en": "And so that nobody's scared, what ought to be low?",
+              "de": "Und damit keiner Angst hat, was sollte niedrig sein?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Lo scivolo dovrebbe essere basso, almeno all'inizio.",
+                  "sl": "Tobogan bi moral biti nizek, vsaj na začetku.",
+                  "en": "The slide ought to be low, at least to begin with.",
+                  "de": "Die Rutsche sollte niedrig sein, zumindest am Anfang.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Proprio così: chi è piccolo sale, e chi cresce chiede di più.",
+                    "sl": "Prav tako: kdor je majhen, spleza, kdor raste, hoče več.",
+                    "en": "Exactly: the little ones climb up, and those who grow ask for more.",
+                    "de": "Genau: Wer klein ist, steigt hinauf, und wer wächst, will mehr."
+                  }
+                },
+                {
+                  "it": "Il forno dovrebbe essere basso, almeno all'inizio.",
+                  "sl": "Pečica bi morala biti nizka, vsaj na začetku.",
+                  "en": "The oven ought to be low, at least to begin with.",
+                  "de": "Der Ofen sollte niedrig sein, zumindest am Anfang.",
+                  "why": {
+                    "sl": "Malčki se spuščajo po toboganu: lo scivolo.",
+                    "en": "The little ones slide down a slide: lo scivolo.",
+                    "de": "Die Kleinen rutschen eine Rutsche hinunter: lo scivolo."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il forno? Facciamo la pizza ai piccoli?",
+                    "sl": "Pečica? Bomo malčkom pekli pico?",
+                    "en": "The oven? Are we making the little ones pizza?",
+                    "de": "Der Ofen? Backen wir den Kleinen Pizza?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tommaso",
+              "face": "happy",
+              "it": "Quando sarà pronto, proveremo noi prima dei piccoli!",
+              "sl": "Ko bo gotov, ga bomo preizkusili mi, pred malčki!",
+              "en": "When it's ready, we'll try it before the little ones!",
+              "de": "Wenn sie fertig ist, probieren wir sie vor den Kleinen aus!"
+            }
+          ]
         }
       }
     },
@@ -2310,6 +2924,143 @@
               "face": "happy",
               "it": "Se non fosse arrivata la sera, giocheremmo ancora!",
               "sl": "Če ne bi prišel večer, bi se še igrali!",
+              "en": "If evening hadn't come, we'd still be playing!",
+              "de": "Wäre der Abend nicht gekommen, würden wir immer noch spielen!",
+              "fx": {
+                "ball": 1
+              }
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "elena",
+              "face": "proud",
+              "it": "Avevo promesso che il parco giochi sarebbe stato pronto per l'estate, ed eccolo!",
+              "sl": "Obljubila sem, da bo igrišče do poletja gotovo, in tu je!",
+              "en": "I'd promised the playground would be ready for the summer, and here it is!",
+              "de": "Ich hatte versprochen, dass der Spielplatz bis zum Sommer fertig ist, und da ist er!"
+            },
+            {
+              "who": "elena",
+              "face": "curious",
+              "it": "{learner}, appena ho tolto la corda, che cosa hanno fatto i bambini?",
+              "sl": "{learner}, kaj so naredili otroci, ko sem odstranila vrv?",
+              "en": "{learner}, the moment I took the rope away, what did the children do?",
+              "de": "{learner}, als ich das Seil weggenommen habe, was haben die Kinder gemacht?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Si sono messi a correre, tutti insieme.",
+                  "sl": "Vsi skupaj so stekli.",
+                  "en": "They started running, all together.",
+                  "de": "Sie sind alle zusammen losgerannt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Gridando di gioia, come un temporale d'estate.",
+                    "sl": "Z veselim vriskanjem, kot poletna nevihta.",
+                    "en": "Shouting for joy, like a summer storm.",
+                    "de": "Mit Freudengeschrei, wie ein Sommergewitter."
+                  }
+                },
+                {
+                  "it": "Si sono messi a piangere, tutti insieme.",
+                  "sl": "Vsi skupaj so se razjokali.",
+                  "en": "They started crying, all together.",
+                  "de": "Sie haben alle zusammen angefangen zu weinen.",
+                  "why": {
+                    "sl": "Otroci so stekli: correre. Piangere je jokati, oni pa se smejijo.",
+                    "en": "The children ran off: correre. Piangere is to cry, and they're laughing.",
+                    "de": "Die Kinder sind losgerannt: correre. Piangere heißt weinen, und sie lachen doch."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "A piangere? Ma se ridono tutti!",
+                    "sl": "Jokati? Saj se vsi smejijo!",
+                    "en": "Crying? But they're all laughing!",
+                    "de": "Weinen? Die lachen doch alle!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "elena",
+              "face": "thinking",
+              "it": "Secondo te, perché erano così contenti?",
+              "sl": "Kaj misliš, zakaj so bili tako veseli?",
+              "en": "Why do you think they were so happy?",
+              "de": "Was meinst du, warum waren sie so froh?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Mi sembra che non abbiano mai giocato così tanto!",
+                  "sl": "Zdi se mi, da se še nikoli niso toliko igrali!",
+                  "en": "It seems to me they've never played so much!",
+                  "de": "Mir scheint, sie haben noch nie so viel gespielt!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Proprio così: qui prima c'erano solo erba e sassi.",
+                    "sl": "Prav tako: tu je bila prej samo trava in kamenje.",
+                    "en": "Just so: before, there was only grass and stones here.",
+                    "de": "Genau: Hier waren vorher nur Gras und Steine."
+                  }
+                },
+                {
+                  "it": "Mi sembra che non siano mai giocato così tanto!",
+                  "sl": "Zdi se mi, da se še nikoli niso toliko igrali!",
+                  "en": "It seems to me they've never played so much!",
+                  "de": "Mir scheint, sie haben noch nie so viel gespielt!",
+                  "grammar": "congiuntivo-passato",
+                  "why": {
+                    "sl": "Giocare tvori preteklik z avere: che non abbiano mai giocato.",
+                    "en": "Giocare forms its past with avere: che non abbiano mai giocato.",
+                    "de": "Giocare bildet die Vergangenheit mit avere: che non abbiano mai giocato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Siano giocato? Suona strano, sai.",
+                    "sl": "Siano giocato? Čudno zveni, veš.",
+                    "en": "Siano giocato? That sounds odd, you know.",
+                    "de": "Siano giocato? Das klingt seltsam, weißt du."
+                  }
+                },
+                {
+                  "it": "Mi sembra che non abbiano mai mangiato così tanto!",
+                  "sl": "Zdi se mi, da še nikoli niso toliko pojedli!",
+                  "en": "It seems to me they've never eaten so much!",
+                  "de": "Mir scheint, sie haben noch nie so viel gegessen!",
+                  "why": {
+                    "sl": "Na igrišču se otroci igrajo: giocare.",
+                    "en": "In a playground children play: giocare.",
+                    "de": "Auf dem Spielplatz spielen die Kinder: giocare."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Mangiato? La merenda è dopo!",
+                    "sl": "Pojedli? Malica je pozneje!",
+                    "en": "Eaten? Snack time's later!",
+                    "de": "Gegessen? Die Pause kommt später!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "giulia",
+              "face": "happy",
+              "it": "Se non fosse arrivata la sera, staremmo giocando ancora!",
+              "sl": "Ko ne bi prišel večer, bi se še igrali!",
               "en": "If evening hadn't come, we'd still be playing!",
               "de": "Wäre der Abend nicht gekommen, würden wir immer noch spielen!",
               "fx": {

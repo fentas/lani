@@ -8,7 +8,7 @@ import { cultureStories } from '../../src/cultures'
 import { normalizeText } from '../../src/family'
 import { ownVoicesIn } from '../../src/profiles'
 import { PackStore, packsDirs } from '../../src/packs'
-import { chaptersOf, curatedPictureErrors, LEVELS, levelsOf, paragraphsOf, STORIES_LOW, storiesLeft, validateStory, VIGNETTES, type Story } from '../../src/stories'
+import { chaptersOf, curatedPictureErrors, LEVELS, levelsOf, paragraphsOf, STORIES_LOW, storiesLeft, storyUpTo, validateStory, VIGNETTES, type Story } from '../../src/stories'
 import { VillagerStore } from '../../src/villagers'
 import type { ResolvedScene } from '../../src/scenes'
 import { clipKey, corpus, PRIORITY_LABELS } from '../../src/voice'
@@ -88,6 +88,11 @@ export default async function stories() {
       carinthia.every(s => s.teller === 'sepp' && s.language === 'de' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.de === 'string' && typeof t.sl === 'string' && typeof t.en === 'string' && typeof t.it === 'string') && !!s.teaser.de && !!s.memory.de),
     carinthia.map(s => [s.id, levelsOf(s)]),
   )
+  check(
+    '… every one of them at B1 and B2 too, each with its notes (readings-kaernten)',
+    carinthia.length === 16 && carinthia.every(s => JSON.stringify(levelsOf(s)) === '["A1","A2","B1","B2"]' && ['B1', 'B2'].every(lv => (s.notes ?? []).some(n => n.level === lv))),
+    carinthia.map(s => [s.id, levelsOf(s), (s.notes ?? []).map(n => n.level)]),
+  )
 
   // --- their books' pictures ------------------------------------------------------------------------------
   const lake = read('lakeland').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [v.story] : []))
@@ -98,6 +103,13 @@ export default async function stories() {
         'the-lambton-worm', 'the-kings-of-mardale', 'the-black-lead-of-borrowdale', 'the-herdwicks', 'mrs-heelis-of-hill-top', 'the-rushbearing']) &&
       lake.length === jan.length && lake.every(s => s.teller === 'wilf' && s.language === 'en' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.en === 'string' && typeof t.sl === 'string' && typeof t.it === 'string' && typeof t.de === 'string') && !!s.teaser.en && !!s.memory.en),
     lake.map(s => [s.id, s.order, levelsOf(s)]),
+  )
+  check(
+    "… 16 of them told at B1 and B2 too (readings-lakeland), each B2 with a B1 below it, every telling's texts in the four languages",
+    lake.filter(s => levelsOf(s).includes('B2')).map(s => s.id).sort().join() === ['the-borrowdale-cuckoo', 'the-bowder-stone', 'the-lady-of-the-lake', 'the-giants-grave', 'the-hob', 'the-crier-of-claife', 'long-meg-and-her-daughters', 'the-luck-of-edenhall', 'king-dunmails-crown', 'tom-fool-of-muncaster', 'the-lambton-worm', 'the-kings-of-mardale', 'the-black-lead-of-borrowdale', 'the-herdwicks', 'mrs-heelis-of-hill-top', 'the-rushbearing'].sort().join() &&
+      lake.every(s => !levelsOf(s).includes('B2') || levelsOf(s).includes('B1')) &&
+      lake.every(s => (['B1', 'B2'] as const).every(lv => (s.levels?.[lv]?.lines ?? []).every(l => [l, ...l.choices, ...l.choices.flatMap(c => (c.reply ? [c.reply] : []))].every(t => (!t.en || (t.sl && t.it && t.de)))))),
+    lake.map(s => [s.id, levelsOf(s)]),
   )
   const packs4 = [...jan, ...second, ...carinthia, ...lake]
   check(
@@ -356,6 +368,11 @@ export default async function stories() {
   const list = await (await fetch(`${base}/stories`, { headers: auth })).json()
   check('GET /stories serves the collection', list.length === janIds.length && list[2].id === 'martin-krpan' && list[2].chapters.length === 4)
   check('stories need the app token', (await fetch(`${base}/stories`)).status === 401)
+  // a retelling climbs a level each time: served up to a level above the learner's, for every app (storyUpTo)
+  const ladder = { levels: { A1: 1, A2: 2, B1: 3, B2: 4 } }
+  const keys = (x: { levels?: object }) => Object.keys(x.levels ?? {}).join(' ')
+  check('stories: a learner at A1 gets A1 and A2, never B1 or B2; at A2 up to B1; at B1 up to B2', keys(storyUpTo(ladder, 'A1')) === 'A1 A2' && keys(storyUpTo(ladder, 'A2')) === 'A1 A2 B1' && keys(storyUpTo(ladder, 'B1')) === 'A1 A2 B1 B2')
+  check('stories: … a story that starts higher keeps its easiest; each chapter is held back the same way; an unknown level counts as A1', keys(storyUpTo({ levels: { B1: 1, B2: 2 } }, 'A1')) === 'B1' && keys(storyUpTo({ chapters: [ladder] }, 'A1').chapters![0]) === 'A1 A2' && keys(storyUpTo(ladder, '')) === 'A1 A2')
 
   // --- the tutor: list, publish, remove -------------------------------------------------------------------
   const game = await (await fetch(`${base}/game`, { headers: auth })).json()

@@ -5,7 +5,7 @@
   "title": { "it": "Nella fucina", "sl": "V kovačnici", "en": "In the smithy", "de": "In der Schmiede" },
   "emoji": "⚒️",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "smithy",
   "from": ["smithy"],
   "pack": "nella-fucina",
@@ -32,7 +32,7 @@
   "happenings": [
     {
       "id": "ferro", "title": { "it": "Bruno fa un ferro di cavallo", "sl": "Bruno kuje podkev", "en": "Bruno is forging a horseshoe", "de": "Bruno schmiedet ein Hufeisen" }, "who": "bruno",
-      "when": ["morning"], "chance": 0.5, "dialog": "ferro", "dialogs": ["ferro-conto", "ferro"], "reward": { "stone": 20 }, "marker": "⚒️",
+      "when": ["morning"], "chance": 0.5, "dialog": "ferro", "dialogs": ["ferro-b2-mantice", "ferro-b1-baio", "ferro-conto", "ferro"], "reward": { "stone": 20 }, "marker": "⚒️",
       "memory": { "it": "il ferro di cavallo che ti ho dato", "sl": "podkev, ki sem ti jo dal", "en": "the horseshoe I gave you", "de": "das Hufeisen, das ich dir gegeben habe" }
     },
     {
@@ -43,7 +43,7 @@
     },
     {
       "id": "ordine", "title": { "it": "Un ordine da Gorizia", "sl": "Naročilo iz Gorice", "en": "An order from Gorizia", "de": "Eine Bestellung aus Görz" }, "who": "bruno",
-      "when": ["evening"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "ordine", "dialogs": ["ordine-quaderno", "ordine"], "reward": { "stone": 20 }, "marker": "📒",
+      "when": ["evening"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "ordine", "dialogs": ["ordine-b2-sloveno", "ordine-b1-gorizia", "ordine-quaderno", "ordine"], "reward": { "stone": 20 }, "marker": "📒",
       "memory": { "it": "l'ordine per Gorizia che hai scritto per me", "sl": "naročilo za Gorico, ki si ga {m:napisal|f:napisala} zame", "en": "the order for Gorizia you wrote for me", "de": "die Bestellung für Görz, die du für mich geschrieben hast" }
     }
   ],
@@ -225,6 +225,105 @@
             "reply": { "face": "confused", "it": "Scrive? Chi? Io? No. Tu.", "sl": "Piše? Kdo? Jaz? Ne. Ti.", "en": "Scrive (he writes)? Who? Me? No. You.", "de": "Scrive (er schreibt)? Wer? Ich? Nein. Du." } }
         ] },
         { "who": "bruno", "face": "proud", "it": "Un buon lavoro. Come un buon ferro.", "sl": "Dobro delo. Kot dobra podkev.", "en": "Good work. Like a good horseshoe.", "de": "Gute Arbeit. Wie ein gutes Hufeisen." }
+      ]
+    },
+    {
+      "id": "ferro-b1-baio",
+      "level": "B1",
+      "memory": { "it": "il ferro nuovo per Baio", "sl": "novo podkev za Baia", "en": "the new shoe for Baio", "de": "das neue Hufeisen für Baio" },
+      "lines": [
+        { "who": "bruno", "it": "Buongiorno. Oggi un ferro per Baio, il cavallo di Franco. Tieni le tenaglie. Forte.", "sl": "Dober dan. Danes podkev za Baia, Francovega konja. Drži klešče. Močno.", "en": "Good morning. Today a shoe for Baio, Franco's horse. Hold the tongs. Tight.", "de": "Guten Morgen. Heute ein Hufeisen für Baio, Francos Pferd. Halt die Zange. Fest." },
+        { "who": "bruno", "it": "Il ferro deve essere rosso. Perché, secondo te?", "sl": "Železo mora biti rdeče. Zakaj, misliš?", "en": "The iron has to be red. Why, do you think?", "de": "Das Eisen muss rot sein. Warum, meinst du?" },
+        { "choices": [
+          { "it": "Perché se è freddo, non si piega.", "sl": "Ker se ne upogne, če je mrzlo.", "en": "Because if it's cold, it won't bend.", "de": "Weil es sich nicht biegt, wenn es kalt ist.", "ok": true,
+            "reply": { "face": "proud", "it": "Giusto. Ferro caldo, ferro buono.", "sl": "Prav. Vroče železo, dobro železo.", "en": "Right. Hot iron, good iron.", "de": "Richtig. Heißes Eisen, gutes Eisen." } },
+          { "it": "Perché se sarebbe freddo, non si piega.", "sl": "Ker se ne upogne, če je mrzlo.", "en": "Because if it's cold, it won't bend.", "de": "Weil es sich nicht biegt, wenn es kalt ist.",
+            "grammar": "periodo-ipotetico", "why": { "sl": "Kar se res zgodi: se in sedanjik, se è freddo. Za se nikoli pogojnik.", "en": "What really happens: se and the present, se è freddo. After se, never the conditional.", "de": "Was wirklich passiert: se und Präsens, se è freddo. Nach se nie der Konditional." },
+            "reply": { "face": "cross", "it": "Se sarebbe? No. Il ferro non aspetta i «se». Di nuovo.", "sl": "Se sarebbe? Ne. Železo ne čaka na »če«. Še enkrat.", "en": "Se sarebbe? No. Iron doesn't wait for «ifs». Again.", "de": "Se sarebbe? Nein. Eisen wartet nicht auf «wenns». Nochmal." } }
+        ] },
+        { "who": "bruno", "face": "thinking", "it": "Il vecchio ferro di Baio si è rotto ieri, sulla strada. Strano. Era nuovo di un mese.", "sl": "Baiova stara podkev se je včeraj zlomila, na cesti. Čudno. Bila je stara en mesec.", "en": "Baio's old shoe broke yesterday, on the road. Odd. It was only a month old.", "de": "Baios altes Hufeisen ist gestern gebrochen, auf der Straße. Seltsam. Es war erst einen Monat alt." },
+        { "choices": [
+          { "it": "Forse si era già incrinato, e nessuno l'aveva visto.", "sl": "Morda je že prej počila, pa tega nihče ni videl.", "en": "Maybe it had already cracked, and nobody had seen.", "de": "Vielleicht hatte es schon einen Riss, und keiner hatte es gesehen.", "ok": true,
+            "reply": { "face": "thinking", "it": "Hm. Possibile. Un ferro incrinato non parla. Bisogna guardarlo bene.", "sl": "Hm. Mogoče. Počena podkev ne govori. Treba jo je dobro pogledati.", "en": "Hm. Possible. A cracked shoe doesn't talk. You have to look at it carefully.", "de": "Hm. Möglich. Ein angerissenes Eisen redet nicht. Man muss es gut anschauen." } },
+          { "it": "Forse si aveva già incrinato, e nessuno l'aveva visto.", "sl": "Morda je že prej počila, pa tega nihče ni videl.", "en": "Maybe it had already cracked, and nobody had seen.", "de": "Vielleicht hatte es schon einen Riss, und keiner hatte es gesehen.",
+            "grammar": "trapassato", "why": { "sl": "Povratni glagoli imajo essere: si è incrinato, zato si era incrinato.", "en": "Reflexive verbs take essere: si è incrinato, so si era incrinato.", "de": "Reflexive Verben bilden mit essere: si è incrinato, also si era incrinato." },
+            "reply": { "face": "cross", "it": "Si aveva? No. Con «si» ci vuole essere. Riprova.", "sl": "Si aveva? Ne. S »si« gre essere. Še enkrat.", "en": "Si aveva? No. With «si» it's essere. Again.", "de": "Si aveva? Nein. Mit «si» gehört essere. Nochmal." } }
+        ] },
+        { "who": "bruno", "it": "Ecco. Otto buchi, otto chiodi. Domani Baio ha le scarpe nuove. Grazie, {learner}.", "sl": "Tako. Osem lukenj, osem žebljev. Jutri ima Baio nove čevlje. Hvala, {learner}.", "en": "There. Eight holes, eight nails. Tomorrow Baio has new shoes. Thanks, {learner}.", "de": "So. Acht Löcher, acht Nägel. Morgen hat Baio neue Schuhe. Danke, {learner}." }
+      ]
+    },
+    {
+      "id": "ferro-b2-mantice",
+      "level": "B2",
+      "memory": { "it": "l'anno al mantice prima del martello", "sl": "leto pri mehu pred kladivom", "en": "the year at the bellows before the hammer", "de": "das Jahr am Blasebalg vor dem Hammer" },
+      "lines": [
+        { "who": "bruno", "it": "Questa fucina era di mio padre. Quando avevo dodici anni, mi fece lavorare un anno intero al mantice, prima di farmi toccare il martello.", "sl": "Ta kovačnica je bila od mojega očeta. Ko sem imel dvanajst let, me je dal celo leto delati pri mehu, preden mi je dovolil prijeti kladivo.", "en": "This forge was my father's. When I was twelve, he had me work a whole year at the bellows before he let me touch the hammer.", "de": "Diese Schmiede gehörte meinem Vater. Als ich zwölf war, ließ er mich ein ganzes Jahr am Blasebalg arbeiten, bevor er mich den Hammer anfassen ließ." },
+        { "who": "bruno", "face": "thinking", "it": "Ogni sera tornavo a casa nero di fumo e arrabbiato. Adesso capisco perché lo faceva.", "sl": "Vsak večer sem prišel domov črn od dima in jezen. Zdaj razumem, zakaj je to delal.", "en": "Every evening I came home black with smoke and cross. Now I understand why he did it.", "de": "Jeden Abend kam ich schwarz vom Rauch und wütend nach Hause. Jetzt versteh ich, warum er das tat." },
+        { "choices": [
+          { "it": "Quindi per un anno Le fece usare solo il mantice, per insegnarLe il fuoco?", "sl": "Torej vas je eno leto pustil le pri mehu, da bi vas naučil ognja?", "en": "So for a year he only had you use the bellows, to teach you the fire?", "de": "Er ließ Sie also ein Jahr lang nur den Blasebalg bedienen, um Ihnen das Feuer beizubringen?", "ok": true,
+            "reply": { "face": "proud", "it": "Esatto. Chi non conosce il fuoco, non conosce il ferro.", "sl": "Tako je. Kdor ne pozna ognja, ne pozna železa.", "en": "Exactly. Whoever doesn't know the fire doesn't know iron.", "de": "Genau. Wer das Feuer nicht kennt, kennt das Eisen nicht." } },
+          { "it": "Quindi per un anno La lasciò fare tutto da solo, anche il martello?", "sl": "Torej vas je eno leto pustil le pri mehu, da bi vas naučil ognja?", "en": "So for a year he only had you use the bellows, to teach you the fire?", "de": "Er ließ Sie also ein Jahr lang nur den Blasebalg bedienen, um Ihnen das Feuer beizubringen?",
+            "grammar": "fare-lasciare", "why": { "sl": "Fare + nedoločnik: oče ga je pripravil, da je delal pri mehu. Lasciare fare tutto bi pomenilo, da mu je pustil vse.", "en": "Fare + infinitive: his father made him work the bellows. Lasciare fare tutto would mean he let him do everything.", "de": "Fare + Grundform: Der Vater ließ ihn am Blasebalg arbeiten. Lasciare fare tutto hieße, er ließ ihn alles machen." },
+            "reply": { "face": "cross", "it": "Tutto da solo? No. Il contrario. Mio padre non mi lasciava toccare niente.", "sl": "Vse sam? Ne. Ravno nasprotno. Oče mi ni pustil prijeti ničesar.", "en": "All by myself? No. The opposite. My father didn't let me touch anything.", "de": "Alles allein? Nein. Das Gegenteil. Mein Vater ließ mich nichts anfassen." } }
+        ] },
+        { "who": "bruno", "face": "curious", "it": "Oggi i ragazzi vogliono tutto subito. Tu, se volessi imparare il mestiere, avresti la pazienza di aspettare un anno?", "sl": "Danes fantje hočejo vse takoj. Bi ti, če bi se {m:hotel|f:hotela} naučiti obrti, {m:imel|f:imela} potrpljenje čakati eno leto?", "en": "Young people today want everything at once. If you wanted to learn the trade, would you have the patience to wait a year?", "de": "Die Jungen wollen heute alles sofort. Hättest du, wenn du das Handwerk lernen wolltest, die Geduld, ein Jahr zu warten?" },
+        { "choices": [
+          { "it": "Sì, purché alla fine mi lasciasse battere il ferro almeno una volta!", "sl": "Ja, samo da bi mi na koncu pustili vsaj enkrat udariti po železu!", "en": "Yes, as long as in the end you let me strike the iron at least once!", "de": "Ja, solange Sie mich am Ende wenigstens einmal aufs Eisen schlagen lassen!", "ok": true,
+            "reply": { "face": "proud", "it": "Hm. Risposta da fabbro. Un colpo, uno solo, il primo giorno. Poi si vede.", "sl": "Hm. Odgovor kot od kovača. En udarec, samo eden, prvi dan. Potem bomo videli.", "en": "Hm. A smith's answer. One blow, just one, on the first day. Then we'll see.", "de": "Hm. Eine Schmiedeantwort. Ein Schlag, nur einer, am ersten Tag. Dann sehen wir weiter." } },
+          { "it": "Sì, purché alla fine mi lascerebbe battere il ferro almeno una volta!", "sl": "Ja, samo da bi mi na koncu pustili vsaj enkrat udariti po železu!", "en": "Yes, as long as in the end you let me strike the iron at least once!", "de": "Ja, solange Sie mich am Ende wenigstens einmal aufs Eisen schlagen lassen!",
+            "grammar": "congiunzioni-congiuntivo", "why": { "sl": "Za purché pride konjunktiv, ne pogojnik: purché mi lasciasse.", "en": "After purché comes the congiuntivo, not the conditional: purché mi lasciasse.", "de": "Nach purché kommt der Konjunktiv, nicht der Konditional: purché mi lasciasse." },
+            "reply": { "face": "cross", "it": "Lascerebbe? No. Dopo purché, un'altra forma. L'idea però mi piace.", "sl": "Lascerebbe? Ne. Za purché pride druga oblika. Ideja pa mi je všeč.", "en": "Lascerebbe? No. After purché, another form. I like the idea, though.", "de": "Lascerebbe? Nein. Nach purché eine andere Form. Die Idee gefällt mir aber." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Allora domani, alle sei. Prima il mantice. Poi, forse, il martello.", "sl": "Dobro. Potem jutri ob šestih. Najprej meh. Potem morda kladivo.", "en": "Good. Then tomorrow at six. First the bellows. Then, perhaps, the hammer.", "de": "Gut. Dann morgen um sechs. Zuerst der Blasebalg. Dann vielleicht der Hammer." }
+      ]
+    },
+    {
+      "id": "ordine-b1-gorizia",
+      "level": "B1",
+      "memory": { "it": "l'ordine da Gorizia scritto senza errori", "sl": "naročilo iz Gorice, napisano brez napak", "en": "the order from Gorizia written without mistakes", "de": "die Bestellung aus Görz, ohne Fehler geschrieben" },
+      "lines": [
+        { "who": "bruno", "it": "{learner}. Un ordine da Gorizia. Io parlo, tu scrivi. Prima parola: «ferri». Come si scrive?", "sl": "{learner}. Naročilo iz Gorice. Jaz govorim, ti pišeš. Prva beseda: »ferri«. Kako se piše?", "en": "{learner}. An order from Gorizia. I talk, you write. First word: «ferri». How is it written?", "de": "{learner}. Eine Bestellung aus Görz. Ich rede, du schreibst. Erstes Wort: «ferri». Wie schreibt man das?" },
+        { "choices": [
+          { "it": "Si scrive con due erre: f, e, r, r, i.", "sl": "Piše se z dvema r-jema: f, e, r, r, i.", "en": "It's written with two r's: f, e, r, r, i.", "de": "Man schreibt es mit zwei r: f, e, r, r, i.", "ok": true,
+            "reply": { "face": "proud", "it": "Giusto. Due erre. Come la maestra Elena.", "sl": "Prav. Dva r-ja. Kot učiteljica Elena.", "en": "Right. Two r's. Like Maestra Elena.", "de": "Richtig. Zwei r. Wie Maestra Elena." } },
+          { "it": "Scrive con due erre: f, e, r, r, i.", "sl": "Piše se z dvema r-jema: f, e, r, r, i.", "en": "It's written with two r's: f, e, r, r, i.", "de": "Man schreibt es mit zwei r: f, e, r, r, i.",
+            "grammar": "si-impersonale", "why": { "sl": "Kako se kaj piše na splošno, pove si: si scrive. Brez si je on ali ona.", "en": "How something is written in general takes si: si scrive. Without si it's he or she.", "de": "Wie man etwas allgemein schreibt, sagt si: si scrive. Ohne si ist es er oder sie." },
+            "reply": { "face": "cross", "it": "Scrive? Chi? Io no. Io parlo. Di nuovo.", "sl": "Scrive? Kdo? Jaz ne. Jaz govorim. Še enkrat.", "en": "Scrive? Who? Not me. I talk. Again.", "de": "Scrive? Wer? Ich nicht. Ich rede. Nochmal." } }
+        ] },
+        { "who": "bruno", "it": "Il signore di Gorizia al telefono mi ha detto: «Passo io a prenderli, venerdì.» Scrivilo nel quaderno.", "sl": "Gospod iz Gorice mi je po telefonu rekel: »V petek pridem ponje jaz.« Zapiši v zvezek.", "en": "The gentleman from Gorizia told me on the phone: «I'll come and fetch them myself, on Friday.» Write it in the notebook.", "de": "Der Herr aus Görz hat mir am Telefon gesagt: «Ich hol sie selbst ab, am Freitag.» Schreib es ins Heft." },
+        { "choices": [
+          { "it": "Scrivo: il signore ha detto che passa lui a prenderli venerdì.", "sl": "Pišem: gospod je rekel, da pride ponje on, v petek.", "en": "I'm writing: the gentleman said he'll come and fetch them himself on Friday.", "de": "Ich schreibe: Der Herr hat gesagt, er holt sie selbst ab, am Freitag.", "ok": true,
+            "reply": { "face": "happy", "it": "Bene. Lui, non io. Venerdì. Scritto giusto.", "sl": "Dobro. On, ne jaz. Petek. Prav napisano.", "en": "Good. Him, not me. Friday. Written right.", "de": "Gut. Er, nicht ich. Freitag. Richtig geschrieben." } },
+          { "it": "Scrivo: il signore ha detto che passo io a prenderli venerdì.", "sl": "Pišem: gospod je rekel, da pride ponje on, v petek.", "en": "I'm writing: the gentleman said he'll come and fetch them himself on Friday.", "de": "Ich schreibe: Der Herr hat gesagt, er holt sie selbst ab, am Freitag.",
+            "grammar": "discorso-indiretto", "why": { "sl": "Ko poveš naprej, se oseba spremeni: »passo io« postane passa lui.", "en": "Telling it on, the person changes: «passo io» becomes passa lui.", "de": "Wenn du es weitersagst, ändert sich die Person: «passo io» wird zu passa lui." },
+            "reply": { "face": "cross", "it": "Passi tu? A Gorizia? Da solo? No. Lui viene qui.", "sl": "Prideš ti? V Gorico? Sam? Ne. On pride sem.", "en": "You're going? To Gorizia? On your own? No. He's coming here.", "de": "Du fährst? Nach Görz? Allein? Nein. Er kommt hierher." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Nessun errore. Un buon lavoro, come un buon ferro. Grazie.", "sl": "Dobro. Brez napake. Dobro delo, kot dobro železo. Hvala.", "en": "Good. No mistakes. Good work, like a good iron. Thanks.", "de": "Gut. Kein Fehler. Gute Arbeit, wie ein gutes Eisen. Danke." }
+      ]
+    },
+    {
+      "id": "ordine-b2-sloveno",
+      "level": "B2",
+      "memory": { "it": "l'ordine da Nova Gorica in due lingue", "sl": "naročilo iz Nove Gorice v dveh jezikih", "en": "the order from Nova Gorica in two languages", "de": "die Bestellung aus Nova Gorica in zwei Sprachen" },
+      "lines": [
+        { "who": "bruno", "it": "Un altro ordine da Nova Gorica. Il cliente, il quale parla poco italiano, ha scritto mezza lettera in italiano e mezza in sloveno.", "sl": "Še eno naročilo iz Nove Gorice. Stranka, ki malo govori italijansko, je napisala pol pisma v italijanščini in pol v slovenščini.", "en": "Another order from Nova Gorica. The customer, who speaks little Italian, wrote half the letter in Italian and half in Slovene.", "de": "Noch eine Bestellung aus Nova Gorica. Der Kunde, der wenig Italienisch spricht, hat den halben Brief auf Italienisch und den halben auf Slowenisch geschrieben." },
+        { "who": "bruno", "face": "thinking", "it": "Se avessi imparato lo sloveno da giovane, adesso non avrei bisogno di nessuno.", "sl": "Če bi se bil kot mlad naučil slovensko, zdaj ne bi nikogar potreboval.", "en": "If I'd learnt Slovene as a young man, I wouldn't need anyone now.", "de": "Hätte ich als junger Mann Slowenisch gelernt, bräuchte ich jetzt niemanden." },
+        { "choices": [
+          { "it": "Se me l'avesse chiesto prima, avrei portato il dizionario della maestra Elena!", "sl": "Če bi me prej vprašali, bi {m:prinesel|f:prinesla} slovar učiteljice Elene!", "en": "If you'd asked me sooner, I'd have brought Maestra Elena's dictionary!", "de": "Hätten Sie mich früher gefragt, hätte ich das Wörterbuch von Maestra Elena mitgebracht!", "ok": true,
+            "reply": { "face": "happy", "it": "Hm. La maestra Elena. Buona idea. Lei parla tutte e due.", "sl": "Hm. Učiteljica Elena. Dobra ideja. Ona govori oba.", "en": "Hm. Maestra Elena. Good idea. She speaks both.", "de": "Hm. Maestra Elena. Gute Idee. Sie spricht beide." } },
+          { "it": "Se me l'avrebbe chiesto prima, avrei portato il dizionario della maestra Elena!", "sl": "Če bi me prej vprašali, bi {m:prinesel|f:prinesla} slovar učiteljice Elene!", "en": "If you'd asked me sooner, I'd have brought Maestra Elena's dictionary!", "de": "Hätten Sie mich früher gefragt, hätte ich das Wörterbuch von Maestra Elena mitgebracht!",
+            "grammar": "periodo-ipotetico-irrealta", "why": { "sl": "Za se nikoli pogojnik: se me l'avesse chiesto, potem avrei portato.", "en": "After se, never the conditional: se me l'avesse chiesto, then avrei portato.", "de": "Nach se nie der Konditional: se me l'avesse chiesto, dann avrei portato." },
+            "reply": { "face": "cross", "it": "Se me l'avrebbe? Due condizionali. Uno di troppo. Di nuovo.", "sl": "Se me l'avrebbe? Dva pogojnika. Eden preveč. Še enkrat.", "en": "Se me l'avrebbe? Two conditionals. One too many. Again.", "de": "Se me l'avrebbe? Zwei Konditionale. Einer zu viel. Nochmal." } }
+        ] },
+        { "who": "bruno", "face": "curious", "it": "Il cliente chiede se possiamo consegnare tutto entro lunedì. Io dico sì, ma solo se non nevica sulla strada. Come gli rispondo?", "sl": "Stranka sprašuje, ali lahko vse dostavimo do ponedeljka. Jaz pravim ja, ampak samo, če ne bo snežilo na cesti. Kako mu odgovorim?", "en": "The customer asks if we can deliver everything by Monday. I say yes, but only if it doesn't snow on the road. How do I answer him?", "de": "Der Kunde fragt, ob wir bis Montag alles liefern können. Ich sag ja, aber nur, wenn es auf der Straße nicht schneit. Wie antworte ich ihm?" },
+        { "choices": [
+          { "it": "Gli scriva: consegneremo entro lunedì, a condizione che la strada sia libera dalla neve.", "sl": "Napišite mu: dostavili bomo do ponedeljka, pod pogojem, da na cesti ne bo snega.", "en": "Write to him: we'll deliver by Monday, on condition that the road is free of snow.", "de": "Schreiben Sie ihm: Wir liefern bis Montag, unter der Bedingung, dass die Straße schneefrei ist.", "ok": true,
+            "reply": { "face": "proud", "it": "Bene. Chiaro e preciso. Come un ferro ben battuto.", "sl": "Dobro. Jasno in natančno. Kot dobro skovano železo.", "en": "Good. Clear and exact. Like well-forged iron.", "de": "Gut. Klar und genau. Wie gut geschmiedetes Eisen." } },
+          { "it": "Gli scriva: consegneremo entro lunedì, a condizione che la strada è libera dalla neve.", "sl": "Napišite mu: dostavili bomo do ponedeljka, pod pogojem, da na cesti ne bo snega.", "en": "Write to him: we'll deliver by Monday, on condition that the road is free of snow.", "de": "Schreiben Sie ihm: Wir liefern bis Montag, unter der Bedingung, dass die Straße schneefrei ist.",
+            "grammar": "congiunzioni-congiuntivo", "why": { "sl": "A condizione che zahteva konjunktiv: a condizione che sia.", "en": "A condizione che takes the congiuntivo: a condizione che sia.", "de": "A condizione che verlangt den Konjunktiv: a condizione che sia." },
+            "reply": { "face": "cross", "it": "Che è libera? No. Dopo «a condizione che», un'altra forma. Riprova.", "sl": "Che è libera? Ne. Za »a condizione che« pride druga oblika. Še enkrat.", "en": "Che è libera? No. After «a condizione che», another form. Try again.", "de": "Che è libera? Nein. Nach «a condizione che» eine andere Form. Nochmal." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Scritto. Ordine per Nova Gorica, lunedì. Grazie, {learner}. Senza di te avrei scritto solo metà lettera.", "sl": "Dobro. Napisano. Naročilo za Novo Gorico, ponedeljek. Hvala, {learner}. Brez tebe bi napisal samo pol pisma.", "en": "Good. Written. Order for Nova Gorica, Monday. Thanks, {learner}. Without you I'd have written only half a letter.", "de": "Gut. Geschrieben. Bestellung für Nova Gorica, Montag. Danke, {learner}. Ohne dich hätte ich nur einen halben Brief geschrieben." }
       ]
     }
   ]

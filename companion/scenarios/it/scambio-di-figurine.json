@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "scambio-di-figurine",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Scambio di figurine", "de": "Sammelbilder tauschen", "sl": "Menjava sličic", "en": "Swapping stickers" },
+  "emoji": "⚽",
+  "level": "B1",
+  "setting": {
+    "de": "Pause auf dem Schulhof, Maestra Elena passt auf. Tommaso hat sein Album mit Fußballbildern dabei. Ihm fehlt der Torwart von Udinese, und du hast ihn doppelt. Aber auch dir fehlen noch zwei Bilder.",
+    "sl": "Odmor na šolskem dvorišču, učiteljica Elena pazi na otroke. Tommaso ima s seboj album nogometnih sličic. Manjka mu vratar Udineseja, ti pa ga imaš dvakrat. Tudi tebi manjkata še dve sličici.",
+    "en": "Break time in the schoolyard, with Maestra Elena on duty. Tommaso has his album of football stickers. He's missing Udinese's goalkeeper, and you have him twice. But you're still missing two stickers too."
+  },
+  "role": "Tommaso, nine, Ostessa Marisa's son, the ringleader of the village children. Loud, quick and cheeky, a tough trader: first asks for two stickers for one, then gives in to a fair swap and shakes on it. Says tu. Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "Il compagno di scuola", "de": "Der Schulkamerad", "sl": "Sošolec", "en": "Your schoolmate" },
+  "voice": "male",
+  "speaker": "boy",
+  "place": "school",
+  "goals": [
+    { "it": "Di' quali figurine hai doppie", "de": "Sag, welche Bilder du doppelt hast", "sl": "Povej, katere sličice imaš dvakrat", "en": "Say which stickers you have twice" },
+    { "it": "Chiedi quella che ti manca", "de": "Frag nach dem Bild, das dir fehlt", "sl": "Vprašaj za sličico, ki ti manjka", "en": "Ask for the one you're missing" },
+    { "it": "Fai una proposta", "de": "Mach einen Vorschlag", "sl": "Daj predlog", "en": "Make an offer" },
+    { "it": "Non accettare due per una", "de": "Lass dich nicht auf zwei für eins ein", "sl": "Ne pristani na dve za eno", "en": "Don't agree to two for one" },
+    { "it": "Chiudete lo scambio", "de": "Macht den Tausch perfekt", "sl": "Dogovorita se za menjavo", "en": "Seal the swap" }
+  ],
+  "opener_sl": "Ehi! Ce l'hai il portiere dell'Udinese? Mi manca solo quello!",
+  "opener_en": {
+    "de": "Hey! Hast du den Torwart von Udinese? Nur der fehlt mir noch!",
+    "sl": "Hej! Imaš vratarja Udineseja? Samo še ta mi manjka!",
+    "en": "Hey! Have you got Udinese's goalkeeper? He's the only one I'm missing!"
+  },
+  "vocabulary_hints": [
+    { "sl": "Sì, ce l'ho doppio!", "en": { "de": "Ja, den habe ich doppelt!", "sl": "Ja, imam ga dvakrat!", "en": "Yes, I've got him twice!" } },
+    { "sl": "Mi mancano ancora due figurine.", "en": { "de": "Mir fehlen noch zwei Bilder.", "sl": "Manjkata mi še dve sličici.", "en": "I'm still missing two stickers." } },
+    { "sl": "E tu, ce l'hai il numero dieci?", "en": { "de": "Und du, hast du die Nummer zehn?", "sl": "Pa ti, imaš številko deset?", "en": "And you, have you got number ten?" } },
+    { "sl": "Te lo do, se mi dai il numero dieci.", "en": { "de": "Ich gebe ihn dir, wenn du mir die Nummer zehn gibst.", "sl": "Dam ti ga, če mi daš številko deset.", "en": "I'll give him to you if you give me number ten." } },
+    { "sl": "Due per una? No, non è giusto!", "en": { "de": "Zwei für eins? Nein, das ist nicht fair!", "sl": "Dve za eno? Ne, to ni pošteno!", "en": "Two for one? No, that's not fair!" } },
+    { "sl": "Facciamo una per una.", "en": { "de": "Machen wir eins gegen eins.", "sl": "Zamenjajva ena za eno.", "en": "Let's do one for one." } },
+    { "sl": "Va bene, affare fatto!", "en": { "de": "Gut, abgemacht!", "sl": "Prav, dogovorjeno!", "en": "OK, it's a deal!" } }
+  ],
+  "packs": ["a-scuola", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

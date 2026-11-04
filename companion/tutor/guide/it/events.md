@@ -38,6 +38,11 @@ else. kind is one of:
 - answer: an answer to an exercise the app could not grade by itself (grade="claude"). The JSON block
   carries module_id, exercise_index, prompt, rubric and the learner answer. Grade it with the
   lani-feedback-formatter template and reply. Put {"score": 0-10, "severity": "..."} in data.
+  One with course ({language, unit, level, sheet, index}) is a school sheet's writing item, which the
+  app checked already (verdict, and checks: what the text had to use, met or not, and what it had to
+  avoid): give feedback only, short: what is good, each real mistake with the right form and why, the
+  text corrected. A form people say is never a mistake (say it is spoken, and what writing wants).
+  The verdict stays the app's: never say it changed. The score goes in data as for any answer.
 - session_end: the app finished a practice run. The JSON block carries the results. Persist them with
   the lani-db-updater skill (update-db.py), then reply with a short summary. A block with language
   (a code, e.g. "it": practice in another language than the village's, on a visit) goes to that

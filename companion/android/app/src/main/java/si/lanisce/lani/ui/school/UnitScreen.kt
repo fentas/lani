@@ -140,17 +140,17 @@ fun UnitScreen(vm: AppViewModel, id: String) {
             }
         }
         // a unit about the cases: the case trainer, a session on what the unit teaches (companion/README.md "Case trainer")
-        if (unit.id in si.lanisce.lani.data.CaseTrainer.CASE_UNITS && unit.language == si.lanisce.lani.data.CaseTrainer.LANGUAGE && vm.caseTrainer.available) {
+        if (unit.id in si.lanisce.lani.data.CaseTrainer.caseUnits(unit.language) && vm.caseTrainer.available) {
             item { SectionTitle("🧩 ${bi("cases.title")}") }
             item {
-                val focus = si.lanisce.lani.data.CaseTrainer.focusOfUnit(unit.id)
+                val focus = si.lanisce.lani.data.CaseTrainer.focusOfUnit(unit.language, unit.id)
                 val open = vm.caseTrainer.open
                 StepCard(
                     "🧩", bi("cases.title"),
                     when {
-                        !open -> "🔒 ${bi("cases.lockedShort")}"
+                        !open -> "🔒 ${bi(si.lanisce.lani.ui.cases.ck("cases.lockedShort"))}"
                         focus != null -> bi("cases.practiseFocus", "focus" to si.lanisce.lani.ui.cases.focusTitle(vm, focus))
-                        else -> bi("cases.practiseAll")
+                        else -> bi(si.lanisce.lani.ui.cases.ck("cases.practiseAll"))
                     },
                     done = false,
                 ) { if (open) vm.startCases(focus) else vm.openCases(focus) }
@@ -193,7 +193,7 @@ fun UnitScreen(vm: AppViewModel, id: String) {
                 // its sheet on paper (companion/COURSE.md, "Printed sheets"); a unit that starts from a page with an overview
                 // (skloni: the six cases) prints that too
                 PrintButton(vm, vm.school.course?.let { Prints.sheet(it, unit.id) }, bi("school.printSheet"))
-                PrintButton(vm, Prints.overview(unit.language, unit.grammar.firstOrNull()), bi("school.printOverview"))
+                PrintButton(vm, Prints.overview(unit.language, unit.grammar.firstOrNull()) ?: if (unit.language == "de") unit.grammar.firstNotNullOfOrNull { Prints.overview(unit.language, it) } else null, bi("school.printOverview"))
                 if (unit.machineWritten) Text("🤖 ${bi("school.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }

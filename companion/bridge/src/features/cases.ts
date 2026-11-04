@@ -5,6 +5,9 @@
 // remove_case_item (items checked as the bank is), assign_cases (a session focused on a case or a rule).
 import { z } from 'zod'
 import { bankCounts, CASE_EN, CASES, CASES_LANGUAGES, caseItem, casesOf, checkItems, type CaseCheck, type CaseItem } from '../case-bank'
+import { caseItemDe, checkItemsDe, DE_CASE_EN, DE_CASES, germanPackNouns, type CaseBankDe, type CaseCheckDe, type CaseItemDe } from '../case-bank-de'
+import { bareNoun, GermanForms } from '../german-forms'
+import { itemId } from '../packs'
 import type { FeatureFactory } from '../feature'
 import { LineIndex } from '../forms'
 import { json, readJson } from '../http'
@@ -44,11 +47,38 @@ form is the dictionary's (card.py show). Machine-written: the native check marks
 never call a spoken form wrong.
 `.trim()
 
+/** The tutor's guide to the trainer in a German village (its four cases; docs/plans/05-built/case-de.md). */
+const instructionsDe = `
+Case trainer ("🧩 Fälle · Cases", German): short sessions (10 items, 8 for a child) on the four cases, the kinds
+interleaved, one at a time with feedback at once. "Welcher Fall? · Which case?": a real sentence, its noun phrase framed
+(the article, the adjectives, the noun: German shows the case in the article), the learner picks the case by its question
+(wer? was? Nominativ · wen? was? Akkusativ · wem? Dativ · wessen? Genitiv), then "Warum? · Why?": taps the word that
+decides it (mit, für, wegen, in + a verb of motion or of rest, helfen, geben, the noun a genitive belongs to …) or says
+nothing decides it (the subject, the object); then the rule's line and its grammar page. "Wo oder wohin?": the two-way
+prepositions (in der Hütte, in die Hütte; with aus or von: woher?), zu, bei or nach, over the village's places.
+"⚡ Fall-Sturm · Case storm": short phrases sorted into the four cases against the clock (60 s). "Dekliniere! · Decline
+it": the learner's own nouns with an article, a possessive or kein, and an adjective, typed into a frame with a known
+trigger ("Heute helfe ich ___ (mein Opa)" → meinem Opa), graded as any typed answer. Items are picked towards the weak
+cases and rules (the learner's mistakes count from the start); a missed item comes back (the same day, then 1, 3, 7 and
+16 days). The rule ids are the German grammar pages: faelle (the subject, what something is), akkusativ, dativ, genitiv,
+praepositionen-akkusativ, praepositionen-dativ, praepositionen-genitiv, wechselpraepositionen, pronomen-dativ,
+reflexive-verben, verben-praepositionen, adjektive-praepositionen, relativsatz, uhrzeit (am Montag, im Mai). A form people
+say is right and never a mistake: wegen dem Regen, dem Stefan sein Hund, den Mensch (Austria's talk).
+cases_done: a session the app played, ALREADY persisted by the bridge as grammar practice (and writing for the typed
+ones), its wrong answers in the mistakes database under the learner's own pattern ids where one fits (else
+cases_<case>_<rule>): don't persist it again. get_cases shows the mastery per case and rule, what comes back, the bank and
+the assignment. assign_cases {focus: a case id (nominativ, akkusativ, dativ, genitiv) or a rule id (a page above), note}
+focuses the next session. publish_case_items adds items in the bank's German format (de: the sentence; sl, en, it its
+meaning; word and phrase: the noun's token and the framed noun phrase [from, to]; lemma; gender: the noun's; case; number
+sg|pl; why: a rule key; trigger or role), checked as the bank is (the article, the adjectives and the noun against the
+case, the trigger against its rule, the pages). Machine-written: never call a spoken form wrong.
+`.trim()
+
 /** A session as the app reports it (data/CaseTrainer.kt wire): its answers, the errors ready for update-db.py, the mastery after. */
 const answerIn = z.object({
   kind: z.enum(['which', 'place', 'decline']),
   item: z.string().trim().min(1).max(120),
-  case: z.enum(CASES),
+  case: z.enum([...CASES, ...DE_CASES]),
   number: z.enum(['sg', 'du', 'pl']),
   rule: z.string().trim().min(1).max(64),
   verdict: z.enum(['correct', 'almost', 'wrong']),
@@ -85,17 +115,24 @@ export const casesDone = z.object({
 })
 export type CasesDone = z.infer<typeof casesDone>
 
-/** What a session done says in a sentence, for the session's notes and the tutor. */
-export function casesNote(d: CasesDone): string {
+/** A case id's English name (Slovene's or German's ids). */
+const caseEn = (id: string): string => (CASE_EN as Record<string, string>)[id] ?? (DE_CASE_EN as Record<string, string>)[id] ?? id
+
+/** What a session done says in a sentence, for the session's notes and the tutor ([village]: its language, "sl" or "de"). */
+export function casesNote(d: CasesDone, village = 'sl'): string {
   const right = d.answers.filter(a => a.verdict === 'correct').length
   const almost = d.answers.filter(a => a.verdict === 'almost').length
   const kinds = (['which', 'place', 'decline'] as const).map(k => [k, d.answers.filter(a => a.kind === k).length] as const).filter(([, n]) => n > 0)
-  const names = { which: 'which case', place: 'kje ali kam', decline: 'decline it' }
-  const wrong = d.answers.filter(a => a.verdict === 'wrong').slice(0, 6).map(a => `${a.expected ?? a.item} (${CASE_EN[a.case]}${a.number === 'sg' ? '' : ` ${a.number}`}, ${a.rule}${a.answer ? `: "${a.answer.slice(0, 40)}"` : ''})`)
+  const de = village === 'de'
+  const names = { which: 'which case', place: de ? 'wo oder wohin' : 'kje ali kam', decline: 'decline it' }
+  const wrong = d.answers.filter(a => a.verdict === 'wrong').slice(0, 6).map(a => `${a.expected ?? a.item} (${caseEn(a.case)}${a.number === 'sg' ? '' : ` ${a.number}`}, ${a.rule}${a.answer ? `: "${a.answer.slice(0, 40)}"` : ''})`)
   const why = d.answers.filter(a => a.why && a.why !== 'none')
   const whyWrong = why.filter(a => a.why === 'wrong').length
   return (
-    `${d.storm ? 'Played a case storm in the Lani app (⚡ Sklonski vihar, phrases sorted into the six cases against the clock)' : `Practised the cases in the Lani app (🧩 Skloni · Cases${d.focus ? `, focused on ${d.focus}` : ''})`}: ${right}/${d.answers.length} right${almost ? `, ${almost} almost` : ''}` +
+    (de
+      ? `${d.storm ? 'Played a case storm in the Lani app (⚡ Fall-Sturm, phrases sorted into the four German cases against the clock)' : `Practised the German cases in the Lani app (🧩 Fälle · Cases${d.focus ? `, focused on ${d.focus}` : ''})`}`
+      : `${d.storm ? 'Played a case storm in the Lani app (⚡ Sklonski vihar, phrases sorted into the six cases against the clock)' : `Practised the cases in the Lani app (🧩 Skloni · Cases${d.focus ? `, focused on ${d.focus}` : ''})`}`) +
+    `: ${right}/${d.answers.length} right${almost ? `, ${almost} almost` : ''}` +
     ` (${kinds.map(([k, n]) => `${n} ${names[k]}`).join(', ')})` +
     (why.length ? `; the deciding word tapped right ${why.length - whyWrong}/${why.length}` : '') +
     (wrong.length ? `. Wrong: ${wrong.join('; ')}` : '') +
@@ -108,7 +145,7 @@ export function casesNote(d: CasesDone): string {
  * for the forms typed (Sklanjaj!), the errors as the app made them, the rules practised as its topics, the weakest case
  * as the next focus. In [session]'s data (another language's, with its code).
  */
-export function casesPayload(d: CasesDone, session: { session_id: string; date: string; language?: string }) {
+export function casesPayload(d: CasesDone, session: { session_id: string; date: string; language?: string }, village = 'sl') {
   const typed = d.answers.filter(a => a.kind === 'decline')
   const chosen = d.answers.filter(a => a.kind !== 'decline')
   const right = (as: typeof d.answers) => as.filter(a => a.verdict === 'correct').length
@@ -129,14 +166,23 @@ export function casesPayload(d: CasesDone, session: { session_id: string; date: 
     skill_scores,
     errors: d.errors.map(e => ({ ...e, subcategory: e.subcategory ?? 'cases' })),
     topics_covered: [...new Set(d.answers.map(a => a.rule))],
-    ...(weakest && weakest[1].right / weakest[1].of < 0.7 ? { focus_next_session: [`The ${CASE_EN[weakest[0] as keyof typeof CASE_EN] ?? weakest[0]} (${weakest[0]}): ${weakest[1].right}/${weakest[1].of} lately in the case trainer`] } : {}),
-    session_notes: casesNote(d),
+    ...(weakest && weakest[1].right / weakest[1].of < 0.7 ? { focus_next_session: [`The ${caseEn(weakest[0])} (${weakest[0]}): ${weakest[1].right}/${weakest[1].of} lately in the case trainer`] } : {}),
+    session_notes: casesNote(d, village),
   }
 }
 
-export const cases: FeatureFactory = ({ cases: store, learner, channel, events, outbox, game, grammar, scenes, dictionary, culture }) => {
+export const cases: FeatureFactory = ({ cases: store, learner, channel, events, outbox, game, grammar, scenes, dictionary, culture, packs }) => {
   const language = culture.manifest?.language ?? 'sl'
+  /** A village whose language has the trainer: Slovene's six cases, German's four. */
   const slovene = CASES_LANGUAGES.has(language)
+  const german = language === 'de'
+  /** German's checks: the table's forms, the dictionary, the packs' nouns, the pages, the scenes. */
+  const checkDe = (): CaseCheckDe | null => {
+    const table = dictionary.triggers.currentDe()
+    if (!table) return null
+    const pages = grammar.all()
+    return { forms: new GermanForms(table), dict: dictionary.dict, nouns: germanPackNouns(packs.all()), pages: new Map(pages.map(p => [p.id, p.level])), scenes: new Set(scenes.all().map(s => s.id)) }
+  }
   /** What a published item is checked against: the dictionary and forms book, the grammar book, the scenes. */
   const check = (): CaseCheck => {
     const pages = grammar.all()
@@ -148,14 +194,34 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
   }
   const state = () => (game.read()?.state as { cases?: unknown } | undefined)?.cases
 
+  /**
+   * A German village's learner's nouns for "Dekliniere!": each of their cards that is a pack's noun, with its gender and
+   * nominative plural (the app's cards have neither; its own rules decline them: data/GermanForms.kt). An older app
+   * ignores the field.
+   */
+  function learnerNounsDe(): { card: string; lemma: string; gender: string; plural?: string }[] {
+    const items = learner.srItems()
+    const out: { card: string; lemma: string; gender: string; plural?: string }[] = []
+    for (const p of packs.all()) {
+      for (const w of p.words as { id: string; de?: string; gender?: string; plural?: string }[]) {
+        const card = itemId(p.id, w.id)
+        const lemma = bareNoun(w.de)
+        if (!items[card] || !lemma || !w.gender || !['m', 'f', 'n'].includes(w.gender) || out.some(o => o.card === card)) continue
+        const plural = bareNoun(w.plural)
+        out.push({ card, lemma, gender: w.gender, ...(plural ? { plural } : {}) })
+      }
+    }
+    return out
+  }
+
   async function handleDone(req: Request): Promise<Response> {
-    if (!slovene) return json({ error: `the case trainer is Slovene's; this village speaks "${language}"` }, 400)
+    if (!slovene) return json({ error: `the case trainer is Slovene's and German's; this village speaks "${language}"` }, 400)
     const r = casesDone.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
     const d = r.data
     const other = learner.other(d.language)
     const st = learner.state(other)
-    const payload = casesPayload(d, { session_id: st.computed.next_session_id, date: st.computed.today, language: other })
+    const payload = casesPayload(d, { session_id: st.computed.next_session_id, date: st.computed.today, language: other }, language)
     const u = learner.update(payload)
     if (!u.ok) return json({ error: u.output }, 500)
     const done = store.done(d.focus ?? undefined, st.computed.today)
@@ -170,7 +236,7 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
   }
 
   return {
-    instructions: slovene ? instructions : `The case trainer and the case lens are Slovene's: this village's language has neither, and get_cases, assign_cases and publish_case_items refuse here.`,
+    instructions: german ? instructionsDe : slovene ? instructions : `The case trainer and the case lens are Slovene's and German's: this village's language has neither, and get_cases, assign_cases and publish_case_items refuse here.`,
     routes: [
       {
         method: 'GET',
@@ -179,7 +245,8 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
         addressed: true,
         handle: () => {
           const s = slovene ? store.served() : null
-          return s ? json(s) : json({ error: `no case trainer for "${language}"` }, 404)
+          if (!s) return json({ error: `no case trainer for "${language}"` }, 404)
+          return json(german ? { ...s, learner_nouns: learnerNounsDe() } : s)
         },
       },
       { method: 'POST', path: '/cases/done', handle: ({ req, url }) => outbox.once(req, url.pathname, handleDone) },
@@ -188,10 +255,10 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
       {
         name: 'get_cases',
         description:
-          "The case trainer (🧩 Skloni · Cases): the learner's mastery per case (imenovalnik … orodnik) and per rule (the grammar page: rodilnik-predlogi, kam-tozilnik …) as right of their last answers, the items coming back and when, the rules the case lens showed them, the sessions, the bank's size by kind, case, number and level, your items and the open assignment.",
+          "The case trainer (🧩 Skloni · Cases): the learner's mastery per case (imenovalnik … orodnik) and per rule (the grammar page: rodilnik-predlogi, kam-tozilnik …) as right of their last answers, the items coming back and when, the rules the case lens showed them, the sessions, the bank's size by kind, case, number and level, your items and the open assignment. In a German village the four cases (nominativ, akkusativ, dativ, genitiv) and German's pages.",
         inputSchema: { type: 'object', properties: {} },
         handle: () => {
-          if (!slovene) return fail(`the case trainer is Slovene's; this village speaks "${language}"`)
+          if (!slovene) return fail(`the case trainer is Slovene's and German's; this village speaks "${language}"`)
           const items = store.items()
           return ok(JSON.stringify({
             learner: casesOf(state()) ?? { note: 'no session played yet' },
@@ -203,7 +270,7 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
       {
         name: 'publish_case_items',
         description:
-          "Add items to the case trainer's bank (lani.cases/v0, companion/README.md \"Case trainer\"): items: 1-30 {id (kebab-case, not the bank's), kind which|place, level A1|A2|B1|B2, sl (one sentence, ≤14 words), en, de, it, word (its token index: the sentence split at spaces, from 0), lemma, pos noun|adj|pron|name, gender (an adjective's noun's), case imenovalnik|rodilnik|dajalnik|tozilnik|mestnik|orodnik, number sg|du|pl, why (a rule key of get_cases' bank rules: brez, iz, nikalnica, k, v-na-kam, v-na-kje, z-s, pod-za-kje, object, subject …), trigger (the deciding word's token, or null with role subject|object), also (more tokens right to tap: the verb beside v/na), ambiguous (other slots of the same form: \"nom.pl\"), note {en,de,it} (how the sentence decides an ambiguous form); a place item also question kje-kam|v-na|pri-k|od-kod, gap [from,to], options (2-3), answer, cue, scene}. Each is checked as the bank is: the form against the dictionary, the trigger against its rule, the pages and scenes. Publishing again under an id replaces your item. Returns the problems instead of publishing if any.",
+          "Add items to the case trainer's bank (lani.cases/v0, companion/README.md \"Case trainer\"): items: 1-30 {id (kebab-case, not the bank's), kind which|place, level A1|A2|B1|B2, sl (one sentence, ≤14 words), en, de, it, word (its token index: the sentence split at spaces, from 0), lemma, pos noun|adj|pron|name, gender (an adjective's noun's), case imenovalnik|rodilnik|dajalnik|tozilnik|mestnik|orodnik, number sg|du|pl, why (a rule key of get_cases' bank rules: brez, iz, nikalnica, k, v-na-kam, v-na-kje, z-s, pod-za-kje, object, subject …), trigger (the deciding word's token, or null with role subject|object), also (more tokens right to tap: the verb beside v/na), ambiguous (other slots of the same form: \"nom.pl\"), note {en,de,it} (how the sentence decides an ambiguous form); a place item also question kje-kam|v-na|pri-k|od-kod, gap [from,to], options (2-3), answer, cue, scene}. Each is checked as the bank is: the form against the dictionary, the trigger against its rule, the pages and scenes. Publishing again under an id replaces your item. Returns the problems instead of publishing if any. In a German village the format is German's: de (the sentence), sl, en, it, word and phrase [from,to] (the framed noun phrase: article, adjectives, noun), lemma, pos noun|pron|name, gender (the noun's), case nominativ|akkusativ|dativ|genitiv, number sg|pl, why, trigger or role, spoken {form, standard, note {sl,en,it}} for a form people say (wegen dem Regen); a place item's question wo-wohin|wo-wohin-woher|zu-bei-nach.",
         inputSchema: {
           type: 'object',
           properties: {
@@ -213,19 +280,25 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
           required: ['items'],
         },
         handle: args => {
-          if (!slovene) return fail(`the case trainer is Slovene's; this village speaks "${language}"`)
+          if (!slovene) return fail(`the case trainer is Slovene's and German's; this village speaks "${language}"`)
           const list = Array.isArray(args.items) ? args.items : []
           if (list.length < 1 || list.length > 30) return fail('items: 1 to 30 items; nothing published')
           const parsed: CaseItem[] = []
           const problems: string[] = []
           list.forEach((x, i) => {
-            const v = caseItem.safeParse(x)
-            if (v.success) parsed.push(v.data)
+            const v = (german ? caseItemDe : caseItem).safeParse(x)
+            if (v.success) parsed.push(v.data as CaseItem)
             else problems.push(`items[${i}] (${(x as { id?: string })?.id ?? '?'}): ${z.prettifyError(v.error)}`)
           })
           const bank = store.curated()
-          if (!bank) return fail('the bank (companion/cases/sl/bank.json) is missing: nothing published')
-          if (!problems.length) problems.push(...checkItems(parsed, bank.rules, check()).problems)
+          if (!bank) return fail(`the bank (companion/cases/${language}/bank.json) is missing: nothing published`)
+          if (!problems.length) {
+            if (german) {
+              const c = checkDe()
+              if (!c) return fail("German's trigger table (companion/grammar/de/data/case-triggers.json) is missing: nothing published")
+              problems.push(...checkItemsDe(parsed as unknown as CaseItemDe[], (bank as unknown as CaseBankDe).rules, c).problems)
+            } else problems.push(...checkItems(parsed, bank.rules, check()).problems)
+          }
           const ids = parsed.map(p => p.id)
           if (new Set(ids).size !== ids.length) problems.push('two items share an id')
           if (problems.length) return fail(`items invalid, nothing published:\n${problems.map(p => `✖ ${p}`).join('\n')}`)
@@ -251,7 +324,7 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
       {
         name: 'assign_cases',
         description:
-          "Assign the learner a case trainer session focused on one case or rule: focus = a case id (imenovalnik, rodilnik, dajalnik, tozilnik, mestnik, orodnik) or a rule id (the grammar page: rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni; predlogi-dva-sklona: the prepositions with two cases, po kruh / po vasi, both cases), with a one-line note in the learner's base. Home and the trainer offer it until a session with that focus is played (cases_done says so); focus null takes it back.",
+          "Assign the learner a case trainer session focused on one case or rule: focus = a case id (imenovalnik, rodilnik, dajalnik, tozilnik, mestnik, orodnik) or a rule id (the grammar page: rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, dajalnik, orodnik, tozilnik, mestnik, skloni; predlogi-dva-sklona: the prepositions with two cases, po kruh / po vasi, both cases), with a one-line note in the learner's base. Home and the trainer offer it until a session with that focus is played (cases_done says so); focus null takes it back. In a German village: nominativ, akkusativ, dativ, genitiv, or a German page (dativ, wechselpraepositionen, praepositionen-genitiv …).",
         inputSchema: {
           type: 'object',
           properties: {
@@ -261,7 +334,7 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
           required: ['focus'],
         },
         handle: args => {
-          if (!slovene) return fail(`the case trainer is Slovene's; this village speaks "${language}"`)
+          if (!slovene) return fail(`the case trainer is Slovene's and German's; this village speaks "${language}"`)
           if (args.focus === null || args.focus === '') {
             store.assign(null)
             events.emit({ type: 'cases_assigned', focus: null })
@@ -269,8 +342,9 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
           }
           const focus = typeof args.focus === 'string' ? args.focus.trim() : ''
           const rules = new Set(Object.values(store.curated()?.rules ?? {}).map(r => r.page))
-          if (!(CASES as readonly string[]).includes(focus) && !rules.has(focus)) {
-            return fail(`focus "${focus}" is neither a case (${CASES.join(', ')}) nor a rule of the bank (${[...rules].sort().join(', ')})`)
+          const ids: readonly string[] = german ? DE_CASES : CASES
+          if (!ids.includes(focus) && !rules.has(focus)) {
+            return fail(`focus "${focus}" is neither a case (${ids.join(', ')}) nor a rule of the bank (${[...rules].sort().join(', ')})`)
           }
           const note = typeof args.note === 'string' ? args.note.trim().slice(0, 200) : undefined
           store.assign({ focus, ...(note ? { note } : {}), at: localDate(new Date()) })

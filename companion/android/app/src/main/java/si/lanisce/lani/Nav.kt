@@ -203,6 +203,7 @@ object NavRoutes {
         is Screen.TownQuestion -> listOf("question", s.key, if (s.asked) "asked" else "received")
         Screen.Treasure -> listOf("treasure")
         Screen.School -> listOf("school")
+        Screen.Placement -> listOf("placement")
         is Screen.CourseUnit -> listOf("unit", s.id)
         is Screen.UnitIntro -> listOf("intro", s.id)
         Screen.Numbers -> listOf("numbers")
@@ -233,6 +234,7 @@ object NavRoutes {
             "question" -> arg(1)?.let { Screen.TownQuestion(it, asked = arg(2) == "asked") }
             "treasure" -> Screen.Treasure
             "school" -> Screen.School
+            "placement" -> Screen.Placement
             "unit" -> arg(1)?.let { Screen.CourseUnit(it) }
             "intro" -> arg(1)?.let { Screen.UnitIntro(it) }
             "numbers" -> Screen.Numbers

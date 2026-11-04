@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "ahi-la-caviglia",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Ahi, la caviglia!", "de": "Au, mein Knöchel!", "sl": "Av, gleženj!", "en": "Ouch, my ankle!" },
+  "emoji": "🩹",
+  "level": "B1",
+  "setting": {
+    "de": "Bei der Kinderärztin in Görz. Gestern Nachmittag bist du beim Fußballspielen umgeknickt, und heute ist dein Knöchel ein bisschen dick. Die Ärztin möchte genau wissen, wie es passiert ist. Mama ist bei dir.",
+    "sl": "Pri pediatrinji v Gorici. Včeraj popoldne si si pri nogometu {m:zvil|f:zvila} gleženj, danes je malo otekel. Zdravnica bi rada natančno vedela, kako se je zgodilo. Mama je s tabo.",
+    "en": "At the paediatrician's in Gorizia. Yesterday afternoon you twisted your ankle playing football, and today it's a little swollen. The doctor wants to know exactly how it happened. Mamma is with you."
+  },
+  "role": "Dottoressa Visintin, a calm, cheerful paediatrician in Gorizia. Asks where it hurts, what {learner} was doing, how it happened, since when and what they did then; says it is only a little sprain. Says tu. Nothing frightening (no needles); asks nothing personal.",
+  "who": { "it": "La pediatra", "de": "Die Kinderärztin", "sl": "Pediatrinja", "en": "The paediatrician" },
+  "voice": "female",
+  "speaker": "woman",
+  "goals": [
+    { "it": "Di' dove ti fa male", "de": "Sag, wo es dir wehtut", "sl": "Povej, kje te boli", "en": "Say where it hurts" },
+    { "it": "Racconta che cosa stavi facendo", "de": "Erzähl, was du gerade gemacht hast", "sl": "Povej, kaj si {m:počel|f:počela}", "en": "Tell her what you were doing" },
+    { "it": "Racconta come è successo", "de": "Erzähl, wie es passiert ist", "sl": "Povej, kako se je zgodilo", "en": "Tell her how it happened" },
+    { "it": "Di' che cosa avete fatto dopo", "de": "Sag, was ihr danach gemacht habt", "sl": "Povej, kaj ste naredili potem", "en": "Say what you did afterwards" },
+    { "it": "Chiedi quando puoi giocare di nuovo", "de": "Frag, wann du wieder spielen darfst", "sl": "Vprašaj, kdaj se lahko spet igraš", "en": "Ask when you can play again" }
+  ],
+  "opener_sl": "Ciao, {learner}! Vedo che zoppichi un po'. Raccontami: che cosa è successo?",
+  "opener_en": {
+    "de": "Hallo, {learner}! Ich sehe, du humpelst ein bisschen. Erzähl mal: Was ist passiert?",
+    "sl": "Živjo, {learner}! Vidim, da malo šepaš. Povej mi: kaj se je zgodilo?",
+    "en": "Hello, {learner}! I can see you're limping a little. Tell me: what happened?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Mi fa male la caviglia.", "en": { "de": "Mir tut der Knöchel weh.", "sl": "Boli me gleženj.", "en": "My ankle hurts." } },
+    { "sl": "Stavo giocando a calcio con i miei amici.", "en": { "de": "Ich habe gerade mit meinen Freunden Fußball gespielt.", "sl": "S prijatelji sem {m:igral|f:igrala} nogomet.", "en": "I was playing football with my friends." } },
+    { "sl": "Mentre correvo, ho messo il piede in una buca.", "en": { "de": "Beim Laufen bin ich in ein Loch getreten.", "sl": "Med tekom sem {m:stopil|f:stopila} v luknjo.", "en": "While I was running, I put my foot in a hole." } },
+    { "sl": "Sono {m:caduto|f:caduta} e mi si è girata la caviglia.", "en": { "de": "Ich bin hingefallen und mit dem Knöchel umgeknickt.", "sl": "{m:Padel|f:Padla} sem in zvil se mi je gleženj.", "en": "I fell and twisted my ankle." } },
+    { "sl": "Da ieri pomeriggio.", "en": { "de": "Seit gestern Nachmittag.", "sl": "Od včeraj popoldne.", "en": "Since yesterday afternoon." } },
+    { "sl": "La mamma mi ha messo il ghiaccio.", "en": { "de": "Mama hat mir Eis draufgelegt.", "sl": "Mama mi je dala led.", "en": "Mamma put ice on it." } },
+    { "sl": "Quando posso giocare di nuovo?", "en": { "de": "Wann darf ich wieder spielen?", "sl": "Kdaj se lahko spet igram?", "en": "When can I play again?" } },
+    { "sl": "Grazie, dottoressa!", "en": { "de": "Danke, Frau Doktor!", "sl": "Hvala, gospa doktorica!", "en": "Thank you, doctor!" } }
+  ],
+  "packs": ["il-corpo", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

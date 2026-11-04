@@ -205,11 +205,11 @@ class SceneCoherenceTest {
             }
         }
         assertTrue(bad.joinToString("\n", prefix = "\n"), bad.isEmpty())
-        // Primorska's 46, Kärnten's Maibaum, bridge and mill (kaernten-projects-a) 30, the Lake District's fountain, clock and
+        // Primorska's 46 at A1 and A2 and 46 at B1 and B2 (village-b2-primorska), Kärnten's Maibaum, bridge and mill (kaernten-projects-a) 30, the Lake District's fountain, clock and
         // bank barn (lakeland-projects-b) 20, Kärnten's fountain, clock and Doppelharpfe (kaernten-projects-b) 16, the Lake
         // District's maypole, packhorse bridge and mill (lakeland-projects-a) 30, Friuli's greasy pole, bridge and mill at three levels
         // (friuli-projects-a) 45, Friuli's fountain, clock and big hay barn at three levels (friuli-projects-b) 24
-        assertEquals("the steps' done lines (every level)", 46 + 30 + 20 + 16 + 30 + 45 + 24, marked)
+        assertEquals("the steps' done lines (every level)", 46 + 46 + 30 + 20 + 16 + 30 + 45 + 24 + 23, marked) // the last: Friuli's at B2 (village-b2-friuli)
     }
 
     @Test fun `the step's scene shows its work from the line that says it's done`() {

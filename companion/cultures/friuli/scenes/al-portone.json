@@ -5,7 +5,7 @@
   "title": { "it": "Al portone", "sl": "Pri vratih", "en": "At the gate", "de": "Am Tor" },
   "emoji": "🚪",
   "level": "A1",
-  "review": "it, sl, en, de, reactions, variants, whys: machine-written (Claude), not reviewed by a native speaker; to check: portone, sbarra, cardine, cigolare, il cramâr, la pigrona",
+  "review": "it, sl, en, de, reactions, variants, whys: machine-written (Claude), not reviewed by a native speaker; to check: portone, sbarra, cardine, cigolare, il cramâr, la pigrona; B1, B2 variants too",
   "art": "palisade",
   "from": ["palisade"],
   "pack": "al-portone",
@@ -54,7 +54,7 @@
       "months": [3, 4, 5, 6, 7, 8, 9, 10, 11],
       "chance": 0.55,
       "dialog": "a-casa",
-      "dialogs": ["a-casa-conto", "a-casa"],
+      "dialogs": ["a-casa-b2-sabotino", "a-casa-b1-recinto", "a-casa-conto", "a-casa"],
       "reward": { "food": 20},
       "marker": "🌇",
       "memory": { "it": "le pecore che sono tornate a casa la sera", "sl": "ovce, ki so se zvečer vrnile domov", "en": "the sheep coming home in the evening", "de": "die Schafe, die am Abend heimkamen" }
@@ -66,7 +66,7 @@
       "when": ["evening"],
       "chance": 0.5,
       "dialog": "sbarra",
-      "dialogs": ["sbarra-lupi", "sbarra"],
+      "dialogs": ["sbarra-b2-quercia", "sbarra-b1-cardine", "sbarra-lupi", "sbarra"],
       "reward": { "wisdom": 20},
       "marker": "🌙",
       "memory": { "it": "la sera che abbiamo chiuso il portone con la sbarra", "sl": "večer, ko sva vrata zaprla z zapahom", "en": "the evening we barred the gate", "de": "den Abend, an dem wir das Tor verriegelt haben" }
@@ -1150,6 +1150,106 @@
           ],
           "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
         }
+      ]
+    },
+    {
+      "id": "a-casa-b1-recinto",
+      "level": "B1",
+      "memory": { "it": "la pecora che era già tornata da sola", "sl": "ovco, ki se je že sama vrnila", "en": "the sheep that had already come home on its own", "de": "das Schaf, das schon allein heimgekommen war" },
+      "lines": [
+        { "who": "davide", "face": "worried", "it": "Ehi, {learner}! Ho contato le pecore sul prato e ne mancava una: Nerina. Sono corso a cercarla per tutto il bosco.", "sl": "Ej, {learner}! Na travniku sem preštel ovce in ena je manjkala: Nerina. Tekel sem jo iskat po vsem gozdu.", "en": "Hey, {learner}! I counted the sheep on the meadow and one was missing: Nerina. I ran all over the wood looking for her.", "de": "He, {learner}! Ich hab die Schafe auf der Wiese gezählt, und eins fehlte: Nerina. Ich bin durch den ganzen Wald gerannt, um sie zu suchen." },
+        { "who": "davide", "face": "surprised", "it": "E quando sono arrivato al portone, indovina chi c'era? Lei, tranquilla, a mangiare l'erba! Ci credi?", "sl": "In ko sem prišel k vratom, ugani, kdo je bil tam? Ona, čisto mirna, je mulila travo! Verjameš?", "en": "And when I got to the gate, guess who was there? Her, calm as anything, eating the grass! Can you believe it?", "de": "Und als ich zum Tor kam, rate mal, wer da war? Sie, ganz ruhig, beim Grasfressen! Glaubst du das?" },
+        { "choices": [
+          { "it": "Sì! Quando sei arrivato, Nerina era già tornata a casa. Che furba!", "sl": "Ja! Ko si prišel, se je Nerina že vrnila domov. Kako zvita!", "en": "Yes! When you arrived, Nerina had already come home. How clever!", "de": "Ja! Als du ankamst, war Nerina schon heimgekommen. Wie schlau!", "ok": true,
+            "reply": { "face": "laugh", "it": "Furbissima! E io tutto sudato nel bosco, per niente.", "sl": "Prezvita! Jaz pa ves prepoten v gozdu, zastonj.", "en": "Very clever! And me all sweaty in the wood, for nothing.", "de": "Superschlau! Und ich ganz verschwitzt im Wald, für nichts." } },
+          { "it": "Sì! Quando sei arrivato, Nerina aveva già tornata a casa. Che furba!", "sl": "Ja! Ko si prišel, se je Nerina že vrnila domov. Kako zvita!", "en": "Yes! When you arrived, Nerina had already come home. How clever!", "de": "Ja! Als du ankamst, war Nerina schon heimgekommen. Wie schlau!",
+            "grammar": "trapassato", "why": { "sl": "Tornare ima essere: è tornata, zato era già tornata.", "en": "Tornare takes essere: è tornata, so era già tornata.", "de": "Tornare bildet mit essere: è tornata, also era già tornata." },
+            "reply": { "face": "confused", "it": "Aveva tornata? Nerina non ha mai avuto niente, solo la lana!", "sl": "Aveva tornata? Nerina ni nikoli imela ničesar, samo volno!", "en": "Aveva tornata? Nerina has never had anything, only her wool!", "de": "Aveva tornata? Nerina hat nie etwas gehabt, nur ihre Wolle!" } }
+        ] },
+        { "who": "davide", "face": "curious", "it": "Domani però voglio sapere da dove esce. Mi fai un favore? Chiedi al signor Bruno: «Ha visto un buco nel recinto?»", "sl": "Jutri pa hočem vedeti, kod uide. Mi narediš uslugo? Vprašaj gospoda Bruna: »Ste videli luknjo v ograji?«", "en": "Tomorrow, though, I want to know where she gets out. Will you do me a favour? Ask Signor Bruno: «Have you seen a hole in the fence?»", "de": "Morgen will ich aber wissen, wo sie rauskommt. Tust du mir einen Gefallen? Frag Herrn Bruno: «Haben Sie ein Loch im Zaun gesehen?»" },
+        { "choices": [
+          { "it": "Va bene. Gli chiedo se ha visto un buco, e poi te lo dico.", "sl": "Prav. Vprašam ga, ali je videl luknjo, potem pa ti povem.", "en": "All right. I'll ask him if he's seen a hole, and then I'll tell you.", "de": "In Ordnung. Ich frag ihn, ob er ein Loch gesehen hat, und dann sag ich es dir.", "ok": true,
+            "reply": { "face": "happy", "it": "Grazie! Sei {m:un vero pastore|f:una vera pastora}, ormai.", "sl": "Hvala! Zdaj si že {m:pravi pastir|f:prava pastirica}.", "en": "Thanks! You're a real shepherd by now.", "de": "Danke! Du bist inzwischen {m:ein echter Hirte|f:eine echte Hirtin}." } },
+          { "it": "Va bene. Gli chiedo che ha visto un buco, e poi te lo dico.", "sl": "Prav. Vprašam ga, ali je videl luknjo, potem pa ti povem.", "en": "All right. I'll ask him if he's seen a hole, and then I'll tell you.", "de": "In Ordnung. Ich frag ihn, ob er ein Loch gesehen hat, und dann sag ich es dir.",
+            "grammar": "discorso-indiretto", "why": { "sl": "Vprašanje z da ali ne poveš s se: gli chiedo se (ga vprašam, ali).", "en": "A yes-or-no question is told with se: gli chiedo se.", "de": "Eine Ja-Nein-Frage gibst du mit se weiter: gli chiedo se." },
+            "reply": { "face": "curious", "it": "Gli chiedi che…? Che cosa? Così Bruno aggrotta la fronte e non risponde!", "sl": "Ga vprašaš, da …? Kaj? Tako bo Bruno nagrbančil čelo in ne bo odgovoril!", "en": "You ask him that…? That what? Bruno will just frown and not answer!", "de": "Du fragst ihn, dass …? Dass was? Dann runzelt Bruno die Stirn und antwortet nicht!" } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "E stasera chiudiamo bene il portone. Nerina, niente passeggiate di notte, eh!", "sl": "In nocoj dobro zapreva vrata. Nerina, nič več nočnih sprehodov, ja!", "en": "And tonight we'll shut the gate properly. Nerina, no night walks, eh!", "de": "Und heute Abend machen wir das Tor gut zu. Nerina, keine Nachtspaziergänge, gell!" }
+      ]
+    },
+    {
+      "id": "a-casa-b2-sabotino",
+      "level": "B2",
+      "memory": { "it": "la capanna che Davide sogna sul Sabotino", "sl": "kočo, o kateri Davide sanja na Sabotinu", "en": "the hut Davide dreams of on the Sabotino", "de": "die Hütte, von der Davide auf dem Sabotino träumt" },
+      "lines": [
+        { "who": "davide", "face": "thinking", "it": "Sai qual è il mio sogno, {learner}? Una capanna tutta mia sul Monte Sabotino, da cui si vedono l'Isonzo e tutta Gorizia.", "sl": "Veš, kaj so moje sanje, {learner}? Svoja koča na Sabotinu, od koder se vidita Soča in vsa Gorica.", "en": "Do you know what my dream is, {learner}? A hut of my own on Monte Sabotino, from where you can see the Isonzo and all of Gorizia.", "de": "Weißt du, was mein Traum ist, {learner}? Eine eigene Hütte auf dem Monte Sabotino, von der aus man den Isonzo und ganz Görz sieht." },
+        { "who": "davide", "it": "Mio nonno ne aveva una lassù, ma la vendette. Se l'avesse tenuta, adesso le pecore passerebbero l'estate in alto, al fresco.", "sl": "Moj dedek je imel eno tam gori, pa jo je prodal. Če bi jo bil obdržal, bi zdaj ovce poletje preživele visoko, v hladu.", "en": "My grandfather had one up there, but he sold it. If he'd kept it, the sheep would now spend the summer up high, in the cool.", "de": "Mein Großvater hatte da oben eine, aber er verkaufte sie. Hätte er sie behalten, würden die Schafe jetzt den Sommer oben verbringen, in der Kühle." },
+        { "choices": [
+          { "it": "Peccato che l'abbia venduta! Chissà perché l'ha fatto.", "sl": "Škoda, da jo je prodal! Kdo ve, zakaj je to naredil.", "en": "What a pity he sold it! Who knows why he did.", "de": "Schade, dass er sie verkauft hat! Wer weiß, warum er das getan hat.", "ok": true,
+            "reply": { "face": "thinking", "it": "Le sue gambe non ce la facevano più a salire, e la diede a un pastore giovane. Al suo posto, avrei fatto lo stesso.", "sl": "Noge ga niso več nesle gor, zato jo je dal mlademu pastirju. Na njegovem mestu bi naredil enako.", "en": "His legs couldn't manage the climb any more, so he passed it to a young shepherd. In his place, I'd have done the same.", "de": "Seine Beine schafften den Aufstieg nicht mehr, und er gab sie einem jungen Hirten. An seiner Stelle hätte ich dasselbe getan." } },
+          { "it": "Peccato che l'abbia vendita! Chissà perché l'ha fatto.", "sl": "Škoda, da jo je prodal! Kdo ve, zakaj je to naredil.", "en": "What a pity he sold it! Who knows why he did.", "de": "Schade, dass er sie verkauft hat! Wer weiß, warum er das getan hat.",
+            "grammar": "congiuntivo-passato", "why": { "sl": "Deležnik glagola vendere je venduto (z la: venduta); vendita je samostalnik, prodaja.", "en": "The participle of vendere is venduto (with la: venduta); vendita is a noun, a sale.", "de": "Das Partizip von vendere ist venduto (mit la: venduta); vendita ist ein Nomen, der Verkauf." },
+            "reply": { "face": "curious", "it": "Vendita? Come al mercato? Mio nonno non ha mica aperto un negozio!", "sl": "Vendita? Kot na tržnici? Moj dedek ni odprl trgovine!", "en": "Vendita? Like at the market? My grandfather didn't open a shop!", "de": "Vendita? Wie auf dem Markt? Mein Opa hat doch keinen Laden aufgemacht!" } }
+        ] },
+        { "who": "davide", "face": "curious", "it": "Il signor Franco dice che una capanna nuova è troppo lavoro per un pastore solo. Matteo invece dice che, se il paese mi aiutasse una domenica al mese, ce la farei. Chi ha ragione?", "sl": "Gospod Franco pravi, da je nova koča preveč dela za enega pastirja. Matteo pa pravi, da bi zmogel, če bi mi vas pomagala eno nedeljo na mesec. Kdo ima prav?", "en": "Signor Franco says a new hut is too much work for one shepherd. Matteo says that if the village helped me one Sunday a month, I'd manage. Who's right?", "de": "Herr Franco sagt, eine neue Hütte ist zu viel Arbeit für einen Hirten allein. Matteo sagt dagegen, wenn mir das Dorf einen Sonntag im Monat hilft, schaffe ich es. Wer hat recht?" },
+        { "choices": [
+          { "it": "Tutti e due, in un certo senso: è tanto lavoro, però con l'aiuto di tutti ce la puoi fare.", "sl": "Oba, na neki način: veliko dela je, ampak s pomočjo vseh lahko zmoreš.", "en": "Both, in a way: it's a lot of work, but with everyone's help you can manage.", "de": "Beide, irgendwie: Es ist viel Arbeit, aber mit der Hilfe aller kannst du es schaffen.", "ok": true,
+            "reply": { "face": "laugh", "it": "Parli come Nonno Bepi! «Chi va piano va sano e va lontano», anche fino al Sabotino.", "sl": "Govoriš kot nono Bepi! »Kdor počasi hodi, daleč pride«, tudi do Sabotina.", "en": "You sound like Nonno Bepi! «Slow and steady goes far», even up the Sabotino.", "de": "Du redest wie Nonno Bepi! «Wer langsam geht, kommt weit», auch bis auf den Sabotino." } },
+          { "it": "Nessuno dei due: sul Sabotino non si possono costruire capanne.", "sl": "Nobeden: na Sabotinu se ne da graditi koč.", "en": "Neither: you can't build huts on the Sabotino.", "de": "Keiner von beiden: Auf dem Sabotino kann man keine Hütten bauen.",
+            "why": { "sl": "Davidov dedek je imel kočo tam gori, torej se jih da zgraditi.", "en": "Davide's grandfather had a hut up there, so huts can be built.", "de": "Davides Opa hatte da oben eine Hütte, man kann also welche bauen." },
+            "reply": { "face": "confused", "it": "Non si possono? Ma se mio nonno ne aveva una! Qualcuno l'avrà pure costruita.", "sl": "Ni mogoče? Saj jo je imel moj dedek! Nekdo jo je že moral zgraditi.", "en": "You can't? But my grandfather had one! Someone must have built it.", "de": "Kann man nicht? Mein Opa hatte doch eine! Irgendwer muss sie ja gebaut haben." } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Allora da domani porto su una pietra per ogni pecora che torna a casa. Con Bianca, che si perde sempre, ci vorrà un po' di più!", "sl": "Potem od jutri nesem gor en kamen za vsako ovco, ki se vrne domov. Z Bianco, ki se vedno izgubi, bo trajalo malo dlje!", "en": "Then from tomorrow I'll carry up a stone for every sheep that comes home. With Bianca, who always gets lost, it'll take a bit longer!", "de": "Dann trag ich ab morgen für jedes Schaf, das heimkommt, einen Stein hinauf. Mit Bianca, die sich immer verläuft, dauert es ein bisschen länger!" }
+      ]
+    },
+    {
+      "id": "sbarra-b1-cardine",
+      "level": "B1",
+      "memory": { "it": "il cardine che cigolava", "sl": "tečaj, ki je škripal", "en": "the hinge that squeaked", "de": "die Angel, die quietschte" },
+      "lines": [
+        { "who": "bruno", "it": "Buonasera, {learner}. Senti il cardine? Cigola. Prima di chiudere, bisogna oliarlo.", "sl": "Dober večer, {learner}. Slišiš tečaj? Škriplje. Preden zapremo, ga je treba naoljiti.", "en": "Good evening, {learner}. Hear the hinge? It squeaks. Before closing up, it needs oiling.", "de": "Guten Abend, {learner}. Hörst du die Angel? Sie quietscht. Bevor wir zumachen, muss sie geölt werden." },
+        { "who": "bruno", "it": "L'olio è sulla panca. Me lo passi?", "sl": "Olje je na klopi. Mi ga podaš?", "en": "The oil's on the bench. Will you pass it to me?", "de": "Das Öl steht auf der Bank. Reichst du es mir?" },
+        { "choices": [
+          { "it": "Eccolo, signor Bruno. Glielo passo subito.", "sl": "Izvolite, gospod Bruno. Takoj vam ga podam.", "en": "Here it is, Signor Bruno. I'll pass it to you right away.", "de": "Hier, Herr Bruno. Ich reich es Ihnen gleich.", "ok": true,
+            "reply": { "face": "happy", "it": "Grazie. Sei veloce.", "sl": "Hvala. {m:Hiter|f:Hitra} si.", "en": "Thanks. You're quick.", "de": "Danke. Du bist schnell." } },
+          { "it": "Eccolo, signor Bruno. Le lo passo subito.", "sl": "Izvolite, gospod Bruno. Takoj vam ga podam.", "en": "Here it is, Signor Bruno. I'll pass it to you right away.", "de": "Hier, Herr Bruno. Ich reich es Ihnen gleich.",
+            "grammar": "pronomi-combinati", "why": { "sl": "Le (vam) in lo (ga) se združita v glielo.", "en": "Le (to you) and lo (it) join into glielo.", "de": "Le (Ihnen) und lo (es) werden zu glielo." },
+            "reply": { "face": "cross", "it": "Le lo? No. Una parola sola. Riprova.", "sl": "Le lo? Ne. Ena sama beseda. Še enkrat.", "en": "Le lo? No. One word. Again.", "de": "Le lo? Nein. Ein Wort. Nochmal." } }
+        ] },
+        { "who": "bruno", "face": "thinking", "it": "Il portone è vecchio, come me. Se non lo oliamo ogni mese, il cardine si rompe.", "sl": "Vrata so stara, kot jaz. Če jih ne naoljimo vsak mesec, se tečaj zlomi.", "en": "The gate is old, like me. If we don't oil it every month, the hinge breaks.", "de": "Das Tor ist alt, wie ich. Wenn wir es nicht jeden Monat ölen, bricht die Angel." },
+        { "choices": [
+          { "it": "Allora lo scrivo sul Suo quaderno nero, così non ci dimentichiamo di oliarlo.", "sl": "Potem to zapišem v vaš črni zvezek, da ga ne pozabimo naoljiti.", "en": "Then I'll write it in your black notebook, so we don't forget to oil it.", "de": "Dann schreib ich es in Ihr schwarzes Heft, damit wir nicht vergessen, es zu ölen.", "ok": true,
+            "reply": { "face": "proud", "it": "Bene. Ordine e olio. Così il portone dura cent'anni.", "sl": "Dobro. Red in olje. Tako vrata zdržijo sto let.", "en": "Good. Order and oil. That way the gate lasts a hundred years.", "de": "Gut. Ordnung und Öl. So hält das Tor hundert Jahre." } },
+          { "it": "Allora lo scrivo sul Suo quaderno nero, così non ci dimentichiamo a oliarlo.", "sl": "Potem to zapišem v vaš črni zvezek, da ga ne pozabimo naoljiti.", "en": "Then I'll write it in your black notebook, so we don't forget to oil it.", "de": "Dann schreib ich es in Ihr schwarzes Heft, damit wir nicht vergessen, es zu ölen.",
+            "grammar": "infinito-preposizioni", "why": { "sl": "Dimenticarsi gre z di: non ci dimentichiamo di oliarlo.", "en": "Dimenticarsi takes di: non ci dimentichiamo di oliarlo.", "de": "Dimenticarsi steht mit di: non ci dimentichiamo di oliarlo." },
+            "reply": { "face": "cross", "it": "Dimentichiamo a…? Non suona. Riprova.", "sl": "Dimentichiamo a …? Ne zveni prav. Še enkrat.", "en": "Dimentichiamo a…? Doesn't sound right. Again.", "de": "Dimentichiamo a …? Klingt nicht. Nochmal." } }
+        ] },
+        { "who": "bruno", "it": "Ecco. Niente più cigolii. Buonanotte, {learner}. Il portone ti ringrazia.", "sl": "Tako. Nič več škripanja. Lahko noč, {learner}. Vrata se ti zahvaljujejo.", "en": "There. No more squeaking. Good night, {learner}. The gate thanks you.", "de": "So. Kein Quietschen mehr. Gute Nacht, {learner}. Das Tor dankt dir." }
+      ]
+    },
+    {
+      "id": "sbarra-b2-quercia",
+      "level": "B2",
+      "memory": { "it": "la sbarra di quercia del nonno di Bruno", "sl": "hrastov zapah Brunovega dedka", "en": "Bruno's grandfather's oak bar", "de": "der Eichenbalken von Brunos Großvater" },
+      "lines": [
+        { "who": "bruno", "it": "Questa sbarra fu fatta da mio nonno, con una quercia caduta nel bosco. Ogni sera, da allora, viene messa al suo posto.", "sl": "Ta zapah je naredil moj dedek, iz hrasta, ki je padel v gozdu. Od takrat ga vsak večer položimo na njegovo mesto.", "en": "This bar was made by my grandfather, from an oak that fell in the wood. Every evening since then, it's been put in its place.", "de": "Dieser Balken wurde von meinem Großvater gemacht, aus einer Eiche, die im Wald umgefallen war. Seitdem wird er jeden Abend an seinen Platz gelegt." },
+        { "who": "bruno", "face": "thinking", "it": "Lui diceva che il ferro si arrugginisce, la quercia no. Aveva ragione. Il ferro l'ho cambiato tre volte, il legno mai.", "sl": "Rekel je, da železo zarjavi, hrast pa ne. Imel je prav. Železo sem zamenjal trikrat, lesa nikoli.", "en": "He used to say iron rusts, oak doesn't. He was right. I've changed the iron three times, the wood never.", "de": "Er sagte, Eisen rostet, Eiche nicht. Er hatte recht. Das Eisen hab ich dreimal ausgetauscht, das Holz nie." },
+        { "choices": [
+          { "it": "Strano, detto da un fabbro! Lei preferisce il legno al ferro?", "sl": "Čudno, od kovača! Imate raje les kot železo?", "en": "Funny, coming from a smith! Do you prefer wood to iron?", "de": "Komisch, von einem Schmied! Ist Ihnen Holz lieber als Eisen?", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah. Domanda furba. Il ferro per lavorare, il legno per durare.", "sl": "Ah. Zvito vprašanje. Železo za delo, les za trajanje.", "en": "Ah. Sly question. Iron for working, wood for lasting.", "de": "Ah. Schlaue Frage. Eisen zum Arbeiten, Holz zum Halten." } },
+          { "it": "Allora il ferro dura più del legno, signor Bruno.", "sl": "Potem železo zdrži dlje kot les, gospod Bruno.", "en": "So iron lasts longer than wood, Signor Bruno.", "de": "Dann hält Eisen länger als Holz, Herr Bruno.",
+            "why": { "sl": "Bruno je železo zamenjal trikrat, les nikoli: dlje zdrži les.", "en": "Bruno changed the iron three times, the wood never: the wood lasts longer.", "de": "Bruno hat das Eisen dreimal getauscht, das Holz nie: Das Holz hält länger." },
+            "reply": { "face": "cross", "it": "Più del legno? Ho detto il contrario. Ascolta bene.", "sl": "Dlje kot les? Rekel sem nasprotno. Dobro poslušaj.", "en": "Longer than wood? I said the opposite. Listen carefully.", "de": "Länger als Holz? Ich hab das Gegenteil gesagt. Hör gut zu." } }
+        ] },
+        { "who": "bruno", "face": "curious", "it": "Mio nonno mi diceva sempre di sbarrare il portone ogni sera, anche senza pericoli. Perché, secondo te?", "sl": "Moj dedek mi je vedno govoril, naj vsak večer zapahnem vrata, tudi brez nevarnosti. Kaj misliš, zakaj?", "en": "My grandfather always told me to bar the gate every evening, even with no danger. Why, do you think?", "de": "Mein Großvater sagte mir immer, ich soll das Tor jeden Abend verriegeln, auch ohne Gefahr. Warum, meinst du?" },
+        { "choices": [
+          { "it": "Forse perché, chiuso il portone, tutti sanno che la giornata è finita e si può dormire tranquilli.", "sl": "Morda zato, ker ko so vrata zaprta, vsi vedo, da je dan končan in lahko mirno spijo.", "en": "Maybe because, once the gate is shut, everyone knows the day is over and they can sleep peacefully.", "de": "Vielleicht, weil, sobald das Tor zu ist, alle wissen, dass der Tag vorbei ist und man ruhig schlafen kann.", "ok": true,
+            "reply": { "face": "proud", "it": "Giusto. Una sbarra al suo posto vale più di cento parole.", "sl": "Prav. Zapah na svojem mestu je vreden več kot sto besed.", "en": "Right. A bar in its place is worth more than a hundred words.", "de": "Richtig. Ein Balken an seinem Platz ist mehr wert als hundert Worte." } },
+          { "it": "Forse perché, chiusa il portone, tutti sanno che la giornata è finita e si può dormire tranquilli.", "sl": "Morda zato, ker ko so vrata zaprta, vsi vedo, da je dan končan in lahko mirno spijo.", "en": "Maybe because, once the gate is shut, everyone knows the day is over and they can sleep peacefully.", "de": "Vielleicht, weil, sobald das Tor zu ist, alle wissen, dass der Tag vorbei ist und man ruhig schlafen kann.",
+            "grammar": "participio-assoluto", "why": { "sl": "Deležnik se ujema s samostalnikom za njim: il portone, chiuso il portone.", "en": "The participle agrees with the noun after it: il portone, chiuso il portone.", "de": "Das Partizip passt sich dem Nomen danach an: il portone, chiuso il portone." },
+            "reply": { "face": "cross", "it": "Chiusa? Il portone è maschio. Come me. Di nuovo.", "sl": "Chiusa? Il portone je moškega spola. Kot jaz. Še enkrat.", "en": "Chiusa? Il portone is masculine. Like me. Again.", "de": "Chiusa? Il portone ist männlich. Wie ich. Nochmal." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Adesso la sbarra. Prendila dall'altro lato. Uno, due… su. Buonanotte, {learner}.", "sl": "Dobro. Zdaj pa zapah. Primi ga na drugi strani. Ena, dve … gor. Lahko noč, {learner}.", "en": "Good. Now the bar. Take the other end. One, two… up. Good night, {learner}.", "de": "Gut. Jetzt der Balken. Nimm ihn am anderen Ende. Eins, zwei … hoch. Gute Nacht, {learner}." }
       ]
     }
   ]

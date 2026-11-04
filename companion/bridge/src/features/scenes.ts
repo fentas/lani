@@ -225,8 +225,11 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       '. Name only people who are here and met, or keep it for later.'
     )
   }
-  /** The role-plays a scene's dialog may lead into for this learner: the offered ones (a child is never led into a grown-up's). */
-  const talkable = () => new Set(scenarios.offered(profile.child).map(x => x.id))
+  /**
+   * The role-plays a scene's dialog may lead into for this learner: the offered ones (a child is never led into a grown-up's,
+   * an A1 learner never into a B1 or B2 talk).
+   */
+  const talkable = () => new Set(scenarios.offered(profile.child, learnerLevel(cfg.dataDir)).map(x => x.id))
   /** Said after publishing a dialog of [level]: it waits while the learner is below it (SCENES.md "Dialogs by level"). */
   const aboveLearner = (level: string | undefined): string => {
     const mine = learnerLevel(cfg.dataDir)
@@ -251,7 +254,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
         areas: ['content'],
         addressed: true,
         handle: ({ url }) => {
-          const told = stories.resolved()
+          const told = stories.offered(learnerLevel(cfg.dataDir))
           const offered = talkable()
           return json(forApp(scenes.resolved(), artsOf(url)).map(s => attachStories(talksOffered(forHost(s), offered), told)))
         },
@@ -262,7 +265,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
         addressed: true,
         handle: ({ url, params: [id] }) => {
           const s = forApp([scenes.resolve(id)].filter(x => x !== undefined), artsOf(url))[0]
-          return s ? json(attachStories(talksOffered(forHost(s), talkable()), stories.resolved())) : json({ error: 'not found' }, 404)
+          return s ? json(attachStories(talksOffered(forHost(s), talkable()), stories.offered(learnerLevel(cfg.dataDir)))) : json({ error: 'not found' }, 404)
         },
       },
     ],
