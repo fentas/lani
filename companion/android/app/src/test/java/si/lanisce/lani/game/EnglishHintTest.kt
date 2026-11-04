@@ -179,6 +179,11 @@ class EnglishHintTest {
         assertEquals("the man", word("He's the man who lives by the beck.", "relative-clauses", "He's the man which lives by the beck."))
         assertEquals("It's", word("It's cold, isn't it?", "question-tags", "It's cold, is it?"))
         assertEquals("I", word("I cut myself.", "reflexive-pronouns", "I cut himself."))
+        // (from Lakeland's B1 and B2 dialogs) that the oak is no noun phrase; told later moves the tense, not who
+        assertEquals("the oak", word("Is that the oak which Harry climbs every day?", "relative-clauses", "Is that the oak who Harry climbs every day?"))
+        assertNull(hint("He told me his bowl was closer.", "reported-speech", "He told me my bowl was closer.").trigger)
+        assertEquals("months", word("You've been working on it for months!", "for-since", "You've been working on it since months!"))
+        assertEquals("I was a child", word("I haven't blown bubbles since I was a child.", "for-since", "I haven't blown bubbles for I was a child."))
     }
 
     @Test fun `the models show no form of the turn and one with the trigger's word comes first`() {

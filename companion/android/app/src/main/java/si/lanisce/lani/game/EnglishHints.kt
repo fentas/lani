@@ -216,7 +216,7 @@ object EnglishHints {
             "thrown grown drawn flown sung swum run drunk begun brought bought caught taught thought fought sold told held " +
             "kept slept left felt met sent spent built lost heard read hurt hit let set shut bent stung hung sat stood " +
             "understood said paid laid led fed meant become forgotten chosen frozen stolen woken worn torn hidden ridden " +
-            "bitten driven fallen beaten shaken risen had",
+            "bitten driven fallen beaten shaken risen had struck dug learnt blown lit stuck swept",
     )
     private val NOT_ED = set("red bed shed need feed seed speed weed hundred sled wed bred")
     private val NOT_ING = set("thing something anything nothing everything king ring spring string swing wing sing sting bring evening morning ceiling pudding during")
@@ -362,7 +362,7 @@ object EnglishHints {
         }
         if (d >= 0 && s.same(d, k) && (w[d] in DETERMINERS || (tail(w[d]) == "s" && head(w[d]) !in S_IS))) {
             // the other side, all the cups, the family's luck: the determiner before it too
-            return if (d > 0 && s.same(d - 1, k) && w[d - 1] in DETERMINERS && w[d - 1] !in NUMBERS) d - 1 else d
+            return if (d > 0 && s.same(d - 1, k) && w[d - 1] in DETERMINERS && w[d - 1] !in NUMBERS && w[d - 1] !in DEMONSTRATIVES) d - 1 else d
         }
         if (!bare || between > 1) return null
         val from = d + 1
@@ -782,6 +782,10 @@ object EnglishHints {
         val w = s.words
         val n = i + 1
         if (!s.same(n, i)) return null
+        // for months, for years
+        if (w[n] in TIME_NOUNS && w[n].endsWith("s")) return asks(s, n, n, "hint.en.howLong", "hintSay.with")
+        // since I was a child: a sentence says when it began
+        if (w[n] in SUBJECTS) return asks(s, n, (n until w.size).last { s.same(it, i) }, "hint.en.whenBegan", "hintSay.with")
         val end = (n until minOf(w.size, n + 3)).takeWhile { s.same(it, i) }.firstOrNull { w[it] in TIME_NOUNS }
         if (end != null && (w[n] in NUMBERS || w[n] in set("a an one two few several many ages ten") || DIGITS.matches(w[n]))) return asks(s, n, end, "hint.en.howLong", "hintSay.with")
         val point = w[n] in DAYS || w[n] in MONTHS || w[n] in DAY_PARTS || YEAR.matches(w[n]) || w[n] in set("then yesterday last christmas") || w[n] in NUMBERS
@@ -852,6 +856,8 @@ object EnglishHints {
     /** A verb of saying or asking before the gap in its clause (she said, he asked where, she told me): said later, so the tense moves back. */
     private fun said(s: Said, i: Int): Trigger? {
         val w = s.words
+        // (he against I, his against my, she'd against I'd: who, not the tense)
+        if (w[i] in SUBJECTS || w[i] in POSSESSIVES || w[i] in OBJECTS || (head(w[i]) in SUBJECTS && tail(w[i]).isNotEmpty())) return null
         val k = (i - 1 downTo maxOf(0, i - 5)).firstOrNull { s.same(it, i) && (w[it] in SAID_PAST || w[it] in SAID_NOW) } ?: return null
         return asks(s, k, k, if (w[k] in SAID_PAST) "hint.en.saidPast" else "hint.en.saidNow", "hintSay.after")
     }
