@@ -135,11 +135,14 @@ uses, not whole paradigms as lens-unknown-forms's do, so a tap on another form o
 
 ## Tests and checks
 
+- **Final run, on b59c4388 (merged with main, 2026-11-04):** the smoke 3,825 checks passed; the Android suite 4,124 tests, 0
+  failures, 2 skipped; tsc clean; `tutor-export --check` 140 files match; Python 179 (11 skipped) and 253 tests OK.
 - `bun test/check-culture.ts primorska`: ok after every story. `bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed
-  placeholders, 0 turns the same for one gender. `bunx tsc --noEmit -p .`: clean. `tutor-export --check`: 140 files match.
+  placeholders, 0 turns the same for one gender.
 - **The smoke** (`test/smoke/stories.ts`): every one of Janez's stories at A1, A2, B1 and B2; the notebook's count now counts
   only the A1 and A2 notes (140), so that a pack's new tellings above A2 don't touch the number (the other cultures' readings
-  agents add tellings too: merging, keep this line and drop theirs if they changed the old 148). `test/smoke/cultures.ts`:
+  agents add tellings too: merging, keep this line and drop theirs if they changed the old 148; NotebookTest likewise now says
+  at least 184). `test/smoke/cultures.ts`:
   Primorska's readings at B1 and B2, every line in four languages, every question type in the new four.
 - **StoriesTest:** all sixteen at A1–B2; tonight's story at B1, B2 and C1 (the highest there is: B2); Peter Klepec B2 for a C1
   learner; the A1/A2-only case and the retelling to a story's highest kept with a copy cut to A1/A2. **ReadingsTest:** the
@@ -158,7 +161,8 @@ uses, not whole paradigms as lens-unknown-forms's do, so a tap on another form o
   1850 (its first run failed on a reading that was on screen). Run: `LANI_CULTURE=primorska LANI_QA_READING=soska-fronta
   LANI_QA_STORY_LEVEL=B1 companion/bin/qa-slot --steps culture-reading,story-faces`; screenshots in the scratchpad's
   `ux-readings-primorska/`. The B1 telling played was a new one: Jurij Kozjak's third evening, tonight's story for the dev
-  learner (the screenshot's reply stands only in its B1 telling), not Zlatorog.
+  learner (the screenshot's reply stands only in its B1 telling), not Zlatorog. Final run, on the build of b59c4388: setup,
+  story-faces, culture-reading and the crash check ok; *Soška fronta* opened from the corner, read and answered, 5 of 5.
 
 ## Voice (nothing spent)
 
@@ -180,4 +184,5 @@ Jan's call. Until then the app speaks them with the phone's voice, as any line w
 deklica; ea99d305 Mojca Pokrajculja; 4badcfda Kekec; 2d4ad96f Zlatorog B2; 68167445 Kralj Matjaž B2; 05d4f068 Lepa Vida B2;
 4a5f26b8 Zmaj B2; e029de2c tests; bef3e2c8 Bogatinovo zlato B2; 2ad7f242 Pegam in Lambergar B2; 27e24473 Veronika B2;
 49e88e90 Krpan B1; 8823d356 Kozjak B1; 94995cbb Krpan B2; fc6cfcb7 Kozjak B2; 1570029a tests, SCENES.md, QA; 05ee82fc,
-a7ad04ef source fixes.
+a7ad04ef source fixes; 64e0bc01 this doc; df664a50 what the first full run found (the reactions, prekleti, the supplement,
+the looks, QA's reach); b59c4388 Sloleks. Merges of main: e82e345c, 751348ae.
