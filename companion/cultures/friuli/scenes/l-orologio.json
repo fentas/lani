@@ -5,7 +5,7 @@
   "title": { "it": "L'orologio del campanile", "sl": "Ura na zvoniku", "en": "The tower clock", "de": "Die Kirchturmuhr" },
   "emoji": "🕰️",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too; B1, B2 variants too",
   "art": "square",
   "from": ["project:mestna_ura"],
   "pack": "l-orologio",
@@ -42,7 +42,7 @@
       "weekdays": [1, 2, 3, 4, 5],
       "chance": 0.5,
       "dialog": "lancette",
-      "dialogs": ["lancette-puntuale", "lancette"],
+      "dialogs": ["lancette-b2-ritardo", "lancette-b1-minuti", "lancette-puntuale", "lancette"],
       "reward": { "wisdom": 20},
       "marker": "🕰️",
       "needs": { "building": "CHURCH" },
@@ -71,7 +71,7 @@
       "weekdays": [1, 2, 3, 4, 5, 6],
       "chance": 0.4,
       "dialog": "ingranaggi",
-      "dialogs": ["ingranaggi-colpi", "ingranaggi-campana", "ingranaggi"],
+      "dialogs": ["ingranaggi-b2-ottone", "ingranaggi-b1-chiave", "ingranaggi-colpi", "ingranaggi-campana", "ingranaggi"],
       "reward": { "stone": 20},
       "marker": "⚙️",
       "needs": { "building": "CHURCH" },
@@ -973,6 +973,105 @@
           ],
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         }
+      ]
+    },
+    {
+      "id": "lancette-b1-minuti",
+      "level": "B1",
+      "memory": { "it": "l'orologio che abbiamo letto insieme", "sl": "uro, ki sva jo {m:brala|f:brali} skupaj", "en": "the clock we read together", "de": "die Uhr, die wir zusammen gelesen haben" },
+      "lines": [
+        { "who": "elena", "it": "Ciao, {learner}! Guarda l'orologio del campanile: fra cinque minuti suonano le tre. E i compiti di matematica, a che punto sono?", "sl": "Živjo, {learner}! Poglej uro na zvoniku: čez pet minut bodo tri. Pa naloga iz matematike, kako daleč si?", "en": "Hi, {learner}! Look at the bell-tower clock: in five minutes it'll strike three. And your maths homework, how far along is it?", "de": "Hallo, {learner}! Schau auf die Kirchturmuhr: In fünf Minuten schlägt es drei. Und die Matheaufgaben, wie weit bist du?" },
+        { "choices": [
+          { "it": "Per le tre avrò finito i compiti di matematica!", "sl": "Do treh bom {m:končal|f:končala} domačo nalogo iz matematike!", "en": "By three I'll have finished my maths homework!", "de": "Bis drei werde ich die Matheaufgaben fertig haben!", "ok": true,
+            "reply": { "face": "happy", "it": "In cinque minuti? Che velocità! Va bene, ma controlliamo insieme.", "sl": "V petih minutah? Kakšna hitrost! Prav, ampak preveriva skupaj.", "en": "In five minutes? What speed! All right, but let's check together.", "de": "In fünf Minuten? Was für ein Tempo! Gut, aber wir prüfen zusammen." } },
+          { "it": "Per le tre sarò finito i compiti di matematica!", "sl": "Do treh bom {m:končal|f:končala} domačo nalogo iz matematike!", "en": "By three I'll have finished my maths homework!", "de": "Bis drei werde ich die Matheaufgaben fertig haben!",
+            "grammar": "futuro-anteriore", "why": { "sl": "Finire nalogo ima avere: ho finito, zato avrò finito.", "en": "Finishing something takes avere: ho finito, so avrò finito.", "de": "Etwas beenden bildet mit avere: ho finito, also avrò finito." },
+            "reply": { "face": "curious", "it": "Sarò finito? Mmm, così sembra che sia tu a finire, non i compiti!", "sl": "Sarò finito? Hm, tako zveni, kot da se končaš ti, ne naloga!", "en": "Sarò finito? Hmm, that sounds as if you're the one who's finished, not the homework!", "de": "Sarò finito? Hm, das klingt, als wärst du zu Ende, nicht die Aufgaben!" } }
+        ] },
+        { "who": "elena", "face": "curious", "it": "Prima dell'orologio, sai, il paese non sapeva l'ora esatta. Secondo te, come si faceva?", "sl": "Pred uro vas ni vedela točnega časa. Kaj misliš, kako so to delali?", "en": "Before the clock, you know, the village didn't know the exact time. How do you think people managed?", "de": "Vor der Uhr wusste das Dorf die genaue Zeit nicht. Wie hat man das wohl gemacht, meinst du?" },
+        { "choices": [
+          { "it": "Si guardava il sole: quando era alto, era mezzogiorno.", "sl": "Gledali so sonce: ko je bilo visoko, je bilo poldne.", "en": "People looked at the sun: when it was high, it was noon.", "de": "Man schaute auf die Sonne: Wenn sie hoch stand, war es Mittag.", "ok": true,
+            "reply": { "face": "proud", "it": "Esatto! E quando c'erano le nuvole, si indovinava.", "sl": "Tako je! Ko je bilo oblačno, so ugibali.", "en": "Exactly! And when it was cloudy, people guessed.", "de": "Genau! Und bei Wolken hat man geraten." } },
+          { "it": "Guardava il sole: quando era alto, era mezzogiorno.", "sl": "Gledali so sonce: ko je bilo visoko, je bilo poldne.", "en": "People looked at the sun: when it was high, it was noon.", "de": "Man schaute auf die Sonne: Wenn sie hoch stand, war es Mittag.",
+            "grammar": "si-impersonale", "why": { "sl": "Za to, kar so ljudje delali na splošno, je si: si guardava. Brez si je en sam človek.", "en": "For what people did in general, it's si: si guardava. Without si it's one person.", "de": "Für das, was die Leute allgemein taten, steht si: si guardava. Ohne si ist es eine einzelne Person." },
+            "reply": { "face": "curious", "it": "Guardava? Chi guardava? Il parroco? Il sindaco? Tutto il paese, {learner}!", "sl": "Guardava? Kdo je gledal? Župnik? Župan? Vsa vas, {learner}!", "en": "Guardava? Who was looking? The priest? The mayor? The whole village, {learner}!", "de": "Guardava? Wer schaute? Der Pfarrer? Der Bürgermeister? Das ganze Dorf, {learner}!" } }
+        ] },
+        { "who": "elena", "face": "happy", "it": "Senti? Din, don, din… le tre! E i compiti? Vediamo se l'orologio ha detto la verità.", "sl": "Slišiš? Bim, bam, bim … tri! Pa naloga? Poglejva, ali je ura povedala resnico.", "en": "Hear that? Ding, dong, ding… three o'clock! And the homework? Let's see if the clock told the truth.", "de": "Hörst du? Ding, dong, ding … drei! Und die Aufgaben? Mal sehen, ob die Uhr die Wahrheit gesagt hat." }
+      ]
+    },
+    {
+      "id": "lancette-b2-ritardo",
+      "level": "B2",
+      "memory": { "it": "la volta in cui l'orologio rimase indietro", "sl": "ko je ura zaostajala", "en": "the time the clock fell behind", "de": "das Mal, als die Uhr nachging" },
+      "lines": [
+        { "who": "elena", "it": "Una volta, d'inverno, l'orologio del campanile rimase indietro di dieci minuti per una settimana intera. Nessuno se ne accorse, tranne me.", "sl": "Nekoč pozimi je ura na zvoniku cel teden zaostajala deset minut. Nihče ni opazil, razen mene.", "en": "Once, in winter, the bell-tower clock was ten minutes slow for a whole week. Nobody noticed, except me.", "de": "Einmal im Winter ging die Kirchturmuhr eine ganze Woche lang zehn Minuten nach. Niemand merkte es, außer mir." },
+        { "who": "elena", "face": "laugh", "it": "Ogni mattina i bambini arrivavano in ritardo e mi dicevano: «Ma maestra, il campanile diceva le otto!» E avevano ragione.", "sl": "Vsako jutro so otroci zamujali in mi rekli: »Ampak, učiteljica, zvonik je kazal osem!« In imeli so prav.", "en": "Every morning the children arrived late and told me: «But Miss, the bell tower said eight!» And they were right.", "de": "Jeden Morgen kamen die Kinder zu spät und sagten: «Aber Frau Lehrerin, der Kirchturm zeigte acht!» Und sie hatten recht." },
+        { "choices": [
+          { "it": "Quindi i bambini dicevano che il campanile segnava le otto, e non era colpa loro.", "sl": "Torej so otroci rekli, da je zvonik kazal osem, in ni bila njihova krivda.", "en": "So the children said the bell tower showed eight, and it wasn't their fault.", "de": "Die Kinder sagten also, der Kirchturm zeigte acht, und es war nicht ihre Schuld.", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così. Per una volta, la colpa era del ferro, non dei bambini.", "sl": "Prav tako. Enkrat je bilo krivo železo, ne otroci.", "en": "Exactly. For once, the iron was to blame, not the children.", "de": "Genau. Ausnahmsweise war das Eisen schuld, nicht die Kinder." } },
+          { "it": "Quindi i bambini dicevano che il campanile segna le otto, e non era colpa loro.", "sl": "Torej so otroci rekli, da je zvonik kazal osem, in ni bila njihova krivda.", "en": "So the children said the bell tower showed eight, and it wasn't their fault.", "de": "Die Kinder sagten also, der Kirchturm zeigte acht, und es war nicht ihre Schuld.",
+            "grammar": "discorso-indiretto-passato", "why": { "sl": "Po dicevano se čas pomakne nazaj: »diceva le otto« postane che segnava.", "en": "After dicevano the tense moves back: «diceva le otto» becomes che segnava.", "de": "Nach dicevano rückt die Zeit zurück: «diceva le otto» wird zu che segnava." },
+            "reply": { "face": "thinking", "it": "Segna? Adesso? No, adesso l'orologio va benissimo! Parliamo di quell'inverno.", "sl": "Segna? Zdaj? Ne, zdaj ura dela odlično! Govoriva o tisti zimi.", "en": "Segna? Now? No, now the clock works perfectly! We're talking about that winter.", "de": "Segna? Jetzt? Nein, jetzt geht die Uhr bestens! Wir reden von jenem Winter." } }
+        ] },
+        { "who": "elena", "face": "curious", "it": "Il signor Bruno disse che il freddo aveva rallentato gli ingranaggi. Se lo avessi chiamato subito, l'avrebbe sistemato in un'ora. Secondo te, perché non l'ho fatto?", "sl": "Gospod Bruno je rekel, da je mraz upočasnil zobnike. Če bi ga takoj poklicala, bi jo popravil v eni uri. Kaj misliš, zakaj tega nisem naredila?", "en": "Signor Bruno said the cold had slowed the gears. If I'd called him at once, he'd have fixed it in an hour. Why do you think I didn't?", "de": "Herr Bruno sagte, die Kälte habe die Zahnräder verlangsamt. Hätte ich ihn sofort gerufen, hätte er sie in einer Stunde gerichtet. Warum hab ich es wohl nicht getan, meinst du?" },
+        { "choices": [
+          { "it": "Forse perché Le piaceva sentire le scuse dei bambini, anche se arrivavano tardi!", "sl": "Morda zato, ker ste radi poslušali izgovore otrok, čeprav so zamujali!", "en": "Maybe because you liked hearing the children's excuses, even though they were late!", "de": "Vielleicht, weil Sie die Ausreden der Kinder gern gehört haben, auch wenn sie zu spät kamen!", "ok": true,
+            "reply": { "face": "laugh", "it": "Mi hai scoperta! Erano le scuse più belle che avessi mai sentito.", "sl": "{m:Razkrinkal|f:Razkrinkala} si me! To so bili najlepši izgovori, kar sem jih kdaj slišala.", "en": "You've found me out! They were the nicest excuses I'd ever heard.", "de": "Du hast mich durchschaut! Das waren die schönsten Ausreden, die ich je gehört hatte." } },
+          { "it": "Forse perché il signor Bruno non sa riparare gli orologi.", "sl": "Morda zato, ker gospod Bruno ne zna popravljati ur.", "en": "Maybe because Signor Bruno can't mend clocks.", "de": "Vielleicht, weil Herr Bruno keine Uhren reparieren kann.",
+            "why": { "sl": "Bruno je uro sam skoval in bi jo popravil v eni uri: zna jih popravljati.", "en": "Bruno forged the clock himself and would have fixed it in an hour: he can mend clocks.", "de": "Bruno hat die Uhr selbst geschmiedet und hätte sie in einer Stunde gerichtet: Er kann Uhren reparieren." },
+            "reply": { "face": "surprised", "it": "Bruno? Ma se l'orologio l'ha fatto lui, ingranaggio per ingranaggio!", "sl": "Bruno? Saj je uro naredil on, zobnik za zobnikom!", "en": "Bruno? But he made the clock himself, gear by gear!", "de": "Bruno? Er hat die Uhr doch selbst gebaut, Zahnrad für Zahnrad!" } }
+        ] },
+        { "who": "elena", "face": "happy", "it": "Adesso l'orologio va preciso, e i bambini arrivano in orario. Peccato: le scuse mi mancano un po'.", "sl": "Zdaj je ura točna in otroci prihajajo pravočasno. Škoda: izgovori mi malo manjkajo.", "en": "Now the clock's accurate and the children arrive on time. Pity: I rather miss the excuses.", "de": "Jetzt geht die Uhr genau, und die Kinder kommen pünktlich. Schade: Die Ausreden fehlen mir ein bisschen." }
+      ]
+    },
+    {
+      "id": "ingranaggi-b1-chiave",
+      "level": "B1",
+      "memory": { "it": "la chiave grande dell'orologio", "sl": "veliki ključ ure", "en": "the clock's big key", "de": "den großen Schlüssel der Uhr" },
+      "lines": [
+        { "who": "bruno", "it": "Ciao. Oggi è domenica: si carica l'orologio. Ecco la chiave. È pesante.", "sl": "Živjo. Danes je nedelja: uro je treba naviti. Tu je ključ. Težek je.", "en": "Hello. Today's Sunday: the clock gets wound. Here's the key. It's heavy.", "de": "Hallo. Heute ist Sonntag: Die Uhr wird aufgezogen. Hier ist der Schlüssel. Er ist schwer." },
+        { "who": "bruno", "it": "Venti giri. Non uno di più, non uno di meno. Li conti tu?", "sl": "Dvajset obratov. Ne enega več, ne enega manj. Jih šteješ ti?", "en": "Twenty turns. Not one more, not one less. Will you count them?", "de": "Zwanzig Umdrehungen. Keine mehr, keine weniger. Zählst du sie?" },
+        { "choices": [
+          { "it": "Sì, signor Bruno. Comincio a contare quando Lei gira.", "sl": "Ja, gospod Bruno. Začnem šteti, ko vi zavrtite.", "en": "Yes, Signor Bruno. I'll start counting when you turn.", "de": "Ja, Herr Bruno. Ich fang an zu zählen, wenn Sie drehen.", "ok": true,
+            "reply": { "face": "happy", "it": "Bene. Uno… due… tre…", "sl": "Dobro. Ena … dve … tri …", "en": "Good. One… two… three…", "de": "Gut. Eins … zwei … drei …" } },
+          { "it": "Sì, signor Bruno. Comincio di contare quando Lei gira.", "sl": "Ja, gospod Bruno. Začnem šteti, ko vi zavrtite.", "en": "Yes, Signor Bruno. I'll start counting when you turn.", "de": "Ja, Herr Bruno. Ich fang an zu zählen, wenn Sie drehen.",
+            "grammar": "infinito-preposizioni", "why": { "sl": "Cominciare gre z a: comincio a contare.", "en": "Cominciare takes a: comincio a contare.", "de": "Cominciare steht mit a: comincio a contare." },
+            "reply": { "face": "cross", "it": "Di contare? No. Riprova. Prima di contare, parla giusto.", "sl": "Di contare? Ne. Še enkrat. Preden šteješ, govori prav.", "en": "Di contare? No. Again. Before counting, speak right.", "de": "Di contare? Nein. Nochmal. Bevor du zählst, sprich richtig." } }
+        ] },
+        { "who": "bruno", "face": "thinking", "it": "…diciannove, venti. Fatto. Se avessi girato ventuno volte, la molla si sarebbe rotta? Cosa dici?", "sl": "… devetnajst, dvajset. Narejeno. Če bi zavrtel enaindvajsetkrat, bi se vzmet zlomila? Kaj praviš?", "en": "…nineteen, twenty. Done. If I'd turned twenty-one times, would the spring have broken? What do you say?", "de": "… neunzehn, zwanzig. Fertig. Hätte ich einundzwanzigmal gedreht, wäre die Feder gebrochen? Was sagst du?" },
+        { "choices": [
+          { "it": "Forse no, ma è meglio non provare: la molla è vecchia.", "sl": "Morda ne, ampak bolje je ne poskušati: vzmet je stara.", "en": "Maybe not, but better not to try: the spring is old.", "de": "Vielleicht nicht, aber besser nicht ausprobieren: Die Feder ist alt.", "ok": true,
+            "reply": { "face": "proud", "it": "Giusto. Un buon fabbro non prova la fortuna.", "sl": "Prav. Dober kovač ne preizkuša sreče.", "en": "Right. A good smith doesn't try his luck.", "de": "Richtig. Ein guter Schmied fordert das Glück nicht heraus." } },
+          { "it": "Sì, si è rotta: adesso l'orologio è fermo.", "sl": "Ja, zlomila se je: zdaj ura stoji.", "en": "Yes, it broke: now the clock has stopped.", "de": "Ja, sie ist gebrochen: Jetzt steht die Uhr.",
+            "why": { "sl": "Bruno je zavrtel dvajsetkrat, ne enaindvajsetkrat: vzmet je cela in ura gre.", "en": "Bruno turned it twenty times, not twenty-one: the spring is whole and the clock runs.", "de": "Bruno hat zwanzigmal gedreht, nicht einundzwanzigmal: Die Feder ist heil, und die Uhr läuft." },
+            "reply": { "face": "cross", "it": "Fermo? No. Ascolta: tic, tac. Va. Ho girato venti volte, non ventuno.", "sl": "Stoji? Ne. Poslušaj: tik, tak. Gre. Zavrtel sem dvajsetkrat, ne enaindvajsetkrat.", "en": "Stopped? No. Listen: tick, tock. It's going. I turned twenty times, not twenty-one.", "de": "Steht? Nein. Hör: tick, tack. Sie läuft. Ich hab zwanzigmal gedreht, nicht einundzwanzigmal." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Fino a domenica prossima l'orologio va da solo. Grazie, {learner}. {m:Ottimo aiutante|f:Ottima aiutante}.", "sl": "Dobro. Do naslednje nedelje gre ura sama. Hvala, {learner}. {m:Odličen pomočnik|f:Odlična pomočnica}.", "en": "Good. Until next Sunday the clock runs by itself. Thanks, {learner}. Excellent helper.", "de": "Gut. Bis nächsten Sonntag läuft die Uhr von allein. Danke, {learner}. {m:Bester Helfer|f:Beste Helferin}." }
+      ]
+    },
+    {
+      "id": "ingranaggi-b2-ottone",
+      "level": "B2",
+      "memory": { "it": "gli ingranaggi di ferro e di ottone", "sl": "zobnike iz železa in medenine", "en": "the iron and brass gears", "de": "die Zahnräder aus Eisen und Messing" },
+      "lines": [
+        { "who": "bruno", "it": "Questi ingranaggi li ho forgiati io. Quello piccolo, di ottone, l'ho rifatto tre volte prima che fosse perfetto.", "sl": "Te zobnike sem skoval jaz. Tistega majhnega, iz medenine, sem trikrat naredil na novo, preden je bil popoln.", "en": "I forged these gears myself. The little brass one I remade three times before it was perfect.", "de": "Diese Zahnräder hab ich selbst geschmiedet. Das kleine aus Messing hab ich dreimal neu gemacht, bevor es perfekt war." },
+        { "who": "bruno", "face": "thinking", "it": "Mi chiedevano: «Bruno, perché tanta fatica per un dente storto di un millimetro?» Io rispondevo che un millimetro oggi è un minuto fra un anno.", "sl": "Spraševali so me: »Bruno, zakaj toliko truda za en milimeter kriv zob?« Jaz sem odgovarjal, da je milimeter danes minuta čez eno leto.", "en": "People asked me: «Bruno, why so much trouble for a tooth a millimetre crooked?» I answered that a millimetre today is a minute in a year.", "de": "Man fragte mich: «Bruno, warum so viel Mühe für einen Zahn, der einen Millimeter schief ist?» Ich antwortete, ein Millimeter heute ist eine Minute in einem Jahr." },
+        { "choices": [
+          { "it": "Allora, avendo rifatto l'ingranaggio tre volte, adesso l'orologio non sbaglia mai.", "sl": "Potem, ker ste zobnik trikrat naredili na novo, se ura zdaj nikoli ne zmoti.", "en": "So, having remade the gear three times, now the clock is never wrong.", "de": "Weil Sie das Zahnrad dreimal neu gemacht haben, geht die Uhr jetzt nie falsch.", "ok": true,
+            "reply": { "face": "proud", "it": "Quasi mai. Solo quando fa troppo freddo. Il ferro, d'inverno, diventa pigro.", "sl": "Skoraj nikoli. Samo ko je premrzlo. Železo pozimi postane leno.", "en": "Almost never. Only when it's too cold. In winter, iron gets lazy.", "de": "Fast nie. Nur wenn es zu kalt ist. Im Winter wird das Eisen faul." } },
+          { "it": "Allora, essendo rifatto l'ingranaggio tre volte, adesso l'orologio non sbaglia mai.", "sl": "Potem, ker ste zobnik trikrat naredili na novo, se ura zdaj nikoli ne zmoti.", "en": "So, having remade the gear three times, now the clock is never wrong.", "de": "Weil Sie das Zahnrad dreimal neu gemacht haben, geht die Uhr jetzt nie falsch.",
+            "grammar": "gerundio-passato", "why": { "sl": "Rifare ima avere: ho rifatto, zato avendo rifatto.", "en": "Rifare takes avere: ho rifatto, so avendo rifatto.", "de": "Rifare bildet mit avere: ho rifatto, also avendo rifatto." },
+            "reply": { "face": "cross", "it": "Essendo rifatto? Chi? L'ingranaggio da solo? No. L'ho rifatto io.", "sl": "Essendo rifatto? Kdo? Zobnik sam? Ne. Jaz sem ga naredil.", "en": "Essendo rifatto? Who? The gear by itself? No. I remade it.", "de": "Essendo rifatto? Wer? Das Zahnrad von allein? Nein. Ich hab es neu gemacht." } }
+        ] },
+        { "who": "bruno", "face": "curious", "it": "Il sindaco voleva un orologio elettrico, da Udine. Più preciso, diceva. Io gli dissi che, finché ci fossi stato io, il campanile avrebbe avuto il suo orologio di ferro. Ho fatto bene?", "sl": "Župan je hotel električno uro iz Vidma. Bolj natančno, je rekel. Jaz sem mu rekel, da bo imel zvonik svojo železno uro, dokler bom jaz tukaj. Sem prav naredil?", "en": "The mayor wanted an electric clock, from Udine. More accurate, he said. I told him that as long as I was here, the bell tower would have its iron clock. Did I do right?", "de": "Der Bürgermeister wollte eine elektrische Uhr aus Udine. Genauer, sagte er. Ich sagte ihm, solange ich da sei, habe der Kirchturm seine Eisenuhr. Hab ich recht getan?" },
+        { "choices": [
+          { "it": "Sì. Una macchina di Udine sarebbe più precisa, forse; ma non avrebbe la Sua storia.", "sl": "Ja. Stroj iz Vidma bi bil morda bolj natančen; ampak ne bi imel vaše zgodbe.", "en": "Yes. A machine from Udine might be more accurate; but it wouldn't have your story.", "de": "Ja. Eine Maschine aus Udine wäre vielleicht genauer; aber sie hätte nicht Ihre Geschichte.", "ok": true,
+            "reply": { "face": "proud", "it": "Hm. Bella risposta. Corta e giusta. Come piace a me.", "sl": "Hm. Lep odgovor. Kratek in pravi. Kot mi je všeč.", "en": "Hm. Good answer. Short and right. The way I like it.", "de": "Hm. Gute Antwort. Kurz und richtig. So mag ich das." } },
+          { "it": "No. Un orologio elettrico avrebbe fatto anche i Suoi lavori in fucina.", "sl": "Ne. Električna ura bi opravila tudi vaše delo v kovačnici.", "en": "No. An electric clock would have done your work in the forge too.", "de": "Nein. Eine elektrische Uhr hätte auch Ihre Arbeit in der Schmiede gemacht.",
+            "why": { "sl": "Pogovor je o uri na zvoniku; nihče ne pravi, da bi ura delala v kovačnici.", "en": "The talk is about the bell-tower clock; nobody says a clock would work in the forge.", "de": "Es geht um die Kirchturmuhr; niemand sagt, eine Uhr würde in der Schmiede arbeiten." },
+            "reply": { "face": "cross", "it": "In fucina? Un orologio con il martello? No. Pensa prima di parlare.", "sl": "V kovačnici? Ura s kladivom? Ne. Premisli, preden govoriš.", "en": "In the forge? A clock with a hammer? No. Think before you speak.", "de": "In der Schmiede? Eine Uhr mit Hammer? Nein. Denk nach, bevor du redest." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Adesso scendiamo. {m:Attento|f:Attenta} agli scalini: sono stretti. Ciao, {learner}.", "sl": "Dobro. Zdaj pa dol. Pazi na stopnice: ozke so. Adijo, {learner}.", "en": "Good. Now let's go down. Mind the steps: they're narrow. Bye, {learner}.", "de": "Gut. Jetzt gehen wir runter. Pass auf die Stufen auf: Die sind schmal. Tschüss, {learner}." }
       ]
     }
   ]

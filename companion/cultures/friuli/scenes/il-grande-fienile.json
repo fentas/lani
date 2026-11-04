@@ -5,7 +5,7 @@
   "title": { "it": "Il grande fienile", "sl": "Veliki senik", "en": "The big hay barn", "de": "Der große Heuschober" },
   "emoji": "🪜",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, unreviewed",
   "art": "field",
   "from": ["project:toplar"],
   "pack": "il-grande-fienile",
@@ -59,7 +59,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "scorte",
-      "dialogs": ["scorte-conto", "scorte"],
+      "dialogs": ["scorte-b2-quaderno", "scorte-b1-famiglie", "scorte-conto", "scorte"],
       "reward": { "food": 20},
       "marker": "📦",
       "memory": { "it": "le scorte del paese nel grande fienile", "sl": "vaške zaloge v velikem seniku", "en": "the village's stores in the big barn", "de": "die Vorräte des Dorfes im großen Heuschober" }
@@ -121,7 +121,7 @@
       "when": ["afternoon"],
       "chance": 0.4,
       "dialog": "lepre",
-      "dialogs": ["lepre-campana", "lepre"],
+      "dialogs": ["lepre-b2-germogli", "lepre-b1-covo", "lepre-campana", "lepre"],
       "reward": { "food": 15},
       "marker": "🐇",
       "memory": { "it": "la lepre nell'erba vicino allo steccato", "sl": "zajca v travi pri plotu", "en": "the hare in the grass by the fence", "de": "den Hasen im Gras beim Zaun" }
@@ -1050,6 +1050,106 @@
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         },
         { "who": "matteo", "face": "happy", "it": "Ciao, lepre! Ciao, {learner}! Torno alla vigna.", "sl": "Adijo, zajec! Adijo, {learner}! Grem nazaj v vinograd.", "en": "Bye, hare! Bye, {learner}! I'm going back to the vineyard.", "de": "Tschüss, Hase! Tschüss, {learner}! Ich gehe zurück in den Weinberg." }
+      ]
+    },
+    {
+      "id": "scorte-b1-famiglie",
+      "level": "B1",
+      "memory": { "it": "i sacchi divisi tra le famiglie", "sl": "vreče, razdeljene med družine", "en": "the sacks shared among the families", "de": "die Säcke, aufgeteilt auf die Familien" },
+      "lines": [
+        { "who": "franco", "it": "Buongiorno, {learner}. Oggi si dividono le scorte per l'inverno. Grano, mais, fieno. Tutto.", "sl": "Dober dan, {learner}. Danes se delijo zaloge za zimo. Pšenica, koruza, seno. Vse.", "en": "Good morning, {learner}. Today the winter stores are shared out. Wheat, maize, hay. Everything.", "de": "Guten Morgen, {learner}. Heute werden die Vorräte für den Winter aufgeteilt. Weizen, Mais, Heu. Alles." },
+        { "who": "franco", "face": "curious", "it": "Le famiglie del paese sono dieci, e i sacchi di farina venti. Come li dividiamo?", "sl": "Družin v vasi je deset, vreč moke pa dvajset. Kako jih razdeliva?", "en": "There are ten families in the village, and twenty sacks of flour. How shall we share them?", "de": "Im Dorf gibt es zehn Familien und zwanzig Säcke Mehl. Wie teilen wir sie auf?" },
+        { "choices": [
+          { "it": "Ognuna ne prende due: venti diviso dieci.", "sl": "Vsaka dobi dve: dvajset deljeno z deset.", "en": "Each one gets two: twenty divided by ten.", "de": "Jede bekommt zwei: zwanzig geteilt durch zehn.", "ok": true,
+            "reply": { "face": "proud", "it": "Giusto. Due sacchi a famiglia. Lorenzo sarebbe fiero di te.", "sl": "Prav. Dve vreči na družino. Lorenzo bi bil ponosen nate.", "en": "Right. Two sacks a family. Lorenzo would be proud of you.", "de": "Richtig. Zwei Säcke pro Familie. Lorenzo wäre stolz auf dich." } },
+          { "it": "Ognuna ne prendono due: venti diviso dieci.", "sl": "Vsaka dobi dve: dvajset deljeno z deset.", "en": "Each one gets two: twenty divided by ten.", "de": "Jede bekommt zwei: zwanzig geteilt durch zehn.",
+            "grammar": "indefiniti", "why": { "sl": "Ognuno in ognuna gresta z glagolom v ednini: ognuna ne prende.", "en": "Ognuno and ognuna take the verb in the singular: ognuna ne prende.", "de": "Ognuno und ognuna stehen mit dem Verb in der Einzahl: ognuna ne prende." },
+            "reply": { "face": "curious", "it": "Ognuna ne prendono? Una sola famiglia, e prendono in tanti? Ricontiamo.", "sl": "Ognuna ne prendono? Ena sama družina, pa jih jemlje toliko? Prešteva še enkrat.", "en": "Ognuna ne prendono? Just one family, and lots of them take? Let's count again.", "de": "Ognuna ne prendono? Eine einzige Familie, und viele nehmen? Zählen wir nochmal." } }
+        ] },
+        { "who": "franco", "face": "thinking", "it": "Contare tutto mi stanca, sai. Di solito mi aiuta Lorenzo, ma oggi è a scuola. Mi daresti una mano con il mais?", "sl": "Vse to štetje me utrudi, veš. Navadno mi pomaga Lorenzo, ampak danes je v šoli. Bi mi {m:pomagal|f:pomagala} pri koruzi?", "en": "Counting everything tires me, you know. Lorenzo usually helps me, but today he's at school. Would you give me a hand with the maize?", "de": "Das ganze Zählen macht mich müde, weißt du. Sonst hilft mir Lorenzo, aber heute ist er in der Schule. Würdest du mir beim Mais helfen?" },
+        { "choices": [
+          { "it": "Certo! Avrei tutta la mattina: conto io i sacchi di mais.", "sl": "Seveda! Vse dopoldne bi {m:imel|f:imela} čas: jaz preštejem vreče koruze.", "en": "Of course! I'd have the whole morning: I'll count the maize sacks.", "de": "Klar! Ich hätte den ganzen Vormittag: Ich zähl die Maissäcke.", "ok": true,
+            "reply": { "face": "happy", "it": "Bene. Tu conti il mais, io scrivo. Un numero alla volta.", "sl": "Dobro. Ti šteješ koruzo, jaz pišem. Eno število naenkrat.", "en": "Good. You count the maize, I'll write. One number at a time.", "de": "Gut. Du zählst den Mais, ich schreibe. Eine Zahl nach der anderen." } },
+          { "it": "Certo! Averei tutta la mattina: conto io i sacchi di mais.", "sl": "Seveda! Vse dopoldne bi {m:imel|f:imela} čas: jaz preštejem vreče koruze.", "en": "Of course! I'd have the whole morning: I'll count the maize sacks.", "de": "Klar! Ich hätte den ganzen Vormittag: Ich zähl die Maissäcke.",
+            "grammar": "condizionale", "why": { "sl": "Avere ima kratek pogojnik, kot v prihodnjiku (avrò): avrei.", "en": "Avere has a short conditional, as in the future (avrò): avrei.", "de": "Avere hat einen kurzen Konditional, wie in der Zukunft (avrò): avrei." },
+            "reply": { "face": "curious", "it": "Averei? Mmm, questa parola non è nel mio quaderno. Riprova.", "sl": "Averei? Hm, te besede ni v mojem zvezku. Še enkrat.", "en": "Averei? Hmm, that word isn't in my notebook. Try again.", "de": "Averei? Hm, dieses Wort steht nicht in meinem Heft. Nochmal." } }
+        ] },
+        { "who": "franco", "face": "happy", "it": "Venti sacchi di farina, due per famiglia, e il mais lo conti tu. Così l'inverno può arrivare.", "sl": "Dvajset vreč moke, dve na družino, koruzo pa šteješ ti. Tako lahko zima pride.", "en": "Twenty sacks of flour, two a family, and you count the maize. That way winter can come.", "de": "Zwanzig Säcke Mehl, zwei pro Familie, und den Mais zählst du. So kann der Winter kommen." }
+      ]
+    },
+    {
+      "id": "scorte-b2-quaderno",
+      "level": "B2",
+      "memory": { "it": "il quaderno dei raccolti di mio nonno", "sl": "zvezek letin mojega dedka", "en": "my grandfather's notebook of harvests", "de": "das Ernteheft meines Großvaters" },
+      "lines": [
+        { "who": "franco", "it": "Ho qui un quaderno. Era di mio nonno: ci sono scritti tutti i raccolti del paese, anno per anno, per più di cent'anni.", "sl": "Tukaj imam zvezek. Bil je od mojega dedka: zapisane so vse letine v vasi, leto za letom, več kot sto let.", "en": "I've got a notebook here. It was my grandfather's: every harvest of the village is written in it, year by year, for more than a hundred years.", "de": "Ich hab hier ein Heft. Es gehörte meinem Großvater: Alle Ernten des Dorfes stehen drin, Jahr für Jahr, über hundert Jahre." },
+        { "who": "franco", "face": "thinking", "it": "Un anno la grandine rovinò il grano a giugno. Se il paese non avesse messo da parte le scorte dell'anno prima, l'inverno sarebbe stato durissimo.", "sl": "Neko leto je toča junija uničila pšenico. Če vas ne bi bila prihranila zalog prejšnjega leta, bi bila zima zelo huda.", "en": "One year the hail ruined the wheat in June. If the village hadn't put aside the year before's stores, the winter would have been very hard.", "de": "Ein Jahr verdarb der Hagel im Juni den Weizen. Hätte das Dorf die Vorräte vom Vorjahr nicht zurückgelegt, wäre der Winter sehr hart geworden." },
+        { "choices": [
+          { "it": "Allora le scorte di un anno hanno salvato l'inverno dell'anno dopo.", "sl": "Potem so zaloge enega leta rešile zimo naslednjega.", "en": "So one year's stores saved the next year's winter.", "de": "Dann haben die Vorräte eines Jahres den Winter des nächsten gerettet.", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così. Per questo conto tutto, ogni mattina. Non è avarizia: è prudenza.", "sl": "Prav tako. Zato vsako jutro vse preštejem. Ni skopost: je previdnost.", "en": "Exactly. That's why I count everything, every morning. It isn't meanness: it's prudence.", "de": "Genau. Deshalb zähle ich jeden Morgen alles. Das ist kein Geiz: Das ist Vorsicht." } },
+          { "it": "Allora quell'anno il paese ha mangiato il grano nuovo di giugno.", "sl": "Potem je vas tisto leto jedla novo junijsko pšenico.", "en": "So that year the village ate the new June wheat.", "de": "Dann hat das Dorf in dem Jahr den neuen Weizen vom Juni gegessen.",
+            "why": { "sl": "Toča je junijsko pšenico uničila; vas je živela od zalog prejšnjega leta.", "en": "The hail ruined June's wheat; the village lived on the year before's stores.", "de": "Der Hagel hat den Juniweizen verdorben; das Dorf lebte von den Vorräten des Vorjahres." },
+            "reply": { "face": "surprised", "it": "Il grano nuovo? Ma la grandine l'aveva rovinato fino all'ultimo chicco!", "sl": "Novo pšenico? Saj jo je toča uničila do zadnjega zrna!", "en": "The new wheat? But the hail had ruined it down to the last grain!", "de": "Den neuen Weizen? Der Hagel hatte ihn doch bis aufs letzte Korn verdorben!" } }
+        ] },
+        { "who": "franco", "face": "curious", "it": "Oggi tocca a te scrivere. Data, sacchi, e sotto il nome di chi ha aiutato. Che nome scriviamo?", "sl": "Danes si na vrsti ti za pisanje. Datum, vreče, spodaj pa ime tistega, ki je pomagal. Katero ime napiševa?", "en": "Today it's your turn to write. Date, sacks, and underneath the name of whoever helped. What name shall we write?", "de": "Heute bist du mit Schreiben dran. Datum, Säcke, und darunter der Name von dem, der geholfen hat. Welchen Namen schreiben wir?" },
+        { "choices": [
+          { "it": "Scrivo Lorenzo, il quale ieri ha portato i sacchi più piccoli.", "sl": "Napišem Lorenza, ki je včeraj nosil manjše vreče.", "en": "I'll write Lorenzo, who carried the smaller sacks yesterday.", "de": "Ich schreib Lorenzo, der gestern die kleineren Säcke getragen hat.", "ok": true,
+            "reply": { "face": "happy", "it": "Bene. E sotto il suo, scrivi anche il tuo. Due nomi, due aiutanti.", "sl": "Dobro. Pod njegovo napiši še svoje. Dve imeni, dva pomočnika.", "en": "Good. And under his, write yours too. Two names, two helpers.", "de": "Gut. Und unter seinen schreibst du auch deinen. Zwei Namen, zwei Helfer." } },
+          { "it": "Scrivo Lorenzo, la quale ieri ha portato i sacchi più piccoli.", "sl": "Napišem Lorenza, ki je včeraj nosil manjše vreče.", "en": "I'll write Lorenzo, who carried the smaller sacks yesterday.", "de": "Ich schreib Lorenzo, der gestern die kleineren Säcke getragen hat.",
+            "grammar": "relativi-il-quale", "why": { "sl": "Il quale se ujema s tistim, na kogar kaže: Lorenzo, il quale.", "en": "Il quale agrees with whom it points to: Lorenzo, il quale.", "de": "Il quale richtet sich nach dem, auf den es zeigt: Lorenzo, il quale." },
+            "reply": { "face": "laugh", "it": "La quale? Lorenzo? Ah, ah! Se glielo dico, si arrabbia!", "sl": "La quale? Lorenzo? Ha, ha! Če mu to povem, se bo razjezil!", "en": "La quale? Lorenzo? Ha, ha! If I tell him, he'll be cross!", "de": "La quale? Lorenzo? Ha, ha! Wenn ich ihm das sag, ärgert er sich!" } }
+        ] },
+        { "who": "franco", "face": "proud", "it": "Bene scritto. Fra cent'anni qualcuno leggerà il tuo nome in questo quaderno. Numeri giusti, nomi giusti.", "sl": "Lepo napisano. Čez sto let bo nekdo prebral tvoje ime v tem zvezku. Prave številke, prava imena.", "en": "Well written. In a hundred years someone will read your name in this notebook. Right numbers, right names.", "de": "Schön geschrieben. In hundert Jahren liest jemand deinen Namen in diesem Heft. Richtige Zahlen, richtige Namen." }
+      ]
+    },
+    {
+      "id": "lepre-b1-covo",
+      "level": "B1",
+      "memory": { "it": "il covo della lepre nell'erba", "sl": "zajčje ležišče v travi", "en": "the hare's form in the grass", "de": "das Lager des Hasen im Gras" },
+      "lines": [
+        { "who": "matteo", "it": "Ciao, {learner}! Shh… vedi quel buco nell'erba, vicino allo steccato? È il covo: il letto in cui la lepre dorme di giorno.", "sl": "Živjo, {learner}! Pst … vidiš tisto jamico v travi pri plotu? To je ležišče: postelja, v kateri zajec podnevi spi.", "en": "Hi, {learner}! Shh… see that hollow in the grass, by the fence? That's the form: the bed the hare sleeps in by day.", "de": "Hallo, {learner}! Psst … siehst du die Mulde im Gras beim Zaun? Das ist das Lager: das Bett, in dem der Hase tagsüber schläft." },
+        { "who": "matteo", "face": "curious", "it": "La lepre non scava una tana come il coniglio. E tu, se fossi una lepre, dove ti piacerebbe fare il tuo letto?", "sl": "Zajec ne koplje rova kot kunec. Pa ti, če bi {m:bil|f:bila} zajec, kje bi si {m:rad postlal|f:rada postlala}?", "en": "The hare doesn't dig a burrow like the rabbit. And you, if you were a hare, where would you like to make your bed?", "de": "Der Hase gräbt keinen Bau wie das Kaninchen. Und du, wenn du ein Hase wärst, wo würdest du dein Bett machen?" },
+        { "choices": [
+          { "it": "Lo farei sotto la vigna, all'ombra delle foglie!", "sl": "{m:Postlal|f:Postlala} bi si pod trto, v senci listov!", "en": "I'd make it under the vines, in the shade of the leaves!", "de": "Ich würde es unter den Reben machen, im Schatten der Blätter!", "ok": true,
+            "reply": { "face": "laugh", "it": "Sotto la mia vigna? Allora mi mangeresti l'uva! Ah, ah!", "sl": "Pod mojo trto? Potem bi mi pojedel grozdje! Ha, ha!", "en": "Under my vines? Then you'd eat my grapes! Ha, ha!", "de": "Unter meinen Reben? Dann würdest du mir die Trauben fressen! Ha, ha!" } },
+          { "it": "Lo facessi sotto la vigna, all'ombra delle foglie!", "sl": "{m:Postlal|f:Postlala} bi si pod trto, v senci listov!", "en": "I'd make it under the vines, in the shade of the leaves!", "de": "Ich würde es unter den Reben machen, im Schatten der Blätter!",
+            "grammar": "condizionale", "why": { "sl": "V glavnem delu stavka je pogojnik: lo farei. Facessi gre samo za se.", "en": "In the main half, the conditional: lo farei. Facessi goes only after se.", "de": "Im Hauptteil steht der Konditional: lo farei. Facessi kommt nur nach se." },
+            "reply": { "face": "curious", "it": "Lo facessi…? E poi? Sembra l'inizio di una frase con il «se», ma il «se» dov'è?", "sl": "Lo facessi …? In potem? Zveni kot začetek stavka s »se«, ampak kje je »se«?", "en": "Lo facessi…? And then? It sounds like the start of a sentence with «se», but where's the «se»?", "de": "Lo facessi …? Und dann? Klingt wie der Anfang eines Satzes mit «se», aber wo ist das «se»?" } }
+        ] },
+        { "who": "matteo", "it": "Le lepri vivono in tutto il Collio, ma non è facile vederle. Corrono veloci come il vento. Tu ne hai già viste altre?", "sl": "Zajci živijo po vsem Collu, a jih ni lahko videti. Tečejo hitro kot veter. Si že {m:videl|f:videla} kakšnega drugega?", "en": "Hares live all over the Collio, but they're not easy to see. They run as fast as the wind. Have you seen any others?", "de": "Hasen leben im ganzen Collio, aber man sieht sie nicht leicht. Sie rennen schnell wie der Wind. Hast du schon andere gesehen?" },
+        { "choices": [
+          { "it": "Sì, ne ho vista qualcuna vicino al ruscello.", "sl": "Ja, {m:videl|f:videla} sem jih nekaj pri potoku.", "en": "Yes, I've seen a few by the stream.", "de": "Ja, ich hab ein paar beim Bach gesehen.", "ok": true,
+            "reply": { "face": "happy", "it": "Hai gli occhi buoni! Anche le lepri ti avranno visto, sai.", "sl": "Dobre oči imaš! Tudi zajci so te najbrž videli, veš.", "en": "You've got good eyes! The hares will have seen you too, you know.", "de": "Du hast gute Augen! Die Hasen haben dich bestimmt auch gesehen, weißt du." } },
+          { "it": "Sì, ne ho viste qualcune vicino al ruscello.", "sl": "Ja, {m:videl|f:videla} sem jih nekaj pri potoku.", "en": "Yes, I've seen a few by the stream.", "de": "Ja, ich hab ein paar beim Bach gesehen.",
+            "grammar": "indefiniti", "why": { "sl": "Qualcuna nima množine: ne ho vista qualcuna (nekaj jih).", "en": "Qualcuna has no plural: ne ho vista qualcuna.", "de": "Qualcuna hat keine Mehrzahl: ne ho vista qualcuna." },
+            "reply": { "face": "curious", "it": "Qualcune? Mmm, questa parola le lepri non la conoscono, e nemmeno io!", "sl": "Qualcune? Hm, te besede zajci ne poznajo, pa tudi jaz ne!", "en": "Qualcune? Hmm, the hares don't know that word, and neither do I!", "de": "Qualcune? Hm, das Wort kennen die Hasen nicht, und ich auch nicht!" } }
+        ] },
+        { "who": "matteo", "face": "happy", "it": "Guarda, guarda: è uscita dal covo! Corre verso la vigna. Ciao, lepre! Ciao, {learner}!", "sl": "Glej, glej: prišel je iz ležišča! Teče proti vinogradu. Adijo, zajec! Adijo, {learner}!", "en": "Look, look: she's come out of her form! She's running to the vineyard. Bye, hare! Bye, {learner}!", "de": "Schau, schau: Er ist aus dem Lager raus! Er rennt zum Weinberg. Tschüss, Hase! Tschüss, {learner}!" }
+      ]
+    },
+    {
+      "id": "lepre-b2-germogli",
+      "level": "B2",
+      "memory": { "it": "la lepre che mangia i germogli della vigna", "sl": "zajca, ki je mlade poganjke trte", "en": "the hare that eats the vine's young shoots", "de": "den Hasen, der die jungen Triebe der Reben frisst" },
+      "lines": [
+        { "who": "matteo", "face": "thinking", "it": "Sai, {learner}, a primavera questa lepre mi mangia i germogli della vigna. Mio padre diceva che bisognava mettere una rete intorno a tutto il campo.", "sl": "Veš, {learner}, spomladi mi ta zajec je mlade poganjke trte. Moj oče je rekel, da je treba okrog celega polja postaviti mrežo.", "en": "You know, {learner}, in spring this hare eats my vines' young shoots. My father used to say we had to put a net round the whole field.", "de": "Weißt du, {learner}, im Frühling frisst mir dieser Hase die jungen Triebe der Reben. Mein Vater sagte, man müsse ein Netz um das ganze Feld spannen." },
+        { "who": "matteo", "it": "Io invece la lascio fare. Benché mi rubi qualche grappolo, mi piace vederla correre la mattina presto, nella nebbia.", "sl": "Jaz pa ga pustim. Čeprav mi ukrade kakšen grozd, ga rad gledam, kako zjutraj zgodaj teče v megli.", "en": "I let her be, though. Even though she steals the odd bunch, I like watching her run early in the morning, in the mist.", "de": "Ich lass ihn dagegen machen. Auch wenn er mir ein paar Trauben klaut, schau ich ihm gern zu, wie er frühmorgens im Nebel rennt." },
+        { "choices": [
+          { "it": "Quindi preferisci perdere un po' d'uva piuttosto che non vederla più?", "sl": "Torej raje izgubiš malo grozdja, kot da ga ne bi več videl?", "en": "So you'd rather lose a bit of grapes than not see her any more?", "de": "Du verlierst also lieber ein paar Trauben, als ihn nicht mehr zu sehen?", "ok": true,
+            "reply": { "face": "happy", "it": "Esatto. Un po' d'uva per una lepre: mi sembra un buon affare.", "sl": "Tako je. Malo grozdja za zajca: zdi se mi dobra kupčija.", "en": "Exactly. A few grapes for a hare: seems a good deal to me.", "de": "Genau. Ein paar Trauben für einen Hasen: Das scheint mir ein guter Tausch." } },
+          { "it": "Quindi hai messo la rete, come diceva tuo padre?", "sl": "Torej si postavil mrežo, kot je rekel tvoj oče?", "en": "So you've put up the net, as your father said?", "de": "Du hast also das Netz gespannt, wie dein Vater gesagt hat?",
+            "why": { "sl": "Matteo pravi, da zajca pusti: mreže ni postavil.", "en": "Matteo says he lets the hare be: he hasn't put up a net.", "de": "Matteo sagt, er lässt den Hasen machen: Ein Netz hat er nicht gespannt." },
+            "reply": { "face": "surprised", "it": "La rete? No, no! Te l'ho appena detto: io la lascio fare.", "sl": "Mrežo? Ne, ne! Pravkar sem ti rekel: jaz ga pustim.", "en": "The net? No, no! I've just told you: I let her be.", "de": "Das Netz? Nein, nein! Ich hab's dir gerade gesagt: Ich lass ihn machen." } }
+        ] },
+        { "who": "matteo", "face": "curious", "it": "Mio padre non sarebbe d'accordo. Diceva sempre che un vignaiolo deve pensare prima all'uva. Tu da che parte stai?", "sl": "Moj oče se ne bi strinjal. Vedno je rekel, da mora vinogradnik najprej misliti na grozdje. Na čigavi strani si ti?", "en": "My father wouldn't agree. He always said a winemaker must think of the grapes first. Whose side are you on?", "de": "Mein Vater wäre nicht einverstanden. Er sagte immer, ein Winzer müsse zuerst an die Trauben denken. Auf wessen Seite stehst du?" },
+        { "choices": [
+          { "it": "Dalla tua: anche se ruba qualche germoglio, la vigna è abbastanza grande per due.", "sl": "Na tvoji: čeprav ukrade kakšen poganjek, je vinograd dovolj velik za oba.", "en": "Yours: even if she steals the odd shoot, the vineyard's big enough for two.", "de": "Auf deiner: Auch wenn er ein paar Triebe klaut, ist der Weinberg groß genug für zwei.", "ok": true,
+            "reply": { "face": "laugh", "it": "Per due… e mezzo! Quella lepre mangia per tre.", "sl": "Za dva … in pol! Tisti zajec je za tri.", "en": "For two… and a half! That hare eats for three.", "de": "Für zwei … und einen halben! Der Hase frisst für drei." } },
+          { "it": "Dalla tua: benché ruba qualche germoglio, la vigna è abbastanza grande per due.", "sl": "Na tvoji: čeprav ukrade kakšen poganjek, je vinograd dovolj velik za oba.", "en": "Yours: even if she steals the odd shoot, the vineyard's big enough for two.", "de": "Auf deiner: Auch wenn er ein paar Triebe klaut, ist der Weinberg groß genug für zwei.",
+            "grammar": "congiunzioni-congiuntivo", "why": { "sl": "Benché zahteva konjunktiv (benché rubi); z indikativom rečeš anche se.", "en": "Benché takes the congiuntivo (benché rubi); with the indicative, say anche se.", "de": "Benché verlangt den Konjunktiv (benché rubi); mit dem Indikativ sagst du anche se." },
+            "reply": { "face": "thinking", "it": "Benché ruba? Mmm, mio padre avrebbe corretto anche questo, con la matita rossa!", "sl": "Benché ruba? Hm, moj oče bi popravil še to, z rdečim svinčnikom!", "en": "Benché ruba? Hmm, my father would have corrected that too, with a red pencil!", "de": "Benché ruba? Hm, mein Vater hätte das auch verbessert, mit dem Rotstift!" } }
+        ] },
+        { "who": "matteo", "face": "happy", "it": "Allora siamo d'accordo: la lepre resta. E se a settembre manca qualche grappolo, sapremo chi ringraziare!", "sl": "Potem se strinjava: zajec ostane. In če septembra kakšen grozd manjka, bova vedela, komu se zahvaliti!", "en": "Then we agree: the hare stays. And if a bunch or two is missing in September, we'll know whom to thank!", "de": "Dann sind wir uns einig: Der Hase bleibt. Und wenn im September ein paar Trauben fehlen, wissen wir, wem wir danken müssen!" }
       ]
     }
   ]

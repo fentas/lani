@@ -5,7 +5,7 @@
   "title": { "en": "On the packhorse bridge", "sl": "Na kamnitem mostu", "it": "Sul ponte di pietra", "de": "Auf der Steinbrücke" },
   "emoji": "🌉",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "stream",
   "from": ["project:most"],
   "pack": "on-the-packhorse-bridge",
@@ -90,7 +90,7 @@
       "when": ["morning"],
       "chance": 0.35,
       "dialog": "spate",
-      "dialogs": ["spate-ice", "spate"],
+      "dialogs": ["spate-b2-rail", "spate-b1-ford", "spate-ice", "spate"],
       "reward": { "stone": 20 },
       "marker": "🌊",
       "memory": {
@@ -130,7 +130,7 @@
       "when": ["evening"],
       "chance": 0.4,
       "dialog": "evening",
-      "dialogs": ["evening-bats", "evening"],
+      "dialogs": ["evening-b2-dipper", "evening-b1-bell", "evening-bats", "evening"],
       "reward": { "wisdom": 15 },
       "marker": "🔔",
       "memory": {
@@ -1939,6 +1939,79 @@
             "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
           }
         }
+      ]
+    },
+    {
+      "id": "spate-b2-rail", "level": "B2",
+      "memory": {"en": "the beck I'd known for fifty years", "sl": "potok, ki sem ga poznal petdeset let", "it": "il torrente che conoscevo da cinquant'anni", "de": "den Bach, den ich fünfzig Jahre kannte"},
+      "lines": [
+        {"who": "dixon", "en": "Morning. The beck's in spate. Brown and loud.", "sl": "Jutro. Potok je narasel. Rjav in glasen.", "it": "Buongiorno. Il torrente è in piena. Marrone e rumoroso.", "de": "Morgen. Der Bach führt Hochwasser. Braun und laut."},
+        {"who": "dixon", "face": "curious", "en": "When will the ford be safe again, do you reckon?", "sl": "Kdaj bo brod spet varen, kaj misliš?", "it": "Quando sarà di nuovo sicuro il guado, secondo te?", "de": "Wann ist die Furt wieder sicher, was meinst du?"},
+        { "choices": [
+          {"en": "By tonight the water will have gone down.", "sl": "Do nocoj bo voda upadla.", "it": "Per stasera l'acqua sarà scesa.", "de": "Bis heute Abend wird das Wasser gesunken sein.", "ok": true, "reply": {"en": "Aye. If the rain stops. If.", "sl": "Ja. Če dež poneha. Če.", "it": "Sì. Se smette di piovere. Se.", "de": "Ja. Wenn der Regen aufhört. Wenn."}},
+          {"en": "By tonight the water will have go down.", "sl": "Do nocoj bo voda upadla.", "it": "Per stasera l'acqua sarà scesa.", "de": "Bis heute Abend wird das Wasser gesunken sein.", "grammar": "future-perfect", "why": {"en": "Will have + the participle: will have gone down. Go, went, gone.", "sl": "Will have + deležnik: will have gone down. Go, went, gone.", "it": "Will have + il participio: will have gone down. Go, went, gone.", "de": "Will have + Partizip: will have gone down. Go, went, gone."}, "reply": {"face": "cross", "en": "Will have go? Again, {m:lad|f:lass}. Slowly.", "sl": "Will have go? Še enkrat. Počasi.", "it": "Will have go? Di nuovo, {m:ragazzo|f:ragazza}. Piano.", "de": "Will have go? Noch mal, {m:Junge|f:Mädchen}. Langsam."}}
+        ] },
+        {"who": "dixon", "face": "thinking", "en": "Fifty years I'd known this beck when it took my bridge rail. Clean off.", "sl": "Petdeset let sem poznal ta potok, ko mi je odnesel ograjo mostu. Kar čisto.", "it": "Conoscevo questo torrente da cinquant'anni quando si è portato via la ringhiera del ponte. Di netto.", "de": "Fünfzig Jahre kannte ich den Bach, als er mir das Brückengeländer weggerissen hat. Glatt weg."},
+        { "choices": [
+          {"en": "You'd known it for fifty years, and it still surprised you.", "sl": "Poznali ste ga petdeset let, pa vas je vseeno presenetil.", "it": "Lo conosceva da cinquant'anni, e l'ha sorpresa lo stesso.", "de": "Sie kannten ihn fünfzig Jahre, und er hat Sie trotzdem überrascht.", "ok": true, "reply": {"en": "Aye. A beck never stops surprising you.", "sl": "Ja. Potok te nikoli ne neha presenečati.", "it": "Sì. Un torrente non smette mai di sorprenderti.", "de": "Ja. Ein Bach hört nie auf, dich zu überraschen."}},
+          {"en": "You'd been knowing it for fifty years, and it still surprised you.", "sl": "Poznali ste ga petdeset let, pa vas je vseeno presenetil.", "it": "Lo conosceva da cinquant'anni, e l'ha sorpresa lo stesso.", "de": "Sie kannten ihn fünfzig Jahre, und er hat Sie trotzdem überrascht.", "grammar": "narrative-tenses", "why": {"en": "With know, own and be there's no -ing: you'd known it. Had been + -ing is for doing.", "sl": "Pri know, own in be ni -ing: you'd known it. Had been + -ing je za dejanja.", "it": "Con know, own e be niente -ing: you'd known it. Had been + -ing è per le azioni.", "de": "Bei know, own und be kein -ing: you'd known it. Had been + -ing ist für Tätigkeiten."}, "reply": {"face": "cross", "en": "Been knowing? Not English, {m:lad|f:lass}.", "sl": "Been knowing? To ni angleško.", "it": "Been knowing? Non è inglese, {m:ragazzo|f:ragazza}.", "de": "Been knowing? Das ist kein Englisch, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Ford's shut. Bridge is open. Good day.", "sl": "Brod je zaprt. Most je odprt. Lep dan.", "it": "Guado chiuso. Ponte aperto. Buona giornata.", "de": "Furt zu. Brücke offen. Guten Tag."}
+      ]
+    },
+    {
+      "id": "spate-b1-ford", "level": "B1",
+      "memory": {"en": "the ponies kept off the ford", "sl": "ponije, ki so ostali stran od broda", "it": "i pony tenuti lontani dal guado", "de": "die Ponys, die von der Furt ferngehalten wurden"},
+      "lines": [
+        {"who": "dixon", "en": "Morning, {m:lad|f:lass}. Rain all night. Look at the beck.", "sl": "Jutro. Vso noč je deževalo. Poglej potok.", "it": "Buongiorno, {m:ragazzo|f:ragazza}. Ha piovuto tutta la notte. Guarda il torrente.", "de": "Morgen, {m:Junge|f:Mädchen}. Die ganze Nacht Regen. Schau dir den Bach an."},
+        {"who": "dixon", "face": "curious", "en": "Can the ponies cross the ford today?", "sl": "Lahko poniji danes prečkajo brod?", "it": "I pony possono attraversare il guado oggi?", "de": "Können die Ponys heute durch die Furt?"},
+        { "choices": [
+          {"en": "No, the water's too deep for them to cross.", "sl": "Ne, voda je pregloboka, da bi jo prečkali.", "it": "No, l'acqua è troppo profonda perché la attraversino.", "de": "Nein, das Wasser ist zu tief, als dass sie durchkämen.", "ok": true, "reply": {"en": "Aye. The bridge today. That's what it's for.", "sl": "Ja. Danes most. Zato pa je.", "it": "Sì. Oggi il ponte. È fatto apposta.", "de": "Ja. Heute die Brücke. Dafür ist sie da."}},
+          {"en": "No, the water's too deep that they cross.", "sl": "Ne, voda je pregloboka, da bi jo prečkali.", "it": "No, l'acqua è troppo profonda perché la attraversino.", "de": "Nein, das Wasser ist zu tief, als dass sie durchkämen.", "grammar": "too-enough", "why": {"en": "Too + the adjective + for someone + to: too deep for them to cross.", "sl": "Too + pridevnik + for nekdo + to: too deep for them to cross.", "it": "Too + aggettivo + for qualcuno + to: too deep for them to cross.", "de": "Too + Adjektiv + for jemand + to: too deep for them to cross."}, "reply": {"face": "cross", "en": "Too deep that? Say it right, {m:lad|f:lass}.", "sl": "Too deep that? Povej pravilno.", "it": "Too deep that? Dillo giusto, {m:ragazzo|f:ragazza}.", "de": "Too deep that? Sag's richtig, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "en": "Mr Tyson was here at six. You saw him.", "sl": "Gospod Tyson je bil tu ob šestih. {m:Videl|f:Videla} si ga.", "it": "Il signor Tyson era qui alle sei. L'hai visto.", "de": "Mr Tyson war um sechs hier. Du hast ihn gesehen."},
+        {"who": "dixon", "face": "curious", "en": "What did he tell you?", "sl": "Kaj ti je rekel?", "it": "Che cosa ti ha detto?", "de": "Was hat er dir gesagt?"},
+        { "choices": [
+          {"en": "He told me to keep the ponies off the ford.", "sl": "Rekel mi je, naj ponije držim stran od broda.", "it": "Mi ha detto di tenere i pony lontani dal guado.", "de": "Er hat mir gesagt, ich soll die Ponys von der Furt fernhalten.", "ok": true, "reply": {"en": "Good. Listen to him. He counts every stone in that water.", "sl": "Dobro. Poslušaj ga. V tisti vodi prešteje vsak kamen.", "it": "Bene. Ascoltalo. Conta ogni sasso in quell'acqua.", "de": "Gut. Hör auf ihn. Er zählt jeden Stein in dem Wasser."}},
+          {"en": "He told me keep the ponies off the ford.", "sl": "Rekel mi je, naj ponije držim stran od broda.", "it": "Mi ha detto di tenere i pony lontani dal guado.", "de": "Er hat mir gesagt, ich soll die Ponys von der Furt fernhalten.", "grammar": "reported-speech", "why": {"en": "An order through someone: told me to + the base form, told me to keep …", "sl": "Ukaz po nekom drugem: told me to + osnovna oblika, told me to keep …", "it": "Un ordine riferito: told me to + la forma base, told me to keep …", "de": "Eine Anweisung weitergesagt: told me to + Grundform, told me to keep …"}, "reply": {"face": "cross", "en": "Told you keep? A word's washed away, {m:lad|f:lass}.", "sl": "Told you keep? Ena beseda je odplavala.", "it": "Told you keep? Una parola è stata portata via, {m:ragazzo|f:ragazza}.", "de": "Told you keep? Ein Wort ist weggespült, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Bridge for the ponies. Ford for nobody. Right.", "sl": "Most za ponije. Brod za nikogar. Prav.", "it": "Il ponte per i pony. Il guado per nessuno. Bene.", "de": "Die Brücke für die Ponys. Die Furt für niemanden. Gut."}
+      ]
+    },
+    {
+      "id": "evening-b2-dipper", "level": "B2",
+      "memory": {"en": "the birds of the beck, most of which I'd seen from the bridge", "sl": "ptice potoka, ki sem jih večino videl z mostu", "it": "gli uccelli del torrente, quasi tutti visti dal ponte", "de": "die Vögel am Bach, die meisten davon von der Brücke aus gesehen"},
+      "lines": [
+        {"who": "arthur", "en": "Listen, friend. The beck, the bell, the birds. Forty kinds of bird on this beck, and I've seen most of them from this bridge.", "sl": "Poslušaj, prijatelj. Potok, zvon, ptice. Štirideset vrst ptic je ob tem potoku in večino sem jih videl s tega mostu.", "it": "Ascolta, amico. Il torrente, la campana, gli uccelli. Quaranta specie di uccelli su questo torrente, e quasi tutte le ho viste da questo ponte.", "de": "Hör mal, mein Freund. Der Bach, die Glocke, die Vögel. Vierzig Vogelarten an diesem Bach, und die meisten hab ich von dieser Brücke aus gesehen."},
+        {"who": "arthur", "face": "curious", "en": "Have you seen many of them?", "sl": "Si jih {m:videl|f:videla} veliko?", "it": "Ne hai visti molti?", "de": "Hast du viele davon gesehen?"},
+        { "choices": [
+          {"en": "A few, most of which I couldn't name.", "sl": "Nekaj, večine pa ne bi {m:znal|f:znala} poimenovati.", "it": "Qualcuno, ma per la maggior parte non saprei dire il nome.", "de": "Ein paar, von denen ich die meisten nicht benennen könnte.", "ok": true, "reply": {"face": "happy", "en": "Then we'll name them together. One evening at a time.", "sl": "Potem jih bova poimenovala skupaj. Vsak večer eno.", "it": "Allora daremo loro un nome insieme. Una sera alla volta.", "de": "Dann benennen wir sie zusammen. Einen Abend nach dem anderen."}},
+          {"en": "A few, most of that I couldn't name.", "sl": "Nekaj, večine pa ne bi {m:znal|f:znala} poimenovati.", "it": "Qualcuno, ma per la maggior parte non saprei dire il nome.", "de": "Ein paar, von denen ich die meisten nicht benennen könnte.", "grammar": "relative-clauses-more", "why": {"en": "After most of: which for things, whom for people. That never comes after of.", "sl": "Za most of: which za stvari, whom za ljudi. That nikoli ne pride za of.", "it": "Dopo most of: which per le cose, whom per le persone. That non va mai dopo of.", "de": "Nach most of: which für Dinge, whom für Menschen. That steht nie nach of."}, "reply": {"face": "curious", "en": "Most of that? Gently, friend. Try it again.", "sl": "Most of that? Nežno, prijatelj. Poskusi še enkrat.", "it": "Most of that? Piano, amico. Riprova.", "de": "Most of that? Sachte, mein Freund. Versuch's noch mal."}}
+        ] },
+        {"who": "arthur", "face": "thinking", "en": "There's a dipper on this beck. It walks right under the water. Imagine that.", "sl": "Na tem potoku živi povodni kos. Hodi kar pod vodo. Si predstavljaš?", "it": "Su questo torrente c'è un merlo acquaiolo. Cammina proprio sott'acqua. Pensa un po'.", "de": "An diesem Bach lebt eine Wasseramsel. Sie läuft direkt unter Wasser. Stell dir das vor."},
+        { "choices": [
+          {"en": "If only I were a dipper!", "sl": "Ko bi le {m:bil|f:bila} povodni kos!", "it": "Se solo fossi un merlo acquaiolo!", "de": "Wäre ich doch eine Wasseramsel!", "ok": true, "reply": {"face": "happy", "en": "Me too, friend. Every evening I wish it.", "sl": "Jaz tudi, prijatelj. Vsak večer si to želim.", "it": "Anch'io, amico. Ogni sera lo desidero.", "de": "Ich auch, mein Freund. Jeden Abend wünsch ich's mir."}},
+          {"en": "If only I am a dipper!", "sl": "Ko bi le {m:bil|f:bila} povodni kos!", "it": "Se solo fossi un merlo acquaiolo!", "de": "Wäre ich doch eine Wasseramsel!", "grammar": "wish-if-only", "why": {"en": "For what isn't so: if only + the past, if only I were, or I was. Am says you are one.", "sl": "Za tisto, kar ni res: if only + preteklik, if only I were ali I was. Am pove, da to si.", "it": "Per ciò che non è così: if only + il passato, if only I were, o I was. Am dice che lo sei.", "de": "Für das, was nicht so ist: if only + Vergangenheit, if only I were oder I was. Am heißt, du bist eine."}, "reply": {"face": "laugh", "en": "You am? Then show me how you walk under water, friend!", "sl": "You am? Potem mi pokaži, kako hodiš pod vodo!", "it": "You am? Allora fammi vedere come cammini sott'acqua!", "de": "You am? Dann zeig mir, wie du unter Wasser läufst!"}}
+        ] },
+        {"who": "arthur", "face": "happy", "en": "There. The bell's stopped. Let's go home, gently, before the owls start.", "sl": "Tako. Zvon je utihnil. Pojdiva domov, nežno, preden začnejo sove.", "it": "Ecco. La campana ha smesso. Andiamo a casa, piano, prima che comincino i gufi.", "de": "So. Die Glocke ist still. Gehen wir heim, sachte, bevor die Eulen anfangen."}
+      ]
+    },
+    {
+      "id": "evening-b1-bell", "level": "B1",
+      "memory": {"en": "the dipper bobbing on the stone at the evening bell", "sl": "povodnega kosa na kamnu ob večernem zvonjenju", "it": "il merlo acquaiolo sul sasso alla campana della sera", "de": "die Wasseramsel auf dem Stein beim Abendläuten"},
+      "lines": [
+        {"who": "arthur", "en": "Listen, friend. The church bell, down in the village. Every evening I come here: the beck, the bell, the birds.", "sl": "Poslušaj, prijatelj. Cerkveni zvon, spodaj v vasi. Vsak večer pridem sem: potok, zvon, ptice.", "it": "Ascolta, amico. La campana della chiesa, giù in paese. Ogni sera vengo qui: il torrente, la campana, gli uccelli.", "de": "Hör mal, mein Freund. Die Kirchenglocke, unten im Dorf. Jeden Abend komm ich her: der Bach, die Glocke, die Vögel."},
+        {"who": "arthur", "face": "curious", "en": "How long have you been standing there?", "sl": "Kako dolgo že stojiš tam?", "it": "Da quanto tempo sei lì?", "de": "Wie lange stehst du schon da?"},
+        { "choices": [
+          {"en": "I've been listening for a few minutes.", "sl": "Poslušam že nekaj minut.", "it": "Ascolto da qualche minuto.", "de": "Ich höre schon ein paar Minuten zu.", "ok": true, "reply": {"face": "happy", "en": "Then you've heard the bird that sings by the water.", "sl": "Potem si {m:slišal|f:slišala} ptico, ki poje ob vodi.", "it": "Allora hai sentito l'uccello che canta sull'acqua.", "de": "Dann hast du den Vogel gehört, der am Wasser singt."}},
+          {"en": "I've been listen for a few minutes.", "sl": "Poslušam že nekaj minut.", "it": "Ascolto da qualche minuto.", "de": "Ich höre schon ein paar Minuten zu.", "grammar": "present-perfect-continuous", "why": {"en": "Have been + -ing: I've been listening. The -ing can't go.", "sl": "Have been + -ing: I've been listening. -ing ne sme izpasti.", "it": "Have been + -ing: I've been listening. L'-ing non può mancare.", "de": "Have been + -ing: I've been listening. Das -ing darf nicht fehlen."}, "reply": {"face": "curious", "en": "Been listen? Gently, friend. The ending's gone.", "sl": "Been listen? Nežno, prijatelj. Končnica je izginila.", "it": "Been listen? Piano, amico. Manca la desinenza.", "de": "Been listen? Sachte, mein Freund. Die Endung fehlt."}}
+        ] },
+        {"who": "arthur", "face": "happy", "en": "That little brown bird with the white chest, bobbing up and down.", "sl": "Tista majhna rjava ptica z belimi prsmi, ki poskakuje gor in dol.", "it": "Quell'uccellino marrone col petto bianco, che fa su e giù.", "de": "Der kleine braune Vogel mit der weißen Brust, der auf und ab wippt."},
+        { "choices": [
+          {"en": "That's a dipper, isn't it?", "sl": "To je povodni kos, kajne?", "it": "È un merlo acquaiolo, vero?", "de": "Das ist eine Wasseramsel, oder?", "ok": true, "reply": {"face": "happy", "en": "A dipper. It walks under the water. Imagine.", "sl": "Povodni kos. Hodi pod vodo. Si predstavljaš?", "it": "Un merlo acquaiolo. Cammina sott'acqua. Pensa.", "de": "Eine Wasseramsel. Sie läuft unter Wasser. Stell dir vor."}},
+          {"en": "That's a dipper, doesn't it?", "sl": "To je povodni kos, kajne?", "it": "È un merlo acquaiolo, vero?", "de": "Das ist eine Wasseramsel, oder?", "grammar": "question-tags", "why": {"en": "Take the helping verb from the sentence: that's, so isn't it?", "sl": "Vzemi pomožni glagol iz stavka: that's, torej isn't it?", "it": "Prendi l'ausiliare dalla frase: that's, quindi isn't it?", "de": "Nimm das Hilfsverb aus dem Satz: that's, also isn't it?"}, "reply": {"face": "curious", "en": "Doesn't it what, friend? Bob? It does, yes.", "sl": "Doesn't it kaj, prijatelj? Poskakuje? Ja, poskakuje.", "it": "Doesn't it cosa, amico? Saltella? Sì, saltella.", "de": "Doesn't it was, mein Freund? Wippen? Ja, das tut sie."}}
+        ] },
+        {"who": "arthur", "face": "happy", "en": "There. The bell's stopped. Time for home, gently.", "sl": "Tako. Zvon je utihnil. Čas za domov, nežno.", "it": "Ecco. La campana ha smesso. È ora di andare a casa, piano.", "de": "So. Die Glocke ist still. Zeit für daheim, sachte."}
       ]
     }
   ]

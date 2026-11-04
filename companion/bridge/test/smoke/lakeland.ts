@@ -94,6 +94,17 @@ export default async function lakeland() {
 
     // word lookup without an English dictionary: the pack words (meant in Slovene, never in English) and the villagers
     const lookup = async (q: string) => (await (await fetch(`${base}/lookup?${q}`, { headers: auth })).json()) as any
+    // English's own tables (paradigms.ts): to an app that reads them (v=2); an older app gets none
+    const formsEn = async (q: string) => (await (await fetch(`${base}/forms?${q}`, { headers: auth })).json()) as any
+    const [oldEn, en2] = [await formsEn('w=go&w=child'), await formsEn('w=go&w=child&v=2')]
+    const go2 = en2.words[0].entries.find((e: any) => e.pos === 'verb')
+    const child2 = en2.words[1].entries.find((e: any) => e.pos === 'noun')
+    const atEn = (e: any, k: string) => e?.slots.find((s: any) => s.key === k)
+    check(
+      "lakeland: GET /forms: an older app (no v) none; with v=2 go's went on past-simple, gone on present-perfect, child's children on plurals",
+      oldEn.words.every((w: any) => w.entries.length === 0) && atEn(go2, 'past')?.forms[0] === 'went' && atEn(go2, 'past').page === 'past-simple' && atEn(go2, 'pp')?.forms[0] === 'gone' && atEn(go2, 'pp').page === 'present-perfect' && atEn(child2, 'pl')?.forms[0] === 'children' && atEn(child2, 'pl').page === 'plurals',
+      { oldEn, en2 },
+    )
     const plural = family.words.find((x: any) => x.plural && x.plural !== x.en)
     const found = await lookup(`w=${encodeURIComponent(plural.plural)}`)
     const f0 = found.entries[0]
@@ -149,6 +160,14 @@ export default async function lakeland() {
       tutorTalk: { schema: 'lani.scenario/v0', id: 'at-the-library', title: { en: 'At the library', sl: 'V knjižnici' }, level: 'A1', setting: { sl: 'Knjižnica v Keswicku.', en: 'The library in Keswick.' }, role: 'Mrs Graham, the librarian. Kind.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Hello! Which book are you looking for?', opener_en: { sl: 'Dober dan! Katero knjigo iščete?', en: 'Hello! Which book are you looking for?' }, packs: ['greetings'] },
       tutorTitle: 'At the library · V knjižnici',
       hello: 'Morning!',
+      // the six B1 and six B2 talks (docs/plans/05-built/talks-en.md)
+      profile: join(dataDir, 'learner-profile.json'),
+      above: {
+        id: 'a-statement-for-the-police', level: 'B2', title: 'A statement for the police · Izjava za policijo', goal: 'Say precisely when and where it happened · Natančno povej, kdaj in kje se je zgodilo',
+        who: 'The police officer · Policist', setting: 'Včeraj popoldne si pri vratih blizu kamnitega mostu', hint: ['It was about half past three, by the gate near the packhorse bridge.', 'Bilo je okrog pol štirih, pri vratih blizu kamnitega mostu.'],
+        played: { 'a-gate-from-the-smithy': 'Mr Dixon', 'the-night-the-beck-came-up': 'Auntie Edna', 'maggie-goes-to-london': 'Granny Maggie', 'a-summer-job-at-the-inn': 'Mrs Birkett', 'jack-at-a-crossroads': 'Shepherd Jack' },
+        hello: 'Good morning, officer.',
+      },
     })
     // the pack's own place: the fell above the lake, in English with its translations, its words from on-the-fell
     const fell = scenes.find((s: any) => s.id === 'on-the-fell')

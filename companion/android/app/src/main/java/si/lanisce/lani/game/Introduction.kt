@@ -119,7 +119,7 @@ object Introduction {
             .distinct().filter(notYet)
         if (named.isEmpty()) return null
         if (line.tapTurn) return Gate(named, c.indices.toList(), echo = false)
-        val form = rights.singleOrNull()?.let { r -> Forms.turn(c.map { it.sl }, r) }
+        val form = rights.singleOrNull()?.let { r -> Forms.turn(line, r) }
         val formLater = form != null && form.wrong.any(::later)
         val dropped = c.indices.filter { i -> !c[i].ok && (later(i) || (formLater && i in form!!.wrong && rule(i) != null)) }.toSet()
         val keep = c.indices.filter { it !in dropped }

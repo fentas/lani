@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "a-statement-for-the-police",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "A statement for the police", "sl": "Izjava za policijo", "de": "Eine Zeugenaussage", "it": "Una testimonianza per la polizia" },
+  "emoji": "🐑",
+  "level": "B2",
+  "setting": {
+    "sl": "Včeraj popoldne si pri vratih blizu kamnitega mostu {m:videl|f:videla}, kako je pes brez povodca podil ovce pastirja Jacka po pašniku. Ena ovca je skočila v potok in se poškodovala. Jack je dogodek prijavil, zdaj pa je prišel policist, da zapiše tvojo izjavo.",
+    "de": "Gestern Nachmittag hast du beim Gatter nahe der Steinbrücke gesehen, wie ein Hund ohne Leine Shepherd Jacks Schafe über die Weide gejagt hat. Ein Schaf sprang in den Bach und verletzte sich. Jack hat es gemeldet, und jetzt ist ein Polizist gekommen, um deine Aussage aufzunehmen.",
+    "it": "Ieri pomeriggio, al cancello vicino al ponte di pietra, hai visto un cane senza guinzaglio inseguire le pecore del pastore Jack nel prato. Una pecora è saltata nel ruscello e si è ferita. Jack ha fatto denuncia e ora un poliziotto è venuto a raccogliere la tua testimonianza.",
+    "en": "Yesterday afternoon, by the gate near the packhorse bridge, you saw a dog off its lead chase Shepherd Jack's ewes across the field. One ewe jumped into the beck and was hurt. Jack reported it, and a police officer has come to take your statement."
+  },
+  "role": "PC Graham, a rural police officer from Keswick, taking a witness statement about a dog worrying sheep. Calm, precise, neutral: asks when, where, what the dog and its owner looked like, what was said and what the learner did; goes back over one detail; reads back a summary to confirm.",
+  "who": { "en": "The police officer", "sl": "Policist", "de": "Der Polizist", "it": "Il poliziotto" },
+  "voice": "male",
+  "speaker": "young-man",
+  "place": "field",
+  "goals": [
+    { "en": "Say precisely when and where it happened", "sl": "Natančno povej, kdaj in kje se je zgodilo", "de": "Sag genau, wann und wo es passiert ist", "it": "Di' con precisione quando e dove è successo" },
+    { "en": "Describe the dog and its owner", "sl": "Opiši psa in njegovega lastnika", "de": "Beschreib den Hund und seinen Besitzer", "it": "Descrivi il cane e il suo padrone" },
+    { "en": "Tell the events in order", "sl": "Dogodke povej po vrsti", "de": "Erzähl die Ereignisse der Reihe nach", "it": "Racconta i fatti in ordine" },
+    { "en": "Report what the owner said", "sl": "Povej, kaj je rekel lastnik", "de": "Gib wieder, was der Besitzer gesagt hat", "it": "Riferisci che cosa ha detto il padrone" },
+    { "en": "Say what you're sure of and what you're not", "sl": "Povej, česa si {m:prepričan|f:prepričana} in česa ne", "de": "Sag, was du sicher weißt und was nicht", "it": "Di' di che cosa sei {m:sicuro|f:sicura} e di che cosa no" }
+  ],
+  "opener_sl": "Thanks for seeing me. I understand you saw what happened to Jack's sheep yesterday. Could you take me through it from the beginning?",
+  "opener_en": {
+    "sl": "Hvala, da ste si vzeli čas. Kolikor vem, ste včeraj videli, kaj se je zgodilo z Jackovimi ovcami. Bi mi vse povedali od začetka?",
+    "de": "Danke, dass Sie Zeit haben. Sie haben gestern gesehen, was mit Jacks Schafen passiert ist, nicht wahr? Könnten Sie mir alles von Anfang an erzählen?",
+    "it": "Grazie di avermi ricevuto. So che ieri ha visto che cosa è successo alle pecore di Jack. Potrebbe raccontarmi tutto dall'inizio?",
+    "en": "Thank you for meeting me. I hear you saw what happened to Jack's sheep yesterday. Could you tell me everything from the start?"
+  },
+  "vocabulary_hints": [
+    { "sl": "It was about half past three, by the gate near the packhorse bridge.", "en": { "sl": "Bilo je okrog pol štirih, pri vratih blizu kamnitega mostu.", "de": "Es war gegen halb vier, beim Gatter nahe der Steinbrücke.", "it": "Erano circa le tre e mezza, al cancello vicino al ponte di pietra.", "en": "It was around half past three, at the gate by the old stone bridge." } },
+    { "sl": "A big brown dog came running down from the car park.", "en": { "sl": "Velik rjav pes je pritekel s parkirišča.", "de": "Ein großer brauner Hund kam vom Parkplatz heruntergerannt.", "it": "Un grosso cane marrone è arrivato di corsa dal parcheggio.", "en": "A large brown dog ran down from the car park." } },
+    { "sl": "It wasn't on a lead, and it went straight for the sheep.", "en": { "sl": "Ni bil na povodcu in se je takoj pognal proti ovcam.", "de": "Er war nicht angeleint und lief direkt auf die Schafe zu.", "it": "Non era al guinzaglio ed è andato dritto verso le pecore.", "en": "It had no lead and ran right at the sheep." } },
+    { "sl": "It chased them along the wall until one ewe jumped into the beck.", "en": { "sl": "Podil jih je ob zidu, dokler ena ovca ni skočila v potok.", "de": "Er jagte sie die Mauer entlang, bis ein Schaf in den Bach sprang.", "it": "Le ha inseguite lungo il muro finché una pecora è saltata nel ruscello.", "en": "It chased them by the wall till a ewe jumped into the stream." } },
+    { "sl": "The owner was a tall man in a red jacket, about forty.", "en": { "sl": "Lastnik je bil visok moški v rdeči jakni, star okrog štirideset let.", "de": "Der Besitzer war ein großer Mann in roter Jacke, etwa vierzig.", "it": "Il padrone era un uomo alto con una giacca rossa, sui quarant'anni.", "en": "The owner was a tall man in a red jacket, around forty." } },
+    { "sl": "He said the dog had never done anything like that before.", "en": { "sl": "Rekel je, da pes še nikoli ni naredil česa takega.", "de": "Er sagte, der Hund habe so etwas noch nie gemacht.", "it": "Ha detto che il cane non aveva mai fatto niente del genere.", "en": "He said the dog had never done such a thing." } },
+    { "sl": "I shouted to him to call it back, and then I rang Jack.", "en": { "sl": "{m:Zavpil|f:Zavpila} sem, naj ga pokliče, in {m:poklical|f:poklicala} Jacka.", "de": "Ich rief ihm zu, er solle ihn zurückrufen, dann rief ich Jack an.", "it": "Gli ho gridato di richiamarlo, poi ho chiamato Jack.", "en": "I shouted to him to call the dog back, then I phoned Jack." } },
+    { "sl": "I'm fairly sure about the jacket, but not about the car.", "en": { "sl": "Za jakno sem {m:skoraj prepričan|f:skoraj prepričana}, za avto pa ne.", "de": "Bei der Jacke bin ich mir ziemlich sicher, beim Auto nicht.", "it": "Della giacca sono {m:abbastanza sicuro|f:abbastanza sicura}, dell'auto no.", "en": "I'm quite sure about the jacket, not about the car." } },
+    { "sl": "I think it was a silver estate, but I didn't see the number plate.", "en": { "sl": "Avto je bil menda srebrn karavan; tablice nisem {m:videl|f:videla}.", "de": "Ich glaube, es war ein silberner Kombi; das Kennzeichen sah ich nicht.", "it": "Credo fosse una station wagon argento, ma la targa non l'ho vista.", "en": "I think it was a silver estate car, but I missed the number plate." } },
+    { "sl": "Yes, that's right. I'm happy to sign it.", "en": { "sl": "Da, tako je. Lahko podpišem.", "de": "Ja, das stimmt so. Ich unterschreibe gern.", "it": "Sì, è giusto. La firmo volentieri.", "en": "Yes, that's correct. I'll gladly sign it." } }
+  ],
+  "packs": ["law-and-order", "what-to-wear", "lambing-time", "at-the-gate", "by-the-beck", "numbers-and-time"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

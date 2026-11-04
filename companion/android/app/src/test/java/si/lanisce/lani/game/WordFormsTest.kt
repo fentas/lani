@@ -237,7 +237,7 @@ class WordFormsTest {
         assertEquals("sedeti", e.partner?.lemma)
         assertEquals("sedem", e.slot("pres.1sg")?.lines?.single()?.form)
         assertTrue(a.words[1].entries.isEmpty())
-        assertEquals("/forms?w=sesti&w=hi%C5%A1a", WordFormsWire.url("http://n", listOf("sesti", "hiša")).let { it.encodedPath + "?" + it.encodedQuery })
+        assertEquals("/forms?w=sesti&w=hi%C5%A1a&v=2", WordFormsWire.url("http://n", listOf("sesti", "hiša")).let { it.encodedPath + "?" + it.encodedQuery })
         assertEquals("sesti", WordFormsWire.lemmaOf(known))
         assertNull(WordFormsWire.lemmaOf(known.copy(front = "dober/dobra/dobro (dan ♂ / kava ♀)")))
         assertNull(WordFormsWire.lemmaOf(known.copy(kind = "grammar_rule")))

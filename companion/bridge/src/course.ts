@@ -18,6 +18,7 @@ import { cell, grammarRef, withEn } from './grammar'
 import { LANG } from './langs'
 import { WORD_LANGUAGES } from './packs'
 import { schemaField } from './schema'
+import { PRODUCTION_TYPES, speaking, writing } from './production'
 import { choice, cloze, exercise } from './spec'
 
 export const COURSE_SCHEMA = 'lani.course/v0'
@@ -149,8 +150,13 @@ const sort = z
 
 /** The school's own four types: a page of work at once (companion/COURSE.md, "The school's exercise types"). */
 export const sheetExercise = z.discriminatedUnion('type', [gaptext, table, transform, sort])
-/** What a worksheet, a test or homework holds: every module type (spec.ts) and the school's four. */
-export const worksheetExercise = z.discriminatedUnion('type', [...exercise.options, ...sheetExercise.options])
+/**
+ * Speaking and free writing (production.ts; companion/COURSE.md, "Speaking and writing"): an app that doesn't say it plays
+ * them (GET /course?types=2) gets units without them ([heldBack]).
+ */
+export const productionExercise = z.discriminatedUnion('type', [speaking, writing])
+/** What a worksheet, a test or homework holds: every module type (spec.ts), the school's four, speaking and writing. */
+export const worksheetExercise = z.discriminatedUnion('type', [...exercise.options, ...sheetExercise.options, ...productionExercise.options])
 
 export type SheetExercise = z.infer<typeof sheetExercise>
 export type WorksheetExercise = z.infer<typeof worksheetExercise>
@@ -482,6 +488,21 @@ export type ServedCourse = {
   units: ServedUnit[]
   machine_written: boolean
   review?: string
+}
+
+/**
+ * [c] for an app that plays the school's item types up to [types] (GET /course?types=<n>, production.ts COURSE_TYPES): below
+ * 2, without speaking and writing (an older app would show them as a type to skip, or wait for the tutor): a sheet left
+ * with none is left out, a test keeps the rest. The units and their ids stay, so a learner's progress reads the same.
+ */
+export function heldBack(c: ServedCourse, types: number): ServedCourse {
+  if (types >= 2) return c
+  const keep = <T extends { type: string }>(xs: T[]) => xs.filter(e => !PRODUCTION_TYPES.has(e.type))
+  const sheets = <W extends { exercises: { type: string }[] }>(ws: W[]) => ws.map(w => ({ ...w, exercises: keep(w.exercises) })).filter(w => w.exercises.length)
+  return {
+    ...c,
+    units: c.units.map(u => ({ ...u, worksheets: sheets(u.worksheets), test: { ...u.test, exercises: keep(u.test.exercises) }, homework: sheets(u.homework) })),
+  }
 }
 
 /** Where the course of [language] is: companion/course/sl for Slovene, companion/course/it for Italian … */

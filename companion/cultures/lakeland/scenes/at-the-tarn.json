@@ -10,7 +10,7 @@
   },
   "emoji": "🪷",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "pond",
   "from": [
     "spot:pond"
@@ -133,6 +133,8 @@
       "chance": 0.5,
       "dialog": "heron",
       "dialogs": [
+        "heron-b2-forty",
+        "heron-b1-poppy",
         "heron-mist",
         "heron"
       ],
@@ -173,6 +175,8 @@
       "chance": 0.5,
       "dialog": "fishing",
       "dialogs": [
+        "fishing-b2-pike",
+        "fishing-b1-bear",
         "fishing-count",
         "fishing"
       ],
@@ -2291,6 +2295,81 @@
           "it": "Buonanotte, amico. Le api si alzano presto.",
           "de": "Gute Nacht, mein Freund. Die Bienen sind früh auf."
         }
+      ]
+    },
+    {
+      "id": "heron-b1-poppy", "level": "B1",
+      "memory": {"en": "the heron and Poppy's question", "sl": "čapljo in Poppyjino vprašanje", "it": "l'airone e la domanda di Poppy", "de": "den Reiher und Poppys Frage"},
+      "lines": [
+        {"who": "arthur", "en": "Good morning, friend. Gently now. Look, the heron in the shallows. She's been standing there for an hour.", "sl": "Dobro jutro, prijatelj. Nežno. Poglej, čaplja v plitvini. Tam stoji že eno uro.", "it": "Buongiorno, amico. Piano. Guarda, l'airone nell'acqua bassa. È lì fermo da un'ora.", "de": "Guten Morgen, mein Freund. Sachte. Schau, der Reiher im seichten Wasser. Er steht schon eine Stunde da."},
+        {"who": "arthur", "face": "curious", "en": "You were here with Poppy yesterday. What did she ask me about her?", "sl": "Včeraj si {m:bil|f:bila} tu s Poppy. Kaj me je vprašala o njej?", "it": "Ieri eri qui con Poppy. Che cosa mi ha chiesto dell'airone?", "de": "Gestern warst du mit Poppy hier. Was hat sie mich über ihn gefragt?"},
+        { "choices": [
+          {"en": "She asked if herons ate frogs.", "sl": "Vprašala je, ali čaplje jedo žabe.", "it": "Ha chiesto se gli aironi mangiano le rane.", "de": "Sie hat gefragt, ob Reiher Frösche fressen.", "ok": true, "reply": {"en": "They do, I'm afraid. And fish, and the odd mouse.", "sl": "Žal jih. Pa ribe in kakšno miš.", "it": "Purtroppo sì. E pesci, e qualche topo.", "de": "Leider ja. Und Fische, und ab und zu eine Maus."}},
+          {"en": "She asked herons ate frogs.", "sl": "Vprašala je, ali čaplje jedo žabe.", "it": "Ha chiesto se gli aironi mangiano le rane.", "de": "Sie hat gefragt, ob Reiher Frösche fressen.", "grammar": "reported-questions", "why": {"en": "A yes-or-no question gets if or whether: she asked if herons ate frogs.", "sl": "Vprašanje z da ali ne dobi if ali whether: she asked if herons ate frogs.", "it": "Una domanda sì o no prende if o whether: she asked if herons ate frogs.", "de": "Eine Ja-Nein-Frage bekommt if oder whether: she asked if herons ate frogs."}, "reply": {"face": "laugh", "en": "She asked herons? I'm sure they didn't answer her!", "sl": "She asked herons? Gotovo ji niso odgovorile!", "it": "She asked herons? Di sicuro non le hanno risposto!", "de": "She asked herons? Die haben ihr bestimmt nicht geantwortet!"}}
+        ] },
+        {"who": "arthur", "en": "This time tomorrow she'll be standing in the same spot. Every day the same.", "sl": "Jutri ob tem času bo stala na istem mestu. Vsak dan enako.", "it": "Domani a quest'ora sarà fermo nello stesso punto. Ogni giorno uguale.", "de": "Morgen um diese Zeit steht er an derselben Stelle. Jeden Tag gleich."},
+        {"who": "arthur", "face": "curious", "en": "And you? What will you be doing this time tomorrow?", "sl": "Pa ti? Kaj boš {m:počel|f:počela} jutri ob tem času?", "it": "E tu? Che cosa farai domani a quest'ora?", "de": "Und du? Was machst du morgen um diese Zeit?"},
+        { "choices": [
+          {"en": "I'll be working, but I'll be thinking of the heron.", "sl": "{m:Delal|f:Delala} bom, ampak {m:mislil|f:mislila} bom na čapljo.", "it": "Lavorerò, ma penserò all'airone.", "de": "Ich werde arbeiten, aber ich werde an den Reiher denken.", "ok": true, "reply": {"face": "happy", "en": "Then she'll be thinking of you too. Well, of her fish.", "sl": "Potem bo tudi ona mislila nate. No, na svoje ribe.", "it": "Allora anche lui penserà a te. Be', ai suoi pesci.", "de": "Dann denkt er auch an dich. Na ja, an seine Fische."}},
+          {"en": "I'll working, but I'll be thinking of the heron.", "sl": "{m:Delal|f:Delala} bom, ampak {m:mislil|f:mislila} bom na čapljo.", "it": "Lavorerò, ma penserò all'airone.", "de": "Ich werde arbeiten, aber ich werde an den Reiher denken.", "grammar": "future-continuous", "why": {"en": "Will be + -ing: I'll be working. The be can't go.", "sl": "Will be + -ing: I'll be working. Be ne sme izpasti.", "it": "Will be + -ing: I'll be working. Il be non può mancare.", "de": "Will be + -ing: I'll be working. Das be darf nicht fehlen."}, "reply": {"face": "confused", "en": "You'll working? Gently, friend. A word has gone missing.", "sl": "You'll working? Nežno, prijatelj. Ena beseda se je izgubila.", "it": "You'll working? Piano, amico. Si è persa una parola.", "de": "You'll working? Sachte, mein Freund. Da ist ein Wort verloren gegangen."}}
+        ] },
+        {"who": "arthur", "face": "happy", "en": "There! She's got one. Patience, friend. Always patience.", "sl": "Glej! Eno je ujela. Potrpežljivost, prijatelj. Vedno potrpežljivost.", "it": "Ecco! Ne ha preso uno. Pazienza, amico. Sempre pazienza.", "de": "Da! Er hat einen. Geduld, mein Freund. Immer Geduld."}
+      ]
+    },
+    {
+      "id": "fishing-b2-pike", "level": "B2",
+      "memory": {"en": "the pike that got away because of Bess", "sl": "ščuko, ki je ušla zaradi Bess", "it": "il luccio scappato per colpa di Bess", "de": "den Hecht, der wegen Bess entwischt ist"},
+      "lines": [
+        {"who": "wilf", "en": "Hello, {m:son|f:lass}. Sit down. Bess and I are fishing. Once I hooked a pike in this tarn as long as my arm.", "sl": "Živijo. Sedi. Z Bess lovim ribe. Nekoč sem v tem jezercu ujel ščuko, dolgo kot moja roka.", "it": "Ciao, {m:figliolo|f:ragazza}. Siediti. Io e Bess peschiamo. Una volta in questo laghetto ho preso all'amo un luccio lungo come il mio braccio.", "de": "Hallo, {m:Junge|f:Mädchen}. Setz dich. Bess und ich angeln. Einmal hatte ich in diesem See einen Hecht am Haken, so lang wie mein Arm."},
+        {"who": "wilf", "face": "thinking", "en": "I'd been waiting since dawn when the line went tight. Then Bess barked so loudly that it got away.", "sl": "Čakal sem od zore, ko se je vrvica napela. Potem je Bess tako glasno zalajala, da je ušla.", "it": "Aspettavo dall'alba quando la lenza si è tesa. Poi Bess ha abbaiato così forte che è scappato.", "de": "Ich hatte seit dem Morgengrauen gewartet, als die Schnur sich spannte. Dann bellte Bess so laut, dass er entwischte."},
+        { "choices": [
+          {"en": "That was such bad luck. I'd still be cross with her.", "sl": "To je bila res smola. Jaz bi {m:bil|f:bila} še vedno {m:jezen|f:jezna} nanjo.", "it": "Che sfortuna. Io sarei ancora {m:arrabbiato|f:arrabbiata} con lei.", "de": "So ein Pech. Ich wäre immer noch sauer auf sie.", "ok": true, "reply": {"face": "happy", "en": "Cross with Bess? Never. She's a better friend than any fish.", "sl": "{m:Jezen|f:Jezna} na Bess? Nikoli. Boljša prijateljica je kot katera koli riba.", "it": "{m:Arrabbiato|f:Arrabbiata} con Bess? Mai. È un'amica migliore di qualsiasi pesce.", "de": "Sauer auf Bess? Nie. Sie ist eine bessere Freundin als jeder Fisch."}},
+          {"en": "That was such a bad luck. I'd still be cross with her.", "sl": "To je bila res smola. Jaz bi {m:bil|f:bila} še vedno {m:jezen|f:jezna} nanjo.", "it": "Che sfortuna. Io sarei ancora {m:arrabbiato|f:arrabbiata} con lei.", "de": "So ein Pech. Ich wäre immer noch sauer auf sie.", "grammar": "result-linkers", "why": {"en": "Luck is something you can't count: such bad luck, with no a. Such a goes with one thing: such a big fish.", "sl": "Luck se ne da šteti: such bad luck, brez a. Such a gre z eno stvarjo: such a big fish.", "it": "Luck non si conta: such bad luck, senza a. Such a va con una cosa sola: such a big fish.", "de": "Luck kann man nicht zählen: such bad luck, ohne a. Such a steht bei einem Ding: such a big fish."}, "reply": {"face": "curious", "en": "A bad luck? Luck doesn't come in ones, {m:son|f:lass}.", "sl": "A bad luck? Smola ne pride po kosih.", "it": "A bad luck? La sfortuna non si conta a pezzi, {m:figliolo|f:ragazza}.", "de": "A bad luck? Pech gibt's nicht stückweise, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "en": "In my day we'd come up here every Sunday after chapel, my brothers and I, and sit for hours.", "sl": "V mojih časih smo z brati vsako nedeljo po maši prišli sem in sedeli ure in ure.", "it": "Ai miei tempi venivamo qui ogni domenica dopo la messa, io e i miei fratelli, e restavamo seduti per ore.", "de": "Früher kamen wir jeden Sonntag nach der Kirche hier herauf, meine Brüder und ich, und saßen stundenlang."},
+        {"who": "wilf", "face": "curious", "en": "Does it bother you, sitting still that long?", "sl": "Te kaj moti, da tako dolgo sediš pri miru?", "it": "Ti dà fastidio stare {m:fermo|f:ferma} così a lungo?", "de": "Stört es dich, so lange stillzusitzen?"},
+        { "choices": [
+          {"en": "Not at all. I'm used to waiting.", "sl": "Sploh ne. {m:Navajen|f:Navajena} sem čakati.", "it": "Per niente. Sono {m:abituato|f:abituata} ad aspettare.", "de": "Überhaupt nicht. Ich bin das Warten gewohnt.", "ok": true, "reply": {"face": "happy", "en": "Then you'll make an angler yet. Slow and steady wins the race.", "sl": "Potem boš še {m:ribič|f:ribička}. Počasi se daleč pride.", "it": "Allora diventerai {m:un pescatore|f:una pescatrice}. Chi va piano va sano e va lontano.", "de": "Dann wird aus dir noch {m:ein Angler|f:eine Anglerin}. In der Ruhe liegt die Kraft."}},
+          {"en": "Not at all. I'm used to wait.", "sl": "Sploh ne. {m:Navajen|f:Navajena} sem čakati.", "it": "Per niente. Sono {m:abituato|f:abituata} ad aspettare.", "de": "Überhaupt nicht. Ich bin das Warten gewohnt.", "grammar": "would-used-to", "why": {"en": "Be used to + -ing means it's normal for you: I'm used to waiting. Used to wait would be what you did once.", "sl": "Be used to + -ing pomeni, da ti je to običajno: I'm used to waiting. Used to wait bi bilo, kar si nekoč počel.", "it": "Be used to + -ing vuol dire che per te è normale: I'm used to waiting. Used to wait sarebbe ciò che facevi una volta.", "de": "Be used to + -ing heißt, es ist für dich normal: I'm used to waiting. Used to wait wäre das, was du früher getan hast."}, "reply": {"face": "laugh", "en": "Used to wait? And now you don't? Then off you go, {m:son|f:lass}!", "sl": "Used to wait? Zdaj pa ne več? Potem pa kar pojdi!", "it": "Used to wait? E adesso no? Allora vai pure, {m:figliolo|f:ragazza}!", "de": "Used to wait? Und jetzt nicht mehr? Dann ab mit dir, {m:Junge|f:Mädchen}!"}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "There. A bite! Hold the rod, gently. One step at a time.", "sl": "Glej. Prijelo je! Drži palico, nežno. Korak za korakom.", "it": "Ecco. Abbocca! Tieni la canna, piano. Un passo alla volta.", "de": "Da. Ein Biss! Halt die Rute, sachte. Immer eins nach dem anderen."}
+      ]
+    },
+    {
+      "id": "heron-b2-forty", "level": "B2",
+      "memory": {"en": "forty years of mornings with the heron", "sl": "štirideset let jutranjih srečanj s čapljo", "it": "quarant'anni di mattine con l'airone", "de": "vierzig Jahre Morgen mit dem Reiher"},
+      "lines": [
+        {"who": "arthur", "en": "Good morning, friend. Gently. If I hadn't sat here every morning for forty years, she wouldn't let me this close.", "sl": "Dobro jutro, prijatelj. Nežno. Če ne bi štirideset let vsako jutro sedel tukaj, me ne bi pustila tako blizu.", "it": "Buongiorno, amico. Piano. Se non mi fossi seduto qui ogni mattina per quarant'anni, non mi lascerebbe avvicinare così.", "de": "Guten Morgen, mein Freund. Sachte. Hätte ich nicht vierzig Jahre lang jeden Morgen hier gesessen, ließe er mich nicht so nah heran."},
+        { "choices": [
+          {"en": "So she trusts you because you've always been here.", "sl": "Torej ti zaupa, ker si bil vedno tu.", "it": "Quindi si fida di te perché sei sempre stato qui.", "de": "Er vertraut dir also, weil du immer hier warst.", "ok": true, "reply": {"face": "happy", "en": "Trust takes time. With birds and with people.", "sl": "Zaupanje potrebuje čas. Pri pticah in pri ljudeh.", "it": "La fiducia vuole tempo. Con gli uccelli e con le persone.", "de": "Vertrauen braucht Zeit. Bei Vögeln und bei Menschen."}},
+          {"en": "So she's only just got used to you.", "sl": "Torej se je nate šele zdaj navadila.", "it": "Quindi si è abituato a te solo adesso.", "de": "Er hat sich also erst jetzt an dich gewöhnt.", "grammar": "mixed-conditionals", "why": {"en": "If I hadn't sat here … she wouldn't: he has, for forty years, and that's why she lets him close.", "sl": "Če ne bi sedel … ne bi: sedi tu že štirideset let, in zato ga pusti blizu.", "it": "Se non mi fossi seduto … non: si siede qui da quarant'anni, ed è per questo che lo lascia avvicinare.", "de": "Hätte ich nicht gesessen … ließe er nicht: Er sitzt seit vierzig Jahren hier, darum lässt der Reiher ihn heran."}, "reply": {"face": "surprised", "en": "Only just? It's been forty years, friend!", "sl": "Šele zdaj? Štirideset let je že, prijatelj!", "it": "Solo adesso? Sono quarant'anni, amico!", "de": "Erst jetzt? Es sind vierzig Jahre, mein Freund!"}}
+        ] },
+        {"who": "arthur", "en": "Her nest is in the larches by the beck. It's been mended every spring since I was a boy.", "sl": "Gnezdo ima v macesnih ob potoku. Popravljajo ga vsako pomlad, odkar sem bil fant.", "it": "Ha il nido tra i larici vicino al torrente. Viene riparato ogni primavera da quando ero ragazzo.", "de": "Sein Nest ist in den Lärchen am Bach. Es wird jeden Frühling ausgebessert, seit ich ein Junge war."},
+        {"who": "arthur", "face": "curious", "en": "The heron's been carrying sticks to the larches all morning. What's going on, do you think?", "sl": "Čaplja že vse jutro nosi palčke k macesnom. Kaj misliš, kaj se dogaja?", "it": "L'airone porta rametti ai larici da tutta la mattina. Che cosa succede, secondo te?", "de": "Der Reiher trägt schon den ganzen Morgen Zweige zu den Lärchen. Was ist da los, was meinst du?"},
+        { "choices": [
+          {"en": "So the nest is being mended again right now.", "sl": "Torej gnezdo prav zdaj spet popravljajo.", "it": "Quindi il nido viene riparato di nuovo proprio adesso.", "de": "Das Nest wird also gerade wieder ausgebessert.", "ok": true, "reply": {"face": "happy", "en": "Every stick by hand. Well, by beak.", "sl": "Vsako palčko na roko. No, na kljun.", "it": "Ogni rametto a mano. Be', a becco.", "de": "Jeder Zweig von Hand. Na ja, von Schnabel."}},
+          {"en": "So the nest is being mend again right now.", "sl": "Torej gnezdo prav zdaj spet popravljajo.", "it": "Quindi il nido viene riparato di nuovo proprio adesso.", "de": "Das Nest wird also gerade wieder ausgebessert.", "grammar": "passive-more", "why": {"en": "Be + being + the participle: is being mended. The participle ends in -ed.", "sl": "Be + being + deležnik: is being mended. Deležnik se konča na -ed.", "it": "Be + being + il participio: is being mended. Il participio finisce in -ed.", "de": "Be + being + Partizip: is being mended. Das Partizip endet auf -ed."}, "reply": {"face": "confused", "en": "Is being mend? Gently, friend. The end's gone missing.", "sl": "Is being mend? Nežno, prijatelj. Konec se je izgubil.", "it": "Is being mend? Piano, amico. Si è persa la fine.", "de": "Is being mend? Sachte, mein Freund. Das Ende fehlt."}}
+        ] },
+        {"who": "arthur", "face": "happy", "en": "There she goes, back to her larch. Every morning the same, and never the same.", "sl": "Glej, spet gre k svojemu macesnu. Vsako jutro enako in nikoli enako.", "it": "Eccolo che torna al suo larice. Ogni mattina uguale, e mai uguale.", "de": "Da fliegt er, zurück zu seiner Lärche. Jeden Morgen gleich und nie gleich."}
+      ]
+    },
+    {
+      "id": "fishing-b1-bear", "level": "B1",
+      "memory": {"en": "the trout that Bess jumped in after", "sl": "postrv, za katero je skočila Bess", "it": "la trota dietro cui si è tuffata Bess", "de": "die Forelle, der Bess hinterhergesprungen ist"},
+      "lines": [
+        {"who": "wilf", "en": "Hello, {m:son|f:lass}. Sit down by Bess. She used to swim after every fish I caught.", "sl": "Živijo. Sedi k Bess. Včasih je plavala za vsako ribo, ki sem jo ujel.", "it": "Ciao, {m:figliolo|f:ragazza}. Siediti vicino a Bess. Nuotava dietro a ogni pesce che prendevo.", "de": "Hallo, {m:Junge|f:Mädchen}. Setz dich zu Bess. Früher ist sie jedem Fisch nachgeschwommen, den ich gefangen hab."},
+        {"who": "wilf", "face": "curious", "en": "Did you have a dog when you were young?", "sl": "Si {m:imel|f:imela} psa, ko si {m:bil mlad|f:bila mlada}?", "it": "Avevi un cane da giovane?", "de": "Hattest du einen Hund, als du jung warst?"},
+        { "choices": [
+          {"en": "Yes, we used to have a big black dog called Bear.", "sl": "Ja, včasih smo imeli velikega črnega psa, ki mu je bilo ime Bear.", "it": "Sì, avevamo un grosso cane nero che si chiamava Bear.", "de": "Ja, wir hatten früher einen großen schwarzen Hund namens Bear.", "ok": true, "reply": {"face": "happy", "en": "Bear! A good name for a big dog. Bess would have liked him.", "sl": "Bear! Dobro ime za velikega psa. Bess bi ga imela rada.", "it": "Bear! Un bel nome per un cane grande. A Bess sarebbe piaciuto.", "de": "Bear! Ein guter Name für einen großen Hund. Bess hätte ihn gemocht."}},
+          {"en": "Yes, we used to had a big black dog called Bear.", "sl": "Ja, včasih smo imeli velikega črnega psa, ki mu je bilo ime Bear.", "it": "Sì, avevamo un grosso cane nero che si chiamava Bear.", "de": "Ja, wir hatten früher einen großen schwarzen Hund namens Bear.", "grammar": "used-to", "why": {"en": "Used to + the base form: used to have. The past is already in used.", "sl": "Used to + osnovna oblika: used to have. Preteklost je že v used.", "it": "Used to + la forma base: used to have. Il passato è già in used.", "de": "Used to + Grundform: used to have. Die Vergangenheit steckt schon in used."}, "reply": {"face": "curious", "en": "Used to had? Slow and steady, {m:son|f:lass}. Once more.", "sl": "Used to had? Počasi in vztrajno. Še enkrat.", "it": "Used to had? Piano e con calma, {m:figliolo|f:ragazza}. Ancora una volta.", "de": "Used to had? Langsam und stetig, {m:Junge|f:Mädchen}. Noch einmal."}}
+        ] },
+        {"who": "wilf", "face": "thinking", "en": "Last week a trout took my fly. By the time I'd pulled it in, Bess had jumped in after it.", "sl": "Prejšnji teden je postrv prijela mojo muho. Ko sem jo potegnil k sebi, je Bess že skočila za njo.", "it": "La settimana scorsa una trota ha abboccato. Quando l'ho tirata su, Bess si era già tuffata.", "de": "Letzte Woche hat eine Forelle angebissen. Bis ich sie rangezogen hatte, war Bess schon hinterhergesprungen."},
+        {"who": "wilf", "face": "curious", "en": "So what do you think happened to the trout?", "sl": "Kaj misliš, kaj se je zgodilo s postrvjo?", "it": "Allora, che fine pensi che abbia fatto la trota?", "de": "Was ist wohl mit der Forelle passiert?"},
+        { "choices": [
+          {"en": "It had got away before Bess reached it.", "sl": "Ušla je, še preden jo je Bess dosegla.", "it": "Era scappata prima che Bess la raggiungesse.", "de": "Sie war entwischt, bevor Bess sie erreicht hat.", "ok": true, "reply": {"face": "laugh", "en": "Got away, and Bess came back wet and proud of herself.", "sl": "Ušla je, Bess pa se je vrnila mokra in ponosna nase.", "it": "Scappata, e Bess è tornata bagnata e fiera di sé.", "de": "Entwischt, und Bess kam nass und stolz zurück."}},
+          {"en": "It had get away before Bess reached it.", "sl": "Ušla je, še preden jo je Bess dosegla.", "it": "Era scappata prima che Bess la raggiungesse.", "de": "Sie war entwischt, bevor Bess sie erreicht hat.", "grammar": "past-perfect", "why": {"en": "Had + the participle: had got away. Get is the base form; got is the participle.", "sl": "Had + deležnik: had got away. Get je osnovna oblika, got deležnik.", "it": "Had + il participio: had got away. Get è la forma base, got il participio.", "de": "Had + Partizip: had got away. Get ist die Grundform, got das Partizip."}, "reply": {"face": "curious", "en": "Had get? Get your words in order, {m:son|f:lass}.", "sl": "Had get? Uredi besede.", "it": "Had get? Metti in ordine le parole, {m:figliolo|f:ragazza}.", "de": "Had get? Bring deine Wörter in Ordnung, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "One step at a time. Today we'll catch one. Bess, stay!", "sl": "Korak za korakom. Danes bova eno ujela. Bess, ostani!", "it": "Un passo alla volta. Oggi ne prendiamo uno. Bess, ferma!", "de": "Eins nach dem anderen. Heute fangen wir einen. Bess, bleib!"}
       ]
     }
   ]

@@ -378,6 +378,334 @@
               "done": true
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "Right, {m:lad|f:lass}. A bridge in the wrong place is worse than no bridge at all. Where should it go?",
+              "sl": "Tako. Most na napačnem mestu je slabši kot nobeden. Kam naj pride?",
+              "it": "Allora, {m:ragazzo|f:ragazza}. Un ponte nel posto sbagliato è peggio di nessun ponte. Dove dovrebbe andare?",
+              "de": "So, {m:Junge|f:Mädchen}. Eine Brücke am falschen Ort ist schlimmer als gar keine. Wo soll sie hin?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Over the beck, here, where the banks are closest.",
+                  "sl": "Čez potok, tukaj, kjer sta bregova najbližje.",
+                  "it": "Sopra il ruscello, qui, dove le rive sono più vicine.",
+                  "de": "Über den Bach, hier, wo die Ufer am nächsten sind.",
+                  "ok": true,
+                  "tap": "stream",
+                  "grammar": "prepositions-place",
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. Less to build, and the rock's sound on both sides.",
+                    "sl": "Dobro. Manj gradnje, in skala je trdna na obeh straneh.",
+                    "it": "Bene. Meno da costruire, e la roccia è solida da tutti e due i lati.",
+                    "de": "Gut. Weniger zu bauen, und der Fels ist auf beiden Seiten fest."
+                  }
+                },
+                {
+                  "en": "Over the willow, where it's shady.",
+                  "sl": "Čez vrbo, kjer je senca.",
+                  "it": "Sopra il salice, dove c'è ombra.",
+                  "de": "Über die Weide, wo es schattig ist.",
+                  "tap": "willow",
+                  "why": {
+                    "sl": "Most gre čez vodo, od brega do brega. Poišči potok.",
+                    "it": "Un ponte passa sopra l'acqua, da una riva all'altra. Cerca il ruscello.",
+                    "de": "Eine Brücke geht über das Wasser, von Ufer zu Ufer. Such den Bach."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Shady it may be, but the ponies would have to climb it first!",
+                    "sl": "Senca že, ampak poniji bi morali najprej splezati nanjo!",
+                    "it": "Ombra sì, ma i pony dovrebbero prima arrampicarcisi!",
+                    "de": "Schattig vielleicht, aber die Ponys müssten erst hinaufklettern!"
+                  }
+                },
+                {
+                  "en": "Over the washing, where the line is.",
+                  "sl": "Čez perilo, kjer je vrv.",
+                  "it": "Sopra il bucato, dov'è la corda.",
+                  "de": "Über die Wäsche, wo die Leine ist.",
+                  "tap": "laundry",
+                  "why": {
+                    "sl": "Perilo je na bregu; most gre čez vodo.",
+                    "it": "Il bucato è sulla riva; il ponte passa sopra l'acqua.",
+                    "de": "Die Wäsche hängt am Ufer; die Brücke geht über das Wasser."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Over the washing? There'd be hoofprints on every sheet in the dale!",
+                    "sl": "Čez perilo? Na vsaki rjuhi v dolini bi bili odtisi kopit!",
+                    "it": "Sopra il bucato? Ci sarebbero impronte di zoccoli su ogni lenzuolo della valle!",
+                    "de": "Über die Wäsche? Dann wären Hufabdrücke auf jedem Laken im Tal!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "dixon",
+              "en": "It's been measured twice, wall to wall. Tell him what it came to.",
+              "sl": "Dvakrat je izmerjeno, od zidu do zidu. Povej mu, koliko je prišlo.",
+              "it": "È stato misurato due volte, da muro a muro. Digli quanto viene.",
+              "de": "Zweimal gemessen, Mauer zu Mauer. Sag ihm, was rausgekommen ist."
+            },
+            {
+              "choices": [
+                {
+                  "en": "It's six metres wide, Mr Tyson, give or take a hand.",
+                  "sl": "Širok je šest metrov, gospod Tyson, plus minus za dlan.",
+                  "it": "È largo sei metri, signor Tyson, più o meno un palmo.",
+                  "de": "Er ist sechs Meter breit, Mr Tyson, eine Handbreit mehr oder weniger.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Six metres. That goes in the notebook.",
+                    "sl": "Šest metrov. To gre v beležko.",
+                    "it": "Sei metri. Questo va nel taccuino.",
+                    "de": "Sechs Meter. Das kommt ins Notizbuch."
+                  }
+                },
+                {
+                  "en": "It's six minutes wide, Mr Tyson, give or take a hand.",
+                  "sl": "Širok je šest minut, gospod Tyson, plus minus za dlan.",
+                  "it": "È largo sei minuti, signor Tyson, più o meno un palmo.",
+                  "de": "Er ist sechs Minuten breit, Mr Tyson, eine Handbreit mehr oder weniger.",
+                  "why": {
+                    "sl": "Širino merimo v metrih (metres); minute so za čas.",
+                    "it": "La larghezza si misura in metri (metres); i minuti sono per il tempo.",
+                    "de": "Breite misst man in Metern (metres); Minuten sind für die Zeit."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Six minutes? Then it's a slow beck, that!",
+                    "sl": "Šest minut? Potem je to pa počasen potok!",
+                    "it": "Sei minuti? Allora è un ruscello lento!",
+                    "de": "Sechs Minuten? Dann ist das aber ein langsamer Bach!"
+                  }
+                }
+              ],
+              "to": "tyson"
+            },
+            {
+              "who": "tyson",
+              "en": "Now a peg on each bank and a line between them, so we know where the arch will stand.",
+              "sl": "Zdaj pa klin na vsak breg in vrvico vmes, da bomo vedeli, kje bo stal lok.",
+              "it": "Adesso un picchetto su ogni riva e una corda in mezzo, così sappiamo dove sarà l'arco.",
+              "de": "Jetzt einen Pflock an jedes Ufer und eine Schnur dazwischen, damit wir wissen, wo der Bogen steht."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'll hammer this peg in on our side, if you'll hold the line.",
+                  "sl": "Ta klin zabijem na naši strani, če vi držite vrvico.",
+                  "it": "Pianto questo picchetto dalla nostra parte, se Lei tiene la corda.",
+                  "de": "Ich schlag den Pflock auf unserer Seite ein, wenn Sie die Schnur halten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Done. Mind your thumb.",
+                    "sl": "Velja. Pazi na palec.",
+                    "it": "D'accordo. {m:Attento|f:Attenta} al pollice.",
+                    "de": "Abgemacht. Pass auf deinen Daumen auf."
+                  }
+                },
+                {
+                  "en": "I'll hammer this pig in on our side, if you'll hold the line.",
+                  "sl": "Tega prašiča zabijem na naši strani, če vi držite vrvico.",
+                  "it": "Pianto questo maiale dalla nostra parte, se Lei tiene la corda.",
+                  "de": "Ich schlag das Schwein auf unserer Seite ein, wenn Sie die Schnur halten.",
+                  "why": {
+                    "sl": "Peg je klin, ki ga zabiješ v tla; pig je prašič.",
+                    "it": "Un peg è un picchetto da piantare nel terreno; pig è il maiale.",
+                    "de": "Ein peg ist ein Pflock für den Boden; pig ist das Schwein."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A pig? The pigs won't thank you for that, {m:lad|f:lass}!",
+                    "sl": "Prašiča? Tega ti prašiči ne bodo hvaležni!",
+                    "it": "Un maiale? I maiali non te ne saranno grati, {m:ragazzo|f:ragazza}!",
+                    "de": "Ein Schwein? Dafür werden dir die Schweine nicht danken, {m:Junge|f:Mädchen}!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jack",
+              "en": "Pegs in, line across. Now the whole dale can see where it'll go.",
+              "sl": "Klina sta zabita, vrvica napeta. Zdaj vsa dolina vidi, kam bo prišel.",
+              "it": "Picchetti piantati, corda tesa. Adesso tutta la valle vede dove andrà.",
+              "de": "Pflöcke drin, Schnur gespannt. Jetzt sieht das ganze Tal, wo sie hinkommt.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "Before a single stone is laid, we measure. Measure twice, build once, as my father used to say. Where's it to go?",
+              "sl": "Preden položimo en sam kamen, merimo. Dvakrat izmeri, enkrat gradi, je govoril moj oče. Kam naj pride?",
+              "it": "Prima di posare una sola pietra, si misura. Misura due volte, costruisci una volta, diceva mio padre. Dove va?",
+              "de": "Bevor ein einziger Stein gelegt wird, wird gemessen. Zweimal messen, einmal bauen, hat mein Vater gesagt. Wo soll sie hin?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Over the beck, just here, where the rock comes down to the water on both banks.",
+                  "sl": "Čez potok, ravno tukaj, kjer se skala na obeh bregovih spusti do vode.",
+                  "it": "Sopra il ruscello, proprio qui, dove la roccia scende fino all'acqua su tutte e due le rive.",
+                  "de": "Über den Bach, genau hier, wo der Fels an beiden Ufern bis ans Wasser reicht.",
+                  "ok": true,
+                  "tap": "stream",
+                  "grammar": "prepositions-place",
+                  "reply": {
+                    "face": "happy",
+                    "en": "Well spotted. Build on rock, and the floods can do their worst.",
+                    "sl": "Dobro videno. Gradi na skali, pa naj poplave počnejo, kar hočejo.",
+                    "it": "Ben visto. Costruisci sulla roccia, e le piene facciano pure quello che vogliono.",
+                    "de": "Gut gesehen. Bau auf Fels, dann können die Hochwasser machen, was sie wollen."
+                  }
+                },
+                {
+                  "en": "Under the willow, where the bank's softest.",
+                  "sl": "Pod vrbo, kjer je breg najmehkejši.",
+                  "it": "Sotto il salice, dove la riva è più morbida.",
+                  "de": "Unter der Weide, wo das Ufer am weichsten ist.",
+                  "tap": "willow",
+                  "why": {
+                    "sl": "Most gre čez vodo in stoji na trdni skali, ne na mehkem bregu pod vrbo.",
+                    "it": "Un ponte passa sopra l'acqua e poggia sulla roccia, non sulla riva morbida sotto il salice.",
+                    "de": "Eine Brücke geht über das Wasser und steht auf Fels, nicht auf dem weichen Ufer unter der Weide."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "en": "The softest bank? The first flood would carry it to Windermere by morning.",
+                    "sl": "Najmehkejši breg? Prva poplava bi ga do jutra odnesla v Windermere.",
+                    "it": "La riva più morbida? La prima piena se la porterebbe nel Windermere entro mattina.",
+                    "de": "Das weichste Ufer? Das erste Hochwasser hätte es bis morgen im Windermere."
+                  }
+                },
+                {
+                  "en": "Over the washing line, where the ground's flat.",
+                  "sl": "Čez vrv za perilo, kjer so tla ravna.",
+                  "it": "Sopra la corda del bucato, dove il terreno è piano.",
+                  "de": "Über die Wäscheleine, wo der Boden flach ist.",
+                  "tap": "laundry",
+                  "why": {
+                    "sl": "Perilo je na bregu; most mora čez vodo.",
+                    "it": "Il bucato è sulla riva; il ponte deve passare sopra l'acqua.",
+                    "de": "Die Wäsche hängt am Ufer; die Brücke muss über das Wasser."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Flat it may be, but the washing would never forgive us!",
+                    "sl": "Ravno že, ampak perilo nam tega ne bi nikoli odpustilo!",
+                    "it": "Piano sarà, ma il bucato non ce lo perdonerebbe mai!",
+                    "de": "Flach vielleicht, aber die Wäsche würde uns das nie verzeihen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "dixon",
+              "en": "It's been measured twice, wall to wall, and both times it came to the same. Tell him.",
+              "sl": "Dvakrat je izmerjeno, od zidu do zidu, in obakrat je prišlo enako. Povej mu.",
+              "it": "È stato misurato due volte, da muro a muro, ed è venuto uguale tutte e due le volte. Diglielo.",
+              "de": "Zweimal gemessen, Mauer zu Mauer, und beide Male kam dasselbe raus. Sag's ihm."
+            },
+            {
+              "choices": [
+                {
+                  "en": "It came to six metres both times, Mr Tyson, so the arch will need to span six metres.",
+                  "sl": "Obakrat je prišlo šest metrov, gospod Tyson, zato bo moral lok premostiti šest metrov.",
+                  "it": "Tutte e due le volte sono venuti sei metri, signor Tyson, quindi l'arco dovrà coprire sei metri.",
+                  "de": "Beide Male kamen sechs Meter raus, Mr Tyson, also muss der Bogen sechs Meter überspannen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Six metres. Then we'll want a good deal of slate. That goes in the notebook.",
+                    "sl": "Šest metrov. Potem bomo rabili kar veliko skrilavca. To gre v beležko.",
+                    "it": "Sei metri. Allora ci servirà parecchia ardesia. Questo va nel taccuino.",
+                    "de": "Sechs Meter. Dann brauchen wir ordentlich Schiefer. Das kommt ins Notizbuch."
+                  }
+                },
+                {
+                  "en": "It came to six miles both times, Mr Tyson, so the arch will need to span six miles.",
+                  "sl": "Obakrat je prišlo šest milj, gospod Tyson, zato bo moral lok premostiti šest milj.",
+                  "it": "Tutte e due le volte sono venute sei miglia, signor Tyson, quindi l'arco dovrà coprire sei miglia.",
+                  "de": "Beide Male kamen sechs Meilen raus, Mr Tyson, also muss der Bogen sechs Meilen überspannen.",
+                  "why": {
+                    "sl": "Potok je širok šest metrov (metres); šest milj (miles) je skoraj deset kilometrov.",
+                    "it": "Il ruscello è largo sei metri (metres); sei miglia (miles) sono quasi dieci chilometri.",
+                    "de": "Der Bach ist sechs Meter (metres) breit; sechs Meilen (miles) sind fast zehn Kilometer."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Six miles? Then we'd be building a bridge all the way to Keswick!",
+                    "sl": "Šest milj? Potem bi gradili most vse do Keswicka!",
+                    "it": "Sei miglia? Allora costruiremmo un ponte fino a Keswick!",
+                    "de": "Sechs Meilen? Dann würden wir eine Brücke bis nach Keswick bauen!"
+                  }
+                }
+              ],
+              "to": "tyson"
+            },
+            {
+              "who": "tyson",
+              "en": "Now the pegs. One on each bank, a line between them, and the line tells us where the arch is to stand.",
+              "sl": "Zdaj pa klini. Po eden na vsak breg, vrvica vmes, in vrvica nam pove, kje bo stal lok.",
+              "it": "Adesso i picchetti. Uno per riva, una corda in mezzo, e la corda ci dice dove sorgerà l'arco.",
+              "de": "Jetzt die Pflöcke. Einer an jedes Ufer, eine Schnur dazwischen, und die Schnur sagt uns, wo der Bogen stehen soll."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Shall I drive the peg in here, or would you rather do it yourself?",
+                  "sl": "Naj zabijem klin tukaj, ali bi ga raje zabili sami?",
+                  "it": "Pianto io il picchetto qui, o preferisce farlo Lei?",
+                  "de": "Soll ich den Pflock hier einschlagen, oder machen Sie das lieber selbst?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Go on. Straight down, and three good blows.",
+                    "sl": "Kar daj. Naravnost dol, in trije dobri udarci.",
+                    "it": "Vai pure. Dritto giù, e tre bei colpi.",
+                    "de": "Mach nur. Gerade runter, und drei gute Schläge."
+                  }
+                },
+                {
+                  "en": "Shall I drive the pig in here, or would you rather do it yourself?",
+                  "sl": "Naj zaženem prašiča sem, ali bi ga raje zagnali sami?",
+                  "it": "Spingo io il maiale qui, o preferisce farlo Lei?",
+                  "de": "Soll ich das Schwein hier reintreiben, oder machen Sie das lieber selbst?",
+                  "why": {
+                    "sl": "Peg je klin, ki ga zabiješ v tla; pig je prašič.",
+                    "it": "Un peg è un picchetto da piantare nel terreno; pig è il maiale.",
+                    "de": "Ein peg ist ein Pflock für den Boden; pig ist das Schwein."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Drive the pig? He'd drive you, more like, straight into the beck!",
+                    "sl": "Prašiča? Prej bi on tebe zrinil, naravnost v potok!",
+                    "it": "Il maiale? Semmai sarebbe lui a spingere te, dritto nel ruscello!",
+                    "de": "Das Schwein? Eher treibt es dich, direkt in den Bach!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jack",
+              "en": "Pegs in, line across. Now anybody coming down the fell can see where the bridge will be.",
+              "sl": "Klina sta zabita, vrvica napeta. Zdaj vsak, ki pride dol s hriba, vidi, kje bo most.",
+              "it": "Picchetti piantati, corda tesa. Adesso chiunque scenda dal monte vede dove sarà il ponte.",
+              "de": "Pflöcke drin, Schnur gespannt. Jetzt sieht jeder, der vom Berg runterkommt, wo die Brücke sein wird.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -637,6 +965,221 @@
               "done": true
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "We'll need slate for the arch, and the best is up on the fell. What sort of stones are we after?",
+              "sl": "Za lok bomo rabili skrilavec, najboljši pa je gori na hribu. Kakšne kamne iščemo?",
+              "it": "Per l'arco ci servirà ardesia, e la migliore è lassù sul monte. Che tipo di pietre cerchiamo?",
+              "de": "Für den Bogen brauchen wir Schiefer, und der beste ist oben am Berg. Was für Steine suchen wir?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Thin, flat ones, so they fit tightly together.",
+                  "sl": "Tanke, ploščate, da se tesno prilegajo.",
+                  "it": "Sottili e piatte, così combaciano bene.",
+                  "de": "Dünne, flache, damit sie dicht aneinanderpassen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "That's it. Thin and flat, like slices of bread.",
+                    "sl": "Tako. Tanke in ploščate, kot rezine kruha.",
+                    "it": "Esatto. Sottili e piatte, come fette di pane.",
+                    "de": "Genau. Dünn und flach, wie Brotscheiben."
+                  }
+                },
+                {
+                  "en": "Round, smooth ones, so they fit tightly together.",
+                  "sl": "Okrogle, gladke, da se tesno prilegajo.",
+                  "it": "Rotonde e lisce, così combaciano bene.",
+                  "de": "Runde, glatte, damit sie dicht aneinanderpassen.",
+                  "why": {
+                    "sl": "Za lok rabimo tanke, ploščate kamne (thin); okrogli bi se skotalili.",
+                    "it": "Per l'arco servono pietre sottili e piatte (thin); quelle rotonde rotolerebbero via.",
+                    "de": "Für den Bogen braucht man dünne, flache Steine (thin); runde würden wegrollen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Round ones? They'd roll straight back into the beck!",
+                    "sl": "Okrogle? Takoj bi se skotalile nazaj v potok!",
+                    "it": "Rotonde? Rotolerebbero subito nel ruscello!",
+                    "de": "Runde? Die würden gleich zurück in den Bach rollen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "arthur",
+              "en": "Here they come down the track, friend, a cartload at a time. Where would you like them?",
+              "sl": "Glej, prihajajo po kolovozu, {m:prijatelj|f:prijateljica}, voz za vozom. Kam jih želiš?",
+              "it": "Eccole che arrivano dal sentiero, {m:amico|f:amica}, un carro alla volta. Dove le vuoi?",
+              "de": "Da kommen sie den Weg herunter, {m:mein Freund|f:meine Freundin}, eine Fuhre nach der anderen. Wo willst du sie haben?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Let's make a pile on each bank, so they're close to where the walls will go.",
+                  "sl": "Naredimo kup na vsakem bregu, da bodo blizu tam, kjer bodo zidovi.",
+                  "it": "Facciamo un mucchio su ogni riva, così sono vicine a dove andranno i muri.",
+                  "de": "Machen wir auf jedem Ufer einen Haufen, damit sie nah an den Mauern sind.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Sensible. Less carrying later.",
+                    "sl": "Pametno. Kasneje manj nošenja.",
+                    "it": "Sensato. Meno da portare dopo.",
+                    "de": "Vernünftig. Später weniger zu schleppen."
+                  }
+                },
+                {
+                  "en": "Let's make a pillow on each bank, so they're close to where the walls will go.",
+                  "sl": "Naredimo blazino na vsakem bregu, da bo blizu tam, kjer bodo zidovi.",
+                  "it": "Facciamo un cuscino su ogni riva, così è vicino a dove andranno i muri.",
+                  "de": "Machen wir auf jedem Ufer ein Kissen, damit es nah an den Mauern ist.",
+                  "why": {
+                    "sl": "Pile je kup; pillow je blazina.",
+                    "it": "Pile è il mucchio; pillow è il cuscino.",
+                    "de": "Pile ist der Haufen; pillow ist das Kissen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A pillow of slate? That'd give you a stiff neck.",
+                    "sl": "Blazina iz skrilavca? Od tega bi te bolel vrat.",
+                    "it": "Un cuscino di ardesia? Ti verrebbe il torcicollo.",
+                    "de": "Ein Kissen aus Schiefer? Davon kriegst du einen steifen Nacken."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Two good piles, one each side. That's enough slate for an arch and a bit over.",
+              "sl": "Dva lepa kupa, na vsaki strani eden. Dovolj skrilavca za lok in še nekaj več.",
+              "it": "Due bei mucchi, uno per lato. Abbastanza ardesia per un arco e ne avanza.",
+              "de": "Zwei gute Haufen, einer auf jeder Seite. Genug Schiefer für einen Bogen und noch etwas mehr.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "The slate's split up on the fell, where it comes out of the ground in layers. What do we want for an arch, would you say?",
+              "sl": "Skrilavec se kolje gori na hribu, kjer pride iz zemlje v plasteh. Kaj rabimo za lok, kaj praviš?",
+              "it": "Sul monte l'ardesia si spacca, lì dove esce dalla terra a strati. Cosa ci serve per un arco, secondo te?",
+              "de": "Der Schiefer wird oben am Berg gespalten, wo er in Schichten aus dem Boden kommt. Was brauchen wir für einen Bogen, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Thin pieces, I'd say. The thinner they are, the tighter they'll sit.",
+                  "sl": "Tanke kose, {m:bi rekel|f:bi rekla}. Tanjši ko so, tesneje se bodo prilegali.",
+                  "it": "Pezzi sottili, direi. Più sono sottili, più staranno stretti.",
+                  "de": "Dünne Stücke, würde ich sagen. Je dünner sie sind, desto fester sitzen sie.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Spot on. Thin slate, laid on edge, and no mortar needed.",
+                    "sl": "Točno. Tanek skrilavec, postavljen na rob, in malte sploh ne rabimo.",
+                    "it": "Esatto. Ardesia sottile, messa di taglio, e la malta non serve.",
+                    "de": "Genau. Dünner Schiefer, hochkant gelegt, und kein Mörtel nötig."
+                  }
+                },
+                {
+                  "en": "Thick pieces, I'd say. The thicker they are, the tighter they'll sit.",
+                  "sl": "Debele kose, {m:bi rekel|f:bi rekla}. Debelejši ko so, tesneje se bodo prilegali.",
+                  "it": "Pezzi spessi, direi. Più sono spessi, più staranno stretti.",
+                  "de": "Dicke Stücke, würde ich sagen. Je dicker sie sind, desto fester sitzen sie.",
+                  "why": {
+                    "sl": "Za lok rabimo tanke kose (thin), ki se tesno prilegajo; debeli (thick) ne bi sedli skupaj.",
+                    "it": "Per l'arco servono pezzi sottili (thin) che combaciano bene; quelli spessi (thick) non starebbero insieme.",
+                    "de": "Für den Bogen braucht man dünne Stücke (thin), die dicht sitzen; dicke (thick) passen nicht zusammen."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Thick ones? You'd need a giant to lift them, and a bigger beck.",
+                    "sl": "Debele? Za dvigovanje bi rabil velikana, pa še večji potok.",
+                    "it": "Spessi? Ci vorrebbe un gigante per sollevarli, e un ruscello più grande.",
+                    "de": "Dicke? Da bräuchtest du einen Riesen zum Heben, und einen größeren Bach."
+                  }
+                },
+                {
+                  "en": "Thin pieces, I'd say. The thinner they are, the more tight they'll sit.",
+                  "sl": "Tanke kose, {m:bi rekel|f:bi rekla}. Tanjši ko so, tesneje se bodo prilegali. (the more tight)",
+                  "it": "Pezzi sottili, direi. Più sono sottili, più staranno stretti. (the more tight)",
+                  "de": "Dünne Stücke, würde ich sagen. Je dünner sie sind, desto fester sitzen sie. (the more tight)",
+                  "grammar": "comparatives",
+                  "why": {
+                    "sl": "Kratki pridevniki imajo -er: the tighter, ne the more tight.",
+                    "it": "Gli aggettivi corti prendono -er: the tighter, non the more tight.",
+                    "de": "Kurze Adjektive bekommen -er: the tighter, nicht the more tight."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "The more tight? Hm, that doesn't sit right in my ear.",
+                    "sl": "The more tight? Hm, to mi ne zveni prav.",
+                    "it": "The more tight? Mh, non mi suona bene.",
+                    "de": "The more tight? Hm, das klingt in meinen Ohren nicht richtig."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "arthur",
+              "en": "The carts are coming down now, friend. Shall we tip it all in one place?",
+              "sl": "Vozovi zdaj prihajajo dol, {m:prijatelj|f:prijateljica}. Naj vse stresemo na eno mesto?",
+              "it": "I carri stanno scendendo, {m:amico|f:amica}. Rovesciamo tutto in un posto solo?",
+              "de": "Die Wagen kommen jetzt runter, {m:mein Freund|f:meine Freundin}. Kippen wir alles an eine Stelle?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "It'd be better to make a pile on each bank, so that nobody has to carry slate across the water.",
+                  "sl": "Bolje bi bilo narediti kup na vsakem bregu, da nikomur ne bo treba nositi skrilavca čez vodo.",
+                  "it": "Sarebbe meglio fare un mucchio su ogni riva, così nessuno deve portare ardesia attraverso l'acqua.",
+                  "de": "Besser wäre ein Haufen auf jedem Ufer, damit keiner Schiefer durchs Wasser tragen muss.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Wise. My back thanks you already.",
+                    "sl": "Modro. Moj hrbet se ti že zahvaljuje.",
+                    "it": "Saggio. La mia schiena ti ringrazia già.",
+                    "de": "Klug. Mein Rücken dankt dir schon."
+                  }
+                },
+                {
+                  "en": "It'd be better to make a pine on each bank, so that nobody has to carry slate across the water.",
+                  "sl": "Bolje bi bilo narediti bor na vsakem bregu, da nikomur ne bo treba nositi skrilavca čez vodo.",
+                  "it": "Sarebbe meglio fare un pino su ogni riva, così nessuno deve portare ardesia attraverso l'acqua.",
+                  "de": "Besser wäre eine Kiefer auf jedem Ufer, damit keiner Schiefer durchs Wasser tragen muss.",
+                  "why": {
+                    "sl": "Pile je kup; pine je bor.",
+                    "it": "Pile è il mucchio; pine è il pino.",
+                    "de": "Pile ist der Haufen; pine ist die Kiefer."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A pine? Planting trees now, are we? Slate doesn't grow.",
+                    "sl": "Bor? Zdaj bomo pa drevesa sadili? Skrilavec ne raste.",
+                    "it": "Un pino? Adesso piantiamo alberi? L'ardesia non cresce mica.",
+                    "de": "Eine Kiefer? Pflanzen wir jetzt Bäume? Schiefer wächst nicht."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Two piles, one each side, and not a stone wasted. That's what I call a morning's work.",
+              "sl": "Dva kupa, na vsaki strani eden, in niti en kamen zapravljen. Temu jaz rečem jutranje delo.",
+              "it": "Due mucchi, uno per lato, e nemmeno una pietra sprecata. Questo lo chiamo un buon lavoro di mattina.",
+              "de": "Zwei Haufen, einer auf jeder Seite, und kein Stein verschwendet. Das nenn ich Morgenarbeit.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -893,6 +1436,240 @@
               "sl": "Močna zidova na obeh straneh. Zdaj čakamo na les.",
               "it": "Muri forti da tutte e due le parti. Adesso aspettiamo il legno.",
               "de": "Starke Mauern auf beiden Seiten. Jetzt warten wir aufs Holz.",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "Today the walls go up. They'll carry the arch, so they have to be twice as strong as you'd think. Where are they going?",
+              "sl": "Danes gredo zidovi gor. Nosili bodo lok, zato morajo biti dvakrat močnejši, kot so videti. Kam pridejo?",
+              "it": "Oggi si alzano i muri. Porteranno l'arco, quindi devono essere due volte più forti di quanto sembrino. Dove vanno?",
+              "de": "Heute kommen die Mauern hoch. Sie tragen den Bogen, also müssen sie doppelt so stark sein, wie sie aussehen. Wo kommen sie hin?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "They're going on both sides of the beck, one on each bank.",
+                  "sl": "Na obe strani potoka, po eden na vsak breg.",
+                  "it": "Su tutte e due le rive del ruscello, uno per parte.",
+                  "de": "Auf beide Seiten des Bachs, an jedes Ufer eine.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Both sides. An arch needs something to lean on at each end.",
+                    "sl": "Na obe strani. Lok se mora na vsakem koncu na nekaj nasloniti.",
+                    "it": "Su tutte e due. Un arco deve appoggiarsi a qualcosa da ogni parte.",
+                    "de": "Beide Seiten. Ein Bogen muss sich an jedem Ende an etwas lehnen."
+                  }
+                },
+                {
+                  "en": "They're going on all sides of the beck, one on each bank.",
+                  "sl": "Na vse strani potoka, po eden na vsak breg.",
+                  "it": "Su tutti i lati del ruscello, uno per parte.",
+                  "de": "Auf alle Seiten des Bachs, an jedes Ufer eine.",
+                  "why": {
+                    "sl": "Potok ima dva bregova: both sides (obe strani). All sides je za več kot dve.",
+                    "it": "Un ruscello ha due rive: both sides (tutte e due). All sides è per più di due.",
+                    "de": "Ein Bach hat zwei Ufer: both sides (beide Seiten). All sides ist für mehr als zwei."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "All sides? How many sides do you think a beck has?",
+                    "sl": "Na vse strani? Koliko strani pa misliš, da ima potok?",
+                    "it": "Su tutti i lati? Quanti lati pensi che abbia un ruscello?",
+                    "de": "Auf alle Seiten? Wie viele Seiten hat denn ein Bach, meinst du?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "dixon",
+              "en": "This side's done, every stone tight. Is the other side ready for its wall?",
+              "sl": "Ta stran je narejena, vsak kamen trden. Je druga stran pripravljena za zid?",
+              "it": "Questo lato è fatto, ogni pietra salda. L'altro lato è pronto per il suo muro?",
+              "de": "Diese Seite ist fertig, jeder Stein fest. Ist die andere Seite bereit für ihre Mauer?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "The other side's ready. The slate has been waiting there since yesterday.",
+                  "sl": "Druga stran je pripravljena. Skrilavec tam čaka že od včeraj.",
+                  "it": "L'altro lato è pronto. L'ardesia è lì che aspetta da ieri.",
+                  "de": "Die andere Seite ist bereit. Der Schiefer wartet dort seit gestern.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. Then we start at eight.",
+                    "sl": "Dobro. Potem začnemo ob osmih.",
+                    "it": "Bene. Allora si comincia alle otto.",
+                    "de": "Gut. Dann fangen wir um acht an."
+                  }
+                },
+                {
+                  "en": "The other slide's ready. The slate has been waiting there since yesterday.",
+                  "sl": "Drugi tobogan je pripravljen. Skrilavec tam čaka že od včeraj.",
+                  "it": "L'altro scivolo è pronto. L'ardesia è lì che aspetta da ieri.",
+                  "de": "Die andere Rutsche ist bereit. Der Schiefer wartet dort seit gestern.",
+                  "why": {
+                    "sl": "Side je stran ali breg; slide je tobogan.",
+                    "it": "Side è il lato, la riva; slide è lo scivolo.",
+                    "de": "Side ist die Seite, das Ufer; slide ist die Rutsche."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "en": "A slide? This is a bridge, not a playground.",
+                    "sl": "Tobogan? To je most, ne igrišče.",
+                    "it": "Uno scivolo? Questo è un ponte, non un parco giochi.",
+                    "de": "Eine Rutsche? Das ist eine Brücke, kein Spielplatz."
+                  }
+                },
+                {
+                  "en": "The other side's ready. The slate is waiting there since yesterday.",
+                  "sl": "Druga stran je pripravljena. Skrilavec tam čaka že od včeraj. (is waiting since)",
+                  "it": "L'altro lato è pronto. L'ardesia è lì che aspetta da ieri. (is waiting since)",
+                  "de": "Die andere Seite ist bereit. Der Schiefer wartet dort seit gestern. (is waiting since)",
+                  "grammar": "present-perfect-continuous",
+                  "why": {
+                    "sl": "Za nekaj, kar traja od včeraj do zdaj: has been waiting since, ne is waiting since.",
+                    "it": "Per qualcosa che dura da ieri fino a ora: has been waiting since, non is waiting since.",
+                    "de": "Für etwas, das seit gestern bis jetzt dauert: has been waiting since, nicht is waiting since."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Is waiting since? Hm. Say it again, properly.",
+                    "sl": "Is waiting since? Hm. Še enkrat, kot je treba.",
+                    "it": "Is waiting since? Mh. Ripetilo, come si deve.",
+                    "de": "Is waiting since? Hm. Noch mal, richtig."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Two walls, both as solid as the fell. Now we wait for the timber.",
+              "sl": "Dva zidova, oba trdna kot hrib. Zdaj čakamo na les.",
+              "it": "Due muri, tutti e due solidi come il monte. Adesso aspettiamo il legname.",
+              "de": "Zwei Mauern, beide so fest wie der Berg. Jetzt warten wir auf das Holz.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "The whole bridge stands on its walls, so there's no rushing them. Where would you put them, and why?",
+              "sl": "Ves most stoji na zidovih, zato jih ne gre priganjati. Kam bi jih {m:postavil|f:postavila} in zakaj?",
+              "it": "Tutto il ponte poggia sui muri, quindi non si fanno di fretta. Dove li metteresti, e perché?",
+              "de": "Die ganze Brücke steht auf ihren Mauern, also wird da nichts überstürzt. Wo würdest du sie hinsetzen, und warum?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "On both sides, right on the rock, so that the arch has something solid to push against.",
+                  "sl": "Na obe strani, naravnost na skalo, da ima lok v kaj trdnega pritiskati.",
+                  "it": "Su tutte e due le rive, proprio sulla roccia, così l'arco ha qualcosa di solido contro cui spingere.",
+                  "de": "Auf beide Seiten, direkt auf den Fels, damit der Bogen etwas Festes hat, wogegen er drückt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Exactly. An arch pushes outwards, and the walls push back.",
+                    "sl": "Natanko. Lok potiska navzven, zidovi pa nazaj.",
+                    "it": "Esatto. Un arco spinge verso l'esterno, e i muri spingono indietro.",
+                    "de": "Genau. Ein Bogen drückt nach außen, und die Mauern drücken zurück."
+                  }
+                },
+                {
+                  "en": "On neither side, right on the rock, so that the arch has something solid to push against.",
+                  "sl": "Na nobeni strani, naravnost na skalo, da ima lok v kaj trdnega pritiskati.",
+                  "it": "Da nessuna parte, proprio sulla roccia, così l'arco ha qualcosa di solido contro cui spingere.",
+                  "de": "Auf keiner Seite, direkt auf den Fels, damit der Bogen etwas Festes hat, wogegen er drückt.",
+                  "why": {
+                    "sl": "Neither pomeni na nobeni strani; zidova rabimo na obeh straneh (both sides).",
+                    "it": "Neither vuol dire da nessuna parte; i muri servono su tutte e due (both sides).",
+                    "de": "Neither heißt auf keiner Seite; die Mauern brauchen wir auf beiden Seiten (both sides)."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "On neither side? Then what's the arch going to stand on, the trout?",
+                    "sl": "Na nobeni strani? Na čem bo pa potem stal lok, na postrvih?",
+                    "it": "Da nessuna parte? E allora su cosa poggia l'arco, sulle trote?",
+                    "de": "Auf keiner Seite? Worauf soll der Bogen dann stehen, auf den Forellen?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "dixon",
+              "en": "This side's finished. Whoever builds the other one had better be just as careful.",
+              "sl": "Ta stran je končana. Kdor bo zidal drugo, naj bo vsaj tako previden.",
+              "it": "Questo lato è finito. Chi costruisce l'altro farà meglio a essere altrettanto attento.",
+              "de": "Diese Seite ist fertig. Wer die andere baut, sollte genauso sorgfältig sein."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'll take the other side, and I'll check each layer before I start the next.",
+                  "sl": "Jaz bom {m:prevzel|f:prevzela} drugo stran in {m:preveril|f:preverila} vsako plast, preden začnem naslednjo.",
+                  "it": "Prendo io l'altro lato, e controllerò ogni strato prima di cominciare il successivo.",
+                  "de": "Ich übernehme die andere Seite und prüfe jede Lage, bevor ich die nächste anfange.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye. Fair. I'll be watching.",
+                    "sl": "Aye. Pošteno. Imam te na očeh.",
+                    "it": "Aye. Giusto. Ti guardo.",
+                    "de": "Aye. Fair. Ich schau zu."
+                  }
+                },
+                {
+                  "en": "I'll take the other sight, and I'll check each layer before I start the next.",
+                  "sl": "Jaz bom {m:prevzel|f:prevzela} drugo znamenitost in {m:preveril|f:preverila} vsako plast, preden začnem naslednjo.",
+                  "it": "Prendo io l'altra attrazione, e controllerò ogni strato prima di cominciare il successivo.",
+                  "de": "Ich übernehme die andere Sehenswürdigkeit und prüfe jede Lage, bevor ich die nächste anfange.",
+                  "why": {
+                    "sl": "Side je stran; sight je pogled ali znamenitost.",
+                    "it": "Side è il lato; sight è la vista, o un'attrazione.",
+                    "de": "Side ist die Seite; sight ist der Anblick oder eine Sehenswürdigkeit."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "en": "The other sight? I've seen enough sights. Build a wall.",
+                    "sl": "The other sight? Znamenitosti imam dovolj. Zidaj zid.",
+                    "it": "The other sight? Di attrazioni ne ho viste abbastanza. Costruisci un muro.",
+                    "de": "The other sight? Sehenswürdigkeiten hab ich genug gesehen. Bau eine Mauer."
+                  }
+                },
+                {
+                  "en": "I'll take the other side, and I'll check each layer before I will start the next.",
+                  "sl": "Jaz bom {m:prevzel|f:prevzela} drugo stran in {m:preveril|f:preverila} vsako plast, preden začnem naslednjo. (before I will start)",
+                  "it": "Prendo io l'altro lato, e controllerò ogni strato prima di cominciare il successivo. (before I will start)",
+                  "de": "Ich übernehme die andere Seite und prüfe jede Lage, bevor ich die nächste anfange. (before I will start)",
+                  "grammar": "first-conditional",
+                  "why": {
+                    "sl": "Po before za prihodnost pride sedanjik: before I start, ne before I will start.",
+                    "it": "Dopo before, per il futuro, si usa il presente: before I start, non before I will start.",
+                    "de": "Nach before steht für die Zukunft das Präsens: before I start, nicht before I will start."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Before you will? You'll start when the layer's checked. Not before.",
+                    "sl": "Before you will? {m:Začel|f:Začela} boš, ko bo plast preverjena. Ne prej.",
+                    "it": "Before you will? Comincerai quando lo strato sarà controllato. Non prima.",
+                    "de": "Before you will? Du fängst an, wenn die Lage geprüft ist. Nicht vorher."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Both walls up, both on rock, both straight. My notebook says we're ahead of time.",
+              "sl": "Oba zidova stojita, oba na skali, oba ravna. Moja beležka pravi, da smo pred rokom.",
+              "it": "Tutti e due i muri su, sulla roccia, dritti. Il mio taccuino dice che siamo in anticipo.",
+              "de": "Beide Mauern stehen, beide auf Fels, beide gerade. Mein Notizbuch sagt, wir sind vor der Zeit.",
               "done": true
             }
           ]
@@ -1272,6 +2049,352 @@
               }
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "For the arch we'll need a wooden frame to hold the stones until they hold each other. Which tree should we cut? Show me.",
+              "sl": "Za lok bomo rabili lesen okvir, ki bo držal kamne, dokler se ne bodo držali sami. Katero drevo naj posekamo? Pokaži mi.",
+              "it": "Per l'arco ci servirà una centina di legno che regga le pietre finché non si reggono da sole. Quale albero tagliamo? Fammi vedere.",
+              "de": "Für den Bogen brauchen wir ein Holzgerüst, das die Steine hält, bis sie sich selbst halten. Welchen Baum fällen wir? Zeig's mir."
+            },
+            {
+              "choices": [
+                {
+                  "en": "The oak, because oak doesn't bend under weight.",
+                  "sl": "Hrast, ker se hrast pod težo ne upogne.",
+                  "it": "La quercia, perché la quercia non si piega sotto il peso.",
+                  "de": "Die Eiche, weil Eiche sich unter Gewicht nicht biegt.",
+                  "ok": true,
+                  "tap": "tree",
+                  "reply": {
+                    "face": "happy",
+                    "en": "Right you are. Oak it is.",
+                    "sl": "Prav imaš. Torej hrast.",
+                    "it": "Hai ragione. Quercia sia.",
+                    "de": "Recht hast du. Also Eiche."
+                  }
+                },
+                {
+                  "en": "The boulder, because it's the hardest thing here.",
+                  "sl": "Skalo, ker je tukaj najtrša.",
+                  "it": "Il masso, perché è la cosa più dura qui.",
+                  "de": "Den Felsbrocken, weil er hier das Härteste ist.",
+                  "tap": "stone",
+                  "why": {
+                    "sl": "Za okvir rabimo les: drevo. Skale se ne da posekati.",
+                    "it": "Per la centina serve legno: un albero. Un masso non si taglia.",
+                    "de": "Für das Gerüst brauchen wir Holz: einen Baum. Einen Felsbrocken kann man nicht fällen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Hard it is, but I'd like to see you cut it with a saw!",
+                    "sl": "Trda je, ampak rad bi videl, kako jo režeš z žago!",
+                    "it": "Duro lo è, ma vorrei vederti tagliarlo con una sega!",
+                    "de": "Hart ist er, aber ich möcht sehen, wie du den mit einer Säge schneidest!"
+                  }
+                },
+                {
+                  "en": "The beck, because the water's always moving.",
+                  "sl": "Potok, ker se voda vedno premika.",
+                  "it": "Il ruscello, perché l'acqua si muove sempre.",
+                  "de": "Den Bach, weil das Wasser immer fließt.",
+                  "tap": "stream",
+                  "why": {
+                    "sl": "Za okvir rabimo les: drevo, ne vodo.",
+                    "it": "Per la centina serve legno: un albero, non l'acqua.",
+                    "de": "Für das Gerüst brauchen wir Holz: einen Baum, kein Wasser."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Cut the beck? It'll only join up again behind you, {m:lad|f:lass}!",
+                    "sl": "Posekati potok? Za tabo se bo samo spet sklenil!",
+                    "it": "Tagliare il ruscello? Si richiude subito dietro di te, {m:ragazzo|f:ragazza}!",
+                    "de": "Den Bach fällen? Der fließt hinter dir einfach wieder zusammen, {m:Junge|f:Mädchen}!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jack",
+              "en": "The beck's six metres across. Are these logs long enough for the frame?",
+              "sl": "Potok je širok šest metrov. So ta debla dovolj dolga za okvir?",
+              "it": "Il ruscello è largo sei metri. Questi tronchi sono abbastanza lunghi per la centina?",
+              "de": "Der Bach ist sechs Meter breit. Sind diese Stämme lang genug für das Gerüst?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "They're long enough, with a metre to spare at each end.",
+                  "sl": "Dovolj dolga so, z metrom rezerve na vsakem koncu.",
+                  "it": "Sono abbastanza lunghi, con un metro in più a ogni estremità.",
+                  "de": "Sie sind lang genug, mit einem Meter Reserve an jedem Ende.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Grand. Better too long than too short.",
+                    "sl": "Krasno. Bolje predolga kot prekratka.",
+                    "it": "Ottimo. Meglio troppo lunghi che troppo corti.",
+                    "de": "Prima. Lieber zu lang als zu kurz."
+                  }
+                },
+                {
+                  "en": "They're loud enough, with a metre to spare at each end.",
+                  "sl": "Dovolj glasna so, z metrom rezerve na vsakem koncu.",
+                  "it": "Sono abbastanza rumorosi, con un metro in più a ogni estremità.",
+                  "de": "Sie sind laut genug, mit einem Meter Reserve an jedem Ende.",
+                  "why": {
+                    "sl": "Long je dolg; loud je glasen.",
+                    "it": "Long vuol dire lungo; loud vuol dire rumoroso.",
+                    "de": "Long heißt lang; loud heißt laut."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Loud enough? They haven't said a word all morning!",
+                    "sl": "Dovolj glasna? Vse jutro niso rekla niti besede!",
+                    "it": "Abbastanza rumorosi? Non hanno detto una parola tutta la mattina!",
+                    "de": "Laut genug? Die haben den ganzen Morgen kein Wort gesagt!"
+                  }
+                },
+                {
+                  "en": "They're enough long, with a metre to spare at each end.",
+                  "sl": "Dovolj dolga so, z metrom rezerve na vsakem koncu. (enough long)",
+                  "it": "Sono abbastanza lunghi, con un metro in più a ogni estremità. (enough long)",
+                  "de": "Sie sind lang genug, mit einem Meter Reserve an jedem Ende. (enough long)",
+                  "grammar": "too-enough",
+                  "why": {
+                    "sl": "Enough stoji za pridevnikom: long enough, ne enough long.",
+                    "it": "Enough va dopo l'aggettivo: long enough, non enough long.",
+                    "de": "Enough steht nach dem Adjektiv: long enough, nicht enough long."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "Enough long? I think I know what you mean, but it came out backwards.",
+                    "sl": "Enough long? Mislim, da vem, kaj misliš, ampak je prišlo ven narobe.",
+                    "it": "Enough long? Credo di capire, ma ti è uscito al contrario.",
+                    "de": "Enough long? Ich glaub, ich weiß, was du meinst, aber es kam verkehrt rum raus."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Right. How shall we get them down to the beck?",
+              "sl": "Prav. Kako jih bomo spravili do potoka?",
+              "it": "Bene. Come li portiamo giù al ruscello?",
+              "de": "So. Wie kriegen wir sie runter zum Bach?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "We could drag them down with the ponies, the way they did in the old days.",
+                  "sl": "Lahko bi jih zvlekli dol s poniji, kot so delali v starih časih.",
+                  "it": "Potremmo trascinarli giù con i pony, come si faceva una volta.",
+                  "de": "Wir könnten sie mit den Ponys runterziehen, wie man es früher gemacht hat.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Just what I was thinking. Two ponies, and we'll be at the beck by noon.",
+                    "sl": "Točno to sem mislil. Dva ponija, pa bomo do poldneva pri potoku.",
+                    "it": "Proprio quello che pensavo. Due pony, e per mezzogiorno siamo al ruscello.",
+                    "de": "Genau das hab ich gedacht. Zwei Ponys, und bis Mittag sind wir am Bach."
+                  }
+                },
+                {
+                  "en": "We could drink them down with the ponies, the way they did in the old days.",
+                  "sl": "Lahko bi jih popili s poniji, kot so delali v starih časih.",
+                  "it": "Potremmo berli con i pony, come si faceva una volta.",
+                  "de": "Wir könnten sie mit den Ponys austrinken, wie man es früher gemacht hat.",
+                  "why": {
+                    "sl": "Drag pomeni vleči po tleh; drink pomeni piti.",
+                    "it": "Drag vuol dire trascinare; drink vuol dire bere.",
+                    "de": "Drag heißt schleifen, ziehen; drink heißt trinken."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Drink them? The ponies will drink the beck, but not the logs!",
+                    "sl": "Popiti? Poniji bodo popili potok, debel pa ne!",
+                    "it": "Berli? I pony berranno il ruscello, ma i tronchi no!",
+                    "de": "Austrinken? Die Ponys trinken den Bach, aber nicht die Stämme!"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "The arch needs a frame to rest on while it's being built: wood strong enough to take the weight of every stone. Show me the tree.",
+              "sl": "Lok rabi okvir, na katerem počiva, medtem ko ga gradimo: les, ki prenese težo vseh kamnov. Pokaži mi drevo.",
+              "it": "L'arco ha bisogno di una centina su cui poggiare mentre lo si costruisce: legno che regga il peso di tutte le pietre. Fammi vedere l'albero.",
+              "de": "Der Bogen braucht ein Gerüst, auf dem er ruht, solange er gebaut wird: Holz, das das Gewicht aller Steine trägt. Zeig mir den Baum."
+            },
+            {
+              "choices": [
+                {
+                  "en": "That oak. It's been standing there for two hundred years, so it isn't going to give way now.",
+                  "sl": "Tisti hrast. Tam stoji že dvesto let, zato zdaj ne bo popustil.",
+                  "it": "Quella quercia. Sta lì da duecento anni, quindi non cederà adesso.",
+                  "de": "Die Eiche da. Die steht seit zweihundert Jahren, also gibt sie jetzt nicht nach.",
+                  "ok": true,
+                  "tap": "tree",
+                  "reply": {
+                    "face": "happy",
+                    "en": "Well chosen. Oak bends for nobody.",
+                    "sl": "Dobra izbira. Hrast se ne ukloni nikomur.",
+                    "it": "Ben scelto. La quercia non si piega per nessuno.",
+                    "de": "Gut gewählt. Eiche beugt sich vor niemandem."
+                  }
+                },
+                {
+                  "en": "That boulder. It's been lying there since the ice age, so it isn't going anywhere.",
+                  "sl": "Tisto skalo. Tam leži že od ledene dobe, zato ne bo šla nikamor.",
+                  "it": "Quel masso. È lì dall'era glaciale, quindi non va da nessuna parte.",
+                  "de": "Den Felsbrocken. Der liegt seit der Eiszeit da, der geht nirgends hin.",
+                  "tap": "stone",
+                  "why": {
+                    "sl": "Za okvir rabimo les, ki se ga da posekati in oblikovati: drevo, ne skale.",
+                    "it": "Per la centina serve legno da tagliare e sagomare: un albero, non un masso.",
+                    "de": "Für das Gerüst braucht man Holz, das man fällen und formen kann: einen Baum, keinen Felsbrocken."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Exactly: it isn't going anywhere, and nor will it go into a frame!",
+                    "sl": "Točno: ne bo šla nikamor, tudi v okvir ne!",
+                    "it": "Appunto: non va da nessuna parte, e nemmeno in una centina!",
+                    "de": "Eben: Der geht nirgends hin, auch nicht in ein Gerüst!"
+                  }
+                },
+                {
+                  "en": "The beck. It's been running since the ice age, so it's stronger than any of us.",
+                  "sl": "Potok. Teče že od ledene dobe, zato je močnejši od vseh nas.",
+                  "it": "Il ruscello. Scorre dall'era glaciale, quindi è più forte di tutti noi.",
+                  "de": "Den Bach. Der fließt seit der Eiszeit, der ist stärker als wir alle.",
+                  "tap": "stream",
+                  "why": {
+                    "sl": "Okvir naredimo iz lesa: pokaži drevo, ne vode.",
+                    "it": "La centina si fa di legno: indica un albero, non l'acqua.",
+                    "de": "Das Gerüst macht man aus Holz: Zeig auf einen Baum, nicht aufs Wasser."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Stronger, aye, but try making a frame from that!",
+                    "sl": "Močnejši, ja, ampak poskusi iz njega narediti okvir!",
+                    "it": "Più forte sì, ma prova a farci una centina!",
+                    "de": "Stärker, ja, aber bau mal ein Gerüst daraus!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jack",
+              "en": "The woodcutters have left us four logs. The beck's six metres across: will they do?",
+              "sl": "Drvarji so nam pustili štiri debla. Potok je širok šest metrov: bodo zadoščala?",
+              "it": "I taglialegna ci hanno lasciato quattro tronchi. Il ruscello è largo sei metri: basteranno?",
+              "de": "Die Holzfäller haben uns vier Stämme dagelassen. Der Bach ist sechs Meter breit: reichen die?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "They're long enough, but only just. We'd better not cut a centimetre off.",
+                  "sl": "Dovolj dolga so, ampak komaj. Raje ne odrežimo niti centimetra.",
+                  "it": "Sono abbastanza lunghi, ma appena. Meglio non tagliarne neanche un centimetro.",
+                  "de": "Sie sind lang genug, aber nur knapp. Wir schneiden besser keinen Zentimeter ab.",
+                  "ok": true,
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Only just, eh? Then we measure twice before anybody touches a saw.",
+                    "sl": "Komaj, a? Potem dvakrat izmerimo, preden se kdo dotakne žage.",
+                    "it": "Appena, eh? Allora misuriamo due volte prima che qualcuno tocchi la sega.",
+                    "de": "Nur knapp, was? Dann messen wir zweimal, bevor einer die Säge anfasst."
+                  }
+                },
+                {
+                  "en": "They're low enough, but only just. We'd better not cut a centimetre off.",
+                  "sl": "Dovolj nizka so, ampak komaj. Raje ne odrežimo niti centimetra.",
+                  "it": "Sono abbastanza bassi, ma appena. Meglio non tagliarne neanche un centimetro.",
+                  "de": "Sie sind niedrig genug, aber nur knapp. Wir schneiden besser keinen Zentimeter ab.",
+                  "why": {
+                    "sl": "Long je dolg (od konca do konca); low je nizek.",
+                    "it": "Long vuol dire lungo; low vuol dire basso.",
+                    "de": "Long heißt lang; low heißt niedrig."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "Low enough? They're lying on the ground, mate. They can't get any lower.",
+                    "sl": "Dovolj nizka? Saj ležijo na tleh. Nižje ne morejo.",
+                    "it": "Abbastanza bassi? Sono per terra. Più in basso di così non si può.",
+                    "de": "Niedrig genug? Die liegen auf dem Boden, Kumpel. Tiefer geht's nicht."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Before there were lorries, how do you think logs like these got out of the woods?",
+              "sl": "Kaj misliš, kako so taka debla spravili iz gozda, preden so bili tovornjaki?",
+              "it": "Prima che ci fossero i camion, come pensi che si portassero fuori dal bosco tronchi così?",
+              "de": "Bevor es Lastwagen gab, wie sind solche Stämme wohl aus dem Wald gekommen, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "They'd have been dragged out by horses, I suppose, one log at a time.",
+                  "sl": "Verjetno so jih vlekli konji, deblo za deblom.",
+                  "it": "Immagino che venissero trascinati fuori dai cavalli, un tronco alla volta.",
+                  "de": "Die wurden wohl von Pferden herausgezogen, Stamm für Stamm.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Fell ponies, mostly. Small, but they'd pull a house down if you asked them.",
+                    "sl": "Večinoma fell poniji. Majhni, ampak bi ti podrli hišo, če bi jih {m:prosil|f:prosila}.",
+                    "it": "Pony delle fell, per lo più. Piccoli, ma ti tirerebbero giù una casa se glielo chiedessi.",
+                    "de": "Meistens Fell-Ponys. Klein, aber die ziehen dir ein Haus um, wenn du sie drum bittest."
+                  }
+                },
+                {
+                  "en": "They'd have been dug out by horses, I suppose, one log at a time.",
+                  "sl": "Verjetno so jih izkopali konji, deblo za deblom.",
+                  "it": "Immagino che venissero scavati fuori dai cavalli, un tronco alla volta.",
+                  "de": "Die wurden wohl von Pferden ausgegraben, Stamm für Stamm.",
+                  "why": {
+                    "sl": "Drag (dragged) pomeni vleči po tleh; dig (dug) pomeni kopati.",
+                    "it": "Drag (dragged) vuol dire trascinare; dig (dug) vuol dire scavare.",
+                    "de": "Drag (dragged) heißt schleifen, ziehen; dig (dug) heißt graben."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Dug out? They're logs, {m:lad|f:lass}, not potatoes!",
+                    "sl": "Izkopali? To so debla, ne krompir!",
+                    "it": "Scavati? Sono tronchi, {m:ragazzo|f:ragazza}, non patate!",
+                    "de": "Ausgegraben? Das sind Stämme, {m:Junge|f:Mädchen}, keine Kartoffeln!"
+                  }
+                },
+                {
+                  "en": "They'd have dragged out by horses, I suppose, one log at a time.",
+                  "sl": "Verjetno so jih vlekli konji, deblo za deblom. (have dragged out by)",
+                  "it": "Immagino che venissero trascinati fuori dai cavalli, un tronco alla volta. (have dragged out by)",
+                  "de": "Die wurden wohl von Pferden herausgezogen, Stamm für Stamm. (have dragged out by)",
+                  "grammar": "passive-more",
+                  "why": {
+                    "sl": "V trpniku manjka been: they'd have been dragged out. Brez been bi debla sama nekaj vlekla.",
+                    "it": "Nel passivo manca been: they'd have been dragged out. Senza been sarebbero i tronchi a trascinare.",
+                    "de": "Im Passiv fehlt been: they'd have been dragged out. Ohne been würden die Stämme selbst ziehen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The logs dragged the horses out? That'd be a sight worth seeing!",
+                    "sl": "Debla so vlekla konje? To bi bilo vredno videti!",
+                    "it": "I tronchi trascinavano i cavalli? Sarebbe uno spettacolo da vedere!",
+                    "de": "Die Stämme haben die Pferde gezogen? Das wär ein Anblick!"
+                  }
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -1529,6 +2652,240 @@
               "sl": "Tako. Lok stoji sam. Kamen drži kamen.",
               "it": "Ecco. L'arco sta su da solo. La pietra regge la pietra.",
               "de": "So. Der Bogen steht von allein. Stein hält Stein.",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "The frame's been over the beck for a week. Today the stones go on it, one by one, from both sides. What will they make?",
+              "sl": "Okvir je že teden dni čez potok. Danes gredo nanj kamni, drug za drugim, z obeh strani. Kaj bodo naredili?",
+              "it": "La centina è sopra il ruscello da una settimana. Oggi ci vanno sopra le pietre, una alla volta, dai due lati. Cosa formeranno?",
+              "de": "Das Gerüst steht seit einer Woche über dem Bach. Heute kommen die Steine drauf, einer nach dem anderen, von beiden Seiten. Was wird daraus?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "They'll make an arch, and the last stone in the middle will lock it.",
+                  "sl": "Naredili bodo lok, zadnji kamen na sredini pa ga bo zaklenil.",
+                  "it": "Formeranno un arco, e l'ultima pietra in mezzo lo chiuderà.",
+                  "de": "Sie bilden einen Bogen, und der letzte Stein in der Mitte schließt ihn ab.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "The keystone. That's the one that holds the rest.",
+                    "sl": "Sklepnik. To je tisti, ki drži vse ostale.",
+                    "it": "La chiave di volta. È quella che tiene tutte le altre.",
+                    "de": "Der Schlussstein. Der hält alle anderen."
+                  }
+                },
+                {
+                  "en": "They'll make an arm, and the last stone in the middle will lock it.",
+                  "sl": "Naredili bodo roko, zadnji kamen na sredini pa jo bo zaklenil.",
+                  "it": "Formeranno un braccio, e l'ultima pietra in mezzo lo chiuderà.",
+                  "de": "Sie bilden einen Arm, und der letzte Stein in der Mitte schließt ihn ab.",
+                  "why": {
+                    "sl": "Arch je lok mostu; arm je roka.",
+                    "it": "Arch è l'arco del ponte; arm è il braccio.",
+                    "de": "Arch ist der Bogen der Brücke; arm ist der Arm."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "An arm? Then we'll need a hand and five fingers as well!",
+                    "sl": "Roko? Potem bomo rabili še dlan in pet prstov!",
+                    "it": "Un braccio? Allora ci serviranno anche una mano e cinque dita!",
+                    "de": "Einen Arm? Dann brauchen wir auch noch eine Hand und fünf Finger!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "arthur",
+              "en": "The keystone's in, friend. Do you think it's safe to take the frame away now?",
+              "sl": "Sklepnik je na mestu, {m:prijatelj|f:prijateljica}. Misliš, da lahko zdaj odstranimo okvir?",
+              "it": "La chiave di volta è al suo posto, {m:amico|f:amica}. Pensi che si possa togliere la centina adesso?",
+              "de": "Der Schlussstein ist drin, {m:mein Freund|f:meine Freundin}. Meinst du, wir können das Gerüst jetzt wegnehmen?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, but slowly. If the frame comes away too fast, the arch might shift.",
+                  "sl": "Ja, ampak počasi. Če okvir odstranimo prehitro, se lok lahko premakne.",
+                  "it": "Sì, ma piano. Se la centina viene via troppo in fretta, l'arco potrebbe spostarsi.",
+                  "de": "Ja, aber langsam. Wenn das Gerüst zu schnell wegkommt, könnte sich der Bogen verschieben.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Gently it is. A wedge at a time.",
+                    "sl": "Torej nežno. Zagozdo za zagozdo.",
+                    "it": "Piano, allora. Un cuneo alla volta.",
+                    "de": "Also behutsam. Keil für Keil."
+                  }
+                },
+                {
+                  "en": "Yes, but slowly. If the flame comes away too fast, the arch might shift.",
+                  "sl": "Ja, ampak počasi. Če plamen odstranimo prehitro, se lok lahko premakne.",
+                  "it": "Sì, ma piano. Se la fiamma viene via troppo in fretta, l'arco potrebbe spostarsi.",
+                  "de": "Ja, aber langsam. Wenn die Flamme zu schnell wegkommt, könnte sich der Bogen verschieben.",
+                  "why": {
+                    "sl": "Frame je lesen okvir; flame je plamen.",
+                    "it": "Frame è la centina di legno; flame è la fiamma.",
+                    "de": "Frame ist das Holzgerüst; flame ist die Flamme."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "The flame? There's no fire here, friend. Only wood and stone.",
+                    "sl": "Plamen? Tu ni ognja. Samo les in kamen.",
+                    "it": "La fiamma? Qui non c'è fuoco. Solo legno e pietra.",
+                    "de": "Die Flamme? Hier gibt's kein Feuer. Nur Holz und Stein."
+                  }
+                },
+                {
+                  "en": "Yes, but slowly. If the frame comes away too fast, the arch might to shift.",
+                  "sl": "Ja, ampak počasi. Če okvir odstranimo prehitro, se lok lahko premakne. (might to shift)",
+                  "it": "Sì, ma piano. Se la centina viene via troppo in fretta, l'arco potrebbe spostarsi. (might to shift)",
+                  "de": "Ja, aber langsam. Wenn das Gerüst zu schnell wegkommt, könnte sich der Bogen verschieben. (might to shift)",
+                  "grammar": "might-must",
+                  "why": {
+                    "sl": "Po might pride glagol brez to: might shift, ne might to shift.",
+                    "it": "Dopo might il verbo va senza to: might shift, non might to shift.",
+                    "de": "Nach might steht das Verb ohne to: might shift, nicht might to shift."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Might to shift? Hm … slowly, friend. Like the frame.",
+                    "sl": "Might to shift? Hm … počasi. Kot okvir.",
+                    "it": "Might to shift? Mh … piano. Come la centina.",
+                    "de": "Might to shift? Hm … langsam. Wie das Gerüst."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "There. The frame's gone, and the arch stands on its own. Stone holds stone.",
+              "sl": "Tako. Okvirja ni več, lok pa stoji sam. Kamen drži kamen.",
+              "it": "Ecco. La centina non c'è più, e l'arco sta in piedi da solo. Pietra regge pietra.",
+              "de": "So. Das Gerüst ist weg, und der Bogen steht von allein. Stein hält Stein.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "The frame's done its job for a week. Today the stones go on, from both banks towards the middle. What are we building, strictly speaking?",
+              "sl": "Okvir je en teden opravljal svoje delo. Danes gredo kamni gor, z obeh bregov proti sredini. Kaj pravzaprav gradimo?",
+              "it": "La centina ha fatto il suo lavoro per una settimana. Oggi si posano le pietre, dalle due rive verso il centro. Che cosa costruiamo, a rigore?",
+              "de": "Das Gerüst hat eine Woche seinen Dienst getan. Heute kommen die Steine drauf, von beiden Ufern zur Mitte hin. Was bauen wir genau genommen?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "A stone arch, which will hold itself up once the keystone has been set in the middle.",
+                  "sl": "Kamnit lok, ki se bo držal sam, ko bo sklepnik postavljen na sredino.",
+                  "it": "Un arco di pietra, che si reggerà da solo una volta posata la chiave di volta al centro.",
+                  "de": "Einen Steinbogen, der sich selbst trägt, sobald der Schlussstein in der Mitte gesetzt ist.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Exactly. Every stone pushes on the next, and none of them can fall.",
+                    "sl": "Natanko. Vsak kamen pritiska na naslednjega in nobeden ne more pasti.",
+                    "it": "Esatto. Ogni pietra spinge sulla successiva, e nessuna può cadere.",
+                    "de": "Genau. Jeder Stein drückt auf den nächsten, und keiner kann fallen."
+                  }
+                },
+                {
+                  "en": "A stone march, which will hold itself up once the keystone has been set in the middle.",
+                  "sl": "Kamnit pohod, ki se bo držal sam, ko bo sklepnik postavljen na sredino.",
+                  "it": "Una marcia di pietra, che si reggerà da sola una volta posata la chiave di volta al centro.",
+                  "de": "Einen Steinmarsch, der sich selbst trägt, sobald der Schlussstein in der Mitte gesetzt ist.",
+                  "why": {
+                    "sl": "Arch je lok; march je pohod ali mesec marec.",
+                    "it": "Arch è l'arco; march è la marcia, o il mese di marzo.",
+                    "de": "Arch ist der Bogen; march ist ein Marsch oder der Monat März."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A stone march? Like soldiers made of slate? I'd pay to see that.",
+                    "sl": "Kamnit pohod? Kot vojaki iz skrilavca? Za to bi plačal.",
+                    "it": "Una marcia di pietra? Come soldati d'ardesia? Pagherei per vederla.",
+                    "de": "Ein Steinmarsch? Wie Soldaten aus Schiefer? Dafür würd ich zahlen."
+                  }
+                },
+                {
+                  "en": "A stone arch, which will hold itself up once the keystone has set in the middle.",
+                  "sl": "Kamnit lok, ki se bo držal sam, ko bo sklepnik postavljen na sredino. (has set)",
+                  "it": "Un arco di pietra, che si reggerà da solo una volta posata la chiave di volta al centro. (has set)",
+                  "de": "Einen Steinbogen, der sich selbst trägt, sobald der Schlussstein in der Mitte gesetzt ist. (has set)",
+                  "grammar": "passive",
+                  "why": {
+                    "sl": "V trpniku manjka been: once the keystone has been set. Has set bi pomenilo, da je sklepnik sam nekaj postavil.",
+                    "it": "Nel passivo manca been: once the keystone has been set. Has set vorrebbe dire che la chiave di volta ha posato qualcosa.",
+                    "de": "Im Passiv fehlt been: once the keystone has been set. Has set hieße, der Schlussstein hätte selbst etwas gesetzt."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Has set? Like a jelly? It's a stone, {m:lad|f:lass}. It's set already.",
+                    "sl": "Has set? Kot žele? To je kamen, ta je že trden.",
+                    "it": "Has set? Come una gelatina? È una pietra, è già bella solida.",
+                    "de": "Has set? Wie Wackelpudding? Das ist ein Stein, {m:Junge|f:Mädchen}, der ist schon fest."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "arthur",
+              "en": "The keystone's in, friend. The question is whether we dare take the frame away.",
+              "sl": "Sklepnik je na mestu, {m:prijatelj|f:prijateljica}. Vprašanje je, ali si upamo odstraniti okvir.",
+              "it": "La chiave di volta è dentro, {m:amico|f:amica}. La domanda è se osiamo togliere la centina.",
+              "de": "Der Schlussstein ist drin, {m:mein Freund|f:meine Freundin}. Die Frage ist, ob wir uns trauen, das Gerüst wegzunehmen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "We'd better ease the frame out a little at a time, so that the arch settles slowly.",
+                  "sl": "Raje okvir izvlecimo malo po malo, da se lok počasi usede.",
+                  "it": "Meglio togliere la centina un poco alla volta, così l'arco si assesta piano.",
+                  "de": "Wir lassen das Gerüst besser nach und nach ab, damit sich der Bogen langsam setzt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "A little at a time. That's how everything good is done.",
+                    "sl": "Malo po malo. Tako se naredi vse, kar je dobro.",
+                    "it": "Poco alla volta. Così si fa tutto ciò che è buono.",
+                    "de": "Nach und nach. So wird alles Gute gemacht."
+                  }
+                },
+                {
+                  "en": "We'd better ease the flame out a little at a time, so that the arch settles slowly.",
+                  "sl": "Raje plamen izvlecimo malo po malo, da se lok počasi usede.",
+                  "it": "Meglio togliere la fiamma un poco alla volta, così l'arco si assesta piano.",
+                  "de": "Wir lassen die Flamme besser nach und nach ab, damit sich der Bogen langsam setzt.",
+                  "why": {
+                    "sl": "Frame je lesen okvir pod lokom; flame je plamen.",
+                    "it": "Frame è la centina sotto l'arco; flame è la fiamma.",
+                    "de": "Frame ist das Holzgerüst unter dem Bogen; flame ist die Flamme."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "Ease the flame out? There's no fire under there, friend, only oak.",
+                    "sl": "Izvleči plamen? Spodaj ni ognja, samo hrast.",
+                    "it": "Togliere la fiamma? Lì sotto non c'è fuoco, solo quercia.",
+                    "de": "Die Flamme ablassen? Da unten ist kein Feuer, nur Eiche."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Frame out, and not a stone has moved. Two hundred years from now, that arch will still be standing.",
+              "sl": "Okvir je ven, in niti en kamen se ni premaknil. Čez dvesto let bo ta lok še vedno stal.",
+              "it": "Centina via, e non si è mossa una pietra. Fra duecento anni quell'arco sarà ancora in piedi.",
+              "de": "Gerüst raus, und kein Stein hat sich bewegt. In zweihundert Jahren steht dieser Bogen noch.",
               "done": true
             }
           ]
@@ -1795,6 +3152,242 @@
               "sl": "Tristo let bo stal ta most. Zapomni si moje besede.",
               "it": "Trecento anni starà in piedi questo ponte. Ricordati le mie parole.",
               "de": "Dreihundert Jahre steht diese Brücke. Merk dir meine Worte."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "The parapets are on and the mortar's dry. Is it ready for its first packhorse, do you think?",
+              "sl": "Ograja je gor in malta suha. Je pripravljen za prvega tovornega konja, kaj misliš?",
+              "it": "I parapetti sono su e la malta è asciutta. È pronto per il primo cavallo da soma, che ne dici?",
+              "de": "Die Brüstungen sind drauf, und der Mörtel ist trocken. Ist sie bereit für ihr erstes Packpferd, was meinst du?",
+              "fx": { "cart": 0 }
+            },
+            {
+              "choices": [
+                {
+                  "en": "It's ready, Mr Tyson. It's been tested with every cart in the village.",
+                  "sl": "Pripravljen je, gospod Tyson. Preizkušen je bil z vsemi vozovi v vasi.",
+                  "it": "È pronto, signor Tyson. È stato provato con tutti i carri del paese.",
+                  "de": "Sie ist bereit, Mr Tyson. Sie ist mit jedem Wagen im Dorf getestet worden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Then let's have the pony over.",
+                    "sl": "Potem pa naj gre poni čez.",
+                    "it": "Allora facciamo passare il pony.",
+                    "de": "Dann lassen wir das Pony rüber."
+                  }
+                },
+                {
+                  "en": "It's rainy, Mr Tyson. It's been tested with every cart in the village.",
+                  "sl": "Deževen je, gospod Tyson. Preizkušen je bil z vsemi vozovi v vasi.",
+                  "it": "È piovoso, signor Tyson. È stato provato con tutti i carri del paese.",
+                  "de": "Sie ist regnerisch, Mr Tyson. Sie ist mit jedem Wagen im Dorf getestet worden.",
+                  "why": {
+                    "sl": "Ready pomeni pripravljen; rainy pomeni deževen.",
+                    "it": "Ready vuol dire pronto; rainy vuol dire piovoso.",
+                    "de": "Ready heißt bereit, fertig; rainy heißt regnerisch."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Rainy? It's Cumbria, {m:lad|f:lass}. Everything's rainy. That's not what I asked.",
+                    "sl": "Deževen? To je Cumbria. Tu je vse deževno. Nisem tega vprašal.",
+                    "it": "Piovoso? Siamo in Cumbria, {m:ragazzo|f:ragazza}. Qui è tutto piovoso. Non ti ho chiesto questo.",
+                    "de": "Regnerisch? Das ist Cumbria, {m:Junge|f:Mädchen}. Hier ist alles regnerisch. Das hab ich nicht gefragt."
+                  }
+                },
+                {
+                  "en": "It's ready, Mr Tyson. It's been test with every cart in the village.",
+                  "sl": "Pripravljen je, gospod Tyson. Preizkušen je bil z vsemi vozovi v vasi. (been test)",
+                  "it": "È pronto, signor Tyson. È stato provato con tutti i carri del paese. (been test)",
+                  "de": "Sie ist bereit, Mr Tyson. Sie ist mit jedem Wagen im Dorf getestet worden. (been test)",
+                  "grammar": "passive",
+                  "why": {
+                    "sl": "V trpniku pride pretekli deležnik: it's been tested, ne been test.",
+                    "it": "Nel passivo ci vuole il participio passato: it's been tested, non been test.",
+                    "de": "Im Passiv steht das Partizip Perfekt: it's been tested, nicht been test."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Been test? Say again. Slowly, and with all the letters.",
+                    "sl": "Been test? Še enkrat. Počasi, z vsemi črkami.",
+                    "it": "Been test? Ripeti. Piano, con tutte le lettere.",
+                    "de": "Been test? Noch mal. Langsam, mit allen Buchstaben."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "dixon",
+              "en": "Over and safe, hooves and all. Did you hear the village when the pony reached the far side?",
+              "sl": "Čez in na varnem, s kopiti vred. Si {m:slišal|f:slišala} vas, ko je poni prišel na drugo stran?",
+              "it": "Passato e al sicuro, zoccoli e tutto. Hai sentito il paese quando il pony è arrivato dall'altra parte?",
+              "de": "Drüben und heil, mit Hufen und allem. Hast du das Dorf gehört, als das Pony drüben ankam?",
+              "fx": { "cart": 1 }
+            },
+            {
+              "choices": [
+                {
+                  "en": "I did! Everyone cheered so loudly that the ducks flew off the beck.",
+                  "sl": "Sem! Vsi so tako glasno vzklikali, da so race odletele s potoka.",
+                  "it": "Sì! Tutti hanno esultato così forte che le anatre sono volate via dal ruscello.",
+                  "de": "Ja! Alle haben so laut gejubelt, dass die Enten vom Bach weggeflogen sind.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye. Loud enough to hear in Keswick.",
+                    "sl": "Aye. Tako glasno, da se je slišalo do Keswicka.",
+                    "it": "Aye. Così forte che si è sentito fino a Keswick.",
+                    "de": "Aye. So laut, dass man's bis Keswick gehört hat."
+                  }
+                },
+                {
+                  "en": "I did! Everyone cheated so loudly that the ducks flew off the beck.",
+                  "sl": "Sem! Vsi so tako glasno goljufali, da so race odletele s potoka.",
+                  "it": "Sì! Tutti hanno imbrogliato così forte che le anatre sono volate via dal ruscello.",
+                  "de": "Ja! Alle haben so laut geschummelt, dass die Enten vom Bach weggeflogen sind.",
+                  "why": {
+                    "sl": "Cheer pomeni vzklikati od veselja; cheat pomeni goljufati.",
+                    "it": "Cheer vuol dire esultare; cheat vuol dire imbrogliare.",
+                    "de": "Cheer heißt jubeln; cheat heißt schummeln, betrügen."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "en": "Cheated? Nobody cheated. It's a bridge, not a card game.",
+                    "sl": "Goljufali? Nihče ni goljufal. To je most, ne igra s kartami.",
+                    "it": "Imbrogliato? Nessuno ha imbrogliato. È un ponte, non una partita a carte.",
+                    "de": "Geschummelt? Keiner hat geschummelt. Das ist eine Brücke, kein Kartenspiel."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Three hundred years, this bridge will stand. Mark my words, and write them down.",
+              "sl": "Tristo let bo stal ta most. Zapomnite si moje besede in jih zapišite.",
+              "it": "Trecento anni starà in piedi questo ponte. Ricordatevi le mie parole, e scrivetele.",
+              "de": "Dreihundert Jahre wird diese Brücke stehen. Merkt euch meine Worte, und schreibt sie auf."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "en": "Parapets on, mortar dry, and I've checked every stone twice. Would you say she's ready for the first packhorse?",
+              "sl": "Ograja je gor, malta suha, in vsak kamen sem dvakrat preveril. Kaj praviš, je pripravljen za prvega tovornega konja?",
+              "it": "Parapetti su, malta asciutta, e ho controllato ogni pietra due volte. Diresti che è pronto per il primo cavallo da soma?",
+              "de": "Brüstung drauf, Mörtel trocken, und ich hab jeden Stein zweimal geprüft. Würdest du sagen, sie ist bereit für das erste Packpferd?",
+              "fx": { "cart": 0 }
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'd say it's as ready as it'll ever be, Mr Tyson. If it weren't, you wouldn't have let us near it.",
+                  "sl": "{m:Rekel|f:Rekla} bi, da je bolj pripravljen ne bo nikoli, gospod Tyson. Če ne bi bil, nas ne bi pustili blizu.",
+                  "it": "Direi che più pronto di così non sarà mai, signor Tyson. Se non lo fosse, non ci avrebbe lasciati avvicinare.",
+                  "de": "Ich würde sagen, bereiter wird sie nie sein, Mr Tyson. Wäre sie's nicht, hätten Sie uns nicht rangelassen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "True enough. Bring the pony.",
+                    "sl": "Res je. Pripeljite ponija.",
+                    "it": "Vero. Portate il pony.",
+                    "de": "Stimmt. Bringt das Pony."
+                  }
+                },
+                {
+                  "en": "I'd say it's as rusty as it'll ever be, Mr Tyson. If it weren't, you wouldn't have let us near it.",
+                  "sl": "{m:Rekel|f:Rekla} bi, da je bolj zarjavel ne bo nikoli, gospod Tyson. Če ne bi bil, nas ne bi pustili blizu.",
+                  "it": "Direi che più arrugginito di così non sarà mai, signor Tyson. Se non lo fosse, non ci avrebbe lasciati avvicinare.",
+                  "de": "Ich würde sagen, rostiger wird sie nie sein, Mr Tyson. Wäre sie's nicht, hätten Sie uns nicht rangelassen.",
+                  "why": {
+                    "sl": "Ready pomeni pripravljen; rusty pomeni zarjavel, in kamniti most ne rjavi.",
+                    "it": "Ready vuol dire pronto; rusty vuol dire arrugginito, e un ponte di pietra non arrugginisce.",
+                    "de": "Ready heißt bereit; rusty heißt rostig, und eine Steinbrücke rostet nicht."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "en": "Rusty? There's not a scrap of iron in her, {m:lad|f:lass}. Slate and oak, that's all.",
+                    "sl": "Zarjavel? V njem ni niti koščka železa. Samo skrilavec in hrast.",
+                    "it": "Arrugginito? Non c'è un pezzetto di ferro, {m:ragazzo|f:ragazza}. Solo ardesia e quercia.",
+                    "de": "Rostig? Da ist kein Stückchen Eisen dran, {m:Junge|f:Mädchen}. Nur Schiefer und Eiche."
+                  }
+                },
+                {
+                  "en": "I'd say it's as ready as it'll ever be, Mr Tyson. If it weren't, you won't have let us near it.",
+                  "sl": "{m:Rekel|f:Rekla} bi, da je bolj pripravljen ne bo nikoli, gospod Tyson. Če ne bi bil, nas ne bi pustili blizu. (won't have)",
+                  "it": "Direi che più pronto di così non sarà mai, signor Tyson. Se non lo fosse, non ci avrebbe lasciati avvicinare. (won't have)",
+                  "de": "Ich würde sagen, bereiter wird sie nie sein, Mr Tyson. Wäre sie's nicht, hätten Sie uns nicht rangelassen. (won't have)",
+                  "grammar": "mixed-conditionals",
+                  "why": {
+                    "sl": "Za nekaj, kar ni res: if it weren't …, you wouldn't have let us …, ne won't have.",
+                    "it": "Per qualcosa che non è vero: if it weren't …, you wouldn't have let us …, non won't have.",
+                    "de": "Für etwas, das nicht so ist: if it weren't …, you wouldn't have let us …, nicht won't have."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "en": "Won't have let you? I've let you already, {m:lad|f:lass}. Look where you're standing.",
+                    "sl": "Won't have let you? Saj sem vas že pustil. Poglej, kje stojiš.",
+                    "it": "Won't have let you? Vi ho già lasciati, {m:ragazzo|f:ragazza}. Guarda dove sei.",
+                    "de": "Won't have let you? Ich hab euch schon rangelassen, {m:Junge|f:Mädchen}. Schau, wo du stehst."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "dixon",
+              "en": "Over, and not a stone shifted. You must have heard the noise when the pony stepped off the far side.",
+              "sl": "Čez je, in niti en kamen se ni premaknil. Gotovo si {m:slišal|f:slišala} hrup, ko je poni stopil na drugi breg.",
+              "it": "Passato, e non si è spostata una pietra. Devi aver sentito il chiasso quando il pony è sceso dall'altra parte.",
+              "de": "Drüben, und kein Stein hat sich bewegt. Du musst den Lärm gehört haben, als das Pony drüben runtergetreten ist.",
+              "fx": { "cart": 1 }
+            },
+            {
+              "choices": [
+                {
+                  "en": "Who could have missed it? The whole village cheered as if Carlisle had won the cup.",
+                  "sl": "Kdo bi ga lahko preslišal? Vsa vas je vzklikala, kot da bi Carlisle osvojil pokal.",
+                  "it": "Chi poteva non sentirlo? Tutto il paese ha esultato come se il Carlisle avesse vinto la coppa.",
+                  "de": "Wer hätte das überhören können? Das ganze Dorf hat gejubelt, als hätte Carlisle den Pokal gewonnen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye. Loud enough to hear in Keswick.",
+                    "sl": "Aye. Tako glasno, da se je slišalo do Keswicka.",
+                    "it": "Aye. Così forte che si è sentito fino a Keswick.",
+                    "de": "Aye. So laut, dass man's bis Keswick gehört hat."
+                  }
+                },
+                {
+                  "en": "Who could have missed it? The whole village chewed as if Carlisle had won the cup.",
+                  "sl": "Kdo bi ga lahko preslišal? Vsa vas je žvečila, kot da bi Carlisle osvojil pokal.",
+                  "it": "Chi poteva non sentirlo? Tutto il paese ha masticato come se il Carlisle avesse vinto la coppa.",
+                  "de": "Wer hätte das überhören können? Das ganze Dorf hat gekaut, als hätte Carlisle den Pokal gewonnen.",
+                  "why": {
+                    "sl": "Cheer pomeni vzklikati od veselja; chew pomeni žvečiti.",
+                    "it": "Cheer vuol dire esultare; chew vuol dire masticare.",
+                    "de": "Cheer heißt jubeln; chew heißt kauen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Chewed? Well, there was cake. But that wasn't the noise.",
+                    "sl": "Žvečila? No, torta je bila. Ampak to ni bil tisti hrup.",
+                    "it": "Masticato? Beh, c'era la torta. Ma non era quello il rumore.",
+                    "de": "Gekaut? Na ja, es gab Kuchen. Aber das war nicht der Lärm."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Three hundred years, this bridge will stand, long after my notebook's been forgotten.",
+              "sl": "Tristo let bo stal ta most, še dolgo potem, ko bo moja beležka pozabljena.",
+              "it": "Trecento anni starà in piedi questo ponte, molto dopo che il mio taccuino sarà dimenticato.",
+              "de": "Dreihundert Jahre wird diese Brücke stehen, lange nachdem mein Notizbuch vergessen ist."
             }
           ]
         }

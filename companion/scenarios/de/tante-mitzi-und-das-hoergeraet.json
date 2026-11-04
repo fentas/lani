@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "tante-mitzi-und-das-hoergeraet",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Tante Mitzi und das Hörgerät", "sl": "Teta Mitzi in slušni aparat", "en": "Auntie Mitzi and the hearing aid", "it": "La zia Mitzi e l'apparecchio acustico" },
+  "emoji": "👂",
+  "level": "B1",
+  "setting": {
+    "sl": "Teta Mitzi je v Beljaku dobila slušni aparat, a ga ne nosi: piska, srbi jo in zaradi njega se počuti staro. Zdaj posluša radio na vso moč in po telefonu nikogar ne razume. Obiščeš jo in ji svetuješ.",
+    "en": "Auntie Mitzi got a hearing aid in Villach, but she won't wear it: it whistles, it itches and it makes her feel old. Now her radio is on full blast and she can't understand anyone on the phone. You visit her and give her some advice.",
+    "it": "La zia Mitzi ha preso un apparecchio acustico a Villaco, ma non lo porta: fischia, le dà prurito e la fa sentire vecchia. Adesso ascolta la radio a tutto volume e al telefono non capisce nessuno. Vai a trovarla e le dai qualche consiglio."
+  },
+  "role": "Tante Mitzi, seventy-four, the village gossip with her little radio. She has a new hearing aid and won't wear it: it whistles, it itches, and she isn't old. Doubts each piece of advice once ('Wie bitte?', 'Ich bin doch nicht schwerhörig!'), then gives in to a good one. Says du to {learner}.",
+  "who": { "de": "Eine Tante aus dem Dorf", "sl": "Teta iz vasi", "en": "An aunt of the village", "it": "Una zia del paese" },
+  "voice": "female",
+  "speaker": "grandma",
+  "goals": [
+    { "de": "Frag, warum sie das Hörgerät nicht trägt", "sl": "Vprašaj, zakaj ne nosi slušnega aparata", "en": "Ask why she doesn't wear the hearing aid", "it": "Chiedile perché non porta l'apparecchio" },
+    { "de": "Gib ihr mindestens zwei Ratschläge", "sl": "Daj ji vsaj dva nasveta", "en": "Give her at least two pieces of advice", "it": "Dalle almeno due consigli" },
+    { "de": "Beruhige sie, wenn sie zweifelt", "sl": "Pomiri jo, ko dvomi", "en": "Reassure her when she has doubts", "it": "Rassicurala quando ha dei dubbi" },
+    { "de": "Sag, was besser wird, wenn sie es trägt", "sl": "Povej, kaj bo boljše, če ga bo nosila", "en": "Say what will get better if she wears it", "it": "Dille che cosa migliorerà se lo porta" },
+    { "de": "Mach ihr Mut", "sl": "Opogumi jo", "en": "Encourage her", "it": "Incoraggiala" }
+  ],
+  "opener_sl": "Ah, du bist's! Setz dich. Was schaust du so? Das Hörgerät? Das liegt in der Lade. Das pfeift mir nur in den Ohren!",
+  "opener_en": {
+    "sl": "A, ti si! Sedi. Kaj me tako gledaš? Slušni aparat? Ta je v predalu. Samo piska mi v ušesih!",
+    "en": "Ah, it's you! Sit down. Why are you looking at me like that? The hearing aid? It's in the drawer. It only whistles in my ears!",
+    "it": "Ah, sei tu! Siediti. Perché mi guardi così? L'apparecchio? È nel cassetto. Mi fischia solo nelle orecchie!"
+  },
+  "vocabulary_hints": [
+    { "sl": "Warum trägst du das Hörgerät nicht?", "en": { "sl": "Zakaj ne nosiš slušnega aparata?", "en": "Why don't you wear the hearing aid?", "it": "Perché non porti l'apparecchio acustico?" } },
+    { "sl": "Am Anfang ist das ganz normal.", "en": { "sl": "Na začetku je to čisto normalno.", "en": "That's quite normal at the start.", "it": "All'inizio è del tutto normale." } },
+    { "sl": "An deiner Stelle würde ich es jeden Tag ein bisschen tragen.", "en": { "sl": "Na tvojem mestu bi ga {m:nosil|f:nosila} vsak dan malo.", "en": "If I were you, I'd wear it a little every day.", "it": "Al posto tuo lo porterei un po' ogni giorno." } },
+    { "sl": "Du könntest noch einmal zum Akustiker gehen.", "en": { "sl": "Lahko bi še enkrat šla tja, kjer si ga dobila.", "en": "You could go back to the hearing-aid shop.", "it": "Potresti tornare dall'audioprotesista." } },
+    { "sl": "Der kann es so einstellen, dass es nicht pfeift.", "en": { "sl": "Tam ga lahko nastavijo tako, da ne bo piskal.", "en": "They can set it so that it doesn't whistle.", "it": "Lì possono regolarlo in modo che non fischi." } },
+    { "sl": "Warum probierst du es nicht zuerst zu Hause?", "en": { "sl": "Zakaj ga ne poskusiš najprej doma?", "en": "Why don't you try it at home first?", "it": "Perché non lo provi prima a casa?" } },
+    { "sl": "Dann verstehst du auch am Telefon alles.", "en": { "sl": "Potem boš tudi po telefonu vse razumela.", "en": "Then you'll understand everything on the phone too.", "it": "Così capirai tutto anche al telefono." } },
+    { "sl": "Das sieht man fast gar nicht.", "en": { "sl": "Skoraj se ga ne vidi.", "en": "You can hardly see it.", "it": "Non si vede quasi per niente." } },
+    { "sl": "Versprichst du mir, dass du es probierst?", "en": { "sl": "Mi obljubiš, da ga boš poskusila?", "en": "Will you promise me you'll try it?", "it": "Mi prometti che lo provi?" } }
+  ],
+  "packs": ["familie", "in-der-stube", "haus-und-kueche", "gruesse", "gefuehle", "alter-und-pflege"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

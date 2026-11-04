@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "die-reklamation",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Die Reklamation", "sl": "Reklamacija", "en": "The complaint", "it": "Il reclamo" },
+  "emoji": "🧥",
+  "level": "B1",
+  "setting": {
+    "sl": "Pred dvema tednoma si v športni trgovini v Beljaku {m:kupil|f:kupila} drago nepremočljivo jakno. Ob prvem dežju na Dobraču si {m:bil premočen|f:bila premočena} do kože. Z jakno in računom (v Avstriji: der Kassabon) greš nazaj v trgovino.",
+    "en": "Two weeks ago you bought an expensive waterproof jacket at a sports shop in Villach. In the first rain on the Dobratsch you got soaked to the skin. You take the jacket and the receipt (in Austria, the Kassabon) back to the shop.",
+    "it": "Due settimane fa hai comprato una giacca impermeabile costosa in un negozio sportivo di Villaco. Alla prima pioggia sul Dobratsch ti sei {m:bagnato|f:bagnata} fino alle ossa. Riporti al negozio la giacca e lo scontrino (in Austria il Kassabon)."
+  },
+  "role": "Herr Kraßnig, a shop assistant at a sports shop in Villach. Polite but by the book: asks for the Kassabon and what exactly happened, first offers to send the jacket to the maker to be checked (three weeks), agrees to an exchange or a refund if {learner} insists politely. Says Sie.",
+  "who": { "de": "Der Verkäufer", "sl": "Prodajalec", "en": "The shop assistant", "it": "Il commesso" },
+  "voice": "male",
+  "speaker": "young-man",
+  "place": "square",
+  "goals": [
+    { "de": "Sag, was mit der Jacke nicht stimmt", "sl": "Povej, kaj je narobe z jakno", "en": "Say what is wrong with the jacket", "it": "Di' che cosa non va nella giacca" },
+    { "de": "Erzähl, wann du sie gekauft hast und was passiert ist", "sl": "Povej, kdaj si jo {m:kupil|f:kupila} in kaj se je zgodilo", "en": "Say when you bought it and what happened", "it": "Racconta quando l'hai comprata e che cosa è successo" },
+    { "de": "Sag, was du möchtest: umtauschen oder das Geld zurück", "sl": "Povej, kaj želiš: zamenjavo ali vračilo denarja", "en": "Say what you want: an exchange or your money back", "it": "Di' che cosa vuoi: il cambio o il rimborso" },
+    { "de": "Bleib höflich, aber hartnäckig, wenn er sie einschicken will", "sl": "Vljudno vztrajaj, ko jo hoče poslati na pregled", "en": "Politely insist when he wants to send it away", "it": "Insisti con gentilezza quando vuole spedirla al produttore" },
+    { "de": "Einigt euch und bedank dich", "sl": "Dogovorita se in se zahvali", "en": "Come to an agreement and thank him", "it": "Mettetevi d'accordo e ringrazialo" }
+  ],
+  "opener_sl": "Grüß Gott! Sie haben die Jacke wieder mitgebracht. Stimmt etwas nicht damit?",
+  "opener_en": {
+    "sl": "Dober dan! Jakno ste prinesli nazaj. Je kaj narobe z njo?",
+    "en": "Good morning! You've brought the jacket back. Is something wrong with it?",
+    "it": "Buongiorno! Ha riportato la giacca. C'è qualcosa che non va?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ich habe die Jacke vor zwei Wochen bei Ihnen gekauft.", "en": { "sl": "Jakno sem pred dvema tednoma {m:kupil|f:kupila} pri vas.", "en": "I bought the jacket from you two weeks ago.", "it": "Ho comprato la giacca da voi due settimane fa." } },
+    { "sl": "Beim ersten Regen bin ich ganz nass geworden.", "en": { "sl": "Ob prvem dežju sem {m:bil čisto moker|f:bila čisto mokra}.", "en": "In the first rain I got wet through.", "it": "Alla prima pioggia mi sono {m:bagnato tutto|f:bagnata tutta}." } },
+    { "sl": "Die Jacke ist nicht wasserdicht.", "en": { "sl": "Jakna ne drži vode.", "en": "The jacket isn't waterproof.", "it": "La giacca non è impermeabile." } },
+    { "sl": "Hier ist der Kassabon.", "en": { "sl": "Tukaj je račun.", "en": "Here's the receipt.", "it": "Ecco lo scontrino." } },
+    { "sl": "Ich hätte lieber eine neue Jacke.", "en": { "sl": "Raje bi {m:imel|f:imela} novo jakno.", "en": "I'd rather have a new jacket.", "it": "Preferirei una giacca nuova." } },
+    { "sl": "Können Sie mir das Geld zurückgeben?", "en": { "sl": "Mi lahko vrnete denar?", "en": "Can you give me my money back?", "it": "Mi può restituire i soldi?" } },
+    { "sl": "Drei Wochen sind zu lang, ich brauche sie nächste Woche.", "en": { "sl": "Tri tedne je predolgo, jakno potrebujem naslednji teden.", "en": "Three weeks is too long, I need it next week.", "it": "Tre settimane sono troppe, mi serve la settimana prossima." } },
+    { "sl": "Gut, einverstanden. Danke für Ihre Hilfe.", "en": { "sl": "Dobro, se strinjam. Hvala za pomoč.", "en": "All right, agreed. Thank you for your help.", "it": "Va bene, d'accordo. Grazie dell'aiuto." } }
+  ],
+  "packs": ["im-dorf", "wetter-und-garten", "zahlen-und-uhrzeit", "gruesse", "kleidung", "einkaufen"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

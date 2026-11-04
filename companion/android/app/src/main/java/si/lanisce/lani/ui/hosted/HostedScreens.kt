@@ -222,6 +222,8 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
                         for (l in HostedAnswers.LEVELS) FilterChip(level == l, { level = l }, { Text(l) }, colors = chipColors)
                     }
                     Text(bi("hosted.levelWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
+                    // 🧭 the placement test once the village is founded (off by default), from the level just chosen
+                    si.lanisce.lani.ui.setup.PlacementChoice(vm, child, chipColors, muted = muted) { Label(it) }
                     // 🎯 the aim: where the village's ages lead (B2 by default; only above the level)
                     Label("🎯 ${bi("setup.aim")}")
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

@@ -5,7 +5,7 @@
   "title": { "it": "L'albero della cuccagna", "sl": "Drog z nagradami", "en": "The greasy pole", "de": "Der Klettermast" },
   "emoji": "🌲",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too; B1, B2 variants too",
   "art": "square",
   "from": ["project:mlaj"],
   "pack": "la-cuccagna",
@@ -52,7 +52,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "mattina",
-      "dialogs": ["mattina-vento", "mattina"],
+      "dialogs": ["mattina-b2-ultimo", "mattina-b1-premi", "mattina-vento", "mattina"],
       "reward": { "wood": 15},
       "marker": "🧼",
       "memory": { "it": "la mattina che abbiamo unto il palo", "sl": "jutro, ko sva mazala drog", "en": "the morning we greased the pole", "de": "den Morgen, an dem wir den Mast eingeschmiert haben" }
@@ -102,7 +102,7 @@
       "weekdays": [1, 2, 3, 4, 5],
       "chance": 0.5,
       "dialog": "merenda",
-      "dialogs": ["merenda-gubana", "merenda"],
+      "dialogs": ["merenda-b2-cividale", "merenda-b1-gubana", "merenda-gubana", "merenda"],
       "reward": { "food": 20},
       "marker": "🧀",
       "memory": { "it": "il frico per i ragazzi della cuccagna", "sl": "frico za fante pri drogu", "en": "the frico for the boys at the greasy pole", "de": "den Frico für die Jungs am Klettermast" }
@@ -951,6 +951,106 @@
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         },
         { "who": "rosa", "face": "happy", "it": "E adesso andiamo a vedere chi sale sull'albero!", "sl": "Zdaj pa pojdiva pogledat, kdo bo splezal na drog!", "en": "And now let's go and see who climbs the pole!", "de": "Und jetzt schauen wir, wer auf den Mast klettert!" }
+      ]
+    },
+    {
+      "id": "mattina-b1-premi",
+      "level": "B1",
+      "memory": { "it": "i premi in cima all'albero della cuccagna", "sl": "nagrade na vrhu mlaja", "en": "the prizes at the top of the greasy pole", "de": "die Preise oben am Klettermast" },
+      "lines": [
+        { "who": "davide", "it": "Buongiorno, {learner}! Stamattina ungo il palo con il sapone, così domani alla festa scivolerà tantissimo!", "sl": "Dobro jutro, {learner}! Zjutraj mažem drog z milom, da bo jutri na prazniku zelo drsel!", "en": "Good morning, {learner}! This morning I'm greasing the pole with soap, so tomorrow at the feast it'll be super slippery!", "de": "Guten Morgen, {learner}! Heute früh schmiere ich den Mast mit Seife ein, damit er morgen beim Fest richtig rutschig ist!" },
+        { "who": "davide", "face": "curious", "it": "In cima ci sono i premi: un salame, un formaggio e un pallone. Se tu arrivassi in cima, quale premio sceglieresti?", "sl": "Na vrhu so nagrade: salama, sir in žoga. Če bi ti {m:prišel|f:prišla} na vrh, katero nagrado bi {m:izbral|f:izbrala}?", "en": "At the top are the prizes: a salami, a cheese and a football. If you got to the top, which prize would you choose?", "de": "Oben hängen die Preise: eine Salami, ein Käse und ein Fußball. Wenn du oben ankämst, welchen Preis würdest du wählen?" },
+        { "choices": [
+          { "it": "Prenderei il pallone, e il formaggio lo darei alla nonna Rosa.", "sl": "{m:Vzel|f:Vzela} bi žogo, sir pa bi {m:dal|f:dala} babici Rosi.", "en": "I'd take the football, and I'd give the cheese to Nonna Rosa.", "de": "Ich würde den Fußball nehmen, und den Käse würde ich Nonna Rosa geben.", "ok": true,
+            "reply": { "face": "laugh", "it": "{m:Che bravo|f:Che brava}! Tommaso invece prenderebbe tutto, anche il palo.", "sl": "Kako {m:priden|f:pridna}! Tommaso pa bi vzel vse, še drog.", "en": "How kind! Tommaso, though, would take everything, the pole too.", "de": "Wie lieb! Tommaso würde dagegen alles nehmen, sogar den Mast." } },
+          { "it": "Prenderò il pallone, e il formaggio lo darò alla nonna Rosa.", "sl": "{m:Vzel|f:Vzela} bi žogo, sir pa bi {m:dal|f:dala} babici Rosi.", "en": "I'd take the football, and I'd give the cheese to Nonna Rosa.", "de": "Ich würde den Fußball nehmen, und den Käse würde ich Nonna Rosa geben.",
+            "grammar": "condizionale", "why": { "sl": "Davide vpraša »če bi {m:prišel|f:prišla}«: odgovor gre v pogojnik, prenderei, darei.", "en": "Davide asks «if you got there»: the answer is the conditional, prenderei, darei.", "de": "Davide fragt «wenn du ankämst»: Die Antwort steht im Konditional, prenderei, darei." },
+            "reply": { "face": "surprised", "it": "Prenderai? Sei così {m:sicuro|f:sicura} di arrivare in cima? Ehi, prima devi salire!", "sl": "Boš {m:vzel|f:vzela}? Si tako {m:prepričan|f:prepričana}, da prideš na vrh? Ej, najprej moraš splezati!", "en": "You will take? Are you so sure you'll reach the top? Hey, first you have to climb!", "de": "Du wirst nehmen? Bist du so sicher, dass du oben ankommst? He, zuerst musst du klettern!" } }
+        ] },
+        { "who": "davide", "face": "thinking", "it": "Senti, il sapone è finito. Mi porti ancora un pezzo di sapone dalla cesta?", "sl": "Poslušaj, milo je pošlo. Mi prineseš še en kos iz košare?", "en": "Listen, the soap's run out. Will you bring me another piece from the basket?", "de": "Hör mal, die Seife ist alle. Bringst du mir noch ein Stück aus dem Korb?" },
+        { "choices": [
+          { "it": "Te ne porto due, così domani il palo scivola ancora di più!", "sl": "Prinesem ti dva, da bo jutri drog še bolj drsel!", "en": "I'll bring you two, so tomorrow the pole's even more slippery!", "de": "Ich bring dir zwei, dann ist der Mast morgen noch rutschiger!", "ok": true,
+            "reply": { "face": "laugh", "it": "Furbo! Così nessuno arriva in cima e i premi restano a noi!", "sl": "Zvitorepec! Tako nihče ne pride na vrh, nagrade pa ostanejo nama!", "en": "Crafty! That way nobody reaches the top and we keep the prizes!", "de": "Schlau! So kommt keiner hoch, und die Preise bleiben bei uns!" } },
+          { "it": "Ti ne porto due, così domani il palo scivola ancora di più!", "sl": "Prinesem ti dva, da bo jutri drog še bolj drsel!", "en": "I'll bring you two, so tomorrow the pole's even more slippery!", "de": "Ich bring dir zwei, dann ist der Mast morgen noch rutschiger!",
+            "grammar": "pronomi-combinati", "why": { "sl": "Pred ne postane ti te: te ne porto.", "en": "Before ne, ti becomes te: te ne porto.", "de": "Vor ne wird ti zu te: te ne porto." },
+            "reply": { "face": "curious", "it": "Ti ne…? Ehi, sai che le mie pecore parlano più chiaro? Beee! Riprova.", "sl": "Ti ne …? Ej, veš, da moje ovce govorijo bolj jasno? Beee! Še enkrat.", "en": "Ti ne…? Hey, you know my sheep talk more clearly? Baaa! Try again.", "de": "Ti ne …? He, weißt du, dass meine Schafe deutlicher reden? Mäh! Nochmal." } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Grazie dell'aiuto, {learner}! Domani alla festa ti tengo il posto in prima fila.", "sl": "Hvala za pomoč, {learner}! Jutri na prazniku ti držim prostor v prvi vrsti.", "en": "Thanks for the help, {learner}! Tomorrow at the feast I'll keep you a front-row place.", "de": "Danke für die Hilfe, {learner}! Morgen beim Fest halt ich dir einen Platz in der ersten Reihe frei." }
+      ]
+    },
+    {
+      "id": "mattina-b2-ultimo",
+      "level": "B2",
+      "memory": { "it": "l'ultimo metro della cuccagna di Davide", "sl": "zadnji meter Davidovega mlaja", "en": "Davide's last metre on the greasy pole", "de": "Davides letzter Meter am Klettermast" },
+      "lines": [
+        { "who": "davide", "face": "thinking", "it": "Quando avevo dodici anni, alla cuccagna di Cormòns, arrivai a un metro dalla cima. Un metro! Poi scivolai giù come un sacco di farina.", "sl": "Ko sem imel dvanajst let, sem na mlaju v Krminu prišel do enega metra pod vrhom. En meter! Potem sem zdrsnil dol kot vreča moke.", "en": "When I was twelve, at the Cormòns greasy pole, I got to a metre from the top. One metre! Then I slid down like a sack of flour.", "de": "Als ich zwölf war, beim Klettermast in Cormòns, kam ich bis einen Meter unter die Spitze. Einen Meter! Dann rutschte ich runter wie ein Mehlsack." },
+        { "who": "davide", "face": "laugh", "it": "Se non avessi guardato giù proprio in quel momento, avrei vinto il prosciutto. Mio padre me lo ricorda ancora adesso, ogni Natale.", "sl": "Če ne bi bil ravno takrat pogledal dol, bi zmagal pršut. Oče me na to še zdaj spomni, vsak božič.", "en": "If I hadn't looked down right at that moment, I'd have won the ham. My father still reminds me every Christmas.", "de": "Hätte ich nicht genau in dem Moment hinuntergeschaut, hätte ich den Schinken gewonnen. Mein Vater erinnert mich noch heute daran, jedes Weihnachten." },
+        { "choices": [
+          { "it": "Allora la colpa non fu del sapone, ma dei tuoi occhi curiosi!", "sl": "Potem ni bilo krivo milo, ampak tvoje radovedne oči!", "en": "So it wasn't the soap's fault, but your curious eyes!", "de": "Dann war nicht die Seife schuld, sondern deine neugierigen Augen!", "ok": true,
+            "reply": { "face": "laugh", "it": "Esatto! Da allora, quando salgo, guardo solo in su. Anche sul Sabotino.", "sl": "Tako je! Od takrat, ko plezam, gledam samo gor. Tudi na Sabotinu.", "en": "Exactly! Since then, when I climb, I only look up. On the Sabotino too.", "de": "Genau! Seitdem schau ich beim Klettern nur nach oben. Auch auf dem Sabotino." } },
+          { "it": "Allora quel giorno hai vinto il prosciutto.", "sl": "Potem si tisti dan zmagal pršut.", "en": "So that day you won the ham.", "de": "Dann hast du an dem Tag den Schinken gewonnen.",
+            "why": { "sl": "Davide je zdrsnil dol: avrei vinto pomeni, da bi zmagal, a ni.", "en": "Davide slid down: avrei vinto means he would have won, but didn't.", "de": "Davide ist hinuntergerutscht: avrei vinto heißt, er hätte gewonnen, hat aber nicht." },
+            "reply": { "face": "laugh", "it": "Vinto? Magari! Sono finito con il sedere nel fango, davanti a tutto il paese.", "sl": "Zmagal? Ko bi le! Pristal sem z zadnjico v blatu, pred vso vasjo.", "en": "Won? If only! I ended up bottom-first in the mud, in front of the whole village.", "de": "Gewonnen? Schön wär's! Ich bin mit dem Hintern im Matsch gelandet, vor dem ganzen Dorf." } }
+        ] },
+        { "who": "davide", "face": "curious", "it": "Quest'anno salgono i ragazzi del paese. Tommaso dice che ce la farà al primo tentativo. Tu gli credi?", "sl": "Letos plezajo fantje iz vasi. Tommaso pravi, da mu bo uspelo v prvem poskusu. Mu verjameš?", "en": "This year the village boys are climbing. Tommaso says he'll make it at the first try. Do you believe him?", "de": "Dieses Jahr klettern die Jungen aus dem Dorf. Tommaso sagt, er schafft es beim ersten Versuch. Glaubst du ihm?" },
+        { "choices": [
+          { "it": "Ce la farà, a meno che non guardi giù come te!", "sl": "Uspelo mu bo, razen če bo pogledal dol kot ti!", "en": "He'll make it, unless he looks down like you!", "de": "Er schafft es, außer er schaut runter wie du!", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah, ah! Allora gli dico: Tommaso, occhi al salame, sempre!", "sl": "Ha, ha! Potem mu rečem: Tommaso, oči na salamo, vedno!", "en": "Ha, ha! Then I'll tell him: Tommaso, eyes on the salami, always!", "de": "Ha, ha! Dann sag ich ihm: Tommaso, Augen auf die Salami, immer!" } },
+          { "it": "Ce la farà, a meno che guarda giù come te!", "sl": "Uspelo mu bo, razen če bo pogledal dol kot ti!", "en": "He'll make it, unless he looks down like you!", "de": "Er schafft es, außer er schaut runter wie du!",
+            "grammar": "congiunzioni-congiuntivo", "why": { "sl": "A meno che zahteva konjunktiv in non: a meno che non guardi.", "en": "A meno che takes the congiuntivo and a non: a meno che non guardi.", "de": "A meno che verlangt den Konjunktiv und ein non: a meno che non guardi." },
+            "reply": { "face": "thinking", "it": "A meno che…? Mmm, qui manca qualcosa, come a me quell'ultimo metro!", "sl": "A meno che …? Hm, tu nekaj manjka, kot meni tisti zadnji meter!", "en": "A meno che…? Hmm, something's missing here, like that last metre for me!", "de": "A meno che …? Hm, da fehlt was, wie mir damals der letzte Meter!" } }
+        ] },
+        { "who": "davide", "face": "happy", "it": "Domani vediamo. E se Tommaso scivola, almeno ride tutto il paese, come quella volta con me!", "sl": "Jutri bomo videli. In če Tommaso zdrsne, se bo vsaj vsa vas smejala, kot tisto pot z mano!", "en": "We'll see tomorrow. And if Tommaso slips, at least the whole village laughs, like that time with me!", "de": "Morgen sehen wir. Und wenn Tommaso abrutscht, lacht wenigstens das ganze Dorf, wie damals bei mir!" }
+      ]
+    },
+    {
+      "id": "merenda-b1-gubana",
+      "level": "B1",
+      "memory": { "it": "la gubana con le noci e l'uvetta", "sl": "gubana z orehi in rozinami", "en": "the gubana with walnuts and raisins", "de": "die Gubana mit Nüssen und Rosinen" },
+      "lines": [
+        { "who": "rosa", "it": "Tesoro! Ho portato la gubana per i ragazzi della cuccagna. È stata fatta stamattina, ancora tiepida.", "sl": "Srček! Prinesla sem gubano za fante na mlaju. Spečena je bila danes zjutraj, še je mlačna.", "en": "Sweetheart! I've brought gubana for the greasy-pole boys. It was made this morning, still warm.", "de": "Schatz! Ich hab Gubana für die Jungen vom Klettermast mitgebracht. Sie wurde heute früh gemacht, noch lauwarm." },
+        { "who": "rosa", "face": "curious", "it": "Dentro ci sono le noci, l'uvetta e un po' di miele. Lo sai chi mi ha dato il miele?", "sl": "Notri so orehi, rozine in malo medu. Veš, kdo mi je dal med?", "en": "Inside there are walnuts, raisins and a bit of honey. Do you know who gave me the honey?", "de": "Drin sind Nüsse, Rosinen und etwas Honig. Weißt du, wer mir den Honig gegeben hat?" },
+        { "choices": [
+          { "it": "Te l'ha dato Aldo, l'apicoltore?", "sl": "Ti ga je dal Aldo, čebelar?", "en": "Did Aldo the beekeeper give it to you?", "de": "Hat ihn dir Aldo gegeben, der Imker?", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio lui! Miele di acacia, il più chiaro.", "sl": "Prav on! Akacijev med, najsvetlejši.", "en": "That's the one! Acacia honey, the palest.", "de": "Genau der! Akazienhonig, der hellste." } },
+          { "it": "Ti l'ha dato Aldo, l'apicoltore?", "sl": "Ti ga je dal Aldo, čebelar?", "en": "Did Aldo the beekeeper give it to you?", "de": "Hat ihn dir Aldo gegeben, der Imker?",
+            "grammar": "pronomi-combinati", "why": { "sl": "Pred lo (l') postane ti te: te l'ha dato.", "en": "Before lo (l'), ti becomes te: te l'ha dato.", "de": "Vor lo (l') wird ti zu te: te l'ha dato." },
+            "reply": { "face": "curious", "it": "Ti l'ha…? Tesoro, mangia un pezzo di gubana e poi riprova!", "sl": "Ti l'ha …? Srček, pojej košček gubane in potem poskusi znova!", "en": "Ti l'ha…? Sweetheart, eat a piece of gubana and then try again!", "de": "Ti l'ha …? Schatz, iss ein Stück Gubana und dann versuch's nochmal!" } }
+        ] },
+        { "who": "rosa", "face": "thinking", "it": "Ne ho portata una sola. Ma i ragazzi sono tanti. Come facciamo?", "sl": "Prinesla sem samo eno. Ampak fantov je veliko. Kaj bova zdaj?", "en": "I've only brought one. But there are lots of boys. What shall we do?", "de": "Ich hab nur eine mitgebracht. Aber es sind viele Jungen. Was machen wir?" },
+        { "choices": [
+          { "it": "La tagliamo a fette sottili, così ce n'è un pezzo per ognuno.", "sl": "Nareževa jo na tanke rezine, da bo za vsakega en kos.", "en": "Let's cut it in thin slices, so there's a piece for everyone.", "de": "Wir schneiden sie in dünne Scheiben, dann gibt es für jeden ein Stück.", "ok": true,
+            "reply": { "face": "proud", "it": "{m:Bravo|f:Brava}! Tu sì che sai dividere. Ecco il coltello, ma piano.", "sl": "{m:Priden|f:Pridna}! Ti pa znaš deliti. Tu je nož, ampak počasi.", "en": "Well done! You really know how to share. Here's the knife, but carefully.", "de": "Toll! Du kannst wirklich teilen. Hier ist das Messer, aber vorsichtig." } },
+          { "it": "La tagliamo a fette sottili, così ce n'è un pezzo per ognuni.", "sl": "Nareževa jo na tanke rezine, da bo za vsakega en kos.", "en": "Let's cut it in thin slices, so there's a piece for everyone.", "de": "Wir schneiden sie in dünne Scheiben, dann gibt es für jeden ein Stück.",
+            "grammar": "indefiniti", "why": { "sl": "Ognuno nima množine: un pezzo per ognuno.", "en": "Ognuno has no plural: un pezzo per ognuno.", "de": "Ognuno hat keine Mehrzahl: un pezzo per ognuno." },
+            "reply": { "face": "curious", "it": "Ognuni? Mmm, questa parola non la conosce nemmeno la gubana!", "sl": "Ognuni? Hm, te besede ne pozna niti gubana!", "en": "Ognuni? Hmm, not even the gubana knows that word!", "de": "Ognuni? Hm, das Wort kennt nicht mal die Gubana!" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Ecco fatto! Una fetta per ognuno, e la più grande per chi arriva in cima. Mangia, mangia!", "sl": "Tako! Rezina za vsakega, največja pa za tistega, ki pride na vrh. Jej, jej!", "en": "All done! A slice for everyone, and the biggest for whoever gets to the top. Eat, eat!", "de": "Fertig! Eine Scheibe für jeden, und die größte für den, der oben ankommt. Iss, iss!" }
+      ]
+    },
+    {
+      "id": "merenda-b2-cividale",
+      "level": "B2",
+      "memory": { "it": "la gubana di Cividale, come la faceva mia mamma", "sl": "gubana iz Čedada, kot jo je pekla moja mama", "en": "the Cividale gubana, as my mother made it", "de": "die Gubana aus Cividale, wie meine Mama sie machte" },
+      "lines": [
+        { "who": "rosa", "face": "thinking", "it": "La mia gubana la faccio come la faceva mia mamma a Cividale: la pasta tirata sottile, arrotolata come una chiocciola.", "sl": "Svojo gubano pečem, kot jo je pekla moja mama v Čedadu: tenko razvlečeno testo, zvito kot polž.", "en": "I make my gubana the way my mum made it in Cividale: the dough rolled thin, coiled like a snail.", "de": "Meine Gubana mache ich, wie meine Mama sie in Cividale machte: der Teig dünn ausgerollt, aufgerollt wie eine Schnecke." },
+        { "who": "rosa", "it": "Mia mamma diceva che la gubana andava fatta il giorno prima, perché il giorno dopo è più buona. Io all'inizio non le credevo.", "sl": "Moja mama je rekla, da je treba gubano speči dan prej, ker je naslednji dan boljša. Jaz ji sprva nisem verjela.", "en": "My mum used to say gubana should be made the day before, because it's better the next day. At first I didn't believe her.", "de": "Meine Mama sagte, man müsse die Gubana am Vortag machen, weil sie am nächsten Tag besser ist. Ich hab ihr anfangs nicht geglaubt." },
+        { "choices": [
+          { "it": "E poi, dopo averla assaggiata il giorno dopo, le hai dato ragione?", "sl": "Pa si ji potem, ko si jo naslednji dan poskusila, dala prav?", "en": "And then, after tasting it the next day, did you agree with her?", "de": "Und dann, nachdem du sie am nächsten Tag probiert hattest, hast du ihr recht gegeben?", "ok": true,
+            "reply": { "face": "laugh", "it": "Subito! Il giorno dopo era buonissima. Le mamme hanno sempre ragione, sulle torte.", "sl": "Takoj! Naslednji dan je bila odlična. Mame imajo pri pecivu vedno prav.", "en": "At once! The next day it was delicious. Mums are always right about cakes.", "de": "Sofort! Am nächsten Tag war sie köstlich. Mütter haben bei Kuchen immer recht." } },
+          { "it": "E poi, dopo averla assaggiato il giorno dopo, le hai dato ragione?", "sl": "Pa si ji potem, ko si jo naslednji dan poskusila, dala prav?", "en": "And then, after tasting it the next day, did you agree with her?", "de": "Und dann, nachdem du sie am nächsten Tag probiert hattest, hast du ihr recht gegeben?",
+            "grammar": "infinito-passato", "why": { "sl": "Z la (gubana) se deležnik ujema: dopo averla assaggiata.", "en": "With la (the gubana) the participle agrees: dopo averla assaggiata.", "de": "Mit la (die Gubana) richtet sich das Partizip: dopo averla assaggiata." },
+            "reply": { "face": "curious", "it": "Assaggiato? Chi, il dolce? La gubana è femmina, tesoro, come le nonne!", "sl": "Assaggiato? Kdo, sladica? Gubana je ženskega spola, srček, kot babice!", "en": "Assaggiato? Who, the cake? Gubana is feminine, sweetheart, like grannies!", "de": "Assaggiato? Wer, der Kuchen? Gubana ist weiblich, Schatz, wie die Omas!" } }
+        ] },
+        { "who": "rosa", "face": "curious", "it": "Oggi c'è chi la compra già fatta al supermercato. Più comodo, certo. Secondo te, una gubana comprata è buona come una fatta in casa?", "sl": "Danes jo nekateri kupijo že narejeno v trgovini. Bolj udobno, seveda. Kaj misliš, je kupljena gubana tako dobra kot domača?", "en": "Today some people buy it ready-made at the supermarket. More convenient, of course. Do you think a bought gubana is as good as a homemade one?", "de": "Heute kaufen manche sie fertig im Supermarkt. Bequemer, sicher. Ist eine gekaufte Gubana so gut wie eine selbstgemachte, meinst du?" },
+        { "choices": [
+          { "it": "Forse sarà buona, ma non ha dentro le tue storie, nonna.", "sl": "Morda bo dobra, ampak v njej ni tvojih zgodb, babica.", "en": "It might be good, but it hasn't got your stories inside, Nonna.", "de": "Sie mag gut sein, aber deine Geschichten sind nicht drin, Oma.", "ok": true,
+            "reply": { "face": "shy", "it": "Oh, tesoro… Le storie e un po' di cannella: questo è il segreto.", "sl": "Oh, srček … Zgodbe in malo cimeta: to je skrivnost.", "en": "Oh, sweetheart… Stories and a little cinnamon: that's the secret.", "de": "Oh, Schatz … Geschichten und ein bisschen Zimt: Das ist das Geheimnis." } },
+          { "it": "Sì, è uguale, perché al supermercato le fanno le nonne di Cividale.", "sl": "Ja, enaka je, ker jih v trgovini pečejo babice iz Čedada.", "en": "Yes, it's the same, because at the supermarket Cividale's grannies make them.", "de": "Ja, sie ist gleich, weil im Supermarkt die Omas aus Cividale sie backen.",
+            "why": { "sl": "Rosa pravi, da se kupljena gubana naredi drugje, ne doma; o babicah v trgovini ni govora.", "en": "Rosa means the bought one isn't made at home; nobody says grannies bake it at the supermarket.", "de": "Rosa meint, die gekaufte wird nicht zu Hause gemacht; von Omas im Supermarkt ist keine Rede." },
+            "reply": { "face": "laugh", "it": "Le nonne al supermercato? Ah, ah! Magari! Avrei tante amiche in più.", "sl": "Babice v trgovini? Ha, ha! Ko bi le! Imela bi veliko več prijateljic.", "en": "Grannies at the supermarket? Ha, ha! If only! I'd have lots more friends.", "de": "Omas im Supermarkt? Ha, ha! Schön wär's! Dann hätte ich viel mehr Freundinnen." } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Allora domani la facciamo insieme, e la mangiamo dopodomani, come diceva mia mamma. Mangia, mangia!", "sl": "Potem jo jutri speciva skupaj, pojeva pa pojutrišnjem, kot je rekla moja mama. Jej, jej!", "en": "Then tomorrow we'll make it together, and eat it the day after, as my mum used to say. Eat, eat!", "de": "Dann machen wir sie morgen zusammen und essen sie übermorgen, wie meine Mama sagte. Iss, iss!" }
       ]
     }
   ]

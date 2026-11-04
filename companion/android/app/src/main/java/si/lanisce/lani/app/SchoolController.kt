@@ -42,7 +42,18 @@ enum class SheetKind { WORKSHEET, TEST, HOMEWORK }
 data class SheetAnswer(
     val verdict: Verdict, val paid: Verdict, val answer: String, val expected: String?, val items: List<ItemMark> = emptyList(),
     val lookedUp: si.lanisce.lani.game.LookUp? = null,
+    /** A speaking item the learner rated themselves (no microphone or recognizer): it pays as practice, a test doesn't count it. */
+    val rated: Boolean = false,
+    /** A speaking or writing item's checks (data/Production.kt), for the tutor. */
+    val checks: si.lanisce.lani.data.Production.Checked? = null,
 )
+
+/**
+ * The items a sheet's [answers] count, each its paid verdict (a worksheet's exercise one per item it has): every one; in a
+ * [test] not a speaking item the learner rated themselves (no microphone or recognizer: practice, COURSE.md "How they count").
+ */
+internal fun counted(answers: List<SheetAnswer>, test: Boolean): List<Verdict> =
+    answers.filterNot { test && it.rated }.flatMap { a -> if (a.items.isNotEmpty()) a.items.map { it.paid } else listOf(a.paid) }
 
 /** A sheet finished: what it paid ([reward]), its items ([items], paid verdicts), and whether the unit was done now. */
 data class SheetDone(val reward: Reward?, val items: List<Verdict>, val unitDone: Boolean, val passed: Boolean)
@@ -155,7 +166,7 @@ class SchoolController(
      */
     fun finish(unit: CourseUnit, kind: SheetKind, sheet: String, exercises: List<Exercise>, answers: List<SheetAnswer>, minutes: Int): SheetDone? {
         val all = answers.size >= exercises.size
-        val items = answers.flatMap { a -> if (a.items.isNotEmpty()) a.items.map { it.paid } else listOf(a.paid) }
+        val items = counted(answers, test = kind == SheetKind.TEST)
         val pairs = answers.withIndex().flatMap { (i, a) ->
             val res = exercises.getOrNull(i)?.let(GameEngine::resourceOf) ?: Res.STONE
             if (a.items.isNotEmpty()) a.items.map { res to it.paid } else listOf(res to a.paid)
@@ -230,6 +241,8 @@ class SchoolController(
                     put("answer", a.answer.take(300))
                     a.expected?.let { put("expected", it.take(300)) }
                     a.lookedUp?.let { put("looked_up", it.json) }
+                    if (a.rated) put("rated", true)
+                    a.checks?.let { put("checks", si.lanisce.lani.data.Production.json(it)) }
                     if (a.items.isNotEmpty()) put("items", buildJsonArray {
                         val its = exercises.getOrNull(i)?.let(Sheets::items).orEmpty()
                         a.items.forEachIndexed { j, m ->
@@ -254,6 +267,8 @@ class SchoolController(
         is Exercise.Table -> "table"
         is Exercise.Transform -> "transform"
         is Exercise.Sort -> "sort"
+        is Exercise.Speaking -> "speaking"
+        is Exercise.Writing -> "writing"
         is Exercise.Unsupported -> e.kind
         else -> e::class.simpleName?.lowercase() ?: "?"
     }

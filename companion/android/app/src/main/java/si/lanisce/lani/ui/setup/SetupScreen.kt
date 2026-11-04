@@ -440,6 +440,8 @@ private fun About(vm: AppViewModel, flow: SetupFlow, go: (SetupFlow) -> Unit) {
             }
             Text(aimWhat, color = Muted, style = MaterialTheme.typography.bodySmall)
         }
+        // 🧭 the placement test once the village is founded, or later in the school (off by default)
+        if (vm.school.course != null) PlacementChoice(vm, vm.child, chips, muted = Muted) { Text(it, color = White, style = MaterialTheme.typography.titleSmall) }
         // 🗣️ the voice the learner's own lines are said in
         Column(Modifier.fillMaxWidth().padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("🗣️ ${bi("myVoice.title")}", color = White, style = MaterialTheme.typography.titleSmall)
@@ -448,6 +450,27 @@ private fun About(vm: AppViewModel, flow: SetupFlow, go: (SetupFlow) -> Unit) {
             Text(bi("myVoice.later"), color = Muted, style = MaterialTheme.typography.bodySmall)
         }
         BigButton("🏡 ${bi("hosted.toVillage")}", onClick = ::finish, enabled = !leaving, color = TriglavRed, disabledColor = Faint)
+    }
+}
+
+/**
+ * "🧭 Nekaj že znaš? · Know some already?" at setup (docs/plans/05-built/placement.md): "Od začetka · From the start"
+ * (the default) or "Najprej kratek test · A short test first", the placement test (app/PlacementController) once the
+ * village is founded; a child's as a little game. Either way it is in the school later. Here on "Še o tebi" and on this
+ * device's questions (ui/hosted/HostedScreens).
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+internal fun PlacementChoice(
+    vm: AppViewModel, child: Boolean, chips: androidx.compose.material3.SelectableChipColors, muted: Color, label: @Composable (String) -> Unit,
+) {
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        label("🧭 ${bi("placement.offerTitle")}")
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            FilterChip(!vm.placementAsked, { vm.askPlacement(false) }, { Text(bi("setup.placementOff")) }, colors = chips)
+            FilterChip(vm.placementAsked, { vm.askPlacement(true) }, { Text(bi("setup.placementOn")) }, colors = chips)
+        }
+        Text(bi(if (child) "setup.placementWhatChild" else "setup.placementWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
     }
 }
 

@@ -94,7 +94,7 @@
       "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6],
       "chance": 0.5,
       "dialog": "campana",
-      "dialogs": ["campana-minuti", "campana"],
+      "dialogs": ["campana-b2-gorizia", "campana-b1-regole", "campana-minuti", "campana"],
       "reward": { "wisdom": 20},
       "marker": "🔢",
       "memory": { "it": "la ricreazione al gioco della campana", "sl": "odmor in ristanc", "en": "break time and the hopscotch", "de": "die Pause beim Himmel und Hölle" }
@@ -107,7 +107,7 @@
       "months": [5, 6, 7, 8, 9],
       "chance": 0.45,
       "dialog": "bolle",
-      "dialogs": ["bolle-nuvola", "bolle"],
+      "dialogs": ["bolle-b2-colori", "bolle-b1-ricetta", "bolle-nuvola", "bolle"],
       "reward": { "wisdom": 15},
       "marker": "🫧",
       "memory": { "it": "le bolle di sapone della sera", "sl": "milne mehurčke zvečer", "en": "the soap bubbles in the evening", "de": "die Seifenblasen am Abend" }
@@ -1080,6 +1080,106 @@
           "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumela.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
         },
         { "who": "elena", "face": "happy", "it": "Bello, vero? Domani porto l'acqua saponata per tutti i bambini.", "sl": "Lepo, kajne? Jutri prinesem milnico za vse otroke.", "en": "Lovely, isn't it? Tomorrow I'll bring soapy water for all the children.", "de": "Schön, oder? Morgen bringe ich Seifenwasser für alle Kinder mit." }
+      ]
+    },
+    {
+      "id": "campana-b1-regole",
+      "level": "B1",
+      "memory": { "it": "le regole della campana", "sl": "pravila ristanc", "en": "the rules of hopscotch", "de": "die Regeln vom Himmel-und-Hölle-Spiel" },
+      "lines": [
+        { "who": "elena", "it": "Buongiorno, {learner}! Vuoi giocare alla campana? Prima di saltare, si tira il sasso su un numero.", "sl": "Dober dan, {learner}! Se greš ristanc? Preden skočiš, se vrže kamenček na eno številko.", "en": "Good morning, {learner}! Do you want to play hopscotch? Before you jump, you throw the stone onto a number.", "de": "Guten Morgen, {learner}! Willst du Himmel und Hölle spielen? Bevor du springst, wirft man den Stein auf eine Zahl." },
+        { "who": "elena", "face": "curious", "it": "Poi si salta su un piede, ma la casella con il sasso no. Hai già fatto il tuo tiro?", "sl": "Potem skačeš po eni nogi, samo na polje s kamenčkom ne. Si že {m:vrgel|f:vrgla}?", "en": "Then you hop on one foot, but not on the square with the stone. Have you thrown yet?", "de": "Dann hüpft man auf einem Bein, aber nicht auf das Feld mit dem Stein. Hast du schon geworfen?" },
+        { "choices": [
+          { "it": "Sì, maestra, ho appena tirato: il sasso è sul tre.", "sl": "Ja, učiteljica, pravkar sem {m:vrgel|f:vrgla}: kamenček je na trojki.", "en": "Yes, Miss, I've just thrown: the stone is on three.", "de": "Ja, Frau Lehrerin, ich hab gerade geworfen: Der Stein liegt auf der Drei.", "ok": true,
+            "reply": { "face": "happy", "it": "Bene! Allora salta l'uno, il due, e il tre lo salti.", "sl": "Dobro! Potem skoči na ena, na dve, trojko pa preskoči.", "en": "Good! Then hop on one, two, and skip three.", "de": "Gut! Dann hüpf auf die Eins, die Zwei, und die Drei überspringst du." } },
+          { "it": "Sì, maestra, ho appena tirando: il sasso è sul tre.", "sl": "Ja, učiteljica, pravkar sem {m:vrgel|f:vrgla}: kamenček je na trojki.", "en": "Yes, Miss, I've just thrown: the stone is on three.", "de": "Ja, Frau Lehrerin, ich hab gerade geworfen: Der Stein liegt auf der Drei.",
+            "grammar": "stare-per", "why": { "sl": "Appena gre s preteklim časom: ho appena tirato. Tirando je gerundij.", "en": "Appena goes with the passato prossimo: ho appena tirato. Tirando is the gerund.", "de": "Appena steht mit dem passato prossimo: ho appena tirato. Tirando ist das Gerundium." },
+            "reply": { "face": "curious", "it": "Ho appena tirando? Mmm, allora stai ancora tirando? Il sasso vola ancora?", "sl": "Ho appena tirando? Hm, potem še mečeš? Kamenček še leti?", "en": "Ho appena tirando? Hmm, so you're still throwing? Is the stone still flying?", "de": "Ho appena tirando? Hm, dann wirfst du noch? Fliegt der Stein noch?" } }
+        ] },
+        { "who": "elena", "face": "thinking", "it": "Attenzione: se tocchi una riga, tocca a Giulia. Lei salta benissimo, sai?", "sl": "Pozor: če se dotakneš črte, je na vrsti Giulia. Ona odlično skače, veš?", "en": "Careful: if you touch a line, it's Giulia's turn. She jumps really well, you know?", "de": "Achtung: Wenn du eine Linie berührst, ist Giulia dran. Sie springt sehr gut, weißt du?" },
+        { "choices": [
+          { "it": "Allora salto piano, così non tocco le righe.", "sl": "Potem bom {m:skakal|f:skakala} počasi, da se ne dotaknem črt.", "en": "Then I'll jump carefully, so I don't touch the lines.", "de": "Dann spring ich vorsichtig, damit ich die Linien nicht berühre.", "ok": true,
+            "reply": { "face": "laugh", "it": "Bella strategia! E se arrivi al dieci, ti batto le mani.", "sl": "Dobra taktika! Če prideš do deset, ti zaploskam.", "en": "Good plan! And if you get to ten, I'll clap for you.", "de": "Gute Taktik! Und wenn du bis zur Zehn kommst, klatsch ich dir." } },
+          { "it": "Allora salto piano, anche se non tocco le righe.", "sl": "Potem bom {m:skakal|f:skakala} počasi, da se ne dotaknem črt.", "en": "Then I'll jump carefully, so I don't touch the lines.", "de": "Dann spring ich vorsichtig, damit ich die Linien nicht berühre.",
+            "grammar": "congiunzioni", "why": { "sl": "Anche se pomeni čeprav; kar iz tega sledi, poveš s così (tako da).", "en": "Anche se means even though; what follows from it is così (so that).", "de": "Anche se heißt obwohl; was daraus folgt, sagst du mit così (sodass)." },
+            "reply": { "face": "confused", "it": "Anche se non le tocchi? Allora perché piano? Non ti seguo, {learner}.", "sl": "Čeprav se jih ne dotakneš? Zakaj pa potem počasi? Ne sledim ti, {learner}.", "en": "Even though you don't touch them? Then why carefully? I can't follow you, {learner}.", "de": "Obwohl du sie nicht berührst? Warum dann vorsichtig? Ich komm nicht mit, {learner}." } }
+        ] },
+        { "who": "elena", "face": "happy", "it": "Via! Uno, due… salta il tre… quattro! {m:Bravissimo|f:Bravissima}, nessuna riga toccata!", "sl": "Gremo! Ena, dve … preskoči tri … štiri! Odlično, nobene črte se nisi {m:dotaknil|f:dotaknila}!", "en": "Go! One, two… skip three… four! Brilliant, not a single line touched!", "de": "Los! Eins, zwei … die Drei auslassen … vier! Super, keine Linie berührt!" }
+      ]
+    },
+    {
+      "id": "campana-b2-gorizia",
+      "level": "B2",
+      "memory": { "it": "la campana di quando la maestra era bambina", "sl": "ristanc iz časov, ko je bila učiteljica otrok", "en": "hopscotch from when the teacher was a girl", "de": "Himmel und Hölle aus der Zeit, als die Lehrerin ein Kind war" },
+      "lines": [
+        { "who": "elena", "face": "thinking", "it": "Sai, quando ero piccola, a Gorizia, la campana non la disegnavamo con il gesso. La facevamo incidendo le righe nella terra con un bastone.", "sl": "Veš, ko sem bila majhna, v Gorici, ristanc nismo risali s kredo. Črte smo zarisali v zemljo s palico.", "en": "You know, when I was little, in Gorizia, we didn't draw the hopscotch with chalk. We made it by scratching the lines into the earth with a stick.", "de": "Weißt du, als ich klein war, in Görz, haben wir Himmel und Hölle nicht mit Kreide gemalt. Wir haben die Linien mit einem Stock in die Erde geritzt." },
+        { "who": "elena", "it": "Mia nonna, che abitava dall'altra parte del confine, la chiamava «ristanc». Diceva che da bambina ci avrebbe giocato tutto il giorno, se sua madre gliel'avesse permesso.", "sl": "Moja babica, ki je živela na drugi strani meje, ji je rekla »ristanc«. Pravila je, da bi se kot otrok igrala ves dan, če bi ji mama dovolila.", "en": "My grandmother, who lived on the other side of the border, called it «ristanc». She said that as a child she'd have played it all day, if her mother had let her.", "de": "Meine Oma, die auf der anderen Seite der Grenze wohnte, nannte es «ristanc». Sie sagte, als Kind hätte sie den ganzen Tag gespielt, wenn ihre Mutter es erlaubt hätte." },
+        { "choices": [
+          { "it": "Quindi sua madre non glielo permetteva sempre? Forse doveva aiutare in casa.", "sl": "Torej ji mama ni vedno dovolila? Morda je morala pomagati doma.", "en": "So her mother didn't always let her? Maybe she had to help at home.", "de": "Ihre Mutter hat es ihr also nicht immer erlaubt? Vielleicht musste sie zu Hause helfen.", "ok": true,
+            "reply": { "face": "thinking", "it": "Proprio così: le galline, l'acqua dal pozzo, i fratellini. Il gioco veniva dopo.", "sl": "Prav tako: kokoši, voda iz vodnjaka, bratci. Igra je prišla na vrsto potem.", "en": "Exactly: the hens, water from the well, the little brothers. Play came afterwards.", "de": "Genau: die Hühner, Wasser vom Brunnen, die kleinen Brüder. Das Spiel kam danach." } },
+          { "it": "Quindi sua madre giocava con lei tutto il giorno?", "sl": "Torej se je mama ves dan igrala z njo?", "en": "So her mother played with her all day?", "de": "Ihre Mutter hat also den ganzen Tag mit ihr gespielt?",
+            "why": { "sl": "»Če bi ji mama dovolila« pove, da ji ni vedno dovolila: mama se ni igrala z njo.", "en": "«If her mother had let her» says her mother didn't always: she didn't play with her.", "de": "«Wenn ihre Mutter es erlaubt hätte» heißt, dass sie es nicht immer erlaubte: Sie hat nicht mit ihr gespielt." },
+            "reply": { "face": "laugh", "it": "Sua madre? Con la campana? No, no, lei era sempre in cucina, con il mestolo!", "sl": "Njena mama? Ristanc? Ne, ne, ona je bila vedno v kuhinji, z zajemalko!", "en": "Her mother? Playing hopscotch? No, no, she was always in the kitchen, with a ladle!", "de": "Ihre Mutter? Himmel und Hölle? Nein, nein, die stand immer in der Küche, mit dem Schöpflöffel!" } }
+        ] },
+        { "who": "elena", "face": "curious", "it": "Secondo te, i bambini di oggi giocano meno all'aperto di una volta? {m:Sii sincero|f:Sii sincera}, eh.", "sl": "Kaj misliš, se današnji otroci manj igrajo zunaj kot nekoč? {m:Bodi iskren|f:Bodi iskrena}, ja.", "en": "Do you think children today play outside less than in the old days? Be honest, now.", "de": "Spielen die Kinder heute weniger draußen als früher, was meinst du? Sei ehrlich, ja." },
+        { "choices": [
+          { "it": "Forse sì. Però qui al parco giochiamo tutti i giorni, a meno che non piova forte.", "sl": "Morda. Ampak tukaj v parku se igramo vsak dan, razen če močno dežuje.", "en": "Maybe. But here in the park we play every day, unless it's pouring.", "de": "Vielleicht. Aber hier im Park spielen wir jeden Tag, außer es regnet stark.", "ok": true,
+            "reply": { "face": "happy", "it": "Questa mi piace! E se piove, la campana la disegniamo in palestra.", "sl": "To mi je všeč! Če dežuje, ristanc narišemo v telovadnici.", "en": "I like that! And if it rains, we'll draw the hopscotch in the gym.", "de": "Das gefällt mir! Und wenn es regnet, malen wir es in der Turnhalle." } },
+          { "it": "Forse sì. Però qui al parco giochiamo tutti i giorni, purché piova forte.", "sl": "Morda. Ampak tukaj v parku se igramo vsak dan, razen če močno dežuje.", "en": "Maybe. But here in the park we play every day, unless it's pouring.", "de": "Vielleicht. Aber hier im Park spielen wir jeden Tag, außer es regnet stark.",
+            "grammar": "congiunzioni-congiuntivo", "why": { "sl": "Purché pomeni samo da (pogoj); za razen če rečeš a meno che non.", "en": "Purché means as long as; for unless, say a meno che non.", "de": "Purché heißt solange (Bedingung); für außer wenn sagst du a meno che non." },
+            "reply": { "face": "surprised", "it": "Purché piova? Allora giocate solo sotto la pioggia? Che bambini coraggiosi!", "sl": "Samo da dežuje? Potem se igrate samo v dežju? Kako pogumni otroci!", "en": "As long as it pours? So you only play in the rain? What brave children!", "de": "Solange es regnet? Dann spielt ihr nur im Regen? Was für mutige Kinder!" } }
+        ] },
+        { "who": "elena", "face": "happy", "it": "Allora disegniamo una campana nuova, a modo mio e a modo di mia nonna: metà gesso e metà bastone!", "sl": "Potem narišimo nov ristanc, po mojem in po babičinem: pol s kredo, pol s palico!", "en": "Then let's draw a new hopscotch, my way and my grandmother's: half chalk, half stick!", "de": "Dann malen wir ein neues Himmel und Hölle, auf meine Art und auf die meiner Oma: halb Kreide, halb Stock!" }
+      ]
+    },
+    {
+      "id": "bolle-b1-ricetta",
+      "level": "B1",
+      "memory": { "it": "la ricetta delle bolle giganti", "sl": "recept za velikanske milne mehurčke", "en": "the recipe for giant bubbles", "de": "das Rezept für Riesenseifenblasen" },
+      "lines": [
+        { "who": "elena", "it": "Buonasera, {learner}. Oggi le bolle le facciamo noi. Quest'acqua è stata preparata con il sapone e un po' di zucchero.", "sl": "Dober večer, {learner}. Danes bomo mehurčke naredili sami. Ta voda je pripravljena z milom in malo sladkorja.", "en": "Good evening, {learner}. Today we're making the bubbles ourselves. This water has been made with soap and a little sugar.", "de": "Guten Abend, {learner}. Heute machen wir die Seifenblasen selbst. Dieses Wasser wurde mit Seife und etwas Zucker angerührt.", "fx": { "bubbles": 0.3 } },
+        { "who": "elena", "face": "curious", "it": "Lo zucchero serve a farle durare di più. E con troppo sapone, secondo te, che cosa succede?", "sl": "Sladkor je za to, da zdržijo dlje. Kaj pa misliš, kaj se zgodi s preveč mila?", "en": "The sugar is there to make them last longer. And with too much soap, what do you think happens?", "de": "Der Zucker ist dazu da, dass sie länger halten. Und bei zu viel Seife, was passiert dann, meinst du?" },
+        { "choices": [
+          { "it": "Se ci mettiamo troppo sapone, le bolle diventano pesanti e cadono.", "sl": "Če damo preveč mila, mehurčki postanejo težki in padejo.", "en": "If we put in too much soap, the bubbles get heavy and fall.", "de": "Wenn wir zu viel Seife hineintun, werden die Blasen schwer und fallen runter.", "ok": true,
+            "reply": { "face": "happy", "it": "Esatto! Il troppo stroppia, dicono i nonni. Anche con il sapone.", "sl": "Tako je! Kar je preveč, je preveč, pravijo dedki. Tudi pri milu.", "en": "Exactly! Too much spoils it, as the grandparents say. Even with soap.", "de": "Genau! Zu viel ist ungesund, sagen die Großeltern. Auch bei Seife." } },
+          { "it": "Se ci metteremmo troppo sapone, le bolle diventano pesanti e cadono.", "sl": "Če damo preveč mila, mehurčki postanejo težki in padejo.", "en": "If we put in too much soap, the bubbles get heavy and fall.", "de": "Wenn wir zu viel Seife hineintun, werden die Blasen schwer und fallen runter.",
+            "grammar": "periodo-ipotetico", "why": { "sl": "Kar se res lahko zgodi: se in sedanjik, se ci mettiamo. Za se nikoli pogojnik.", "en": "What can really happen: se and the present, se ci mettiamo. After se, never the conditional.", "de": "Was wirklich passieren kann: se und Präsens, se ci mettiamo. Nach se nie der Konditional." },
+            "reply": { "face": "curious", "it": "Se ci metteremmo? Mmm, metterci o non metterci, questo è il problema! Riprova.", "sl": "Se ci metteremmo? Hm, dati ali ne dati, to je vprašanje! Poskusi znova.", "en": "Se ci metteremmo? Hmm, to put or not to put, that is the question! Try again.", "de": "Se ci metteremmo? Hm, hineintun oder nicht, das ist hier die Frage! Versuch es nochmal." } }
+        ] },
+        { "who": "elena", "it": "Adesso tocca a te. Intingi l'anello e soffia, ma piano, come se stessi spegnendo una candelina.", "sl": "Zdaj si na vrsti ti. Pomoči obroček in pihaj, ampak počasi, kot da bi {m:ugašal|f:ugašala} svečko.", "en": "Now it's your turn. Dip the ring and blow, but gently, as if you were blowing out a little candle.", "de": "Jetzt bist du dran. Tauch den Ring ein und puste, aber sanft, als würdest du eine kleine Kerze auspusten." },
+        { "choices": [
+          { "it": "Guardi, maestra! Soffiando piano, è venuta una bolla enorme!", "sl": "Poglejte, učiteljica! Ko sem {m:pihal|f:pihala} počasi, je nastal ogromen mehurček!", "en": "Look, Miss! Blowing gently, I made a huge bubble!", "de": "Schauen Sie, Frau Lehrerin! Beim sanften Pusten ist eine riesige Blase rausgekommen!", "ok": true,
+            "reply": { "face": "laugh", "it": "Che meraviglia! È grande come la testa di Tommaso!", "sl": "Kako čudovito! Velik je kot Tommasova glava!", "en": "How wonderful! It's as big as Tommaso's head!", "de": "Wie wunderbar! Die ist so groß wie Tommasos Kopf!", "fx": { "bubbles": 1 } } },
+          { "it": "Guardi, maestra! Soffiato piano, è venuta una bolla enorme!", "sl": "Poglejte, učiteljica! Ko sem {m:pihal|f:pihala} počasi, je nastal ogromen mehurček!", "en": "Look, Miss! Blowing gently, I made a huge bubble!", "de": "Schauen Sie, Frau Lehrerin! Beim sanften Pusten ist eine riesige Blase rausgekommen!",
+            "grammar": "gerundio", "why": { "sl": "Kako si to {m:naredil|f:naredila}: z gerundijem, soffiando (s pihanjem). Soffiato je deležnik.", "en": "How you did it: with the gerund, soffiando (by blowing). Soffiato is the participle.", "de": "Wie du es gemacht hast: mit dem Gerundium, soffiando (durch Pusten). Soffiato ist das Partizip." },
+            "reply": { "face": "curious", "it": "Soffiato? Chi ha soffiato, il vento? Io ho visto soffiare te!", "sl": "Soffiato? Kdo je pihal, veter? Jaz sem videla, da si {m:pihal|f:pihala} ti!", "en": "Soffiato? Who blew, the wind? I saw you blowing!", "de": "Soffiato? Wer hat gepustet, der Wind? Ich hab dich pusten sehen!" } }
+        ] },
+        { "who": "elena", "face": "happy", "it": "Domani porto l'acqua saponata per tutti, così ognuno fa la sua bolla gigante.", "sl": "Jutri prinesem milnico za vse, da vsak naredi svoj velikanski mehurček.", "en": "Tomorrow I'll bring soapy water for everyone, so each one makes their own giant bubble.", "de": "Morgen bring ich Seifenwasser für alle mit, dann macht jeder seine eigene Riesenblase." }
+      ]
+    },
+    {
+      "id": "bolle-b2-colori",
+      "level": "B2",
+      "memory": { "it": "i colori delle bolle al tramonto", "sl": "barve milnih mehurčkov ob sončnem zahodu", "en": "the colours of the bubbles at sunset", "de": "die Farben der Seifenblasen bei Sonnenuntergang" },
+      "lines": [
+        { "who": "elena", "face": "curious", "it": "Guarda bene questa bolla, {learner}: vedi tutti quei colori? Eppure l'acqua e il sapone sono trasparenti. Come mai, secondo te?", "sl": "Dobro poglej ta mehurček, {learner}: vidiš vse tiste barve? Pa sta voda in milo prozorna. Kako to, misliš?", "en": "Look closely at this bubble, {learner}: see all those colours? And yet water and soap are see-through. Why is that, do you think?", "de": "Schau dir diese Blase genau an, {learner}: Siehst du die vielen Farben? Dabei sind Wasser und Seife durchsichtig. Wie kommt das, meinst du?", "fx": { "bubbles": 0.7 } },
+        { "who": "elena", "it": "Una volta un bambino mi ha detto che i colori li aveva messi dentro il sole. In effetti non aveva tutti i torti: è la luce che si piega nella pellicola sottile.", "sl": "Nekoč mi je neki deček rekel, da je barve vanj dalo sonce. Pravzaprav ni imel čisto narobe: svetloba se lomi v tanki opni.", "en": "Once a boy told me the sun had put the colours inside. In fact he wasn't entirely wrong: it's the light bending in the thin film.", "de": "Einmal hat mir ein Junge gesagt, die Sonne hätte die Farben hineingetan. Ganz falsch lag er damit nicht: Es ist das Licht, das sich in der dünnen Haut bricht." },
+        { "choices": [
+          { "it": "Allora il sole c'entra davvero! Anzi, senza luce le bolle non avrebbero nessun colore.", "sl": "Potem ima sonce res prste vmes! Še več, brez svetlobe mehurčki ne bi imeli nobene barve.", "en": "So the sun really does come into it! In fact, without light the bubbles wouldn't have any colour.", "de": "Dann hat die Sonne wirklich damit zu tun! Mehr noch, ohne Licht hätten die Blasen gar keine Farbe.", "ok": true,
+            "reply": { "face": "proud", "it": "Esatto! Al buio una bolla è solo una pallina d'acqua invisibile.", "sl": "Tako je! V temi je mehurček samo nevidna vodena kroglica.", "en": "Exactly! In the dark a bubble is just an invisible little ball of water.", "de": "Genau! Im Dunkeln ist eine Seifenblase nur ein unsichtbares Wasserkügelchen." } },
+          { "it": "Allora il sole c'entra davvero! Tuttavia, senza luce le bolle non avrebbero nessun colore.", "sl": "Potem ima sonce res prste vmes! Še več, brez svetlobe mehurčki ne bi imeli nobene barve.", "en": "So the sun really does come into it! In fact, without light the bubbles wouldn't have any colour.", "de": "Dann hat die Sonne wirklich damit zu tun! Mehr noch, ohne Licht hätten die Blasen gar keine Farbe.",
+            "grammar": "connettivi", "why": { "sl": "Tuttavia (vendar) postavi nekaj nasproti; da greš še dlje v isti smeri, rečeš anzi.", "en": "Tuttavia (however) sets against; to go further the same way, say anzi.", "de": "Tuttavia (jedoch) stellt etwas dagegen; um weiter in dieselbe Richtung zu gehen, sagst du anzi." },
+            "reply": { "face": "thinking", "it": "Tuttavia? Ma stai dicendo la stessa cosa, solo più forte!", "sl": "Vendar? Saj praviš isto, samo močneje!", "en": "However? But you're saying the same thing, only more strongly!", "de": "Jedoch? Du sagst doch dasselbe, nur stärker!" } }
+        ] },
+        { "who": "elena", "face": "thinking", "it": "Ieri sera ho provato con l'acqua del pozzo, ma le bolle scoppiavano subito. Se avessi usato l'acqua piovana, forse sarebbero durate di più.", "sl": "Sinoči sem poskusila z vodo iz vodnjaka, pa so mehurčki takoj počili. Če bi bila uporabila deževnico, bi morda zdržali dlje.", "en": "Last night I tried with water from the well, but the bubbles burst straight away. If I'd used rainwater, maybe they'd have lasted longer.", "de": "Gestern Abend hab ich es mit Brunnenwasser versucht, aber die Blasen sind sofort geplatzt. Hätte ich Regenwasser genommen, hätten sie vielleicht länger gehalten." },
+        { "choices": [
+          { "it": "Allora la prossima volta raccogliamo l'acqua piovana in un secchio, così vediamo se ha ragione.", "sl": "Potem naslednjič naberemo deževnico v vedro, da vidimo, ali imate prav.", "en": "Then next time we'll collect rainwater in a bucket, and see if you're right.", "de": "Dann sammeln wir nächstes Mal Regenwasser in einem Eimer, und schauen, ob Sie recht haben.", "ok": true,
+            "reply": { "face": "happy", "it": "Un vero esperimento! Diventerai {m:uno scienziato|f:una scienziata}, altro che bolle.", "sl": "Pravi poskus! {m:Znanstvenik|f:Znanstvenica} boš {m:postal|f:postala}, ne pa samo mehurčki.", "en": "A real experiment! You'll become a scientist, never mind bubbles.", "de": "Ein echtes Experiment! Du wirst noch {m:ein Wissenschaftler|f:eine Wissenschaftlerin}, von wegen Seifenblasen." } },
+          { "it": "Allora le bolle di ieri sono durate tantissimo, grazie all'acqua del pozzo.", "sl": "Potem so včerajšnji mehurčki zdržali zelo dolgo, zaradi vode iz vodnjaka.", "en": "So yesterday's bubbles lasted for ages, thanks to the well water.", "de": "Dann haben die Blasen von gestern ewig gehalten, dank dem Brunnenwasser.",
+            "why": { "sl": "Maestra pravi, da so mehurčki iz vodnjaške vode takoj počili; deževnico bi bilo treba poskusiti.", "en": "The teacher says the well-water bubbles burst at once; it's rainwater she'd try.", "de": "Die Lehrerin sagt, die Blasen aus Brunnenwasser sind sofort geplatzt; Regenwasser würde sie versuchen." },
+            "reply": { "face": "confused", "it": "Tantissimo? No, no: pop, pop, pop! Non sono durate neanche un secondo.", "sl": "Zelo dolgo? Ne, ne: pok, pok, pok! Niti sekunde niso zdržali.", "en": "For ages? No, no: pop, pop, pop! They didn't last even a second.", "de": "Ewig? Nein, nein: plopp, plopp, plopp! Die haben nicht mal eine Sekunde gehalten." } }
+        ] },
+        { "who": "elena", "face": "happy", "it": "Allora affare fatto: il primo giorno di pioggia, secchio fuori. E finita la pioggia, tutti al parco a soffiare!", "sl": "Potem dogovorjeno: prvi deževen dan vedro ven. Ko neha deževati, pa vsi v park pihat!", "en": "Then it's a deal: the first rainy day, bucket outside. And rain over, everyone to the park to blow!", "de": "Dann abgemacht: Am ersten Regentag kommt der Eimer raus. Und ist der Regen vorbei, alle in den Park zum Pusten!" }
       ]
     }
   ]

@@ -173,7 +173,7 @@ object Traps {
         known: (String) -> Boolean,
     ): Trap? {
         if (confusions.isEmpty()) return null
-        val form = Forms.turn(texts, right) ?: return null
+        val form = Forms.turn(texts, right) { rules.getOrNull(it) != null } ?: return null
         val gap = form.gap
         // the rules the form's wrong choices test, and those choices (else any wrong one) to give way
         val tested = form.wrong.mapNotNull { rules.getOrNull(it) }.toSet()
