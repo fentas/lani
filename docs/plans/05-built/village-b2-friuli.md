@@ -88,20 +88,25 @@ Carnia, the Val Resia, Udine and Venice are the pack's own A2 history.
 
 - **Bridge:** `bun test/check-culture.ts friuli` ok (arrivals, the spot and its cycle: `spotErrors`), `bun test/check-steps.ts friuli`
   ok (13 files, 78 steps, 312 dialogs, 1,875 lines), `bun test/prompt-clashes.ts` the baseline (339), tsc, `tutor-export --check`, and
-  the smoke with ports 10940–10959 (LANI_SMOKE_DRAMA3_PORT=10958): all checks passed on the merged tree, 3,719 of them, its culture
-  warnings the baseline's (Primorska's and smoke-en's). The first run logged "culture friuli has problems" for four B2 turns: the pairs
+  the smoke with ports 10940–10959 (LANI_SMOKE_DRAMA3_PORT=10958): all checks passed on the merged tree (83fe443e0), 3,846 of them, its
+  culture warnings the baseline's (Primorska's and smoke-en's). The first run logged "culture friuli has problems" for four B2 turns: the pairs
   bridge reads a copy of the cultures with no lexicon beside it, so a step's word is matched by its stem alone, and appendiamo, alziamo,
   girerà and scaviamo didn't pass. Those turns say appenderlo, alzarlo, gira and scavare now, so the steps validate either way.
 - **Lexicon:** the words a tap met nothing for go into the new table `it_cov_70_village_b2_friuli.txt` (one lemma a line;
   `it_cov_build.py` from 45924165's file, `--prompts`: the same clashes as before), written alongside each batch. `lexicon-build
-  --coverage --lang it --all`, before and after: 99.8 % of tokens both, 97.8 % → 98.1 % of the different words, the words no entry knows
-  116 → 112, the only new ones the wrong forms offered on purpose (pulessimo, metterebbi, lavorendo).
-- **Android:** `FriuliProjectStepsTest` and `FriuliProjectStepsContentTest` hold four levels now (312 dialogs; a B2 telling tests a rule
+  --coverage --lang it --all`, before and after this branch's content: 99.8 % of tokens both, 97.8 % → 98.1 % of the different words, the
+  words no entry knows 116 → 112, the only new ones the wrong forms offered on purpose (pulessimo, metterebbi, lavorendo). After merging
+  main (packs-it's tables): 99.9 %, 98.6 %, 96. Seven lemmas both listed went from this table and four prompts changed for main's new
+  words; no entry or form of main's lost (compared entry by entry), and no prompt clash comes from this table.
+- **Android:** the full suite on the merged tree, 4,139 tests, none failed (2 skipped). `FriuliProjectStepsTest` and `FriuliProjectStepsContentTest` hold four levels now (312 dialogs; a B2 telling tests a rule
   of B2; a C1 learner reads B2's). New `FriuliKopaCycleTest`: every stage's, the rest's and the winter's talks played to their end at
   four levels in it·de, it·sl, it·en with a wrong choice each, the meeting, the race's seconds by level saved and lost, the lost pile's
   ash, the six tales, the delivery and Bruno's card, three to five piles a year on Friuli's own days. `KopaCycleTest`'s "no cycle"
   cultures are Kärnten and the Lake District, `HearthsTest`'s culture without one Kärnten, `KopaCulturesTest` reads a B2 learner's
-  history at the highest level told. Content checked by `ArrivalsContentTest`, `MentionsContentTest` and the app's `Cultures` validator.
+  history at the highest level told. Content checked by `ArrivalsContentTest`, `MentionsContentTest`, `ItalianHintTest` (the hint never
+  gives a new turn away) and the app's `Cultures` validator. `SceneCoherenceTest` counts Friuli's 23 B2 `done` lines, and it found 19
+  looks in Pieri's talks with nothing cued: the 12 at the pile in the picture over his talk are reviewed in looks.json, as Primorska's
+  are; the 7 at what isn't drawn (his hands, the stars, a piece's rings, the hut's snow …) are said now, not pointed at.
 - **QA:** `friuli-projects-b` and `parity-small` take a level now (LANI_QA_FB_PLAYS, LANI_QA_MEET_LEVEL). A synthetic Teo:
 
 ```
@@ -111,7 +116,7 @@ LANI_QA_FB_PLAYS=vodnjak_na_trgu:2:B2:b2stone LANI_QA_MEET=bruno LANI_QA_MEET_LE
 LANI_QA_FRIULI_SHOTS=<shots> LANI_QA_PARITY_SHOTS=<shots> companion/bin/qa-slot --no-town --steps friuli-projects-b,parity-small
 ```
 
-Green on a phone-sized emulator (slot 2, a crash check after): the fountain's second step at B2 from its landmark through the sheet, a
+Green on a phone-sized emulator (slot 2, a crash check after; run before the last merge of main, the two tellings unchanged since): the fountain's second step at B2 from its landmark through the sheet, a
 wrong choice and its reaction, to its end card and line; Fabbro Bruno's B2 introduction to its first turn's reaction (screenshots read:
 «Una pecora nera? Hm. Ce n'è sempre una.», «Della quale? Ti sembro una signora? Hm.», the `del`/`della` difference marked). Pieri's
 cycle wasn't played on the emulator: the brief asked for a step and an arrival, and `FriuliKopaCycleTest` plays it in the JVM.
@@ -133,12 +138,13 @@ What a voice build would take for the new lines (his or the villagers' lines and
 
 - **Merges:** the new table may overlap another branch's (two tables may not list one lemma): after merging, rebuild it.extra.json
   with `it_cov_build.py` and keep one line per lemma. bin/qa: two small env reads in `friuli_projects_b` and `parity_small`.
-  `KopaCycleTest`'s "no cycle" list: village-b2-primorska may touch the same test; Kärnten's and the Lakes' cycles will remove theirs.
+  `KopaCycleTest`'s "no cycle" list and `HearthsTest`: Kärnten's and the Lakes' cycles will change them again. `SceneCoherenceTest`'s
+  count of done lines is a sum every culture's B1/B2 steps add to: village-b2-primorska's steps add theirs on the same line.
 - **No format or validator change** was needed: the step and arrival formats and the cycle take every level already.
 - **A finding:** Giulia's B1 arrival offers «Penso che tu sei» as wrong, a form adults say in speech (see above).
 
 ## Commits
 
 19a9cb032 (arrivals), 10cfe9d9c, 0327772d8, 4c3bea7cc, 9f3c3917d, 0b24300d5 (steps and their tests), cbd45bda7, abc654721 (the
-cycle), 8d124bb45, 0d5232dc3 (its tests), 02015100b (four turns without a dictionary), 63c33a1d2 (QA), aff1c8c9a and this one (docs);
-main merged at d9732d635.
+cycle), 8d124bb45, 0d5232dc3 (its tests), 02015100b (four turns without a dictionary), 8efd2548a (the looks), 63c33a1d2 (QA), aff1c8c9a,
+37089f88a and this one (docs); main merged at d9732d635 and 83fe443e0.
