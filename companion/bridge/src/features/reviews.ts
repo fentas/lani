@@ -83,7 +83,7 @@ export function withoutOtherFormsCards(state: { databases?: { spaced_repetition?
  * [state] with each Slovene forms card as one made today would show it ([cardInOrder]): what's read changes, not the deck.
  * A card that doesn't read as one is left to the app, as it is.
  */
-export function withFormsInOrder(state: { databases?: { spaced_repetition?: { items?: Record<string, Record<string, unknown>> } } }, book: Pick<FormsBook, 'firstForms' | 'singularOnly' | 'animate'>) {
+export function withFormsInOrder(state: { databases?: { spaced_repetition?: { items?: Record<string, Record<string, unknown>> } } }, book: Pick<FormsBook, 'firstForms' | 'singularOnly' | 'animate' | 'table'>) {
   const items = state.databases?.spaced_repetition?.items
   if (!items) return
   for (const it of Object.values(items)) {

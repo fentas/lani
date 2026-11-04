@@ -278,9 +278,16 @@ export default async function formsSection() {
       same(collective.slots.map(s => s.key), ['nom.sg', 'gen.sg']) && same(collective.tested, ['nom.sg', 'gen.sg']) && same(collective.fresh ?? [], []),
       collective,
     )
-    const checked: FormsCardData = { ...old('voda', 'f', [['nom.du', ['vode', 'vodi']]]), table: 'checked' }
+    // potok has a table in the forms book now: it decides, whatever the card says it was made from
+    const stale = (table: FormsCardData['table']): FormsCardData => ({ ...old('potok', 'n', [['nom.sg', ['potok']], ['gen.sg', ['potoka']], ['loc.sg', ['potoki', 'potoku']]]), gender: 'm', table })
+    const byTable = [cardInOrder(stale('wiktionary'), c.book), cardInOrder(stale('checked'), c.book)].map(x => x.slots.find(s => s.key === 'loc.sg'))
+    check(
+      "… a word with a table in the forms book by that table, whatever the card says it was made from; what it accepted it still accepts",
+      byTable.every(s => s?.forms[0] === 'potoku' && !!s.also?.includes('potoki')),
+      byTable,
+    )
     const italian: FormsCardData = { ...old('voda', 'f', [['nom.du', ['vode', 'vodi']]]), language: 'it' }
-    check("… a hand-checked table's card and another language's come back as they are", cardInOrder(checked, c.book) === checked && cardInOrder(italian, c.book) === italian)
+    check("… another language's card comes back as it is", cardInOrder(italian, c.book) === italian)
     const state = { databases: { spaced_repetition: { items: { forms_mleko: { type: 'forms', forms: old('mleko', 'n', [['nom.sg', ['mleko']], ['gen.sg', ['mleka']], ['loc.sg', ['mleki', 'mleku']]]) }, broken: { type: 'forms', forms: { lemma: 1 } }, vocab_a: { type: 'vocabulary' } } } } }
     const kept = JSON.stringify({ broken: state.databases.spaced_repetition.items.broken, vocab_a: state.databases.spaced_repetition.items.vocab_a })
     withFormsInOrder(state, c.book)
