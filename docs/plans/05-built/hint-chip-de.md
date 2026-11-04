@@ -12,11 +12,13 @@ below. The chip reads, it never grades: nothing in grading changes.
 
 Machine-written (Claude, 2026-11-04): the strings `hint.de.*` and `hintSay.de.*` in sl, en, it, de (`_note_hint_chip_de` in
 each table: 68 rules, their 68 spoken sentences, 72 trigger lines, 2 spoken openers); the 68 pages' German models and
-questions in `game/GermanHints.kt`. 61 of the rules are the pages' own cards (companion/grammar/de, `card.rule`, in sl, en and
+questions in `game/GermanHints.kt`. 60 of the rules are the pages' own cards (companion/grammar/de, `card.rule`, in sl, en and
 it, the markdown taken out), so they say what the book's card says. Written for the chip: the six pages without a card
-(dativ, modalverben, nebensatz, perfekt, trennbare-verben, wechselpraepositionen); one changed from its card: akkusativ leaves
-out "(Wen? Was?)", which the chip asks first. The cards have no German, so de.json's 68 rules are new (no pair learns German
-from German: they show to nobody, written for completeness, as en.json's `hint.en.*`).
+(dativ, modalverben, nebensatz, perfekt, trennbare-verben, wechselpraepositionen); two changed from their card: akkusativ
+leaves out "(Wen? Was?)", which the chip asks first, and praepositionen-genitiv says *wegen des Sturms … wegen dem Sturm* where
+the card says *Regens … Regen* (the very answers of Kärnten's "Wegen des Regens." and "Wegen dem Regen."). The cards have no
+German, so de.json's 68 rules are new (no pair learns German from German: they show to nobody, written for completeness, as
+en.json's `hint.en.*`).
 
 **For German (an Austrian speaker, from Kärnten if one can be had):**
 1. **The models** (GermanHints.kt, `RULES`), the doubtful ones: *Wenn ich reich wär, kaufte ich ein Schiff.* (the short
@@ -48,7 +50,7 @@ from German: they show to nobody, written for completeness, as en.json's `hint.e
 
 **For English (a learner of German from English):**
 9. "with «nehme»: Wen? Was? What it acts on, the accusative", "with «ich»: that one does it, so this is what it acts on",
-   "with «gestern»…", "the verb's own little word" for a separable prefix: plain enough?
+   "the verb's own little word" for a separable prefix: plain enough?
 
 **For Italian (a learner of German from Italian):**
 10. "con «lege»: Wohin? L'accusativo", "con «nehme»: Wen? Was? Ciò su cui agisce, l'accusativo", "con «Hund»: nella sua
@@ -69,7 +71,7 @@ a card with:
     than one"; "with «sind»: the verb says more than one"; "after «dem»: this noun changes too";
   - the verb: "who: «die Eier»"; "after «Darf»: the infinitive, last"; "after «habe»: the participle, last"; "with «gefahren»:
     its verb decides which helper"; "with «Hunger»: German says it with haben"; "with «würde»: imagined, not real"; "with
-    «gern»: said politely"; "with «übersetzt» …"; "talking to «Herr Franz»";
+    «gern»: said politely"; "talking to «Herr Franz»";
   - where the verb goes, at a turn of the same words in another order: "«Morgen» comes first: the verb comes next"; "after
     «dass»: the verb goes last"; "after «weil»: in writing the verb goes last; in talk people also say it second";
 - **the rule in words**, after the page's question where it asks one ("Wem? After aus, bei, mit, nach, seit, von, zu always
@@ -112,7 +114,8 @@ takes the dative, «Wohin?» the accusative.", the German by the app's German vo
    last, something first has the verb next, a helper's other verb goes last, und and aber take no place. Nothing else of a
    turn changes: it stays a turn to choose.
 5. **The chip** (`TurnHints.of`): a German turn takes German's table; the models' choice and the rows are the shared `finish`.
-   Slovene's, Italian's and English's turns are unchanged: the German branch comes after theirs.
+   Slovene's, Italian's and English's turns are unchanged: the German branch comes after theirs, and the one line of shared
+   code that changes (a turn of whole phrases: what isn't its answer) keeps `CaseTriggers.isPreposition` for them.
 6. **Tests**: `GermanHintTest` (@@TESTS@@): every page's rule, sentence and models in every table; the table read, not repeated;
    the triggers on the content's own turns; what people say in Kärnten; word order; models with no form of the turn; an English
    and an Italian base; and over every curated German turn (Kärnten's scenes with their counting dialogs at a number of each
@@ -135,6 +138,14 @@ takes the dative, «Wohin?» the accusative.", the German by the app's German vo
   kalt), `GermanForms`' rule that a weak noun with no -e is said as it is (dem Bub). A turn with both right names no form: the
   chip finds a trigger only for one right choice. No string of the chip calls a form wrong (`GermanHintTest` checks in three
   bases). The Perfekt is what the perfekt rule says it is: "in talk the usual past"; praeteritum's card says Austria says it.
+- **The small words at a turn of whole phrases** (`GermanHints.small`). At a turn of no one word `TurnHints.of` takes the right
+  choice's own words for its answer, leaving out prepositions, and hides any line that shows one. That list was Slovene's at
+  every turn, so at a German one *unter*, *dem*, *mir*, *Sie*, *hätte* counted as answers and hid the rule that names them: 168
+  hints showed their link alone, among them most of du or Sie (*Tanzen Sie, Herr Toni?* against *Tanzt du …*: its rule can't be
+  said without both) and of the where-is-it turns (*Da, unter dem Bankerl!*). German now leaves out its own small words, from
+  its table and the helpers: 46 such hints are left. This is looser than a form turn on purpose, and only there: a rule may name
+  *mir* among the pronouns at *Mir ist kalt* against *Ich bin kalt*, as it names both at a form turn. A turn of one word's form
+  keeps every form, and nothing changes for the other languages.
 - **Word order, past the English shape.** English and Italian say the rule alone at a turn of no one word; in German about
   @@ORDER@@ turns are exactly that and the order is what they test, so the chip names what decides. A separable verb's turn
   (*Ich mache die Tür zu* against *Ich zumache die Tür*) has other words, so it stays the rule alone: a line there would say
