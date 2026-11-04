@@ -317,13 +317,13 @@ class KopaCycleTest {
                 if (k.breakout) continue
                 for (p in german) for (level in levels) assertTrue("$id $hour:00 #$n $level: a wrong choice", play(k, level, p, "$id $hour:00 #$n $level ${p.code}", "de") >= 1)
                 // each level tells it its own way
-                val told = levels.map { lv -> Keepers.talk(k, lv, "de", german[1])!!.lines.mapNotNull { it.sl.takeIf(String::isNotBlank) }.joinToString(" ") }
+                val told = levels.map { lv -> Keepers.talk(k, lv, "de", german[1])!!.lines.mapNotNull { it.sl?.takeIf(String::isNotBlank) }.joinToString(" ") }
                 assertEquals("$id: $told", levels.size, told.toSet().size)
             }
         }
         // his first evening can be any day: the meeting, at each level; two talks at every stage; his own story in six parts
         val met = michl(village, r.spans.first().from, 20)
-        for (p in german) for (level in levels) assertTrue("the meeting $level: a wrong choice", play(met, level, p, "meeting $level ${p.code}", "de"))
+        for (p in german) for (level in levels) assertTrue("the meeting $level: a wrong choice", play(met, level, p, "meeting $level ${p.code}", "de") >= 1)
         for (s in cycle.stages) assertTrue("${s.id}: two talks", s.talks.size >= 2)
         val tales = world.spots.getValue("kopa").keeper!!.tales
         assertEquals(6, tales.size)
