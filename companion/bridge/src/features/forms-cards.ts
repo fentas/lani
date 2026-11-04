@@ -10,12 +10,14 @@ import { renderDeep } from '../addressee'
 import { learnedItem } from '../counting'
 import type { FeatureFactory } from '../feature'
 import { adjectiveForms, contentLines, formsOf, LineIndex, type LemmaForms } from '../forms'
+import { bareWord, isParadigmLanguage } from '../paradigms'
 import {
   cardOfItem, formsCardOf, formsCardVocabulary, formsItemId, isCard, MIN_TESTED, MIN_TESTED_ASKED, resurfacePlan,
   testedOf, usefulness, usesOf, type CardContext, type FormsCardData,
 } from '../forms-cards'
 import { json, readJson } from '../http'
 import { ATTRIBUTION, normalizeForm } from '../lexicon'
+import { LANGUAGES } from '../learners'
 import { itemId, normWord, wordOf } from '../packs'
 
 const instructions = `
@@ -61,7 +63,28 @@ const formsCardsIn = z.object({
   words: z.array(z.object({ word: z.string().trim().min(1).max(40), item_id: z.string().trim().max(128).optional() })).max(40),
   introduced: z.array(z.string().trim().min(1).max(60)).max(200).default([]),
   asked: z.boolean().optional(),
+  /** The tables the app reads: 2 has Italian's, German's and English's too. */
+  v: z.number().int().optional(),
 })
+
+/** What each language's forms card holds (paradigms.ts' slots), for the tutor. */
+const OTHER_TABLES: Record<string, string> = {
+  it: "a verb's present, passato prossimo (the participle after avere or essere), imperfetto, futuro, condizionale, congiuntivo (and its imperfect), passato remoto, imperativo and gerundio; an adjective's genders and numbers, its comparative and superlative",
+  de: "a verb's Präsens, Präteritum, Perfekt (the Partizip II after haben or sein), Konjunktiv II (sein, haben, werden, the modals, wissen) and Imperativ; a noun's four cases by number with the article (dem Haus, den Häusern)",
+  en: "a verb's -s, past, past participle and -ing (be's am, are, is, was, were)",
+}
+
+/** The tutor's paragraph of forms cards in an Italian, German or English village. */
+const otherInstructions = (language: string) => `
+Forms cards in ${LANGUAGES[language] ?? language} ("📋" in the review): one of the learner's words with its table in a review card
+(type "forms", id forms_<word>, its table in the item's forms, forms.language "${language}"): Wiktionary's forms of the
+content's words (companion/lexicon/${language}.paradigms.json), never made by a rule: ${OTHER_TABLES[language] ?? 'its forms'}.
+Only what the learner has been introduced to is tested (a form whose grammar page was met in the grammar book or taught
+by a unit whose intro is done); a form the same as the word's own is shown, never asked (German's dem Haus, English's
+cut). A part at a time, each gap chosen until the card is secure, typed after; "📋" on a word's card shows the whole
+table, to read. A review's wrong cell is ALREADY in the mistakes database as forms_<kind> (forms_tense_imperfect,
+forms_tense_subjunctive, forms_tense_participle, forms_verb_person_1sg, forms_case_dative, forms_number_plural …):
+suggest its grammar page or a drill, never record it again. An app from before November 2026 has none.`
 
 type Item = Record<string, unknown> & { type?: string; content?: string; answer?: string; created_date?: string }
 
@@ -101,17 +124,26 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
 
   /** What a card is made with: biti's future, the adjective's cases, the book's pages, the learner's gender. */
   function cardContext(index: LineIndex, pages: Set<string>): CardContext {
+    if (language !== 'sl') return { bitiFuture: {}, pages, female: addressee().gender === 'female', language }
     return { bitiFuture: bitiFuture(), adjective: l => adjectiveForms({ dict, book, pages, lines: index, language }, l), pages, female: addressee().gender === 'female', language }
   }
+  /** A word's dictionary entries as GET /forms has them: Slovene's dictionary's, the others' paradigms. */
+  const entriesOf = (index: LineIndex, pages: Set<string>, word: string) =>
+    formsOf({ dict, book, pages, lines: index, language, paradigms: dictionary.paradigms }, word).filter(e => e.pos === 'noun' || e.pos === 'verb' || e.pos === 'adj')
 
-  /** The grammar book's pages and the future's auxiliary are Slovene's: an error for a village that speaks another language. */
-  const notSlovene = () =>
-    language !== 'sl' || dictionary.language !== 'sl' ? json({ error: `forms cards are Slovene's; this village speaks "${language}"` }, 400) : null
+  /**
+   * Slovene's cards, and Italian's, German's and English's (paradigms.ts) to an app that reads their tables ([v] 2): an
+   * error for another village, or an older app there.
+   */
+  const notSlovene = (v?: unknown) =>
+    (language === 'sl' && dictionary.language === 'sl') || (isParadigmLanguage(language) && Number(v) === 2)
+      ? null
+      : json({ error: `forms cards are Slovene's${isParadigmLanguage(language) ? ', and this village\'s to an app that asks with v=2' : ''}; this village speaks "${language}"` }, 400)
 
   async function handle(req: Request): Promise<Response> {
     const r = formsCardsIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
-    const other = notSlovene()
+    const other = notSlovene(r.data.v)
     if (other) return other
     const today = new Date().toLocaleDateString('sv') // YYYY-MM-DD, local, as read-db.py's today
     const items = learner.srItems() as Record<string, Item>
@@ -133,8 +165,8 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
     const words = new Map<string, { id: string; item: Item }>()
     for (const [id, it] of Object.entries(items)) {
       if ((it.type ?? 'vocabulary') !== 'vocabulary' || typeof it.content !== 'string') continue
-      const key = norm(it.content)
-      if (!words.has(key) || learnedItem(it)) words.set(key, { id, item: it })
+      // a card's word without its article or its "to" too (la casa, der Wald, to run: the app names casa, Wald, run)
+      for (const key of new Set([norm(it.content), norm(bareWord(it.content, language))])) if (!words.has(key) || learnedItem(it)) words.set(key, { id, item: it })
     }
 
     type Made = { card: FormsCardData; word: string; item_id?: string; tested: number }
@@ -155,7 +187,7 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
         skipped.push({ word: w.word, why: `today's ${PER_DAY} new forms cards are made` })
         continue
       }
-      const entries = formsOf({ dict, book, pages, lines: index, language }, w.word).filter(e => e.pos === 'noun' || e.pos === 'verb' || e.pos === 'adj')
+      const entries = entriesOf(index, pages, w.word)
       if (!entries.length) {
         skipped.push({ word: w.word, why: 'no noun, verb or adjective of that name in the dictionary' })
         continue
@@ -169,7 +201,7 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
         skipped.push({ word: w.word, why: (tries[0] as { why: string }).why })
         continue
       }
-      const has = cards.find(c => norm(c.card.lemma) === card.lemma && c.card.pos === card.pos)
+      const has = cards.find(c => norm(c.card.lemma) === norm(card.lemma) && c.card.pos === card.pos)
       if (has) {
         if (asked) added.push({ item_id: has.id, lemma: has.card.lemma, pos: has.card.pos, tested: testedOf(has.card.slots, introduced).length, existing: true })
         else skipped.push({ word: w.word, why: 'it has a forms card' })
@@ -196,7 +228,7 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
     const vocabulary: ReturnType<typeof formsCardVocabulary>[] = []
     const taken = (id: string) => !!items[id] || vocabulary.some(v => v.item_id === id)
     for (const m of ready) {
-      const posTaken = cards.some(c => norm(c.card.lemma) === m.card.lemma) || vocabulary.some(v => v.forms.lemma === m.card.lemma)
+      const posTaken = cards.some(c => norm(c.card.lemma) === norm(m.card.lemma)) || vocabulary.some(v => norm(v.forms.lemma) === norm(m.card.lemma))
       const id = formsItemId(m.card.lemma, m.card.pos, taken, posTaken)
       vocabulary.push(formsCardVocabulary(id, m.card, today))
       added.push({ item_id: id, lemma: m.card.lemma, pos: m.card.pos, tested: m.tested })
@@ -232,12 +264,12 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
   function tables(url: URL): Response {
     const words = url.searchParams.getAll('w').map(w => w.trim())
     if (!words.length || words.length > TABLE_WORDS || words.some(w => !w || w.length > 40)) return json({ error: `w: 1-${TABLE_WORDS} words, each 1-40 characters` }, 400)
-    const other = notSlovene()
+    const other = notSlovene(url.searchParams.get('v'))
     if (other) return other
     const { index, pages } = content()
     const k = cardContext(index, pages)
     const out = words.map(word => {
-      const entries = formsOf({ dict, book, pages, lines: index, language }, word).filter(e => e.pos === 'noun' || e.pos === 'verb' || e.pos === 'adj')
+      const entries = entriesOf(index, pages, word)
       const tables = entries.map(e => formsCardOf(e, k)).filter(isCard).map(c => {
         const emoji = emojiOf(c.lemma, undefined)
         return { ...c, ...(emoji ? { emoji } : {}) }
@@ -249,7 +281,7 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
   }
 
   return {
-    instructions: language === 'sl' ? instructions : `Forms cards are Slovene's: this village's language has none, so no review names one and no mistake is forms_*.`,
+    instructions: language === 'sl' ? instructions : isParadigmLanguage(language) ? otherInstructions(language) : `Forms cards are Slovene's: this village's language has none, so no review names one and no mistake is forms_*.`,
     routes: [
       { method: 'POST', path: '/forms-cards', handle: ({ req, url }) => outbox.once(req, url.pathname, handle) },
       { method: 'GET', path: '/forms-cards', handle: ({ url }) => tables(url) },

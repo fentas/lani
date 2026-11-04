@@ -1,0 +1,313 @@
+#!/usr/bin/env bun
+// Word forms for Italian, German and English (companion/README.md, "Word forms", "Other languages"): makes
+// companion/lexicon/<lang>.paradigms.json from a kaikki.org extract of English Wiktionary (JSONL, gzipped or not, e.g.
+// https://kaikki.org/dictionary/Italian/kaikki.org-dictionary-Italian.jsonl.gz): the nouns, verbs and adjectives the
+// language's curated content uses (its culture, packs, course, grammar book, modules, drills, scenarios and supplement),
+// each with its forms by slot (bridge/src/paradigms.ts: slotOfTags), its gender, a verb's auxiliary and a short English
+// gloss. Only the content's words, not the whole language: the file goes into the APK.
+//
+// Usage: companion/bin/forms-build --lang <it|de|en> --from <kaikki.jsonl[.gz]> [--out <file>] [--extract-date <YYYY-MM-DD>]
+//
+// The data is Wiktionary's, CC BY-SA 4.0 (and GFDL): the file's meta names the licence, the attribution, the source and
+// what was changed. The build is deterministic: the same extract gives the same file.
+import '../bridge/src/env'
+import { createReadStream, existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { join, resolve } from 'node:path'
+import { createGunzip } from 'node:zlib'
+import { createInterface } from 'node:readline'
+import { normalizeForm } from '../bridge/src/lexicon'
+import type { FormPos } from '../bridge/src/forms'
+import { isParadigmLanguage, LANG_KEYS, pageOfIn, registerOf, slotOfTags, type ParadigmLanguage } from '../bridge/src/paradigms'
+
+const args = process.argv.slice(2)
+const arg = (k: string) => {
+  const i = args.indexOf(k)
+  return i >= 0 ? args[i + 1] : undefined
+}
+const lang = arg('--lang') ?? ''
+const from = arg('--from')
+if (!isParadigmLanguage(lang) || !from) {
+  console.error('usage: forms-build --lang <it|de|en> --from <kaikki.jsonl[.gz]> [--out <file>] [--extract-date <YYYY-MM-DD>]')
+  process.exit(2)
+}
+const L: ParadigmLanguage = lang
+const root = resolve(import.meta.dir, '../..')
+const out = arg('--out') ?? join(root, 'companion/lexicon', `${L}.paradigms.json`)
+const NAMES: Record<ParadigmLanguage, string> = { it: 'Italian', de: 'German', en: 'English' }
+
+// --- the content's words ---------------------------------------------------------------------------------------------
+
+/** A word as the app taps it: letters, with an apostrophe or a hyphen between two of them kept inside. */
+const TAPPED = /[\p{L}\p{M}]+(?:['’‐-][\p{L}\p{M}]+)*/gu
+const LANGS = new Set(['sl', 'it', 'de', 'en', 'fr', 'es'])
+/** Keys whose strings are the language's own: a line's (`it`), an example's, a module's options, answers and tokens. */
+const TEXT_KEYS = new Set([L, `example_${L}`, `opener_${L}`, 'say', 'text', 'options', 'accept', 'solutions', 'tokens', 'distractors', 'words', 'prompt', 'cells', 'rows', 'columns', 'cue', 'form', 'forms', 'lemma', 'plural'])
+/** Keys whose strings are about the content, not in it: explanations in the base, ids, names of files. */
+const NOT_TEXT = new Set(['explain', 'instruction', 'hint', 'goal', 'title', 'review', 'note', 'schema', 'id', 'emoji', 'grammar', 'type', 'language', 'level', 'who', 'face', 'art', 'voice', 'gloss', 'meanings', 'why'])
+
+function jsonFiles(dir: string): string[] {
+  if (!existsSync(dir)) return []
+  return readdirSync(dir, { withFileTypes: true }).flatMap(d => {
+    const p = join(dir, d.name)
+    if (d.isDirectory()) return jsonFiles(p)
+    return d.name.endsWith('.json') ? [p] : []
+  })
+}
+
+function texts(v: unknown, key = '', inside = false): string[] {
+  if (Array.isArray(v)) return v.flatMap(x => texts(x, key, inside))
+  if (v && typeof v === 'object')
+    return Object.entries(v).flatMap(([k, x]) => {
+      if (LANGS.has(k) && k !== L) return [] // another language's translation
+      if (NOT_TEXT.has(k)) return []
+      return texts(x, k, inside || TEXT_KEYS.has(k))
+    })
+  return typeof v === 'string' && (inside || TEXT_KEYS.has(key)) ? [v] : []
+}
+
+/** The language's curated content: its culture's files, and its own directories of the packs, course, book and the rest. */
+function contentFiles(): string[] {
+  const cultures = join(root, 'companion/cultures')
+  const culture = readdirSync(cultures).find(c => {
+    const m = join(cultures, c, 'culture.json')
+    return existsSync(m) && JSON.parse(readFileSync(m, 'utf8')).language === L
+  })
+  const dirs = ['packs', 'course', 'grammar', 'modules', 'drills', 'scenarios', 'scenes'].map(d => join(root, 'companion', d, L))
+  return [...(culture ? jsonFiles(join(cultures, culture)) : []), ...dirs.flatMap(jsonFiles), join(root, 'companion/lexicon', `${L}.extra.json`)].filter(existsSync).sort()
+}
+
+const norm = (s: string) => normalizeForm(s, L)
+
+function contentTokens(): Map<string, number> {
+  const count = new Map<string, number>()
+  for (const f of contentFiles()) {
+    const data = JSON.parse(readFileSync(f, 'utf8'))
+    for (const t of texts(data)) {
+      const plain = t.replace(/\{[mf]:([^{}|]*)\|[mf]:([^{}|]*)\}/g, ' $1 $2 ').replace(/\{[^{}]*\}/g, ' ')
+      const text = L === 'it' ? plain.replace(/\p{L}+['’](?=\p{L})/gu, '') : plain
+      for (const m of text.matchAll(TAPPED)) {
+        for (const w of [m[0], ...m[0].split(/[-‐]/)]) {
+          if (!/\p{L}/u.test(w)) continue
+          const n = norm(w)
+          count.set(n, (count.get(n) ?? 0) + 1)
+        }
+      }
+    }
+  }
+  return count
+}
+
+// --- the extract ----------------------------------------------------------------------------------------------------
+
+type Form = { form: string; tags?: string[] }
+type Sense = { glosses?: string[]; tags?: string[]; form_of?: unknown[]; alt_of?: unknown[] }
+type Entry = { word: string; pos: string; lang_code?: string; forms?: Form[]; senses?: Sense[]; head_templates?: { name?: string; args?: Record<string, string>; expansion?: string }[] }
+
+const POS: Record<string, FormPos> = { verb: 'verb', noun: 'noun', adj: 'adj' }
+
+/** A form as the app writes it: Italian without the stress marks Wiktionary puts inside a word (màngio → mangio). */
+function writtenForm(f: string): string {
+  const s = f.trim().replace(/[’ʼ]/g, "'")
+  if (L !== 'it') return s.normalize('NFC')
+  const w = s.normalize('NFD').replace(/\p{M}(?=[\p{M}']*\p{L})/gu, '').normalize('NFC')
+  // Wiktionary marks the stress of a one-syllable form too (và, sò, fà): Italian writes the accent on few of them
+  return w.split(' ').map(x => (/^[^aeiouàèéìòóù]*[aeiouàèéìòóù]+[^aeiouàèéìòóù]*$/i.test(x) && !IT_ACCENTED.has(x.toLowerCase()) ? x.normalize('NFD').replace(/\p{M}/gu, '').normalize('NFC') : x)).join(' ')
+}
+/** Italian's one-syllable words written with their accent (è, dà, può, già, più …). */
+const IT_ACCENTED = new Set(['è', 'é', 'dà', 'può', 'ciò', 'già', 'giù', 'più', 'là', 'lì', 'né', 'sé', 'sì', 'tè', 'ché', 'scià', 'piè'])
+const WRITTEN = /^[\p{L}\p{M}]+(?:[ '’-][\p{L}\p{M}]+){0,2}$/u
+
+/** A sense's gloss, short: its first gloss up to a semicolon, without brackets, at most 60 characters; none for a use. */
+function shortGloss(g0: string): string | null {
+  const g = /^(?:Used|Denotes)\b[^.]*\.\s+(\p{Ll}.*)$/u.exec(g0)?.[1] ?? g0
+  if (/^(?:Used|Denotes)\b/.test(g)) return null
+  const s = g.replace(/\s*\([^)]*\)/g, '').replace(/\s*\[[^\]]*\]?/g, '').split(/;/)[0].trim().replace(/[.:]$/, '')
+  if (!s || s.length > 60) return s ? `${s.slice(0, 57).replace(/\s+\S*$/, '')}…` : null
+  return s
+}
+
+function genderOf(e: Entry): 'm' | 'f' | 'n' | undefined {
+  const tags = new Set(e.forms?.filter(f => f.tags?.includes('canonical')).flatMap(f => f.tags ?? []))
+  if (tags.has('masculine') && !tags.has('feminine')) return 'm'
+  if (tags.has('feminine') && !tags.has('masculine')) return 'f'
+  if (tags.has('neuter')) return 'n'
+  for (const h of e.head_templates ?? []) {
+    const g = /^([mfn])(?:[-,.<]|$)/.exec(h.args?.['1'] ?? h.args?.g ?? h.args?.['2'] ?? '')?.[1]
+    if (g) return g as 'm' | 'f' | 'n'
+  }
+  return undefined
+}
+
+function auxOf(e: Entry): string[] | undefined {
+  const aux = new Set<string>()
+  for (const f of e.forms ?? []) if (f.tags?.includes('auxiliary') && registerOf(f.tags, L) !== 'out') aux.add(norm(writtenForm(f.form)))
+  if (L === 'de' && !aux.size) {
+    const m = /auxiliary (haben|sein)(?: or (?:\([^)]*\) )?(haben|sein))?/.exec(e.head_templates?.map(h => h.expansion ?? '').join(' ') ?? '')
+    if (m) for (const a of [m[1], m[2]]) if (a) aux.add(a)
+  }
+  const list = [...aux].filter(a => /^(avere|essere|haben|sein)$/.test(a))
+  return list.length ? list.slice(0, 2) : undefined
+}
+
+type Built = { lemma: string; pos: FormPos; gloss: string[]; gender?: 'm' | 'f' | 'n'; aux?: string[]; forms: Map<string, string[]>; also: Map<string, string[]> }
+
+function slotsOf(e: Entry, pos: FormPos): { forms: Map<string, string[]>; also: Map<string, string[]> } {
+  const forms = new Map<string, string[]>()
+  const also = new Map<string, string[]>()
+  const put = (m: Map<string, string[]>, k: string, f: string) => {
+    const l = m.get(k) ?? []
+    if (!l.includes(f)) l.push(f)
+    m.set(k, l)
+  }
+  const lemma = writtenForm(e.word)
+  if (pos === 'noun' && (L === 'it' || L === 'en')) put(forms, 'sg', lemma)
+  if (pos === 'adj' && L === 'it') put(forms, 'adj.m.sg', lemma)
+  // the first table only: an entry's later tables are another variety's or an older language's (essere's sò, sarebbi)
+  let tables = 0
+  for (const f of e.forms ?? []) {
+    if (f.tags?.includes('inflection-template')) tables++
+    if (tables > 1) break
+    // Italian adjectives with forms before a consonant (bel, bei, begli): Wiktionary's head can't read them, they are right
+    const tags = L === 'it' && pos === 'adj' ? (f.tags ?? []).filter(t => t !== 'error-unrecognized-form') : (f.tags ?? [])
+    const key = slotOfTags(L, pos, tags)
+    if (!key) continue
+    const reg = registerOf(tags, L)
+    if (reg === 'out') continue
+    let w = writtenForm(f.form)
+    // English's thou forms (art, wast) are in its table untagged: be's second person is are, were
+    if (L === 'en' && ((key === 'pres.2sg' && w !== 'are') || (key === 'past.2sg' && w !== 'were') || (key === 'past.1sg' && w !== 'was'))) continue
+    // a reflexive verb's participle with its pronoun (lavatosi): the participle (mi sono lavato)
+    if (L === 'it' && key === 'pp' && /rsi$/.test(e.word) && /si$/.test(w)) w = w.slice(0, -2)
+    if (!WRITTEN.test(w) || w === '-' || w.length > 40) continue
+    put(reg === 'also' ? also : forms, key, w)
+  }
+  // a slot with only accepted forms: the first is its form
+  for (const [k, v] of also) {
+    if (forms.has(k)) continue
+    forms.set(k, [v[0]])
+    if (v.length > 1) also.set(k, v.slice(1))
+    else also.delete(k)
+  }
+  for (const [k, v] of also) {
+    const left = v.filter(f => !forms.get(k)!.includes(f))
+    if (left.length) also.set(k, left)
+    else also.delete(k)
+  }
+  // German: a dative singular's -e (dem Hause) beside the plain one is accepted, not shown
+  if (L === 'de' && pos === 'noun') {
+    const d = forms.get('dat.sg')
+    if (d && d.length > 1) {
+      const plain = d.filter(f => !(f.endsWith('e') && d.includes(f.slice(0, -1))))
+      const old = d.filter(f => !plain.includes(f))
+      if (plain.length && old.length) {
+        forms.set('dat.sg', plain)
+        also.set('dat.sg', [...(also.get('dat.sg') ?? []), ...old])
+      }
+    }
+  }
+  // a slot of a page the language's book doesn't have (German's Konjunktiv II of a verb that says würde): left out
+  const at = (k: string) => (forms.get(k) ?? []).map(norm)
+  for (const k of [...forms.keys()]) {
+    if (LANG_KEYS[L][pos].includes(k) && pageOfIn(L, lemma, pos, k, at, genderOf(e))) continue
+    forms.delete(k)
+    also.delete(k)
+  }
+  for (const v of forms.values()) v.splice(4)
+  for (const v of also.values()) v.splice(4)
+  return { forms, also }
+}
+
+async function* lines(file: string): AsyncIterable<string> {
+  const input = createReadStream(file)
+  const stream = file.endsWith('.gz') ? input.pipe(createGunzip()) : input
+  for await (const line of createInterface({ input: stream, crlfDelay: Infinity })) if (line.trim()) yield line
+}
+
+async function build() {
+  const tokens = contentTokens()
+  const known = new Set(tokens.keys())
+  const built = new Map<string, Built[]>()
+  let read = 0
+  for await (const line of lines(from!)) {
+    read++
+    // most lines are another part of speech: a cheap look before parsing
+    if (!/"pos": ?"(verb|noun|adj)"/.test(line)) continue
+    let e: Entry
+    try {
+      e = JSON.parse(line)
+    } catch {
+      continue
+    }
+    if ((e.lang_code ?? L) !== L) continue
+    const pos = POS[e.pos]
+    if (!pos || !e.word || !e.forms?.length) continue
+    // a feminine noun is a word of its own ("female equivalent of Freund": Freundin, cugina), not a form of another
+    const feminine = (s: Sense) => /^(?:female|feminine) equivalent of\b/i.test(s.glosses?.[0] ?? '')
+    const senses = (e.senses ?? []).filter(s => feminine(s) || (!s.form_of?.length && !s.alt_of?.length && !s.tags?.some(t => ['form-of', 'alt-of', 'misspelling'].includes(t))))
+    if (!senses.length) continue
+    const lemma = writtenForm(e.word)
+    // a capitalized lemma outside German is a name's (Italia, London)
+    if (!WRITTEN.test(lemma) || (L !== 'de' && /^\p{Lu}/u.test(lemma))) continue
+    const { forms, also } = slotsOf(e, pos)
+    const own = [...forms.entries()].filter(([k]) => !['sg', 'nom.sg', 'adj.m.sg'].includes(k))
+    if (!own.length) continue
+    const met = known.has(norm(lemma)) || [...forms.values(), ...also.values()].some(v => v.some(f => !f.includes(' ') && known.has(norm(f))))
+    if (!met) continue
+    // a verb's glosses that say what it means first ("to be"), before a use ("forms the present perfect …")
+    const glosses = [...new Set(senses.flatMap(s => (s.glosses?.[0] ? [shortGloss(s.glosses.at(-1)!)] : [])).filter((g): g is string => !!g))]
+    const gloss = (pos === 'verb' ? [...glosses.filter(g => g.startsWith('to ')), ...glosses.filter(g => !g.startsWith('to '))] : glosses).slice(0, 2)
+    const b: Built = { lemma, pos, gloss, gender: pos === 'noun' ? genderOf(e) : undefined, aux: pos === 'verb' ? auxOf(e) : undefined, forms, also }
+    const key = `${norm(lemma)}|${pos}`
+    const same = built.get(key) ?? []
+    const twin = same.find(x => JSON.stringify([...x.forms]) === JSON.stringify([...b.forms]))
+    if (twin) {
+      twin.gloss = [...new Set([...twin.gloss, ...b.gloss])].slice(0, 3)
+      for (const [k, v] of b.also) twin.also.set(k, [...new Set([...(twin.also.get(k) ?? []), ...v])].filter(f => !twin.forms.get(k)?.includes(f)).slice(0, 4))
+      twin.aux ??= b.aux
+      twin.gender ??= b.gender
+    } else {
+      same.push(b)
+      built.set(key, same)
+    }
+  }
+  // a verb or an adjective beside another word of the same spelling, none of whose own forms the content says (English
+  // good, to furnish with dung; child, to give birth): left out, so the tap and the review meet the word meant
+  const byLemma = new Map<string, Built[]>()
+  for (const b of [...built.values()].flat()) byLemma.set(norm(b.lemma), [...(byLemma.get(norm(b.lemma)) ?? []), b])
+  const said = (b: Built) => [...b.forms.values(), ...b.also.values()].flat().some(f => !f.includes(' ') && norm(f) !== norm(b.lemma) && known.has(norm(f)))
+  const kept = [...byLemma.values()].flatMap(group => (group.length < 2 ? group : group.filter(b => b.pos === 'noun' || said(b))))
+  const entries = kept.sort((a, b) => norm(a.lemma).localeCompare(norm(b.lemma), L) || a.lemma.localeCompare(b.lemma) || a.pos.localeCompare(b.pos) || a.gloss.join().localeCompare(b.gloss.join()))
+  const one = (v: string[]) => (v.length === 1 ? v[0] : v)
+  const rows = entries.map(b =>
+    JSON.stringify({
+      lemma: b.lemma, pos: b.pos, ...(b.gloss.length ? { gloss: b.gloss } : {}), ...(b.gender ? { gender: b.gender } : {}), ...(b.aux ? { aux: b.aux } : {}),
+      forms: Object.fromEntries(LANG_KEYS[L][b.pos].filter(k => b.forms.has(k)).map(k => [k, one(b.forms.get(k)!)])),
+      ...(b.also.size ? { also: Object.fromEntries(LANG_KEYS[L][b.pos].filter(k => b.also.has(k)).map(k => [k, one(b.also.get(k)!)])) } : {}),
+    }),
+  )
+  const body = rows.join(',\n')
+  const extract = arg('--extract-date') ?? new Date(statSync(from!).mtimeMs).toISOString().slice(0, 10)
+  const forms = entries.reduce((n, b) => n + [...b.forms.values()].reduce((m, v) => m + v.length, 0), 0)
+  const meta = {
+    schema: 'lani.paradigms/v0',
+    language: L,
+    source: `English Wiktionary's ${NAMES[L]} entries, as kaikki.org extracts them (the extract of ${extract})`,
+    url: `https://kaikki.org/dictionary/${NAMES[L]}/`,
+    licence: 'CC BY-SA 4.0',
+    licence_url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    attribution: 'Wiktionary (CC BY-SA 4.0) via kaikki.org',
+    modified: "Lani (companion/bin/forms-build): only the nouns, verbs and adjectives Lani's content uses; each form read from its table's tags into a slot; old and rare forms left out, regional and colloquial ones kept as accepted; Italian's stress marks inside a word dropped; a short English gloss.",
+    built: extract,
+    version: `${extract}.${createHash('sha256').update(body).digest('hex').slice(0, 8)}`,
+    lemmas: entries.length,
+    forms,
+  }
+  writeFileSync(out, `{"meta": ${JSON.stringify(meta)},\n"entries": [\n${body}\n]}\n`)
+  const byPos = (p: string) => entries.filter(e => e.pos === p).length
+  const inFile = new Set(entries.flatMap(e => [norm(e.lemma), ...[...e.forms.values()].flat().map(norm)]))
+  const covered = [...known].filter(t => inFile.has(t)).length
+  console.log(`${out}: ${entries.length} entries (${byPos('verb')} verbs, ${byPos('noun')} nouns, ${byPos('adj')} adjectives), ${forms} forms, ${(statSync(out).size / 1024).toFixed(0)} KB; ${read} lines read; the content's ${known.size} words, ${covered} of them a lemma or form here`)
+}
+
+await build()

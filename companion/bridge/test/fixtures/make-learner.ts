@@ -45,9 +45,9 @@ const day = (n: number) => localDate(Date.now() + n * 86_400_000)
 const days = (v: unknown): unknown =>
   typeof v === 'string' && /^@day(-\d+)?$/.test(v) ? day(-Number(v.slice(5) || 0)) : Array.isArray(v) ? v.map(days) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, days(x)])) : v
 const fixture = JSON.parse(readFileSync(resolve(import.meta.dir, 'dev-town.json'), 'utf8'))
-// the curated modules below the learner's level, played a month ago (Slovene's in companion/modules, the others' in modules/<language>)
+// the curated modules below the learner's level, played a month ago (Slovene's in companion/modules, the others' in
+// modules/<language>; a language without curated modules, none)
 const modulesDir = join(projectDir, 'companion/modules', values.target === 'sl' ? '' : values.target!)
-// German and English have no curated modules (a language without companion/modules/<language>): none played
 const below = (existsSync(modulesDir) ? readdirSync(modulesDir) : []).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(modulesDir, f), 'utf8')))
   .filter(m => m.quest && LEVELS.indexOf(m.level) < LEVELS.indexOf(values.level!))
 const played = below.map(m => ({ id: `tutor-${m.id}-v1`, moduleId: m.id, giver: m.quest.giver, source: 'TUTOR', since: day(-30), done: true }))

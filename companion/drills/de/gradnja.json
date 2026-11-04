@@ -1,0 +1,872 @@
+{
+  "schema": "lani.drill/v0",
+  "id": "gradnja",
+  "kind": "build",
+  "language": "de",
+  "emoji": "🧱",
+  "title": {"de": "Sätze bauen", "en": "Sentence building", "sl": "Gradnja stavkov", "it": "Costruire le frasi"},
+  "about": {"en": "A German sentence grown in three or four steps: say it, then \"Now add: tomorrow\", say the longer one, hear it. German puts every word in its place: the verb second after a time word, time before manner before place, the verb last after weil and dass, the prefix of a separable verb at the end. The village's words and people; a build of a rule not introduced to the learner yet isn't played.", "de": "Ein Satz wächst in drei oder vier Schritten: sag ihn, dann \"Jetzt dazu: morgen\", sag den längeren Satz und hör ihn. Jedes Wort hat seinen Platz: das Verb an zweiter Stelle nach einer Zeitangabe, Zeit vor Art vor Ort, das Verb am Ende nach weil und dass, die Vorsilbe eines trennbaren Verbs ganz hinten. Die Wörter und Leute des Dorfes; ein Satz mit einer Regel, die dem Lernenden noch nicht vorgestellt wurde, wird nicht gespielt.", "sl": "Nemški stavek raste v treh ali štirih korakih: povej ga, nato »Zdaj dodaj: jutri«, povej daljšega in ga poslušaj. V nemščini ima vsaka beseda svoje mesto: glagol na drugem mestu za časovno besedo, čas pred načinom in krajem, glagol na koncu za weil in dass, predpona ločljivega glagola čisto zadaj. Besede in ljudje iz vasi; stavek s pravilom, ki ga učenec še ni spoznal, se ne predvaja.", "it": "Una frase tedesca cresce in tre o quattro passi: dilla, poi «Ora aggiungi: domani», di' quella più lunga e ascoltala. In tedesco ogni parola ha il suo posto: il verbo al secondo posto dopo un'indicazione di tempo, il tempo prima del modo e del luogo, il verbo in fondo dopo weil e dass, il prefisso di un verbo separabile alla fine. Le parole e la gente del paese; una frase con una regola non ancora presentata non viene proposta."},
+  "builds": [
+    {
+      "id": "nach-villach",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Ich fahre nach Villach.", "en": "I'm going to Villach.", "sl": "Peljem se v Beljak.", "it": "Vado a Villach."},
+        {"add": {"en": "tomorrow", "sl": "jutri", "it": "domani"}, "de": "Morgen fahre ich nach Villach.", "en": "Tomorrow I'm going to Villach.", "sl": "Jutri se peljem v Beljak.", "it": "Domani vado a Villach."},
+        {"add": {"en": "with Stefan", "sl": "s Stefanom", "it": "con Stefan"}, "de": "Morgen fahre ich mit Stefan nach Villach.", "en": "Tomorrow I'm going to Villach with Stefan.", "sl": "Jutri se s Stefanom peljem v Beljak.", "it": "Domani vado a Villach con Stefan."},
+        {"add": {"en": "to the market", "sl": "na tržnico", "it": "al mercato"}, "de": "Morgen fahre ich mit Stefan nach Villach auf den Markt.", "en": "Tomorrow I'm going with Stefan to the market in Villach.", "sl": "Jutri se s Stefanom peljem na tržnico v Beljak.", "it": "Domani vado con Stefan al mercato di Villach."}
+      ]
+    },
+    {
+      "id": "reindling-sonntag",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Oma Resi backt einen Reindling.", "en": "Oma Resi is baking a Reindling.", "sl": "Babica Resi peče reindling.", "it": "Oma Resi prepara un Reindling."},
+        {"add": {"en": "on Sunday", "sl": "v nedeljo", "it": "domenica"}, "de": "Am Sonntag backt Oma Resi einen Reindling.", "en": "On Sunday Oma Resi is baking a Reindling.", "sl": "V nedeljo babica Resi peče reindling.", "it": "Domenica Oma Resi prepara un Reindling."},
+        {"add": {"en": "for the whole village", "sl": "za vso vas", "it": "per tutto il paese"}, "de": "Am Sonntag backt Oma Resi einen Reindling für das ganze Dorf.", "en": "On Sunday Oma Resi is baking a Reindling for the whole village.", "sl": "V nedeljo babica Resi peče reindling za vso vas.", "it": "Domenica Oma Resi prepara un Reindling per tutto il paese."}
+      ]
+    },
+    {
+      "id": "kaffee-in-der-frueh",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Ich trinke Kaffee.", "en": "I drink coffee.", "sl": "Pijem kavo.", "it": "Bevo il caffè."},
+        {"add": {"en": "in the morning", "sl": "zjutraj", "it": "la mattina"}, "de": "In der Früh trinke ich Kaffee.", "en": "In the morning I drink coffee.", "sl": "Zjutraj pijem kavo.", "it": "La mattina bevo il caffè."},
+        {"add": {"en": "with milk", "sl": "z mlekom", "it": "con il latte"}, "de": "In der Früh trinke ich Kaffee mit Milch.", "en": "In the morning I drink coffee with milk.", "sl": "Zjutraj pijem kavo z mlekom.", "it": "La mattina bevo il caffè con il latte."},
+        {"add": {"en": "and I eat a bread roll", "sl": "in jem žemljo", "it": "e mangio un panino"}, "de": "In der Früh trinke ich Kaffee mit Milch und esse eine Semmel.", "en": "In the morning I drink coffee with milk and eat a bread roll.", "sl": "Zjutraj pijem kavo z mlekom in jem žemljo.", "it": "La mattina bevo il caffè con il latte e mangio un panino."}
+      ]
+    },
+    {
+      "id": "geschichte-am-abend",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Opa Sepp erzählt eine Geschichte.", "en": "Opa Sepp is telling a story.", "sl": "Dedek Sepp pripoveduje zgodbo.", "it": "Opa Sepp racconta una storia."},
+        {"add": {"en": "every evening", "sl": "vsak večer", "it": "ogni sera"}, "de": "Jeden Abend erzählt Opa Sepp eine Geschichte.", "en": "Every evening Opa Sepp tells a story.", "sl": "Vsak večer dedek Sepp pripoveduje zgodbo.", "it": "Ogni sera Opa Sepp racconta una storia."},
+        {"add": {"en": "under the linden", "sl": "pod lipo", "it": "sotto il tiglio"}, "de": "Jeden Abend erzählt Opa Sepp unter der Linde eine Geschichte.", "en": "Every evening Opa Sepp tells a story under the linden.", "sl": "Vsak večer dedek Sepp pod lipo pripoveduje zgodbo.", "it": "Ogni sera Opa Sepp racconta una storia sotto il tiglio."}
+      ]
+    },
+    {
+      "id": "florian-im-sommer",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Florian ist auf der Alm.", "en": "Florian is up on the mountain pasture.", "sl": "Florian je na planini.", "it": "Florian è all'alpeggio."},
+        {"add": {"en": "in summer", "sl": "poleti", "it": "d'estate"}, "de": "Im Sommer ist Florian auf der Alm.", "en": "In summer Florian is up on the mountain pasture.", "sl": "Poleti je Florian na planini.", "it": "D'estate Florian è all'alpeggio."},
+        {"add": {"en": "every day", "sl": "vsak dan", "it": "ogni giorno"}, "de": "Im Sommer ist Florian jeden Tag auf der Alm.", "en": "In summer Florian is up on the pasture every day.", "sl": "Poleti je Florian vsak dan na planini.", "it": "D'estate Florian è all'alpeggio ogni giorno."},
+        {"add": {"en": "with Flocke, the lamb", "sl": "s Flocke, jagnjetom", "it": "con Flocke, l'agnellino"}, "de": "Im Sommer ist Florian jeden Tag mit Flocke auf der Alm.", "en": "In summer Florian is up on the pasture with Flocke every day.", "sl": "Poleti je Florian vsak dan s Flocke na planini.", "it": "D'estate Florian è all'alpeggio con Flocke ogni giorno."}
+      ]
+    },
+    {
+      "id": "kathi-freitag",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Kathi kocht Kasnudeln.", "en": "Kathi is cooking Kasnudeln.", "sl": "Kathi kuha kasnudeln.", "it": "Kathi cucina i Kasnudeln."},
+        {"add": {"en": "on Friday", "sl": "v petek", "it": "venerdì"}, "de": "Am Freitag kocht Kathi Kasnudeln.", "en": "On Friday Kathi is cooking Kasnudeln.", "sl": "V petek Kathi kuha kasnudeln.", "it": "Venerdì Kathi cucina i Kasnudeln."},
+        {"add": {"en": "at the inn", "sl": "v gostilni", "it": "alla locanda"}, "de": "Am Freitag kocht Kathi im Gasthaus Kasnudeln.", "en": "On Friday Kathi is cooking Kasnudeln at the inn.", "sl": "V petek Kathi v gostilni kuha kasnudeln.", "it": "Venerdì Kathi cucina i Kasnudeln alla locanda."},
+        {"add": {"en": "for the guests", "sl": "za goste", "it": "per gli ospiti"}, "de": "Am Freitag kocht Kathi im Gasthaus Kasnudeln für die Gäste.", "en": "On Friday Kathi is cooking Kasnudeln at the inn for the guests.", "sl": "V petek Kathi v gostilni kuha kasnudeln za goste.", "it": "Venerdì Kathi cucina i Kasnudeln alla locanda per gli ospiti."}
+      ]
+    },
+    {
+      "id": "schule-um-acht",
+      "level": "A1",
+      "rules": ["uhrzeit", "wortstellung"],
+      "steps": [
+        {"de": "Die Schule beginnt.", "en": "School is starting.", "sl": "Pouk se začenja.", "it": "La scuola comincia."},
+        {"add": {"en": "at eight", "sl": "ob osmih", "it": "alle otto"}, "de": "Die Schule beginnt um acht.", "en": "School starts at eight.", "sl": "Pouk se začne ob osmih.", "it": "La scuola comincia alle otto."},
+        {"add": {"en": "on Monday", "sl": "v ponedeljek", "it": "lunedì"}, "de": "Am Montag beginnt die Schule um acht.", "en": "On Monday school starts at eight.", "sl": "V ponedeljek se pouk začne ob osmih.", "it": "Lunedì la scuola comincia alle otto."},
+        {"add": {"en": "again", "sl": "spet", "it": "di nuovo"}, "de": "Am Montag beginnt die Schule wieder um acht.", "en": "On Monday school starts at eight again.", "sl": "V ponedeljek se pouk spet začne ob osmih.", "it": "Lunedì la scuola comincia di nuovo alle otto."}
+      ]
+    },
+    {
+      "id": "regen-den-ganzen-tag",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Es regnet.", "en": "It's raining.", "sl": "Dežuje.", "it": "Piove."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Heute regnet es.", "en": "Today it's raining.", "sl": "Danes dežuje.", "it": "Oggi piove."},
+        {"add": {"en": "all day", "sl": "ves dan", "it": "tutto il giorno"}, "de": "Heute regnet es den ganzen Tag.", "en": "Today it's raining all day.", "sl": "Danes dežuje ves dan.", "it": "Oggi piove tutto il giorno."},
+        {"add": {"en": "in Villach", "sl": "v Beljaku", "it": "a Villach"}, "de": "Heute regnet es den ganzen Tag in Villach.", "en": "Today it's raining all day in Villach.", "sl": "Danes v Beljaku dežuje ves dan.", "it": "Oggi a Villach piove tutto il giorno."}
+      ]
+    },
+    {
+      "id": "hund-und-katze",
+      "level": "A1",
+      "rules": ["akkusativ", "kein-nicht"],
+      "steps": [
+        {"de": "Ich habe einen Hund.", "en": "I have a dog.", "sl": "Imam psa.", "it": "Ho un cane."},
+        {"add": {"en": "and a cat", "sl": "in mačko", "it": "e un gatto"}, "de": "Ich habe einen Hund und eine Katze.", "en": "I have a dog and a cat.", "sl": "Imam psa in mačko.", "it": "Ho un cane e un gatto."},
+        {"add": {"en": "but no horse", "sl": "konja pa ne", "it": "ma niente cavallo"}, "de": "Ich habe einen Hund und eine Katze, aber kein Pferd.", "en": "I have a dog and a cat, but no horse.", "sl": "Imam psa in mačko, konja pa ne.", "it": "Ho un cane e un gatto, ma niente cavallo."}
+      ]
+    },
+    {
+      "id": "wie-heisst-du",
+      "level": "A1",
+      "rules": ["fragen"],
+      "steps": [
+        {"de": "Wie heißt du?", "en": "What's your name?", "sl": "Kako ti je ime?", "it": "Come ti chiami?"},
+        {"add": {"en": "and where are you from", "sl": "in od kod si", "it": "e di dove sei"}, "de": "Wie heißt du, und woher kommst du?", "en": "What's your name, and where are you from?", "sl": "Kako ti je ime in od kod si?", "it": "Come ti chiami e di dove sei?"},
+        {"add": {"en": "and where do you live", "sl": "in kje živiš", "it": "e dove abiti"}, "de": "Wie heißt du, woher kommst du, und wo wohnst du?", "en": "What's your name, where are you from, and where do you live?", "sl": "Kako ti je ime, od kod si in kje živiš?", "it": "Come ti chiami, di dove sei e dove abiti?"}
+      ]
+    },
+    {
+      "id": "wo-ist-das-gasthaus",
+      "level": "A1",
+      "rules": ["fragen", "du-sie"],
+      "steps": [
+        {"de": "Wo ist das Gasthaus?", "en": "Where's the inn?", "sl": "Kje je gostilna?", "it": "Dov'è la locanda?"},
+        {"add": {"en": "excuse me", "sl": "oprostite", "it": "scusi"}, "de": "Entschuldigung, wo ist das Gasthaus?", "en": "Excuse me, where's the inn?", "sl": "Oprostite, kje je gostilna?", "it": "Scusi, dov'è la locanda?"},
+        {"add": {"en": "zur Linde", "sl": "Pri lipi", "it": "Al Tiglio"}, "de": "Entschuldigung, wo ist das Gasthaus zur Linde?", "en": "Excuse me, where's the Gasthaus zur Linde?", "sl": "Oprostite, kje je gostilna Pri lipi?", "it": "Scusi, dov'è la locanda Al Tiglio?"},
+        {"add": {"en": "is it far", "sl": "je daleč", "it": "è lontano"}, "de": "Entschuldigung, wo ist das Gasthaus zur Linde? Ist es weit?", "en": "Excuse me, where's the Gasthaus zur Linde? Is it far?", "sl": "Oprostite, kje je gostilna Pri lipi? Je daleč?", "it": "Scusi, dov'è la locanda Al Tiglio? È lontano?"}
+      ]
+    },
+    {
+      "id": "aepfel-im-herbst",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Stefan pflückt Äpfel.", "en": "Stefan is picking apples.", "sl": "Stefan obira jabolka.", "it": "Stefan raccoglie le mele."},
+        {"add": {"en": "in autumn", "sl": "jeseni", "it": "in autunno"}, "de": "Im Herbst pflückt Stefan Äpfel.", "en": "In autumn Stefan picks apples.", "sl": "Jeseni Stefan obira jabolka.", "it": "In autunno Stefan raccoglie le mele."},
+        {"add": {"en": "and pears", "sl": "in hruške", "it": "e le pere"}, "de": "Im Herbst pflückt Stefan Äpfel und Birnen.", "en": "In autumn Stefan picks apples and pears.", "sl": "Jeseni Stefan obira jabolka in hruške.", "it": "In autunno Stefan raccoglie mele e pere."},
+        {"add": {"en": "in the orchard", "sl": "v sadovnjaku", "it": "nel frutteto"}, "de": "Im Herbst pflückt Stefan im Obstgarten Äpfel und Birnen.", "en": "In autumn Stefan picks apples and pears in the orchard.", "sl": "Jeseni Stefan v sadovnjaku obira jabolka in hruške.", "it": "In autunno Stefan raccoglie mele e pere nel frutteto."}
+      ]
+    },
+    {
+      "id": "jakob-zaehlt",
+      "level": "A1",
+      "rules": ["zahlen"],
+      "steps": [
+        {"de": "Jakob zählt.", "en": "Jakob is counting.", "sl": "Jakob šteje.", "it": "Jakob conta."},
+        {"add": {"en": "the sacks", "sl": "vreče", "it": "i sacchi"}, "de": "Jakob zählt die Säcke.", "en": "Jakob is counting the sacks.", "sl": "Jakob šteje vreče.", "it": "Jakob conta i sacchi."},
+        {"add": {"en": "in the mill", "sl": "v mlinu", "it": "al mulino"}, "de": "Jakob zählt die Säcke in der Mühle.", "en": "Jakob is counting the sacks in the mill.", "sl": "Jakob šteje vreče v mlinu.", "it": "Jakob conta i sacchi al mulino."},
+        {"add": {"en": "one, two, three", "sl": "ena, dve, tri", "it": "uno, due, tre"}, "de": "Jakob zählt die Säcke in der Mühle: eins, zwei, drei!", "en": "Jakob is counting the sacks in the mill: one, two, three!", "sl": "Jakob šteje vreče v mlinu: ena, dve, tri!", "it": "Jakob conta i sacchi al mulino: uno, due, tre!"}
+      ]
+    },
+    {
+      "id": "mitzi-radio",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Tante Mitzi hört Radio.", "en": "Tante Mitzi is listening to the radio.", "sl": "Teta Mitzi posluša radio.", "it": "La zia Mitzi ascolta la radio."},
+        {"add": {"en": "every morning", "sl": "vsako jutro", "it": "ogni mattina"}, "de": "Jeden Morgen hört Tante Mitzi Radio.", "en": "Every morning Tante Mitzi listens to the radio.", "sl": "Vsako jutro teta Mitzi posluša radio.", "it": "Ogni mattina la zia Mitzi ascolta la radio."},
+        {"add": {"en": "too loud", "sl": "preglasno", "it": "troppo alta"}, "de": "Jeden Morgen hört Tante Mitzi zu laut Radio.", "en": "Every morning Tante Mitzi plays the radio too loud.", "sl": "Vsako jutro teta Mitzi preglasno posluša radio.", "it": "Ogni mattina la zia Mitzi ascolta la radio troppo alta."}
+      ]
+    },
+    {
+      "id": "bus-halb-acht",
+      "level": "A1",
+      "rules": ["uhrzeit", "wortstellung"],
+      "steps": [
+        {"de": "Der Bus kommt.", "en": "The bus is coming.", "sl": "Avtobus prihaja.", "it": "Arriva l'autobus."},
+        {"add": {"en": "at half past seven", "sl": "ob pol osmih", "it": "alle sette e mezza"}, "de": "Der Bus kommt um halb acht.", "en": "The bus comes at half past seven.", "sl": "Avtobus pride ob pol osmih.", "it": "L'autobus arriva alle sette e mezza."},
+        {"add": {"en": "today, and not before", "sl": "danes, in ne prej", "it": "oggi, e non prima"}, "de": "Heute kommt der Bus erst um halb acht.", "en": "Today the bus isn't coming till half past seven.", "sl": "Danes pride avtobus šele ob pol osmih.", "it": "Oggi l'autobus arriva solo alle sette e mezza."}
+      ]
+    },
+    {
+      "id": "toni-ab-sieben",
+      "level": "A1",
+      "rules": ["uhrzeit", "wortstellung"],
+      "steps": [
+        {"de": "Toni arbeitet.", "en": "Toni is working.", "sl": "Toni dela.", "it": "Toni lavora."},
+        {"add": {"en": "in the smithy", "sl": "v kovačnici", "it": "nella fucina"}, "de": "Toni arbeitet in der Schmiede.", "en": "Toni works in the smithy.", "sl": "Toni dela v kovačnici.", "it": "Toni lavora nella fucina."},
+        {"add": {"en": "from seven", "sl": "od sedmih", "it": "dalle sette"}, "de": "Toni arbeitet ab sieben in der Schmiede.", "en": "Toni works in the smithy from seven.", "sl": "Toni dela v kovačnici od sedmih.", "it": "Toni lavora nella fucina dalle sette."},
+        {"add": {"en": "every day", "sl": "vsak dan", "it": "ogni giorno"}, "de": "Jeden Tag arbeitet Toni ab sieben in der Schmiede.", "en": "Every day Toni works in the smithy from seven.", "sl": "Vsak dan Toni dela v kovačnici od sedmih.", "it": "Ogni giorno Toni lavora nella fucina dalle sette."}
+      ]
+    },
+    {
+      "id": "deutsch-im-auto",
+      "level": "A1",
+      "steps": [
+        {"de": "Ich lerne Deutsch.", "en": "I'm learning German.", "sl": "Učim se nemško.", "it": "Imparo il tedesco."},
+        {"add": {"en": "every day", "sl": "vsak dan", "it": "ogni giorno"}, "de": "Ich lerne jeden Tag Deutsch.", "en": "I learn German every day.", "sl": "Vsak dan se učim nemško.", "it": "Imparo il tedesco ogni giorno."},
+        {"add": {"en": "in the car", "sl": "v avtu", "it": "in macchina"}, "de": "Ich lerne jeden Tag im Auto Deutsch.", "en": "I learn German in the car every day.", "sl": "Vsak dan se v avtu učim nemško.", "it": "Imparo il tedesco in macchina ogni giorno."}
+      ]
+    },
+    {
+      "id": "lena-fragt",
+      "level": "A1",
+      "rules": ["fragen"],
+      "steps": [
+        {"de": "Warum?", "en": "Why?", "sl": "Zakaj?", "it": "Perché?"},
+        {"add": {"en": "is the sky blue", "sl": "je nebo modro", "it": "il cielo è blu"}, "de": "Warum ist der Himmel blau?", "en": "Why is the sky blue?", "sl": "Zakaj je nebo modro?", "it": "Perché il cielo è blu?"},
+        {"add": {"en": "Lena asks", "sl": "Lena vpraša", "it": "Lena chiede"}, "de": "Lena fragt: Warum ist der Himmel blau?", "en": "Lena asks: why is the sky blue?", "sl": "Lena vpraša: Zakaj je nebo modro?", "it": "Lena chiede: perché il cielo è blu?"},
+        {"add": {"en": "once again", "sl": "spet", "it": "di nuovo"}, "de": "Lena fragt schon wieder: Warum ist der Himmel blau?", "en": "Lena is asking again: why is the sky blue?", "sl": "Lena spet sprašuje: Zakaj je nebo modro?", "it": "Lena chiede di nuovo: perché il cielo è blu?"}
+      ]
+    },
+    {
+      "id": "sonntag-im-gasthaus",
+      "level": "A1",
+      "rules": ["uhrzeit", "wortstellung"],
+      "steps": [
+        {"de": "Wir essen im Gasthaus.", "en": "We're eating at the inn.", "sl": "Jemo v gostilni.", "it": "Mangiamo alla locanda."},
+        {"add": {"en": "on Sunday", "sl": "v nedeljo", "it": "domenica"}, "de": "Am Sonntag essen wir im Gasthaus.", "en": "On Sunday we're eating at the inn.", "sl": "V nedeljo jemo v gostilni.", "it": "Domenica mangiamo alla locanda."},
+        {"add": {"en": "at twelve", "sl": "ob dvanajstih", "it": "a mezzogiorno"}, "de": "Am Sonntag essen wir um zwölf im Gasthaus.", "en": "On Sunday we're eating at the inn at twelve.", "sl": "V nedeljo jemo v gostilni ob dvanajstih.", "it": "Domenica mangiamo alla locanda a mezzogiorno."},
+        {"add": {"en": "with Oma Resi", "sl": "z babico Resi", "it": "con Oma Resi"}, "de": "Am Sonntag essen wir um zwölf mit Oma Resi im Gasthaus.", "en": "On Sunday we're eating at the inn with Oma Resi at twelve.", "sl": "V nedeljo jemo z babico Resi v gostilni ob dvanajstih.", "it": "Domenica mangiamo alla locanda con Oma Resi a mezzogiorno."}
+      ]
+    },
+    {
+      "id": "stanko-heuer",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Stanko hat Honig.", "en": "Stanko has honey.", "sl": "Stanko ima med.", "it": "Stanko ha il miele."},
+        {"add": {"en": "a lot of", "sl": "veliko", "it": "molto"}, "de": "Stanko hat viel Honig.", "en": "Stanko has a lot of honey.", "sl": "Stanko ima veliko medu.", "it": "Stanko ha molto miele."},
+        {"add": {"en": "this year", "sl": "letos", "it": "quest'anno"}, "de": "Heuer hat Stanko viel Honig.", "en": "This year Stanko has a lot of honey.", "sl": "Letos ima Stanko veliko medu.", "it": "Quest'anno Stanko ha molto miele."},
+        {"add": {"en": "and it's very good", "sl": "in je zelo dober", "it": "ed è molto buono"}, "de": "Heuer hat Stanko viel Honig, und er ist sehr gut.", "en": "This year Stanko has a lot of honey, and it's very good.", "sl": "Letos ima Stanko veliko medu in je zelo dober.", "it": "Quest'anno Stanko ha molto miele, ed è molto buono."}
+      ]
+    },
+    {
+      "id": "gruess-gott-frau-kathi",
+      "level": "A1",
+      "rules": ["du-sie"],
+      "steps": [
+        {"de": "Grüß Gott!", "en": "Good day!", "sl": "Dober dan!", "it": "Buongiorno!"},
+        {"add": {"en": "Frau Kathi", "sl": "gospa Kathi", "it": "signora Kathi"}, "de": "Grüß Gott, Frau Kathi!", "en": "Good day, Frau Kathi!", "sl": "Dober dan, gospa Kathi!", "it": "Buongiorno, signora Kathi!"},
+        {"add": {"en": "how are you", "sl": "kako ste", "it": "come sta"}, "de": "Grüß Gott, Frau Kathi! Wie geht es Ihnen?", "en": "Good day, Frau Kathi! How are you?", "sl": "Dober dan, gospa Kathi! Kako ste?", "it": "Buongiorno, signora Kathi! Come sta?"},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Grüß Gott, Frau Kathi! Wie geht es Ihnen heute?", "en": "Good day, Frau Kathi! How are you today?", "sl": "Dober dan, gospa Kathi! Kako ste danes?", "it": "Buongiorno, signora Kathi! Come sta oggi?"}
+      ]
+    },
+    {
+      "id": "servus-maxi",
+      "level": "A1",
+      "rules": ["du-sie"],
+      "steps": [
+        {"de": "Servus, Maxi!", "en": "Hi, Maxi!", "sl": "Živjo, Maxi!", "it": "Ciao, Maxi!"},
+        {"add": {"en": "are you coming along", "sl": "greš zraven", "it": "vieni anche tu"}, "de": "Servus, Maxi! Kommst du mit?", "en": "Hi, Maxi! Are you coming along?", "sl": "Živjo, Maxi! Greš zraven?", "it": "Ciao, Maxi! Vieni anche tu?"},
+        {"add": {"en": "to Villach", "sl": "v Beljak", "it": "a Villach"}, "de": "Servus, Maxi! Kommst du mit nach Villach?", "en": "Hi, Maxi! Are you coming along to Villach?", "sl": "Živjo, Maxi! Greš zraven v Beljak?", "it": "Ciao, Maxi! Vieni anche tu a Villach?"}
+      ]
+    },
+    {
+      "id": "jakob-hat-hunger",
+      "level": "A1",
+      "rules": ["sein-haben"],
+      "steps": [
+        {"de": "Jakob hat Hunger.", "en": "Jakob is hungry.", "sl": "Jakob je lačen.", "it": "Jakob ha fame."},
+        {"add": {"en": "and thirsty", "sl": "in žejen", "it": "e sete"}, "de": "Jakob hat Hunger und Durst.", "en": "Jakob is hungry and thirsty.", "sl": "Jakob je lačen in žejen.", "it": "Jakob ha fame e sete."},
+        {"add": {"en": "and Oma Resi is making a snack", "sl": "babica Resi pa pripravlja malico", "it": "e Oma Resi prepara la merenda"}, "de": "Jakob hat Hunger und Durst, und Oma Resi macht eine Jause.", "en": "Jakob is hungry and thirsty, and Oma Resi is making a snack.", "sl": "Jakob je lačen in žejen, babica Resi pa pripravlja malico.", "it": "Jakob ha fame e sete, e Oma Resi prepara la merenda."}
+      ]
+    },
+    {
+      "id": "glocken-um-zwoelf",
+      "level": "A1",
+      "rules": ["uhrzeit", "wortstellung"],
+      "steps": [
+        {"de": "Die Glocken läuten.", "en": "The bells are ringing.", "sl": "Zvonovi zvonijo.", "it": "Le campane suonano."},
+        {"add": {"en": "at twelve", "sl": "ob dvanajstih", "it": "a mezzogiorno"}, "de": "Um zwölf läuten die Glocken.", "en": "At twelve the bells ring.", "sl": "Ob dvanajstih zvonijo zvonovi.", "it": "A mezzogiorno suonano le campane."},
+        {"add": {"en": "every day", "sl": "vsak dan", "it": "ogni giorno"}, "de": "Jeden Tag um zwölf läuten die Glocken.", "en": "Every day at twelve the bells ring.", "sl": "Vsak dan ob dvanajstih zvonijo zvonovi.", "it": "Ogni giorno a mezzogiorno suonano le campane."},
+        {"add": {"en": "in the church tower", "sl": "v zvoniku", "it": "del campanile"}, "de": "Jeden Tag um zwölf läuten die Glocken im Kirchturm.", "en": "Every day at twelve the bells ring in the church tower.", "sl": "Vsak dan ob dvanajstih zvonijo zvonovi v zvoniku.", "it": "Ogni giorno a mezzogiorno suonano le campane del campanile."}
+      ]
+    },
+    {
+      "id": "meine-familie",
+      "level": "A1",
+      "rules": ["possessiv"],
+      "steps": [
+        {"de": "Das ist meine Familie.", "en": "This is my family.", "sl": "To je moja družina.", "it": "Questa è la mia famiglia."},
+        {"add": {"en": "my mum and my dad", "sl": "moja mama in moj oče", "it": "mia mamma e mio papà"}, "de": "Das ist meine Familie: meine Mama und mein Papa.", "en": "This is my family: my mum and my dad.", "sl": "To je moja družina: moja mama in moj oče.", "it": "Questa è la mia famiglia: mia mamma e mio papà."},
+        {"add": {"en": "and my sister", "sl": "in moja sestra", "it": "e mia sorella"}, "de": "Das ist meine Familie: meine Mama, mein Papa und meine Schwester.", "en": "This is my family: my mum, my dad and my sister.", "sl": "To je moja družina: moja mama, moj oče in moja sestra.", "it": "Questa è la mia famiglia: mia mamma, mio papà e mia sorella."},
+        {"add": {"en": "and our dog", "sl": "in naš pes", "it": "e il nostro cane"}, "de": "Das ist meine Familie: meine Mama, mein Papa, meine Schwester und unser Hund.", "en": "This is my family: my mum, my dad, my sister and our dog.", "sl": "To je moja družina: moja mama, moj oče, moja sestra in naš pes.", "it": "Questa è la mia famiglia: mia mamma, mio papà, mia sorella e il nostro cane."}
+      ]
+    },
+    {
+      "id": "kalt-im-jaenner",
+      "level": "A1",
+      "rules": ["uhrzeit", "wortstellung"],
+      "steps": [
+        {"de": "Es ist kalt.", "en": "It's cold.", "sl": "Mrzlo je.", "it": "Fa freddo."},
+        {"add": {"en": "in January", "sl": "januarja", "it": "a gennaio"}, "de": "Im Jänner ist es kalt.", "en": "In January it's cold.", "sl": "Januarja je mrzlo.", "it": "A gennaio fa freddo."},
+        {"add": {"en": "very", "sl": "zelo", "it": "molto"}, "de": "Im Jänner ist es sehr kalt.", "en": "In January it's very cold.", "sl": "Januarja je zelo mrzlo.", "it": "A gennaio fa molto freddo."},
+        {"add": {"en": "and it snows a lot", "sl": "in veliko sneži", "it": "e nevica molto"}, "de": "Im Jänner ist es sehr kalt, und es schneit viel.", "en": "In January it's very cold, and it snows a lot.", "sl": "Januarja je zelo mrzlo in veliko sneži.", "it": "A gennaio fa molto freddo e nevica molto."}
+      ]
+    },
+    {
+      "id": "franz-mahlt",
+      "level": "A1",
+      "steps": [
+        {"de": "Franz mahlt Mehl.", "en": "Franz is grinding flour.", "sl": "Franz melje moko.", "it": "Franz macina la farina."},
+        {"add": {"en": "for the village", "sl": "za vas", "it": "per il paese"}, "de": "Franz mahlt Mehl für das Dorf.", "en": "Franz grinds flour for the village.", "sl": "Franz melje moko za vas.", "it": "Franz macina la farina per il paese."},
+        {"add": {"en": "in the mill by the stream", "sl": "v mlinu ob potoku", "it": "nel mulino sul ruscello"}, "de": "Franz mahlt in der Mühle am Bach Mehl für das Dorf.", "en": "Franz grinds flour for the village in the mill by the stream.", "sl": "Franz v mlinu ob potoku melje moko za vas.", "it": "Franz macina la farina per il paese nel mulino sul ruscello."}
+      ]
+    },
+    {
+      "id": "ich-wohne-hier",
+      "level": "A1",
+      "steps": [
+        {"de": "Ich wohne hier.", "en": "I live here.", "sl": "Tukaj živim.", "it": "Abito qui."},
+        {"add": {"en": "in the village", "sl": "v vasi", "it": "in paese"}, "de": "Ich wohne hier im Dorf.", "en": "I live here in the village.", "sl": "Tukaj v vasi živim.", "it": "Abito qui in paese."},
+        {"add": {"en": "and it's lovely here", "sl": "in tukaj je lepo", "it": "ed è bello qui"}, "de": "Ich wohne hier im Dorf, und es ist schön hier.", "en": "I live here in the village, and it's lovely here.", "sl": "Tukaj v vasi živim in tukaj je lepo.", "it": "Abito qui in paese, ed è bello qui."}
+      ]
+    },
+    {
+      "id": "fussball-am-platz",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Maxi spielt Fußball.", "en": "Maxi is playing football.", "sl": "Maxi igra nogomet.", "it": "Maxi gioca a calcio."},
+        {"add": {"en": "on the square", "sl": "na trgu", "it": "in piazza"}, "de": "Maxi spielt auf dem Platz Fußball.", "en": "Maxi is playing football on the square.", "sl": "Maxi igra nogomet na trgu.", "it": "Maxi gioca a calcio in piazza."},
+        {"add": {"en": "in the afternoon", "sl": "popoldne", "it": "il pomeriggio"}, "de": "Am Nachmittag spielt Maxi auf dem Platz Fußball.", "en": "In the afternoon Maxi plays football on the square.", "sl": "Popoldne Maxi igra nogomet na trgu.", "it": "Il pomeriggio Maxi gioca a calcio in piazza."},
+        {"add": {"en": "with Lena and Jakob", "sl": "z Leno in Jakobom", "it": "con Lena e Jakob"}, "de": "Am Nachmittag spielt Maxi mit Lena und Jakob auf dem Platz Fußball.", "en": "In the afternoon Maxi plays football on the square with Lena and Jakob.", "sl": "Popoldne Maxi z Leno in Jakobom igra nogomet na trgu.", "it": "Il pomeriggio Maxi gioca a calcio in piazza con Lena e Jakob."}
+      ]
+    },
+    {
+      "id": "zug-nach-klagenfurt",
+      "level": "A1",
+      "rules": ["uhrzeit"],
+      "steps": [
+        {"de": "Der Zug fährt.", "en": "The train is leaving.", "sl": "Vlak odhaja.", "it": "Il treno parte."},
+        {"add": {"en": "to Klagenfurt", "sl": "v Celovec", "it": "per Klagenfurt"}, "de": "Der Zug fährt nach Klagenfurt.", "en": "The train goes to Klagenfurt.", "sl": "Vlak pelje v Celovec.", "it": "Il treno va a Klagenfurt."},
+        {"add": {"en": "at a quarter past nine", "sl": "ob četrt na deset", "it": "alle nove e un quarto"}, "de": "Der Zug fährt um Viertel nach neun nach Klagenfurt.", "en": "The train to Klagenfurt leaves at a quarter past nine.", "sl": "Vlak v Celovec odpelje ob četrt na deset.", "it": "Il treno per Klagenfurt parte alle nove e un quarto."},
+        {"add": {"en": "from platform two", "sl": "z drugega perona", "it": "dal binario due"}, "de": "Der Zug fährt um Viertel nach neun von Bahnsteig zwei nach Klagenfurt.", "en": "The train to Klagenfurt leaves from platform two at a quarter past nine.", "sl": "Vlak v Celovec odpelje z drugega perona ob četrt na deset.", "it": "Il treno per Klagenfurt parte dal binario due alle nove e un quarto."}
+      ]
+    },
+    {
+      "id": "auf-den-dobratsch",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Wir wandern.", "en": "We're going hiking.", "sl": "Gremo v hribe.", "it": "Facciamo un'escursione."},
+        {"add": {"en": "up the Dobratsch", "sl": "na Dobrač", "it": "sul Dobratsch"}, "de": "Wir wandern auf den Dobratsch.", "en": "We're hiking up the Dobratsch.", "sl": "Gremo na Dobrač.", "it": "Facciamo un'escursione sul Dobratsch."},
+        {"add": {"en": "on Saturday", "sl": "v soboto", "it": "sabato"}, "de": "Am Samstag wandern wir auf den Dobratsch.", "en": "On Saturday we're hiking up the Dobratsch.", "sl": "V soboto gremo na Dobrač.", "it": "Sabato facciamo un'escursione sul Dobratsch."},
+        {"add": {"en": "with Florian", "sl": "s Florianom", "it": "con Florian"}, "de": "Am Samstag wandern wir mit Florian auf den Dobratsch.", "en": "On Saturday we're hiking up the Dobratsch with Florian.", "sl": "V soboto gremo s Florianom na Dobrač.", "it": "Sabato facciamo un'escursione sul Dobratsch con Florian."}
+      ]
+    },
+    {
+      "id": "noch-einmal-langsam",
+      "level": "A1",
+      "steps": [
+        {"de": "Die Lehrerin erklärt die Regel.", "en": "The teacher explains the rule.", "sl": "Učiteljica razloži pravilo.", "it": "La maestra spiega la regola."},
+        {"add": {"en": "slowly", "sl": "počasi", "it": "lentamente"}, "de": "Die Lehrerin erklärt die Regel langsam.", "en": "The teacher explains the rule slowly.", "sl": "Učiteljica počasi razloži pravilo.", "it": "La maestra spiega la regola lentamente."},
+        {"add": {"en": "once more", "sl": "še enkrat", "it": "ancora una volta"}, "de": "Die Lehrerin erklärt die Regel noch einmal langsam.", "en": "The teacher explains the rule slowly once more.", "sl": "Učiteljica še enkrat počasi razloži pravilo.", "it": "La maestra spiega la regola lentamente ancora una volta."}
+      ]
+    },
+    {
+      "id": "bello-schlaeft",
+      "level": "A1",
+      "steps": [
+        {"de": "Bello schläft.", "en": "Bello is asleep.", "sl": "Bello spi.", "it": "Bello dorme."},
+        {"add": {"en": "under the bench", "sl": "pod klopjo", "it": "sotto la panca"}, "de": "Bello schläft unter der Bank.", "en": "Bello is asleep under the bench.", "sl": "Bello spi pod klopjo.", "it": "Bello dorme sotto la panca."},
+        {"add": {"en": "all day", "sl": "ves dan", "it": "tutto il giorno"}, "de": "Bello schläft den ganzen Tag unter der Bank.", "en": "Bello sleeps under the bench all day.", "sl": "Bello ves dan spi pod klopjo.", "it": "Bello dorme sotto la panca tutto il giorno."}
+      ]
+    },
+    {
+      "id": "am-markt",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Ich kaufe Erdäpfel.", "en": "I'm buying potatoes.", "sl": "Kupujem krompir.", "it": "Compro le patate."},
+        {"add": {"en": "and tomatoes", "sl": "in paradižnik", "it": "e i pomodori"}, "de": "Ich kaufe Erdäpfel und Paradeiser.", "en": "I'm buying potatoes and tomatoes.", "sl": "Kupujem krompir in paradižnik.", "it": "Compro patate e pomodori."},
+        {"add": {"en": "at the market", "sl": "na tržnici", "it": "al mercato"}, "de": "Ich kaufe am Markt Erdäpfel und Paradeiser.", "en": "I buy potatoes and tomatoes at the market.", "sl": "Na tržnici kupujem krompir in paradižnik.", "it": "Al mercato compro patate e pomodori."},
+        {"add": {"en": "on Saturday", "sl": "v soboto", "it": "sabato"}, "de": "Am Samstag kaufe ich am Markt Erdäpfel und Paradeiser.", "en": "On Saturday I buy potatoes and tomatoes at the market.", "sl": "V soboto na tržnici kupim krompir in paradižnik.", "it": "Sabato al mercato compro patate e pomodori."}
+      ]
+    },
+    {
+      "id": "strudel",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Oma Resi macht einen Strudel.", "en": "Oma Resi is making a strudel.", "sl": "Babica Resi peče zavitek.", "it": "Oma Resi prepara uno strudel."},
+        {"add": {"en": "with curd cheese", "sl": "s skuto", "it": "con la ricotta"}, "de": "Oma Resi macht einen Strudel mit Topfen.", "en": "Oma Resi is making a curd cheese strudel.", "sl": "Babica Resi peče zavitek s skuto.", "it": "Oma Resi prepara uno strudel con la ricotta."},
+        {"add": {"en": "and apricots", "sl": "in marelicami", "it": "e le albicocche"}, "de": "Oma Resi macht einen Strudel mit Topfen und Marillen.", "en": "Oma Resi is making a strudel with curd cheese and apricots.", "sl": "Babica Resi peče zavitek s skuto in marelicami.", "it": "Oma Resi prepara uno strudel con ricotta e albicocche."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Heute macht Oma Resi einen Strudel mit Topfen und Marillen.", "en": "Today Oma Resi is making a strudel with curd cheese and apricots.", "sl": "Danes babica Resi peče zavitek s skuto in marelicami.", "it": "Oggi Oma Resi prepara uno strudel con ricotta e albicocche."}
+      ]
+    },
+    {
+      "id": "gute-nacht-jakob",
+      "level": "A1",
+      "rules": ["imperativ"],
+      "steps": [
+        {"de": "Gute Nacht!", "en": "Good night!", "sl": "Lahko noč!", "it": "Buonanotte!"},
+        {"add": {"en": "Jakob", "sl": "Jakob", "it": "Jakob"}, "de": "Gute Nacht, Jakob!", "en": "Good night, Jakob!", "sl": "Lahko noč, Jakob!", "it": "Buonanotte, Jakob!"},
+        {"add": {"en": "sleep well", "sl": "lepo spi", "it": "dormi bene"}, "de": "Gute Nacht, Jakob! Schlaf gut!", "en": "Good night, Jakob! Sleep well!", "sl": "Lahko noč, Jakob! Lepo spi!", "it": "Buonanotte, Jakob! Dormi bene!"},
+        {"add": {"en": "see you tomorrow", "sl": "se vidimo jutri", "it": "a domani"}, "de": "Gute Nacht, Jakob! Schlaf gut, bis morgen!", "en": "Good night, Jakob! Sleep well, see you tomorrow!", "sl": "Lahko noč, Jakob! Lepo spi, se vidimo jutri!", "it": "Buonanotte, Jakob! Dormi bene, a domani!"}
+      ]
+    },
+    {
+      "id": "honig-acht-euro",
+      "level": "A1",
+      "rules": ["zahlen", "wortstellung"],
+      "steps": [
+        {"de": "Der Honig kostet acht Euro.", "en": "The honey costs eight euros.", "sl": "Med stane osem evrov.", "it": "Il miele costa otto euro."},
+        {"add": {"en": "a jar of", "sl": "kozarec", "it": "un vasetto di"}, "de": "Ein Glas Honig kostet acht Euro.", "en": "A jar of honey costs eight euros.", "sl": "Kozarec medu stane osem evrov.", "it": "Un vasetto di miele costa otto euro."},
+        {"add": {"en": "at Stanko's", "sl": "pri Stanku", "it": "da Stanko"}, "de": "Bei Stanko kostet ein Glas Honig acht Euro.", "en": "At Stanko's a jar of honey costs eight euros.", "sl": "Pri Stanku stane kozarec medu osem evrov.", "it": "Da Stanko un vasetto di miele costa otto euro."}
+      ]
+    },
+    {
+      "id": "komm-schnell",
+      "level": "A1",
+      "rules": ["imperativ"],
+      "steps": [
+        {"de": "Komm!", "en": "Come!", "sl": "Pridi!", "it": "Vieni!"},
+        {"add": {"en": "here", "sl": "sem", "it": "qui"}, "de": "Komm her!", "en": "Come here!", "sl": "Pridi sem!", "it": "Vieni qui!"},
+        {"add": {"en": "quickly", "sl": "hitro", "it": "presto"}, "de": "Komm schnell her!", "en": "Come here quickly!", "sl": "Hitro pridi sem!", "it": "Vieni qui, presto!"},
+        {"add": {"en": "Lena, the soup is ready", "sl": "Lena, juha je gotova", "it": "Lena, la zuppa è pronta"}, "de": "Komm schnell her, Lena, die Suppe ist fertig!", "en": "Come here quickly, Lena, the soup is ready!", "sl": "Hitro pridi sem, Lena, juha je gotova!", "it": "Vieni qui, presto, Lena, la zuppa è pronta!"}
+      ]
+    },
+    {
+      "id": "heute-gibt-es",
+      "level": "A1",
+      "rules": ["wortstellung"],
+      "steps": [
+        {"de": "Es gibt Suppe.", "en": "There's soup.", "sl": "Imamo juho.", "it": "C'è la minestra."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Heute gibt es Suppe.", "en": "Today there's soup.", "sl": "Danes imamo juho.", "it": "Oggi c'è la minestra."},
+        {"add": {"en": "and Kasnudeln", "sl": "in kasnudeln", "it": "e i Kasnudeln"}, "de": "Heute gibt es Suppe und Kasnudeln.", "en": "Today there's soup and Kasnudeln.", "sl": "Danes imamo juho in kasnudeln.", "it": "Oggi ci sono minestra e Kasnudeln."},
+        {"add": {"en": "at the inn", "sl": "v gostilni", "it": "alla locanda"}, "de": "Heute gibt es im Gasthaus Suppe und Kasnudeln.", "en": "Today there's soup and Kasnudeln at the inn.", "sl": "Danes imajo v gostilni juho in kasnudeln.", "it": "Oggi alla locanda ci sono minestra e Kasnudeln."}
+      ]
+    },
+    {
+      "id": "ein-bisschen-deutsch",
+      "level": "A1",
+      "rules": ["kein-nicht"],
+      "steps": [
+        {"de": "Ich spreche Deutsch.", "en": "I speak German.", "sl": "Govorim nemško.", "it": "Parlo tedesco."},
+        {"add": {"en": "a little", "sl": "malo", "it": "un po'"}, "de": "Ich spreche ein bisschen Deutsch.", "en": "I speak a little German.", "sl": "Govorim malo nemško.", "it": "Parlo un po' di tedesco."},
+        {"add": {"en": "and Slovene", "sl": "in slovensko", "it": "e lo sloveno"}, "de": "Ich spreche ein bisschen Deutsch und Slowenisch.", "en": "I speak a little German and Slovene.", "sl": "Govorim malo nemško in slovensko.", "it": "Parlo un po' di tedesco e di sloveno."},
+        {"add": {"en": "but not well yet", "sl": "a še ne dobro", "it": "ma non ancora bene"}, "de": "Ich spreche ein bisschen Deutsch und Slowenisch, aber noch nicht gut.", "en": "I speak a little German and Slovene, but not well yet.", "sl": "Govorim malo nemško in slovensko, a še ne dobro.", "it": "Parlo un po' di tedesco e di sloveno, ma non ancora bene."}
+      ]
+    },
+    {
+      "id": "ich-rufe-dich-an",
+      "level": "A2",
+      "rules": ["trennbare-verben"],
+      "steps": [
+        {"de": "Ich rufe dich an.", "en": "I'll ring you.", "sl": "Pokličem te.", "it": "Ti chiamo."},
+        {"add": {"en": "tomorrow", "sl": "jutri", "it": "domani"}, "de": "Ich rufe dich morgen an.", "en": "I'll ring you tomorrow.", "sl": "Jutri te pokličem.", "it": "Ti chiamo domani."},
+        {"add": {"en": "in the morning", "sl": "zjutraj", "it": "di mattina"}, "de": "Ich rufe dich morgen in der Früh an.", "en": "I'll ring you tomorrow morning.", "sl": "Jutri zjutraj te pokličem.", "it": "Ti chiamo domani mattina."},
+        {"add": {"en": "from Villach", "sl": "iz Beljaka", "it": "da Villach"}, "de": "Ich rufe dich morgen in der Früh aus Villach an.", "en": "I'll ring you from Villach tomorrow morning.", "sl": "Jutri zjutraj te pokličem iz Beljaka.", "it": "Ti chiamo domani mattina da Villach."}
+      ]
+    },
+    {
+      "id": "um-sechs-auf",
+      "level": "A2",
+      "rules": ["trennbare-verben", "nebensatz"],
+      "steps": [
+        {"de": "Franz steht auf.", "en": "Franz gets up.", "sl": "Franz vstane.", "it": "Franz si alza."},
+        {"add": {"en": "at six", "sl": "ob šestih", "it": "alle sei"}, "de": "Franz steht um sechs auf.", "en": "Franz gets up at six.", "sl": "Franz vstane ob šestih.", "it": "Franz si alza alle sei."},
+        {"add": {"en": "every day", "sl": "vsak dan", "it": "ogni giorno"}, "de": "Franz steht jeden Tag um sechs auf.", "en": "Franz gets up at six every day.", "sl": "Franz vsak dan vstane ob šestih.", "it": "Franz si alza ogni giorno alle sei."},
+        {"add": {"en": "because the cows are waiting", "sl": "ker krave čakajo", "it": "perché le mucche aspettano"}, "de": "Franz steht jeden Tag um sechs auf, weil die Kühe warten.", "en": "Franz gets up at six every day because the cows are waiting.", "sl": "Franz vsak dan vstane ob šestih, ker krave čakajo.", "it": "Franz si alza ogni giorno alle sei perché le mucche aspettano."}
+      ]
+    },
+    {
+      "id": "kathi-kauft-ein",
+      "level": "A2",
+      "rules": ["trennbare-verben"],
+      "steps": [
+        {"de": "Kathi kauft ein.", "en": "Kathi is doing the shopping.", "sl": "Kathi nakupuje.", "it": "Kathi fa la spesa."},
+        {"add": {"en": "in Villach", "sl": "v Beljaku", "it": "a Villach"}, "de": "Kathi kauft in Villach ein.", "en": "Kathi does the shopping in Villach.", "sl": "Kathi nakupuje v Beljaku.", "it": "Kathi fa la spesa a Villach."},
+        {"add": {"en": "on Friday", "sl": "v petek", "it": "venerdì"}, "de": "Am Freitag kauft Kathi in Villach ein.", "en": "On Friday Kathi does the shopping in Villach.", "sl": "V petek Kathi nakupuje v Beljaku.", "it": "Venerdì Kathi fa la spesa a Villach."},
+        {"add": {"en": "for the inn", "sl": "za gostilno", "it": "per la locanda"}, "de": "Am Freitag kauft Kathi in Villach für das Gasthaus ein.", "en": "On Friday Kathi does the shopping for the inn in Villach.", "sl": "V petek Kathi v Beljaku nakupuje za gostilno.", "it": "Venerdì Kathi fa la spesa per la locanda a Villach."}
+      ]
+    },
+    {
+      "id": "weil-es-regnet",
+      "level": "A2",
+      "rules": ["nebensatz"],
+      "steps": [
+        {"de": "Wir bleiben zu Hause.", "en": "We're staying at home.", "sl": "Ostanemo doma.", "it": "Restiamo a casa."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Heute bleiben wir zu Hause.", "en": "Today we're staying at home.", "sl": "Danes ostanemo doma.", "it": "Oggi restiamo a casa."},
+        {"add": {"en": "because it's raining", "sl": "ker dežuje", "it": "perché piove"}, "de": "Heute bleiben wir zu Hause, weil es regnet.", "en": "Today we're staying at home because it's raining.", "sl": "Danes ostanemo doma, ker dežuje.", "it": "Oggi restiamo a casa perché piove."},
+        {"add": {"en": "so hard", "sl": "tako močno", "it": "così forte"}, "de": "Heute bleiben wir zu Hause, weil es so stark regnet.", "en": "Today we're staying at home because it's raining so hard.", "sl": "Danes ostanemo doma, ker tako močno dežuje.", "it": "Oggi restiamo a casa perché piove così forte."}
+      ]
+    },
+    {
+      "id": "dass-stefan-kommt",
+      "level": "A2",
+      "rules": ["nebensatz", "praepositionen-dativ"],
+      "steps": [
+        {"de": "Stefan kommt.", "en": "Stefan is coming.", "sl": "Stefan pride.", "it": "Stefan viene."},
+        {"add": {"en": "I think that", "sl": "mislim, da", "it": "credo che"}, "de": "Ich glaube, dass Stefan kommt.", "en": "I think Stefan is coming.", "sl": "Mislim, da Stefan pride.", "it": "Credo che Stefan venga."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Ich glaube, dass Stefan heute kommt.", "en": "I think Stefan is coming today.", "sl": "Mislim, da Stefan pride danes.", "it": "Credo che Stefan venga oggi."},
+        {"add": {"en": "with the cider", "sl": "z moštom", "it": "con il Most"}, "de": "Ich glaube, dass Stefan heute mit dem Most kommt.", "en": "I think Stefan is coming today with the cider.", "sl": "Mislim, da Stefan danes pride z moštom.", "it": "Credo che Stefan venga oggi con il Most."}
+      ]
+    },
+    {
+      "id": "gestern-in-villach",
+      "level": "A2",
+      "rules": ["perfekt", "praepositionen-dativ"],
+      "steps": [
+        {"de": "Wir sind nach Villach gefahren.", "en": "We went to Villach.", "sl": "Peljali smo se v Beljak.", "it": "Siamo andati a Villach."},
+        {"add": {"en": "yesterday", "sl": "včeraj", "it": "ieri"}, "de": "Gestern sind wir nach Villach gefahren.", "en": "Yesterday we went to Villach.", "sl": "Včeraj smo se peljali v Beljak.", "it": "Ieri siamo andati a Villach."},
+        {"add": {"en": "by train", "sl": "z vlakom", "it": "in treno"}, "de": "Gestern sind wir mit dem Zug nach Villach gefahren.", "en": "Yesterday we went to Villach by train.", "sl": "Včeraj smo se z vlakom peljali v Beljak.", "it": "Ieri siamo andati a Villach in treno."},
+        {"add": {"en": "and bought a lot", "sl": "in veliko nakupili", "it": "e abbiamo comprato tante cose"}, "de": "Gestern sind wir mit dem Zug nach Villach gefahren und haben viel gekauft.", "en": "Yesterday we went to Villach by train and bought a lot.", "sl": "Včeraj smo se z vlakom peljali v Beljak in veliko nakupili.", "it": "Ieri siamo andati a Villach in treno e abbiamo comprato tante cose."}
+      ]
+    },
+    {
+      "id": "auf-dem-bankerl-gesessen",
+      "level": "A2",
+      "rules": ["perfekt", "partizip-zwei"],
+      "steps": [
+        {"de": "Opa Sepp ist auf dem Bankerl gesessen.", "en": "Opa Sepp sat on the little bench.", "sl": "Dedek Sepp je sedel na klopci.", "it": "Opa Sepp era seduto sulla panchina."},
+        {"add": {"en": "all afternoon", "sl": "vse popoldne", "it": "tutto il pomeriggio"}, "de": "Opa Sepp ist den ganzen Nachmittag auf dem Bankerl gesessen.", "en": "Opa Sepp sat on the little bench all afternoon.", "sl": "Dedek Sepp je vse popoldne sedel na klopci.", "it": "Opa Sepp è rimasto seduto sulla panchina tutto il pomeriggio."},
+        {"add": {"en": "with Bello", "sl": "z Bellom", "it": "con Bello"}, "de": "Opa Sepp ist den ganzen Nachmittag mit Bello auf dem Bankerl gesessen.", "en": "Opa Sepp sat on the little bench with Bello all afternoon.", "sl": "Dedek Sepp je vse popoldne z Bellom sedel na klopci.", "it": "Opa Sepp è rimasto seduto sulla panchina con Bello tutto il pomeriggio."},
+        {"add": {"en": "yesterday", "sl": "včeraj", "it": "ieri"}, "de": "Gestern ist Opa Sepp den ganzen Nachmittag mit Bello auf dem Bankerl gesessen.", "en": "Yesterday Opa Sepp sat on the little bench with Bello all afternoon.", "sl": "Včeraj je dedek Sepp vse popoldne z Bellom sedel na klopci.", "it": "Ieri Opa Sepp è rimasto seduto sulla panchina con Bello tutto il pomeriggio."}
+      ]
+    },
+    {
+      "id": "toni-muss-arbeiten",
+      "level": "A2",
+      "rules": ["modalverben"],
+      "steps": [
+        {"de": "Toni muss arbeiten.", "en": "Toni has to work.", "sl": "Toni mora delati.", "it": "Toni deve lavorare."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Toni muss heute arbeiten.", "en": "Toni has to work today.", "sl": "Toni mora danes delati.", "it": "Toni oggi deve lavorare."},
+        {"add": {"en": "late", "sl": "dolgo", "it": "fino a tardi"}, "de": "Toni muss heute lange arbeiten.", "en": "Toni has to work late today.", "sl": "Toni mora danes dolgo delati.", "it": "Toni oggi deve lavorare fino a tardi."},
+        {"add": {"en": "in the smithy", "sl": "v kovačnici", "it": "nella fucina"}, "de": "Toni muss heute lange in der Schmiede arbeiten.", "en": "Toni has to work late in the smithy today.", "sl": "Toni mora danes dolgo delati v kovačnici.", "it": "Toni oggi deve lavorare fino a tardi nella fucina."}
+      ]
+    },
+    {
+      "id": "lena-kann-schwimmen",
+      "level": "A2",
+      "rules": ["modalverben", "steigerung"],
+      "steps": [
+        {"de": "Lena kann schwimmen.", "en": "Lena can swim.", "sl": "Lena zna plavati.", "it": "Lena sa nuotare."},
+        {"add": {"en": "well", "sl": "dobro", "it": "bene"}, "de": "Lena kann gut schwimmen.", "en": "Lena can swim well.", "sl": "Lena zna dobro plavati.", "it": "Lena sa nuotare bene."},
+        {"add": {"en": "better than Maxi", "sl": "bolje kot Maxi", "it": "meglio di Maxi"}, "de": "Lena kann besser schwimmen als Maxi.", "en": "Lena can swim better than Maxi.", "sl": "Lena zna plavati bolje kot Maxi.", "it": "Lena sa nuotare meglio di Maxi."}
+      ]
+    },
+    {
+      "id": "dem-pferd-wasser",
+      "level": "A2",
+      "rules": ["dativ", "wortstellung"],
+      "steps": [
+        {"de": "Ich gebe dem Pferd Wasser.", "en": "I give the horse water.", "sl": "Konju dam vodo.", "it": "Do l'acqua al cavallo."},
+        {"add": {"en": "and hay", "sl": "in seno", "it": "e il fieno"}, "de": "Ich gebe dem Pferd Wasser und Heu.", "en": "I give the horse water and hay.", "sl": "Konju dam vodo in seno.", "it": "Do acqua e fieno al cavallo."},
+        {"add": {"en": "every evening", "sl": "vsak večer", "it": "ogni sera"}, "de": "Jeden Abend gebe ich dem Pferd Wasser und Heu.", "en": "Every evening I give the horse water and hay.", "sl": "Vsak večer dam konju vodo in seno.", "it": "Ogni sera do acqua e fieno al cavallo."}
+      ]
+    },
+    {
+      "id": "mir-ist-kalt",
+      "level": "A2",
+      "rules": ["dativ", "nebensatz"],
+      "steps": [
+        {"de": "Mir ist kalt.", "en": "I'm cold.", "sl": "Zebe me.", "it": "Ho freddo."},
+        {"add": {"en": "very", "sl": "zelo", "it": "molto"}, "de": "Mir ist sehr kalt.", "en": "I'm very cold.", "sl": "Zelo me zebe.", "it": "Ho molto freddo."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Heute ist mir sehr kalt.", "en": "Today I'm very cold.", "sl": "Danes me zelo zebe.", "it": "Oggi ho molto freddo."},
+        {"add": {"en": "because the fog is so thick", "sl": "ker je megla tako gosta", "it": "perché la nebbia è così fitta"}, "de": "Heute ist mir sehr kalt, weil der Nebel so dicht ist.", "en": "Today I'm very cold because the fog is so thick.", "sl": "Danes me zelo zebe, ker je megla tako gosta.", "it": "Oggi ho molto freddo perché la nebbia è così fitta."}
+      ]
+    },
+    {
+      "id": "an-den-faaker-see",
+      "level": "A2",
+      "rules": ["wechselpraepositionen"],
+      "steps": [
+        {"de": "Wir fahren an den See.", "en": "We're going to the lake.", "sl": "Peljemo se na jezero.", "it": "Andiamo al lago."},
+        {"add": {"en": "on Sunday", "sl": "v nedeljo", "it": "domenica"}, "de": "Am Sonntag fahren wir an den See.", "en": "On Sunday we're going to the lake.", "sl": "V nedeljo se peljemo na jezero.", "it": "Domenica andiamo al lago."},
+        {"add": {"en": "the Faaker See", "sl": "na Baško jezero", "it": "il lago di Faak"}, "de": "Am Sonntag fahren wir an den Faaker See.", "en": "On Sunday we're going to the Faaker See.", "sl": "V nedeljo se peljemo na Baško jezero.", "it": "Domenica andiamo al lago di Faak."},
+        {"add": {"en": "and swim out to the island", "sl": "in plavamo do otoka", "it": "e nuotiamo fino all'isola"}, "de": "Am Sonntag fahren wir an den Faaker See und schwimmen bis zur Insel.", "en": "On Sunday we're going to the Faaker See and swimming out to the island.", "sl": "V nedeljo se peljemo na Baško jezero in plavamo do otoka.", "it": "Domenica andiamo al lago di Faak e nuotiamo fino all'isola."}
+      ]
+    },
+    {
+      "id": "teurer-als",
+      "level": "A2",
+      "rules": ["steigerung"],
+      "steps": [
+        {"de": "Der Honig ist teuer.", "en": "The honey is expensive.", "sl": "Med je drag.", "it": "Il miele è caro."},
+        {"add": {"en": "more expensive than the jam", "sl": "dražji od marmelade", "it": "più caro della marmellata"}, "de": "Der Honig ist teurer als die Marmelade.", "en": "The honey is more expensive than the jam.", "sl": "Med je dražji od marmelade.", "it": "Il miele è più caro della marmellata."},
+        {"add": {"en": "but better too", "sl": "a tudi boljši", "it": "ma anche più buono"}, "de": "Der Honig ist teurer als die Marmelade, aber auch besser.", "en": "The honey is more expensive than the jam, but better too.", "sl": "Med je dražji od marmelade, a tudi boljši.", "it": "Il miele è più caro della marmellata, ma anche più buono."}
+      ]
+    },
+    {
+      "id": "bring-aepfel-mit",
+      "level": "A2",
+      "rules": ["trennbare-verben", "imperativ"],
+      "steps": [
+        {"de": "Bring Äpfel mit!", "en": "Bring some apples!", "sl": "Prinesi jabolka!", "it": "Porta delle mele!"},
+        {"add": {"en": "tomorrow", "sl": "jutri", "it": "domani"}, "de": "Bring morgen Äpfel mit!", "en": "Bring some apples tomorrow!", "sl": "Jutri prinesi jabolka!", "it": "Domani porta delle mele!"},
+        {"add": {"en": "for the strudel", "sl": "za zavitek", "it": "per lo strudel"}, "de": "Bring morgen Äpfel für den Strudel mit!", "en": "Bring some apples for the strudel tomorrow!", "sl": "Jutri prinesi jabolka za zavitek!", "it": "Domani porta delle mele per lo strudel!"},
+        {"add": {"en": "Stefan, please", "sl": "Stefan, prosim", "it": "Stefan, per favore"}, "de": "Stefan, bring morgen bitte Äpfel für den Strudel mit!", "en": "Stefan, please bring some apples for the strudel tomorrow!", "sl": "Stefan, jutri prosim prinesi jabolka za zavitek!", "it": "Stefan, domani porta delle mele per lo strudel, per favore!"}
+      ]
+    },
+    {
+      "id": "termin-beim-arzt",
+      "level": "A2",
+      "rules": ["praepositionen-dativ", "nebensatz"],
+      "steps": [
+        {"de": "Ich brauche einen Termin.", "en": "I need an appointment.", "sl": "Potrebujem termin.", "it": "Mi serve un appuntamento."},
+        {"add": {"en": "at the doctor's", "sl": "pri zdravniku", "it": "dal medico"}, "de": "Ich brauche einen Termin beim Arzt.", "en": "I need an appointment at the doctor's.", "sl": "Potrebujem termin pri zdravniku.", "it": "Mi serve un appuntamento dal medico."},
+        {"add": {"en": "this week", "sl": "ta teden", "it": "questa settimana"}, "de": "Ich brauche diese Woche einen Termin beim Arzt.", "en": "I need an appointment at the doctor's this week.", "sl": "Ta teden potrebujem termin pri zdravniku.", "it": "Questa settimana mi serve un appuntamento dal medico."},
+        {"add": {"en": "because I've got a temperature", "sl": "ker imam vročino", "it": "perché ho la febbre"}, "de": "Ich brauche diese Woche einen Termin beim Arzt, weil ich Fieber habe.", "en": "I need an appointment at the doctor's this week because I've got a temperature.", "sl": "Ta teden potrebujem termin pri zdravniku, ker imam vročino.", "it": "Questa settimana mi serve un appuntamento dal medico perché ho la febbre."}
+      ]
+    },
+    {
+      "id": "polka-am-kirchtag",
+      "level": "A2",
+      "rules": ["perfekt", "wortstellung"],
+      "steps": [
+        {"de": "Wir haben getanzt.", "en": "We danced.", "sl": "Plesali smo.", "it": "Abbiamo ballato."},
+        {"add": {"en": "at the Kirchtag", "sl": "na žegnanju", "it": "alla sagra"}, "de": "Auf dem Kirchtag haben wir getanzt.", "en": "At the Kirchtag we danced.", "sl": "Na žegnanju smo plesali.", "it": "Alla sagra abbiamo ballato."},
+        {"add": {"en": "all night", "sl": "vso noč", "it": "tutta la notte"}, "de": "Auf dem Kirchtag haben wir die ganze Nacht getanzt.", "en": "At the Kirchtag we danced all night.", "sl": "Na žegnanju smo plesali vso noč.", "it": "Alla sagra abbiamo ballato tutta la notte."},
+        {"add": {"en": "the polka", "sl": "polko", "it": "la polka"}, "de": "Auf dem Kirchtag haben wir die ganze Nacht Polka getanzt.", "en": "At the Kirchtag we danced the polka all night.", "sl": "Na žegnanju smo vso noč plesali polko.", "it": "Alla sagra abbiamo ballato la polka tutta la notte."}
+      ]
+    },
+    {
+      "id": "am-gemeindeamt",
+      "level": "A2",
+      "rules": ["trennbare-verben", "reflexive-verben"],
+      "steps": [
+        {"de": "Ich melde mich an.", "en": "I'm registering.", "sl": "Prijavim se.", "it": "Mi registro."},
+        {"add": {"en": "at the council office", "sl": "na občini", "it": "in comune"}, "de": "Ich melde mich am Gemeindeamt an.", "en": "I'm registering at the council office.", "sl": "Prijavim se na občini.", "it": "Mi registro in comune."},
+        {"add": {"en": "tomorrow", "sl": "jutri", "it": "domani"}, "de": "Ich melde mich morgen am Gemeindeamt an.", "en": "I'm registering at the council office tomorrow.", "sl": "Jutri se prijavim na občini.", "it": "Domani mi registro in comune."},
+        {"add": {"en": "with my passport", "sl": "s potnim listom", "it": "con il passaporto"}, "de": "Ich melde mich morgen mit meinem Reisepass am Gemeindeamt an.", "en": "I'm registering at the council office with my passport tomorrow.", "sl": "Jutri se s potnim listom prijavim na občini.", "it": "Domani mi registro in comune con il passaporto."}
+      ]
+    },
+    {
+      "id": "wenn-die-sonne-scheint",
+      "level": "A2",
+      "rules": ["nebensatz"],
+      "steps": [
+        {"de": "Wir gehen auf die Alm.", "en": "We're going up to the pasture.", "sl": "Gremo na planino.", "it": "Andiamo all'alpeggio."},
+        {"add": {"en": "tomorrow", "sl": "jutri", "it": "domani"}, "de": "Morgen gehen wir auf die Alm.", "en": "Tomorrow we're going up to the pasture.", "sl": "Jutri gremo na planino.", "it": "Domani andiamo all'alpeggio."},
+        {"add": {"en": "if the sun is shining", "sl": "če bo sijalo sonce", "it": "se c'è il sole"}, "de": "Wenn die Sonne scheint, gehen wir morgen auf die Alm.", "en": "If the sun is shining, we'll go up to the pasture tomorrow.", "sl": "Če bo sijalo sonce, gremo jutri na planino.", "it": "Se c'è il sole, domani andiamo all'alpeggio."},
+        {"add": {"en": "with Florian", "sl": "s Florianom", "it": "con Florian"}, "de": "Wenn die Sonne scheint, gehen wir morgen mit Florian auf die Alm.", "en": "If the sun is shining, we'll go up to the pasture with Florian tomorrow.", "sl": "Če bo sijalo sonce, gremo jutri s Florianom na planino.", "it": "Se c'è il sole, domani andiamo all'alpeggio con Florian."}
+      ]
+    },
+    {
+      "id": "kathi-fragt-ob",
+      "level": "A2",
+      "rules": ["nebensatz"],
+      "steps": [
+        {"de": "Kathi fragt.", "en": "Kathi asks.", "sl": "Kathi vpraša.", "it": "Kathi chiede."},
+        {"add": {"en": "whether we're hungry", "sl": "ali smo lačni", "it": "se abbiamo fame"}, "de": "Kathi fragt, ob wir Hunger haben.", "en": "Kathi asks whether we're hungry.", "sl": "Kathi vpraša, ali smo lačni.", "it": "Kathi chiede se abbiamo fame."},
+        {"add": {"en": "and whether we'd like a soup", "sl": "in ali želimo juho", "it": "e se vogliamo una zuppa"}, "de": "Kathi fragt, ob wir Hunger haben und ob wir eine Suppe wollen.", "en": "Kathi asks whether we're hungry and whether we'd like a soup.", "sl": "Kathi vpraša, ali smo lačni in ali želimo juho.", "it": "Kathi chiede se abbiamo fame e se vogliamo una zuppa."}
+      ]
+    },
+    {
+      "id": "schon-wieder-zu-spaet",
+      "level": "A2",
+      "rules": ["perfekt", "trennbare-verben"],
+      "steps": [
+        {"de": "Der Zug ist angekommen.", "en": "The train has arrived.", "sl": "Vlak je prispel.", "it": "Il treno è arrivato."},
+        {"add": {"en": "late", "sl": "prepozno", "it": "in ritardo"}, "de": "Der Zug ist zu spät angekommen.", "en": "The train arrived late.", "sl": "Vlak je prispel prepozno.", "it": "Il treno è arrivato in ritardo."},
+        {"add": {"en": "twenty minutes", "sl": "dvajset minut", "it": "con venti minuti"}, "de": "Der Zug ist zwanzig Minuten zu spät angekommen.", "en": "The train arrived twenty minutes late.", "sl": "Vlak je prispel dvajset minut prepozno.", "it": "Il treno è arrivato con venti minuti di ritardo."},
+        {"add": {"en": "today, once again", "sl": "danes spet", "it": "oggi, di nuovo"}, "de": "Heute ist der Zug schon wieder zwanzig Minuten zu spät angekommen.", "en": "Today the train arrived twenty minutes late once again.", "sl": "Danes je vlak spet prispel dvajset minut prepozno.", "it": "Oggi il treno è arrivato di nuovo con venti minuti di ritardo."}
+      ]
+    },
+    {
+      "id": "der-mann-der",
+      "level": "B1",
+      "rules": ["relativsatz", "steigerung"],
+      "steps": [
+        {"de": "Das ist der Mann.", "en": "That's the man.", "sl": "To je mož.", "it": "Questo è l'uomo."},
+        {"add": {"en": "who makes the cider", "sl": "ki dela mošt", "it": "che fa il Most"}, "de": "Das ist der Mann, der den Most macht.", "en": "That's the man who makes the cider.", "sl": "To je mož, ki dela mošt.", "it": "Questo è l'uomo che fa il Most."},
+        {"add": {"en": "the best in Carinthia", "sl": "najboljši na Koroškem", "it": "il migliore della Carinzia"}, "de": "Das ist der Mann, der den besten Most in Kärnten macht.", "en": "That's the man who makes the best cider in Carinthia.", "sl": "To je mož, ki dela najboljši mošt na Koroškem.", "it": "Questo è l'uomo che fa il Most migliore della Carinzia."}
+      ]
+    },
+    {
+      "id": "das-brot-das",
+      "level": "B1",
+      "rules": ["relativsatz", "perfekt"],
+      "steps": [
+        {"de": "Das Brot schmeckt gut.", "en": "The bread tastes good.", "sl": "Kruh je dober.", "it": "Il pane è buono."},
+        {"add": {"en": "that Oma Resi baked", "sl": "ki ga je spekla babica Resi", "it": "che ha fatto Oma Resi"}, "de": "Das Brot, das Oma Resi gebacken hat, schmeckt gut.", "en": "The bread Oma Resi baked tastes good.", "sl": "Kruh, ki ga je spekla babica Resi, je dober.", "it": "Il pane che ha fatto Oma Resi è buono."},
+        {"add": {"en": "this morning", "sl": "danes zjutraj", "it": "stamattina"}, "de": "Das Brot, das Oma Resi heute in der Früh gebacken hat, schmeckt gut.", "en": "The bread Oma Resi baked this morning tastes good.", "sl": "Kruh, ki ga je babica Resi spekla danes zjutraj, je dober.", "it": "Il pane che Oma Resi ha fatto stamattina è buono."},
+        {"add": {"en": "and it's still warm", "sl": "in še topel", "it": "ed è ancora caldo"}, "de": "Das Brot, das Oma Resi heute in der Früh gebacken hat, schmeckt gut und ist noch warm.", "en": "The bread Oma Resi baked this morning tastes good and is still warm.", "sl": "Kruh, ki ga je babica Resi spekla danes zjutraj, je dober in še topel.", "it": "Il pane che Oma Resi ha fatto stamattina è buono ed è ancora caldo."}
+      ]
+    },
+    {
+      "id": "die-neue-bruecke",
+      "level": "B1",
+      "rules": ["passiv"],
+      "steps": [
+        {"de": "Die Brücke wird gebaut.", "en": "The bridge is being built.", "sl": "Most se gradi.", "it": "Il ponte viene costruito."},
+        {"add": {"en": "new", "sl": "nov", "it": "nuovo"}, "de": "Die neue Brücke wird gebaut.", "en": "The new bridge is being built.", "sl": "Novi most se gradi.", "it": "Il nuovo ponte viene costruito."},
+        {"add": {"en": "this summer", "sl": "letos poleti", "it": "quest'estate"}, "de": "Die neue Brücke wird heuer im Sommer gebaut.", "en": "The new bridge is being built this summer.", "sl": "Novi most se bo gradil letos poleti.", "it": "Il nuovo ponte viene costruito quest'estate."},
+        {"add": {"en": "by the whole village", "sl": "vsa vas", "it": "da tutto il paese"}, "de": "Die neue Brücke wird heuer im Sommer vom ganzen Dorf gebaut.", "en": "The new bridge is being built by the whole village this summer.", "sl": "Novi most bo letos poleti gradila vsa vas.", "it": "Il nuovo ponte viene costruito quest'estate da tutto il paese."}
+      ]
+    },
+    {
+      "id": "wenn-wir-zeit-haetten",
+      "level": "B1",
+      "rules": ["konjunktiv-zwei"],
+      "steps": [
+        {"de": "Wir würden kommen.", "en": "We'd come.", "sl": "Prišli bi.", "it": "Verremmo."},
+        {"add": {"en": "gladly", "sl": "radi", "it": "volentieri"}, "de": "Wir würden gern kommen.", "en": "We'd love to come.", "sl": "Radi bi prišli.", "it": "Verremmo volentieri."},
+        {"add": {"en": "if we had time", "sl": "če bi imeli čas", "it": "se avessimo tempo"}, "de": "Wir würden gern kommen, wenn wir Zeit hätten.", "en": "We'd love to come if we had time.", "sl": "Radi bi prišli, če bi imeli čas.", "it": "Verremmo volentieri se avessimo tempo."},
+        {"add": {"en": "to the Kirchtag", "sl": "na žegnanje", "it": "alla sagra"}, "de": "Wir würden gern zum Kirchtag kommen, wenn wir Zeit hätten.", "en": "We'd love to come to the Kirchtag if we had time.", "sl": "Radi bi prišli na žegnanje, če bi imeli čas.", "it": "Verremmo volentieri alla sagra se avessimo tempo."}
+      ]
+    },
+    {
+      "id": "obwohl-es-regnet",
+      "level": "B1",
+      "rules": ["obwohl-trotzdem"],
+      "steps": [
+        {"de": "Franz arbeitet.", "en": "Franz is working.", "sl": "Franz dela.", "it": "Franz lavora."},
+        {"add": {"en": "in the field", "sl": "na polju", "it": "nel campo"}, "de": "Franz arbeitet auf dem Feld.", "en": "Franz is working in the field.", "sl": "Franz dela na polju.", "it": "Franz lavora nel campo."},
+        {"add": {"en": "although it's raining", "sl": "čeprav dežuje", "it": "anche se piove"}, "de": "Franz arbeitet auf dem Feld, obwohl es regnet.", "en": "Franz is working in the field although it's raining.", "sl": "Franz dela na polju, čeprav dežuje.", "it": "Franz lavora nel campo anche se piove."},
+        {"add": {"en": "so hard", "sl": "tako močno", "it": "così forte"}, "de": "Franz arbeitet auf dem Feld, obwohl es so stark regnet.", "en": "Franz is working in the field although it's raining so hard.", "sl": "Franz dela na polju, čeprav tako močno dežuje.", "it": "Franz lavora nel campo anche se piove così forte."}
+      ]
+    },
+    {
+      "id": "es-war-einmal",
+      "level": "B1",
+      "rules": ["praeteritum", "relativsatz"],
+      "steps": [
+        {"de": "Es war einmal ein König.", "en": "Once upon a time there was a king.", "sl": "Nekoč je živel kralj.", "it": "C'era una volta un re."},
+        {"add": {"en": "who slept under the Petzen", "sl": "ki je spal pod Peco", "it": "che dormiva sotto il monte Peca"}, "de": "Es war einmal ein König, der unter der Petzen schlief.", "en": "Once upon a time there was a king who slept under the Petzen.", "sl": "Nekoč je živel kralj, ki je spal pod Peco.", "it": "C'era una volta un re che dormiva sotto il monte Peca."},
+        {"add": {"en": "with a long beard", "sl": "z dolgo brado", "it": "dalla lunga barba"}, "de": "Es war einmal ein König mit einem langen Bart, der unter der Petzen schlief.", "en": "Once upon a time there was a king with a long beard who slept under the Petzen.", "sl": "Nekoč je živel kralj z dolgo brado, ki je spal pod Peco.", "it": "C'era una volta un re dalla lunga barba che dormiva sotto il monte Peca."}
+      ]
+    },
+    {
+      "id": "heuer-wird-der-winter",
+      "level": "B1",
+      "rules": ["werden-futur", "wortstellung"],
+      "steps": [
+        {"de": "Der Winter wird lang.", "en": "The winter will be long.", "sl": "Zima bo dolga.", "it": "L'inverno sarà lungo."},
+        {"add": {"en": "this year", "sl": "letos", "it": "quest'anno"}, "de": "Heuer wird der Winter lang.", "en": "This year the winter will be long.", "sl": "Letos bo zima dolga.", "it": "Quest'anno l'inverno sarà lungo."},
+        {"add": {"en": "says Tante Mitzi", "sl": "pravi teta Mitzi", "it": "dice la zia Mitzi"}, "de": "Heuer wird der Winter lang, sagt Tante Mitzi.", "en": "This year the winter will be long, says Tante Mitzi.", "sl": "Letos bo zima dolga, pravi teta Mitzi.", "it": "Quest'anno l'inverno sarà lungo, dice la zia Mitzi."},
+        {"add": {"en": "and cold", "sl": "in mrzla", "it": "e freddo"}, "de": "Heuer wird der Winter lang und kalt, sagt Tante Mitzi.", "en": "This year the winter will be long and cold, says Tante Mitzi.", "sl": "Letos bo zima dolga in mrzla, pravi teta Mitzi.", "it": "Quest'anno l'inverno sarà lungo e freddo, dice la zia Mitzi."}
+      ]
+    },
+    {
+      "id": "keine-zeit-zu-kochen",
+      "level": "B1",
+      "rules": ["infinitiv-zu", "konnektoren"],
+      "steps": [
+        {"de": "Wir haben keine Zeit.", "en": "We have no time.", "sl": "Nimamo časa.", "it": "Non abbiamo tempo."},
+        {"add": {"en": "to cook", "sl": "za kuhanje", "it": "per cucinare"}, "de": "Wir haben keine Zeit zu kochen.", "en": "We have no time to cook.", "sl": "Nimamo časa za kuhanje.", "it": "Non abbiamo tempo per cucinare."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Wir haben heute keine Zeit zu kochen.", "en": "We have no time to cook today.", "sl": "Danes nimamo časa za kuhanje.", "it": "Oggi non abbiamo tempo per cucinare."},
+        {"add": {"en": "so we're going to Kathi's", "sl": "zato gremo h Kathi", "it": "perciò andiamo da Kathi"}, "de": "Wir haben heute keine Zeit zu kochen, deshalb gehen wir zu Kathi.", "en": "We have no time to cook today, so we're going to Kathi's.", "sl": "Danes nimamo časa za kuhanje, zato gremo h Kathi.", "it": "Oggi non abbiamo tempo per cucinare, perciò andiamo da Kathi."}
+      ]
+    },
+    {
+      "id": "wegen-des-schnees",
+      "level": "B1",
+      "rules": ["praepositionen-genitiv", "genitiv"],
+      "steps": [
+        {"de": "Der Bus fährt nicht.", "en": "The bus isn't running.", "sl": "Avtobus ne vozi.", "it": "L'autobus non passa."},
+        {"add": {"en": "today", "sl": "danes", "it": "oggi"}, "de": "Heute fährt der Bus nicht.", "en": "Today the bus isn't running.", "sl": "Danes avtobus ne vozi.", "it": "Oggi l'autobus non passa."},
+        {"add": {"en": "because of the snow", "sl": "zaradi snega", "it": "a causa della neve"}, "de": "Heute fährt der Bus wegen des Schnees nicht.", "en": "Today the bus isn't running because of the snow.", "sl": "Danes avtobus zaradi snega ne vozi.", "it": "Oggi l'autobus non passa a causa della neve."},
+        {"add": {"en": "to Villach", "sl": "v Beljak", "it": "per Villach"}, "de": "Heute fährt der Bus wegen des Schnees nicht nach Villach.", "en": "Today the bus isn't running to Villach because of the snow.", "sl": "Danes avtobus zaradi snega ne vozi v Beljak.", "it": "Oggi l'autobus per Villach non passa a causa della neve."}
+      ]
+    },
+    {
+      "id": "als-opa-jung-war",
+      "level": "B1",
+      "rules": ["temporalsaetze"],
+      "steps": [
+        {"de": "Opa Sepp war jung.", "en": "Opa Sepp was young.", "sl": "Dedek Sepp je bil mlad.", "it": "Opa Sepp era giovane."},
+        {"add": {"en": "and back then the bridge was still made of wood", "sl": "takrat pa je bil most še lesen", "it": "e allora il ponte era ancora di legno"}, "de": "Als Opa Sepp jung war, war die Brücke noch aus Holz.", "en": "When Opa Sepp was young, the bridge was still made of wood.", "sl": "Ko je bil dedek Sepp mlad, je bil most še lesen.", "it": "Quando Opa Sepp era giovane, il ponte era ancora di legno."},
+        {"add": {"en": "over the stream", "sl": "čez potok", "it": "sul ruscello"}, "de": "Als Opa Sepp jung war, war die Brücke über den Bach noch aus Holz.", "en": "When Opa Sepp was young, the bridge over the stream was still made of wood.", "sl": "Ko je bil dedek Sepp mlad, je bil most čez potok še lesen.", "it": "Quando Opa Sepp era giovane, il ponte sul ruscello era ancora di legno."}
+      ]
+    },
+    {
+      "id": "hatte-schon-gekocht",
+      "level": "B1",
+      "rules": ["plusquamperfekt", "temporalsaetze"],
+      "steps": [
+        {"de": "Kathi hatte schon gekocht.", "en": "Kathi had already cooked.", "sl": "Kathi je že skuhala.", "it": "Kathi aveva già cucinato."},
+        {"add": {"en": "when we arrived", "sl": "ko smo prišli", "it": "quando siamo arrivati"}, "de": "Als wir kamen, hatte Kathi schon gekocht.", "en": "When we arrived, Kathi had already cooked.", "sl": "Ko smo prišli, je Kathi že skuhala.", "it": "Quando siamo arrivati, Kathi aveva già cucinato."},
+        {"add": {"en": "the Kasnudeln", "sl": "kasnudeln", "it": "i Kasnudeln"}, "de": "Als wir kamen, hatte Kathi schon die Kasnudeln gekocht.", "en": "When we arrived, Kathi had already cooked the Kasnudeln.", "sl": "Ko smo prišli, je Kathi že skuhala kasnudeln.", "it": "Quando siamo arrivati, Kathi aveva già cucinato i Kasnudeln."}
+      ]
+    },
+    {
+      "id": "nicht-nur-sondern-auch",
+      "level": "B1",
+      "rules": ["doppelkonnektoren"],
+      "steps": [
+        {"de": "Stanko spricht Deutsch.", "en": "Stanko speaks German.", "sl": "Stanko govori nemško.", "it": "Stanko parla tedesco."},
+        {"add": {"en": "not only … but also Slovene", "sl": "ne samo … ampak tudi slovensko", "it": "non solo … ma anche sloveno"}, "de": "Stanko spricht nicht nur Deutsch, sondern auch Slowenisch.", "en": "Stanko speaks not only German but Slovene too.", "sl": "Stanko ne govori samo nemško, ampak tudi slovensko.", "it": "Stanko non parla solo tedesco, ma anche sloveno."},
+        {"add": {"en": "even to his bees", "sl": "celo s svojimi čebelami", "it": "perfino con le sue api"}, "de": "Stanko spricht nicht nur Deutsch, sondern auch Slowenisch, sogar mit seinen Bienen.", "en": "Stanko speaks not only German but Slovene too, even to his bees.", "sl": "Stanko ne govori samo nemško, ampak tudi slovensko, celo s svojimi čebelami.", "it": "Stanko non parla solo tedesco, ma anche sloveno, perfino con le sue api."}
+      ]
+    },
+    {
+      "id": "der-loiblpass-sei-gesperrt",
+      "level": "B2",
+      "rules": ["indirekte-rede", "praepositionen-genitiv"],
+      "steps": [
+        {"de": "Das Radio meldet, der Loiblpass sei gesperrt.", "en": "The radio reports that the Loibl Pass is closed.", "sl": "Radio poroča, da je prelaz Ljubelj zaprt.", "it": "La radio annuncia che il passo del Loibl è chiuso."},
+        {"add": {"en": "because of the snow", "sl": "zaradi snega", "it": "a causa della neve"}, "de": "Das Radio meldet, der Loiblpass sei wegen des Schnees gesperrt.", "en": "The radio reports that the Loibl Pass is closed because of the snow.", "sl": "Radio poroča, da je prelaz Ljubelj zaradi snega zaprt.", "it": "La radio annuncia che il passo del Loibl è chiuso a causa della neve."},
+        {"add": {"en": "until Monday", "sl": "do ponedeljka", "it": "fino a lunedì"}, "de": "Das Radio meldet, der Loiblpass sei wegen des Schnees bis Montag gesperrt.", "en": "The radio reports that the Loibl Pass is closed until Monday because of the snow.", "sl": "Radio poroča, da je prelaz Ljubelj zaradi snega zaprt do ponedeljka.", "it": "La radio annuncia che il passo del Loibl è chiuso fino a lunedì a causa della neve."}
+      ]
+    },
+    {
+      "id": "die-muehle-ist-repariert-worden",
+      "level": "B2",
+      "rules": ["passiv-zeiten"],
+      "steps": [
+        {"de": "Die Mühle ist repariert worden.", "en": "The mill has been repaired.", "sl": "Mlin je bil popravljen.", "it": "Il mulino è stato riparato."},
+        {"add": {"en": "last week", "sl": "prejšnji teden", "it": "la settimana scorsa"}, "de": "Die Mühle ist letzte Woche repariert worden.", "en": "The mill was repaired last week.", "sl": "Mlin je bil popravljen prejšnji teden.", "it": "Il mulino è stato riparato la settimana scorsa."},
+        {"add": {"en": "at last", "sl": "končno", "it": "finalmente"}, "de": "Die Mühle ist letzte Woche endlich repariert worden.", "en": "The mill was repaired at last last week.", "sl": "Mlin je bil prejšnji teden končno popravljen.", "it": "Il mulino è stato finalmente riparato la settimana scorsa."},
+        {"add": {"en": "by Franz and Toni", "sl": "Franz in Toni", "it": "da Franz e Toni"}, "de": "Die Mühle ist letzte Woche endlich von Franz und Toni repariert worden.", "en": "The mill was repaired at last by Franz and Toni last week.", "sl": "Mlin sta prejšnji teden končno popravila Franz in Toni.", "it": "Il mulino è stato finalmente riparato da Franz e Toni la settimana scorsa."}
+      ]
+    },
+    {
+      "id": "waeren-gern-gekommen",
+      "level": "B2",
+      "rules": ["konjunktiv-vergangenheit"],
+      "steps": [
+        {"de": "Wir wären gekommen.", "en": "We would have come.", "sl": "Prišli bi.", "it": "Saremmo venuti."},
+        {"add": {"en": "gladly", "sl": "radi", "it": "volentieri"}, "de": "Wir wären gern gekommen.", "en": "We'd have loved to come.", "sl": "Radi bi prišli.", "it": "Saremmo venuti volentieri."},
+        {"add": {"en": "if we had known", "sl": "če bi vedeli", "it": "se l'avessimo saputo"}, "de": "Wir wären gern gekommen, wenn wir es gewusst hätten.", "en": "We'd have loved to come if we had known.", "sl": "Radi bi prišli, če bi vedeli.", "it": "Saremmo venuti volentieri se l'avessimo saputo."},
+        {"add": {"en": "to the topping-out party", "sl": "na likof", "it": "alla festa del tetto"}, "de": "Wir wären gern zur Firstfeier gekommen, wenn wir es gewusst hätten.", "en": "We'd have loved to come to the topping-out party if we had known.", "sl": "Radi bi prišli na likof, če bi vedeli.", "it": "Saremmo venuti volentieri alla festa del tetto se l'avessimo saputo."}
+      ]
+    },
+    {
+      "id": "nach-dem-essen",
+      "level": "B2",
+      "rules": ["nominalisierung", "praepositionen-genitiv"],
+      "steps": [
+        {"de": "Nach dem Essen gehen wir spazieren.", "en": "After the meal we go for a walk.", "sl": "Po jedi gremo na sprehod.", "it": "Dopo pranzo andiamo a passeggio."},
+        {"add": {"en": "to the lake", "sl": "do jezera", "it": "fino al lago"}, "de": "Nach dem Essen gehen wir zum See spazieren.", "en": "After the meal we go for a walk down to the lake.", "sl": "Po jedi gremo na sprehod do jezera.", "it": "Dopo pranzo andiamo a passeggio fino al lago."},
+        {"add": {"en": "despite the rain", "sl": "kljub dežju", "it": "nonostante la pioggia"}, "de": "Nach dem Essen gehen wir trotz des Regens zum See spazieren.", "en": "After the meal we go for a walk down to the lake despite the rain.", "sl": "Po jedi gremo kljub dežju na sprehod do jezera.", "it": "Dopo pranzo, nonostante la pioggia, andiamo a passeggio fino al lago."}
+      ]
+    },
+    {
+      "id": "die-gesammelten-aepfel",
+      "level": "B2",
+      "rules": ["partizipialattribut", "partizip-adjektiv"],
+      "steps": [
+        {"de": "Die Äpfel liegen im Keller.", "en": "The apples are in the cellar.", "sl": "Jabolka so v kleti.", "it": "Le mele sono in cantina."},
+        {"add": {"en": "gathered", "sl": "nabrana", "it": "raccolte"}, "de": "Die gesammelten Äpfel liegen im Keller.", "en": "The gathered apples are in the cellar.", "sl": "Nabrana jabolka so v kleti.", "it": "Le mele raccolte sono in cantina."},
+        {"add": {"en": "yesterday, by Stefan", "sl": "včeraj, Stefan", "it": "ieri, da Stefan"}, "de": "Die gestern von Stefan gesammelten Äpfel liegen im Keller.", "en": "The apples Stefan gathered yesterday are in the cellar.", "sl": "Jabolka, ki jih je Stefan nabral včeraj, so v kleti.", "it": "Le mele raccolte ieri da Stefan sono in cantina."},
+        {"add": {"en": "next to the press", "sl": "poleg stiskalnice", "it": "accanto al torchio"}, "de": "Die gestern von Stefan gesammelten Äpfel liegen im Keller neben der Presse.", "en": "The apples Stefan gathered yesterday are in the cellar next to the press.", "sl": "Jabolka, ki jih je Stefan nabral včeraj, so v kleti poleg stiskalnice.", "it": "Le mele raccolte ieri da Stefan sono in cantina accanto al torchio."}
+      ]
+    },
+    {
+      "id": "florian-duerfte",
+      "level": "B2",
+      "rules": ["modalverben-vermutung", "konnektoren"],
+      "steps": [
+        {"de": "Florian dürfte auf der Alm sein.", "en": "Florian is most likely up on the pasture.", "sl": "Florian bo najbrž na planini.", "it": "Florian dovrebbe essere all'alpeggio."},
+        {"add": {"en": "already", "sl": "že", "it": "già"}, "de": "Florian dürfte schon auf der Alm sein.", "en": "Florian is most likely up on the pasture already.", "sl": "Florian bo najbrž že na planini.", "it": "Florian dovrebbe essere già all'alpeggio."},
+        {"add": {"en": "with the sheep", "sl": "z ovcami", "it": "con le pecore"}, "de": "Florian dürfte schon mit den Schafen auf der Alm sein.", "en": "Florian is most likely up on the pasture with the sheep already.", "sl": "Florian bo najbrž že z ovcami na planini.", "it": "Florian dovrebbe essere già all'alpeggio con le pecore."},
+        {"add": {"en": "because his car isn't here", "sl": "saj njegovega avta ni tu", "it": "perché la sua macchina non c'è"}, "de": "Florian dürfte schon mit den Schafen auf der Alm sein, denn sein Auto ist nicht da.", "en": "Florian is most likely up on the pasture with the sheep already, because his car isn't here.", "sl": "Florian bo najbrž že z ovcami na planini, saj njegovega avta ni tu.", "it": "Florian dovrebbe essere già all'alpeggio con le pecore, perché la sua macchina non c'è."}
+      ]
+    },
+    {
+      "id": "zwar-steil-aber",
+      "level": "B2",
+      "rules": ["zwar-aber"],
+      "steps": [
+        {"de": "Der Weg ist steil.", "en": "The path is steep.", "sl": "Pot je strma.", "it": "Il sentiero è ripido."},
+        {"add": {"en": "it's true, but the view is wonderful", "sl": "sicer, a razgled je čudovit", "it": "sì, ma il panorama è stupendo"}, "de": "Der Weg ist zwar steil, aber die Aussicht ist wunderbar.", "en": "The path is steep, it's true, but the view is wonderful.", "sl": "Pot je sicer strma, a razgled je čudovit.", "it": "Il sentiero è sì ripido, ma il panorama è stupendo."},
+        {"add": {"en": "up the Dobratsch", "sl": "na Dobrač", "it": "per il Dobratsch"}, "de": "Der Weg auf den Dobratsch ist zwar steil, aber die Aussicht ist wunderbar.", "en": "The path up the Dobratsch is steep, it's true, but the view is wonderful.", "sl": "Pot na Dobrač je sicer strma, a razgled je čudovit.", "it": "Il sentiero per il Dobratsch è sì ripido, ma il panorama è stupendo."},
+        {"add": {"en": "over the Karawanken", "sl": "na Karavanke", "it": "sulle Caravanche"}, "de": "Der Weg auf den Dobratsch ist zwar steil, aber die Aussicht über die Karawanken ist wunderbar.", "en": "The path up the Dobratsch is steep, it's true, but the view over the Karawanken is wonderful.", "sl": "Pot na Dobrač je sicer strma, a razgled na Karavanke je čudovit.", "it": "Il sentiero per il Dobratsch è sì ripido, ma il panorama sulle Caravanche è stupendo."}
+      ]
+    },
+    {
+      "id": "indem-er-leise-spricht",
+      "level": "B2",
+      "rules": ["indem-sodass", "passiv"],
+      "steps": [
+        {"de": "Stanko beruhigt die Bienen.", "en": "Stanko calms the bees.", "sl": "Stanko pomiri čebele.", "it": "Stanko calma le api."},
+        {"add": {"en": "by speaking quietly", "sl": "tako, da govori tiho", "it": "parlando piano"}, "de": "Stanko beruhigt die Bienen, indem er leise spricht.", "en": "Stanko calms the bees by speaking quietly.", "sl": "Stanko pomiri čebele tako, da govori tiho.", "it": "Stanko calma le api parlando piano."},
+        {"add": {"en": "so that he never gets stung", "sl": "zato ga nikoli ne pičijo", "it": "così non viene mai punto"}, "de": "Stanko beruhigt die Bienen, indem er leise spricht, sodass er nie gestochen wird.", "en": "Stanko calms the bees by speaking quietly, so that he never gets stung.", "sl": "Stanko pomiri čebele tako, da govori tiho, zato ga nikoli ne pičijo.", "it": "Stanko calma le api parlando piano, così non viene mai punto."}
+      ]
+    },
+    {
+      "id": "eine-entscheidung-treffen",
+      "level": "B2",
+      "rules": ["nomen-verb"],
+      "steps": [
+        {"de": "Die Gemeinde trifft eine Entscheidung.", "en": "The council is making a decision.", "sl": "Občina sprejema odločitev.", "it": "Il comune prende una decisione."},
+        {"add": {"en": "about the new bridge", "sl": "o novem mostu", "it": "sul nuovo ponte"}, "de": "Die Gemeinde trifft eine Entscheidung über die neue Brücke.", "en": "The council is making a decision about the new bridge.", "sl": "Občina sprejema odločitev o novem mostu.", "it": "Il comune prende una decisione sul nuovo ponte."},
+        {"add": {"en": "next week", "sl": "prihodnji teden", "it": "la settimana prossima"}, "de": "Die Gemeinde trifft nächste Woche eine Entscheidung über die neue Brücke.", "en": "The council will make a decision about the new bridge next week.", "sl": "Občina bo prihodnji teden sprejela odločitev o novem mostu.", "it": "La settimana prossima il comune prenderà una decisione sul nuovo ponte."}
+      ]
+    }
+  ],
+  "machine_written": true,
+  "review": "de, en, sl, it: machine-written (Claude), not reviewed by a native speaker"
+}

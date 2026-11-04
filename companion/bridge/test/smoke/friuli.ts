@@ -144,6 +144,17 @@ export default async function friuli() {
     // what is Slovene's alone stays out of an Italian village: a word's forms by slot, counting and forms cards
     const forms = await (await fetch(`${base}/forms?w=mangiare&w=casa`, { headers: auth })).json()
     check('friuli: GET /forms answers no table for an Italian word (the slots, pages and tables are Slovene\'s): the word card shows none', forms.language === 'it' && forms.words.length === 2 && forms.words.every((w: any) => Array.isArray(w.entries) && w.entries.length === 0) && forms.attribution === null, forms)
+    // an app that reads Italian's own tables asks with v=2 (paradigms.ts): an older one (Teo's tablet) gets none, as above
+    const forms2 = await (await fetch(`${base}/forms?w=mangiare&w=casa&w=andare&v=2`, { headers: auth })).json()
+    const [mangiare2, casa2, andare2] = forms2.words.map((w: any) => w.entries[0])
+    const at2 = (e: any, k: string) => e?.slots.find((s: any) => s.key === k)
+    check(
+      "friuli: GET /forms with v=2 answers Italian's tables: mangiare's present on presente-regolare, its participle with avere, casa's plural on plurale, andare's vado on verbi-irregolari and andato on passato-prossimo with essere; Wiktionary's attribution",
+      forms2.language === 'it' && mangiare2?.language === 'it' && at2(mangiare2, 'pres.1sg')?.forms[0] === 'mangio' && at2(mangiare2, 'pres.1sg').page === 'presente-regolare' && mangiare2.aux?.[0] === 'avere' && at2(mangiare2, 'pp')?.forms[0] === 'mangiato' &&
+        at2(casa2, 'pl')?.forms[0] === 'case' && at2(casa2, 'pl').page === 'plurale' && casa2.gender === 'f' && at2(andare2, 'pres.1sg')?.page === 'verbi-irregolari' && at2(andare2, 'pp')?.page === 'passato-prossimo' && andare2.aux?.[0] === 'essere' &&
+        forms2.attribution === 'Wiktionary (CC BY-SA 4.0) via kaikki.org',
+      forms2,
+    )
     const features = (await (await fetch(`${base}/state`, { headers: auth })).json()).features
     check("friuli: GET /state's features say no counting cards and no forms cards (Slovene's), the rest as for Jan", Array.isArray(features) && !features.includes('counting') && !features.includes('forms-cards') && features.includes('dialog-words') && features.includes('explanations'), features)
     const rosaName = await lookup('w=Rosa')
@@ -160,10 +171,14 @@ export default async function friuli() {
     const acqua = await lookup(`w=${encodeURIComponent('l’acqua')}`)
     check("friuli: l’acqua (a typographic apostrophe) is the pack's l'acqua, meant in Slovene", acqua.entries[0]?.source === 'pack' && acqua.entries[0].lemma === "l'acqua" && acqua.entries[0].gloss_lang === 'sl', acqua)
 
-    // the supplement means the course's everyday words in the child's Slovene too (it.extra.json, it-print-meanings)
+    // the supplement means the course's everyday words in the child's Slovene too (it.extra.json, it-print-meanings); the
+    // commonest of them are a pack's since common-words (parole-di-ogni-giorno: essere, avere …), with the supplement's grammar
     const sono = await lookup(`w=sono&line=${encodeURIComponent('Sono di Gorizia.')}`)
     const s0 = sono.entries[0]
-    check("friuli: sono is essere, the supplement's Slovene biti (machine-written: claude) with its grammar, before Wiktionary's English", s0?.lemma === 'essere' && s0.source === 'extra' && s0.gloss[0] === 'biti' && s0.gloss_lang === 'sl' && s0.gloss_via === 'claude' && s0.grammar === 'first-person singular present; third-person plural present' && !s0.fallback, sono)
+    check("friuli: sono is parole-di-ogni-giorno's essere, biti, with the supplement's grammar", s0?.lemma === 'essere' && s0.source === 'pack' && s0.item_id === 'vocab_parole-di-ogni-giorno_essere' && s0.gloss[0] === 'biti' && s0.gloss_lang === 'sl' && s0.grammar === 'first-person singular present; third-person plural present', sono)
+    const parlo = await lookup(`w=parlo&line=${encodeURIComponent('Parlo con Giulia.')}`)
+    const p0 = parlo.entries[0]
+    check("friuli: parlo is parlare, the supplement's Slovene govoriti (machine-written: claude) with its grammar, before Wiktionary's English", p0?.lemma === 'parlare' && p0.source === 'extra' && p0.gloss[0] === 'govoriti' && p0.gloss_lang === 'sl' && p0.gloss_via === 'claude' && p0.grammar === 'first-person singular present' && !p0.fallback, parlo)
     // no Slovene meaning: the English, marked; the tutor hears of it and writes one (flagged machine-written)
     const bancoQ = `w=banco&line=${encodeURIComponent('Il banco è vecchio.')}`
     const banco = await lookup(bancoQ)
@@ -241,7 +256,32 @@ export default async function friuli() {
     check('friuli: GET /drills serves the four Italian drills', Array.isArray(itDrills) && itDrills.length === 4 && itDrills.every((d: any) => d.language === 'it' && d.source === 'curated'), itDrills.map?.((d: any) => d.id))
     // Teo's role-plays: the Italian ones (companion/scenarios/it), for a child, their texts in the child's pair (it · sl)
     const itFiles = readdirSync(join(repo, 'companion/scenarios/it')).filter(f => f.endsWith('.json'))
-    check('friuli: GET /scenarios serves the 9 Italian role-plays, and nothing else', itFiles.length === 9 && scenarios.length === 9 && itFiles.every(f => scenarios.some((s: any) => `${s.id}.json` === f && s.language === 'it' && s.audience === 'child' && s.source === 'curated')), scenarios.map((s: any) => s.id))
+    // by level: Tim at A1 meets the A1 and A2 ones, never B1 or B2; at A2 B1 too, at B1 all (ScenarioStore.offered)
+    const itTalks = itFiles.map(f => JSON.parse(readFileSync(join(repo, 'companion/scenarios/it', f), 'utf8')))
+    const upTo = (lv: string[]) => itTalks.filter(t => lv.includes(t.level)).map(t => t.id).sort()
+    check('friuli: GET /scenarios serves the Italian A1 and A2 role-plays (9) to Tim at A1, for a child, and nothing else', itFiles.length === 21 && scenarios.length === 9 && JSON.stringify(scenarios.map((s: any) => s.id).sort()) === JSON.stringify(upTo(['A1', 'A2'])) && scenarios.every((s: any) => s.language === 'it' && s.audience === 'child' && s.source === 'curated'), scenarios.map((s: any) => s.id))
+    check('friuli: a B2 role-play is not served to Tim at A1, by id either', (await fetch(`${base}/scenarios/se-fossi-in-te`, { headers: auth })).status === 404)
+    {
+      const profile = join(dataDir, 'learner-profile.json')
+      const saved = readFileSync(profile, 'utf8')
+      const at = async (level: string) => {
+        const p = JSON.parse(saved)
+        writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, current_level: level } }, null, 2))
+        return ((await (await fetch(`${base}/scenarios`, { headers: auth })).json()) as any[]).map(s => s.id).sort()
+      }
+      try {
+        const a2 = await at('A2')
+        const b1 = await at('B1')
+        const byId = await (await fetch(`${base}/scenarios/se-fossi-in-te`, { headers: auth })).json()
+        check(
+          'friuli: at A2 Tim meets the B1 role-plays too (15), at B1 the B2 ones as well (21), in the pair; B2 for any learner',
+          JSON.stringify(a2) === JSON.stringify(upTo(['A1', 'A2', 'B1'])) && a2.length === 15 && JSON.stringify(b1) === JSON.stringify(upTo(['A1', 'A2', 'B1', 'B2'])) && b1.length === 21 && byId.title === 'Se fossi in te… · Na tvojem mestu …' && byId.audience === undefined && byId.level === 'B2',
+          { a2, b1, byId },
+        )
+      } finally {
+        writeFileSync(profile, saved)
+      }
+    }
     const mercato = scenarios.find((s: any) => s.id === 'al-mercato')
     check(
       "friuli: a role-play's title and goals in the child's pair, its setting and meanings in Slovene, its lines Italian, its place the square",
@@ -264,6 +304,13 @@ export default async function friuli() {
       brief?.title === 'Al mercato · At the market' && brief.goals?.[0] === 'Greet the seller' && brief.setting?.startsWith('Saturday morning') && brief.language === 'it' && brief.packs?.includes('al-mercato') && /personal data/.test(brief.child ?? ''),
       brief,
     )
+    // a B2 one (for an older learner, no audience) still tells the tutor a child is talking when the profile says so
+    const rpB2 = 'rp-1b2c3d4e-0000-4000-8000-00000000f0b2'
+    await fetch(`${base}/message`, { method: 'POST', headers: auth, body: JSON.stringify({ kind: 'roleplay', conversation_id: rpB2, text: 'Ciao Davide!', data: { scenario_id: 'se-fossi-in-te', turn: 1, heard: 'Ciao Davide!' } }) })
+    await Bun.sleep(150)
+    const b2Note = notes.findLast(n => n.params?.meta?.kind === 'roleplay' && n.params.meta.conversation_id === rpB2)
+    const b2Brief = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(b2Note?.params?.content))?.[1] ?? '{}').scenario
+    check("friuli: a B2 role-play's turn carries its level and, for a child's profile, the child line", b2Brief?.level === 'B2' && b2Brief.title === 'Se fossi in te… · If I were you…' && b2Brief.language === 'it' && /personal data/.test(b2Brief.child ?? ''), b2Brief)
     // the tutor's: in the village's language (left out: Italian, written so), never Slovene; a grown-up's never to the child
     const tutorTalk = { schema: 'lani.scenario/v0', id: 'in-biblioteca', title: { it: 'In biblioteca', sl: 'V knjižnici', en: 'At the library' }, level: 'A1', setting: { sl: 'Knjižnica v Gorici.', en: 'The library in Gorizia.' }, role: 'Signora Anna, the librarian. Kind.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Ciao! Che libro cerchi?', opener_en: { sl: 'Živjo! Katero knjigo iščeš?', en: 'Hi! Which book are you looking for?' }, packs: ['saluti'] }
     const pubIt = await client.callTool({ name: 'publish_scenario', arguments: { scenario: tutorTalk } })

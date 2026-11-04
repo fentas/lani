@@ -4,7 +4,7 @@
   "title": { "sl": "Pod uro", "en": "Under the clock", "de": "Unter der Uhr", "it": "Sotto l'orologio" },
   "emoji": "🕰️",
   "level": "A1",
-  "review": "sl, de, it, reactions, variants: machine-written, unreviewed; to check: četrt na enajst, pol ure čez eno, navijat uro, zamuja/prehiteva, Nisva skupaj krav pasla, Bilo je pet udarcev; scene-replier.md",
+  "review": "sl/de/it, reactions, variants, B1/2: machine-written, unreviewed; check: četrt na enajst, pol ure čez eno, navijat uro, zamuja/prehiteva, Nisva skupaj krav pasla, Bilo je pet udarcev; scene-replier.md",
   "art": "square",
   "from": ["project:mestna_ura"],
   "pack": "pod-uro",
@@ -113,7 +113,7 @@
       "when": ["afternoon"],
       "chance": 0.5,
       "dialog": "janez",
-      "dialogs": ["janez-zamuja", "janez"],
+      "dialogs": ["janez-b2-ana", "janez-b1-urar", "janez-zamuja", "janez"],
       "reward": { "wisdom": 15 },
       "marker": "⌚",
       "memory": {
@@ -152,7 +152,7 @@
       "when": ["evening"],
       "chance": 0.5,
       "dialog": "zamuda",
-      "dialogs": ["zamuda-ancka", "zamuda"],
+      "dialogs": ["zamuda-b2-pismo", "zamuda-b1-ura", "zamuda-ancka", "zamuda"],
       "reward": { "wisdom": 15 },
       "marker": "⏰",
       "memory": {
@@ -2160,6 +2160,630 @@
           "en": "You've got good ears, {learner}. I only hear my radio!",
           "de": "Du hast gute Ohren, {learner}. Ich höre nur mein Radio!",
           "it": "Tu hai buone orecchie, {learner}. Io sento solo la mia radio!"
+        }
+      ]
+    },
+    {
+      "id": "janez-b1-urar",
+      "level": "B1",
+      "memory": {
+        "sl": "očetovo uro, ki si mi {m:svetoval|f:svetovala}, naj jo nesem k Tonetu",
+        "en": "my father's watch, which you told me to take to Tone",
+        "de": "die Uhr meines Vaters, die ich auf deinen Rat zu Tone bringen sollte",
+        "it": "l'orologio di mio padre, che mi hai consigliato di portare da Tone"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Dober dan, {learner}. To uro mi je dal oče tistega dne, ko sem šel prvič v gozd kot gozdar. Pred šestdesetimi leti.",
+          "en": "Good afternoon, {learner}. My father gave me this watch the day I first went into the forest as a forester. Sixty years ago.",
+          "de": "Guten Tag, {learner}. Diese Uhr hat mir mein Vater an dem Tag geschenkt, als ich zum ersten Mal als Förster in den Wald ging. Vor sechzig Jahren.",
+          "it": "Buongiorno, {learner}. Quest'orologio me l'ha dato mio padre il giorno in cui sono andato per la prima volta nel bosco come guardaboschi. Sessant'anni fa."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem jo nosite že šestdeset let!",
+              "en": "Then you've been carrying it for sixty years!",
+              "de": "Dann tragen Sie sie schon sechzig Jahre!",
+              "it": "Allora lo porta con sé da sessant'anni!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Šestdeset let, vsak dan. In niti enkrat ni obstala.",
+                "en": "Sixty years, every day. And not once has it stopped.",
+                "de": "Sechzig Jahre, jeden Tag. Und kein einziges Mal ist sie stehen geblieben.",
+                "it": "Sessant'anni, ogni giorno. E non si è fermato nemmeno una volta."
+              }
+            },
+            {
+              "sl": "Potem ste jo nosili šestdeset let!",
+              "en": "Then you carried it for sixty years (and that's over)!",
+              "de": "Dann haben Sie sie sechzig Jahre getragen (und jetzt nicht mehr)!",
+              "it": "Allora l'ha portato con sé per sessant'anni (e ora non più)!",
+              "grammar": "cas-izrazi",
+              "why": {
+                "en": "He still carries it: what has gone on until now takes the present with že, jo nosite že šestdeset let. Ste jo nosili says it's over.",
+                "de": "Er trägt sie noch: was bis jetzt andauert, steht im Präsens mit že, jo nosite že šestdeset let. Ste jo nosili sagt, dass es vorbei ist.",
+                "it": "Lo porta ancora: ciò che dura fino a oggi vuole il presente con že, jo nosite že šestdeset let. Ste jo nosili dice che è finito."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Nosil? Saj jo imam še zdaj v žepu!",
+                "en": "Carried? But it's in my pocket right now!",
+                "de": "Getragen? Sie ist doch jetzt noch in meiner Tasche!",
+                "it": "Portato? Ma ce l'ho in tasca proprio adesso!"
+              }
+            },
+            {
+              "sl": "Potem jo nosite pred šestdesetimi leti!",
+              "en": "Then you're carrying it sixty years ago!",
+              "de": "Dann tragen Sie sie vor sechzig Jahren!",
+              "it": "Allora lo porta con sé sessant'anni fa!",
+              "grammar": "cas-izrazi",
+              "why": {
+                "en": "Pred šestdesetimi leti is when he got it, sixty years ago. How long until now is the plain accusative with že: že šestdeset let.",
+                "de": "Pred šestdesetimi leti ist, wann er sie bekam: vor sechzig Jahren. Wie lange bis jetzt ist der bloße Akkusativ mit že: že šestdeset let.",
+                "it": "Pred šestdesetimi leti è quando l'ha ricevuto: sessant'anni fa. Da quanto tempo fino a oggi è l'accusativo semplice con že: že šestdeset let."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Pred šestdesetimi? Ne, ne, nosim jo danes. Tukaj, v žepu.",
+                "en": "Sixty years ago? No, no, I'm carrying it today. Right here, in my pocket.",
+                "de": "Vor sechzig Jahren? Nein, nein, ich trage sie heute. Hier, in der Tasche.",
+                "it": "Sessant'anni fa? No, no, lo porto oggi. Qui, in tasca."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Povej še enkrat, počasi.",
+            "en": "Hm? Say it again, slowly.",
+            "de": "Hm? Sag es noch einmal, langsam.",
+            "it": "Mm? Ripeti, piano."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "worried",
+          "sl": "Ampak zadnje čase zamuja. Urar v Gorici je rekel, da je ne more popraviti, ker ni več delov.",
+          "en": "But lately it's been running slow. The watchmaker in Gorizia said he can't fix it, because there are no parts any more.",
+          "de": "Aber in letzter Zeit geht sie nach. Der Uhrmacher in Gorizia hat gesagt, er kann sie nicht reparieren, weil es keine Teile mehr gibt.",
+          "it": "Ma ultimamente va indietro. L'orologiaio di Gorizia ha detto che non lo può aggiustare, perché non ci sono più i pezzi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vprašajte Toneta. Če je znal skovati kolesje mestne ure, bo znal popraviti tudi vašo.",
+              "en": "Ask Tone. If he could forge the works of the town clock, he'll know how to fix yours too.",
+              "de": "Fragen Sie Tone. Wenn er das Uhrwerk der Turmuhr schmieden konnte, kann er auch Ihre reparieren.",
+              "it": "Chieda a Tone. Se ha saputo forgiare gli ingranaggi dell'orologio della piazza, saprà aggiustare anche il Suo.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Toneta? Hm. Ta ima res zlate roke.",
+                "en": "Tone? Hm. He really has golden hands.",
+                "de": "Tone? Hm. Der hat wirklich goldene Hände.",
+                "it": "Tone? Mm. Quello sì che ha le mani d'oro."
+              }
+            },
+            {
+              "sl": "Vprašajte Tone. Če je znal skovati kolesje mestne ure, bo znal popraviti tudi vašo.",
+              "en": "Ask Tone (nominative). If he could forge the works of the town clock, he'll know how to fix yours too.",
+              "de": "Fragen Sie Tone (Nominativ). Wenn er das Uhrwerk der Turmuhr schmieden konnte, kann er auch Ihre reparieren.",
+              "it": "Chieda a Tone (nominativo). Se ha saputo forgiare gli ingranaggi dell'orologio della piazza, saprà aggiustare anche il Suo.",
+              "grammar": "sklanjatev-posebnosti",
+              "why": {
+                "en": "Vprašati wants the accusative, and names in -e grow a t before an ending: Tone → Toneta, as oče → očeta.",
+                "de": "Vprašati verlangt den Akkusativ, und Namen auf -e bekommen vor der Endung ein t: Tone → Toneta, wie oče → očeta.",
+                "it": "Vprašati vuole l'accusativo, e i nomi in -e prendono una t prima della desinenza: Tone → Toneta, come oče → očeta."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Kdo naj koga vpraša? Počasi, veš.",
+                "en": "Hm? Who's to ask whom? Slowly, you know.",
+                "de": "Hm? Wer soll wen fragen? Langsam, weißt du.",
+                "it": "Mm? Chi deve chiedere a chi? Piano, sai."
+              }
+            },
+            {
+              "sl": "Vprašajte Toneta. Če je znal skovati kolesje mestne ure, bo znal popraviti tudi vaš.",
+              "en": "Ask Tone. If he could forge the works of the town clock, he'll know how to fix your (masculine) one too.",
+              "de": "Fragen Sie Tone. Wenn er das Uhrwerk der Turmuhr schmieden konnte, kann er auch Ihren (männlich) reparieren.",
+              "it": "Chieda a Tone. Se ha saputo forgiare gli ingranaggi dell'orologio della piazza, saprà aggiustare anche la Sua (femminile).",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "The watch, ura, is feminine, and so is what stands for it: tudi vašo (uro), in the accusative. Vaš is masculine.",
+                "de": "Die Uhr, ura, ist weiblich, und so auch, was für sie steht: tudi vašo (uro), im Akkusativ. Vaš ist männlich.",
+                "it": "L'orologio, ura, in sloveno è femminile, e così ciò che lo sostituisce: tudi vašo (uro), all'accusativo. Vaš è maschile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Vaš? Moj kaj? Klobuk je še cel, hvala.",
+                "en": "My what? My hat? That's still in one piece, thanks.",
+                "de": "Meinen was? Den Hut? Der ist noch ganz, danke.",
+                "it": "Il mio cosa? Il cappello? Quello è ancora intero, grazie."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Počasi, {learner}. Moja ura in jaz sva stara.",
+            "en": "Slowly, {learner}. My watch and I are both old.",
+            "de": "Langsam, {learner}. Meine Uhr und ich sind alt.",
+            "it": "Piano, {learner}. Il mio orologio e io siamo vecchi."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Prav imaš. Stara ura in star človek: oba potrebujeta malo olja in veliko potrpljenja.",
+          "en": "You're right. An old watch and an old man: both need a little oil and a lot of patience.",
+          "de": "Du hast recht. Eine alte Uhr und ein alter Mann: beide brauchen ein bisschen Öl und viel Geduld.",
+          "it": "Hai ragione. Un vecchio orologio e un vecchio uomo: tutti e due hanno bisogno di un po' d'olio e di tanta pazienza."
+        }
+      ]
+    },
+    {
+      "id": "janez-b2-ana",
+      "level": "B2",
+      "memory": {
+        "sl": "popoldne, ko sva govorila o Ani",
+        "en": "the afternoon we talked about Ana",
+        "de": "den Nachmittag, an dem wir über Ana gesprochen haben",
+        "it": "il pomeriggio in cui abbiamo parlato di Ana"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Dober dan, {learner}. Sedi k meni. Danes mislim na Ano.",
+          "en": "Good afternoon, {learner}. Sit with me. I'm thinking of Ana today.",
+          "de": "Guten Tag, {learner}. Setz dich zu mir. Heute denke ich an Ana.",
+          "it": "Buongiorno, {learner}. Siediti qui con me. Oggi penso ad Ana."
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Vedno je rekla, da živim po uri, ne po srcu. Ob dvanajstih kosilo, ob šestih v gozd, vsak dan.",
+          "en": "She always said I lived by the clock, not by the heart. Lunch at twelve, into the forest at six, every day.",
+          "de": "Sie hat immer gesagt, ich lebe nach der Uhr, nicht nach dem Herzen. Um zwölf Mittagessen, um sechs in den Wald, jeden Tag.",
+          "it": "Diceva sempre che vivevo secondo l'orologio, non secondo il cuore. Alle dodici il pranzo, alle sei nel bosco, ogni giorno."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mogoče, ampak tudi točnost je neke vrste skrb. Vedno je vedela, kdaj pridete domov.",
+              "en": "Maybe, but being on time is a kind of care too. She always knew when you'd be home.",
+              "de": "Vielleicht, aber auch Pünktlichkeit ist eine Art Fürsorge. Sie wusste immer, wann Sie nach Hause kommen.",
+              "it": "Forse, ma anche la puntualità è una specie di premura. Sapeva sempre quando sarebbe tornato a casa.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hm. Lepo si {m:povedal|f:povedala}. Ana bi se s tabo strinjala.",
+                "en": "Hm. Nicely put. Ana would have agreed with you.",
+                "de": "Hm. Schön gesagt. Ana hätte dir zugestimmt.",
+                "it": "Mm. Detto bene. Ana sarebbe stata d'accordo con te."
+              }
+            },
+            {
+              "sl": "Res je, ura je pomembnejša od ljudi.",
+              "en": "That's true, a clock matters more than people.",
+              "de": "Stimmt, eine Uhr ist wichtiger als Menschen.",
+              "it": "È vero, l'orologio è più importante delle persone.",
+              "why": {
+                "en": "Janez is gently owning up to a regret, not boasting: soften it with a but, don't agree that the clock comes first.",
+                "de": "Janez gibt leise etwas zu, das er bereut, er prahlt nicht: mildere es mit einem Aber, statt zuzustimmen, dass die Uhr vorgeht.",
+                "it": "Janez ammette con dolcezza un rimpianto, non si vanta: addolciscilo con un ma, invece di dargli ragione che l'orologio viene prima."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Pomembnejša? Joj, ne. Tega še moja ura ne misli.",
+                "en": "Matters more? Oh, no. Not even my watch thinks that.",
+                "de": "Wichtiger? Ach, nein. Das denkt nicht einmal meine Uhr.",
+                "it": "Più importante? Oh, no. Nemmeno il mio orologio lo pensa."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Moja ušesa so starejša od moje ure.",
+            "en": "Hm? My ears are older than my watch.",
+            "de": "Hm? Meine Ohren sind älter als meine Uhr.",
+            "it": "Mm? Le mie orecchie sono più vecchie del mio orologio."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "Zdaj vem, da je imela prav. Lahko bi bil ostal pri njej, pa sem šel, ker je ura rekla, da je čas.",
+          "en": "Now I know she was right. I could have stayed with her, but I went, because the clock said it was time.",
+          "de": "Jetzt weiß ich, dass sie recht hatte. Ich hätte bei ihr bleiben können, aber ich bin gegangen, weil die Uhr sagte, es ist Zeit.",
+          "it": "Adesso so che aveva ragione. Sarei potuto restare con lei, invece andavo, perché l'orologio diceva che era ora."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ampak če bi bili vedno ostali doma, ne bi bili petkrat prišli na Triglav.",
+              "en": "But if you had always stayed at home, you'd never have climbed Triglav five times.",
+              "de": "Aber wenn Sie immer zu Hause geblieben wären, wären Sie nicht fünfmal auf den Triglav gestiegen.",
+              "it": "Ma se fosse sempre rimasto a casa, non sarebbe salito cinque volte sul Tricorno.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Ha! Petkrat. In vsakič mi je Ana rekla: pojdi, pa se vrni pravočasno.",
+                "en": "Ha! Five times. And every time Ana told me: go, but come back on time.",
+                "de": "Ha! Fünfmal. Und jedes Mal hat Ana zu mir gesagt: Geh, aber komm rechtzeitig zurück.",
+                "it": "Ah! Cinque volte. E ogni volta Ana mi diceva: vai, ma torna in tempo."
+              }
+            },
+            {
+              "sl": "Ampak če bi bili vedno ostali doma, niste petkrat prišli na Triglav.",
+              "en": "But if you had always stayed at home, you didn't climb Triglav five times.",
+              "de": "Aber wenn Sie immer zu Hause geblieben wären, sind Sie nicht fünfmal auf den Triglav gestiegen.",
+              "it": "Ma se fosse sempre rimasto a casa, non è salito cinque volte sul Tricorno.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Both halves are what didn't happen: the past conditional in each, ne bi bili prišli (or ne bi prišli). Niste prišli says you never went up.",
+                "de": "Beide Hälften sind, was nicht geschah: in jeder der Konditional der Vergangenheit, ne bi bili prišli (oder ne bi prišli). Niste prišli sagt, Sie waren nie oben.",
+                "it": "Le due parti sono ciò che non è successo: in ognuna il condizionale passato, ne bi bili prišli (o ne bi prišli). Niste prišli dice che non è mai salito."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Nisem? Petkrat sem bil gor, {learner}, petkrat!",
+                "en": "I didn't? I've been up there five times, {learner}, five!",
+                "de": "Nicht? Fünfmal war ich oben, {learner}, fünfmal!",
+                "it": "Non sono salito? Cinque volte ci sono stato, {learner}, cinque!"
+              }
+            },
+            {
+              "sl": "Ampak če boste vedno ostali doma, ne boste petkrat prišli na Triglav.",
+              "en": "But if you always stay at home, you won't climb Triglav five times.",
+              "de": "Aber wenn Sie immer zu Hause bleiben, werden Sie nicht fünfmal auf den Triglav steigen.",
+              "it": "Ma se resterà sempre a casa, non salirà cinque volte sul Tricorno.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "It's about the years gone by: what would have been is the past conditional, če bi bili ostali, ne bi bili prišli. Boste looks ahead.",
+                "de": "Es geht um die vergangenen Jahre: was gewesen wäre, ist der Konditional der Vergangenheit, če bi bili ostali, ne bi bili prišli. Boste schaut nach vorn.",
+                "it": "Si parla degli anni passati: ciò che sarebbe stato è il condizionale passato, če bi bili ostali, ne bi bili prišli. Boste guarda avanti."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Boste? Hm. Šestič grem pa še, to ti povem.",
+                "en": "Won't? Hm. I'm going up a sixth time yet, I'll tell you that.",
+                "de": "Werde ich nicht? Hm. Ein sechstes Mal gehe ich noch, das sag ich dir.",
+                "it": "Non salirò? Mm. La sesta volta ci vado ancora, te lo dico io."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, počasi.",
+            "en": "Hm? Once more, slowly.",
+            "de": "Hm? Noch einmal, langsam.",
+            "it": "Mm? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Prav praviš. Ura je ura, srce je srce. Človek potrebuje oboje, veš.",
+          "en": "You're quite right. A clock is a clock, a heart is a heart. A man needs both, you know.",
+          "de": "Recht hast du. Uhr ist Uhr, Herz ist Herz. Der Mensch braucht beides, weißt du.",
+          "it": "Dici bene. L'orologio è l'orologio, il cuore è il cuore. Uno ha bisogno di tutti e due, sai."
+        }
+      ]
+    },
+    {
+      "id": "zamuda-b1-ura",
+      "level": "B1",
+      "memory": {
+        "sl": "večer, ko se je ura na zvoniku ustavila",
+        "en": "the evening the tower clock stopped",
+        "de": "den Abend, an dem die Turmuhr stehen blieb",
+        "it": "la sera in cui si è fermato l'orologio del campanile"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "worried",
+          "sl": "Dober večer, {learner}! Danes so vsi zamudili, ker se je ura na zvoniku ustavila. Kazala je pet, bilo pa je že sedem!",
+          "en": "Good evening, {learner}! Everyone was late today, because the clock on the tower stopped. It said five, and it was already seven!",
+          "de": "Guten Abend, {learner}! Heute sind alle zu spät gekommen, weil die Uhr am Glockenturm stehen geblieben ist. Sie zeigte fünf, dabei war es schon sieben!",
+          "it": "Buonasera, {learner}! Oggi sono arrivati tutti in ritardo, perché l'orologio del campanile si è fermato. Segnava le cinque, ed erano già le sette!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tone mi je rekel, da jo bo jutri zjutraj popravil.",
+              "en": "Tone told me he'll fix it tomorrow morning.",
+              "de": "Tone hat mir gesagt, dass er sie morgen früh repariert.",
+              "it": "Tone mi ha detto che lo aggiusta domattina.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično. Tone vedno naredi, kar obljubi.",
+                "en": "Excellent. Tone always does what he promises.",
+                "de": "Ausgezeichnet. Tone tut immer, was er verspricht.",
+                "it": "Ottimo. Tone fa sempre quello che promette."
+              }
+            },
+            {
+              "sl": "Tone mi je rekel, da jo bom jutri zjutraj popravil.",
+              "en": "Tone told me I'll fix it tomorrow morning.",
+              "de": "Tone hat mir gesagt, dass ich sie morgen früh repariere.",
+              "it": "Tone mi ha detto che lo aggiusto io domattina.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the person changes as in English: Tone's »Popravil jo bom« becomes da jo bo popravil, he will. Bom would be you.",
+                "de": "In der indirekten Rede ändert sich die Person wie im Deutschen: Tones »Popravil jo bom« wird zu da jo bo popravil, er wird. Bom wärst du.",
+                "it": "Nel discorso indiretto la persona cambia come in italiano: »Popravil jo bom« di Tone diventa da jo bo popravil, lui. Bom saresti tu."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Vi jo boste popravili? Nisem vedela, da znate popravljati ure!",
+                "en": "You'll fix it? I didn't know you could mend clocks!",
+                "de": "Sie reparieren sie? Ich wusste nicht, dass Sie Uhren reparieren können!",
+                "it": "Lo aggiusta Lei? Non sapevo che sapesse riparare gli orologi!"
+              }
+            },
+            {
+              "sl": "Tone mi je rekel, naj jo jutri zjutraj popravi.",
+              "en": "Tone told me he (someone) should fix it tomorrow morning.",
+              "de": "Tone hat mir gesagt, jemand soll sie morgen früh reparieren.",
+              "it": "Tone mi ha detto che qualcuno deve aggiustarlo domattina.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "Tone promised something about himself: a statement is passed on with da, da jo bo popravil. Naj passes on a request, that someone should.",
+                "de": "Tone hat etwas über sich selbst versprochen: eine Aussage gibt man mit da weiter, da jo bo popravil. Naj gibt eine Bitte weiter: jemand soll.",
+                "it": "Tone ha promesso qualcosa di sé: un'affermazione si riferisce con da, da jo bo popravil. Naj riferisce una richiesta: che qualcuno lo faccia."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kdo naj jo popravi? Saj je kovač on!",
+                "en": "Who's supposed to fix it? He's the smith!",
+                "de": "Wer soll sie reparieren? Er ist doch der Schmied!",
+                "it": "Chi dovrebbe aggiustarlo? Il fabbro è lui!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, nisem razumela. Še enkrat, prosim?",
+            "en": "Sorry, I didn't understand. Once more, please?",
+            "de": "Entschuldigung, ich habe nicht verstanden. Noch einmal, bitte?",
+            "it": "Scusi, non ho capito. Ancora una volta, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Ampak jutri imamo vaje spet ob sedmih. Kako bi to sporočili vsem, ki jih danes ni bilo?",
+          "en": "But tomorrow we have rehearsal at seven again. How would we let everyone know who wasn't here today?",
+          "de": "Aber morgen haben wir wieder um sieben Probe. Wie könnten wir das allen sagen, die heute nicht da waren?",
+          "it": "Ma domani abbiamo di nuovo le prove alle sette. Come potremmo farlo sapere a tutti quelli che oggi non c'erano?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Povejva teti Ančki. Do jutra bo vedela vsa vas.",
+              "en": "Let's tell Aunt Ančka, the two of us. By morning the whole village will know.",
+              "de": "Sagen wir es Tante Ančka, wir zwei. Bis morgen früh weiß es das ganze Dorf.",
+              "it": "Diciamolo alla zia Ančka, noi due. Entro domattina lo saprà tutto il paese.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Odlično! Pravilen dajalnik in še dvojina. Teta Ančka bo vesela.",
+                "en": "Excellent! The right dative and a dual too. Aunt Ančka will be pleased.",
+                "de": "Ausgezeichnet! Der richtige Dativ und noch dazu der Dual. Tante Ančka wird sich freuen.",
+                "it": "Ottimo! Il dativo giusto e pure il duale. La zia Ančka sarà contenta."
+              }
+            },
+            {
+              "sl": "Povejva teto Ančko. Do jutra bo vedela vsa vas.",
+              "en": "Let's tell Aunt Ančka (accusative), the two of us. By morning the whole village will know.",
+              "de": "Sagen wir Tante Ančka (Akkusativ), wir zwei. Bis morgen früh weiß es das ganze Dorf.",
+              "it": "Diciamo la zia Ančka (accusativo), noi due. Entro domattina lo saprà tutto il paese.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Povedati is telling something to someone: the one told is in the dative, teti Ančki. Teto Ančko is the accusative, as if she were what you tell.",
+                "de": "Povedati heißt, jemandem etwas sagen: wem man es sagt, steht im Dativ, teti Ančki. Teto Ančko ist der Akkusativ, als wäre sie das Gesagte.",
+                "it": "Povedati è dire qualcosa a qualcuno: a chi lo dici va al dativo, teti Ančki. Teto Ančko è l'accusativo, come se fosse lei la cosa detta."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Teto Ančko povedati? Kako pa se pove teto, {learner}?",
+                "en": "Tell Aunt Ančka? And how does one tell an aunt, {learner}?",
+                "de": "Tante Ančka sagen? Wie sagt man denn eine Tante, {learner}?",
+                "it": "Dire la zia Ančka? E come si dice una zia, {learner}?"
+              }
+            },
+            {
+              "sl": "Povejva teti Ančki. Ona nikomur nič ne pove.",
+              "en": "Let's tell Aunt Ančka, the two of us. She never tells anyone anything.",
+              "de": "Sagen wir es Tante Ančka, wir zwei. Sie erzählt nie jemandem etwas.",
+              "it": "Diciamolo alla zia Ančka, noi due. Lei non dice mai niente a nessuno.",
+              "why": {
+                "en": "Ančka is the village's news service: tell her, and the whole village knows by morning. That's just why she's the one to tell.",
+                "de": "Ančka ist der Nachrichtendienst des Dorfes: sag es ihr, und bis morgen weiß es das ganze Dorf. Genau deshalb sagt man es ihr.",
+                "it": "Ančka è l'agenzia di notizie del paese: dillo a lei, e domattina lo sa tutto il paese. Proprio per questo si dice a lei."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Teta Ančka? Nikomur nič? Tega pa še nisem doživela!",
+                "en": "Aunt Ančka? Never anyone anything? That I've never seen!",
+                "de": "Tante Ančka? Nie jemandem etwas? Das habe ich noch nie erlebt!",
+                "it": "La zia Ančka? Mai niente a nessuno? Questa non l'ho mai vista!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusi?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Tako bo. Jutri ob sedmih bo tu vsa vas, tudi tisti, ki ne pojejo!",
+          "en": "That's settled. Tomorrow at seven the whole village will be here, even those who don't sing!",
+          "de": "So machen wir's. Morgen um sieben ist das ganze Dorf hier, auch die, die nicht singen!",
+          "it": "Così sia. Domani alle sette ci sarà tutto il paese, anche quelli che non cantano!"
+        }
+      ]
+    },
+    {
+      "id": "zamuda-b2-pismo",
+      "level": "B2",
+      "memory": {
+        "sl": "pismo prevozniku, ki ste mi ga pomagali napisati",
+        "en": "the letter to the bus company you helped me write",
+        "de": "den Brief an das Busunternehmen, bei dem Sie mir geholfen haben",
+        "it": "la lettera alla ditta degli autobus che mi ha aiutato a scrivere"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "cross",
+          "sl": "Dober večer, {learner}. Spet ista zgodba: večerni avtobus iz Nove Gorice zamuja, pevci iz doline pa z njim.",
+          "en": "Good evening, {learner}. The same old story: the evening bus from Nova Gorica is late, and the singers from the valley with it.",
+          "de": "Guten Abend, {learner}. Immer dieselbe Geschichte: Der Abendbus aus Nova Gorica hat Verspätung, und die Sänger aus dem Tal mit ihm.",
+          "it": "Buonasera, {learner}. Sempre la stessa storia: l'autobus della sera da Nova Gorica è in ritardo, e con lui i cantori della valle."
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Napisala bom pismo prevozniku. Mi pomagate? Kako naj začnem?",
+          "en": "I'm going to write to the bus company. Will you help me? How should I begin?",
+          "de": "Ich schreibe dem Busunternehmen einen Brief. Helfen Sie mir? Wie soll ich anfangen?",
+          "it": "Scriverò una lettera alla ditta degli autobus. Mi aiuta? Come comincio?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Spoštovani, pišem Vam v zvezi z večernim avtobusom iz Nove Gorice.",
+              "en": "Dear Sir or Madam, I am writing to you concerning the evening bus from Nova Gorica.",
+              "de": "Sehr geehrte Damen und Herren, ich schreibe Ihnen bezüglich des Abendbusses aus Nova Gorica.",
+              "it": "Gentili signori, Vi scrivo in merito all'autobus serale da Nova Gorica.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično: Spoštovani z vejico, Vam pa z veliko začetnico.",
+                "en": "Excellent: Spoštovani with a comma, and Vam with a capital.",
+                "de": "Ausgezeichnet: Spoštovani mit Komma, und Vam großgeschrieben.",
+                "it": "Ottimo: Spoštovani con la virgola, e Vam con la maiuscola."
+              }
+            },
+            {
+              "sl": "Živijo, pišem ti zaradi večernega avtobusa iz Nove Gorice.",
+              "en": "Hiya, I'm writing to you (ti) about the evening bus from Nova Gorica.",
+              "de": "Hallo, ich schreib dir wegen des Abendbusses aus Nova Gorica.",
+              "it": "Ciao, ti scrivo per l'autobus serale da Nova Gorica.",
+              "grammar": "uradno-pismo",
+              "why": {
+                "en": "A letter to a company is formal: Spoštovani, and Vi with a capital, pišem Vam. Živijo and ti are for friends.",
+                "de": "Ein Brief an ein Unternehmen ist förmlich: Spoštovani, und Vi großgeschrieben, pišem Vam. Živijo und ti sind für Freunde.",
+                "it": "Una lettera a una ditta è formale: Spoštovani, e Vi con la maiuscola, pišem Vam. Živijo e ti sono per gli amici."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Živijo? Kot da bi pisali prijatelju, ne prevozniku!",
+                "en": "Hiya? As if you were writing to a friend, not a bus company!",
+                "de": "Hallo? Als ob Sie einem Freund schreiben, nicht einem Busunternehmen!",
+                "it": "Ciao? Come se scrivesse a un amico, non a una ditta di autobus!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite? Še enkrat, prosim.",
+            "en": "Sorry? Once more, please.",
+            "de": "Wie bitte? Noch einmal, bitte.",
+            "it": "Scusi? Ancora una volta, per favore."
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Zdaj pa glavno. Rada bi bila vljudna, čeprav sem jezna. Kako naj napišem, kaj prosimo?",
+          "en": "Now the main part. I'd like to be polite, even though I'm cross. How do I write what we're asking for?",
+          "de": "Jetzt das Wichtigste. Ich möchte höflich sein, obwohl ich wütend bin. Wie schreibe ich, worum wir bitten?",
+          "it": "Adesso la parte principale. Vorrei essere gentile, anche se sono arrabbiata. Come scrivo che cosa chiediamo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Prosimo Vas za zgodnejši odhod večernega avtobusa, saj pevci zamujajo na vaje.",
+              "en": "We kindly ask you for an earlier departure of the evening bus, as our singers are late for rehearsal.",
+              "de": "Wir bitten Sie um eine frühere Abfahrt des Abendbusses, da unsere Sänger zu spät zur Probe kommen.",
+              "it": "Vi chiediamo una partenza anticipata dell'autobus serale, poiché i cantori arrivano tardi alle prove.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Lepo: vljudno, jasno in z razlogom.",
+                "en": "Lovely: polite, clear and with a reason.",
+                "de": "Schön: höflich, klar und mit Begründung.",
+                "it": "Bello: gentile, chiaro e con un motivo."
+              }
+            },
+            {
+              "sl": "Takoj spremenite vozni red, saj pevci zamujajo na vaje!",
+              "en": "Change the timetable at once, as our singers are late for rehearsal!",
+              "de": "Ändern Sie sofort den Fahrplan, da unsere Sänger zu spät zur Probe kommen!",
+              "it": "Cambiate subito l'orario, perché i cantori arrivano tardi alle prove!",
+              "grammar": "uradno-pismo",
+              "why": {
+                "en": "An order is too blunt for a formal letter: ask with the formula, Prosimo Vas za … and the accusative.",
+                "de": "Ein Befehl ist für einen förmlichen Brief zu schroff: bitte mit der Formel, Prosimo Vas za … und dem Akkusativ.",
+                "it": "Un ordine è troppo brusco per una lettera formale: chiedi con la formula, Prosimo Vas za … e l'accusativo."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Takoj? Potem bodo pismo vrgli v koš!",
+                "en": "At once? Then they'll throw the letter in the bin!",
+                "de": "Sofort? Dann werfen sie den Brief in den Papierkorb!",
+                "it": "Subito? Allora la lettera la buttano nel cestino!"
+              }
+            },
+            {
+              "sl": "Prosimo Vas za zgodnejšega odhoda večernega avtobusa, saj pevci zamujajo na vaje.",
+              "en": "We kindly ask you for (genitive) an earlier departure of the evening bus, as our singers are late for rehearsal.",
+              "de": "Wir bitten Sie um (Genitiv) eine frühere Abfahrt des Abendbusses, da unsere Sänger zu spät zur Probe kommen.",
+              "it": "Vi chiediamo (genitivo) una partenza anticipata dell'autobus serale, poiché i cantori arrivano tardi alle prove.",
+              "grammar": "predlogi-dva-sklona",
+              "why": {
+                "en": "Za meaning for takes the accusative: prosimo za zgodnejši odhod. Zgodnejšega odhoda is the genitive, which za doesn't take.",
+                "de": "Za im Sinn von für verlangt den Akkusativ: prosimo za zgodnejši odhod. Zgodnejšega odhoda ist der Genitiv, den za nicht nimmt.",
+                "it": "Za nel senso di per vuole l'accusativo: prosimo za zgodnejši odhod. Zgodnejšega odhoda è il genitivo, che za non regge."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Hm, ta končnica je izstopila na napačni postaji.",
+                "en": "Hm, that ending got off at the wrong stop.",
+                "de": "Hm, diese Endung ist an der falschen Haltestelle ausgestiegen.",
+                "it": "Mm, questa desinenza è scesa alla fermata sbagliata."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite? Še enkrat, prosim.",
+            "en": "Sorry? Once more, please.",
+            "de": "Wie bitte? Noch einmal, bitte.",
+            "it": "Scusi? Ancora una volta, per favore."
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "proud",
+          "sl": "»S spoštovanjem, Mojca.« Če bi vsi tako pisali, bi bili tudi avtobusi točni!",
+          "en": "»Yours faithfully, Mojca.« If everyone wrote like that, the buses would be on time too!",
+          "de": "»Mit freundlichen Grüßen, Mojca.« Wenn alle so schreiben würden, wären auch die Busse pünktlich!",
+          "it": "»Distinti saluti, Mojca.« Se tutti scrivessero così, anche gli autobus sarebbero puntuali!"
         }
       ]
     }

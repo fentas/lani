@@ -28,9 +28,10 @@ object Prints {
 
     /**
      * The overviews the bridge prints (companion/prints/overview.ts), by "<language>/<grammar page>": their names as the
-     * print job has them. Today the six Slovene cases, "Pregled sklonov", from the page skloni.
+     * print job has them. The six Slovene cases, "Pregled sklonov", from the page skloni; German's four, "Überblick der
+     * Fälle", from the page faelle.
      */
-    private val OVERVIEWS = mapOf("sl/skloni" to "Pregled sklonov")
+    private val OVERVIEWS = mapOf("sl/skloni" to "Pregled sklonov", "de/faelle" to "Überblick der Fälle")
 
     /**
      * The overview that starts from grammar page [page] of [language], or null: on that page in the book, and on a unit
@@ -44,7 +45,12 @@ object Prints {
      * cases), offered on the level beside its booklet, also while the level is closed (a sheet to learn from on the way).
      */
     fun overviewOf(course: Course, level: String): PrintJob.Overview? =
-        course.refs(level).firstNotNullOfOrNull { ref -> course.units[ref.id]?.let { overview(course.language, it.grammar.firstOrNull()) } }
+        course.refs(level).firstNotNullOfOrNull { ref ->
+            course.units[ref.id]?.let { u ->
+                // German's units name faelle after their own page (wem-dativ: dativ, faelle): any of their pages
+                overview(course.language, u.grammar.firstOrNull()) ?: if (course.language == "de") u.grammar.firstNotNullOfOrNull { overview(course.language, it) } else null
+            }
+        }
 
     /** Unit [id] of [course] as a sheet to print: numbered among its level's written units; null for a planned or unknown one. */
     fun sheet(course: Course, id: String): PrintJob.Sheet? {

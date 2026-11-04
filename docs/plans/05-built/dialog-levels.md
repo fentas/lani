@@ -7,8 +7,31 @@ learner's). Now a scene's dialogs and happenings can carry one too.
 
 ## Native check
 
-Nothing in the system commit is learner-facing text: no new labels, no strings in sl, en, de or it. The model content's
-list is in [The model scenes](#the-model-scenes), "To check".
+Everything in the model variants is machine-written (Claude) and not reviewed by a native speaker: 16 dialogs, every
+line in four languages. The system has no learner-facing text of its own. For a native speaker, first:
+
+- **Slovene** (na-trznici; Jan's wife): the pluperfect "je bila Micka že prodala ves sir", "Ko bi bila vsaj pol ure prej
+  vstala!", "Kdo bi si mislil, da bo sira tako hitro zmanjkalo?", "Spala sem kot polh", "Kljub temu da je dražji, ga
+  kupite.", "Pa naj ga plačam dvakrat, …", "godrnjati nad joto", "Rekel je, naj mu prinesete še en kozarec terana.",
+  "skoraj sem vrgel puško v koruzo", "Potem ne bi nikoli pokusil / ne bi bil nikoli pokusil tvoje nove rebule" (both
+  right), "Ta letnik je preživel točo". Every wrong choice must be a learner's mistake that nobody grown up says: "Rekel
+  je, da jota je preslana.", "Rekel je, ali je jota preslana.", "Kljub temu je dražji, ga kupite.", "Če bom imel vinograd,
+  bi pridelal rebulo.", "…, ki si prinesel na Martinovo?", "Potem nikoli ne bom pokusil …". The Slovene translations in
+  the other three markets too ("krendlati" for krendeln is a loan; "zapreti" may be better).
+- **Italian** (al-mercato, Friuli; for Teo, 7, at B1): "Avresti dovuto chiamarmi! Ti avrei aiutata volentieri.", "Me ne
+  dai ancora un bicchiere?", "il prato in cui giochiamo a calcio", "come se fosse festa", "Cantando si fa meno fatica.",
+  "Ha detto di passare da lei dopo pranzo.". The wrong ones, never said by an adult in Friuli: "Avrai dovuto …", "Se non
+  avrei avuto …", "… avrei venuto …", "Ha detto passare …", "Mi ne dai …", "Il prato in che …", "come se sia festa", "Se
+  avrei un'osteria …". The German translations with du.
+- **German** (auf-dem-markt, Austrian): "der Kirchtag falle heuer aus", "Wegen dem Wetter?" as a second right answer
+  beside "Wegen des Wetters?", "Kasnudeln krendeln" (settled: [BMLUK, Kärntner Kasnudeln](https://www.bmluk.gv.at/themen/lebensmittel/trad-lebensmittel/speisen/ktn_kasnudeln.html),
+  [Wiktionary, krendeln](https://de.wiktionary.org/wiki/krendeln)), "jemand anderer", "nix heraus", "mein Ross", "die
+  Bäume brächten ohnehin nichts mehr", "als wären die Bäume nichts wert". The wrong ones: "der das kann" (for die),
+  "Ich würde backen Kärntner Reindling", "Wegen das Wetter", "Ich hätte … gegangen", "werden waschen", "auf es", "als die
+  Bäume nichts wert wären".
+- **English** (at-the-market, Cumbrian): "ever so cross", "tatie pot", "the beck", "daft", "rotten luck", "Aye". The wrong
+  ones: "He said me …", "I'll give him" after "If he came back", "since months", "I used to helping", "I wish I can", "must
+  have told you" (for should), "could have stop".
 
 ## What it does
 
@@ -150,6 +173,12 @@ the lines name), the learner's choices in the learner's voice; nothing new to ca
 characters of its texts in the scene's language: its lines, its choices, their replies and its puzzled reactions (the
 voice corpus, `corpus()` in bridge/src/voice.ts, gives the list). Say the total in your doc; never call ElevenLabs.
 
+**Words.** A tap on a word of a line opens its card: every word your lines use that the language's dictionary lacks gets
+an entry in the supplement, `companion/lexicon/<lang>.extra.json` (its gloss, its forms, its meanings in the other
+bases), and `companion/bin/lexicon-build --coverage --lang <lang>` must not fall (the model's Slovene: 21 entries, 95.5 →
+95.6 % of tokens). It needs the language's dictionary (`<lang>.json`), which only Slovene's checkout has; for Italian,
+German and English run it where the dictionary is.
+
 **Checks.** `bun test/check-culture.ts <culture>` (the levels and the pages), the smoke (`dialog-levels`, `scenes`,
 `variants`, the culture's section), and the Android scene tests: `DialogLevelsTest`, `DialogReactionsTest`,
 `WhoAnswersTest`, `VariantsContentTest`, `ScenesContentTest`/`CultureScenesTest`. QA: `companion/bin/qa --steps
@@ -157,11 +186,51 @@ dialog-levels` with your scene's ids (see below).
 
 ## The model scenes
 
-(The content commit adds this section: the four markets, each with two B1 and two B2 variants.)
+The four markets, which mirror each other (a grandmother at her stall, the innkeeper shopping, the wine or cider or
+ale cart), each with one B1 and one B2 variant on the innkeeper's happening and on the cart's: a learner at either level
+meets one of their own at each. The happenings' `dialog` and their old variants stay as they were; the new ones come
+first in `dialogs`.
+
+| Culture, scene | Happening | B2 | B1 |
+|---|---|---|---|
+| Primorska, `na-trznici` (Vida says vi, Marko ti) | `gostilna` (Vida) | `gostilna-b2-sir`: the cheese sold out; "Ko bi bila … vstala!" understood (`pogojnik-pretekli`), "kljub temu da / čeprav" (both right) against "kljub temu" (`odvisniki-napredno`) | `gostilna-b1-gost`: what the grumbling guest said: da and the short words after it (`naslonke-red`), da not ali, naj mu not naj mi (`odvisni-govor`) |
+| | `rebula` (Marko) | `rebula-b2-toca`: the hail; "vreči puško v koruzo" understood (`frazemi`); "ne bi (bil) nikoli pokusil" (both right) against "ne bom" (`pogojnik-pretekli`) | `rebula-b1-vinograd`: če bi … bi against če bom (`pogojnik-ce-bi`); "ki si ga prinesel" (`oziralni-ki`) |
+| Friuli, `al-mercato` (Italian for a child; B2 fine for an older learner) | `osteria` (Marisa) | `osteria-b2-sagra`: the frico ran out at the sagra; "avresti dovuto" against "avrai dovuto" (`condizionale-passato`); "se non avessi avuto la febbre, sarei venuto" against "se non avrei" and "avrei venuto" (`periodo-ipotetico-irrealta`) | `osteria-b1-messaggio`: Nonna Rosa's message, "ha detto di passare da lei" against "ha detto passare" and "da me" (`discorso-indiretto`); "se avessi un'osteria, farei la pizza" against "se avrei" (`periodo-ipotetico`) |
+| | `carro` (Matteo) | `carro-b2-grandine` (September to November): the hail after the harvest, "avremmo perso tutto" understood (`periodo-ipotetico-irrealta`); "come se fosse" against "come se sia" (`congiunzioni-congiuntivo`) | `carro-b1-succo`: grape juice, "me ne dai" against "mi ne dai" (`pronomi-combinati`); "il prato in cui" against "in che" (`relativi-cui`) |
+| Kärnten, `auf-dem-markt` (Kathi says du, the learner Sie; Stefan and the learner du) | `gasthaus` (Kathi) | `gasthaus-b2-kirchtag` (July to September): the mayor's "der Kirchtag falle aus", "wegen des Wetters" and Austria's "wegen dem Wetter" (both right) against "wegen das" (`praepositionen-genitiv`); "ich wäre an Ihrer Stelle gegangen" against "hätte … gegangen" and "bin … gegangen" (`konjunktiv-vergangenheit`) | `gasthaus-b1-hochzeit`: the wedding and the Kasnudeln to krendel; "eine Frau, die das kann" against "der" (`relativsatz`); "ich würde Reindling backen" against "würde backen Reindling" and "werde" (`konjunktiv-zwei`) |
+| | `most` (Stefan) | `most-b2-obstwiese`: the council's "die Bäume brächten nichts" understood as reported (`indirekte-rede`); "als wären" and "als ob … wären" (both right) against "als die Bäume … wären" (`als-ob`) | `most-b1-presse` (September to November): "werden gewaschen" against "werden waschen" (`passiv`); "darauf" against "auf es" (`wo-da-woerter`) |
+| Lake District, `at-the-market` (Mrs Birkett says love) | `inn` (Mrs Birkett) | `inn-b2-jam` (August to October): the last jar sold; "should have told you" against "must have" (`past-modals`); "I wish I could" against "I wish I can" (`wish-if-only`) | `inn-b1-walker`: "he told me his room was too cold" against "said me" and "my room" (`reported-speech`); "if he came back, I'd give him" against "I'll" (`second-conditional`) |
+| | `cart` (Sam) | `cart-b2-flood`: the beck in the brewhouse, "Had I moved them, I'd be selling them" understood (`mixed-conditionals`); "could have stopped" against "could have stop" (`past-modals`) | `cart-b1-ale`: "for months" against "since months" (`for-since`); "I used to help" against "I used to helping" (`used-to`) |
+
+Each is 5–7 lines with two turns, the person first and last, a memory of its own; every wrong choice has its why (with
+its page) and a reaction that doesn't say the right form; two right choices have their own replies; the learner's forms
+that agree with them are gender pairs (Slovene, Italian). Every page named is at most one level above the dialog's
+(`levelPageErrors`), all of them existing pages of the scene's language.
+
+**Voices** (no ElevenLabs called): the new texts in the scenes' languages, the lines, the choices, the replies: Slovene
+2,977 characters (54 texts: Vida 548, Marko 517, the learner's choices 1,006), Italian 2,827 (51: Marisa 529, Matteo 558,
+the learner 861), German 3,525 (56: Kathi 644, Stefan 606, the learner 1,031), English 2,871 (50: Mrs Birkett 564, Sam
+577, the learner 815): **12,200 characters** in all. The learner's choices with a gender pair are voiced once per form.
+No new voices: Vida, Marko, Marisa, Matteo, Kathi, Stefan, Mrs Birkett and Sam have theirs in the cast.
 
 ## QA
 
-(The content commit adds the QA step and its screenshots.)
+`companion/bin/qa --steps dialog-levels` (through `qa-slot`), on a synthetic learner with a market
+(`LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts <dir> --target <lang>)`, `LANI_CULTURE` for
+another culture's): an older app's `?arts=6` gets none of the market's levelled dialogs; at `level:B2` the innkeeper's
+B2 variant opens with its first line, at `level:B1` the B1 one; at `level:B1` the B2 variant asked for isn't in the scene
+and at `level:A1` the B1 one isn't: the happening's own dialog plays. Screenshots also in `$LANI_QA_LEVELS_SHOTS`.
+
+## Verified
+
+On 51b7ab99 (main e6209062 merged in, no conflicts): `bunx tsc --noEmit`; the smoke, 3,726 checks green (dialog-levels'
+25 among them); `tutor-export --check`; `check-culture` for primorska, friuli, kaernten and lakeland; the Android suite,
+4,110 tests (2 skipped, none failed); the Python suites (253 and 179). Emulator QA through `qa-slot --steps dialog-levels`
+on two synthetic learners with a market: Primorska (Slovene from English) and Friuli (Italian from German, the phone in
+sl · en), each: B2 opens Vida's or Marisa's B2 variant, B1 the B1 one, and the happening's own dialog where the variant
+asked for is above the level. Screenshots in the scratchpad's `ux-dialog-levels/` (levels-<culture>-b2, -b1,
+-b1-asked-b2, -a1-asked-b1). Not run on the emulator: Kärnten and the Lake District (the same code; their content is
+checked by the smoke and the scene tests), a tablet, a visit.
 
 ## What's left
 

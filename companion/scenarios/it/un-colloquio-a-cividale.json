@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "un-colloquio-a-cividale",
+  "language": "it",
+  "title": { "it": "Un colloquio a Cividale", "de": "Ein Vorstellungsgespräch in Cividale", "sl": "Razgovor za službo v Čedadu", "en": "A job interview in Cividale" },
+  "emoji": "💼",
+  "level": "B2",
+  "setting": {
+    "de": "Im Tourismusbüro von Cividale del Friuli, der Langobardenstadt am Natisone. Für den Sommer suchen sie jemanden mit Sprachen für den Infoschalter. Du hast dich beworben, und die Leiterin empfängt dich zum Gespräch.",
+    "sl": "V turističnem uradu v Čedadu, langobardskem mestu ob Nadiži. Za poletje iščejo nekoga z znanjem jezikov za informacijski pult. {m:Prijavil|f:Prijavila} si se in vodja te sprejme na razgovor.",
+    "en": "At the tourist office in Cividale del Friuli, the Lombard town on the Natisone. They're looking for someone with languages for the information desk this summer. You've applied, and the manager sees you for an interview."
+  },
+  "role": "Signora Zanier, head of the tourist office in Cividale. Friendly, professional: asks why this job, about experience and languages, and 'Che cosa farebbe se…' a visitor got angry; tells of the hours, the pay and the crowds at the Ponte del Diavolo. Says Lei. About the job only, nothing personal.",
+  "who": { "it": "La responsabile dell'ufficio", "de": "Die Leiterin des Büros", "sl": "Vodja urada", "en": "The office manager" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "square",
+  "goals": [
+    { "it": "Di' perché ti interessa il lavoro", "de": "Sag, warum dich die Stelle interessiert", "sl": "Povej, zakaj te delo zanima", "en": "Say why you want the job" },
+    { "it": "Parla della tua esperienza", "de": "Sprich über deine Erfahrung", "sl": "Govori o svojih izkušnjah", "en": "Talk about your experience" },
+    { "it": "Rispondi alla domanda difficile", "de": "Beantworte die schwierige Frage", "sl": "Odgovori na težko vprašanje", "en": "Answer the tricky question" },
+    { "it": "Chiedi degli orari e della paga", "de": "Frag nach Arbeitszeiten und Bezahlung", "sl": "Vprašaj za delovni čas in plačilo", "en": "Ask about the hours and the pay" },
+    { "it": "Concludi con cortesia", "de": "Verabschiede dich höflich", "sl": "Vljudno zaključi pogovor", "en": "Close politely" }
+  ],
+  "opener_sl": "Buongiorno, si accomodi. Ho letto la sua domanda: perché vorrebbe lavorare da noi quest'estate?",
+  "opener_en": {
+    "de": "Guten Tag, nehmen Sie Platz. Ich habe Ihre Bewerbung gelesen: Warum möchten Sie diesen Sommer bei uns arbeiten?",
+    "sl": "Dober dan, sedite. Prebrala sem vašo prijavo: zakaj bi radi to poletje delali pri nas?",
+    "en": "Good morning, take a seat. I've read your application: why would you like to work with us this summer?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Mi piacerebbe lavorare con i turisti.", "en": { "de": "Ich würde gern mit Touristen arbeiten.", "sl": "{m:Rad|f:Rada} bi {m:delal|f:delala} s turisti.", "en": "I'd like to work with tourists." } },
+    { "sl": "Parlo tedesco e sloveno, e con l'inglese me la cavo.", "en": { "de": "Ich spreche Deutsch und Slowenisch, und mit Englisch komme ich zurecht.", "sl": "Govorim nemško in slovensko, z angleščino pa se znajdem.", "en": "I speak German and Slovene, and I get by in English." } },
+    { "sl": "L'anno scorso ho lavorato in un rifugio in Carnia.", "en": { "de": "Letztes Jahr habe ich auf einer Hütte in Karnien gearbeitet.", "sl": "Lani sem {m:delal|f:delala} v planinski koči v Karniji.", "en": "Last year I worked at a mountain hut in Carnia." } },
+    { "sl": "Se un turista si arrabbiasse, cercherei di calmarlo.", "en": { "de": "Wenn sich ein Tourist ärgern würde, würde ich ihn beruhigen.", "sl": "Če bi se turist razjezil, bi ga {m:poskušal|f:poskušala} pomiriti.", "en": "If a tourist got angry, I'd try to calm them down." } },
+    { "sl": "Credo che la pazienza sia la cosa più importante.", "en": { "de": "Ich glaube, Geduld ist das Wichtigste.", "sl": "Mislim, da je potrpežljivost najpomembnejša.", "en": "I think patience is the most important thing." } },
+    { "sl": "Vorrei sapere quali sarebbero gli orari.", "en": { "de": "Ich würde gern wissen, wie die Arbeitszeiten wären.", "sl": "{m:Rad|f:Rada} bi {m:vedel|f:vedela}, kakšen bi bil delovni čas.", "en": "I'd like to know what the hours would be." } },
+    { "sl": "Si lavora anche nel fine settimana?", "en": { "de": "Arbeitet man auch am Wochenende?", "sl": "Ali se dela tudi ob koncih tedna?", "en": "Is there weekend work too?" } },
+    { "sl": "La ringrazio per il suo tempo.", "en": { "de": "Vielen Dank für Ihre Zeit.", "sl": "Hvala za vaš čas.", "en": "Thank you for your time." } }
+  ],
+  "packs": ["in-paese", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

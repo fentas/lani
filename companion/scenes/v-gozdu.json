@@ -4,7 +4,7 @@
   "title": { "sl": "V gozdu", "en": "In the forest", "de": "Im Wald", "it": "Nel bosco" },
   "emoji": "🌲",
   "level": "A1",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "forest",
   "from": ["forest"],
   "pack": "v-gozdu",
@@ -45,7 +45,7 @@
       "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "ovca", "dialogs": ["ovca-megla", "ovca-pikica", "ovca"],"reward": { "wood": 20 }, "marker": "🐑",
       "memory": { "sl": "dan, ko sva skupaj iskala Belo", "en": "the day we looked for Bela together", "de": "den Tag, an dem wir zusammen Bela gesucht haben", "it": "il giorno in cui abbiamo cercato Bela insieme" } },
     { "id": "gobe", "title": { "sl": "Anton nabira gobe", "en": "Anton is picking mushrooms", "de": "Anton sammelt Pilze", "it": "Anton raccoglie funghi" }, "who": "anton",
-      "when": ["morning"], "months": [7, 8, 9, 10, 11], "weekdays": [6, 7], "chance": 0.7, "dialog": "gobe", "dialogs": ["gobe-kosara", "gobe-dez", "gobe"],"reward": { "food": 20 }, "marker": "🍄",
+      "when": ["morning"], "months": [7, 8, 9, 10, 11], "weekdays": [6, 7], "chance": 0.7, "dialog": "gobe", "dialogs": ["gobe-b2-lubadar", "gobe-b1-planinec", "gobe-kosara", "gobe-dez", "gobe"],"reward": { "food": 20 }, "marker": "🍄",
       "memory": { "sl": "jurčke, ki sva jih nabrala v gozdu", "en": "the porcini we picked in the forest", "de": "die Steinpilze, die wir im Wald gesammelt haben", "it": "i porcini che abbiamo raccolto nel bosco" } },
     { "id": "borovnice", "title": { "sl": "Otroci nabirajo borovnice", "en": "The children are picking blueberries", "de": "Die Kinder pflücken Heidelbeeren", "it": "I bambini raccolgono mirtilli" }, "who": "otroci",
       "when": ["afternoon"], "months": [6, 7, 8], "chance": 0.4, "dialog": "borovnice", "dialogs": ["borovnice-loncek", "borovnice"],"reward": { "food": 15 }, "marker": "🫐",
@@ -57,7 +57,7 @@
       "when": ["evening"], "months": [3, 4, 5, 6, 7, 8, 9, 10, 11], "chance": 0.25, "dialog": "medved", "dialogs": ["medved-sledi", "medved"],"reward": { "stone": 15 }, "marker": "🐻",
       "memory": { "sl": "večer, ko sem ti pravil o medvedu", "en": "the evening I told you about the bear", "de": "den Abend, an dem ich dir vom Bären erzählt habe", "it": "la sera in cui ti ho raccontato dell'orso" } },
     { "id": "preza", "title": { "sl": "Jože na preži", "en": "Jože on the high seat", "de": "Jože auf dem Hochsitz", "it": "Jože sull'altana" }, "who": "joze",
-      "when": ["dawn"], "chance": 0.7, "dialog": "preza", "dialogs": ["preza-daljnogled", "preza-caj", "preza"],"reward": { "wisdom": 20 }, "marker": "🦌",
+      "when": ["dawn"], "chance": 0.7, "dialog": "preza", "dialogs": ["preza-b2-volk", "preza-b1-mladic", "preza-daljnogled", "preza-caj", "preza"],"reward": { "wisdom": 20 }, "marker": "🦌",
       "memory": { "sl": "jutro, ko sva na preži gledala jelena", "en": "the morning we watched the stag from the high seat", "de": "den Morgen, an dem wir vom Hochsitz aus den Hirsch beobachtet haben", "it": "la mattina in cui abbiamo guardato il cervo dall'altana" } },
     { "id": "mrak", "title": { "sl": "Jože šteje srne v mraku", "en": "Jože counts the deer at dusk", "de": "Jože zählt in der Dämmerung die Rehe", "it": "Jože conta i caprioli al crepuscolo" }, "who": "joze",
       "when": ["evening"], "chance": 0.5, "dialog": "mrak", "dialogs": ["mrak-stejem", "mrak-tiho", "mrak"],"reward": { "wood": 15 }, "marker": "🦇",
@@ -653,6 +653,596 @@
             "reply": { "face": "happy", "sl": "Seveda. Izvoli. Vidiš njen rep?", "en": "Of course. Here you are. Can you see her tail?", "de": "Natürlich. Bitte. Siehst du seinen Schwanz?", "it": "Certo. Ecco. Vedi la sua coda?" } }
         ] },
         { "who": "joze", "sl": "Lisica je odšla. Tema je. Lovski blagor, {learner}!", "en": "The fox has gone. It's dark. Lovski blagor, {learner}!", "de": "Der Fuchs ist weg. Es ist dunkel. Lovski blagor, {learner}!", "it": "La volpe se n'è andata. È buio. Lovski blagor, {learner}!", "fx": { "fox": 0 } }
+      ]
+    },
+    {
+      "id": "gobe-b1-planinec",
+      "level": "B1",
+      "memory": {
+        "sl": "planinca s košaro strupenih gob",
+        "en": "the hiker with the basket of poisonous mushrooms",
+        "de": "den Wanderer mit dem Korb voller Giftpilze",
+        "it": "l'escursionista col cesto di funghi velenosi"
+      },
+      "lines": [
+        {
+          "who": "anton",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}. Tiho … Včeraj je prišel k meni planinec s polno košaro gob. Polovica jih je bila strupenih.",
+          "en": "Good morning, {learner}. Quietly … Yesterday a hiker came to me with a basket full of mushrooms. Half of them were poisonous.",
+          "de": "Guten Morgen, {learner}. Leise … Gestern kam ein Wanderer mit einem Korb voller Pilze zu mir. Die Hälfte davon war giftig.",
+          "it": "Buongiorno, {learner}. Piano … Ieri è venuto da me un escursionista con un cesto pieno di funghi. La metà erano velenosi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kaj bi se zgodilo, če bi jih pojedel?",
+              "en": "What would have happened if he had eaten them?",
+              "de": "Was wäre passiert, wenn er sie gegessen hätte?",
+              "it": "Cosa sarebbe successo se li avesse mangiati?",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "sl": "Lahko bi umrl. Ena sama zelena mušnica je dovolj.",
+                "en": "He could have died. A single death cap is enough.",
+                "de": "Er hätte sterben können. Ein einziger Knollenblätterpilz reicht.",
+                "it": "Poteva morire. Basta una sola amanita falloide."
+              }
+            },
+            {
+              "sl": "Kaj se bo zgodilo, če jih bo pojedel?",
+              "en": "What will happen if he eats them?",
+              "de": "Was passiert, wenn er sie isst?",
+              "it": "Cosa succederà se li mangia?",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "He didn't eat them, it's only imagined: če bi … bi, kaj bi se zgodilo, če bi jih pojedel. Če bo is for what may still happen.",
+                "de": "Er hat sie nicht gegessen, es ist nur gedacht: če bi … bi, kaj bi se zgodilo, če bi jih pojedel. Če bo ist für das, was noch geschehen kann.",
+                "it": "Non li ha mangiati, è solo immaginato: če bi … bi, kaj bi se zgodilo, če bi jih pojedel. Če bo è per ciò che può ancora succedere."
+              },
+              "reply": {
+                "sl": "Ne bo jih, ne skrbite. Strupene sem mu vzel, do zadnje.",
+                "en": "He won't, don't worry. I took the poisonous ones off him, every last one.",
+                "de": "Wird er nicht, keine Sorge. Die giftigen habe ich ihm abgenommen, bis auf den letzten.",
+                "it": "Non li mangerà, non si preoccupi. Quelli velenosi glieli ho tolti, fino all'ultimo."
+              }
+            },
+            {
+              "sl": "Kaj bi se zgodilo, če bi jih pojedla?",
+              "en": "What would have happened if she had eaten them?",
+              "de": "Was wäre passiert, wenn sie sie gegessen hätte?",
+              "it": "Cosa sarebbe successo se li avesse mangiati lei?",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "The l-form agrees with its subject: the hiker (planinec) is a man, če bi jih pojedel. Pojedla is for a woman.",
+                "de": "Die l-Form richtet sich nach dem Subjekt: der Wanderer (planinec) ist ein Mann, če bi jih pojedel. Pojedla ist für eine Frau.",
+                "it": "La forma in -l concorda con il soggetto: l'escursionista (planinec) è un uomo, če bi jih pojedel. Pojedla è per una donna."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ona? Planinec je imel brado do pasu, {learner}.",
+                "en": "She? The hiker had a beard down to his belt, {learner}.",
+                "de": "Sie? Der Wanderer hatte einen Bart bis zum Gürtel, {learner}.",
+                "it": "Lei? L'escursionista aveva la barba fino alla cintura, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Počasi, prosim. V gozdu ni treba hiteti.",
+            "en": "Hm? Slowly, please. There's no rush in the forest.",
+            "de": "Hm? Langsam, bitte. Im Wald eilt nichts.",
+            "it": "Mm? Piano, per favore. Nel bosco non c'è fretta."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "curious",
+          "sl": "Zdaj pa mi povejte vi: kaj bi naredili, če bi našli gobo, ki je ne poznate?",
+          "en": "Now you tell me: what would you do if you found a mushroom you don't know?",
+          "de": "Jetzt sagen Sie mir: Was würden Sie tun, wenn Sie einen Pilz fänden, den Sie nicht kennen?",
+          "it": "Ora mi dica Lei: cosa farebbe se trovasse un fungo che non conosce?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne bi je {m:utrgal|f:utrgala}. Najprej bi vas {m:vprašal|f:vprašala}, ker vi poznate vse gobe.",
+              "en": "I wouldn't pick it. First I'd ask you, because you know all the mushrooms.",
+              "de": "Ich würde ihn nicht pflücken. Zuerst würde ich Sie fragen, weil Sie alle Pilze kennen.",
+              "it": "Non lo raccoglierei. Prima chiederei a Lei, perché Lei conosce tutti i funghi.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pametno. Česar ne poznate, pustite v gozdu.",
+                "en": "Wise. What you don't know, leave in the forest.",
+                "de": "Klug. Was Sie nicht kennen, lassen Sie im Wald.",
+                "it": "Saggio. Quello che non conosce, lo lasci nel bosco."
+              }
+            },
+            {
+              "sl": "Ne bi je {m:utrgal|f:utrgala}. Najprej vas bi {m:vprašal|f:vprašala}, ker vi poznate vse gobe.",
+              "en": "I wouldn't pick it. First I'd ask you, because you know all the mushrooms.",
+              "de": "Ich würde ihn nicht pflücken. Zuerst würde ich Sie fragen, weil Sie alle Pilze kennen.",
+              "it": "Non lo raccoglierei. Prima chiederei a Lei, perché Lei conosce tutti i funghi.",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words keep one order: bi first, then whom (vas): najprej bi vas {m:vprašal|f:vprašala}.",
+                "de": "Die kurzen Wörter haben eine feste Reihenfolge: zuerst bi, dann wen (vas): najprej bi vas {m:vprašal|f:vprašala}.",
+                "it": "Le paroline hanno un ordine fisso: prima bi, poi chi (vas): najprej bi vas {m:vprašal|f:vprašala}."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm … besede so se vam pomešale kot gobe v košari.",
+                "en": "Hm … your words got mixed up like mushrooms in a basket.",
+                "de": "Hm … Ihre Wörter sind durcheinandergeraten wie Pilze im Korb.",
+                "it": "Mm … le parole Le si sono mescolate come funghi nel cesto."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, prosim. Počasi.",
+            "en": "Hm? Once more, please. Slowly.",
+            "de": "Hm? Noch einmal, bitte. Langsam.",
+            "it": "Mm? Ancora una volta, per favore. Piano."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Jutri, če bo lepo, greva skupaj na jurčke. Naučil vas bom, katere so dobre.",
+          "en": "Tomorrow, if it's fine, we'll go for porcini together. I'll teach you which ones are good.",
+          "de": "Morgen, wenn es schön ist, gehen wir zusammen Steinpilze suchen. Ich zeige Ihnen, welche gut sind.",
+          "it": "Domani, se è bello, andiamo insieme a porcini. Le insegnerò quali sono buoni."
+        }
+      ]
+    },
+    {
+      "id": "gobe-b2-lubadar",
+      "level": "B2",
+      "memory": {
+        "sl": "bukve, ki jih bova posadila za mojega očeta",
+        "en": "the beeches we'll plant for my father",
+        "de": "die Buchen, die wir für meinen Vater pflanzen werden",
+        "it": "i faggi che pianteremo per mio padre"
+      },
+      "lines": [
+        {
+          "who": "anton",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}. Vidite tiste rjave smreke? Lubadar. Lani jih je bilo pet, letos jih je že petnajst.",
+          "en": "Good morning, {learner}. See those brown spruces? Bark beetle. Last year there were five, this year there are already fifteen.",
+          "de": "Guten Morgen, {learner}. Sehen Sie die braunen Fichten dort? Borkenkäfer. Letztes Jahr waren es fünf, dieses Jahr schon fünfzehn.",
+          "it": "Buongiorno, {learner}. Vede quegli abeti diventati marroni? Il bostrico. L'anno scorso erano cinque, quest'anno sono già quindici."
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Moj oče je vedno govoril, da bi morali saditi tudi bukve, ne samo smreke. Pa ga ni nihče poslušal.",
+          "en": "My father always said we ought to plant beeches too, not only spruces. But nobody listened to him.",
+          "de": "Mein Vater hat immer gesagt, wir sollten auch Buchen pflanzen, nicht nur Fichten. Aber niemand hat auf ihn gehört.",
+          "it": "Mio padre diceva sempre che bisognava piantare anche faggi, non solo abeti. Ma nessuno gli ha dato retta."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Škoda. Če bi ga bili poslušali, bi bil gozd danes bolj zdrav.",
+              "en": "A pity. If they had listened to him, the forest would be healthier today.",
+              "de": "Schade. Hätte man auf ihn gehört, wäre der Wald heute gesünder.",
+              "it": "Peccato. Se l'avessero ascoltato, oggi il bosco sarebbe più sano.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Res je. Ampak po toči zvoniti je prepozno, pravijo.",
+                "en": "True. But it's too late to ring the bells after the hail, as they say.",
+                "de": "Stimmt. Aber nach dem Hagel die Glocken zu läuten ist zu spät, sagt man.",
+                "it": "È vero. Ma suonare le campane dopo la grandine è troppo tardi, come si dice."
+              }
+            },
+            {
+              "sl": "Škoda. Če so ga poslušali, je gozd danes bolj zdrav.",
+              "en": "A pity. If they listened to him, the forest is healthier today.",
+              "de": "Schade. Wenn man auf ihn gehört hat, ist der Wald heute gesünder.",
+              "it": "Peccato. Se l'hanno ascoltato, oggi il bosco è più sano.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Nobody listened: what would have been takes the conditional, če bi ga bili poslušali (or če bi ga poslušali), bi bil. Če so ga poslušali treats it as perhaps so.",
+                "de": "Niemand hat zugehört: was gewesen wäre, steht im Konditional, če bi ga bili poslušali (oder če bi ga poslušali), bi bil. Če so ga poslušali tut so, als wäre es vielleicht so gewesen.",
+                "it": "Nessuno l'ha ascoltato: ciò che sarebbe stato vuole il condizionale, če bi ga bili poslušali (o če bi ga poslušali), bi bil. Če so ga poslušali lo tratta come se forse fosse successo."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Saj ga niso, {learner}. Zato pa smreke zdaj umirajo.",
+                "en": "But they didn't, {learner}. That's why the spruces are dying now.",
+                "de": "Haben sie doch nicht, {learner}. Deshalb sterben ja jetzt die Fichten.",
+                "it": "Ma non l'hanno fatto, {learner}. Per questo ora gli abeti muoiono."
+              }
+            },
+            {
+              "sl": "Škoda. Če bi ga bili poslušali, bo gozd danes bolj zdrav.",
+              "en": "A pity. If they had listened to him, the forest will be healthier today.",
+              "de": "Schade. Hätte man auf ihn gehört, wird der Wald heute gesünder sein.",
+              "it": "Peccato. Se l'avessero ascoltato, oggi il bosco sarà più sano.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "What follows from something that didn't happen is in the conditional too: …, bi bil gozd danes bolj zdrav. Bo is the future, as if it were still to come.",
+                "de": "Auch die Folge von etwas, das nicht geschah, steht im Konditional: …, bi bil gozd danes bolj zdrav. Bo ist das Futur, als käme es noch.",
+                "it": "Anche la conseguenza di ciò che non è successo va al condizionale: …, bi bil gozd danes bolj zdrav. Bo è il futuro, come se dovesse ancora venire."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bo? Do večera? Smreke niso prehlajene, {learner}.",
+                "en": "Will? By this evening? The spruces haven't got a cold, {learner}.",
+                "de": "Wird? Bis heute Abend? Die Fichten haben doch keinen Schnupfen, {learner}.",
+                "it": "Sarà? Entro stasera? Gli abeti non hanno mica il raffreddore, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Tiho in počasi, prosim.",
+            "en": "Hm? Quietly and slowly, please.",
+            "de": "Hm? Leise und langsam, bitte.",
+            "it": "Mm? Piano e con calma, per favore."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "sad",
+          "sl": "Gozdarji pravijo, da jih je treba posekati, preden lubadar preleti na zdrave. Prav imajo, vem. Ampak srce me boli.",
+          "en": "The foresters say they must be felled before the beetle flies over to the healthy ones. They're right, I know. But my heart aches.",
+          "de": "Die Förster sagen, man muss sie fällen, bevor der Käfer auf die gesunden übergeht. Sie haben recht, ich weiß. Aber mir tut das Herz weh.",
+          "it": "I forestali dicono che bisogna abbatterli prima che il bostrico passi su quelli sani. Hanno ragione, lo so. Ma mi piange il cuore."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda vas boli, ampak če jih pustite, bo lubadar do zime uničil še zdrave.",
+              "en": "Of course it hurts, but if you leave them, by winter the beetle will have destroyed the healthy ones too.",
+              "de": "Natürlich tut es weh, aber wenn Sie sie stehen lassen, hat der Käfer bis zum Winter auch die gesunden zerstört.",
+              "it": "Certo che fa male, ma se li lascia, entro l'inverno il bostrico distruggerà anche quelli sani.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Prav imate. Srce je eno, pamet pa drugo.",
+                "en": "You're right. The heart is one thing, reason another.",
+                "de": "Sie haben recht. Das Herz ist das eine, der Verstand das andere.",
+                "it": "Ha ragione. Il cuore è una cosa, la testa un'altra."
+              }
+            },
+            {
+              "sl": "Potem jih pustite. Gozdarji se gotovo motijo.",
+              "en": "Then leave them. The foresters must be wrong.",
+              "de": "Dann lassen Sie sie stehen. Die Förster irren sich bestimmt.",
+              "it": "Allora li lasci. I forestali si sbagliano di sicuro.",
+              "why": {
+                "en": "Anton grants that the foresters are right (prav imajo, vem); only his heart says no. Comfort him and side with reason, don't call them wrong.",
+                "de": "Anton gibt den Förstern recht (prav imajo, vem); nur sein Herz sagt nein. Tröste ihn und gib der Vernunft recht, statt die Förster für falsch zu erklären.",
+                "it": "Anton dà ragione ai forestali (prav imajo, vem); solo il cuore dice di no. Consolalo e sta' dalla parte della ragione, non dire che sbagliano."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Motijo? Ne, ne. Žal imajo prav, to je tisto.",
+                "en": "Wrong? No, no. Sadly they're right, that's the thing.",
+                "de": "Irren? Nein, nein. Leider haben sie recht, das ist es ja.",
+                "it": "Si sbagliano? No, no. Purtroppo hanno ragione, è questo il punto."
+              }
+            },
+            {
+              "sl": "Seveda te boli, ampak če jih pustiš, bo lubadar do zime uničil še zdrave.",
+              "en": "Of course it hurts you (ti), but if you (ti) leave them, by winter the beetle will have destroyed the healthy ones too.",
+              "de": "Natürlich tut es dir weh, aber wenn du sie stehen lässt, hat der Käfer bis zum Winter auch die gesunden zerstört.",
+              "it": "Certo che ti fa male, ma se li lasci, entro l'inverno il bostrico distruggerà anche quelli sani.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Anton says vi to you and expects vi back: vas boli, jih pustite.",
+                "de": "Anton siezt dich und erwartet das Sie zurück: vas boli, jih pustite.",
+                "it": "Anton ti dà del Lei e se lo aspetta anche da te: vas boli, jih pustite."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tikate me? No, pod smrekami smo si vsi malo bližje.",
+                "en": "Saying ti to me? Well, under the spruces we're all a little closer.",
+                "de": "Sie duzen mich? Na, unter den Fichten sind wir uns alle ein bisschen näher.",
+                "it": "Mi dà del tu? Be', sotto gli abeti siamo tutti un po' più vicini."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusi?"
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Jutri pokličem gozdarja. Spomladi pa posadiva nekaj bukev, vi in jaz. Za očeta.",
+          "en": "Tomorrow I'll call the forester. And in spring the two of us will plant some beeches, you and I. For my father.",
+          "de": "Morgen rufe ich den Förster an. Und im Frühling pflanzen wir zwei ein paar Buchen, Sie und ich. Für meinen Vater.",
+          "it": "Domani chiamo il forestale. E in primavera piantiamo qualche faggio, Lei e io. Per mio padre."
+        }
+      ]
+    },
+    {
+      "id": "preza-b1-mladic",
+      "level": "B1",
+      "months": [
+        5,
+        6
+      ],
+      "memory": {
+        "sl": "mladiča srne, ki ga je mama skrila v travo",
+        "en": "the fawn its mother hid in the grass",
+        "de": "das Kitz, das seine Mutter im Gras versteckt hat",
+        "it": "il piccolo di capriolo che la madre aveva nascosto nell'erba"
+      },
+      "lines": [
+        {
+          "who": "joze",
+          "face": "worried",
+          "sl": "Pst! Lovski blagor, {learner}. Včeraj so planinci v travi našli mladiča srne. Hoteli so ga odnesti domov.",
+          "en": "Shh! Lovski blagor, {learner}. Yesterday some hikers found a fawn in the grass. They wanted to carry it home.",
+          "de": "Pst! Lovski blagor, {learner}. Gestern haben Wanderer im Gras ein Rehkitz gefunden. Sie wollten es mit nach Hause nehmen.",
+          "it": "Sst! Lovski blagor, {learner}. Ieri degli escursionisti hanno trovato un piccolo di capriolo nell'erba. Volevano portarlo a casa."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Upam, da ste jim rekli, naj ga pustijo pri miru.",
+              "en": "I hope you told them to leave it alone.",
+              "de": "Ich hoffe, Sie haben ihnen gesagt, sie sollen es in Ruhe lassen.",
+              "it": "Spero che abbia detto loro di lasciarlo in pace.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Seveda. Mama je bila blizu, samo skrila ga je. Zvečer je prišla ponj.",
+                "en": "Of course. Its mother was close by, she'd only hidden it. In the evening she came for it.",
+                "de": "Natürlich. Die Mutter war in der Nähe, sie hatte es nur versteckt. Am Abend kam sie es holen.",
+                "it": "Certo. La madre era vicina, l'aveva solo nascosto. La sera è tornata a prenderlo."
+              }
+            },
+            {
+              "sl": "Upam, da ste jim rekli, naj ga pustite pri miru.",
+              "en": "I hope you told them that you should leave it alone.",
+              "de": "Ich hoffe, Sie haben ihnen gesagt, Sie sollen es in Ruhe lassen.",
+              "it": "Spero che abbia detto loro che Lei doveva lasciarlo in pace.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "Jože told the hikers »Pustite ga!«: passed on, the request is theirs, naj ga pustijo. Naj ga pustite would be Jože himself (vi).",
+                "de": "Jože sagte den Wanderern »Pustite ga!«: weitergegeben ist die Bitte ihre, naj ga pustijo. Naj ga pustite wäre Jože selbst (vi).",
+                "it": "Jože ha detto agli escursionisti »Pustite ga!«: riferita, la richiesta è loro, naj ga pustijo. Naj ga pustite sarebbe Jože stesso (vi)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Jaz? Saj ga sploh nisem imel v rokah, {learner}.",
+                "en": "Me? I never even had it in my hands, {learner}.",
+                "de": "Ich? Ich hatte es doch gar nicht in der Hand, {learner}.",
+                "it": "Io? Ma se non l'ho neanche toccato, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … kako? Šepetaj bolj počasi.",
+            "en": "Shh … what? Whisper more slowly.",
+            "de": "Pst … wie? Flüster langsamer.",
+            "it": "Sst … come? Sussurra più piano."
+          }
+        },
+        {
+          "who": "joze",
+          "face": "curious",
+          "sl": "Veš, zakaj mladiča nikoli ne smeš prijeti v roke?",
+          "en": "Do you know why you must never pick up a fawn?",
+          "de": "Weißt du, warum man ein Kitz nie anfassen darf?",
+          "it": "Sai perché non devi mai prendere in mano un piccolo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ker bi potem dišal po človeku.",
+              "en": "Because then it would smell of people.",
+              "de": "Weil es dann nach Mensch riechen würde.",
+              "it": "Perché poi avrebbe l'odore dell'uomo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako je. In mama bi ga potem morda pustila samega.",
+                "en": "That's right. And then its mother might leave it on its own.",
+                "de": "Genau. Und dann ließe die Mutter es vielleicht allein.",
+                "it": "Esatto. E poi la madre forse lo lascerebbe solo."
+              }
+            },
+            {
+              "sl": "Da bi potem dišal po človeku.",
+              "en": "So that it would smell of people.",
+              "de": "Damit es dann nach Mensch riecht.",
+              "it": "Così che poi avesse l'odore dell'uomo.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Jože asks for the reason, and ker is because. Da bi says what it's for, as if you wanted the fawn to smell of people.",
+                "de": "Jože fragt nach dem Grund, und ker ist weil. Da bi sagt, wozu, als wolltest du, dass das Kitz nach Mensch riecht.",
+                "it": "Jože chiede il motivo, e ker è perché. Da bi dice lo scopo, come se volessi che il piccolo avesse l'odore dell'uomo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Nalašč? Kdo pa hoče srno, ki diši po starem lovcu?",
+                "en": "On purpose? Who wants a deer that smells of an old hunter?",
+                "de": "Absichtlich? Wer will schon ein Reh, das nach einem alten Jäger riecht?",
+                "it": "Apposta? Chi vuole un capriolo che sa di vecchio cacciatore?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … kako? Šepetaj bolj počasi.",
+            "en": "Shh … what? Whisper more slowly.",
+            "de": "Pst … wie? Flüster langsamer.",
+            "it": "Sst … come? Sussurra più piano."
+          }
+        },
+        {
+          "who": "joze",
+          "face": "happy",
+          "sl": "Zapomni si: v gozdu samo opazuješ in tiho greš naprej. Lovski blagor!",
+          "en": "Remember: in the forest you only watch, and quietly walk on. Lovski blagor!",
+          "de": "Merk dir: Im Wald beobachtest du nur und gehst leise weiter. Lovski blagor!",
+          "it": "Ricorda: nel bosco si osserva soltanto e si va avanti in silenzio. Lovski blagor!"
+        }
+      ]
+    },
+    {
+      "id": "preza-b2-volk",
+      "level": "B2",
+      "memory": {
+        "sl": "volčje sledi v blatu pri potoku",
+        "en": "the wolf tracks in the mud by the stream",
+        "de": "die Wolfsspuren im Schlamm am Bach",
+        "it": "le impronte di lupo nel fango vicino al ruscello"
+      },
+      "lines": [
+        {
+          "who": "joze",
+          "face": "curious",
+          "sl": "Pst! Lovski blagor, {learner}. Sinoči sem v blatu pri potoku našel sledi. Prevelike za lisico, premajhne za medveda.",
+          "en": "Shh! Lovski blagor, {learner}. Last night I found tracks in the mud by the stream. Too big for a fox, too small for a bear.",
+          "de": "Pst! Lovski blagor, {learner}. Gestern Abend habe ich im Schlamm am Bach Spuren gefunden. Zu groß für einen Fuchs, zu klein für einen Bären.",
+          "it": "Sst! Lovski blagor, {learner}. Ieri sera ho trovato delle impronte nel fango vicino al ruscello. Troppo grandi per una volpe, troppo piccole per un orso."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Volk? Morda je šel mimo vaše preže, ne da bi vas opazil.",
+              "en": "A wolf? Maybe it went past your high seat without noticing you.",
+              "de": "Ein Wolf? Vielleicht ist er an Ihrem Hochsitz vorbeigegangen, ohne Sie zu bemerken.",
+              "it": "Un lupo? Forse è passato davanti alla Sua altana senza notarLa.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Morda. Volk vidi vse, njega pa ne vidi nihče.",
+                "en": "Maybe. A wolf sees everything, and nobody sees him.",
+                "de": "Vielleicht. Der Wolf sieht alles, ihn aber sieht keiner.",
+                "it": "Forse. Il lupo vede tutto, ma lui non lo vede nessuno."
+              }
+            },
+            {
+              "sl": "Volk? Morda je šel mimo vaše preže, ne da vas je opazil.",
+              "en": "A wolf? Maybe it went past your high seat, not that it noticed you.",
+              "de": "Ein Wolf? Vielleicht ist er an Ihrem Hochsitz vorbeigegangen, nicht dass er Sie bemerkt hat.",
+              "it": "Un lupo? Forse è passato davanti alla Sua altana, non che L'abbia notata.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Ne da bi (without) is for what didn't happen: bi + the l-form, ne da bi vas opazil.",
+                "de": "Ne da bi (ohne dass) steht für das, was nicht geschah: bi + die l-Form, ne da bi vas opazil.",
+                "it": "Ne da bi (senza che) è per ciò che non è successo: bi + la forma in -l, ne da bi vas opazil."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Me je opazil ali ne? Zdaj pa res ne vem, kaj praviš.",
+                "en": "Did it notice me or not? Now I really don't know what you're saying.",
+                "de": "Hat er mich bemerkt oder nicht? Jetzt weiß ich wirklich nicht, was du meinst.",
+                "it": "Mi ha notato o no? Adesso proprio non so cosa dici."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … kako? Šepetaj bolj počasi.",
+            "en": "Shh … what? Whisper more slowly.",
+            "de": "Pst … wie? Flüster langsamer.",
+            "it": "Sst … come? Sussurra più piano."
+          }
+        },
+        {
+          "who": "joze",
+          "face": "thinking",
+          "sl": "Moj oče bi ga bil takoj ustrelil. Danes je volk zavarovan, pastirji pa so jezni, ker jim kolje ovce.",
+          "en": "My father would have shot it on the spot. Today the wolf is protected, and the shepherds are angry because it kills their sheep.",
+          "de": "Mein Vater hätte ihn sofort erschossen. Heute steht der Wolf unter Schutz, und die Hirten sind wütend, weil er ihnen die Schafe reißt.",
+          "it": "Mio padre gli avrebbe sparato subito. Oggi il lupo è protetto, e i pastori sono arrabbiati perché sbrana loro le pecore."
+        },
+        {
+          "who": "joze",
+          "face": "curious",
+          "sl": "Kaj misliš ti: ima volk pri nas še svoje mesto?",
+          "en": "What do you think: does the wolf still have its place here?",
+          "de": "Was meinst du: Hat der Wolf bei uns noch seinen Platz?",
+          "it": "Tu cosa ne pensi: il lupo ha ancora il suo posto qui da noi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda ga ima, ampak pastirjem je treba pomagati, da bo volk sit in koza cela.",
+              "en": "Of course it does, but the shepherds need help, so the wolf is fed and the goat stays whole.",
+              "de": "Natürlich hat er ihn, aber den Hirten muss man helfen, damit der Wolf satt wird und die Ziege ganz bleibt.",
+              "it": "Certo che ce l'ha, ma bisogna aiutare i pastori, perché il lupo sia sazio e la capra intera.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Volk sit in koza cela. Tako bi rekel tudi moj oče.",
+                "en": "Ha! The wolf fed and the goat whole. My father would have said that too.",
+                "de": "Ha! Der Wolf satt und die Ziege ganz. Das hätte auch mein Vater gesagt.",
+                "it": "Ah! Il lupo sazio e la capra intera. L'avrebbe detto anche mio padre."
+              }
+            },
+            {
+              "sl": "Saj ga ni več. Vaš oče ga je ustrelil.",
+              "en": "But it's gone. Your father shot it.",
+              "de": "Er ist doch nicht mehr da. Ihr Vater hat ihn erschossen.",
+              "it": "Ma non c'è più. Suo padre gli ha sparato.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Bi ga bil ustrelil is the past conditional: what Jože's father would have done. He never did: the tracks are from last night.",
+                "de": "Bi ga bil ustrelil ist der Konditional der Vergangenheit: was Jožes Vater getan hätte. Er hat es nie getan: die Spuren sind von gestern Abend.",
+                "it": "Bi ga bil ustrelil è il condizionale passato: ciò che il padre di Jože avrebbe fatto. Non l'ha mai fatto: le impronte sono di ieri sera."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Oče? Ta je volka videl samo v pravljicah!",
+                "en": "My father? He only ever saw a wolf in fairy tales!",
+                "de": "Mein Vater? Der hat einen Wolf nur im Märchen gesehen!",
+                "it": "Mio padre? Lui il lupo l'ha visto solo nelle fiabe!"
+              }
+            },
+            {
+              "sl": "Seveda ga ima, ampak pastirje je treba pomagati, da bo volk sit in koza cela.",
+              "en": "Of course it does, but the shepherds need help, so the wolf is fed and the goat stays whole.",
+              "de": "Natürlich hat er ihn, aber den Hirten muss man helfen, damit der Wolf satt wird und die Ziege ganz bleibt.",
+              "it": "Certo che ce l'ha, ma bisogna aiutare i pastori, perché il lupo sia sazio e la capra intera.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Pomagati takes the dative, after treba too: pastirjem je treba pomagati. The accusative is for what is done: ograjo je treba postaviti.",
+                "de": "Pomagati verlangt den Dativ, auch nach treba: pastirjem je treba pomagati. Der Akkusativ ist für das, was getan wird: ograjo je treba postaviti.",
+                "it": "Pomagati vuole il dativo, anche dopo treba: pastirjem je treba pomagati. L'accusativo è per ciò che si fa: ograjo je treba postaviti."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Pastirje … kaj? Pst, šepetaj do konca.",
+                "en": "The shepherds … what? Shh, whisper it to the end.",
+                "de": "Die Hirten … was? Pst, flüster es zu Ende.",
+                "it": "I pastori … cosa? Sst, sussurra fino in fondo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … kako? Šepetaj bolj počasi.",
+            "en": "Shh … what? Whisper more slowly.",
+            "de": "Pst … wie? Flüster langsamer.",
+            "it": "Sst … come? Sussurra più piano."
+          }
+        },
+        {
+          "who": "joze",
+          "face": "happy",
+          "sl": "Pst … slišiš šojo? Gozd se je zbudil. Dovolj besed za danes. Lovski blagor!",
+          "en": "Shh … hear the jay? The forest has woken up. Enough words for today. Lovski blagor!",
+          "de": "Pst … hörst du den Eichelhäher? Der Wald ist aufgewacht. Genug Worte für heute. Lovski blagor!",
+          "it": "Sst … senti la ghiandaia? Il bosco si è svegliato. Basta parole per oggi. Lovski blagor!"
+        }
       ]
     }
   ]

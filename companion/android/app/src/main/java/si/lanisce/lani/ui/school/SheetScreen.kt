@@ -58,7 +58,18 @@ fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: Stri
         LaunchedEffect(unitId) { vm.leaveRun() }
         return
     }
-    val exercises = if (kind == SheetKind.TEST) unit.test.exercises else ws!!.exercises
+    // a child plays a speaking or writing item's child's version (COURSE.md "A child's version")
+    val child = vm.child
+    val exercises = remember(unit, sheetId, kind, child) {
+        (if (kind == SheetKind.TEST) unit.test.exercises else ws!!.exercises).map { e ->
+            when {
+                !child -> e
+                e is si.lanisce.lani.data.Exercise.Speaking -> e.forChild()
+                e is si.lanisce.lani.data.Exercise.Writing -> e.forChild()
+                else -> e
+            }
+        }
+    }
     val title = if (kind == SheetKind.TEST) "🎓 ${bi("school.test")}: ${unit.titleShown(L10n.pair)}" else "📝 ${ws!!.titleShown(L10n.pair)}"
     val teacher = remember { vm.school.teacher() }
     val stage = rememberStage(vm, remember { Run.Lesson(teacher?.name, teacher?.emoji, indoors = vm.game.state?.let(School::indoors) == true) })
@@ -78,7 +89,7 @@ fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: Stri
             // a step of its own each (its question, its reading)
             key(introStep) { IntroStepView(vm, unit, intro, introStep, Modifier.weight(1f)) { introStep++ } }
         }
-        else -> ExerciseRun(
+        else -> androidx.compose.runtime.CompositionLocalProvider(LocalSheetPlace provides SheetPlace(unit, if (kind == SheetKind.TEST) "test" else sheetId, kind == SheetKind.TEST)) { ExerciseRun(
             vm, title, exercises, moduleId = null, onExit = { vm.leaveRun() }, stage = stage,
             source = { i -> ExerciseSource.course(unit.language, unit.id, if (kind == SheetKind.TEST) "test" else sheetId, i) },
             // an exercise that names no rule counts on the unit's first page
@@ -86,10 +97,10 @@ fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: Stri
             // its cheat sheet (📋) has the unit's cards right after the exercise's own
             pages = unit.grammar,
         ) { outs ->
-            val answers = outs.map { o -> SheetAnswer(o.verdict, o.paid, o.answer, o.correct, o.sheet, o.lookedUp) }
+            val answers = outs.map { o -> SheetAnswer(o.verdict, o.paid, o.answer, o.correct, o.sheet, o.lookedUp, o.rated, o.checks) }
             result = vm.school.finish(unit, kind, sheetId, exercises, answers, minutesSince(started))
                 ?: SheetDone(null, answers.flatMap { a -> if (a.items.isNotEmpty()) a.items.map { it.paid } else listOf(a.paid) }, unitDone = false, passed = false)
-        }
+        } }
     }
 }
 
