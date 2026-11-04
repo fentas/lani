@@ -255,8 +255,8 @@ in the scene and the happening's own dialog plays. Screenshots in `$LANI_QA_DIAL
 
 - **After the merge with the queue** (practice-en 8a08c83f0, packs-it at 85917a636 = main, which holds hint-chip-it): `check-culture
   friuli` ok; `bun test/prompt-clashes.ts` no new clash; `tutor-export --check` 140 files; tsc clean; the 11 merged TypeScript test
-  files parse; the smoke on ports 10610–10628 passed (4,022 checks before packs-it's last move; the run on the tip is in the report).
-  The Android scene tests and the emulator QA below ran before the merges and weren't run again.
+  files parse; the smoke on ports 10610–10628: 4,022 checks, all passed; the Android scene tests below again, on the merged tip.
+  The emulator QA below ran before the merges and wasn't run again.
 - `bun test/check-culture.ts friuli`: ok (the levels, `levelPageErrors`, the reactions, faces and cast).
 - The smoke (`LANI_SMOKE_PORT=10610`, Friuli 10612, town 10614, drama3 10628) on the final content: 3,723 checks, all passed.
 - `bunx tsc --noEmit -p .`: clean. `bun src/cli/tutor-export.ts --check`: 140 files match.
