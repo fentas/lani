@@ -198,15 +198,16 @@ before it explains (*Dann hätten wir vielleicht zu wenig Heu.*).
 ## What's left
 
 - **Three tests fail on this base, none by this branch.** See "Tests".
-- **Eight pages have no curated turn at all** (adjektiv-der, imperativ, ordinalzahlen, possessiv, praepositionen-akkusativ,
-  praeteritum-kurz, uhrzeit, zahlen), and six only turns of no one word (als-ob, indirekte-rede, konnektoren, oesterreichisch,
-  satzbau, wortstellung). They have their rule, sentence and models; what their looks find has met no sentence of the village,
-  so it is less proven than the rest. A tutor's turn there gets the rule at the least.
+- **Four pages have no curated turn at all** (adjektiv-der, possessiv, praepositionen-akkusativ, praeteritum-kurz; imperativ,
+  ordinalzahlen, uhrzeit and zahlen got theirs on cleanup-content, six turns that named no page), and six only turns of no
+  one word (als-ob, indirekte-rede, konnektoren, oesterreichisch, satzbau, wortstellung). They have their rule, sentence and
+  models; what their looks find has met no sentence of the village, so it is less proven than the rest. A tutor's turn there
+  gets the rule at the least.
 - **A pronoun's gender** is named only when a sentence of its own names the noun (*Ein Fuchs! Er ist rot.*); the line before
   a turn isn't in the chip's reach, so *Ja, sie riecht so gut!* says the rule alone.
 - **`als` against `wie`** after a comparative names nothing: people say *größer wie* (grading's `nonstandard`), and a line
   would have to pick.
-- **`schwimmen`, `schauen` in the motion list** (native check 3).
+- **`schwimmen`, `schauen` in the motion list** (native check 3): settled on cleanup-content. They are in the rest list too, so they say both cases and pick neither, as `hängt`; `dienen` is in the verbs with a dative.
 
 ## Tests
 

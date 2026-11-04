@@ -145,6 +145,7 @@ DATIVE_VERBS = [
     v("folgen", ["dat"], "dativ"),
     v("gratulieren", ["dat"], "dativ", pp="gratuliert"),
     v("glauben", ["dat"], "dativ"),
+    v("dienen", ["dat"], "dativ"),
     v("vertrauen", ["dat"], "dativ", pp="vertraut"),
     v("fehlen", ["dat"], "dativ"),
     v("begegnen", ["dat"], "dativ", pp="begegnet"),
@@ -258,6 +259,9 @@ REST = [
     v("befinden", reflexive=True, past="befand", pp="befunden"),
     v("sterben", p2="stirbst", p3="stirbt", past="starb", pp="gestorben"),
     v("lesen", p2="liest", p3="liest", past="las", pp="gelesen", imp="lies"),
+    # (a verb that goes either way says both cases and picks neither, as hängen: im See schwimmen, in den See schwimmen; in den Kasten schauen, im Kasten nachschauen)
+    v("schauen"),
+    v("schwimmen", past="schwamm", pp="geschwommen", imp="schwimm"),
     v("helfen", p2="hilfst", p3="hilft", past="half", pp="geholfen", imp="hilf"),
 ]
 
