@@ -4275,7 +4275,12 @@ of it (the noun an article goes with, who does it, who is spoken to, the partici
 word that asks for the congiuntivo …), from word lists, without the bridge. An English turn's chip has English's (`game/EnglishHints.kt`;
 docs/plans/05-built/hint-chip-en.md): every page's rule in words (its card's) and the word beside the form that decides
 it (who does it, the helper before a verb, the -ing form after be, what there is, the first sound after a or an, a number
-before a noun, whose it is, a no before any, the place or time after a preposition …). The chip takes the scene's and
+before a noun, whose it is, a no before any, the place or time after a preposition …). A German turn's chip has German's
+(`game/GermanHints.kt`; docs/plans/05-built/hint-chip-de.md): every page's rule in words (its card's), what decides a case read
+from German's trigger table (the preposition, a two-way one by the sentence's verb, the verb with a dative, the chunk), and
+the word beside the form that decides the rest (the noun of an article, who does it, the helper, the participle that picks
+sein or haben, who is spoken to …), and at a turn of the same words in another order, where the verb goes; what people say
+(wegen dem, weil with the verb second) it names as such. The chip takes the scene's and
 the village's names for people (`TurnHints.of`'s cast), and on a tie `Forms.turn` takes the word a rule names.
 
 **German's lens** (docs/plans/05-built/case-de.md): a German village's word shows its case the same way, read by

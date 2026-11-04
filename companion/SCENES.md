@@ -589,6 +589,27 @@ hint, 953 of them a rule or a trigger, and 749 of the 852 form turns name what d
 checks that nothing shown or said gives the answer away (in sl, de and it), and writes every form turn's first line to
 build/reports/hints/en.txt.
 
+**A German turn** (Kärnten; `game/GermanHints.kt`, since 2026-11-04) has the card from German's own table: every page of the
+German book (68, A1 to B2) has its rule in words in the learner's base (the page's card, the six pages without one written
+for the chip), its 🔊 sentence, models in other words and, where the page asks one, its question ("Wen? Was?", "Wem?", "Wo?
+Wohin?", "Du oder Sie?"). What decides a case is read from German's trigger table (companion/grammar/de/data/case-triggers.json,
+the case lens's and the trainer's own), not repeated: the preposition before the word ("after «mit»: the dative"; "after
+«Trotz»: the genitive in writing; in talk the dative is right too"), a two-way preposition by the sentence's verb ("with
+«lege»: Wohin? The accusative", "with «liegt»: Wo? The dative"; a verb in both lists or in neither, or none, says both), the
+verb that takes a dative ("with «helfe»"; "with «gibst»: Wem? Who gets it"), the chunk with its preposition ("after «Angst
+vor»"), the object of a verb ("with «nehme»: Wen? Was? What it acts on"), a verb of being before a nominative. The rest is word
+lists, at the turn, offline: the noun an article goes with ("with «Tee»: its gender decides"; German writes its nouns with a
+capital, so a noun is plain to see), an adjective's article ("after «einen»: the article shows the case already"), a number
+before a plural, who does it, before the verb or after it, the helper before an infinitive or a participle, the participle
+that decides sein or haben, kein by its noun and nicht by its verb, du or Sie by who is spoken to, what isn't so ("with
+«würde»: imagined, not real"). **Where the verb goes:** a turn whose choices are the same words in another order has no one word
+to leave out, but in German the order is the form, so the card names what decides it ("«Morgen» comes first: the verb comes
+next"; "after «dass»: the verb goes last"). **What people say in Kärnten is never taught against:** after weil and obwohl the
+line says the verb goes last in writing and second in talk too (grading's own `verb_second`), after wegen the same of the
+dative (the table's `spoken`), and a turn with both right names no form. On the curated German turns (2026-11-04) @@NUM@@;
+`GermanHintTest` checks that nothing shown or said gives the answer away (in sl, en and it), and writes every form turn's first
+line to build/reports/hints/de.txt.
+
 **A name is who does it** (since 2026-11-03): the chip gets the names of the dialog's people, the scene's and the
 village's (`TurnHints.of`'s cast), so a name is taken for the subject wherever it stands, at a sentence's start too
 ("Giulia è stanca.", "Wilf is the winner!", Slovene's "Micka kuha.": who: «Micka»; «Micka in Luka» for two). **On a tie**
