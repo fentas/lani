@@ -30,4 +30,10 @@ one that looks wrong (about_exercise.source kind numbers) is a note for the deve
 For a learner of Italian (data.numbers.language "it"; the unit numeri opens it, ore-giorni brings the dates and the clock):
 numbers_order is the ones first, as German says them (sette venti, 72 typed for ventisette), numbers_ordinal_date a date's day
 (il quindici, il primo; on ore-giorni), numbers_clock_time alle + the hour, numbers_clock_time_half half past counted as German's
-halb (4:30 for alle cinque e mezza; on ore-giorni). German and English have no such module yet.
+halb (4:30 for alle cinque e mezza; on ore-giorni).
+For a learner of German (data.numbers.language "de"; the unit zahlen opens it, uhrzeit brings the clock, am-ersten-mai the
+dates): numbers_order is the tens first, as English and Italian say them (zwanzigsieben, 72 typed for siebenundzwanzig);
+numbers_spelling includes eins kept whole (einsundzwanzig) and sechs, sieben kept whole (sechszehn, siebenzig);
+numbers_ordinal_date a date's day after der (der fünfzehnte; -ste from 20, erste, dritte, siebte, achte; on ordinalzahlen),
+numbers_clock_time um + the hour, numbers_clock_time_half halb counted as English's half past (6:30 for um halb sechs; on
+uhrzeit). Austria's Jänner is the month's name, Januar right too. English has no such module yet.

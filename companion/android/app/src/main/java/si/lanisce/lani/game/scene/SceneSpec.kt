@@ -174,6 +174,11 @@ data class Happening(
      * ones the learner talks with, and must be in the village and met for it to be on; on the map they're at its place.
      */
     val with: List<String> = emptyList(),
+    /**
+     * The learner's level from which it is on ("B1"): a learner below never meets it, and its dialogs are of that level
+     * unless they say their own ([DialogLevels], companion/SCENES.md "Dialogs by level"). Null: for every learner.
+     */
+    val level: String? = null,
 )
 
 @Serializable
@@ -251,6 +256,12 @@ data class Dialog(
     val months: List<Int> = emptyList(),
     /** curated | tutor: a variant the tutor wrote (publish_dialog_variant). */
     val source: String = "curated",
+    /**
+     * The learner's level it is written for ("B1", "B2"): played to a learner at that level or above, their own level's
+     * first ([DialogLevels], [DialogVariants.pick]); null (as every dialog before levels): for every learner, below the
+     * levelled ones. A happening's [Happening.level] is its dialogs' unless they say their own.
+     */
+    val level: String? = null,
 )
 
 /**
