@@ -25,6 +25,7 @@ import si.lanisce.lani.game.Teaser
 import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.ActiveKeeper
 import si.lanisce.lani.game.scene.Dialog
+import si.lanisce.lani.game.scene.DialogLevels
 import si.lanisce.lani.game.scene.DialogVariants
 import si.lanisce.lani.game.scene.Happening
 import si.lanisce.lani.game.scene.Happenings
@@ -180,9 +181,14 @@ class SceneController(
     private val store = SceneStore(context.filesDir)
     private val io = Dispatchers.IO.limitedParallelism(1) // cache writes stay in order
 
-    /** Every scene the node has, resolved (objects carry their words). */
-    var all by mutableStateOf<List<SceneSpec>>(emptyList())
-        private set
+    /** Every scene the node has, resolved (objects carry their words), at every level. */
+    private var served by mutableStateOf<List<SceneSpec>>(emptyList())
+
+    /**
+     * Every scene the node has, resolved (objects carry their words), as this learner meets it: at their level in its
+     * language ([level]; QA's "level:<lv>"), without the dialogs and happenings above it ([DialogLevels.forLearner]).
+     */
+    val all: List<SceneSpec> by derivedStateOf { DialogLevels.forLearner(served, level) }
     /** Scene id → object slots the learner has found (tapped) there. */
     var found by mutableStateOf<Map<String, Set<String>>>(emptyMap())
         private set
@@ -198,7 +204,7 @@ class SceneController(
     init {
         scope.launch {
             val (s, p, f) = withContext(io) { Triple(store.readScenes(), store.readPacks(), store.readFound()) }
-            if (all.isEmpty()) all = s?.takeIf { it.isNotEmpty() } ?: fixture()
+            if (served.isEmpty()) served = s?.takeIf { it.isNotEmpty() } ?: fixture()
             packs = p + packs
             found = (f.keys + found.keys).associateWith { f[it].orEmpty() + found[it].orEmpty() }
         }
@@ -214,11 +220,11 @@ class SceneController(
         }
         if (list != null) {
             // the very answer read before (Bridge.remembered, or a 304): on the phone already
-            if (list === all) return
-            all = list.ifEmpty { fixture() }
+            if (list === served) return
+            served = list.ifEmpty { fixture() }
             scope.launch(io) { runCatching { store.writeScenes(list) } }
-        } else if (all.isEmpty()) {
-            all = fixture()
+        } else if (served.isEmpty()) {
+            served = fixture()
         }
     }
 
