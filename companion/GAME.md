@@ -2017,7 +2017,7 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
   "The pile over the days"). Its reward is his own, once a day.
 - **The night watch.** A round may break out one night (`breakout`: in a share of rounds, a night of its stages); that
   evening and night he is there and his talk is the call: its last line the learner's turn against the clock (25 s at
-  A1, 18 at A2; twice that with TalkBack). The right choice in time covers it with earth (`saved`, the chronicle's
+  A1, 18 from A2 on: a B1 or B2 choice is longer, not shorter; twice that with TalkBack). The right choice in time covers it with earth (`saved`, the chronicle's
   `covered`); the clock run out, the pile burns down (`lost`, the chronicle's `burnt`): from that night to the round's
   end the spot is its `lost` entry (ash) and its yield never comes. A wrong pick costs time, nothing else. What the
   learner decided is kept (`GameState.cycles[spot]`: the rounds `lost`, `saved`; `SpotCycles.decide`), once.

@@ -627,6 +627,12 @@ or so while its smoke goes from white to yellow to blue, lets it cool, rakes it 
 charcoal to Kovač Tone; then two to four weeks between piles (the next wood got ready, charcoal sold), three or four piles from mid-April to October, and in winter there is no pile. With a cycle his talk is the day's,
 not his story's (`talks` is for a keeper without one):
 
+Every piece of it is written to B2: the pile's `story`, both meetings, his greetings, what he did meanwhile, the nights, the
+breakout's four, his 33 talks and his six tales have A1, A2, B1 and B2. A learner hears each piece at the highest level it has
+up to theirs (`SpotCycles.linesAt`), and every level of a piece is the same step of the work, so a learner whose level rises
+keeps their place. A B1 telling keeps A2's length (3–6 lines) in longer, joined sentences with the same small task; a B2 telling
+is a little longer again, and about a third of them have a second turn, of understanding: the reply that fits what he means.
+
 - **The first evening** his `meeting` (the cycle's: who he is, "Tukaj v gozdu delam oglje. Za kovača Toneta."; A2 asks
   the learner's name), then the day's talk. **Every other evening** a greeting for the hour (`greet`: "Á, ti si! Dober
   večer.", at night "Dober večer! Pozno je. Ti tudi ne spiš?"), then what he did while the learner was away (the last two
@@ -644,7 +650,7 @@ not his story's (`talks` is for a keeper without one):
   pile above the talk shows it: bel, rumen, moder), count the sacks (pet vreč), ask him in vi.
 - **The night watch** (`breakout`): the night his pile breaks out he calls for help ("Hitro! Glej, ogenj! Kopa se je
   odprla!"; at A2 "Kopa bruha", the trade's word for a pile blowing its earth off), and the learner's turn is a race against the clock ("🔥 Hitro! · Quick!", a bar running down: 25 s at A1,
-  18 s at A2): "Lopato in zemljo!" in time and they cover it together ("Uf. Pokrila sva jo. Hvala ti."); water or the
+  18 s from A2 on): "Lopato in zemljo!" in time and they cover it together ("Uf. Pokrila sva jo. Hvala ti."); water or the
   axe only cost time; too late, "Prepozno je. Kopa gori." The pile is ash to the end of the round (its `lost` talk:
   "Ne bodite žalostni. Vi niste krivi." is the learner's to say), and Tone gets no charcoal from it.
 - **His own story** (`keeper.tales`, every keeper may have one): six parts told at the end of his talk, one an evening,

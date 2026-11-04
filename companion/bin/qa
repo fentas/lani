@@ -221,8 +221,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "parity-small" (only when named) small things that read wrong, on what the dev bridge's learner is
                        (docs/plans/05-built/parity-small.md): a learner of German at B1 past A1 (make-learner.ts --target de
                        --base en, LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en): new lessons coming on the school's tile, the
-                       grammar sign that doesn't count; LANI_QA_START_CARD a start card opened; LANI_QA_MEET=<id> their B1
-                       introduction (QA's hooks "level:B1", "meet:<id>"); LANI_QA_PARITY_SHOTS=<dir> the shots;
+                       grammar sign that doesn't count; LANI_QA_START_CARD a start card opened; LANI_QA_MEET=<id> their
+                       introduction at LANI_QA_MEET_LEVEL (B1 unless set; QA's hooks "level:<lv>", "meet:<id>"); LANI_QA_PARITY_SHOTS=<dir> the shots;
                        "friuli-looks" (only when named) Friuli's outdoor scenes in its look on a synthetic Italian learner
                        (LANI_DEV_DATA from make-learner.ts --target it, LANI_CULTURE=friuli, LANI_QA_PAIR=sl-en): the
                        village as a Vas, then Nel campo, Nel bosco, Al ruscello, Allo stagno and Il mare by day and closer,
@@ -7451,11 +7451,17 @@ def project_step():
     projects sheet opens at it, with where it is played and its words; "🔨 Današnji korak · Today's step" opens the forest
     with Luka (and Marko, when he lives here) on its stage; the tap turn is answered in the picture (the tree first, a
     mistake with Luka's reaction, then the spruce, where the debug build logs them), the other turns chosen, and the step
-    is done: "Mlaj 1/5" and its line for the chronicle."""
+    is done: "Mlaj 1/5" and its line for the chronicle. $LANI_QA_STEP_LEVEL ("B2"): that telling (QA's hook "level:<lv>"), the
+    reactions read from it."""
     steps = json.loads((ROOT / "companion/cultures/primorska/project-steps/mlaj.json").read_text())
     ok = {c["sl"] for lv in steps["steps"][0]["levels"].values() for l in lv["lines"] for c in l.get("choices", []) if c.get("ok") and "tap" not in c}
+    level = os.environ.get("LANI_QA_STEP_LEVEL")
+    tap_turn = [c for l in steps["steps"][0]["levels"][level]["lines"] for c in l.get("choices", []) if "tap" in c] if level else []
+    reply_to = lambda place: next((c["reply"]["sl"].split("{")[0][:16] for c in tap_turn if c["tap"] == place), "")
     adb("logcat", "-c")
     try:
+        if level:
+            qa_hook(f"level:{level}")
         qa_hook("step:mlaj/1")
         plain_village()  # the hook shows the village: its intro or news first, on a fresh install
         if hud_find("Skupni projekti · Village projects", 8) is None:
@@ -7497,11 +7503,13 @@ def project_step():
         wrong = "tree" if "tree" in at else next(p for p in at if p != right)
         tap_at(at[wrong])
         time.sleep(1.5)
-        assert any("Drevo?" in t or "Skala?" in t for t, _ in nodes()), f"Luka's reaction to a wrong place ({wrong})"
+        said = (reply_to(wrong),) if level else ("Drevo?", "Skala?")
+        assert any(x in t for t, _ in nodes() for x in said), f"Luka's reaction to a wrong place ({wrong})"
         shot("project-step-wrong")
         tap_at(at[right])
         time.sleep(1.5)
-        assert any("Bravo! Ta je prava." in t or "Res je! Višja je" in t for t, _ in nodes()), "Luka's reply: the spruce found"
+        said = (reply_to(right),) if level else ("Bravo! Ta je prava.", "Res je! Višja je")
+        assert any(x in t for t, _ in nodes() for x in said), "Luka's reply: the spruce found"
         shot("project-step-found")
         # on to the end: on from each line, the right choice at each turn
         for _ in range(14):
@@ -7527,6 +7535,8 @@ def project_step():
             print(f"    over the village: {over}")
     finally:
         qa_hook("step:")
+        if level:
+            qa_hook("level:")
     return None
 
 
@@ -17414,7 +17424,8 @@ def parity_small():
     (QA's hook "school:reveal") the teacher says she is preparing the next lessons, the school's tile on Home says they're
     coming, not all done; "🧭 Bis B2" has the grammar sign ➖ with no pages at B1, the treasure map's sign "–". Any learner: the
     cheat sheet (QA's hook "cheat") with $LANI_QA_START_CARD, a start card, opened; with $LANI_QA_MEET (a villager's id) their
-    introduction at B1 (QA's hooks "level:B1", "meet:<id>"), on to its first turn, the wrong choice's reaction. Shots in
+    introduction at $LANI_QA_MEET_LEVEL, B1 unless set (QA's hooks "level:<lv>", "meet:<id>"), on to its first turn, the wrong
+    choice's reaction. Shots in
     $LANI_QA_PARITY_SHOTS as ps-*.png."""
     out = Path(os.environ["LANI_QA_PARITY_SHOTS"]) if os.environ.get("LANI_QA_PARITY_SHOTS") else None
     notes = []
@@ -17466,12 +17477,13 @@ def parity_small():
         notes.append(f"the start card {card}")
     meet = os.environ.get("LANI_QA_MEET")
     if meet:
-        qa_hook("level:B1")
+        level = os.environ.get("LANI_QA_MEET_LEVEL", "B1")
+        qa_hook(f"level:{level}")
         qa_hook(f"meet:{meet}")
         time.sleep(3 * slow())
         snap(f"ps-meet-{meet}")
         language = api("/culture").get("language", "sl")
-        spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"]["B1"]
+        spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"][level]
         first = next(x for x in spec["lines"] if "choices" in x)
         wrong = next(c for c in first["choices"] if not c.get("ok"))[language]
         wrong = re.split(r"[{]", wrong)[0].strip()
@@ -17485,7 +17497,7 @@ def parity_small():
         assert tap(wrong, 3), f"the wrong choice: {wrong}"
         time.sleep(2 * slow())
         snap(f"ps-meet-{meet}-reaction")
-        notes.append(f"{meet}'s introduction at B1, to its first turn's reaction")
+        notes.append(f"{meet}'s introduction at {level}, to its first turn's reaction")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         qa_hook("level:")
     if not notes:
