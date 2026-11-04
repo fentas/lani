@@ -321,6 +321,13 @@ class KopaCycleTest {
                 assertEquals("$id: $told", levels.size, told.toSet().size)
             }
         }
+        // his first evening can be any day: the meeting, at each level; two talks at every stage; his own story in six parts
+        val met = michl(village, r.spans.first().from, 20)
+        for (p in german) for (level in levels) assertTrue("the meeting $level: a wrong choice", play(met, level, p, "meeting $level ${p.code}", "de"))
+        for (s in cycle.stages) assertTrue("${s.id}: two talks", s.talks.size >= 2)
+        val tales = world.spots.getValue("kopa").keeper!!.tales
+        assertEquals(6, tales.size)
+        for (t in tales) assertEquals(t.id, levels.toSet(), t.levels.keys)
         val b = (2026..2030).flatMap { rounds(it) }.first { it.breakout != null }
         val k = michl(village.copy(keepers = mapOf("spot:kopa/koehler" to KeeperTold(4, b.breakout!!.minusDays(2).toString()))), b.breakout!!, 22)
         assertTrue(k.breakout)
