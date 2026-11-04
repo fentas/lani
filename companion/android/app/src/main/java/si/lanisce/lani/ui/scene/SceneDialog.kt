@@ -27,6 +27,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.snapshotFlow
@@ -908,7 +910,10 @@ private fun rememberHint(vm: AppViewModel, talk: SceneTalk, onHint: () -> Unit):
     val pages = vm.grammar.pages
     val later = run.later
     val (text, speech) = remember(talk.key, run.at, run.step, pages) {
-        val h = run.turn?.let { vm.grammar.hint(it, hidden = later) }
+        // who's who: the names of the dialog's people, the scene's and the village's (a name is who does it: TurnHints.of)
+        val cast = listOf(talk.person.name) + talk.step?.cast.orEmpty().map { it.name } +
+            vm.scenes.byId(talk.sceneId)?.people.orEmpty().map { it.name } + vm.villagers.all.map { it.name }
+        val h = run.turn?.let { vm.grammar.hint(it, hidden = later, cast = cast) }
         val t = h?.let { TurnHints.text(it, vm.grammar::page) }?.takeIf { !it.isEmpty }
         // the 🔊 says what the card says: the hint's rule, and the rules that come later
         t to HintSpeech.of(h?.takeIf { t != null }, vm.grammar.laterTitles(later))
@@ -940,11 +945,18 @@ private fun HintChip(h: TurnHelp) {
  * would give the answer away). Never the answer ([TurnHints.fair]). In its top-right corner the 🔊 says it in short
  * ([ReadHint]).
  */
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 private fun HintCard(vm: AppViewModel, h: TurnHelp) {
     if (!h.open) return
     val t = h.text
-    Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth().popIn(t ?: h.later, from = 0.9f)) {
+    // it opens under the chip: with long choices that is below the panel's fold, and a tap would seem to do nothing
+    val seen = remember { BringIntoViewRequester() }
+    LaunchedEffect(Unit) {
+        delay(80L) // laid out first
+        seen.bringIntoView()
+    }
+    Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth().bringIntoViewRequester(seen).popIn(t ?: h.later, from = 0.9f)) {
         Box(Modifier.fillMaxWidth()) {
             // what comes first clears the 🔊 in the corner: a line, else the models, the rows, the links, what comes later
             val clear = if (h.speech.isNotEmpty()) Modifier.padding(end = 40.dp) else Modifier

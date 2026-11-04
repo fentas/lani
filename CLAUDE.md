@@ -111,9 +111,11 @@ dictionary labels (*pog.*, *nar.*) is not a mistake: say it's spoken.
 
 ## Checking another language
 
-fran.si is the only web lookup this project allows. For a learner of Italian, German or English you have the word packs,
-the grammar book and `companion/lexicon/<code>.extra.json`. What they don't settle you don't know: don't call it wrong and
-don't count it; say you aren't sure, give the form you are sure of, and leave it to a native speaker. Each language's own
+Jan approved treccani.it (Italian), duden.de (German) and dictionary.cambridge.org (English) beside fran.si for this
+session's WebFetch: one page at a time, as far as `.claude/settings.json` allows it (those lines are Jan's to add; a page
+refused isn't a source). You also have the word packs, the grammar book and `companion/lexicon/<code>.extra.json`. What
+they don't settle you don't know: don't call it wrong and don't count it; say you aren't sure, give the form you are sure
+of, and leave it to a native speaker. Each language's own
 rules (register, spoken forms, what a mistake is, a child's case) are in `companion/tutor/languages/<code>.md`.
 
 ## Critical Rules

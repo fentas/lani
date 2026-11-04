@@ -37,9 +37,9 @@ export default async function scenarios() {
   // every text in each base the language has, the title, goals and who per language, machine-written
   for (const [language, bases] of [['de', ['sl', 'en', 'it']], ['en', ['sl', 'de', 'it', 'en']]] as const) {
     const talks = curatedTalksOf(language, [...bases])
-    // German's: five at A1, three at A2, six each at B1 and B2 (docs/plans/05-built/talks-de.md); English's: eight to A2
+    // five at A1, three at A2, six each at B1 and B2 (docs/plans/05-built/talks-de.md, talks-en.md)
     const levels = [...new Set(talks.map(t => t.raw.level as string))].sort().map(lv => `${lv} ${talks.filter(t => t.raw.level === lv).length}`).join(', ')
-    const want = language === 'de' ? 'A1 5, A2 3, B1 6, B2 6' : 'A1 5, A2 3'
+    const want = 'A1 5, A2 3, B1 6, B2 6'
     check(`${language} scenarios by level: ${want}`, levels === want, levels)
     for (const { f, raw, missing } of talks) {
       const v = validateScenario(raw)

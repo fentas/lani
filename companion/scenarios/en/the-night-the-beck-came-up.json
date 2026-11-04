@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "the-night-the-beck-came-up",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "The night the beck came up", "sl": "Noč, ko je narasel potok", "de": "Die Nacht, als der Bach stieg", "it": "La notte della piena del ruscello" },
+  "emoji": "🌧️",
+  "level": "B1",
+  "setting": {
+    "sl": "Po dveh dneh dežja je potok sinoči prestopil bregove. Voda je zalila cesto in pritekla v tvojo kuhinjo, sosedje pa so ti pomagali znesti stvari v nadstropje. Zjutraj pride teta Edna: po radiu je slišala vse mogoče in hoče vedeti, kaj se je res zgodilo.",
+    "de": "Nach zwei Tagen Regen ist der Bach letzte Nacht über die Ufer getreten. Das Wasser stand auf dem Weg und lief in deine Küche, und die Nachbarn haben dir geholfen, alles nach oben zu tragen. Am Morgen kommt Auntie Edna: Im Radio hat sie alles Mögliche gehört und will wissen, was wirklich passiert ist.",
+    "it": "Dopo due giorni di pioggia, stanotte il ruscello è uscito dagli argini. L'acqua ha allagato la stradina ed è entrata nella tua cucina, e i vicini ti hanno aiutato a portare tutto di sopra. Al mattino arriva zia Edna: alla radio ha sentito di tutto e vuole sapere che cosa è successo davvero.",
+    "en": "Last night, after two days of rain, the beck burst its banks. The water came over the lane and into your kitchen, and the neighbours helped you carry things upstairs. In the morning Auntie Edna comes round: she has heard all sorts on the radio and wants to know what really happened."
+  },
+  "role": "Auntie Edna, seventy-four, the village gossip, the morning after the flood. Heard half of it on the radio and has it muddled (the bridge gone, the whole village under water): lets the learner put her right, asks who, what, when and how deep. A bit deaf: 'Eh? Say that again, love!'",
+  "who": { "en": "The aunt", "sl": "Teta", "de": "Die Tante", "it": "La zia" },
+  "voice": "female",
+  "speaker": "grandma",
+  "place": "kitchen",
+  "goals": [
+    { "en": "Tell her what happened last night", "sl": "Povej ji, kaj se je zgodilo sinoči", "de": "Erzähl ihr, was letzte Nacht passiert ist", "it": "Raccontale che cosa è successo stanotte" },
+    { "en": "Put her right where she has it wrong", "sl": "Popravi jo, kjer se moti", "de": "Stell richtig, was sie falsch verstanden hat", "it": "Correggila dove si sbaglia" },
+    { "en": "Say what you did and who helped you", "sl": "Povej, kaj si {m:naredil|f:naredila} in kdo ti je pomagal", "de": "Sag, was du gemacht hast und wer dir geholfen hat", "it": "Di' che cosa hai fatto e chi ti ha aiutato" },
+    { "en": "Say how things are this morning", "sl": "Povej, kako je danes zjutraj", "de": "Sag, wie es heute Morgen aussieht", "it": "Di' com'è la situazione stamattina" },
+    { "en": "Accept or turn down her help", "sl": "Sprejmi ali odkloni njeno pomoč", "de": "Nimm ihre Hilfe an oder lehn sie ab", "it": "Accetta o rifiuta il suo aiuto" }
+  ],
+  "opener_sl": "Ooh, there you are, love! We was up half the night with the radio. They said the bridge has gone! Is it true? Tell me everything!",
+  "opener_en": {
+    "sl": "Oh, tukaj si! Pol noči smo poslušali radio. Rekli so, da je most odneslo! Je res? Povej mi vse!",
+    "de": "Ach, da bist du ja! Wir waren die halbe Nacht am Radio. Es hieß, die Brücke ist weg! Stimmt das? Erzähl mir alles!",
+    "it": "Oh, eccoti! Siamo stati svegli mezza notte con la radio. Hanno detto che il ponte non c'è più! È vero? Raccontami tutto!",
+    "en": "Oh, there you are, dear! We were up half the night listening to the radio. They said the bridge has been washed away! Is that true? Tell me everything!"
+  },
+  "vocabulary_hints": [
+    { "sl": "No, the bridge is fine. It was the lane that flooded.", "en": { "sl": "Ne, most je cel. Poplavljena je bila cesta.", "de": "Nein, die Brücke ist in Ordnung. Überschwemmt war der Weg.", "it": "No, il ponte è a posto. È la stradina che si è allagata.", "en": "No, the bridge is OK. The lane was flooded." } },
+    { "sl": "It rained for two days without stopping.", "en": { "sl": "Dva dni je deževalo brez prestanka.", "de": "Es hat zwei Tage ohne Pause geregnet.", "it": "Ha piovuto per due giorni senza sosta.", "en": "It rained non-stop for two days." } },
+    { "sl": "At about midnight the water came into my kitchen.", "en": { "sl": "Okrog polnoči je voda pritekla v mojo kuhinjo.", "de": "Gegen Mitternacht kam das Wasser in meine Küche.", "it": "Verso mezzanotte l'acqua è entrata nella mia cucina.", "en": "Around midnight the water got into my kitchen." } },
+    { "sl": "It was up to my knees.", "en": { "sl": "Segala mi je do kolen.", "de": "Es ging mir bis zu den Knien.", "it": "Mi arrivava alle ginocchia.", "en": "It came up to my knees." } },
+    { "sl": "The neighbours helped me carry everything upstairs.", "en": { "sl": "Sosedje so mi pomagali znesti vse v nadstropje.", "de": "Die Nachbarn haben mir geholfen, alles nach oben zu tragen.", "it": "I vicini mi hanno aiutato a portare tutto di sopra.", "en": "The neighbours helped me take everything upstairs." } },
+    { "sl": "Nobody was hurt, thank goodness.", "en": { "sl": "Hvala bogu, nihče ni bil poškodovan.", "de": "Zum Glück wurde niemand verletzt.", "it": "Per fortuna nessuno si è fatto male.", "en": "Luckily nobody was hurt." } },
+    { "sl": "This morning there's mud all over the floor.", "en": { "sl": "Danes zjutraj so tla vsa blatna.", "de": "Heute Morgen ist der Boden voller Schlamm.", "it": "Stamattina il pavimento è pieno di fango.", "en": "This morning the floor is covered in mud." } },
+    { "sl": "I didn't sleep at all.", "en": { "sl": "Sploh nisem {m:spal|f:spala}.", "de": "Ich habe überhaupt nicht geschlafen.", "it": "Non ho dormito per niente.", "en": "I didn't get any sleep." } },
+    { "sl": "That's very kind, but I'm all right, thanks.", "en": { "sl": "Zelo prijazno, ampak sem v redu, hvala.", "de": "Das ist sehr lieb, aber es geht schon, danke.", "it": "Molto gentile, ma sto bene, grazie.", "en": "That's kind of you, but I'm fine, thanks." } },
+    { "sl": "Could you help me clean the kitchen?", "en": { "sl": "Bi mi lahko pomagala počistiti kuhinjo?", "de": "Könntest du mir helfen, die Küche zu putzen?", "it": "Mi aiuteresti a pulire la cucina?", "en": "Would you help me clean the kitchen?" } }
+  ],
+  "packs": ["in-an-emergency", "friends-and-neighbours", "weather-and-garden", "home-and-kitchen", "by-the-beck", "on-the-packhorse-bridge"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

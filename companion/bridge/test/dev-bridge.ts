@@ -4,6 +4,7 @@
 // else the repo's data/), with its voice clips (the voice cache, paths.ts voiceDir); LANI_DEV_KEEP_TOWNS=1
 // keeps the copy's town links (by default QA's town knows only the towns QA links, e.g. test/dev-town.ts, and never
 // asks a real learner's town); LANI_DEV_FAKE_ELEVENLABS=1 a fake ElevenLabs (below).
+// The outside dictionaries are always a fake here (test/fakes/dictionary.ts): QA never reaches a real site.
 import '../src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
@@ -13,6 +14,7 @@ import { join, resolve } from 'node:path'
 import { setting } from '../src/env'
 import { learnerLangs } from '../src/learners'
 import { voiceDir } from '../src/paths'
+import { fakeDictionary } from './fakes/dictionary'
 import { fakeEleven } from './fakes/eleven'
 
 const port = process.env.LANI_DEV_PORT ?? '8791'
@@ -116,7 +118,7 @@ const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; corre
 }
 /**
  * One set of canned lines for every B1 and B2 talk of a language (a complaint, the mayor, a job interview: no soup there):
- * Slovene's and German's, which ROLEPLAY_LEVELS takes for both levels. Machine-written, for QA only.
+ * Slovene's, German's and English's, which ROLEPLAY_LEVELS takes for both levels. Machine-written, for QA only.
  */
 const ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {
   sl: {
@@ -136,6 +138,27 @@ const ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {
       it: 'Si dice: **Bi lahko to ponovili?** · «bi» con la forma in -l chiede con cortesia (il condizionale).',
     },
     practise: '*bi lahko*, *na vašem mestu bi*',
+  },
+  en: {
+    // any of the Lake District's B1 and B2 role-plays (companion/scenarios/en: the jacket, Mr Dixon's gate, the garage,
+    // the flood with Auntie Edna, Maggie's trip, the inn's summer job; the councillor, the interview, the new patient
+    // check, the cottage, the police statement, Jack at a crossroads); the correction is a learner's mistake (would
+    // after if), never what people here say (we was, aye: tutor/languages/en.md)
+    hint: { sl: 'I see. Could you explain that a bit more?', en: 'I see. Could you explain that a bit more?', de: 'Verstehe. Könnten Sie das etwas genauer erklären?', it: 'Capisco. Potrebbe spiegarlo meglio?', sl_base: 'Razumem. Bi lahko to malo bolj razložili?' },
+    puzzled: { sl: "Sorry, I didn't quite catch that. Could you say it again?", en: "Sorry, I didn't quite catch that. Could you say it again?", de: 'Entschuldigung, das habe ich nicht ganz verstanden. Können Sie das wiederholen?', it: 'Scusi, non ho capito bene. Può ripetere?', sl_base: 'Oprostite, tega nisem čisto razumel. Lahko ponovite?' },
+    turns: [
+      { sl: 'I see. And what happened then?', en: 'I see. And what happened then?', de: 'Verstehe. Und was ist dann passiert?', it: 'Capisco. E poi che cosa è successo?', sl_base: 'Razumem. Kaj pa se je zgodilo potem?' },
+      { sl: "Right. And why's that, then?", en: 'All right. And why is that?', de: 'Gut. Und warum das?', it: 'Va bene. E come mai?', sl_base: 'Prav. Zakaj pa?' },
+      { sl: 'Aye, that makes sense.', en: 'Yes, that makes sense.', de: 'Ja, das klingt vernünftig.', it: 'Sì, ha senso.', sl_base: 'Ja, to je smiselno.' },
+      { sl: "Grand. Thanks, that's what we'll do.", en: "Great. Thanks, that's what we'll do.", de: 'Prima. Danke, so machen wir es.', it: 'Perfetto. Grazie, faremo così.', sl_base: 'Odlično. Hvala, tako bomo naredili.' },
+    ],
+    correction: {
+      en: 'Better: **If I were you, I\'d book early.** · after "if", no "would": "if I were", and "I\'d" in the other half.',
+      de: 'Besser: **If I were you, I\'d book early.** · nach „if“ kein „would“: „if I were“, und „I\'d“ im anderen Satzteil.',
+      sl: 'Bolje: **If I were you, I\'d book early.** · za »if« ni »would«: »if I were«, »I\'d« pa v drugem delu.',
+      it: 'Meglio: **If I were you, I\'d book early.** · dopo «if» niente «would»: «if I were», e «I\'d» nell\'altra parte.',
+    },
+    practise: "*if I were you, I'd …*, *could you …?*",
   },
   de: {
     // any of the German B1 and B2 role-plays (companion/scenarios/de: the jacket, Stefan's Most, the surgery, the storm,
@@ -163,9 +186,10 @@ const ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {
  * Machine-written, for QA only.
  */
 const ROLEPLAY_LEVELS: Record<string, Partial<Record<string, Partial<(typeof ROLEPLAY)[string]>>>> = {
-  // Jan's B1 and B2 talks (companion/scenarios) and the Carinthian village's (companion/scenarios/de): one set each
+  // Jan's B1 and B2 talks (companion/scenarios), the Carinthian village's and the Lake District's (scenarios/de, en): one set each
   sl: { B1: ABOVE_A2.sl, B2: ABOVE_A2.sl },
   de: { B1: ABOVE_A2.de, B2: ABOVE_A2.de },
+  en: { B1: ABOVE_A2.en, B2: ABOVE_A2.en },
   it: {
     // the B1 talks (companion/scenarios/it: the broken kite, the stickers, the swing, the ankle, Lorenzo, the cat)
     B1: {
@@ -382,11 +406,19 @@ const eleven = fake
   : // QA must not spend the ElevenLabs quota; LANI_DEV_ELEVENLABS=1 allows it. Cached clips still play.
     { ELEVENLABS_API_KEY: process.env.LANI_DEV_ELEVENLABS === '1' ? (process.env.ELEVENLABS_API_KEY ?? '') : '' }
 
+// what QA's tutor turn looks up (bin/qa): words the lexicon has nothing on, one in each language's section
+const dictionary = fakeDictionary({
+  zlatoperka: { section: 'Slovene', text: 'a word of the fake dictionary (QA)' },
+  zibaldone: { section: 'Italian', text: 'a word of the fake dictionary (QA)' },
+  Schnickschnack: { section: 'German', text: 'a word of the fake dictionary (QA)', wortart: 'Substantiv' },
+  thingamajig: { section: 'English', text: 'a word of the fake dictionary (QA)' },
+})
+
 await client.connect(
   new StdioClientTransport({
     command: 'bun',
     args: [resolve(import.meta.dir, '../src/index.ts')],
-    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off', ...eleven } as Record<string, string>,
+    env: { ...process.env, LANI_DICTIONARY_SOURCE: dictionary.url, LANI_DICTIONARY_CACHE: join(dataDir, 'app', 'dictionary-cache'), LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off', ...eleven } as Record<string, string>,
     stderr: 'inherit',
   }),
 )

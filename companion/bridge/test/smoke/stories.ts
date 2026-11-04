@@ -8,7 +8,7 @@ import { cultureStories } from '../../src/cultures'
 import { normalizeText } from '../../src/family'
 import { ownVoicesIn } from '../../src/profiles'
 import { PackStore, packsDirs } from '../../src/packs'
-import { chaptersOf, curatedPictureErrors, LEVELS, levelsOf, paragraphsOf, STORIES_LOW, storiesLeft, validateStory, VIGNETTES, type Story } from '../../src/stories'
+import { chaptersOf, curatedPictureErrors, LEVELS, levelsOf, paragraphsOf, STORIES_LOW, storiesLeft, storyUpTo, validateStory, VIGNETTES, type Story } from '../../src/stories'
 import { VillagerStore } from '../../src/villagers'
 import type { ResolvedScene } from '../../src/scenes'
 import { clipKey, corpus, PRIORITY_LABELS } from '../../src/voice'
@@ -52,9 +52,8 @@ export default async function stories() {
     janIds,
   )
   check(
-    '… each told at A1 and A2, seven at B1 too',
-    jan.every(s => levelsOf(s).includes('A1') && levelsOf(s).includes('A2')) &&
-      jan.filter(s => levelsOf(s).includes('B1')).map(s => s.id).join() === 'zlatorog,kralj-matjaz,lepa-vida,zmaj-ljubljanski,bogatinovo-zlato,pegam-in-lambergar,veronika-deseniska',
+    '… each told at A1, A2, B1 and B2, in every chapter (readings-primorska: B1 and B2 for a learner on the way to B2)',
+    jan.every(s => levelsOf(s).join() === 'A1,A2,B1,B2'),
     jan.map(s => [s.id, levelsOf(s)]),
   )
   check(
@@ -105,6 +104,13 @@ export default async function stories() {
       lake.length === jan.length && lake.every(s => s.teller === 'wilf' && s.language === 'en' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.en === 'string' && typeof t.sl === 'string' && typeof t.it === 'string' && typeof t.de === 'string') && !!s.teaser.en && !!s.memory.en),
     lake.map(s => [s.id, s.order, levelsOf(s)]),
   )
+  check(
+    "… 16 of them told at B1 and B2 too (readings-lakeland), each B2 with a B1 below it, every telling's texts in the four languages",
+    lake.filter(s => levelsOf(s).includes('B2')).map(s => s.id).sort().join() === ['the-borrowdale-cuckoo', 'the-bowder-stone', 'the-lady-of-the-lake', 'the-giants-grave', 'the-hob', 'the-crier-of-claife', 'long-meg-and-her-daughters', 'the-luck-of-edenhall', 'king-dunmails-crown', 'tom-fool-of-muncaster', 'the-lambton-worm', 'the-kings-of-mardale', 'the-black-lead-of-borrowdale', 'the-herdwicks', 'mrs-heelis-of-hill-top', 'the-rushbearing'].sort().join() &&
+      lake.every(s => !levelsOf(s).includes('B2') || levelsOf(s).includes('B1')) &&
+      lake.every(s => (['B1', 'B2'] as const).every(lv => (s.levels?.[lv]?.lines ?? []).every(l => [l, ...l.choices, ...l.choices.flatMap(c => (c.reply ? [c.reply] : []))].every(t => (!t.en || (t.sl && t.it && t.de)))))),
+    lake.map(s => [s.id, levelsOf(s)]),
+  )
   const packs4 = [...jan, ...second, ...carinthia, ...lake]
   check(
     "every curated story of the four packs has its book's pictures: 2-4, one or two an evening in chapters, 166 in all",
@@ -126,9 +132,9 @@ export default async function stories() {
   const tellings = (s: Story) => chaptersOf(s).flatMap((c, i) => LEVELS.filter(l => c.levels[l]).map(l => `${i + 1}/${l}`))
   const notedAs = (s: Story) => (s.notes ?? []).map(n => `${n.chapter ?? 1}/${n.level}`)
   check(
-    "every curated story is written down for the notebook: notes for each of its 180 tellings (148 and the 32 of readings-kaernten), a place for each picture, in the four languages, marked machine-written",
+    "every curated story is written down for the notebook: notes for each of its tellings (140 at A1 and A2, and those above), a place for each picture, in the four languages, marked machine-written",
     packs4.every(s => JSON.stringify(notedAs(s).sort()) === JSON.stringify(tellings(s).sort()) && /machine-written/.test(s.review ?? '')) &&
-      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 148 + 32 &&
+      packs4.reduce((n, s) => n + (s.notes ?? []).filter(x => x.level === 'A1' || x.level === 'A2').length, 0) === 140 &&
       packs4.every(s => (s.notes ?? []).every(n => n.after?.length === (s.pictures ?? []).filter(p => (p.chapter ?? 1) === (n.chapter ?? 1)).length &&
         n.text.every(p => ['sl', 'en', 'de', 'it'].every(l => typeof (p as Record<string, unknown>)[l] === 'string')))),
     packs4.filter(s => JSON.stringify(notedAs(s).sort()) !== JSON.stringify(tellings(s).sort())).map(s => [s.id, notedAs(s), tellings(s)]),
@@ -362,6 +368,11 @@ export default async function stories() {
   const list = await (await fetch(`${base}/stories`, { headers: auth })).json()
   check('GET /stories serves the collection', list.length === janIds.length && list[2].id === 'martin-krpan' && list[2].chapters.length === 4)
   check('stories need the app token', (await fetch(`${base}/stories`)).status === 401)
+  // a retelling climbs a level each time: served up to a level above the learner's, for every app (storyUpTo)
+  const ladder = { levels: { A1: 1, A2: 2, B1: 3, B2: 4 } }
+  const keys = (x: { levels?: object }) => Object.keys(x.levels ?? {}).join(' ')
+  check('stories: a learner at A1 gets A1 and A2, never B1 or B2; at A2 up to B1; at B1 up to B2', keys(storyUpTo(ladder, 'A1')) === 'A1 A2' && keys(storyUpTo(ladder, 'A2')) === 'A1 A2 B1' && keys(storyUpTo(ladder, 'B1')) === 'A1 A2 B1 B2')
+  check('stories: … a story that starts higher keeps its easiest; each chapter is held back the same way; an unknown level counts as A1', keys(storyUpTo({ levels: { B1: 1, B2: 2 } }, 'A1')) === 'B1' && keys(storyUpTo({ chapters: [ladder] }, 'A1').chapters![0]) === 'A1 A2' && keys(storyUpTo(ladder, '')) === 'A1 A2')
 
   // --- the tutor: list, publish, remove -------------------------------------------------------------------
   const game = await (await fetch(`${base}/game`, { headers: auth })).json()
@@ -371,7 +382,7 @@ export default async function stories() {
   const lz = ls.stories.find((s: any) => s.id === 'zlatorog')
   check(
     'list_stories: the collection in order, its levels and chapters, what the learner has heard, their level',
-    ls.learner_level && ls.all_heard === false && ls.stories.length === janIds.length && JSON.stringify(lz.levels) === '["A1","A2","B1"]' && lz.heard.told === 1 && lz.heard.level === 'A2' &&
+    ls.learner_level && ls.all_heard === false && ls.stories.length === janIds.length && JSON.stringify(lz.levels) === '["A1","A2","B1","B2"]' && lz.heard.told === 1 && lz.heard.level === 'A2' &&
       ls.stories.find((s: any) => s.id === 'martin-krpan').heard.chapter === 2 && ls.stories.find((s: any) => s.id === 'martin-krpan').chapters === 4,
     ls,
   )

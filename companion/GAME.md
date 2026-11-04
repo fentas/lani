@@ -1766,8 +1766,14 @@ Primorska's corner has, besides what the chest holds, Babica Micka's morning ("J
 A1: she gets up at six, bakes bread, Luka comes by with the sheep), Vinar Marko's letter ("Pismo od Marka · A letter
 from Marko", A1: an invitation to the grape harvest on Saturday) and Stari Janez on the bora ("Burja · The bora", A2:
 the stones on the roofs, the clear sky after it, the pršut it dries); each with five questions, one of every type, and
-five or six new words. The chest's readings have their questions' types, a true/false statement (the potica: a word in
-context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
+five or six new words. Above them, for a learner on the way to B2 (readings-primorska): Vinar Marko on the osmica ("Osmica",
+B1: Joseph II's eight days of 1784, the green branches at the crossroads, the long table), Ančka's radio piece on Nova
+Gorica and Gorizia ("Dve mesti, en trg · Two towns, one square", B2: the border of 1947 across the station square, Ravnikar's
+new town, the fence down in 2004, GO! 2025), Stari Janez on what his grandfather told him of the Isonzo Front ("Soška
+fronta", B2: Sabotin, the twelve battles, Kobarid, the Walk of Peace) and Mojca's letter from the carnival in Cerkno ("Pismo
+iz Cerknega · A letter from Cerkno", B2: the laufarji's wooden masks, the Pust of moss, his trial and sentence); each with
+five questions, one of every type, and seven or eight new words. The chest's readings have their questions' types, a
+true/false statement (the potica: a word in context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
 readings say so in their `review`). Friuli's corner has as many, nine: besides Nonna Rosa's recipes and Nonno Bepi's
 books, Tommaso's letter and Giulia's trip to Aquileia (A1), the Tagliamento and the cjarsons (A2), the pilgrims of
 Monte Lussari (B1), each with five questions of every type (see "The friuli pack"). The Lake District's has nine too:
@@ -2031,7 +2037,7 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
   "The pile over the days"). Its reward is his own, once a day.
 - **The night watch.** A round may break out one night (`breakout`: in a share of rounds, a night of its stages); that
   evening and night he is there and his talk is the call: its last line the learner's turn against the clock (25 s at
-  A1, 18 at A2; twice that with TalkBack). The right choice in time covers it with earth (`saved`, the chronicle's
+  A1, 18 from A2 on: a B1 or B2 choice is longer, not shorter; twice that with TalkBack). The right choice in time covers it with earth (`saved`, the chronicle's
   `covered`); the clock run out, the pile burns down (`lost`, the chronicle's `burnt`): from that night to the round's
   end the spot is its `lost` entry (ash) and its yield never comes. A wrong pick costs time, nothing else. What the
   learner decided is kept (`GameState.cycles[spot]`: the rounds `lost`, `saved`; `SpotCycles.decide`), once.
@@ -2052,7 +2058,21 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
   "kopa:delivery", "kopa:rest", "kopa:winter" (app/QaHooks); the keepers are there whatever their dice then. "show:kopa"
   flies the village's camera to the pile, as a place of the scroll's "Kraji" does.
 
-A culture without a `cycle` keeps its pile as it always was (Friuli, Kärnten, the Lake District for now). The tutor sees
+A culture without a `cycle` keeps its pile as it always was (all four have one now). Friuli's carbonaia has its
+own since village-b2-friuli (`seed` "carbonaia-friuli", so its piles fall on other days than Primorska's): Carbonaio Pieri's ten stages
+(`taglio` and `catasta` with the village's wood, `copertura`, `accensione`, `fumo-bianco`, `fumo-giallo`, `fumo-azzurro`,
+`raffreddamento`, `scarbonatura`, `sacchi`, which delivers to Fabbro Bruno), the bora and a fox at night, the breakout on a white or
+yellow smoke night (25, 18, 15 and 12 s at A1, A2, B1 and B2), every talk and piece at A1, A2, B1 and B2, and his own story in six
+parts. There is no Friulian record of the stages' days either: they follow the Alpine craft as Primorska's do (the stages as the
+museum of Premana describes them, and the yield, about a fifth of the wood: museo.premana.lc.it, "Carbonèer, jaal e pojàt"), and the
+Friulian mountains' charcoal burning until the 1950s, its black clearings still along the beech woods' paths (turismofvg.it, "Ring of
+the carbonaie and Col Cornier", Piancavallo).
+Kärnten's Meiler has its
+own since village-b2-kaernten (`seed` "meiler-kaernten", so its piles fall on other days than Primorska's): Köhler Michl's eleven
+stages (`holz` and `aufschichten` with the village's wood, `zudecken`, `anzuenden`, `weisser-rauch`, `gelber-rauch`, `blauer-rauch`,
+`abkuehlen`, `ausziehen`, `saecke`, `liefern`, which delivers to Schmied Toni), the wind and a fox at night, the breakout on a white
+or yellow smoke night (25 s at A1, 18 at A2, B1 and B2), every talk and piece at A1, A2, B1 and B2, and his own story in six parts.
+There is no Carinthian record of the stages' days: they follow the Alpine craft as Primorska's do. The tutor sees
 where it is in `get_village`'s `spots` (the stage, the day of it, a breakout tonight, the last delivery).
 
 **Primorska's pile** (Trnovski gozd). There is no Slovene record of the stages' days from the Trnovo forest itself; they
@@ -2084,6 +2104,18 @@ A round takes 21–32 days, and between two piles Miha gets the next one's wood 
 days; with them a pile's whole work is about the 43 days the sources give): three or four piles a season from mid-April
 to the end of October (the sources say April to September; a month of autumn more), none in winter.
 A breakout comes in about half the rounds, on a night of white or yellow smoke.
+
+**The Lake District's pit** (`lakeland`, Collier Ned, every piece at A1, A2, B1 and B2). The craft as the sources give it, the days
+shorter than Primorska's because a pit here is smaller: coppice poles cut in winter, sawn to equal lengths and stacked by the
+pit (Ransome, *Swallows and Amazons*, ch. XIII), stood round a stake on a pitstead, the flat circle cut into the slope
+(nancyblackett.org/?p=11161; hvfarmscape.org/charcoal), covered with bracken, then earth, the stake drawn and embers dropped
+down the hole (butserancientfarm.co.uk, "An experimental charcoal burn"), watched day and night, patched with earth wherever
+smoke breaks through: "the slower the fire the better the charcoal" (Ransome), from a hut of larch poles and moss with a sack
+for a door; a week to ten days of smoke (canmore.org.uk/event/1018726); the iron at Backbarrow, Furness Abbey's woods
+(nancyblackett.org, kentsbankholiday.co.uk/?p=8649). The stages are `cutting`, `stacking`, `covering`, `lighting`, `white-smoke`,
+`yellow-smoke`, `blue-smoke`, `cooling`, `drawing`, `bagging`, `delivery`; season 20 April to 20 October; the delivery goes to
+Mr Dixon; a breakout at 25, 18, 16 and 15 seconds; a badger for Primorska's fox. Ned's own story: `father`, `hut`, `last`, `show`
+(the pit he lost at seventeen, gone to a dance), `iron`, `after`.
 
 ## Jutri · Tomorrow
 

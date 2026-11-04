@@ -20,6 +20,7 @@ import { json, readJson } from '../http'
 import { languageParam, type SrItem } from '../learner'
 import { LANGUAGES, learnerFacts, learnerLangs } from '../learners'
 import { ATTRIBUTION, glossIn, Lexicon, lookup, normalizeForm, wordItemId, type LookupEntry, type LookupResult, type Person } from '../lexicon'
+import { OutsideDictionaries } from '../dictionaries'
 import { contentLines, formsOf, FORMS_LANGUAGES, LineIndex, partnerOf } from '../forms'
 import { isParadigmLanguage } from '../paradigms'
 import { fetchLexicon, lexiconCacheDir, parseLexicon } from '../lexicon-download'
@@ -135,6 +136,8 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
   // (lexicon/<language>.forms.json); shared through the context (the woven words' check reads them too)
   const { dict, book } = dictionary
   const partners = (lemma: string) => partnerOf(book, dict, lemma)
+  // the tutor's outside sources, for what the lexicon has nothing on (dictionaries.ts)
+  const outside = OutsideDictionaries.fromEnv(process.env, log)
 
   // The case lens (cases.ts): made at the first ask, again when its table or the forms book changes; Slovene's only (its
   // cases, FORMS_LANGUAGES), the village's language, never a visit's.
@@ -449,6 +452,32 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
   const requests = new WordRequests(join(cfg.appDir, 'word-requests.json'), log)
 
   /** The learner's name, as the notes name them. */
+  /**
+   * GET /lookup's answer to [url] (w, line, en, language, base, n): the word's entries and, in its line, its case; or what's
+   * wrong with the request.
+   */
+  async function wordAt(url: URL): Promise<{ error: string } | { word: string; lang: string; found: LookupResult & { requested?: boolean; case?: unknown } }> {
+    const w = url.searchParams.get('w')?.trim() ?? ''
+    if (!w || w.length > 40) return { error: 'w: the word, 1-40 characters' }
+    const at = { line: url.searchParams.get('line')?.slice(0, 1000) ?? undefined, en: url.searchParams.get('en')?.slice(0, 1000) ?? undefined }
+    // on a visit: the town's language, explained in the visit's base (or the one the app asks for)
+    const lang = url.searchParams.get('language')?.trim().toLowerCase() || language
+    const asks = url.searchParams.get('base')?.trim().toLowerCase()
+    if (!LANG.test(lang) || !LANGUAGES[lang]) return { error: 'language: a language code, e.g. "it"' }
+    if (asks && (!LANG.test(asks) || !LANGUAGES[asks] || asks === lang)) return { error: 'base: a language code other than the word\'s, e.g. "sl"' }
+    const b = asks ?? baseFor(lang)
+    const r = await lookUpIn(w, at, lang, b)
+    noteGaps(r, lang, b)
+    // its case in the line (the village's Slovene; the word's [n]th in the line, from 0): the word card's
+    // "Sklon · Case" row; a word decided by a rule counts as seen for that rule
+    const n = Math.min(20, Math.max(0, Number.parseInt(url.searchParams.get('n') ?? '0', 10) || 0))
+    // German's (its own four cases) only to an app that reads them (?lens=2); an older one knows Slovene's six alone
+    const c = lang === language && at.line && (language !== 'de' || url.searchParams.get('lens') === '2') ? caseOf(at.line, w, n) : null
+    // not found, and asked for already ("➕ Add to my words"): the card says the tutor is writing its meaning
+    const waiting = !r.entries.length && r.word ? requests.find(lang, normalizeForm(r.word, lang)) : undefined
+    return { word: w, lang, found: { ...r, ...(waiting ? { requested: true } : {}), ...(c ? { case: c } : {}) } }
+  }
+
   const who = () => learnerFacts(cfg.dataDir).name || 'the learner'
 
   /** A meaning as a review item's answer: the first glosses, within POST /words' 200 characters. */
@@ -608,25 +637,21 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
         method: 'GET',
         path: '/lookup',
         handle: async ({ url }) => {
-          const w = url.searchParams.get('w')?.trim() ?? ''
-          if (!w || w.length > 40) return json({ error: 'w: the word, 1-40 characters' }, 400)
-          const at = { line: url.searchParams.get('line')?.slice(0, 1000) ?? undefined, en: url.searchParams.get('en')?.slice(0, 1000) ?? undefined }
-          // on a visit: the town's language, explained in the visit's base (or the one the app asks for)
-          const lang = url.searchParams.get('language')?.trim().toLowerCase() || language
-          const asks = url.searchParams.get('base')?.trim().toLowerCase()
-          if (!LANG.test(lang) || !LANGUAGES[lang]) return json({ error: 'language: a language code, e.g. "it"' }, 400)
-          if (asks && (!LANG.test(asks) || !LANGUAGES[asks] || asks === lang)) return json({ error: 'base: a language code other than the word\'s, e.g. "sl"' }, 400)
-          const b = asks ?? baseFor(lang)
-          const r = await lookUpIn(w, at, lang, b)
-          noteGaps(r, lang, b)
-          // its case in the line (the village's Slovene; the word's [n]th in the line, from 0): the word card's
-          // "Sklon · Case" row; a word decided by a rule counts as seen for that rule
-          const n = Math.min(20, Math.max(0, Number.parseInt(url.searchParams.get('n') ?? '0', 10) || 0))
-          // German's (its own four cases) only to an app that reads them (?lens=2); an older one knows Slovene's six alone
-          const c = lang === language && at.line && (language !== 'de' || url.searchParams.get('lens') === '2') ? caseOf(at.line, w, n) : null
-          // not found, and asked for already ("➕ Add to my words"): the card says the tutor is writing its meaning
-          const waiting = !r.entries.length && r.word ? requests.find(lang, normalizeForm(r.word, lang)) : undefined
-          return json({ ...r, ...(waiting ? { requested: true } : {}), ...(c ? { case: c } : {}) })
+          const a = await wordAt(url)
+          return 'error' in a ? json({ error: a.error }, 400) : json(a.found)
+        },
+      },
+      {
+        method: 'GET',
+        path: '/dictionary',
+        // the tutor's lookup (dictionary_lookup): GET /lookup's answer, and the language's outside sources when it has
+        // nothing on the word or the tutor asks for more (deep=1); the app's own word cards stay on /lookup, at home
+        handle: async ({ url }) => {
+          const a = await wordAt(url)
+          if ('error' in a) return json({ error: a.error }, 400)
+          const deep = url.searchParams.get('deep') === '1'
+          if (a.found.entries.length && !deep) return json({ lexicon: a.found })
+          return json({ lexicon: a.found, asked: deep ? 'deep' : 'nothing in the lexicon', outside: await outside.look(a.word, a.lang, { learner: learnerFacts(cfg.dataDir).name }) })
         },
       },
       { method: 'POST', path: '/words', handle: ({ req, url }) => outbox.once(req, url.pathname, handleWords) },

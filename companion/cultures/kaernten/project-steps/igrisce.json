@@ -2,7 +2,7 @@
   "schema": "lani.project-steps/v0",
   "project": "igrisce",
   "language": "de",
-  "review": "Machine-written (Claude) in de with sl, en and it, not reviewed by a native speaker; to check: die Sandkiste, gell, Ich zuerst!, hinuntersausen",
+  "review": "Machine-written (Claude) in de with sl, en and it, not reviewed by a native speaker; to check: die Sandkiste, gell, Ich zuerst!, hinuntersausen. B1 and B2 tellings: machine-written (Claude), not reviewed by a native speaker.",
   "pack": "projekt-spielplatz",
   "steps": [
     {
@@ -341,6 +341,260 @@
               "it": "Tutti i disegni vanno al muro. Ecco il parco giochi dei nostri sogni!"
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Heute zeichnet jeder den Spielplatz, von dem er träumt. Wer fertig ist, darf ihn den anderen zeigen.",
+              "sl": "Danes vsak nariše igrišče, o katerem sanja. Kdor je gotov, ga sme pokazati drugim.",
+              "en": "Today everyone draws the playground they dream of. Whoever's finished may show it to the others.",
+              "it": "Oggi ognuno disegna il parco giochi che sogna. Chi ha finito può mostrarlo agli altri."
+            },
+            {
+              "who": "jakob",
+              "face": "shy",
+              "de": "Ich kann aber nicht so gut zeichnen wie die Großen …",
+              "sl": "Ampak jaz ne znam tako dobro risati kot veliki …",
+              "en": "But I can't draw as well as the big ones …",
+              "it": "Ma io non so disegnare bene come i grandi …"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Das macht nichts. Wenn man Spaß hat, kann jeder zeichnen!",
+                  "sl": "Nič ne de. Če se zabavaš, zna risati vsak!",
+                  "en": "Never mind. If you're having fun, anyone can draw!",
+                  "it": "Non fa niente. Se ci si diverte, tutti sanno disegnare!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Wirklich? Dann zeichne ich ein Pferd, ein ganz großes!",
+                    "sl": "Res? Potem bom narisal konja, čisto velikega!",
+                    "en": "Really? Then I'll draw a horse, a really big one!",
+                    "it": "Davvero? Allora disegno un cavallo, grandissimo!"
+                  }
+                },
+                {
+                  "de": "Das macht nichts. Wenn man Spaß hat, kann jeder schwimmen!",
+                  "sl": "Nič ne de. Če se zabavaš, zna plavati vsak!",
+                  "en": "Never mind. If you're having fun, anyone can swim!",
+                  "it": "Non fa niente. Se ci si diverte, tutti sanno nuotare!",
+                  "why": {
+                    "sl": "Mali se boji risanja: zeichnen. Plavanje tu ni pomembno.",
+                    "en": "The little one's worried about drawing: zeichnen. Swimming doesn't come into it.",
+                    "it": "Il piccolo ha paura di disegnare: zeichnen. Il nuoto qui non c'entra."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Schwimmen? Hier in der Klasse?",
+                    "sl": "Plavati? Tukaj v razredu?",
+                    "en": "Swim? Here in the classroom?",
+                    "it": "Nuotare? Qui in classe?"
+                  }
+                },
+                {
+                  "de": "Das macht nichts. Wenn man hat Spaß, kann jeder zeichnen!",
+                  "sl": "Nič ne de. Če se zabavaš, zna risati vsak! (besedni red)",
+                  "en": "Never mind. If you're having fun, anyone can draw! (word order)",
+                  "it": "Non fa niente. Se ci si diverte, tutti sanno disegnare! (ordine delle parole)",
+                  "grammar": "nebensatz",
+                  "why": {
+                    "sl": "Za wenn gre glagol na konec: wenn man Spaß hat.",
+                    "en": "After wenn the verb goes to the end: wenn man Spaß hat.",
+                    "it": "Dopo wenn il verbo va in fondo: wenn man Spaß hat."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Wenn man hat …? Hm, das versteh ich nicht ganz.",
+                    "sl": "Wenn man hat …? Hm, tega ne razumem čisto.",
+                    "en": "Wenn man hat …? Hm, I don't quite get that.",
+                    "it": "Wenn man hat …? Mah, non capisco bene."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "curious",
+              "de": "Ein Pferd auf dem Spielplatz, schön! Und was hast du gezeichnet, {learner}, während die Kinder geredet haben?",
+              "sl": "Konj na igrišču, lepo! Kaj pa si ti {m:narisal|f:narisala}, {learner}, medtem ko so otroci govorili?",
+              "en": "A horse on the playground, lovely! And what did you draw, {learner}, while the children were talking?",
+              "it": "Un cavallo al parco giochi, bello! E tu che cosa hai disegnato, {learner}, mentre i bambini parlavano?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Ich habe eine bunte Rutsche gezeichnet, die bis zum Himmel geht.",
+                  "sl": "{m:Narisal|f:Narisala} sem pisan tobogan, ki sega do neba.",
+                  "en": "I drew a colourful slide that goes up to the sky.",
+                  "it": "Ho disegnato uno scivolo colorato che arriva fino al cielo.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Schön! Die kommt ganz oben an die Wand.",
+                    "sl": "Lepo! Ta pride čisto zgoraj na steno.",
+                    "en": "Lovely! That goes right at the top of the wall.",
+                    "it": "Bello! Quello va in alto sul muro."
+                  }
+                },
+                {
+                  "de": "Ich habe eine graue Rutsche gezeichnet, die bis zum Himmel geht.",
+                  "sl": "{m:Narisal|f:Narisala} sem siv tobogan, ki sega do neba.",
+                  "en": "I drew a grey slide that goes up to the sky.",
+                  "it": "Ho disegnato uno scivolo grigio che arriva fino al cielo.",
+                  "why": {
+                    "sl": "Igrišče iz sanj je pisano: bunt. Siva (grau) je žalostna.",
+                    "en": "A dream playground is colourful: bunt. Grey (grau) is sad.",
+                    "it": "Un parco giochi dei sogni è colorato: bunt. Grigio (grau) è triste."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Grau? Hm, das ist für einen Traum aber ein bisschen traurig.",
+                    "sl": "Siv? Hm, za sanje je to pa malo žalostno.",
+                    "en": "Grey? Hm, that's a bit sad for a dream.",
+                    "it": "Grigio? Mah, per un sogno è un po' triste."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Alle Bilder kommen an die Wand. So schaut der Spielplatz aus, den wir uns wünschen!",
+              "sl": "Vse slike gredo na steno. Tako je videti igrišče, ki si ga želimo!",
+              "en": "All the pictures go on the wall. That's what the playground we want looks like!",
+              "it": "Tutti i disegni vanno al muro. Ecco com'è il parco giochi che desideriamo!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "In meiner alten Schule in Villach hatten die Kinder einen Spielplatz, den Erwachsene geplant hatten, ohne sie zu fragen. Bei uns zeichnen ihn die Kinder selbst.",
+              "sl": "V moji stari šoli v Beljaku so imeli otroci igrišče, ki so ga načrtovali odrasli, ne da bi jih vprašali. Pri nas ga narišejo otroci sami.",
+              "en": "At my old school in Villach the children had a playground grown-ups had planned without asking them. Here the children draw it themselves.",
+              "it": "Nella mia vecchia scuola a Villach i bambini avevano un parco giochi progettato dagli adulti senza chiedere a loro. Da noi lo disegnano i bambini."
+            },
+            {
+              "who": "jakob",
+              "face": "shy",
+              "de": "Und wenn meins hässlich wird?",
+              "sl": "Kaj pa, če bo moje grdo?",
+              "en": "And what if mine turns out ugly?",
+              "it": "E se il mio viene brutto?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Ein selbst gezeichneter Spielplatz ist nie hässlich. Zeichne einfach, was du dir wünschst.",
+                  "sl": "Sam narisano igrišče ni nikoli grdo. Kar nariši, kar si želiš.",
+                  "en": "A playground you've drawn yourself is never ugly. Just draw what you'd like.",
+                  "it": "Un parco giochi disegnato da te non è mai brutto. Disegna solo quello che desideri.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Dann zeichne ich ein Pferd. Ein Noriker, so groß wie die Schule!",
+                    "sl": "Potem bom narisal konja. Norika, tako velikega kot šola!",
+                    "en": "Then I'll draw a horse. A Noriker, as big as the school!",
+                    "it": "Allora disegno un cavallo. Un Norico, grande come la scuola!"
+                  }
+                },
+                {
+                  "de": "Ein selbst geschwommener Spielplatz ist nie hässlich. Schwimm einfach, was du dir wünschst.",
+                  "sl": "Sam preplavano igrišče ni nikoli grdo. Kar preplavaj, kar si želiš.",
+                  "en": "A playground you've swum yourself is never ugly. Just swim what you'd like.",
+                  "it": "Un parco giochi nuotato da te non è mai brutto. Nuota solo quello che desideri.",
+                  "why": {
+                    "sl": "Igrišče se nariše: zeichnen, gezeichnet.",
+                    "en": "A playground gets drawn: zeichnen, gezeichnet.",
+                    "it": "Il parco giochi si disegna: zeichnen, gezeichnet."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Geschwommen? Ich kann doch noch gar nicht schwimmen!",
+                    "sl": "Plaval? Saj sploh še ne znam plavati!",
+                    "en": "Swum? I can't even swim yet!",
+                    "it": "Nuotato? Ma io non so ancora nuotare!"
+                  }
+                },
+                {
+                  "de": "Ein selbst zeichnender Spielplatz ist nie hässlich. Zeichne einfach, was du dir wünschst.",
+                  "sl": "Igrišče, ki samo riše, ni nikoli grdo. Kar nariši, kar si želiš.",
+                  "en": "A playground that draws itself is never ugly. Just draw what you'd like.",
+                  "it": "Un parco giochi che si disegna da solo non è mai brutto. Disegna solo quello che desideri.",
+                  "grammar": "partizip-adjektiv",
+                  "why": {
+                    "sl": "Igrišče ne riše, ampak ga narišemo: deležnik na -t, ein selbst gezeichneter Spielplatz.",
+                    "en": "The playground doesn't draw, it gets drawn: the past participle, ein selbst gezeichneter Spielplatz.",
+                    "it": "Il parco giochi non disegna, viene disegnato: il participio passato, ein selbst gezeichneter Spielplatz."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Ein Spielplatz, der zeichnet? Dann kann ich ja schlafen gehen!",
+                    "sl": "Igrišče, ki riše? Potem lahko grem kar spat!",
+                    "en": "A playground that draws? Then I can go to sleep!",
+                    "it": "Un parco giochi che disegna? Allora posso andare a dormire!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "curious",
+              "de": "Und du, {learner}? Was hättest du dir als Kind gewünscht?",
+              "sl": "Pa ti, {learner}? Kaj bi si ti {m:želel|f:želela} kot otrok?",
+              "en": "And you, {learner}? What would you have wished for as a child?",
+              "it": "E tu, {learner}? Che cosa avresti desiderato da {m:bambino|f:bambina}?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Als Kind hätte ich mir eine bunte Rutsche gewünscht, so lang wie der ganze Platz.",
+                  "sl": "Kot otrok bi si {m:želel|f:želela} pisan tobogan, tako dolg kot ves trg.",
+                  "en": "As a child I'd have wished for a colourful slide, as long as the whole square.",
+                  "it": "Da {m:bambino|f:bambina} avrei desiderato uno scivolo colorato, lungo come tutta la piazza.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Dann zeichnen Sie sie! Wer weiß, vielleicht wird sie wirklich gebaut.",
+                    "sl": "Potem ga narišite! Kdo ve, mogoče ga res zgradimo.",
+                    "en": "Then draw it! Who knows, maybe it'll really get built.",
+                    "it": "Allora lo disegni! Chissà, forse verrà davvero costruito."
+                  }
+                },
+                {
+                  "de": "Als Kind hätte ich mir eine graue Rutsche gewünscht, so lang wie der ganze Platz.",
+                  "sl": "Kot otrok bi si {m:želel|f:želela} siv tobogan, tako dolg kot ves trg.",
+                  "en": "As a child I'd have wished for a grey slide, as long as the whole square.",
+                  "it": "Da {m:bambino|f:bambina} avrei desiderato uno scivolo grigio, lungo come tutta la piazza.",
+                  "why": {
+                    "sl": "Otroške sanje so pisane: bunt. Siva je za sanje žalostna.",
+                    "en": "A child's dream is colourful: bunt. Grey is a sad colour for a dream.",
+                    "it": "I sogni dei bambini sono colorati: bunt. Il grigio è triste per un sogno."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Grau? Als Kind? Da müssen Sie aber ein sehr ernstes Kind gewesen sein.",
+                    "sl": "Sivo? Kot otrok? Potem ste bili pa zelo resen otrok.",
+                    "en": "Grey? As a child? You must have been a very serious child.",
+                    "it": "Grigio? Da bambino? Allora deve essere {m:stato un bambino molto serio|f:stata una bambina molto seria}."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Alle Bilder kommen an die Wand. Und das, was die meisten gezeichnet haben, bauen wir zuerst.",
+              "sl": "Vse slike gredo na steno. In tisto, kar je narisala večina, zgradimo najprej.",
+              "en": "All the pictures go on the wall. And what most of you drew, we'll build first.",
+              "it": "Tutti i disegni vanno al muro. E quello che hanno disegnato i più, lo costruiamo per primo."
+            }
+          ]
         }
       }
     },
@@ -656,6 +910,260 @@
               "it": "Abbiamo raccolto ventitré sassi! Adesso il prato è libero."
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Bevor wir bauen, muss der Rasen frei sein. Da liegen noch viele Steine, über die man stolpern könnte.",
+              "sl": "Preden začnemo graditi, mora biti trata prosta. Tam leži še veliko kamnov, ob katere bi se lahko spotaknil.",
+              "en": "Before we build, the lawn has to be clear. There are still lots of stones lying there you could trip over.",
+              "it": "Prima di costruire, il prato dev'essere libero. Ci sono ancora molti sassi su cui si potrebbe inciampare."
+            },
+            {
+              "who": "jakob",
+              "face": "happy",
+              "de": "Ich zähl mit! Eins, zwei, drei …",
+              "sl": "Jaz štejem zraven! Ena, dve, tri …",
+              "en": "I'll count! One, two, three …",
+              "it": "Io conto! Uno, due, tre …"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Wir sammeln die Steine in den Kübel, damit keiner darüber stolpert.",
+                  "sl": "Kamne nabiramo v vedro, da se nihče ne spotakne obnje.",
+                  "en": "We'll collect the stones in the bucket, so nobody trips over them.",
+                  "it": "Raccogliamo i sassi nel secchio, così nessuno ci inciampa.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau. Und dann tragen wir sie zusammen weg.",
+                    "sl": "Natanko. Potem jih skupaj odnesemo.",
+                    "en": "Exactly. And then we carry them away together.",
+                    "it": "Esatto. E poi li portiamo via insieme."
+                  }
+                },
+                {
+                  "de": "Wir kochen die Steine in den Kübel, damit keiner darüber stolpert.",
+                  "sl": "Kamne kuhamo v vedro, da se nihče ne spotakne obnje.",
+                  "en": "We'll cook the stones into the bucket, so nobody trips over them.",
+                  "it": "Cuociamo i sassi nel secchio, così nessuno ci inciampa.",
+                  "why": {
+                    "sl": "Kamne se nabira: sammeln. Kuhati jih ni smiselno.",
+                    "en": "Stones get collected: sammeln. Cooking them makes no sense.",
+                    "it": "I sassi si raccolgono: sammeln. Cuocerli non ha senso."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Kochen? Steinsuppe? Nein, danke!",
+                    "sl": "Kuhati? Kamnito juho? Ne, hvala!",
+                    "en": "Cook them? Stone soup? No thanks!",
+                    "it": "Cuocerli? Zuppa di sassi? No, grazie!"
+                  }
+                },
+                {
+                  "de": "Wir sammeln die Steine in den Kübel, damit keiner darauf ihnen stolpert.",
+                  "sl": "Kamne nabiramo v vedro, da se nihče ne spotakne obnje. (darauf ihnen)",
+                  "en": "We'll collect the stones in the bucket, so nobody trips over them. (darauf ihnen)",
+                  "it": "Raccogliamo i sassi nel secchio, così nessuno ci inciampa. (darauf ihnen)",
+                  "grammar": "wo-da-woerter",
+                  "why": {
+                    "sl": "Za stvari se reče da + predlog, brez zaimka: darüber stolpern.",
+                    "en": "For things you use da + the preposition, with no pronoun: darüber stolpern.",
+                    "it": "Per le cose si usa da + preposizione, senza pronome: darüber stolpern."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Darauf ihnen? Hm, da stolpert ja schon der Satz.",
+                    "sl": "Darauf ihnen? Hm, tu se spotakne že stavek.",
+                    "en": "Darauf ihnen? Hm, the sentence is tripping already.",
+                    "it": "Darauf ihnen? Mah, qui inciampa già la frase."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "lena",
+              "face": "curious",
+              "de": "Und wo spielen wir dann, wenn die Steine weg sind?",
+              "sl": "Kje pa se bomo potem igrali, ko kamnov ne bo več?",
+              "en": "And where will we play then, once the stones are gone?",
+              "it": "E dove giochiamo poi, quando i sassi non ci sono più?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Auf dem Rasen, der dann ganz weich ist.",
+                  "sl": "Na trati, ki bo potem čisto mehka.",
+                  "en": "On the lawn, which will be really soft then.",
+                  "it": "Sul prato, che allora sarà morbidissimo.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Juhu! Dann laufen wir barfuß!",
+                    "sl": "Juhu! Potem tečemo bosi!",
+                    "en": "Hooray! Then we'll run barefoot!",
+                    "it": "Evviva! Allora corriamo scalzi!"
+                  }
+                },
+                {
+                  "de": "Auf dem Dach, das dann ganz weich ist.",
+                  "sl": "Na strehi, ki bo potem čisto mehka.",
+                  "en": "On the roof, which will be really soft then.",
+                  "it": "Sul tetto, che allora sarà morbidissimo.",
+                  "why": {
+                    "sl": "Igramo se na trati: der Rasen. Na streho se ne pleza.",
+                    "en": "We play on the lawn: der Rasen. Nobody climbs onto the roof.",
+                    "it": "Si gioca sul prato: der Rasen. Sul tetto non si sale."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Auf dem Dach? Da fallen wir ja hinunter!",
+                    "sl": "Na strehi? Tam bomo pa padli dol!",
+                    "en": "On the roof? We'd fall off!",
+                    "it": "Sul tetto? Ma cadiamo giù!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Dreiundzwanzig Steine haben wir gesammelt. Jetzt ist der Rasen frei, und keiner muss sich mehr wehtun.",
+              "sl": "Triindvajset kamnov smo nabrali. Zdaj je trata prosta in nihče se ne bo več poškodoval.",
+              "en": "We've collected twenty-three stones. Now the lawn's clear, and nobody needs to get hurt any more.",
+              "it": "Abbiamo raccolto ventitré sassi. Adesso il prato è libero, e nessuno deve più farsi male."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Bevor auch nur ein Spielgerät aufgestellt wird, muss der Rasen frei von Steinen sein. Ein Kind, das hinfällt, soll weich landen.",
+              "sl": "Preden se postavi eno samo igralo, mora biti trata brez kamnov. Otrok, ki pade, naj pristane na mehkem.",
+              "en": "Before a single piece of play equipment is put up, the lawn has to be free of stones. A child who falls should land soft.",
+              "it": "Prima che venga montato anche un solo gioco, il prato dev'essere libero dai sassi. Un bambino che cade deve atterrare sul morbido."
+            },
+            {
+              "who": "jakob",
+              "face": "happy",
+              "de": "Ich hab schon zehn gezählt! Und da drüben liegen noch mehr.",
+              "sl": "Jaz sem jih preštel že deset! Tam jih leži še več.",
+              "en": "I've counted ten already! And there are more over there.",
+              "it": "Io ne ho già contati dieci! E là ce ne sono ancora."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Wenn jeder zehn Steine sammelt, ist der Rasen in einer halben Stunde frei.",
+                  "sl": "Če vsak nabere deset kamnov, bo trata v pol ure prosta.",
+                  "en": "If everyone collects ten stones, the lawn will be clear in half an hour.",
+                  "it": "Se ognuno raccoglie dieci sassi, il prato è libero in mezz'ora.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Dann sammeln wir um die Wette! Wer zuerst zehn hat, hat gewonnen!",
+                    "sl": "Potem nabiramo za stavo! Kdor ima prvi deset, je zmagal!",
+                    "en": "Then let's race to collect them! Whoever gets ten first wins!",
+                    "it": "Allora raccogliamo a gara! Chi ne ha dieci per primo, vince!"
+                  }
+                },
+                {
+                  "de": "Wenn jeder zehn Steine kocht, ist der Rasen in einer halben Stunde frei.",
+                  "sl": "Če vsak skuha deset kamnov, bo trata v pol ure prosta.",
+                  "en": "If everyone cooks ten stones, the lawn will be clear in half an hour.",
+                  "it": "Se ognuno cuoce dieci sassi, il prato è libero in mezz'ora.",
+                  "why": {
+                    "sl": "Kamne se nabira: sammeln, er sammelt.",
+                    "en": "Stones get collected: sammeln, er sammelt.",
+                    "it": "I sassi si raccolgono: sammeln, er sammelt."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Steine kochen? Dann gibt's heute Mittag aber Steinsuppe!",
+                    "sl": "Kuhati kamne? Potem bo danes za kosilo kamnita juha!",
+                    "en": "Cook stones? Then it's stone soup for lunch today!",
+                    "it": "Cuocere i sassi? Allora oggi a pranzo zuppa di sassi!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "lena",
+              "face": "curious",
+              "de": "Frau Lehrerin, und warum dürfen wir nicht gleich auf dem Rasen spielen, auch mit den Steinen?",
+              "sl": "Gospa učiteljica, zakaj pa se ne smemo takoj igrati na trati, tudi s kamni?",
+              "en": "Miss, and why can't we play on the lawn straight away, stones and all?",
+              "it": "Signora maestra, e perché non possiamo giocare subito sul prato, anche coi sassi?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Hätte jemand auf dem Rasen gespielt, bevor die Steine weg waren, hätte er sich wehtun können.",
+                  "sl": "Ko bi se kdo igral na trati, preden so bili kamni odstranjeni, bi se lahko poškodoval.",
+                  "en": "If someone had played on the lawn before the stones were gone, they could have hurt themselves.",
+                  "it": "Se qualcuno avesse giocato sul prato prima che togliessimo i sassi, avrebbe potuto farsi male.",
+                  "ok": true,
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Stimmt. Einer aus meiner Klasse ist letzte Woche auf einen gefallen und hat geweint.",
+                    "sl": "Res je. Eden iz mojega razreda je prejšnji teden padel na enega in jokal.",
+                    "en": "True. Someone in my class fell on one last week and cried.",
+                    "it": "È vero. Uno della mia classe la settimana scorsa ci è caduto sopra e ha pianto."
+                  }
+                },
+                {
+                  "de": "Hätte jemand auf dem Dach gespielt, bevor die Steine weg waren, hätte er sich wehtun können.",
+                  "sl": "Ko bi se kdo igral na strehi, preden so bili kamni odstranjeni, bi se lahko poškodoval.",
+                  "en": "If someone had played on the roof before the stones were gone, they could have hurt themselves.",
+                  "it": "Se qualcuno avesse giocato sul tetto prima che togliessimo i sassi, avrebbe potuto farsi male.",
+                  "why": {
+                    "sl": "Kamni ležijo na trati: der Rasen. Na strehi se nihče ne igra.",
+                    "en": "The stones lie on the lawn: der Rasen. Nobody plays on the roof.",
+                    "it": "I sassi stanno sul prato: der Rasen. Sul tetto non gioca nessuno."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Auf dem Dach? Da wär das Wehtun aber ganz sicher gewesen!",
+                    "sl": "Na strehi? Tam bi se pa zagotovo poškodoval!",
+                    "en": "On the roof? There the hurting would have been certain!",
+                    "it": "Sul tetto? Lì farsi male sarebbe stato sicuro!"
+                  }
+                },
+                {
+                  "de": "Hätte jemand auf dem Rasen gespielt, bevor die Steine weg waren, hat er sich wehtun können.",
+                  "sl": "Ko bi se kdo igral na trati, preden so bili kamni odstranjeni, bi se lahko poškodoval. (hat)",
+                  "en": "If someone had played on the lawn before the stones were gone, they could have hurt themselves. (hat)",
+                  "it": "Se qualcuno avesse giocato sul prato prima che togliessimo i sassi, avrebbe potuto farsi male. (hat)",
+                  "grammar": "konjunktiv-vergangenheit",
+                  "why": {
+                    "sl": "Kar bi se lahko zgodilo, a se ni, ima konjunktiv v obeh delih: hätte … wehtun können.",
+                    "en": "What could have happened but didn't takes the Konjunktiv in both halves: hätte … wehtun können.",
+                    "it": "Ciò che sarebbe potuto succedere ma non è successo vuole il Konjunktiv in tutte e due le parti: hätte … wehtun können."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Hat er sich wehgetan? Wer denn? Ich hab niemanden weinen gehört.",
+                    "sl": "Se je poškodoval? Kdo pa? Nisem slišala nikogar jokati.",
+                    "en": "Did he hurt himself? Who? I didn't hear anyone crying.",
+                    "it": "Si è fatto male? Chi? Non ho sentito piangere nessuno."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Dreiundzwanzig Steine, alle im Kübel. Jetzt ist der Rasen frei, und wer hinfällt, landet weich.",
+              "sl": "Triindvajset kamnov, vsi v vedru. Zdaj je trata prosta in kdor pade, pristane na mehkem.",
+              "en": "Twenty-three stones, all in the bucket. Now the lawn's clear, and whoever falls lands soft.",
+              "it": "Ventitré sassi, tutti nel secchio. Adesso il prato è libero, e chi cade atterra sul morbido."
+            }
+          ]
         }
       }
     },
@@ -933,6 +1441,260 @@
               "sl": "Jaz najprej! … No dobro, eden za drugim, a?",
               "en": "Me first! … Oh, all right, one after the other, OK?",
               "it": "Prima io! … Va be', uno dopo l'altro, eh?"
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "thinking",
+              "de": "Die Nachbarn haben die Schaukel aufgestellt. Bevor sich ein Kind draufsetzt, müssen wir wissen, ob sie fest genug ist.",
+              "sl": "Sosedje so postavili gugalnico. Preden se nanjo usede otrok, moramo vedeti, ali je dovolj trdna.",
+              "en": "The neighbours have put up the swing. Before a child sits on it, we need to know if it's firm enough.",
+              "it": "I vicini hanno montato l'altalena. Prima che un bambino ci si sieda, dobbiamo sapere se è abbastanza solida."
+            },
+            {
+              "who": "jakob",
+              "face": "curious",
+              "de": "Darf ich schon schaukeln? Bitte!",
+              "sl": "Se že smem gugati? Prosim!",
+              "en": "Can I swing already? Please!",
+              "it": "Posso già dondolarmi? Per favore!"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Warte noch, bis wir geprüft haben, ob sie sicher ist.",
+                  "sl": "Počakaj še, dokler ne preverimo, ali je varna.",
+                  "en": "Wait a bit, till we've checked whether it's safe.",
+                  "it": "Aspetta ancora, finché non abbiamo controllato se è sicura.",
+                  "ok": true,
+                  "reply": {
+                    "face": "shy",
+                    "de": "Gut, ich warte. Aber nicht so lang, gell?",
+                    "sl": "Dobro, počakam. Ampak ne predolgo, ja?",
+                    "en": "All right, I'll wait. But not too long, OK?",
+                    "it": "Va bene, aspetto. Ma non troppo, eh?"
+                  }
+                },
+                {
+                  "de": "Warte noch, bis wir geprüft haben, ob sie süß ist.",
+                  "sl": "Počakaj še, dokler ne preverimo, ali je sladka.",
+                  "en": "Wait a bit, till we've checked whether it's sweet.",
+                  "it": "Aspetta ancora, finché non abbiamo controllato se è dolce.",
+                  "why": {
+                    "sl": "Preverimo, ali je gugalnica varna: sicher. Sladka (süß) je sladica.",
+                    "en": "We check whether the swing is safe: sicher. Sweet (süß) is for puddings.",
+                    "it": "Controlliamo se l'altalena è sicura: sicher. Dolce (süß) è un dolce."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Süß? Willst du die Schaukel essen?",
+                    "sl": "Sladka? Bi rad pojedel gugalnico?",
+                    "en": "Sweet? Do you want to eat the swing?",
+                    "it": "Dolce? Vuoi mangiarti l'altalena?"
+                  }
+                },
+                {
+                  "de": "Warte noch, wenn wir geprüft haben, ob sie sicher ist.",
+                  "sl": "Počakaj še, dokler ne preverimo, ali je varna. (wenn)",
+                  "en": "Wait a bit, till we've checked whether it's safe. (wenn)",
+                  "it": "Aspetta ancora, finché non abbiamo controllato se è sicura. (wenn)",
+                  "grammar": "temporalsaetze",
+                  "why": {
+                    "sl": "Čakaš do trenutka, ko je preverjeno: bis. Wenn tu ne pove, do kdaj.",
+                    "en": "You wait up to the moment it's checked: bis. Wenn doesn't say until when.",
+                    "it": "Aspetti fino al momento del controllo: bis. Wenn non dice fino a quando."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Warten, wenn ihr fertig seid? Dann kann ich doch schaukeln!",
+                    "sl": "Čakati, ko boste gotovi? Takrat pa se lahko gugam!",
+                    "en": "Wait when you're done? Then I can swing!",
+                    "it": "Aspettare quando avete finito? Ma allora posso dondolarmi!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "curious",
+              "de": "Die Seile sind fest, das Holz ist stark. {learner}, was würden Sie den Kindern jetzt sagen?",
+              "sl": "Vrvi so trdne, les je močan. {learner}, kaj bi zdaj rekli otrokom?",
+              "en": "The ropes are firm, the wood's strong. {learner}, what would you tell the children now?",
+              "it": "Le corde sono salde, il legno è forte. {learner}, che cosa direbbe adesso ai bambini?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Jetzt dürft ihr auf die Schaukel, aber einer nach dem anderen!",
+                  "sl": "Zdaj smete na gugalnico, ampak eden za drugim!",
+                  "en": "Now you can go on the swing, but one after another!",
+                  "it": "Adesso potete andare sull'altalena, ma uno dopo l'altro!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "So ist es recht. Wer wartet, kommt auch dran.",
+                    "sl": "Tako je prav. Kdor čaka, tudi pride na vrsto.",
+                    "en": "That's right. Whoever waits gets a turn too.",
+                    "it": "Così va bene. Chi aspetta tocca anche a lui."
+                  }
+                },
+                {
+                  "de": "Jetzt dürft ihr auf die Kirche, aber einer nach dem anderen!",
+                  "sl": "Zdaj smete na cerkev, ampak eden za drugim!",
+                  "en": "Now you can go on the church, but one after another!",
+                  "it": "Adesso potete andare sulla chiesa, ma uno dopo l'altro!",
+                  "why": {
+                    "sl": "Otroci gredo na gugalnico: die Schaukel. Na cerkev se ne pleza.",
+                    "en": "The children go on the swing: die Schaukel. Nobody climbs on the church.",
+                    "it": "I bambini vanno sull'altalena: die Schaukel. Sulla chiesa non si sale."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Auf die Kirche? Um Himmels willen, bitte nicht!",
+                    "sl": "Na cerkev? Za božjo voljo, prosim ne!",
+                    "en": "On the church? For heaven's sake, please don't!",
+                    "it": "Sulla chiesa? Per carità, per favore no!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "maxi",
+              "face": "laugh",
+              "de": "Ich zuerst! … Na gut, einer nach dem anderen, gell?",
+              "sl": "Jaz prvi! … No prav, eden za drugim, ja?",
+              "en": "Me first! … Oh, all right, one after another, OK?",
+              "it": "Prima io! … Va be', uno dopo l'altro, eh?"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "thinking",
+              "de": "Die Schaukel ist zwar aufgestellt, aber bevor sie freigegeben wird, prüfen wir jedes Seil. Ein Kind, das herunterfällt, vergisst das nie.",
+              "sl": "Gugalnica je sicer postavljena, ampak preden jo damo v uporabo, preverimo vsako vrv. Otrok, ki pade dol, tega nikoli ne pozabi.",
+              "en": "The swing's up, true, but before it's opened, we check every rope. A child who falls off never forgets it.",
+              "it": "L'altalena è montata, è vero, ma prima di darla ai bambini controlliamo ogni corda. Un bambino che cade non lo dimentica mai."
+            },
+            {
+              "who": "jakob",
+              "face": "curious",
+              "de": "Darf ich wenigstens zuschauen, wie ihr prüft?",
+              "sl": "Smem vsaj gledati, kako preverjate?",
+              "en": "Can I at least watch you check?",
+              "it": "Posso almeno guardare come controllate?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Natürlich. Aber geschaukelt wird erst, wenn wir sicher sind, dass nichts reißt.",
+                  "sl": "Seveda. Ampak gugalo se bo šele, ko bomo prepričani, da se nič ne strga.",
+                  "en": "Of course. But no swinging till we're sure nothing will snap.",
+                  "it": "Certo. Ma ci si dondola solo quando siamo sicuri che non si rompa niente.",
+                  "ok": true,
+                  "reply": {
+                    "face": "shy",
+                    "de": "Gut. Dann schau ich ganz genau zu, damit ich's auch lerne.",
+                    "sl": "Dobro. Potem bom čisto natančno gledal, da se bom tudi jaz naučil.",
+                    "en": "All right. Then I'll watch really carefully, so I learn it too.",
+                    "it": "Va bene. Allora guardo attentissimo, così lo imparo anch'io."
+                  }
+                },
+                {
+                  "de": "Natürlich. Aber geschaukelt wird erst, wenn wir süß sind, dass nichts reißt.",
+                  "sl": "Seveda. Ampak gugalo se bo šele, ko bomo sladki, da se nič ne strga.",
+                  "en": "Of course. But no swinging till we're sweet nothing will snap.",
+                  "it": "Certo. Ma ci si dondola solo quando siamo dolci che non si rompa niente.",
+                  "why": {
+                    "sl": "Treba je biti prepričan: sicher sein. Süß tu nima pomena.",
+                    "en": "You have to be sure: sicher sein. Süß makes no sense here.",
+                    "it": "Bisogna essere sicuri: sicher sein. Süß qui non ha senso."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Süß? Wer ist da süß?",
+                    "sl": "Sladki? Kdo je tu sladek?",
+                    "en": "Sweet? Who's sweet here?",
+                    "it": "Dolci? Chi è dolce qui?"
+                  }
+                },
+                {
+                  "de": "Natürlich. Aber es wird erst geschaukelt geworden, wenn wir sicher sind, dass nichts reißt.",
+                  "sl": "Seveda. Ampak gugalo se bo šele, ko bomo prepričani, da se nič ne strga. (geworden)",
+                  "en": "Of course. But no swinging till we're sure nothing will snap. (geworden)",
+                  "it": "Certo. Ma ci si dondola solo quando siamo sicuri che non si rompa niente. (geworden)",
+                  "grammar": "passiv-ersatz",
+                  "why": {
+                    "sl": "Brezosebni trpnik v sedanjiku je samo wird + deležnik: es wird geschaukelt. Geworden ne sodi zraven.",
+                    "en": "The impersonal passive in the present is just wird + participle: es wird geschaukelt. Geworden doesn't belong.",
+                    "it": "Il passivo impersonale al presente è solo wird + participio: es wird geschaukelt. Geworden non c'entra."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Geworden? Hm. Das ist zu viel auf einmal, wie zu viele Kinder auf einer Schaukel.",
+                    "sl": "Geworden? Hm. To je preveč naenkrat, kot preveč otrok na eni gugalnici.",
+                    "en": "Geworden? Hm. That's too much at once, like too many children on one swing.",
+                    "it": "Geworden? Mah. È troppo tutto insieme, come troppi bambini su un'altalena."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "curious",
+              "de": "Alles hält. {learner}, wie würden Sie es den Kindern sagen, damit keiner drängelt?",
+              "sl": "Vse drži. {learner}, kako bi to povedali otrokom, da se nihče ne bi prerival?",
+              "en": "Everything holds. {learner}, how would you tell the children, so nobody pushes?",
+              "it": "Tiene tutto. {learner}, come lo direbbe ai bambini, perché nessuno spinga?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Die Schaukel ist frei! Wer sich anstellt, statt zu drängeln, kommt schneller dran.",
+                  "sl": "Gugalnica je prosta! Kdor se postavi v vrsto, namesto da se preriva, pride prej na vrsto.",
+                  "en": "The swing's open! Whoever queues instead of pushing gets a turn sooner.",
+                  "it": "L'altalena è libera! Chi si mette in fila invece di spingere tocca prima a lui.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Sehr gut. Mit dem Trick hab ich in Villach schon dreißig Kinder gebändigt.",
+                    "sl": "Zelo dobro. S tem trikom sem v Beljaku ukrotila že trideset otrok.",
+                    "en": "Very good. With that trick I tamed thirty children in Villach.",
+                    "it": "Molto bene. Con questo trucco a Villach ho già domato trenta bambini."
+                  }
+                },
+                {
+                  "de": "Die Kirche ist frei! Wer sich anstellt, statt zu drängeln, kommt schneller dran.",
+                  "sl": "Cerkev je prosta! Kdor se postavi v vrsto, namesto da se preriva, pride prej na vrsto.",
+                  "en": "The church is open! Whoever queues instead of pushing gets a turn sooner.",
+                  "it": "La chiesa è libera! Chi si mette in fila invece di spingere tocca prima a lui.",
+                  "why": {
+                    "sl": "Otroci čakajo na gugalnico: die Schaukel.",
+                    "en": "The children are waiting for the swing: die Schaukel.",
+                    "it": "I bambini aspettano l'altalena: die Schaukel."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Die Kirche? Da steht am Sonntag sowieso keiner an.",
+                    "sl": "Cerkev? Tam se v nedeljo itak nihče ne postavi v vrsto.",
+                    "en": "The church? Nobody queues there on Sunday anyway.",
+                    "it": "La chiesa? Lì la domenica comunque non fa la fila nessuno."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "maxi",
+              "face": "laugh",
+              "de": "Ich stell mich als Erster an! … Das zählt doch, oder?",
+              "sl": "Jaz se postavim prvi v vrsto! … To šteje, kajne?",
+              "en": "I'm first in the queue! … That counts, doesn't it?",
+              "it": "Io mi metto in fila per primo! … Vale, no?"
             }
           ]
         }
@@ -1242,6 +2004,261 @@
               "it": "La sabbiera è piena, lo scivolo luccica. Bravi tutti!"
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Neben der Schaukel bauen wir heute eine Sandkiste und eine Rutsche, die nicht zu hoch für die Kleinen ist.",
+              "sl": "Zraven gugalnice danes naredimo peskovnik in tobogan, ki ni previsok za male.",
+              "en": "Next to the swing today we'll build a sandpit and a slide that isn't too high for the little ones.",
+              "it": "Accanto all'altalena oggi facciamo una sabbiera e uno scivolo non troppo alto per i piccoli."
+            },
+            {
+              "who": "maxi",
+              "face": "curious",
+              "de": "Wie hoch wird sie denn? Ich hätte gern eine ganz hohe!",
+              "sl": "Kako visok bo pa? Jaz bi rad čisto visokega!",
+              "en": "How high's it going to be? I'd like a really high one!",
+              "it": "Quanto sarà alto? Io ne vorrei uno altissimo!"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Die Rutsche wird zwei Meter hoch, damit auch die Kleinen sich trauen.",
+                  "sl": "Tobogan bo visok dva metra, da se bodo upali tudi mali.",
+                  "en": "The slide will be two metres high, so the little ones dare too.",
+                  "it": "Lo scivolo sarà alto due metri, così osano anche i piccoli.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Zwei Meter! Na gut, da sause ich trotzdem hinunter.",
+                    "sl": "Dva metra! No prav, vseeno se bom spustil dol.",
+                    "en": "Two metres! Oh well, I'll still whizz down it.",
+                    "it": "Due metri! Va be', scendo a tutta velocità lo stesso."
+                  }
+                },
+                {
+                  "de": "Die Suppe wird zwei Meter hoch, damit auch die Kleinen sich trauen.",
+                  "sl": "Juha bo visoka dva metra, da se bodo upali tudi mali.",
+                  "en": "The soup will be two metres high, so the little ones dare too.",
+                  "it": "La minestra sarà alta due metri, così osano anche i piccoli.",
+                  "why": {
+                    "sl": "Gradimo tobogan: die Rutsche. Juha ni visoka.",
+                    "en": "We're building a slide: die Rutsche. Soup isn't high.",
+                    "it": "Costruiamo uno scivolo: die Rutsche. La minestra non è alta."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Eine Suppe, zwei Meter hoch? So einen Topf gibt's nicht einmal bei der Mama!",
+                    "sl": "Juha, visoka dva metra? Takega lonca nima niti mama!",
+                    "en": "Soup, two metres high? Not even Mum's got a pot like that!",
+                    "it": "Una minestra alta due metri? Una pentola così non ce l'ha nemmeno la mamma!"
+                  }
+                },
+                {
+                  "de": "Die Rutsche würde zwei Meter hoch, damit auch die Kleinen sich trauen.",
+                  "sl": "Tobogan bo visok dva metra, da se bodo upali tudi mali. (würde)",
+                  "en": "The slide will be two metres high, so the little ones dare too. (würde)",
+                  "it": "Lo scivolo sarà alto due metri, così osano anche i piccoli. (würde)",
+                  "grammar": "konjunktiv-zwei",
+                  "why": {
+                    "sl": "Tobogan bo res tak, ni samo predstava: wird. Würde potrebuje nedoločnik (würde … sein).",
+                    "en": "The slide really will be, it's not just imagined: wird. Würde needs an infinitive (würde … sein).",
+                    "it": "Lo scivolo lo sarà davvero, non è solo immaginato: wird. Würde vuole un infinito (würde … sein)."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Würde? Wird sie jetzt hoch oder nicht?",
+                    "sl": "Würde? Bo zdaj visok ali ne?",
+                    "en": "Würde? Is it going to be high or not?",
+                    "it": "Würde? Allora sarà alto o no?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jakob",
+              "face": "curious",
+              "de": "Und wohin kommt der ganze Sand, den der Wagen gebracht hat?",
+              "sl": "Kam pa pride ves pesek, ki ga je pripeljal voz?",
+              "en": "And where does all the sand the cart brought go?",
+              "it": "E dove va tutta la sabbia che ha portato il carro?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Der Sand kommt in die Sandkiste, in der du dann eine Burg bauen kannst.",
+                  "sl": "Pesek pride v peskovnik, v katerem lahko potem zgradiš grad.",
+                  "en": "The sand goes in the sandpit, where you can build a castle then.",
+                  "it": "La sabbia va nella sabbiera, dove poi potrai costruire un castello.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Juhu! Dann bau ich eine Burg mit einem Turm!",
+                    "sl": "Juhu! Potem zgradim grad s stolpom!",
+                    "en": "Hooray! Then I'll build a castle with a tower!",
+                    "it": "Evviva! Allora costruisco un castello con una torre!"
+                  }
+                },
+                {
+                  "de": "Der Sand kommt in die Badewanne, in der du dann eine Burg bauen kannst.",
+                  "sl": "Pesek pride v kad, v kateri lahko potem zgradiš grad.",
+                  "en": "The sand goes in the bathtub, where you can build a castle then.",
+                  "it": "La sabbia va nella vasca da bagno, dove poi potrai costruire un castello.",
+                  "why": {
+                    "sl": "Pesek gre v peskovnik: die Sandkiste. Kad je za kopanje.",
+                    "en": "Sand goes in the sandpit: die Sandkiste. A bathtub is for bathing.",
+                    "it": "La sabbia va nella sabbiera: die Sandkiste. La vasca è per fare il bagno."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "In die Badewanne? Da schimpft die Mama aber!",
+                    "sl": "V kad? Mama bo pa jezna!",
+                    "en": "In the bathtub? Mum'll be cross!",
+                    "it": "Nella vasca? La mamma si arrabbia!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Die Sandkiste ist voll, die Rutsche glänzt in der Sonne. Gut gemacht, alle!",
+              "sl": "Peskovnik je poln, tobogan se sveti na soncu. Dobro opravljeno, vsi!",
+              "en": "The sandpit's full, the slide's gleaming in the sun. Well done, everyone!",
+              "it": "La sabbiera è piena, lo scivolo brilla al sole. Bravi, tutti!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Die Rutsche wird so gebaut, dass sie nach Norden schaut. Sonst wäre sie im Sommer so heiß, dass sich keiner draufsetzen könnte.",
+              "sl": "Tobogan bo postavljen tako, da bo gledal proti severu. Sicer bi bil poleti tako vroč, da se nihče ne bi mogel usesti nanj.",
+              "en": "The slide's being built facing north. Otherwise it'd be so hot in summer that nobody could sit on it.",
+              "it": "Lo scivolo viene costruito rivolto a nord. Altrimenti d'estate sarebbe così caldo che nessuno potrebbe sedercisi."
+            },
+            {
+              "who": "maxi",
+              "face": "curious",
+              "de": "Echt? Wie habt ihr das gewusst?",
+              "sl": "Res? Kako ste pa to vedeli?",
+              "en": "Really? How did you know that?",
+              "it": "Davvero? E come lo sapevate?"
+            },
+            {
+              "to": "eva",
+              "choices": [
+                {
+                  "de": "Frau Lehrerin soll das in Villach gelernt haben, weil sich dort ein Kind an einer heißen Rutsche verbrannt hat.",
+                  "sl": "Gospa učiteljica se je tega baje naučila v Beljaku, ker se je tam neki otrok opekel na vročem toboganu.",
+                  "en": "Miss is supposed to have learnt that in Villach, because a child got burnt on a hot slide there.",
+                  "it": "Si dice che la maestra l'abbia imparato a Villach, perché lì un bambino si è scottato su uno scivolo rovente.",
+                  "ok": true,
+                  "reply": {
+                    "face": "thinking",
+                    "de": "So ist es, leider. Seitdem schaue ich bei jeder Rutsche zuerst nach der Sonne.",
+                    "sl": "Tako je, žal. Odtlej pri vsakem toboganu najprej pogledam, kje je sonce.",
+                    "en": "That's right, sadly. Since then I check the sun first with every slide.",
+                    "it": "È così, purtroppo. Da allora per ogni scivolo guardo prima il sole."
+                  }
+                },
+                {
+                  "de": "Frau Lehrerin soll das in Villach gelernt haben, weil sich dort ein Kind an einer heißen Wolke verbrannt hat.",
+                  "sl": "Gospa učiteljica se je tega baje naučila v Beljaku, ker se je tam neki otrok opekel na vročem oblaku.",
+                  "en": "Miss is supposed to have learnt that in Villach, because a child got burnt on a hot cloud there.",
+                  "it": "Si dice che la maestra l'abbia imparato a Villach, perché lì un bambino si è scottato su una nuvola rovente.",
+                  "why": {
+                    "sl": "Na soncu se segreje tobogan: die Rutsche. Oblak ni vroč.",
+                    "en": "It's the slide that gets hot in the sun: die Rutsche. A cloud isn't hot.",
+                    "it": "È lo scivolo che si scalda al sole: die Rutsche. Una nuvola non scotta."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "An einer Wolke? Da hätte das Kind aber sehr hoch klettern müssen!",
+                    "sl": "Na oblaku? Potem bi moral otrok pa zelo visoko splezati!",
+                    "en": "On a cloud? The child would have had to climb very high!",
+                    "it": "Su una nuvola? Il bambino avrebbe dovuto arrampicarsi altissimo!"
+                  }
+                },
+                {
+                  "de": "Frau Lehrerin muss das in Villach gelernt haben, weil sich dort ein Kind an einer heißen Rutsche verbrannt hat.",
+                  "sl": "Gospa učiteljica se je tega gotovo naučila v Beljaku, ker se je tam neki otrok opekel na vročem toboganu.",
+                  "en": "Miss must have learnt that in Villach, because a child got burnt on a hot slide there.",
+                  "it": "La maestra dev'averlo imparato a Villach, perché lì un bambino si è scottato su uno scivolo rovente.",
+                  "grammar": "modalverben-vermutung",
+                  "why": {
+                    "sl": "To veš samo iz pripovedovanja: soll (baje). Muss bi pomenilo, da si sam prepričan.",
+                    "en": "You only know it from what people say: soll (supposedly). Muss would mean you're sure yourself.",
+                    "it": "Lo sai solo per sentito dire: soll (si dice). Muss vorrebbe dire che ne sei sicuro tu."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Muss? Woher wissen Sie das so genau? Ich hab's doch niemandem erzählt.",
+                    "sl": "Gotovo? Od kod pa to tako natančno veste? Saj tega nisem nikomur povedala.",
+                    "en": "Must? How do you know that so exactly? I never told anyone.",
+                    "it": "Deve? E come lo sa con tanta certezza? Non l'ho raccontato a nessuno."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jakob",
+              "face": "curious",
+              "de": "Und der Sand? Wohin kommt der, wenn die Kiste fertig ist?",
+              "sl": "Pa pesek? Kam pride, ko bo zaboj gotov?",
+              "en": "And the sand? Where does it go when the box is finished?",
+              "it": "E la sabbia? Dove va quando la cassa è finita?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "In die Sandkiste, und zwar so viel, dass deine Burg einen ganz hohen Turm kriegt.",
+                  "sl": "V peskovnik, in to toliko, da bo tvoj grad dobil čisto visok stolp.",
+                  "en": "In the sandpit, and so much of it your castle will get a really tall tower.",
+                  "it": "Nella sabbiera, e così tanta che il tuo castello avrà una torre altissima.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Juhu! Und ein Tor für die Pferde!",
+                    "sl": "Juhu! In vrata za konje!",
+                    "en": "Hooray! And a gate for the horses!",
+                    "it": "Evviva! E un portone per i cavalli!"
+                  }
+                },
+                {
+                  "de": "In die Badewanne, und zwar so viel, dass deine Burg einen ganz hohen Turm kriegt.",
+                  "sl": "V kad, in to toliko, da bo tvoj grad dobil čisto visok stolp.",
+                  "en": "In the bathtub, and so much of it your castle will get a really tall tower.",
+                  "it": "Nella vasca da bagno, e così tanta che il tuo castello avrà una torre altissima.",
+                  "why": {
+                    "sl": "Pesek gre v peskovnik: die Sandkiste.",
+                    "en": "Sand goes in the sandpit: die Sandkiste.",
+                    "it": "La sabbia va nella sabbiera: die Sandkiste."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "In die Badewanne? Dann muss ich ja im Sand baden!",
+                    "sl": "V kad? Potem se bom moral kopati v pesku!",
+                    "en": "In the bathtub? Then I'd have to bathe in sand!",
+                    "it": "Nella vasca? Allora devo fare il bagno nella sabbia!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Die Sandkiste ist voll, die Rutsche schaut nach Norden. So ein Spielplatz hätte mir als Kind auch gefallen.",
+              "sl": "Peskovnik je poln, tobogan gleda proti severu. Tako igrišče bi bilo meni všeč tudi kot otroku.",
+              "en": "The sandpit's full, the slide faces north. I'd have liked a playground like this as a child too.",
+              "it": "La sabbiera è piena, lo scivolo guarda a nord. Un parco giochi così sarebbe piaciuto anche a me da bambina."
+            }
+          ]
         }
       }
     },
@@ -1530,6 +2547,260 @@
               "sl": "Igrišče je odprto. Po pouku se tu igrajo vsi otroci.",
               "en": "The playground is open. After lessons all the children play here.",
               "it": "Il parco giochi è aperto. Dopo la scuola qui giocano tutti i bambini."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Der Spielplatz ist fertig! Heute dürfen die Kinder zum ersten Mal spielen, bis die Glocke läutet.",
+              "sl": "Igrišče je gotovo! Danes se otroci prvič smejo igrati, dokler ne zazvoni zvon.",
+              "en": "The playground's finished! Today the children may play for the first time, till the bell rings.",
+              "it": "Il parco giochi è finito! Oggi i bambini possono giocare per la prima volta, finché non suona la campana."
+            },
+            {
+              "who": "maxi",
+              "face": "laugh",
+              "de": "Wer zuerst bei der Rutsche ist, hat gewonnen! Los!",
+              "sl": "Kdor je prvi pri toboganu, je zmagal! Gremo!",
+              "en": "Whoever's first at the slide wins! Go!",
+              "it": "Chi arriva primo allo scivolo ha vinto! Via!"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Die Kinder laufen um die Wette, als hätten sie noch nie einen Spielplatz gesehen!",
+                  "sl": "Otroci tečejo za stavo, kot da ne bi še nikoli videli igrišča!",
+                  "en": "The children are racing as if they'd never seen a playground!",
+                  "it": "I bambini corrono a gara come se non avessero mai visto un parco giochi!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Ja! Und alle wollen zuerst rutschen.",
+                    "sl": "Ja! In vsi hočejo prvi na tobogan.",
+                    "en": "Yes! And they all want to slide first.",
+                    "it": "Sì! E tutti vogliono scivolare per primi."
+                  }
+                },
+                {
+                  "de": "Die Kinder schlafen um die Wette, als hätten sie noch nie einen Spielplatz gesehen!",
+                  "sl": "Otroci spijo za stavo, kot da ne bi še nikoli videli igrišča!",
+                  "en": "The children are sleeping competitively as if they'd never seen a playground!",
+                  "it": "I bambini dormono a gara come se non avessero mai visto un parco giochi!",
+                  "why": {
+                    "sl": "Otroci tečejo do tobogana: laufen. Za stavo se ne spi.",
+                    "en": "The children run to the slide: laufen. Nobody sleeps in a race.",
+                    "it": "I bambini corrono allo scivolo: laufen. Non si dorme a gara."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Schlafen? Am ersten Spieltag? Nie im Leben!",
+                    "sl": "Spati? Na prvi dan igre? Nikoli v življenju!",
+                    "en": "Sleep? On the first day of play? Never in a million years!",
+                    "it": "Dormire? Il primo giorno di gioco? Mai e poi mai!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "lena",
+              "face": "curious",
+              "de": "Dürfen wir bis zum Abend bleiben, auch wenn die Glocke läutet? Bitte!",
+              "sl": "Smemo ostati do večera, tudi če zvon zazvoni? Prosim!",
+              "en": "Can we stay till evening, even when the bell rings? Please!",
+              "it": "Possiamo restare fino a sera, anche se suona la campana? Per favore!"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Ja, ihr dürft bis zum Abend spielen, wenn ihr danach alles aufräumt.",
+                  "sl": "Ja, do večera se lahko igrate, če potem vse pospravite.",
+                  "en": "Yes, you can play till evening, if you tidy everything up afterwards.",
+                  "it": "Sì, potete giocare fino a sera, se poi rimettete tutto a posto.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Juhu! Danke! Wir räumen alles auf, versprochen!",
+                    "sl": "Juhu! Hvala! Vse pospravimo, obljubim!",
+                    "en": "Hooray! Thanks! We'll tidy everything, promise!",
+                    "it": "Evviva! Grazie! Mettiamo tutto a posto, promesso!"
+                  }
+                },
+                {
+                  "de": "Ja, ihr dürft bis zum Abend arbeiten, wenn ihr danach alles aufräumt.",
+                  "sl": "Ja, do večera lahko delate, če potem vse pospravite.",
+                  "en": "Yes, you can work till evening, if you tidy everything up afterwards.",
+                  "it": "Sì, potete lavorare fino a sera, se poi rimettete tutto a posto.",
+                  "why": {
+                    "sl": "Danes je dan igre: spielen. Delo je končano.",
+                    "en": "Today's a day of play: spielen. The work's done.",
+                    "it": "Oggi è giorno di gioco: spielen. Il lavoro è finito."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Arbeiten? Heute ist doch Spieltag!",
+                    "sl": "Delati? Saj je danes dan igre!",
+                    "en": "Work? Today's a play day!",
+                    "it": "Lavorare? Oggi è giorno di gioco!"
+                  }
+                },
+                {
+                  "de": "Ja, ihr dürft bis zum Abend spielt, wenn ihr danach alles aufräumt.",
+                  "sl": "Ja, do večera se lahko igrate, če potem vse pospravite. (spielt)",
+                  "en": "Yes, you can play till evening, if you tidy everything up afterwards. (spielt)",
+                  "it": "Sì, potete giocare fino a sera, se poi rimettete tutto a posto. (spielt)",
+                  "grammar": "modalverben",
+                  "why": {
+                    "sl": "Za naklonskim glagolom (dürft) pride nedoločnik: spielen.",
+                    "en": "After a modal verb (dürft) comes the infinitive: spielen.",
+                    "it": "Dopo un verbo modale (dürft) viene l'infinito: spielen."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Spielt …? Wer spielt? Wir alle, oder?",
+                    "sl": "Spielt …? Kdo se igra? Mi vsi, kajne?",
+                    "en": "Spielt …? Who plays? All of us, right?",
+                    "it": "Spielt …? Chi gioca? Tutti noi, no?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Der Spielplatz ist offen. Nach der Schule spielen hier alle Kinder, bis es dunkel wird.",
+              "sl": "Igrišče je odprto. Po šoli se tu igrajo vsi otroci, dokler se ne stemni.",
+              "en": "The playground's open. After school all the children play here till it gets dark.",
+              "it": "Il parco giochi è aperto. Dopo la scuola qui giocano tutti i bambini finché non fa buio."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Vor einem Jahr war hier nur ein Rasen voller Steine. Heute wird der Spielplatz eröffnet, den die Kinder selbst gezeichnet haben.",
+              "sl": "Pred letom je bila tu samo trata, polna kamnov. Danes odpiramo igrišče, ki so ga otroci sami narisali.",
+              "en": "A year ago there was just a lawn full of stones here. Today we open the playground the children drew themselves.",
+              "it": "Un anno fa qui c'era solo un prato pieno di sassi. Oggi si inaugura il parco giochi che i bambini hanno disegnato da soli."
+            },
+            {
+              "who": "maxi",
+              "face": "laugh",
+              "de": "Wer zuerst bei der Rutsche ist! Achtung, fertig, los!",
+              "sl": "Kdor je prvi pri toboganu! Pozor, pripravljeni, zdaj!",
+              "en": "First one to the slide! Ready, steady, go!",
+              "it": "Chi arriva primo allo scivolo! Pronti, partenza, via!"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Schauen Sie, die Kinder laufen, als ob sie den ganzen Sommer darauf gewartet hätten!",
+                  "sl": "Poglejte, otroci tečejo, kot da bi celo poletje čakali na to!",
+                  "en": "Look, the children are running as if they'd waited all summer for this!",
+                  "it": "Guardi, i bambini corrono come se avessero aspettato tutta l'estate!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Das haben sie ja auch. Und ich, ehrlich gesagt, auch.",
+                    "sl": "Saj so. In jaz, po pravici povedano, tudi.",
+                    "en": "Well, they have. And so have I, to be honest.",
+                    "it": "Infatti l'hanno fatto. E anch'io, a dire il vero."
+                  }
+                },
+                {
+                  "de": "Schauen Sie, die Kinder schlafen, als ob sie den ganzen Sommer darauf gewartet hätten!",
+                  "sl": "Poglejte, otroci spijo, kot da bi celo poletje čakali na to!",
+                  "en": "Look, the children are sleeping as if they'd waited all summer for this!",
+                  "it": "Guardi, i bambini dormono come se avessero aspettato tutta l'estate!",
+                  "why": {
+                    "sl": "Otroci tečejo k toboganu: laufen. Nihče ne spi.",
+                    "en": "The children are running to the slide: laufen. Nobody's sleeping.",
+                    "it": "I bambini corrono allo scivolo: laufen. Nessuno dorme."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Schlafen? Die schlafen heute Nacht, aber sicher nicht jetzt!",
+                    "sl": "Spijo? Spali bodo ponoči, zdaj pa gotovo ne!",
+                    "en": "Sleeping? They'll sleep tonight, but certainly not now!",
+                    "it": "Dormono? Dormiranno stanotte, ma di sicuro non adesso!"
+                  }
+                },
+                {
+                  "de": "Schauen Sie, die Kinder laufen, als ob sie hätten den ganzen Sommer darauf gewartet!",
+                  "sl": "Poglejte, otroci tečejo, kot da bi celo poletje čakali na to! (besedni red)",
+                  "en": "Look, the children are running as if they'd waited all summer for this! (word order)",
+                  "it": "Guardi, i bambini corrono come se avessero aspettato tutta l'estate! (ordine delle parole)",
+                  "grammar": "als-ob",
+                  "why": {
+                    "sl": "Als ob začne odvisnik: glagol na konec, als ob sie … gewartet hätten.",
+                    "en": "Als ob starts a subordinate clause: the verb to the end, als ob sie … gewartet hätten.",
+                    "it": "Als ob apre una subordinata: il verbo in fondo, als ob sie … gewartet hätten."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Hm. Die Kinder rennen, und der Satz rennt ein bisschen durcheinander.",
+                    "sl": "Hm. Otroci tečejo, stavek pa teče malo vsevprek.",
+                    "en": "Hm. The children are running, and the sentence is running a bit all over the place.",
+                    "it": "Mah. I bambini corrono, e la frase corre un po' a casaccio."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "lena",
+              "face": "curious",
+              "de": "Und wenn wir länger spielen wollen, als es hell ist?",
+              "sl": "Kaj pa, če se hočemo igrati dlje, kot je svetlo?",
+              "en": "And what if we want to play longer than it's light?",
+              "it": "E se vogliamo giocare più a lungo di quanto c'è luce?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dann spielt ihr, bis die Glocke läutet, und morgen geht's weiter. Der Spielplatz läuft euch ja nicht davon.",
+                  "sl": "Potem se igrate, dokler ne zazvoni zvon, jutri pa naprej. Igrišče vam ne bo ušlo.",
+                  "en": "Then you play till the bell rings, and tomorrow you carry on. The playground isn't going anywhere.",
+                  "it": "Allora giocate finché suona la campana, e domani si continua. Il parco giochi non scappa mica.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Juhu! Dann spielen wir morgen gleich nach der Schule weiter!",
+                    "sl": "Juhu! Potem se jutri takoj po šoli igramo naprej!",
+                    "en": "Hooray! Then we'll carry on playing right after school tomorrow!",
+                    "it": "Evviva! Allora domani giochiamo subito dopo la scuola!"
+                  }
+                },
+                {
+                  "de": "Dann arbeitet ihr, bis die Glocke läutet, und morgen geht's weiter. Der Spielplatz läuft euch ja nicht davon.",
+                  "sl": "Potem delate, dokler ne zazvoni zvon, jutri pa naprej. Igrišče vam ne bo ušlo.",
+                  "en": "Then you work till the bell rings, and tomorrow you carry on. The playground isn't going anywhere.",
+                  "it": "Allora lavorate finché suona la campana, e domani si continua. Il parco giochi non scappa mica.",
+                  "why": {
+                    "sl": "Na igrišču se otroci igrajo: spielen.",
+                    "en": "On a playground children play: spielen.",
+                    "it": "Al parco giochi i bambini giocano: spielen."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Arbeiten? Am Spielplatz? Das wär ja ein Arbeitsplatz!",
+                    "sl": "Delati? Na igrišču? To bi bilo pa delovno mesto!",
+                    "en": "Work? On the playground? That'd make it a workplace!",
+                    "it": "Lavorare? Al parco giochi? Allora sarebbe un posto di lavoro!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Der Spielplatz ist offen. Wenn mir das in Villach einer erzählt hätte, dass Kinder ihren Spielplatz selber planen, ich hätt's nicht geglaubt.",
+              "sl": "Igrišče je odprto. Ko bi mi v Beljaku kdo povedal, da otroci sami načrtujejo igrišče, ne bi verjela.",
+              "en": "The playground's open. If anyone in Villach had told me children plan their own playground, I wouldn't have believed it.",
+              "it": "Il parco giochi è aperto. Se a Villach qualcuno mi avesse detto che i bambini progettano da soli il loro parco giochi, non ci avrei creduto."
             }
           ]
         }

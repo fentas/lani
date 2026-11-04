@@ -437,7 +437,7 @@ object Treasure {
             for (d in sc.dialogs) for ((i, line) in d.lines.withIndex()) {
                 if (line.choices.size < 2 || line.tapTurn) continue
                 val right = line.choices.indices.singleOrNull { line.choices[it].ok } ?: continue
-                val form = Forms.turn(line.choices.map { it.sl }, right) ?: continue
+                val form = Forms.turn(line, right) ?: continue
                 val rule = form.wrong.firstNotNullOfOrNull { line.choices[it].rule(line) } ?: line.grammar ?: continue
                 if (rule !in own) continue
                 val ok = line.choices[right]

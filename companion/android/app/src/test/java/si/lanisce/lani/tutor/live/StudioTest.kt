@@ -224,7 +224,6 @@ class StudioTest {
         debug = false,
         transportFor = { base, key -> AnthropicTransport(base, key, OkHttpClient.Builder().addInterceptor(api).build(), clock = { now }) },
         bridgeFor = { c -> LiveBridge(c, OkHttpClient.Builder().apply { pre?.let(::addInterceptor) }.addInterceptor(node).build()) },
-        fran = null,
         clock = { now }, zone = { zone }, device = "test phone",
         logLine = { lines += it }, sleep = {},
         io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),

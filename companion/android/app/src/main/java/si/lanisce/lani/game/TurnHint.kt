@@ -185,39 +185,55 @@ object TurnHints {
     fun pagesOf(line: DialogLine): List<String> {
         val c = line.choices
         val right = c.indexOfFirst { it.ok }.takeIf { r -> r >= 0 && c.count { it.ok } == 1 }
-        val wrong = right?.let { Forms.turn(c.map { it.sl }, it) }?.wrong ?: c.indices.filter { !c[it].ok }
+        val wrong = right?.let { Forms.turn(line, it) }?.wrong ?: c.indices.filter { !c[it].ok }
         return wrong.mapNotNull { c[it].rule(line) }.distinct()
             .ifEmpty { listOfNotNull(line.grammar) }
             .ifEmpty { c.filter { it.ok }.mapNotNull { it.grammar }.distinct() }
     }
 
+    /** The hint of [line] in [language] with no one's names known ([of] with an empty cast). */
+    fun of(line: DialogLine, language: String, page: (String) -> GrammarPage?): TurnHint? = of(line, language, emptyList(), page)
+
     /**
      * The hint of learner's turn [line] in [language], the book's pages by [page]; null when its rule has no page in the
-     * book (a word's meaning, a greeting's hour: no hint). An Italian turn takes Italian's table ([ItalianHints]); a turn
-     * of another language than Slovene and Italian gets its pages alone.
+     * book (a word's meaning, a greeting's hour: no hint). [cast]: the names of the people of the scene and the village
+     * ("Babica Micka", "Mrs Hartley"), so a name is taken for who does it wherever it stands, at a sentence's start too
+     * ("Micka kuha.", "Giulia è stanca.", "Wilf is the winner!"). An Italian turn takes Italian's table ([ItalianHints]),
+     * an English turn English's ([EnglishHints]), a German turn German's ([GermanHints]); a turn of another language than
+     * these and Slovene gets its pages alone.
      */
-    fun of(line: DialogLine, language: String, page: (String) -> GrammarPage?): TurnHint? {
+    fun of(line: DialogLine, language: String, cast: Collection<String>, page: (String) -> GrammarPage?): TurnHint? {
         val c = line.choices
         if (c.size < 2) return null
         val pages = pagesOf(line).filter { page(it) != null }
         if (pages.isEmpty()) return null
         val texts = c.map { it.sl }
         val right = c.indexOfFirst { it.ok }.takeIf { r -> r >= 0 && c.count { it.ok } == 1 }
-        val form = right?.let { Forms.turn(texts, it) }
+        val form = right?.let { Forms.turn(line, it) }
         val base = if (form != null) {
             val w = form.gap.word.lowercase()
             TurnHint(pages, right = setOf(w), forms = form.wrong.mapNotNull { Forms.wordAt(texts[it], form.gap.slot)?.lowercase() }.toSet() + w)
         } else {
-            // no one word: the words its right choices say and not every choice does (a tap turn's place, "vrati")
+            // no one word: the words its right choices say and not every choice does (a tap turn's place, "vrati"); the small
+            // words every rule names side by side aren't the answer: a preposition, and in German its own table's (GermanHints.small)
             val common = texts.map { Forms.words(it).toSet() }.reduce { a, b -> a intersect b }
-            fun own(t: String) = Forms.words(t).filter { it !in common && it.length >= 3 && !CaseTriggers.isPreposition(it) }.toSet()
-            val r = c.filter { it.ok }.flatMap { own(it.sl) }.toSet()
+            val small: (String) -> Boolean = if (language == "de") GermanHints::small else CaseTriggers::isPreposition
+            fun own(t: String) = Forms.words(t).filter { it !in common && it.length >= 3 && !small(it) }.toSet()
+            // (English's rules name have, had, don't and can, and its whole sentences share them: a word a wrong choice says too doesn't pick the right one)
+            val shared = if (language == "en") c.filter { !it.ok }.flatMap { own(it.sl) }.toSet() else emptySet()
+            val r = c.filter { it.ok }.flatMap { own(it.sl) }.toSet() - shared
             TurnHint(pages, right = r, forms = r + texts.flatMap { own(it) })
         }
         val sentence = if (form != null && right != null) texts[right] else null
         val slot = form?.gap?.slot
+        val names = names(cast)
         // Italian's own table (game/ItalianHints.kt): its rules in words, a trigger where the sentence shows one
-        if (language == "it") return ItalianHints.of(base, sentence, slot)?.let { (id, made) -> finish(made, made.models, id, page, base) } ?: base
+        if (language == "it") return ItalianHints.of(base, sentence, slot, names)?.let { (id, made) -> finish(made, made.models, id, page, base) } ?: base
+        // English's (game/EnglishHints.kt): the same, from English's own word lists
+        if (language == "en") return EnglishHints.of(base, sentence, slot, names)?.let { (id, made) -> finish(made, made.models, id, page, base) } ?: base
+        // German's (game/GermanHints.kt): the same, its cases from German's trigger table; a turn of one sentence's words in
+        // another order is about where the verb goes
+        if (language == "de") return GermanHints.of(base, sentence, slot, names, right?.let { texts[it] }, texts)?.let { (id, made) -> finish(made, made.models, id, page, base) } ?: base
         if (language != "sl") return base
         val id = pages.firstOrNull { it in RULES } ?: return base
         val rule = RULES.getValue(id)
@@ -226,7 +242,7 @@ object TurnHints {
             rule.cases.isNotEmpty() -> cases(base, id, rule, if (sentence != null && slot != null) CaseTriggers.of(sentence, slot) else emptyList())
             else -> base.copy(
                 question = rule.question, rule = rule.text,
-                trigger = rule.cue?.let { k -> if (sentence != null && slot != null) cues(sentence, slot).firstOrNull { it.kind == k } else null },
+                trigger = rule.cue?.let { k -> if (sentence != null && slot != null) cues(sentence, slot, names).firstOrNull { it.kind == k } else null },
             )
         }
         return finish(made, made.models.ifEmpty { rule.models }, id, page, base)
@@ -314,24 +330,41 @@ object TurnHints {
 
     /**
      * The words of the clause of the word at [i] of [text] that say who does it (a personal pronoun only ever the subject,
-     * as the trigger table has them: jaz, oni; not mi, ti, me) or when (včeraj: the past, jutri: the future), the nearest
-     * first ([Trigger.Cue]).
+     * as the trigger table has them: jaz, oni; not mi, ti, me; or a name of [names] as it is, the nominative, not after a
+     * preposition: «Micka», «Micka in Luka» for two) or when (včeraj: the past, jutri: the future), the nearest first
+     * ([Trigger.Cue]).
      */
-    fun cues(text: String, i: Int): List<Trigger.Cue> {
+    fun cues(text: String, i: Int, names: Set<String> = emptySet()): List<Trigger.Cue> {
         val spans = Forms.spans(text)
         if (i !in spans.indices) return emptyList()
         val clause = CaseTriggers.clauses(text)
-        return spans.indices.filter { it != i && clause[it] == clause[i] }.sortedBy { kotlin.math.abs(it - i) }.mapNotNull { k ->
+        val same = { k: Int -> k in spans.indices && k != i && clause[k] == clause[i] }
+        return spans.indices.filter(same).sortedBy { kotlin.math.abs(it - i) }.mapNotNull { k ->
             val w = spans[k].value.lowercase()
+            val named = spans[k].value in names && !(same(k - 1) && CaseTriggers.isPreposition(spans[k - 1].value.lowercase()))
             val kind = when {
-                CaseTriggers.isSubject(w) -> Trigger.Cue.Kind.WHO
+                CaseTriggers.isSubject(w) || named -> Trigger.Cue.Kind.WHO
                 w in PAST -> Trigger.Cue.Kind.PAST
                 w in FUTURE -> Trigger.Cue.Kind.FUTURE
                 else -> null
             }
-            kind?.let { Trigger.Cue(spans[k].value, k, it) }
+            // two names joined by «in»: both are who (Micka in Luka gresta)
+            fun joined(a: Int, b: Int) = named && same(a) && same(b) && a < b && b - a == 2 && spans[a + 1].value == "in" && spans[a].value in names && spans[b].value in names
+            val (from, to) = when {
+                joined(k, k + 2) -> k to k + 2
+                joined(k - 2, k) -> k - 2 to k
+                else -> k to k
+            }
+            kind?.let { Trigger.Cue(text.substring(spans[from].range.first, spans[to].range.last + 1), to, it) }
         }
     }
+
+    /**
+     * The words of [cast]'s names written with a capital ("Babica Micka": Babica, Micka; "Mrs Hartley": Mrs, Hartley), as
+     * the sentences write them: what a hint takes for a name wherever it stands.
+     */
+    fun names(cast: Collection<String>): Set<String> =
+        cast.flatMap { n -> Forms.spans(n).map { it.value } }.filter { it.first().isUpperCase() }.toSet()
 
     /** The rows of [p]'s table about [trigger] (its word in a cell; a number's category in the first) that show no form of the turn. */
     private fun rows(p: GrammarPage?, trigger: Trigger?, forms: Set<String>): List<List<GrammarCell>> {

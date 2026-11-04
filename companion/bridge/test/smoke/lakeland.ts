@@ -160,6 +160,14 @@ export default async function lakeland() {
       tutorTalk: { schema: 'lani.scenario/v0', id: 'at-the-library', title: { en: 'At the library', sl: 'V knjižnici' }, level: 'A1', setting: { sl: 'Knjižnica v Keswicku.', en: 'The library in Keswick.' }, role: 'Mrs Graham, the librarian. Kind.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Hello! Which book are you looking for?', opener_en: { sl: 'Dober dan! Katero knjigo iščete?', en: 'Hello! Which book are you looking for?' }, packs: ['greetings'] },
       tutorTitle: 'At the library · V knjižnici',
       hello: 'Morning!',
+      // the six B1 and six B2 talks (docs/plans/05-built/talks-en.md)
+      profile: join(dataDir, 'learner-profile.json'),
+      above: {
+        id: 'a-statement-for-the-police', level: 'B2', title: 'A statement for the police · Izjava za policijo', goal: 'Say precisely when and where it happened · Natančno povej, kdaj in kje se je zgodilo',
+        who: 'The police officer · Policist', setting: 'Včeraj popoldne si pri vratih blizu kamnitega mostu', hint: ['It was about half past three, by the gate near the packhorse bridge.', 'Bilo je okrog pol štirih, pri vratih blizu kamnitega mostu.'],
+        played: { 'a-gate-from-the-smithy': 'Mr Dixon', 'the-night-the-beck-came-up': 'Auntie Edna', 'maggie-goes-to-london': 'Granny Maggie', 'a-summer-job-at-the-inn': 'Mrs Birkett', 'jack-at-a-crossroads': 'Shepherd Jack' },
+        hello: 'Good morning, officer.',
+      },
     })
     // the pack's own place: the fell above the lake, in English with its translations, its words from on-the-fell
     const fell = scenes.find((s: any) => s.id === 'on-the-fell')

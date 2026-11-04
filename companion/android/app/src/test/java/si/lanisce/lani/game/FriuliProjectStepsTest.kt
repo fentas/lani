@@ -29,8 +29,8 @@ import java.time.LocalDate
 /**
  * Friuli's village projects' steps as short scenes (companion/cultures/friuli/project-steps, companion/SCENES.md "Project steps";
  * docs/plans/05-built/friuli-projects-a.md and -b.md), as the app reads them for a child learning Italian from German with B1 as the aim:
- * every step at A1, A2 and B1, each learner gets their level's; short, said by the project's people; every wrong choice with a
- * reaction that doesn't give the right form away, a B1 telling testing a B1 rule. And a village that was already past a step,
+ * every step at A1, A2, B1 and B2, each learner gets their level's; short, said by the project's people; every wrong choice with a
+ * reaction that doesn't give the right form away, a B1 telling testing a B1 rule and a B2 telling a B2 rule (village-b2-friuli). And a village that was already past a step,
  * or in the middle of a project, when the steps came: it goes on from where it was, at the next step's dialog, to its end.
  */
 class FriuliProjectStepsTest {
@@ -39,7 +39,7 @@ class FriuliProjectStepsTest {
     /** Friuli's thirteen: friuli-projects-a's seven, friuli-projects-b's six. */
     private val projects = listOf("mlaj", "most", "mlin", "balinisce", "kapelica", "vinograd", "cebelji_travnik", "gasilski_dom", "igrisce", "vodnjak_na_trgu", "toplar", "razgledni_stolp", "mestna_ura")
     private val learners = listOf(Learner.of("Teo"), Learner.of("Ana", "female"))
-    private val levels = listOf("A1", "A2", "B1")
+    private val levels = listOf("A1", "A2", "B1", "B2")
     private val pageLevel: Map<String, String> by lazy {
         File(root, "grammar/it").listFiles { f -> f.extension == "json" }.orEmpty().associate { f ->
             f.nameWithoutExtension to (json.parseToJsonElement(f.readText()).jsonObject["level"] as JsonPrimitive).content
@@ -73,7 +73,7 @@ class FriuliProjectStepsTest {
         File(root, "cultures/friuli/scenes").listFiles { f -> f.extension == "json" }.orEmpty().map { parseScene(it.readText()) }
     }
 
-    @Test fun `every step of the thirteen projects is a short scene at A1, A2 and B1, each learner at their level's`() {
+    @Test fun `every step of the thirteen projects is a short scene at A1, A2, B1 and B2, each learner at their level's`() {
         friuli()
         var dialogs = 0
         for (id in projects) {
@@ -97,14 +97,14 @@ class FriuliProjectStepsTest {
                     assertTrue("$at $lv: the leader speaks", p.leader in speakers)
                     assertTrue("$at $lv: only the project's people: $speakers", (speakers - p.leader - p.helpers.toSet()).isEmpty())
                 }
-                // above B1 they read B1's, and a learner below A1's scale A1's
-                assertEquals("$at: a B2 learner reads B1's", lines(raw, "B1").size, Projects.dialog(p, i, "B2", "it")!!.lines.size)
+                // above B2 they read B2's, and a learner below A1's scale A1's
+                assertEquals("$at: a C1 learner reads B2's", lines(raw, "B2").size, Projects.dialog(p, i, "C1", "it")!!.lines.size)
             }
         }
-        assertEquals("every step (41 of friuli-projects-a, 37 of friuli-projects-b) at three levels", (41 + 37) * 3, dialogs)
+        assertEquals("every step (41 of friuli-projects-a, 37 of friuli-projects-b) at four levels", (41 + 37) * 4, dialogs)
     }
 
-    @Test fun `a telling tests what its level has - no page above it, and B1's a rule of B1`() {
+    @Test fun `a telling tests what its level has - no page above it, B1's a rule of B1 and B2's a rule of B2`() {
         val bad = ArrayList<String>()
         for (id in projects) for ((i, st) in steps(id).withIndex()) for (lv in levels) {
             val named = lines(st, lv).flatMap { l -> l["choices"].list().mapNotNull { it.obj()?.str("grammar") } }
@@ -113,7 +113,7 @@ class FriuliProjectStepsTest {
                 if (at == null) bad += "$id/${i + 1} $lv: no page $g"
                 else if (levels.indexOf(at) > levels.indexOf(lv)) bad += "$id/${i + 1} $lv: $g is $at"
             }
-            if (lv == "B1" && named.none { pageLevel[it] == "B1" }) bad += "$id/${i + 1} B1: no rule of B1 tested"
+            if (lv in listOf("B1", "B2") && named.none { pageLevel[it] == lv }) bad += "$id/${i + 1} $lv: no rule of $lv tested"
         }
         assertTrue(bad.joinToString("\n", prefix = "\n"), bad.isEmpty())
     }

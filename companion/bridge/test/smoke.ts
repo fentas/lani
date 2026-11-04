@@ -32,6 +32,7 @@ import aim from './smoke/aim'
 import packs from './smoke/packs'
 import lexicon from './smoke/lexicon'
 import wordRequests from './smoke/word-requests'
+import dictionaries from './smoke/dictionaries'
 import forms from './smoke/forms'
 import caseLens from './smoke/case-lens'
 import counting from './smoke/counting'
@@ -80,5 +81,5 @@ import setup from './smoke/setup'
 // its bridge services and their shims (docs/plans/04-bridge-service.md); setup a bridge configured by lani.env alone. level raises the learner to A2 (and their
 // Italian), placement then to B1: they run late, after the checks that read the level. tutorLive (the app's own tutor: features/tutor.ts) records a
 // session and fixes a card in the learner's data, so it comes after them too.
-for (const section of [core, tutor, phone, chat, chatImages, modules, grammar, cards, course, production, prints, drills, practice, ispy, events, changes, reviews, outbox, releases, dev, lease, game, aim, packs, lexicon, wordRequests, forms, caseLens, counting, formsCards, formsOther, caseTrainer, caseDe, sentences, meanings, rhythm, scenarios, scenes, variants, dialogLevels, dialogWords, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, tutorLanguages, pairs, family, myVoice, offlineVoice, voice, courseSpeech, drama3, stt, towns, languages, service, level, placement, tutorLive, tutorStudio, pairing, rename, setup, leaseNone]) await section()
+for (const section of [core, tutor, phone, chat, chatImages, modules, grammar, cards, course, production, prints, drills, practice, ispy, events, changes, reviews, outbox, releases, dev, lease, game, aim, packs, lexicon, wordRequests, dictionaries, forms, caseLens, counting, formsCards, formsOther, caseTrainer, caseDe, sentences, meanings, rhythm, scenarios, scenes, variants, dialogLevels, dialogWords, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, tutorLanguages, pairs, family, myVoice, offlineVoice, voice, courseSpeech, drama3, stt, towns, languages, service, level, placement, tutorLive, tutorStudio, pairing, rename, setup, leaseNone]) await section()
 await done()

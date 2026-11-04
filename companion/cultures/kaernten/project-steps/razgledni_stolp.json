@@ -2,7 +2,7 @@
   "schema": "lani.project-steps/v0",
   "project": "razgledni_stolp",
   "language": "de",
-  "review": "Machine-written (Claude) in de with sl, en and it, not reviewed by a native speaker; to check: die Burschen, die Stiege, Gut Ding will Weile haben, Eile mit Weile, gell",
+  "review": "Machine-written (Claude) in de with sl, en and it, not reviewed by a native speaker; to check: die Burschen, die Stiege, Gut Ding will Weile haben, Eile mit Weile, gell. B1 and B2 tellings: machine-written (Claude), not reviewed by a native speaker.",
   "pack": "projekt-aussichtsturm",
   "steps": [
     {
@@ -402,6 +402,300 @@
               }
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "thinking",
+              "de": "Meine Gäste fragen immer nach einem Turm, von dem aus man das ganze Tal sieht. Welcher Hügel wäre der richtige?",
+              "sl": "Moji gostje vedno sprašujejo po stolpu, s katerega se vidi vsa dolina. Kateri grič bi bil pravi?",
+              "en": "My guests always ask about a tower you can see the whole valley from. Which hill would be the right one?",
+              "it": "I miei ospiti chiedono sempre di una torre da cui si veda tutta la valle. Quale collina sarebbe quella giusta?"
+            },
+            {
+              "who": "sepp",
+              "face": "curious",
+              "de": "Jeder Hügel hier hat seine Geschichte. Wo, meinst du, wäre die Aussicht am schönsten?",
+              "sl": "Vsak grič tu ima svojo zgodbo. Kje bi bil po tvojem razgled najlepši?",
+              "en": "Every hill here has its story. Where do you think the view would be finest?",
+              "it": "Ogni collina qui ha la sua storia. Dove pensi che la vista sarebbe più bella?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dort vor den Bergen, wo man über das ganze Tal schaut!",
+                  "sl": "Tam pred gorami, kjer se vidi čez vso dolino!",
+                  "en": "There, in front of the mountains, where you look over the whole valley!",
+                  "it": "Là davanti ai monti, dove si guarda su tutta la valle!",
+                  "ok": true,
+                  "tap": "mountains",
+                  "reply": {
+                    "face": "proud",
+                    "de": "Gut gesehen! Von dort sieht man drei Länder, wie man so sagt.",
+                    "sl": "Dobro videno! Od tam se vidijo tri dežele, kot pravijo.",
+                    "en": "Well spotted! From there you see three countries, as they say.",
+                    "it": "Ben visto! Da lì si vedono tre paesi, come si dice."
+                  }
+                },
+                {
+                  "de": "Dort auf der Straße, wo man über das ganze Tal schaut!",
+                  "sl": "Tam na cesti, kjer se vidi čez vso dolino!",
+                  "en": "There on the road, where you look over the whole valley!",
+                  "it": "Là sulla strada, dove si guarda su tutta la valle!",
+                  "tap": "road",
+                  "why": {
+                    "sl": "Na cesti vozijo vozovi. Razgled je pred gorami.",
+                    "en": "Carts drive on the road. The view is in front of the mountains.",
+                    "it": "Sulla strada passano i carri. La vista è davanti ai monti."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Auf der Straße? Da fahren doch die Wagen!",
+                    "sl": "Na cesti? Tam vendar vozijo vozovi!",
+                    "en": "On the road? The carts drive there!",
+                    "it": "Sulla strada? Lì passano i carri!"
+                  }
+                },
+                {
+                  "de": "Dort beim Horizont, wo man über das ganze Tal schaut!",
+                  "sl": "Tam pri obzorju, kjer se vidi čez vso dolino!",
+                  "en": "There at the horizon, where you look over the whole valley!",
+                  "it": "Là all'orizzonte, dove si guarda su tutta la valle!",
+                  "tap": "horizon",
+                  "why": {
+                    "sl": "Do obzorja ne prideš nikoli. Stolp mora stati pred gorami.",
+                    "en": "You never reach the horizon. The tower has to stand in front of the mountains.",
+                    "it": "All'orizzonte non ci si arriva mai. La torre deve stare davanti ai monti."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Beim Horizont? Dahin kommt man nie, so weit man auch geht!",
+                    "sl": "Pri obzorju? Tja ne prideš nikoli, naj greš še tako daleč!",
+                    "en": "At the horizon? You never get there, however far you walk!",
+                    "it": "All'orizzonte? Lì non ci si arriva mai, per quanto si cammini!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "{learner}, wenn die Nachbarn fragen, warum gerade dieser Hügel, was sagen wir ihnen?",
+              "sl": "{learner}, če sosedje vprašajo, zakaj prav ta grič, kaj jim rečemo?",
+              "en": "{learner}, if the neighbours ask why this hill of all hills, what do we tell them?",
+              "it": "{learner}, se i vicini chiedono perché proprio questa collina, che cosa gli diciamo?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dass wir keinen Hügel finden würden, der eine schönere Aussicht hat.",
+                  "sl": "Da ne bi našli griča, ki ima lepši razgled.",
+                  "en": "That we wouldn't find a hill with a finer view.",
+                  "it": "Che non troveremmo una collina con una vista più bella.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau. Und meine Gäste lieben schöne Aussichten.",
+                    "sl": "Natanko. In moji gostje imajo radi lepe razglede.",
+                    "en": "Exactly. And my guests love fine views.",
+                    "it": "Esatto. E i miei ospiti amano le belle viste."
+                  }
+                },
+                {
+                  "de": "Dass wir keinen Hügel kochen würden, der eine schönere Aussicht hat.",
+                  "sl": "Da ne bi skuhali griča, ki ima lepši razgled.",
+                  "en": "That we wouldn't cook a hill with a finer view.",
+                  "it": "Che non cucineremmo una collina con una vista più bella.",
+                  "why": {
+                    "sl": "Grič se najde: finden. Kuha se v kuhinji.",
+                    "en": "You find a hill: finden. Cooking is for the kitchen.",
+                    "it": "Una collina si trova: finden. Si cucina in cucina."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Kochen? Einen Hügel? Sofort, sofort, aber das wird ein großer Topf!",
+                    "sl": "Kuhati? Grič? Takoj, takoj, ampak to bo velik lonec!",
+                    "en": "Cook a hill? Right away, right away, but that'll be a big pot!",
+                    "it": "Cucinare una collina? Subito, subito, ma ci vuole una pentola enorme!"
+                  }
+                },
+                {
+                  "de": "Dass wir keinen Hügel finden würden, der eine kältere Aussicht hat.",
+                  "sl": "Da ne bi našli griča, ki ima bolj mrzel razgled.",
+                  "en": "That we wouldn't find a hill with a colder view.",
+                  "it": "Che non troveremmo una collina con una vista più fredda.",
+                  "why": {
+                    "sl": "Razgled je lep: schön, schöner. Mrzel ne pove nič o razgledu.",
+                    "en": "A view is fine: schön, schöner. Cold says nothing about a view.",
+                    "it": "Una vista è bella: schön, schöner. Fredda non dice niente della vista."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Eine kältere Aussicht? Dann bring ich den Gästen einen Tee!",
+                    "sl": "Bolj mrzel razgled? Potem gostom prinesem čaj!",
+                    "en": "A colder view? Then I'll bring the guests some tea!",
+                    "it": "Una vista più fredda? Allora porto un tè agli ospiti!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Dann ist es beschlossen. Dort kommt mein Turm hin, und von oben sieht man drei Länder.",
+              "sl": "Potem je odločeno. Tja pride moj stolp in z vrha se vidijo tri dežele.",
+              "en": "Then it's decided. My tower goes there, and from the top you see three countries.",
+              "it": "Allora è deciso. Lì va la mia torre, e dall'alto si vedono tre paesi."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "thinking",
+              "de": "Am Wörthersee hat man vor ein paar Jahren einen Turm gebaut, der seitdem voller Gäste ist. Hätten wir so einen, käme auch zu uns die halbe Welt.",
+              "sl": "Ob Vrbskem jezeru so pred nekaj leti zgradili stolp, ki je odtlej poln gostov. Ko bi mi imeli takega, bi tudi k nam prišel pol sveta.",
+              "en": "A few years ago they built a tower at the Wörthersee that's been full of guests ever since. If we had one like that, half the world would come here too.",
+              "it": "Qualche anno fa al Wörthersee hanno costruito una torre che da allora è sempre piena di ospiti. Se ne avessimo una così, verrebbe anche da noi mezzo mondo."
+            },
+            {
+              "who": "sepp",
+              "face": "curious",
+              "de": "Wie man so sagt: Wer hoch hinaus will, braucht einen guten Hügel. Welchen würdest du nehmen?",
+              "sl": "Kot pravijo: kdor hoče visoko, potrebuje dober grič. Katerega bi ti {m:vzel|f:vzela}?",
+              "en": "As they say: whoever wants to go high needs a good hill. Which would you take?",
+              "it": "Come si dice: chi vuole salire in alto ha bisogno di una buona collina. Quale prenderesti?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Den vor den Bergen, von dem aus man bis zu den Karawanken sieht.",
+                  "sl": "Tistega pred gorami, s katerega se vidi do Karavank.",
+                  "en": "The one in front of the mountains, from which you can see as far as the Karawanken.",
+                  "it": "Quella davanti ai monti, da cui si vede fino alle Caravanche.",
+                  "ok": true,
+                  "tap": "mountains",
+                  "reply": {
+                    "face": "proud",
+                    "de": "Gut gewählt. Dort habe ich als Bub die Kühe gehütet.",
+                    "sl": "Dobro izbrano. Tam sem kot fantič pasel krave.",
+                    "en": "Well chosen. I minded the cows there as a lad.",
+                    "it": "Scelta buona. Lì da ragazzo pascolavo le mucche."
+                  }
+                },
+                {
+                  "de": "Den auf der Straße, von dem aus man bis zu den Karawanken sieht.",
+                  "sl": "Tistega na cesti, s katerega se vidi do Karavank.",
+                  "en": "The one on the road, from which you can see as far as the Karawanken.",
+                  "it": "Quella sulla strada, da cui si vede fino alle Caravanche.",
+                  "tap": "road",
+                  "why": {
+                    "sl": "Na cesti ni griča. Pravi grič je pred gorami.",
+                    "en": "There's no hill on the road. The right hill is in front of the mountains.",
+                    "it": "Sulla strada non c'è nessuna collina. Quella giusta è davanti ai monti."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Ein Hügel auf der Straße? Den hätte der Wagen längst plattgefahren!",
+                    "sl": "Grič na cesti? Tega bi voz že zdavnaj sploščil!",
+                    "en": "A hill on the road? The cart would have flattened it long ago!",
+                    "it": "Una collina sulla strada? Il carro l'avrebbe spianata da tempo!"
+                  }
+                },
+                {
+                  "de": "Den beim Horizont, von dem aus man bis zu den Karawanken sieht.",
+                  "sl": "Tistega pri obzorju, s katerega se vidi do Karavank.",
+                  "en": "The one at the horizon, from which you can see as far as the Karawanken.",
+                  "it": "Quella all'orizzonte, da cui si vede fino alle Caravanche.",
+                  "tap": "horizon",
+                  "why": {
+                    "sl": "Obzorje se odmika, ko greš proti njemu. Grič je pred gorami.",
+                    "en": "The horizon moves away as you walk towards it. The hill is in front of the mountains.",
+                    "it": "L'orizzonte si allontana mentre ci cammini incontro. La collina è davanti ai monti."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Beim Horizont? Bis du dort bist, ist der Turm schon alt!",
+                    "sl": "Pri obzorju? Dokler prideš tja, bo stolp že star!",
+                    "en": "At the horizon? By the time you got there, the tower would be old!",
+                    "it": "All'orizzonte? Prima che ci arrivi, la torre sarà già vecchia!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "Manche meinen, ein Turm im Dorf sei überflüssig. Was würden Sie ihnen antworten, {learner}?",
+              "sl": "Nekateri menijo, da je stolp v vasi odveč. Kaj bi jim odgovorili, {learner}?",
+              "en": "Some reckon a tower in the village is pointless. What would you answer them, {learner}?",
+              "it": "Qualcuno pensa che una torre in paese sia inutile. Che cosa gli risponderebbe, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Zwar braucht ihn keiner zum Leben, aber eine schönere Aussicht finden wir nirgends.",
+                  "sl": "Za življenje ga sicer nihče ne potrebuje, ampak lepšega razgleda ne najdemo nikjer.",
+                  "en": "Nobody needs it to live, true, but we won't find a finer view anywhere.",
+                  "it": "Per vivere non serve a nessuno, è vero, ma una vista più bella non la troviamo da nessuna parte.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau so sag ich's ihnen. Und dazu einen Kaffee, dann sind sie überzeugt.",
+                    "sl": "Natanko tako jim bom rekla. Zraven pa kavo, potem bodo prepričani.",
+                    "en": "That's exactly what I'll tell them. With a coffee, then they'll be convinced.",
+                    "it": "Proprio così glielo dico. E con un caffè, così si convincono."
+                  }
+                },
+                {
+                  "de": "Zwar braucht ihn keiner zum Leben, aber eine schönere Aussicht kochen wir nirgends.",
+                  "sl": "Za življenje ga sicer nihče ne potrebuje, ampak lepšega razgleda ne skuhamo nikjer.",
+                  "en": "Nobody needs it to live, true, but we won't cook a finer view anywhere.",
+                  "it": "Per vivere non serve a nessuno, è vero, ma una vista più bella non la cuciniamo da nessuna parte.",
+                  "why": {
+                    "sl": "Razgled se najde: finden. Skuhati se ga ne da.",
+                    "en": "A view is found: finden. You can't cook one.",
+                    "it": "Una vista si trova: finden. Non si può cucinare."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Eine Aussicht kochen? Das wär mein neues Tagesgericht!",
+                    "sl": "Skuhati razgled? To bi bila moja nova jed dneva!",
+                    "en": "Cook a view? That'd be my new dish of the day!",
+                    "it": "Cucinare una vista? Sarebbe il mio nuovo piatto del giorno!"
+                  }
+                },
+                {
+                  "de": "Zwar braucht ihn keiner zum Leben, aber eine hässlichere Aussicht finden wir nirgends.",
+                  "sl": "Za življenje ga sicer nihče ne potrebuje, ampak grših razgledov ne najdemo nikjer.",
+                  "en": "Nobody needs it to live, true, but we won't find an uglier view anywhere.",
+                  "it": "Per vivere non serve a nessuno, è vero, ma una vista più brutta non la troviamo da nessuna parte.",
+                  "why": {
+                    "sl": "Za stolp govori lep razgled: schön, schöner. Grši (hässlicher) govori proti.",
+                    "en": "A fine view is what speaks for the tower: schön, schöner. An uglier one (hässlicher) speaks against it.",
+                    "it": "A favore della torre parla la bella vista: schön, schöner. Una più brutta (hässlicher) parla contro."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Hässlicher? Dann bau ich den Turm aber sicher nicht dort hin!",
+                    "sl": "Grši? Potem stolpa gotovo ne bom postavila tja!",
+                    "en": "Uglier? Then I certainly won't build the tower there!",
+                    "it": "Più brutta? Allora la torre di sicuro non la costruisco lì!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Dann ist es beschlossen. Dort kommt mein Turm hin, und am Wörthersee werden sie staunen.",
+              "sl": "Potem je odločeno. Tja pride moj stolp, ob Vrbskem jezeru pa se bodo čudili.",
+              "en": "Then it's decided. My tower goes there, and at the Wörthersee they'll be amazed.",
+              "it": "Allora è deciso. Lì va la mia torre, e al Wörthersee rimarranno a bocca aperta."
+            }
+          ]
         }
       }
     },
@@ -689,6 +983,257 @@
               "it": "Grazie a tutti! Domani arriva il legno dal bosco."
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Heute graben die Nachbarn das Fundament. Der Turm wird zwanzig Meter hoch, deshalb muss es stark sein.",
+              "sl": "Danes sosedje kopljejo temelje. Stolp bo visok dvajset metrov, zato morajo biti močni.",
+              "en": "Today the neighbours dig the foundations. The tower will be twenty metres high, so they have to be strong.",
+              "it": "Oggi i vicini scavano le fondamenta. La torre sarà alta venti metri, quindi devono essere solide."
+            },
+            {
+              "who": "florian",
+              "face": "surprised",
+              "de": "Zwanzig Meter! Wie tief müssten wir dann graben, damit er nicht umfällt?",
+              "sl": "Dvajset metrov! Kako globoko bi morali potem kopati, da se ne prevrne?",
+              "en": "Twenty metres! How deep would we have to dig then, so it doesn't fall over?",
+              "it": "Venti metri! Quanto a fondo dovremmo scavare allora, perché non cada?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "So tief, dass der Turm auch bei Sturm fest steht.",
+                  "sl": "Tako globoko, da stolp trdno stoji tudi ob viharju.",
+                  "en": "So deep that the tower stands firm even in a storm.",
+                  "it": "Così a fondo che la torre stia salda anche con la tempesta.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Klug! Dann graben wir bis zum Abend.",
+                    "sl": "Pametno! Potem kopljemo do večera.",
+                    "en": "Clever! Then we'll dig till evening.",
+                    "it": "Furbo! Allora scaviamo fino a sera."
+                  }
+                },
+                {
+                  "de": "So hoch, dass der Turm auch bei Sturm fest steht.",
+                  "sl": "Tako visoko, da stolp trdno stoji tudi ob viharju.",
+                  "en": "So high that the tower stands firm even in a storm.",
+                  "it": "Così in alto che la torre stia salda anche con la tempesta.",
+                  "why": {
+                    "sl": "Temelji gredo navzdol: tief. Navzgor (hoch) se ne koplje.",
+                    "en": "Foundations go down: tief. You don't dig upwards (hoch).",
+                    "it": "Le fondamenta vanno in giù: tief. In su (hoch) non si scava."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Hoch graben? In die Luft? Ha ha!",
+                    "sl": "Kopati visoko? V zrak? Ha ha!",
+                    "en": "Dig high? Into the air? Ha ha!",
+                    "it": "Scavare in alto? Nell'aria? Ah ah!"
+                  }
+                },
+                {
+                  "de": "So tief, dass der Turm steht auch bei Sturm fest.",
+                  "sl": "Tako globoko, da stolp trdno stoji tudi ob viharju. (besedni red)",
+                  "en": "So deep that the tower stands firm even in a storm. (word order)",
+                  "it": "Così a fondo che la torre stia salda anche con la tempesta. (ordine delle parole)",
+                  "grammar": "indem-sodass",
+                  "why": {
+                    "sl": "Za dass gre glagol na konec: dass der Turm auch bei Sturm fest steht.",
+                    "en": "After dass the verb goes to the end: dass der Turm auch bei Sturm fest steht.",
+                    "it": "Dopo dass il verbo va in fondo: dass der Turm auch bei Sturm fest steht."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Hm? Wie bitte? Noch einmal, langsam.",
+                    "sl": "Hm? Prosim? Še enkrat, počasi.",
+                    "en": "Hm? Sorry? Once more, slowly.",
+                    "it": "Eh? Come? Ancora una volta, piano."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "thinking",
+              "de": "Ein Turm ist wie ein Baum. Wenn er keine Wurzeln hätte, würde ihn der erste Wind umwerfen.",
+              "sl": "Stolp je kot drevo. Ko ne bi imel korenin, bi ga prvi veter podrl.",
+              "en": "A tower is like a tree. If it had no roots, the first wind would knock it over.",
+              "it": "Una torre è come un albero. Se non avesse radici, il primo vento la butterebbe giù."
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "{learner}, wie tief ist das Loch, seit ihr heute früh angefangen habt?",
+              "sl": "{learner}, kako globoka je jama, odkar ste zjutraj začeli?",
+              "en": "{learner}, how deep is the hole since you started this morning?",
+              "it": "{learner}, quanto è profonda la buca da quando avete cominciato stamattina?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Seit heute früh ist es schon zwei Meter tief geworden.",
+                  "sl": "Od jutra je postala globoka že dva metra.",
+                  "en": "Since this morning it's got two metres deep already.",
+                  "it": "Da stamattina è diventata già profonda due metri.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Wunderbar! Darauf steht mein Turm hundert Jahre.",
+                    "sl": "Čudovito! Na tem bo moj stolp stal sto let.",
+                    "en": "Wonderful! My tower will stand on that a hundred years.",
+                    "it": "Meraviglioso! Su questo la mia torre starà cent'anni."
+                  }
+                },
+                {
+                  "de": "Seit heute früh ist es schon zwei Meter breit geworden.",
+                  "sl": "Od jutra je postala široka že dva metra.",
+                  "en": "Since this morning it's got two metres wide already.",
+                  "it": "Da stamattina è diventata già larga due metri.",
+                  "why": {
+                    "sl": "Kathi sprašuje, kako globoko: tief. Širina (breit) je nekaj drugega.",
+                    "en": "Kathi asks how deep: tief. Width (breit) is something else.",
+                    "it": "Kathi chiede quanto è profonda: tief. La larghezza (breit) è un'altra cosa."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Breit? Ich frag, wie weit es nach unten geht!",
+                    "sl": "Široka? Sprašujem, kako daleč gre navzdol!",
+                    "en": "Wide? I'm asking how far down it goes!",
+                    "it": "Larga? Io chiedo quanto va in giù!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Danke, alle! Morgen kommt das Holz aus dem Wald, und dann wächst er.",
+              "sl": "Hvala, vsem! Jutri pride les iz gozda, potem pa bo zrasel.",
+              "en": "Thanks, everyone! Tomorrow the timber comes from the wood, and then it'll grow.",
+              "it": "Grazie a tutti! Domani arriva il legno dal bosco, e poi crescerà."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Für einen zwanzig Meter hohen Turm muss das Fundament tiefer sein als für jedes Haus im Dorf.",
+              "sl": "Za dvajset metrov visok stolp morajo biti temelji globlji kot za katero koli hišo v vasi.",
+              "en": "For a twenty-metre tower the foundations have to be deeper than for any house in the village.",
+              "it": "Per una torre alta venti metri le fondamenta devono essere più profonde che per qualsiasi casa del paese."
+            },
+            {
+              "who": "florian",
+              "face": "surprised",
+              "de": "Wenn man zu flach gräbt, kippt so ein Turm beim ersten Föhnsturm um, oder?",
+              "sl": "Če koplješ preplitvo, se tak stolp ob prvem fenskem viharju prevrne, kajne?",
+              "en": "If you dig too shallow, a tower like that tips over in the first föhn storm, right?",
+              "it": "Se si scava troppo poco, una torre così si ribalta alla prima tempesta di föhn, vero?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Eben. Ein zu flach gegründeter Turm stünde keinen Winter lang gerade.",
+                  "sl": "Prav to. Preplitvo temeljen stolp ne bi stal ravno niti ene zime.",
+                  "en": "Exactly. A tower with too shallow foundations wouldn't stay straight a single winter.",
+                  "it": "Appunto. Una torre con fondamenta troppo basse non resterebbe dritta neanche un inverno.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Darum graben wir lieber einen Meter zu viel. Ich zahl die Jause.",
+                    "sl": "Zato raje izkopljemo meter preveč. Malico plačam jaz.",
+                    "en": "That's why we'd rather dig a metre too many. The Jause is on me.",
+                    "it": "Per questo scaviamo piuttosto un metro di troppo. La merenda la pago io."
+                  }
+                },
+                {
+                  "de": "Eben. Ein zu hoch gegründeter Turm stünde keinen Winter lang gerade.",
+                  "sl": "Prav to. Previsoko temeljen stolp ne bi stal ravno niti ene zime.",
+                  "en": "Exactly. A tower with too high foundations wouldn't stay straight a single winter.",
+                  "it": "Appunto. Una torre con fondamenta troppo alte non resterebbe dritta neanche un inverno.",
+                  "why": {
+                    "sl": "Florian govori o plitvem kopanju: flach, nasprotje od tief. Temelji ne gredo visoko.",
+                    "en": "Florian's talking about digging shallow: flach, the opposite of tief. Foundations don't go high.",
+                    "it": "Florian parla di scavare poco: flach, il contrario di tief. Le fondamenta non vanno in alto."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "de": "Zu hoch gegründet? Dann wär das Fundament ja in der Luft.",
+                    "sl": "Previsoko temeljen? Potem bi bili temelji v zraku.",
+                    "en": "Founded too high? Then the foundations would be in the air.",
+                    "it": "Fondamenta troppo alte? Allora sarebbero per aria."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "thinking",
+              "de": "Wie man so sagt: Was man unten spart, verliert man oben. Mein Vater hat das beim Kirchturm gelernt.",
+              "sl": "Kot pravijo: kar prihraniš spodaj, izgubiš zgoraj. Moj oče se je tega naučil pri zvoniku.",
+              "en": "As they say: what you save below, you lose above. My father learnt that with the church tower.",
+              "it": "Come si dice: quello che risparmi sotto lo perdi sopra. Mio padre l'ha imparato col campanile."
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "{learner}, wie tief ist es jetzt? Ich hab den ganzen Vormittag in der Küche gestanden.",
+              "sl": "{learner}, kako globoko je zdaj? Vse dopoldne sem stala v kuhinji.",
+              "en": "{learner}, how deep is it now? I've been standing in the kitchen all morning.",
+              "it": "{learner}, quanto è profonda adesso? Sono stata in cucina tutta la mattina."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Während Sie gekocht haben, haben die Nachbarn zwei Meter tief gegraben.",
+                  "sl": "Medtem ko ste kuhali, so sosedje izkopali dva metra globoko.",
+                  "en": "While you were cooking, the neighbours dug two metres deep.",
+                  "it": "Mentre lei cucinava, i vicini hanno scavato due metri di profondità.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Zwei Meter! Darauf steht mein Turm länger als jedes Gasthaus.",
+                    "sl": "Dva metra! Na tem bo moj stolp stal dlje kot katera koli gostilna.",
+                    "en": "Two metres! My tower will stand on that longer than any Gasthaus.",
+                    "it": "Due metri! Su questo la mia torre starà più di qualsiasi trattoria."
+                  }
+                },
+                {
+                  "de": "Während Sie gekocht haben, haben die Nachbarn zwei Meter breit gegraben.",
+                  "sl": "Medtem ko ste kuhali, so sosedje izkopali dva metra široko.",
+                  "en": "While you were cooking, the neighbours dug two metres wide.",
+                  "it": "Mentre lei cucinava, i vicini hanno scavato due metri di larghezza.",
+                  "why": {
+                    "sl": "Kathi vpraša za globino: tief. Širina je nekaj drugega.",
+                    "en": "Kathi asks about the depth: tief. Width is something else.",
+                    "it": "Kathi chiede della profondità: tief. La larghezza è un'altra cosa."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Breit? Ich will doch wissen, wie weit es nach unten geht!",
+                    "sl": "Široko? Saj hočem vedeti, kako daleč gre navzdol!",
+                    "en": "Wide? I want to know how far down it goes!",
+                    "it": "Largo? Io voglio sapere quanto va in giù!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Danke, alle! Morgen kommt das Holz, und dann wächst der Turm Stockwerk für Stockwerk.",
+              "sl": "Hvala, vsem! Jutri pride les, potem pa stolp zraste nadstropje za nadstropjem.",
+              "en": "Thanks, everyone! Tomorrow the timber comes, and then the tower grows storey by storey.",
+              "it": "Grazie a tutti! Domani arriva il legno, e poi la torre crescerà piano dopo piano."
+            }
+          ]
         }
       }
     },
@@ -967,6 +1512,286 @@
                 "en": "Sorry? Once more, slowly.",
                 "it": "Come? Ancora una volta, piano."
               }
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Für den Turm brauchen wir zwanzig Stämme aus Lärche, die die Burschen heute aus dem Wald holen.",
+              "sl": "Za stolp potrebujemo dvajset macesnovih debel, ki jih fantje danes pripeljejo iz gozda.",
+              "en": "For the tower we need twenty larch trunks, which the lads are fetching from the wood today.",
+              "it": "Per la torre ci servono venti tronchi di larice, che i ragazzi oggi portano dal bosco."
+            },
+            {
+              "who": "florian",
+              "face": "thinking",
+              "de": "Ein Stamm ist so schwer, dass ihn einer allein nicht einmal hebt.",
+              "sl": "Deblo je tako težko, da ga eden sam niti ne dvigne.",
+              "en": "A trunk's so heavy that one man alone can't even lift it.",
+              "it": "Un tronco è così pesante che uno da solo non riesce nemmeno a sollevarlo."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dann tragen wir jeden Stamm zu viert, damit sich keiner wehtut.",
+                  "sl": "Potem vsako deblo nesemo v štirih, da se nihče ne poškoduje.",
+                  "en": "Then we'll carry each trunk in fours, so nobody gets hurt.",
+                  "it": "Allora portiamo ogni tronco in quattro, così nessuno si fa male.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Gute Idee! Eins, zwei, drei … hoch!",
+                    "sl": "Dobra zamisel! Ena, dve, tri … gor!",
+                    "en": "Good idea! One, two, three … up!",
+                    "it": "Buona idea! Uno, due, tre … su!"
+                  }
+                },
+                {
+                  "de": "Dann werfen wir jeden Stamm zu viert, damit sich keiner wehtut.",
+                  "sl": "Potem vsako deblo vržemo v štirih, da se nihče ne poškoduje.",
+                  "en": "Then we'll throw each trunk in fours, so nobody gets hurt.",
+                  "it": "Allora lanciamo ogni tronco in quattro, così nessuno si fa male.",
+                  "why": {
+                    "sl": "Težka debla se nosijo: tragen. Metati jih ni varno.",
+                    "en": "Heavy trunks get carried: tragen. Throwing them isn't safe.",
+                    "it": "I tronchi pesanti si portano: tragen. Lanciarli non è sicuro."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Werfen? Bis auf den Hügel? Ha ha!",
+                    "sl": "Vreči? Do griča? Ha ha!",
+                    "en": "Throw them? All the way up the hill? Ha ha!",
+                    "it": "Lanciarli? Fino in cima alla collina? Ah ah!"
+                  }
+                },
+                {
+                  "de": "Dann tragen wir jeder Stamm zu viert, damit sich keiner wehtut.",
+                  "sl": "Potem vsako deblo nesemo v štirih, da se nihče ne poškoduje. (jeder)",
+                  "en": "Then we'll carry each trunk in fours, so nobody gets hurt. (jeder)",
+                  "it": "Allora portiamo ogni tronco in quattro, così nessuno si fa male. (jeder)",
+                  "grammar": "akkusativ",
+                  "why": {
+                    "sl": "Deblo nesemo (tožilnik), Stamm je moškega spola: jeden Stamm.",
+                    "en": "We carry the trunk (accusative), and Stamm is masculine: jeden Stamm.",
+                    "it": "Il tronco lo portiamo (accusativo), e Stamm è maschile: jeden Stamm."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Jeder Stamm? Hm. Der Stamm trägt doch nicht uns, wir tragen ihn.",
+                    "sl": "Jeder Stamm? Hm. Saj deblo ne nosi nas, mi nosimo njega.",
+                    "en": "Jeder Stamm? Hm. The trunk isn't carrying us, we're carrying it.",
+                    "it": "Jeder Stamm? Mah. Mica è il tronco a portare noi, siamo noi a portare lui."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "thinking",
+              "de": "Lärchenholz wird nicht faul, auch wenn es hundert Jahre im Regen steht. Darum baut man bei uns damit.",
+              "sl": "Macesnov les ne zgnije, tudi če sto let stoji na dežju. Zato pri nas gradimo z njim.",
+              "en": "Larch doesn't rot, even if it stands in the rain a hundred years. That's why we build with it here.",
+              "it": "Il legno di larice non marcisce, anche se sta cent'anni sotto la pioggia. Per questo da noi si costruisce con quello."
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "{learner}, wie viele Stämme haben die Burschen gebracht, seit ich weg war?",
+              "sl": "{learner}, koliko debel so fantje pripeljali, odkar me ni bilo?",
+              "en": "{learner}, how many trunks have the lads brought since I was gone?",
+              "it": "{learner}, quanti tronchi hanno portato i ragazzi da quando sono andata via?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Seit Sie weg waren, haben sie alle zwanzig Stämme gebracht.",
+                  "sl": "Odkar vas ni bilo, so pripeljali vseh dvajset debel.",
+                  "en": "Since you were gone, they've brought all twenty trunks.",
+                  "it": "Da quando è andata via, hanno portato tutti e venti i tronchi.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Wunderbar! Das reicht für den ganzen Turm.",
+                    "sl": "Čudovito! To zadošča za ves stolp.",
+                    "en": "Wonderful! That's enough for the whole tower.",
+                    "it": "Meraviglioso! Basta per tutta la torre."
+                  }
+                },
+                {
+                  "de": "Seit Sie weg waren, haben sie alle zwanzig Hüte gebracht.",
+                  "sl": "Odkar vas ni bilo, so pripeljali vseh dvajset klobukov.",
+                  "en": "Since you were gone, they've brought all twenty hats.",
+                  "it": "Da quando è andata via, hanno portato tutti e venti i cappelli.",
+                  "why": {
+                    "sl": "Za stolp so pripeljali debla: der Stamm, die Stämme. Klobuki niso za gradnjo.",
+                    "en": "For the tower they brought trunks: der Stamm, die Stämme. Hats aren't for building.",
+                    "it": "Per la torre hanno portato tronchi: der Stamm, die Stämme. I cappelli non servono a costruire."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Hüte? Für den Turm brauchen wir Holz, nicht für jeden Kopf einen Hut!",
+                    "sl": "Klobuke? Za stolp potrebujemo les, ne klobuka za vsako glavo!",
+                    "en": "Hats? For the tower we need wood, not a hat for every head!",
+                    "it": "Cappelli? Per la torre ci serve legno, non un cappello per ogni testa!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Zwanzig Stämme! Jetzt lade ich alle, die getragen haben, auf eine Jause ein.",
+              "sl": "Dvajset debel! Zdaj povabim na malico vse, ki so nosili.",
+              "en": "Twenty trunks! Now I'm inviting everyone who carried to a Jause.",
+              "it": "Venti tronchi! Adesso offro la merenda a tutti quelli che hanno portato."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Zwanzig Lärchenstämme. Der Förster hat gesagt, man dürfe nur die markierten fällen, damit der Wald nicht leidet.",
+              "sl": "Dvajset macesnovih debel. Gozdar je rekel, da se smejo posekati samo označena, da gozd ne bi trpel.",
+              "en": "Twenty larch trunks. The forester said only the marked ones may be felled, so the wood doesn't suffer.",
+              "it": "Venti tronchi di larice. La guardia forestale ha detto che si possono abbattere solo quelli segnati, perché il bosco non soffra."
+            },
+            {
+              "who": "florian",
+              "face": "thinking",
+              "de": "Die markierten stehen aber ganz oben am Hang. Bis man die heruntergetragen hätte, wäre es Abend.",
+              "sl": "Označena pa stojijo čisto zgoraj na pobočju. Dokler bi jih znosili dol, bi bil večer.",
+              "en": "But the marked ones are right up the slope. By the time you'd carried them down, it'd be evening.",
+              "it": "Ma quelli segnati stanno in cima al pendio. Prima di averli portati giù, sarebbe sera."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Getragen werden sie zu viert, und das Pferd zieht die schwersten Stämme.",
+                  "sl": "Nosijo se v štirih, najtežja debla pa vleče konj.",
+                  "en": "They get carried in fours, and the horse pulls the heaviest trunks.",
+                  "it": "Si portano in quattro, e il cavallo tira i tronchi più pesanti.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "So geht's. Mit dem Pferd wird's vor dem Abend fertig.",
+                    "sl": "Tako gre. S konjem bo gotovo pred večerom.",
+                    "en": "That's the way. With the horse it'll be done before evening.",
+                    "it": "Così si fa. Col cavallo è finito prima di sera."
+                  }
+                },
+                {
+                  "de": "Geworfen werden sie zu viert, und das Pferd zieht die schwersten Stämme.",
+                  "sl": "Mečejo se v štirih, najtežja debla pa vleče konj.",
+                  "en": "They get thrown in fours, and the horse pulls the heaviest trunks.",
+                  "it": "Si lanciano in quattro, e il cavallo tira i tronchi più pesanti.",
+                  "why": {
+                    "sl": "Debla se nosijo: tragen, getragen. Metati jih ni varno.",
+                    "en": "Trunks get carried: tragen, getragen. Throwing them isn't safe.",
+                    "it": "I tronchi si portano: tragen, getragen. Lanciarli non è sicuro."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Geworfen? Da hätten wir am Abend lauter Kleinholz!",
+                    "sl": "Vrženi? Potem bi imeli zvečer samo trske!",
+                    "en": "Thrown? We'd have nothing but kindling by evening!",
+                    "it": "Lanciati? Allora la sera avremmo solo legnetti!"
+                  }
+                },
+                {
+                  "de": "Getragen werden sie zu viert, und das Pferd zieht die schwersten Hüte.",
+                  "sl": "Nosijo se v štirih, najtežje klobuke pa vleče konj.",
+                  "en": "They get carried in fours, and the horse pulls the heaviest hats.",
+                  "it": "Si portano in quattro, e il cavallo tira i cappelli più pesanti.",
+                  "why": {
+                    "sl": "Konj vleče debla: die Stämme. Klobuki niso težki.",
+                    "en": "The horse pulls trunks: die Stämme. Hats aren't heavy.",
+                    "it": "Il cavallo tira i tronchi: die Stämme. I cappelli non sono pesanti."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Die schwersten Hüte? Da müsste das Pferd aber lachen!",
+                    "sl": "Najtežji klobuki? Konj bi se pa smejal!",
+                    "en": "The heaviest hats? The horse would laugh!",
+                    "it": "I cappelli più pesanti? Il cavallo riderebbe!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "thinking",
+              "de": "Wie man so sagt: Viele Hände, schnelles Ende. Als ich jung war, hat man so die Kirche gebaut.",
+              "sl": "Kot pravijo: veliko rok, hiter konec. Ko sem bil mlad, so tako gradili cerkev.",
+              "en": "As they say: many hands make quick work. When I was young, that's how they built the church.",
+              "it": "Come si dice: tante mani, lavoro finito presto. Quando ero giovane, così si costruì la chiesa."
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "{learner}, sind alle Stämme da, oder muss ich noch jemanden in den Wald schicken?",
+              "sl": "{learner}, so vsa debla tu, ali moram še koga poslati v gozd?",
+              "en": "{learner}, are all the trunks here, or do I have to send someone else into the wood?",
+              "it": "{learner}, ci sono tutti i tronchi, o devo mandare ancora qualcuno nel bosco?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Alle zwanzig Stämme sind da. Sie hätten niemanden mehr schicken müssen.",
+                  "sl": "Vseh dvajset debel je tu. Nikogar več vam ne bi bilo treba poslati.",
+                  "en": "All twenty trunks are here. You needn't have sent anyone else.",
+                  "it": "Ci sono tutti e venti i tronchi. Non avrebbe dovuto mandare nessun altro.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Gut, dann bleibt die Jause für die, die da sind.",
+                    "sl": "Dobro, potem ostane malica za tiste, ki so tu.",
+                    "en": "Good, then the Jause stays with those who are here.",
+                    "it": "Bene, allora la merenda resta a quelli che ci sono."
+                  }
+                },
+                {
+                  "de": "Alle zwanzig Hüte sind da. Sie hätten niemanden mehr schicken müssen.",
+                  "sl": "Vseh dvajset klobukov je tu. Nikogar več vam ne bi bilo treba poslati.",
+                  "en": "All twenty hats are here. You needn't have sent anyone else.",
+                  "it": "Ci sono tutti e venti i cappelli. Non avrebbe dovuto mandare nessun altro.",
+                  "why": {
+                    "sl": "Kathi sprašuje po deblih: der Stamm, die Stämme.",
+                    "en": "Kathi's asking about the trunks: der Stamm, die Stämme.",
+                    "it": "Kathi chiede dei tronchi: der Stamm, die Stämme."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Hüte? Dann hab ich mich wohl verhört, oder die Burschen haben sich verlaufen!",
+                    "sl": "Klobuki? Potem sem se gotovo preslišala, ali pa so se fantje izgubili!",
+                    "en": "Hats? Then I must have misheard, or the lads have got lost!",
+                    "it": "Cappelli? Allora ho capito male, o i ragazzi si sono persi!"
+                  }
+                },
+                {
+                  "de": "Alle zwanzig Stämme sind da. Sie hätten niemanden mehr schicken gemusst.",
+                  "sl": "Vseh dvajset debel je tu. Nikogar več vam ne bi bilo treba poslati. (gemusst)",
+                  "en": "All twenty trunks are here. You needn't have sent anyone else. (gemusst)",
+                  "it": "Ci sono tutti e venti i tronchi. Non avrebbe dovuto mandare nessun altro. (gemusst)",
+                  "grammar": "konjunktiv-vergangenheit",
+                  "why": {
+                    "sl": "Z nedoločnikom ostane naklonski glagol v nedoločniku: hätten … schicken müssen.",
+                    "en": "With an infinitive the modal stays an infinitive too: hätten … schicken müssen.",
+                    "it": "Con un infinito anche il modale resta all'infinito: hätten … schicken müssen."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Schicken gemusst? Hm. Das klingt, als hätte sich der Satz verlaufen.",
+                    "sl": "Schicken gemusst? Hm. To zveni, kot da bi se stavek izgubil.",
+                    "en": "Schicken gemusst? Hm. That sounds as if the sentence has got lost.",
+                    "it": "Schicken gemusst? Mah. Sembra che la frase si sia persa."
+                  }
+                }
+              ]
             }
           ]
         }
@@ -1248,6 +2073,295 @@
               }
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Das erste Stockwerk steht. Heute kommt das zweite, wenn das Wetter hält.",
+              "sl": "Prvo nadstropje stoji. Danes pride drugo, če bo vreme zdržalo.",
+              "en": "The first storey's up. Today comes the second, if the weather holds.",
+              "it": "Il primo piano è su. Oggi viene il secondo, se il tempo regge."
+            },
+            {
+              "who": "florian",
+              "face": "curious",
+              "de": "Und wohin legen wir die Balken, die gestern gesägt worden sind?",
+              "sl": "Kam pa položimo tramove, ki so bili včeraj razžagani?",
+              "en": "And where do we lay the beams that were sawn yesterday?",
+              "it": "E dove mettiamo le travi che sono state segate ieri?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Wir legen die Balken auf die Stützen, die schon stehen.",
+                  "sl": "Tramove položimo na opornike, ki že stojijo.",
+                  "en": "We lay the beams on the supports that are already up.",
+                  "it": "Mettiamo le travi sui sostegni che sono già su.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Gut. Dann hält alles, auch wenn der Wind kommt.",
+                    "sl": "Dobro. Potem vse drži, tudi ko pride veter.",
+                    "en": "Good. Then it all holds, even when the wind comes.",
+                    "it": "Bene. Così regge tutto, anche se arriva il vento."
+                  }
+                },
+                {
+                  "de": "Wir legen die Würste auf die Stützen, die schon stehen.",
+                  "sl": "Klobase položimo na opornike, ki že stojijo.",
+                  "en": "We lay the sausages on the supports that are already up.",
+                  "it": "Mettiamo le salsicce sui sostegni che sono già su.",
+                  "why": {
+                    "sl": "Na opornike gredo tramovi: der Balken. Klobase so za malico.",
+                    "en": "Beams go on the supports: der Balken. Sausages are for the Jause.",
+                    "it": "Sui sostegni vanno le travi: der Balken. Le salsicce sono per la merenda."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Würste? Die essen wir lieber zur Jause!",
+                    "sl": "Klobase? Te raje pojemo za malico!",
+                    "en": "Sausages? We'd rather eat those at the Jause!",
+                    "it": "Salsicce? Quelle le mangiamo piuttosto a merenda!"
+                  }
+                },
+                {
+                  "de": "Wir legen die Balken auf den Stützen, die schon stehen.",
+                  "sl": "Tramove položimo na opornike, ki že stojijo. (auf den Stützen)",
+                  "en": "We lay the beams on the supports that are already up. (auf den Stützen)",
+                  "it": "Mettiamo le travi sui sostegni che sono già su. (auf den Stützen)",
+                  "grammar": "wechselpraepositionen",
+                  "why": {
+                    "sl": "Legen pove, kam: auf s tožilnikom, auf die Stützen. Auf den Stützen (dajalnik) je za kje.",
+                    "en": "Legen says where to: auf with the accusative, auf die Stützen. Auf den Stützen (dative) is for where something is.",
+                    "it": "Legen dice dove: auf con l'accusativo, auf die Stützen. Auf den Stützen (dativo) è per dove sta."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Auf den Stützen? Hm. Da liegen sie dann. Aber wohin legen wir sie?",
+                    "sl": "Na opornikih? Hm. Tam bodo potem ležali. Ampak kam jih položimo?",
+                    "en": "On the supports? Hm. That's where they'll lie. But where do we put them?",
+                    "it": "Sui sostegni? Mah. Lì staranno. Ma dove li mettiamo?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "thinking",
+              "de": "Wie man so sagt: Gut Ding will Weile haben. Wer zu schnell baut, baut zweimal.",
+              "sl": "Kot pravijo: dobra stvar potrebuje čas. Kdor gradi prehitro, gradi dvakrat.",
+              "en": "As they say: good things take time. Whoever builds too fast builds twice.",
+              "it": "Come si dice: le cose buone richiedono tempo. Chi costruisce troppo in fretta costruisce due volte."
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "{learner}, wie viele Stockwerke wird der Turm haben, wenn er fertig ist?",
+              "sl": "{learner}, koliko nadstropij bo imel stolp, ko bo gotov?",
+              "en": "{learner}, how many storeys will the tower have when it's finished?",
+              "it": "{learner}, quanti piani avrà la torre quando sarà finita?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Wenn er fertig ist, wird er vier Stockwerke haben.",
+                  "sl": "Ko bo gotov, bo imel štiri nadstropja.",
+                  "en": "When it's finished, it'll have four storeys.",
+                  "it": "Quando sarà finita, avrà quattro piani.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau! Und ganz oben die Aussicht.",
+                    "sl": "Natanko! In čisto na vrhu razgled.",
+                    "en": "Exactly! And right at the top, the view.",
+                    "it": "Esatto! E in cima la vista."
+                  }
+                },
+                {
+                  "de": "Wenn er fertig ist, wird er vier Räder haben.",
+                  "sl": "Ko bo gotov, bo imel štiri kolesa.",
+                  "en": "When it's finished, it'll have four wheels.",
+                  "it": "Quando sarà finita, avrà quattro ruote.",
+                  "why": {
+                    "sl": "Stolp ima nadstropja: das Stockwerk. Kolesa so za voz.",
+                    "en": "A tower has storeys: das Stockwerk. Wheels are for a cart.",
+                    "it": "Una torre ha i piani: das Stockwerk. Le ruote sono per il carro."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Räder? Dann fährt mein Turm nach Villach!",
+                    "sl": "Kolesa? Potem se bo moj stolp odpeljal v Beljak!",
+                    "en": "Wheels? Then my tower would drive off to Villach!",
+                    "it": "Ruote? Allora la mia torre va a Villach!"
+                  }
+                },
+                {
+                  "de": "Wenn er fertig ist, wird er vier Stockwerke hat.",
+                  "sl": "Ko bo gotov, bo imel štiri nadstropja. (hat)",
+                  "en": "When it's finished, it'll have four storeys. (hat)",
+                  "it": "Quando sarà finita, avrà quattro piani. (hat)",
+                  "grammar": "werden-futur",
+                  "why": {
+                    "sl": "Za wird pride nedoločnik na koncu: wird … haben.",
+                    "en": "After wird comes the infinitive at the end: wird … haben.",
+                    "it": "Dopo wird viene l'infinito in fondo: wird … haben."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Wird … hat? Hm. Noch einmal, langsam, bitte.",
+                    "sl": "Wird … hat? Hm. Še enkrat, počasi, prosim.",
+                    "en": "Wird … hat? Hm. Once more, slowly, please.",
+                    "it": "Wird … hat? Mah. Ancora una volta, piano, per favore."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Zwei Stockwerke stehen, zwei kommen noch. Heute Abend gibt's Kasnudeln für alle, die mitgeholfen haben.",
+              "sl": "Dve nadstropji stojita, dve še prideta. Nocoj bodo kasnudeln za vse, ki so pomagali.",
+              "en": "Two storeys up, two to come. Tonight there are Kasnudeln for everyone who helped.",
+              "it": "Due piani su, due ancora da fare. Stasera Kasnudeln per tutti quelli che hanno aiutato."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Jedes Stockwerk wird erst gebaut, wenn das darunter ganz fest ist. So hat man's mir in Klagenfurt erklärt.",
+              "sl": "Vsako nadstropje se zgradi šele, ko je tisto spodaj čisto trdno. Tako so mi razložili v Celovcu.",
+              "en": "Each storey is only built once the one below is completely firm. That's how they explained it to me in Klagenfurt.",
+              "it": "Ogni piano si costruisce solo quando quello sotto è del tutto solido. Così me l'hanno spiegato a Klagenfurt."
+            },
+            {
+              "who": "florian",
+              "face": "curious",
+              "de": "Und die Balken für das dritte? Die liegen schon seit gestern im Gras.",
+              "sl": "Pa tramovi za tretje? Ti že od včeraj ležijo v travi.",
+              "en": "And the beams for the third? They've been lying in the grass since yesterday.",
+              "it": "E le travi per il terzo? Sono nell'erba da ieri."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Die schon gestern zugeschnittenen Balken kommen auf die Stützen des zweiten Stockwerks.",
+                  "sl": "Že včeraj prirezani tramovi pridejo na opornike drugega nadstropja.",
+                  "en": "The beams cut to size yesterday go on the supports of the second storey.",
+                  "it": "Le travi già tagliate ieri vanno sui sostegni del secondo piano.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Gut. Und die, die übrig bleiben, nehmen wir fürs Geländer.",
+                    "sl": "Dobro. Tiste, ki ostanejo, pa vzamemo za ograjo.",
+                    "en": "Good. And the ones left over we'll use for the railing.",
+                    "it": "Bene. E quelle che avanzano le usiamo per la ringhiera."
+                  }
+                },
+                {
+                  "de": "Die schon gestern zugeschnittenen Würste kommen auf die Stützen des zweiten Stockwerks.",
+                  "sl": "Že včeraj prirezane klobase pridejo na opornike drugega nadstropja.",
+                  "en": "The sausages cut to size yesterday go on the supports of the second storey.",
+                  "it": "Le salsicce già tagliate ieri vanno sui sostegni del secondo piano.",
+                  "why": {
+                    "sl": "Na opornike gredo tramovi: die Balken.",
+                    "en": "Beams go on the supports: die Balken.",
+                    "it": "Sui sostegni vanno le travi: die Balken."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Zugeschnittene Würste? Die sind seit gestern längst aufgegessen!",
+                    "sl": "Prirezane klobase? Te so od včeraj že zdavnaj pojedene!",
+                    "en": "Sausages cut to size? They've been eaten since yesterday!",
+                    "it": "Salsicce tagliate? Da ieri sono belle che mangiate!"
+                  }
+                },
+                {
+                  "de": "Die schon gestern zuschneidenden Balken kommen auf die Stützen des zweiten Stockwerks.",
+                  "sl": "Že včeraj prirezani tramovi pridejo na opornike drugega nadstropja. (zuschneidenden)",
+                  "en": "The beams cut to size yesterday go on the supports of the second storey. (zuschneidenden)",
+                  "it": "Le travi già tagliate ieri vanno sui sostegni del secondo piano. (zuschneidenden)",
+                  "grammar": "partizipialattribut",
+                  "why": {
+                    "sl": "Tramove so prirezali (včeraj, končano): deležnik na -t, die zugeschnittenen Balken.",
+                    "en": "The beams were cut (yesterday, finished): the past participle, die zugeschnittenen Balken.",
+                    "it": "Le travi sono state tagliate (ieri, finito): il participio passato, die zugeschnittenen Balken."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Zuschneidende Balken? Hm. Die schneiden doch nicht selber, {learner}.",
+                    "sl": "Zuschneidende Balken? Hm. Saj ne režejo sami.",
+                    "en": "Zuschneidende Balken? Hm. They don't do the cutting themselves, {learner}.",
+                    "it": "Zuschneidende Balken? Mah. Mica si tagliano da sole, {learner}."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "thinking",
+              "de": "Wie man so sagt: Gut Ding will Weile haben. Hätten wir uns beeilt, würde der Turm heute schon wackeln.",
+              "sl": "Kot pravijo: dobra stvar potrebuje čas. Ko bi hiteli, bi se stolp danes že majal.",
+              "en": "As they say: good things take time. If we'd hurried, the tower would be wobbling today already.",
+              "it": "Come si dice: le cose buone richiedono tempo. Se avessimo avuto fretta, la torre oggi traballerebbe già."
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "{learner}, ein Gast hat mich gefragt, wie hoch der Turm einmal wird. Was soll ich ihm sagen?",
+              "sl": "{learner}, en gost me je vprašal, kako visok bo stolp. Kaj naj mu rečem?",
+              "en": "{learner}, a guest asked me how high the tower will be. What should I tell him?",
+              "it": "{learner}, un ospite mi ha chiesto quanto sarà alta la torre. Che cosa gli dico?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Sagen Sie ihm, der Turm werde vier Stockwerke haben, und oben warte die Aussicht.",
+                  "sl": "Recite mu, da bo stolp imel štiri nadstropja in da zgoraj čaka razgled.",
+                  "en": "Tell him the tower will have four storeys, and the view waits at the top.",
+                  "it": "Gli dica che la torre avrà quattro piani, e che in cima aspetta la vista.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau so. Und wer bis oben steigt, kriegt bei mir einen Kaffee.",
+                    "sl": "Natanko tako. In kdor spleza do vrha, dobi pri meni kavo.",
+                    "en": "Just so. And whoever climbs to the top gets a coffee at mine.",
+                    "it": "Proprio così. E chi sale fino in cima da me riceve un caffè."
+                  }
+                },
+                {
+                  "de": "Sagen Sie ihm, der Turm werde vier Räder haben, und oben warte die Aussicht.",
+                  "sl": "Recite mu, da bo stolp imel štiri kolesa in da zgoraj čaka razgled.",
+                  "en": "Tell him the tower will have four wheels, and the view waits at the top.",
+                  "it": "Gli dica che la torre avrà quattro ruote, e che in cima aspetta la vista.",
+                  "why": {
+                    "sl": "Stolp ima nadstropja: das Stockwerk. Koles nima.",
+                    "en": "A tower has storeys: das Stockwerk. It has no wheels.",
+                    "it": "Una torre ha piani: das Stockwerk. Ruote non ne ha."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Vier Räder? Dann glaubt der Gast, wir bauen einen Wagen!",
+                    "sl": "Štiri kolesa? Potem bo gost mislil, da gradimo voz!",
+                    "en": "Four wheels? Then the guest'll think we're building a cart!",
+                    "it": "Quattro ruote? Allora l'ospite crede che costruiamo un carro!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Zwei Stockwerke stehen, zwei kommen noch. Und heute Abend gibt's für alle Kasnudeln, sofort, sofort!",
+              "sl": "Dve nadstropji stojita, dve še prideta. In nocoj bodo za vse kasnudeln, takoj, takoj!",
+              "en": "Two storeys up, two to come. And tonight there are Kasnudeln for everyone, right away, right away!",
+              "it": "Due piani su, due ancora da fare. E stasera Kasnudeln per tutti, subito, subito!"
+            }
+          ]
         }
       }
     },
@@ -1525,6 +2639,260 @@
               "sl": "Kmalu pridejo gostje. Potem bodo sami šteli stopnice!",
               "en": "The guests will come soon. Then they'll count the steps themselves!",
               "it": "Presto arrivano gli ospiti. Allora conteranno loro gli scalini!"
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Die Stiege ist fertig: hundert Stufen, von unten bis ganz oben, wo man das Tal sieht.",
+              "sl": "Stopnice so gotove: sto stopnic, od spodaj do čisto na vrh, kjer se vidi dolina.",
+              "en": "The stairs are done: a hundred steps, from the bottom right up to where you see the valley.",
+              "it": "La scala è finita: cento gradini, dal fondo fino in cima, dove si vede la valle."
+            },
+            {
+              "who": "maxi",
+              "face": "laugh",
+              "de": "Wir sind sie schon zehnmal hinaufgelaufen, bevor die Mama es gemerkt hat!",
+              "sl": "Desetkrat smo že stekli gor, preden je mama to opazila!",
+              "en": "We've run up them ten times already before Mum noticed!",
+              "it": "Ci siamo già corsi su dieci volte prima che la mamma se ne accorgesse!"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Zehnmal hundert Stufen? Wenn das stimmt, seid ihr tausend gelaufen!",
+                  "sl": "Desetkrat sto stopnic? Če to drži, ste jih pretekli tisoč!",
+                  "en": "Ten times a hundred steps? If that's true, you've run a thousand!",
+                  "it": "Dieci volte cento gradini? Se è vero, ne avete fatti mille!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau! Und morgen noch einmal tausend!",
+                    "sl": "Natanko! In jutri še enkrat tisoč!",
+                    "en": "Exactly! And another thousand tomorrow!",
+                    "it": "Esatto! E domani altri mille!"
+                  }
+                },
+                {
+                  "de": "Zehnmal hundert Socken? Wenn das stimmt, seid ihr tausend gelaufen!",
+                  "sl": "Desetkrat sto nogavic? Če to drži, ste jih pretekli tisoč!",
+                  "en": "Ten times a hundred socks? If that's true, you've run a thousand!",
+                  "it": "Dieci volte cento calzini? Se è vero, ne avete fatti mille!",
+                  "why": {
+                    "sl": "Po stopnicah se teče: die Stufe, die Stufen. Nogavice so na nogah.",
+                    "en": "You run up steps: die Stufe, die Stufen. Socks are on your feet.",
+                    "it": "Si corre sui gradini: die Stufe, die Stufen. I calzini sono ai piedi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Socken? Hihi, so viele Füße hat keiner!",
+                    "sl": "Nogavice? Hihi, toliko nog nima nihče!",
+                    "en": "Socks? Hee hee, nobody's got that many feet!",
+                    "it": "Calzini? Ih ih, così tanti piedi non li ha nessuno!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "thinking",
+              "de": "Für meine alten Beine sind hundert Stufen viel. Was würdest du mir raten?",
+              "sl": "Za moje stare noge je sto stopnic veliko. Kaj bi mi svetoval?",
+              "en": "For my old legs a hundred steps is a lot. What would you advise me?",
+              "it": "Per le mie vecchie gambe cento gradini sono tanti. Che cosa mi consiglieresti?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Weil die Stiege so steil ist, würde ich langsam gehen und oben rasten.",
+                  "sl": "Ker so stopnice tako strme, bi {m:šel|f:šla} počasi in se zgoraj {m:odpočil|f:odpočila}.",
+                  "en": "Because the stairs are so steep, I'd go slowly and rest at the top.",
+                  "it": "Visto che la scala è così ripida, andrei piano e mi riposerei in cima.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Recht hast du. Eile mit Weile, wie man sagt.",
+                    "sl": "Prav imaš. Počasi se daleč pride, kot pravijo.",
+                    "en": "You're right. More haste, less speed, as they say.",
+                    "it": "Hai ragione. Chi va piano va sano e va lontano, come si dice."
+                  }
+                },
+                {
+                  "de": "Weil die Stiege so flach ist, würde ich langsam gehen und oben rasten.",
+                  "sl": "Ker so stopnice tako položne, bi {m:šel|f:šla} počasi in se zgoraj {m:odpočil|f:odpočila}.",
+                  "en": "Because the stairs are so flat, I'd go slowly and rest at the top.",
+                  "it": "Visto che la scala è così piana, andrei piano e mi riposerei in cima.",
+                  "why": {
+                    "sl": "Sto stopnic na dvajset metrov je strmo: steil. Položne (flach) niso.",
+                    "en": "A hundred steps over twenty metres is steep: steil. They aren't flat (flach).",
+                    "it": "Cento gradini su venti metri sono ripidi: steil. Piani (flach) non sono."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Flach? Nein, die geht ganz hoch hinauf!",
+                    "sl": "Položne? Ne, te gredo čisto visoko gor!",
+                    "en": "Flat? No, they go right up high!",
+                    "it": "Piana? No, sale altissima!"
+                  }
+                },
+                {
+                  "de": "Weil die Stiege so steil ist, wurde ich langsam gehen und oben rasten.",
+                  "sl": "Ker so stopnice tako strme, bi {m:šel|f:šla} počasi in se zgoraj {m:odpočil|f:odpočila}. (wurde)",
+                  "en": "Because the stairs are so steep, I'd go slowly and rest at the top. (wurde)",
+                  "it": "Visto che la scala è così ripida, andrei piano e mi riposerei in cima. (wurde)",
+                  "grammar": "konjunktiv-zwei",
+                  "why": {
+                    "sl": "Za nasvet je konjunktiv: ich würde gehen, s preglasom. Wurde je preteklik od werden.",
+                    "en": "Advice takes the Konjunktiv: ich würde gehen, with the umlaut. Wurde is the past of werden.",
+                    "it": "Il consiglio vuole il Konjunktiv: ich würde gehen, con l'Umlaut. Wurde è il passato di werden."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Wurde? Hm. Was bist du denn geworden, {learner}?",
+                    "sl": "Wurde? Hm. Kaj pa si {m:postal|f:postala}, {learner}?",
+                    "en": "Wurde? Hm. What did you become, {learner}?",
+                    "it": "Wurde? Mah. Che cosa sei {m:diventato|f:diventata}, {learner}?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "proud",
+              "de": "Bald kommen die Gäste. Dann sollen sie die Stufen selbst zählen, und oben gibt's einen Kaffee.",
+              "sl": "Kmalu pridejo gostje. Potem naj sami preštejejo stopnice, zgoraj pa bo kava.",
+              "en": "The guests are coming soon. Then they can count the steps themselves, and there's coffee at the top.",
+              "it": "Presto arrivano gli ospiti. Allora i gradini li contino da soli, e in cima c'è il caffè."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Hundert Stufen, jede aus Lärche, jede vom selben Zimmermann zugeschnitten. Keine ist höher als die andere.",
+              "sl": "Sto stopnic, vsaka iz macesna, vsako je prirezal isti tesar. Nobena ni višja od druge.",
+              "en": "A hundred steps, each of larch, each cut by the same carpenter. None is higher than another.",
+              "it": "Cento gradini, ognuno di larice, ognuno tagliato dallo stesso carpentiere. Nessuno è più alto dell'altro."
+            },
+            {
+              "who": "maxi",
+              "face": "laugh",
+              "de": "Wir sind schon zehnmal oben gewesen. Die Mama hat gesagt, wir sollen aufhören, sonst wird uns schwindlig.",
+              "sl": "Desetkrat smo že bili gor. Mama je rekla, naj nehamo, sicer se nam bo zvrtelo.",
+              "en": "We've been up ten times already. Mum said we should stop, or we'll get dizzy.",
+              "it": "Siamo già stati su dieci volte. La mamma ha detto di smettere, se no ci gira la testa."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Zehnmal hundert Stufen sind tausend. Kein Wunder, dass euch schwindlig wird!",
+                  "sl": "Desetkrat sto stopnic je tisoč. Ni čudno, da se vam vrti!",
+                  "en": "Ten times a hundred steps is a thousand. No wonder you're getting dizzy!",
+                  "it": "Dieci volte cento gradini fanno mille. Per forza vi gira la testa!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Mir nicht! Ich könnte noch zehnmal!",
+                    "sl": "Meni ne! Lahko bi še desetkrat!",
+                    "en": "Not me! I could do ten more!",
+                    "it": "A me no! Potrei farne altri dieci!"
+                  }
+                },
+                {
+                  "de": "Zehnmal hundert Socken sind tausend. Kein Wunder, dass euch schwindlig wird!",
+                  "sl": "Desetkrat sto nogavic je tisoč. Ni čudno, da se vam vrti!",
+                  "en": "Ten times a hundred socks is a thousand. No wonder you're getting dizzy!",
+                  "it": "Dieci volte cento calzini fanno mille. Per forza vi gira la testa!",
+                  "why": {
+                    "sl": "Maxi govori o stopnicah: die Stufen. Nogavic ni štel nihče.",
+                    "en": "Maxi's talking about steps: die Stufen. Nobody counted socks.",
+                    "it": "Maxi parla dei gradini: die Stufen. I calzini non li ha contati nessuno."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Socken? Hihi, so viele hab nicht einmal ich!",
+                    "sl": "Nogavice? Hihi, toliko jih nimam niti jaz!",
+                    "en": "Socks? Hee hee, not even I've got that many!",
+                    "it": "Calzini? Ih ih, così tanti non li ho neanch'io!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "thinking",
+              "de": "Als ich jung war, bin ich in einem Zug auf den Mittagskogel gestiegen. Heute frag ich mich, ob ich die Stiege schaffe.",
+              "sl": "Ko sem bil mlad, sem v enem kosu stopil na Kepo. Danes se sprašujem, ali bom zmogel stopnice.",
+              "en": "When I was young I climbed the Mittagskogel in one go. Today I wonder if I'll manage the stairs.",
+              "it": "Da giovane salivo sul Mittagskogel tutto d'un fiato. Oggi mi chiedo se ce la faccio con la scala."
+            },
+            {
+              "choices": [
+                {
+                  "de": "So steil die Stiege auch ist, mit ein paar Pausen kommst du sicher hinauf.",
+                  "sl": "Naj bodo stopnice še tako strme, z nekaj postanki boš gotovo prišel gor.",
+                  "en": "Steep as the stairs are, with a few rests you'll surely make it up.",
+                  "it": "Per quanto sia ripida la scala, con qualche pausa ci arrivi di sicuro.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Eile mit Weile. Und oben erzähl ich dir, wie das am Mittagskogel war.",
+                    "sl": "Počasi se daleč pride. Zgoraj pa ti povem, kako je bilo na Kepi.",
+                    "en": "More haste, less speed. And at the top I'll tell you what it was like on the Mittagskogel.",
+                    "it": "Chi va piano va sano. E in cima ti racconto com'era sul Mittagskogel."
+                  }
+                },
+                {
+                  "de": "So flach die Stiege auch ist, mit ein paar Pausen kommst du sicher hinauf.",
+                  "sl": "Naj bodo stopnice še tako položne, z nekaj postanki boš gotovo prišel gor.",
+                  "en": "Flat as the stairs are, with a few rests you'll surely make it up.",
+                  "it": "Per quanto sia piana la scala, con qualche pausa ci arrivi di sicuro.",
+                  "why": {
+                    "sl": "Sepp se boji, ker so stopnice strme: steil. Pri položnih ne bi potreboval postankov.",
+                    "en": "Sepp's worried because the stairs are steep: steil. With flat ones he'd need no rests.",
+                    "it": "Sepp si preoccupa perché la scala è ripida: steil. Con una piana non servirebbero pause."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Flach? Hm. Wenn sie flach wäre, bräuchte ich ja keine Pausen.",
+                    "sl": "Položne? Hm. Ko bi bile položne, ne bi potreboval postankov.",
+                    "en": "Flat? Hm. If they were flat, I wouldn't need rests.",
+                    "it": "Piana? Mah. Se fosse piana, non avrei bisogno di pause."
+                  }
+                },
+                {
+                  "de": "So steil die Stiege auch ist, mit ein paar Pausen du kommst sicher hinauf.",
+                  "sl": "Naj bodo stopnice še tako strme, z nekaj postanki boš gotovo prišel gor. (besedni red)",
+                  "en": "Steep as the stairs are, with a few rests you'll surely make it up. (word order)",
+                  "it": "Per quanto sia ripida la scala, con qualche pausa ci arrivi di sicuro. (ordine delle parole)",
+                  "grammar": "satzbau",
+                  "why": {
+                    "sl": "Mit ein paar Pausen zasede prvo mesto glavnega stavka, glagol pride takoj zatem: kommst du.",
+                    "en": "Mit ein paar Pausen takes the main clause's first place, the verb comes straight after: kommst du.",
+                    "it": "Mit ein paar Pausen occupa il primo posto della principale, il verbo viene subito dopo: kommst du."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Hm. Hinauf komm ich vielleicht, aber der Satz ist mir auf halber Höhe stehen geblieben.",
+                    "sl": "Hm. Gor bom mogoče prišel, stavek pa mi je obstal na pol poti.",
+                    "en": "Hm. I might make it up, but the sentence stopped halfway.",
+                    "it": "Mah. Su forse ci arrivo, ma la frase si è fermata a metà."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "proud",
+              "de": "Bald kommen die Gäste. Wer oben ankommt, bekommt einen Kaffee, und wer die Stufen richtig gezählt hat, zwei.",
+              "sl": "Kmalu pridejo gostje. Kdor pride na vrh, dobi kavo, kdor pa je pravilno preštel stopnice, dve.",
+              "en": "The guests are coming soon. Whoever gets to the top gets a coffee, and whoever counted the steps right gets two.",
+              "it": "Presto arrivano gli ospiti. Chi arriva in cima riceve un caffè, e chi ha contato bene i gradini ne riceve due."
             }
           ]
         }
@@ -1925,6 +3293,374 @@
               }
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Oben auf meinen Turm kommt eine Tafel, auf der alle Berge stehen, die man von hier sieht.",
+              "sl": "Na vrh mojega stolpa pride tabla, na kateri so vse gore, ki se vidijo od tu.",
+              "en": "On top of my tower goes a board showing all the mountains you can see from here.",
+              "it": "In cima alla mia torre va un cartello con tutti i monti che si vedono da qui."
+            },
+            {
+              "who": "florian",
+              "face": "curious",
+              "de": "{learner}, du siehst gut. Kannst du mir zeigen, wo der Mittagskogel steht?",
+              "sl": "{learner}, ti dobro vidiš. Mi lahko pokažeš, kje stoji Kepa?",
+              "en": "{learner}, you've got good eyes. Can you show me where the Mittagskogel is?",
+              "it": "{learner}, tu ci vedi bene. Mi fai vedere dov'è il Mittagskogel?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dort rechts, der spitze Berg, auf dem ein Kreuz steht!",
+                  "sl": "Tam desno, koničasta gora, na kateri stoji križ!",
+                  "en": "There on the right, the pointed mountain with a cross on it!",
+                  "it": "Là a destra, la montagna appuntita con la croce sopra!",
+                  "ok": true,
+                  "tap": "mountains",
+                  "reply": {
+                    "face": "happy",
+                    "de": "Ja! Wie eine Pyramide. Auf Slowenisch heißt er Kepa.",
+                    "sl": "Ja! Kot piramida. Po slovensko se imenuje Kepa.",
+                    "en": "Yes! Like a pyramid. In Slovene it's called Kepa.",
+                    "it": "Sì! Come una piramide. In sloveno si chiama Kepa."
+                  }
+                },
+                {
+                  "de": "Dort im Wald, wo ein Kreuz steht!",
+                  "sl": "Tam v gozdu, kjer stoji križ!",
+                  "en": "There in the wood, where a cross stands!",
+                  "it": "Là nel bosco, dove c'è una croce!",
+                  "tap": "forest",
+                  "why": {
+                    "sl": "V gozdu so samo drevesa. Kepa je gora s križem: desno.",
+                    "en": "There are only trees in the wood. The Mittagskogel is the mountain with the cross: on the right.",
+                    "it": "Nel bosco ci sono solo alberi. Il Mittagskogel è la montagna con la croce: a destra."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Im Wald? Da sind nur Bäume, und die haben keine Gipfel!",
+                    "sl": "V gozdu? Tam so samo drevesa, in ta nimajo vrhov!",
+                    "en": "In the wood? There are only trees there, and they haven't got summits!",
+                    "it": "Nel bosco? Lì ci sono solo alberi, e non hanno cime!"
+                  }
+                },
+                {
+                  "de": "Dort auf der Straße, wo ein Kreuz steht!",
+                  "sl": "Tam na cesti, kjer stoji križ!",
+                  "en": "There on the road, where a cross stands!",
+                  "it": "Là sulla strada, dove c'è una croce!",
+                  "tap": "road",
+                  "why": {
+                    "sl": "Na cesti ni gore. Kepa je desno, s križem na vrhu.",
+                    "en": "There's no mountain on the road. The Mittagskogel is on the right, with a cross on top.",
+                    "it": "Sulla strada non c'è nessuna montagna. Il Mittagskogel è a destra, con la croce in cima."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Auf der Straße? Da kommt nur der Kraxenträger!",
+                    "sl": "Na cesti? Tam pride samo nosač s koškom!",
+                    "en": "On the road? Only the pedlar with his back basket comes along there!",
+                    "it": "Sulla strada? Lì passa solo il venditore con la gerla!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "Gut. Und was schreiben wir auf die Tafel, damit sich die Gäste auskennen?",
+              "sl": "Dobro. Kaj pa napišemo na tablo, da se bodo gostje znašli?",
+              "en": "Good. And what do we write on the board, so the guests know what's what?",
+              "it": "Bene. E che cosa scriviamo sul cartello, perché gli ospiti si orientino?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Wir schreiben die Namen der Berge darauf, auf Deutsch und auf Slowenisch.",
+                  "sl": "Nanjo napišemo imena gora, po nemško in po slovensko.",
+                  "en": "We write the names of the mountains on it, in German and in Slovene.",
+                  "it": "Ci scriviamo i nomi dei monti, in tedesco e in sloveno.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau: Dobratsch, Mittagskogel, Kepa, und Triglav ganz rechts.",
+                    "sl": "Natanko: Dobrač, Mittagskogel, Kepa in čisto desno Triglav.",
+                    "en": "Exactly: Dobratsch, Mittagskogel, Kepa, and Triglav right on the right.",
+                    "it": "Esatto: Dobratsch, Mittagskogel, Kepa, e il Triglav tutto a destra."
+                  }
+                },
+                {
+                  "de": "Wir schreiben die Hüte der Berge darauf, auf Deutsch und auf Slowenisch.",
+                  "sl": "Nanjo napišemo klobuke gora, po nemško in po slovensko.",
+                  "en": "We write the hats of the mountains on it, in German and in Slovene.",
+                  "it": "Ci scriviamo i cappelli dei monti, in tedesco e in sloveno.",
+                  "why": {
+                    "sl": "Na tablo gredo imena gora: der Name, die Namen.",
+                    "en": "The mountains' names go on the board: der Name, die Namen.",
+                    "it": "Sul cartello vanno i nomi dei monti: der Name, die Namen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Die Hüte? Im Winter tragen sie weiße!",
+                    "sl": "Klobuke? Pozimi nosijo bele!",
+                    "en": "The hats? In winter they wear white ones!",
+                    "it": "I cappelli? D'inverno li portano bianchi!"
+                  }
+                },
+                {
+                  "de": "Wir schreiben die Namen den Bergen darauf, auf Deutsch und auf Slowenisch.",
+                  "sl": "Nanjo napišemo imena gora, po nemško in po slovensko. (den Bergen)",
+                  "en": "We write the names of the mountains on it, in German and in Slovene. (den Bergen)",
+                  "it": "Ci scriviamo i nomi dei monti, in tedesco e in sloveno. (den Bergen)",
+                  "grammar": "genitiv",
+                  "why": {
+                    "sl": "Čigava imena? Rodilnik: die Namen der Berge.",
+                    "en": "Whose names? The genitive: die Namen der Berge.",
+                    "it": "I nomi di chi? Il genitivo: die Namen der Berge."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Den Bergen? Hm, das klingt, als würden wir ihnen was schenken.",
+                    "sl": "Den Bergen? Hm, to zveni, kot da bi jim kaj podarili.",
+                    "en": "Den Bergen? Hm, that sounds like we're giving them a present.",
+                    "it": "Den Bergen? Mah, sembra che gli facciamo un regalo."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "Triglav sieht man von hier gar nicht. Warum soll er trotzdem auf die Tafel?",
+              "sl": "Triglava se od tu sploh ne vidi. Zakaj naj bo vseeno na tabli?",
+              "en": "You can't see Triglav from here at all. Why should it go on the board anyway?",
+              "it": "Il Triglav da qui non si vede proprio. Perché deve andare lo stesso sul cartello?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Weil die Tafel zeigt, dass er hinter den Karawanken steht, auch wenn man ihn nicht sieht.",
+                  "sl": "Ker tabla pokaže, da stoji za Karavankami, tudi če se ga ne vidi.",
+                  "en": "Because the board shows it stands behind the Karawanken, even if you can't see it.",
+                  "it": "Perché il cartello mostra che sta dietro le Caravanche, anche se non si vede.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau! Man sieht ihn nicht, aber er ist da, in Slowenien.",
+                    "sl": "Natanko! Ne vidi se ga, ampak je tam, v Sloveniji.",
+                    "en": "Exactly! You can't see it, but it's there, in Slovenia.",
+                    "it": "Esatto! Non si vede, ma c'è, in Slovenia."
+                  }
+                },
+                {
+                  "de": "Weil die Tafel kocht, dass er hinter den Karawanken steht, auch wenn man ihn nicht sieht.",
+                  "sl": "Ker tabla kuha, da stoji za Karavankami, tudi če se ga ne vidi.",
+                  "en": "Because the board cooks that it stands behind the Karawanken, even if you can't see it.",
+                  "it": "Perché il cartello cucina che sta dietro le Caravanche, anche se non si vede.",
+                  "why": {
+                    "sl": "Tabla pokaže: zeigen. Kuhati ne more.",
+                    "en": "A board shows: zeigen. It can't cook.",
+                    "it": "Un cartello mostra: zeigen. Non può cucinare."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Die Tafel kocht? Ha ha, sie ist doch keine Köchin wie ich!",
+                    "sl": "Tabla kuha? Ha ha, saj ni kuharica kot jaz!",
+                    "en": "The board cooks? Ha ha, it's not a cook like me!",
+                    "it": "Il cartello cucina? Ah ah, mica è una cuoca come me!"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Auf die Tafel kommen alle Gipfel, die man bei klarem Wetter sieht, zweisprachig, so wie es sich bei uns gehört.",
+              "sl": "Na tablo pridejo vsi vrhovi, ki se vidijo v jasnem vremenu, dvojezično, kot se pri nas spodobi.",
+              "en": "All the summits you can see in clear weather go on the board, in both languages, as is right here.",
+              "it": "Sul cartello vanno tutte le cime che si vedono col tempo sereno, in due lingue, come si deve da noi."
+            },
+            {
+              "who": "florian",
+              "face": "curious",
+              "de": "Den Mittagskogel kennt jeder. Aber zeig mir einmal, wo er ist, ohne lang zu suchen.",
+              "sl": "Kepo pozna vsak. Ampak mi enkrat pokaži, kje je, ne da bi dolgo iskal.",
+              "en": "Everyone knows the Mittagskogel. But show me where it is without searching long.",
+              "it": "Il Mittagskogel lo conoscono tutti. Ma fammi vedere dov'è senza cercare troppo."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Rechts, der spitze Gipfel, auf dem das Gipfelkreuz in der Sonne glänzt.",
+                  "sl": "Desno, koničasti vrh, na katerem se v soncu sveti križ.",
+                  "en": "On the right, the pointed summit where the summit cross is gleaming in the sun.",
+                  "it": "A destra, la cima appuntita su cui brilla al sole la croce di vetta.",
+                  "ok": true,
+                  "tap": "mountains",
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau der. Die Slowenen sagen Kepa, und gemeint ist derselbe Berg.",
+                    "sl": "Točno ta. Slovenci rečejo Kepa, mišljena pa je ista gora.",
+                    "en": "That's the one. The Slovenes say Kepa, and it's the same mountain.",
+                    "it": "Proprio quella. Gli sloveni dicono Kepa, ed è la stessa montagna."
+                  }
+                },
+                {
+                  "de": "Im Wald, wo das Gipfelkreuz in der Sonne glänzt.",
+                  "sl": "V gozdu, kjer se v soncu sveti križ.",
+                  "en": "In the wood, where the summit cross is gleaming in the sun.",
+                  "it": "Nel bosco, dove brilla al sole la croce di vetta.",
+                  "tap": "forest",
+                  "why": {
+                    "sl": "Gozd nima vrha s križem. Kepa je desno.",
+                    "en": "A wood has no summit cross. The Mittagskogel is on the right.",
+                    "it": "Il bosco non ha una croce di vetta. Il Mittagskogel è a destra."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Ein Gipfelkreuz im Wald? Da hätte sich der Pfarrer aber verlaufen!",
+                    "sl": "Križ v gozdu? Potem bi se pa župnik izgubil!",
+                    "en": "A summit cross in the wood? The priest would have got lost!",
+                    "it": "Una croce di vetta nel bosco? Il parroco si sarebbe perso!"
+                  }
+                },
+                {
+                  "de": "Auf der Straße, wo das Gipfelkreuz in der Sonne glänzt.",
+                  "sl": "Na cesti, kjer se v soncu sveti križ.",
+                  "en": "On the road, where the summit cross is gleaming in the sun.",
+                  "it": "Sulla strada, dove brilla al sole la croce di vetta.",
+                  "tap": "road",
+                  "why": {
+                    "sl": "Na cesti ni vrha. Kepa je desno, s križem.",
+                    "en": "There's no summit on the road. The Mittagskogel is on the right, with its cross.",
+                    "it": "Sulla strada non c'è nessuna cima. Il Mittagskogel è a destra, con la croce."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Auf der Straße? Da glänzen höchstens die Pfützen!",
+                    "sl": "Na cesti? Tam se svetijo kvečjemu luže!",
+                    "en": "On the road? Only the puddles gleam there!",
+                    "it": "Sulla strada? Lì brillano al massimo le pozzanghere!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "Und wie schreiben wir's auf die Tafel, damit sich jeder Gast auskennt, egal woher er kommt?",
+              "sl": "Kako pa to napišemo na tablo, da se bo znašel vsak gost, ne glede na to, od kod je?",
+              "en": "And how do we write it on the board so every guest finds their way, wherever they're from?",
+              "it": "E come lo scriviamo sul cartello, perché ogni ospite si orienti, da dovunque venga?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Unter jeden Gipfel schreiben wir die Namen, die er auf Deutsch und auf Slowenisch hat.",
+                  "sl": "Pod vsak vrh napišemo imena, ki jih ima v nemščini in slovenščini.",
+                  "en": "Under each summit we write the names it has in German and in Slovene.",
+                  "it": "Sotto ogni cima scriviamo i nomi che ha in tedesco e in sloveno.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "So machen wir's. Drei Länder, zwei Sprachen, eine Aussicht.",
+                    "sl": "Tako bomo naredili. Tri dežele, dva jezika, en razgled.",
+                    "en": "That's what we'll do. Three countries, two languages, one view.",
+                    "it": "Facciamo così. Tre paesi, due lingue, una vista."
+                  }
+                },
+                {
+                  "de": "Unter jeden Gipfel schreiben wir die Hüte, die er auf Deutsch und auf Slowenisch hat.",
+                  "sl": "Pod vsak vrh napišemo klobuke, ki jih ima v nemščini in slovenščini.",
+                  "en": "Under each summit we write the hats it has in German and in Slovene.",
+                  "it": "Sotto ogni cima scriviamo i cappelli che ha in tedesco e in sloveno.",
+                  "why": {
+                    "sl": "Pod vrh napišemo ime: der Name, die Namen.",
+                    "en": "Under a summit you write its name: der Name, die Namen.",
+                    "it": "Sotto una cima si scrive il nome: der Name, die Namen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Hüte auf Slowenisch? Die tragen die Berge nur im Winter, und dann weiß!",
+                    "sl": "Klobuki po slovensko? Te gore nosijo samo pozimi, pa še bele!",
+                    "en": "Hats in Slovene? The mountains only wear those in winter, and white!",
+                    "it": "Cappelli in sloveno? I monti li portano solo d'inverno, e bianchi!"
+                  }
+                },
+                {
+                  "de": "Unter jeden Gipfel schreiben wir den Name, den er auf Deutsch und auf Slowenisch hat.",
+                  "sl": "Pod vsak vrh napišemo ime, ki ga ima v nemščini in slovenščini. (den Name)",
+                  "en": "Under each summit we write the name it has in German and in Slovene. (den Name)",
+                  "it": "Sotto ogni cima scriviamo il nome che ha in tedesco e in sloveno. (den Name)",
+                  "grammar": "n-deklination",
+                  "why": {
+                    "sl": "Name dobi -n v vseh sklonih razen imenovalnika: den Namen.",
+                    "en": "Name takes -n in every case but the nominative: den Namen.",
+                    "it": "Name prende -n in tutti i casi tranne il nominativo: den Namen."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Den Name? Hm, da fehlt dem Namen hinten ein Buchstabe.",
+                    "sl": "Den Name? Hm, imenu zadaj manjka črka.",
+                    "en": "Den Name? Hm, the name's missing a letter at the end.",
+                    "it": "Den Name? Mah, al nome manca una lettera in fondo."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "Triglav sieht man von hier nicht, und trotzdem hat jeder gesagt, er müsse auf die Tafel. Warum wohl?",
+              "sl": "Triglava se od tu ne vidi, pa so vseeno vsi rekli, da mora na tablo. Le zakaj?",
+              "en": "You can't see Triglav from here, and yet everyone said it had to go on the board. Why, I wonder?",
+              "it": "Il Triglav da qui non si vede, eppure tutti hanno detto che deve stare sul cartello. Chissà perché?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Weil die Tafel zeigen soll, was hinter den Karawanken liegt, auch wenn es versteckt ist.",
+                  "sl": "Ker naj tabla pokaže, kaj leži za Karavankami, tudi če je skrito.",
+                  "en": "Because the board should show what lies behind the Karawanken, even if it's hidden.",
+                  "it": "Perché il cartello deve mostrare che cosa c'è dietro le Caravanche, anche se è nascosto.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau. Er ist Sloweniens höchster Berg, und unser Nachbar.",
+                    "sl": "Natanko. Je najvišja gora Slovenije in naš sosed.",
+                    "en": "Exactly. It's Slovenia's highest mountain, and our neighbour.",
+                    "it": "Esatto. È la montagna più alta della Slovenia, e nostra vicina."
+                  }
+                },
+                {
+                  "de": "Weil die Tafel kochen soll, was hinter den Karawanken liegt, auch wenn es versteckt ist.",
+                  "sl": "Ker naj tabla skuha, kaj leži za Karavankami, tudi če je skrito.",
+                  "en": "Because the board should cook what lies behind the Karawanken, even if it's hidden.",
+                  "it": "Perché il cartello deve cucinare che cosa c'è dietro le Caravanche, anche se è nascosto.",
+                  "why": {
+                    "sl": "Tabla pokaže: zeigen.",
+                    "en": "A board shows: zeigen.",
+                    "it": "Un cartello mostra: zeigen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Kochen? Die Tafel? Da hätte ich in meiner Küche aber Konkurrenz!",
+                    "sl": "Kuhati? Tabla? Potem bi imela v svoji kuhinji pa konkurenco!",
+                    "en": "Cook? The board? Then I'd have competition in my kitchen!",
+                    "it": "Cucinare? Il cartello? Allora avrei concorrenza in cucina!"
+                  }
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -2219,6 +3955,249 @@
               "sl": "Od zgoraj so videli Baško jezero. Čudovito, pravijo vsi!",
               "en": "From the top they've seen the Faaker See. Wonderful, everyone says!",
               "it": "Da lassù hanno visto il lago di Faak. Meraviglioso, dicono tutti!"
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Die ersten Gäste sind da! Sie wollen gleich auf den Turm, über den schon in Villach geredet wird.",
+              "sl": "Prvi gostje so tu! Takoj hočejo na stolp, o katerem se govori že v Beljaku.",
+              "en": "The first guests are here! They want to go straight up the tower people are already talking about in Villach.",
+              "it": "Sono arrivati i primi ospiti! Vogliono salire subito sulla torre di cui si parla già a Villach."
+            },
+            {
+              "who": "sepp",
+              "face": "laugh",
+              "de": "So viele Leute auf einmal! Das hat das Dorf noch nie gesehen, seit ich denken kann.",
+              "sl": "Toliko ljudi naenkrat! Tega vas še ni videla, odkar pomnim.",
+              "en": "So many people at once! The village has never seen that, as long as I can remember.",
+              "it": "Tanta gente tutta insieme! Il paese non l'ha mai vista, da che mi ricordo."
+            },
+            {
+              "who": "kathi",
+              "face": "curious",
+              "de": "{learner}, wie viele Gäste sind gekommen, seit wir heute früh aufgesperrt haben?",
+              "sl": "{learner}, koliko gostov je prišlo, odkar smo zjutraj odklenili?",
+              "en": "{learner}, how many guests have come since we opened up this morning?",
+              "it": "{learner}, quanti ospiti sono arrivati da quando abbiamo aperto stamattina?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Seit Sie aufgesperrt haben, sind zwölf Gäste gekommen.",
+                  "sl": "Odkar ste odklenili, je prišlo dvanajst gostov.",
+                  "en": "Since you opened up, twelve guests have come.",
+                  "it": "Da quando ha aperto, sono arrivati dodici ospiti.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Zwölf! Und morgen kommen bestimmt noch mehr.",
+                    "sl": "Dvanajst! In jutri jih bo gotovo še več.",
+                    "en": "Twelve! And tomorrow there'll surely be more.",
+                    "it": "Dodici! E domani di sicuro ne vengono di più."
+                  }
+                },
+                {
+                  "de": "Seit Sie aufgesperrt haben, sind zwölf Kühe gekommen.",
+                  "sl": "Odkar ste odklenili, je prišlo dvanajst krav.",
+                  "en": "Since you opened up, twelve cows have come.",
+                  "it": "Da quando ha aperto, sono arrivate dodici mucche.",
+                  "why": {
+                    "sl": "Na stolp so prišli gostje: der Gast, die Gäste. Krave so na planini.",
+                    "en": "It's guests who've come to the tower: der Gast, die Gäste. Cows are up on the Alm.",
+                    "it": "Alla torre sono arrivati degli ospiti: der Gast, die Gäste. Le mucche sono all'alpeggio."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Kühe? Die bleiben schön auf der Alm, ha ha!",
+                    "sl": "Krave? Te lepo ostanejo na planini, ha ha!",
+                    "en": "Cows? They stay nicely up on the Alm, ha ha!",
+                    "it": "Mucche? Quelle restano belle all'alpeggio, ah ah!"
+                  }
+                },
+                {
+                  "de": "Als Sie aufgesperrt haben, sind zwölf Gäste gekommen.",
+                  "sl": "Odkar ste odklenili, je prišlo dvanajst gostov. (als)",
+                  "en": "Since you opened up, twelve guests have come. (als)",
+                  "it": "Da quando ha aperto, sono arrivati dodici ospiti. (als)",
+                  "grammar": "temporalsaetze",
+                  "why": {
+                    "sl": "Kathi sprašuje za ves čas od jutra: seit. Als bi pomenilo samo v tistem trenutku.",
+                    "en": "Kathi's asking about the whole time since the morning: seit. Als would mean only at that moment.",
+                    "it": "Kathi chiede di tutto il tempo da stamattina: seit. Als vorrebbe dire solo in quel momento."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Alle zwölf genau in dem Moment? Da muss es aber eng gewesen sein!",
+                    "sl": "Vseh dvanajst ravno v tistem trenutku? Potem je bilo pa tesno!",
+                    "en": "All twelve at that very moment? It must have been a squeeze!",
+                    "it": "Tutti e dodici proprio in quel momento? Dev'esserci stata una bella calca!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "maxi",
+              "face": "curious",
+              "de": "Und was wollen die Gäste jetzt, wo sie alle da sind?",
+              "sl": "Kaj pa hočejo gostje zdaj, ko so vsi tu?",
+              "en": "And what do the guests want now they're all here?",
+              "it": "E che cosa vogliono gli ospiti adesso che ci sono tutti?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Sie wollen auf den Turm steigen, um den Faaker See zu sehen.",
+                  "sl": "Hočejo stopiti na stolp, da bi videli Baško jezero.",
+                  "en": "They want to climb the tower to see the Faaker See.",
+                  "it": "Vogliono salire sulla torre per vedere il lago di Faak.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Dann zeig ich ihnen die Stiege! Ich kenn jede Stufe!",
+                    "sl": "Potem jim pokažem stopnice! Poznam vsako stopnico!",
+                    "en": "Then I'll show them the stairs! I know every step!",
+                    "it": "Allora gli faccio vedere la scala! Conosco ogni gradino!"
+                  }
+                },
+                {
+                  "de": "Sie wollen auf den Turm schwimmen, um den Faaker See zu sehen.",
+                  "sl": "Hočejo plavati na stolp, da bi videli Baško jezero.",
+                  "en": "They want to swim up the tower to see the Faaker See.",
+                  "it": "Vogliono nuotare sulla torre per vedere il lago di Faak.",
+                  "why": {
+                    "sl": "Na stolp se gre po stopnicah: steigen. Plava se v jezeru.",
+                    "en": "You go up a tower by the stairs: steigen. You swim in the lake.",
+                    "it": "Sulla torre si sale per le scale: steigen. Si nuota nel lago."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Schwimmen? Auf einen Turm? Haha, im See vielleicht!",
+                    "sl": "Plavati? Na stolp? Haha, v jezeru mogoče!",
+                    "en": "Swim? Up a tower? Haha, in the lake maybe!",
+                    "it": "Nuotare? Su una torre? Ahah, nel lago forse!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "proud",
+              "de": "Von oben haben sie den Faaker See gesehen, türkis wie im Prospekt. Wunderschön, sagen alle!",
+              "sl": "Z vrha so videli Baško jezero, turkizno kot v prospektu. Prečudovito, pravijo vsi!",
+              "en": "From the top they saw the Faaker See, turquoise as in the brochure. Wonderful, everyone says!",
+              "it": "Dall'alto hanno visto il lago di Faak, turchese come nel dépliant. Bellissimo, dicono tutti!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "kathi",
+              "face": "happy",
+              "de": "Die ersten Gäste! Einer hat erzählt, er sei extra aus Graz gekommen, weil er in der Zeitung von unserem Turm gelesen habe.",
+              "sl": "Prvi gostje! Eden je pripovedoval, da je prišel nalašč iz Gradca, ker je v časopisu bral o našem stolpu.",
+              "en": "The first guests! One said he'd come all the way from Graz because he'd read about our tower in the paper.",
+              "it": "I primi ospiti! Uno ha raccontato di essere venuto apposta da Graz perché aveva letto della nostra torre sul giornale."
+            },
+            {
+              "who": "sepp",
+              "face": "laugh",
+              "de": "Wenn mir das einer vor einem Jahr erzählt hätte, hätte ich ihn für narrisch gehalten.",
+              "sl": "Ko bi mi to kdo povedal pred letom, bi ga imel za norega.",
+              "en": "If anyone had told me that a year ago, I'd have thought him mad.",
+              "it": "Se qualcuno me l'avesse detto un anno fa, l'avrei preso per matto."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Und jetzt kommen die Gäste sogar aus Graz, als wäre unser Dorf ein berühmter Ort.",
+                  "sl": "Zdaj pa gostje prihajajo celo iz Gradca, kot da bi bila naša vas slaven kraj.",
+                  "en": "And now guests are coming even from Graz, as if our village were a famous place.",
+                  "it": "E adesso gli ospiti vengono perfino da Graz, come se il nostro paese fosse un posto famoso.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Ist es jetzt auch, wie man so sagt. Mit Turm und mit Geschichten.",
+                    "sl": "Zdaj tudi je, kot pravijo. S stolpom in z zgodbami.",
+                    "en": "It is now, as they say. With a tower and with stories.",
+                    "it": "Adesso lo è, come si dice. Con la torre e con le storie."
+                  }
+                },
+                {
+                  "de": "Und jetzt kommen die Kühe sogar aus Graz, als wäre unser Dorf ein berühmter Ort.",
+                  "sl": "Zdaj pa krave prihajajo celo iz Gradca, kot da bi bila naša vas slaven kraj.",
+                  "en": "And now cows are coming even from Graz, as if our village were a famous place.",
+                  "it": "E adesso le mucche vengono perfino da Graz, come se il nostro paese fosse un posto famoso.",
+                  "why": {
+                    "sl": "Iz Gradca so prišli gostje: die Gäste.",
+                    "en": "Guests came from Graz: die Gäste.",
+                    "it": "Da Graz sono arrivati ospiti: die Gäste."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Kühe aus Graz? Die hätten aber eine weite Reise gehabt!",
+                    "sl": "Krave iz Gradca? Te bi imele pa dolgo pot!",
+                    "en": "Cows from Graz? They'd have had a long journey!",
+                    "it": "Mucche da Graz? Avrebbero fatto un bel viaggio!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "maxi",
+              "face": "curious",
+              "de": "Und was machen die alle jetzt? Die stehen ja schon bis zur Linde!",
+              "sl": "Kaj pa zdaj počnejo vsi ti? Saj stojijo že do lipe!",
+              "en": "And what are they all doing now? They're queuing all the way to the linden!",
+              "it": "E che cosa fanno tutti adesso? Sono in fila fino al tiglio!"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Sie warten, bis sie auf den Turm steigen dürfen, um den Faaker See zu sehen.",
+                  "sl": "Čakajo, da bodo smeli stopiti na stolp in videti Baško jezero.",
+                  "en": "They're waiting till they're allowed to climb the tower to see the Faaker See.",
+                  "it": "Aspettano di poter salire sulla torre per vedere il lago di Faak.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Dann führ ich sie hinauf! Gegen ein Eis, versteht sich.",
+                    "sl": "Potem jih peljem gor! Za sladoled, seveda.",
+                    "en": "Then I'll take them up! For an ice cream, of course.",
+                    "it": "Allora li porto su io! In cambio di un gelato, s'intende."
+                  }
+                },
+                {
+                  "de": "Sie warten, bis sie auf den Turm schwimmen dürfen, um den Faaker See zu sehen.",
+                  "sl": "Čakajo, da bodo smeli plavati na stolp in videti Baško jezero.",
+                  "en": "They're waiting till they're allowed to swim up the tower to see the Faaker See.",
+                  "it": "Aspettano di poter nuotare sulla torre per vedere il lago di Faak.",
+                  "why": {
+                    "sl": "Na stolp se stopi: steigen. Plavati se da samo v jezeru.",
+                    "en": "You climb a tower: steigen. You can only swim in the lake.",
+                    "it": "Sulla torre si sale: steigen. Nuotare si può solo nel lago."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Schwimmen? Auf den Turm? Dann sind sie am See besser aufgehoben!",
+                    "sl": "Plavati? Na stolp? Potem bi bili raje ob jezeru!",
+                    "en": "Swim? Up the tower? Then they'd be better off at the lake!",
+                    "it": "Nuotare? Sulla torre? Allora stanno meglio al lago!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "kathi",
+              "face": "proud",
+              "de": "Von oben haben sie den Faaker See gesehen, und der Herr aus Graz hat gesagt, so eine Aussicht hätte er nicht erwartet.",
+              "sl": "Z vrha so videli Baško jezero in gospod iz Gradca je rekel, da takega razgleda ni pričakoval.",
+              "en": "From the top they saw the Faaker See, and the gentleman from Graz said he hadn't expected a view like that.",
+              "it": "Dall'alto hanno visto il lago di Faak, e il signore di Graz ha detto che non si aspettava una vista così."
             }
           ]
         }

@@ -10,7 +10,7 @@
   },
   "emoji": "🐝",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, unreviewed",
   "art": "apiary",
   "from": [
     "beehive"
@@ -162,6 +162,8 @@
       "chance": 0.35,
       "dialog": "sciame",
       "dialogs": [
+        "sciame-b2-papa",
+        "sciame-b1-cesto",
         "sciame-dove",
         "sciame"
       ],
@@ -223,6 +225,8 @@
       "chance": 0.5,
       "dialog": "sera",
       "dialogs": [
+        "sera-b2-paglia",
+        "sera-b1-regina",
         "sera-inverno",
         "sera"
       ],
@@ -2267,6 +2271,106 @@
           "en": "Tomorrow we'll make them together. You bring the sugar!",
           "de": "Morgen machen wir sie zusammen. Du bringst den Zucker!"
         }
+      ]
+    },
+    {
+      "id": "sera-b1-regina",
+      "level": "B1",
+      "memory": { "it": "la regina che dormiva nell'arnia", "sl": "matico, ki je spala v panju", "en": "the queen asleep in the hive", "de": "die Königin, die im Bienenstock schlief" },
+      "lines": [
+        { "who": "aldo", "it": "Buonasera, {learner}. Shh. Metti l'orecchio qui, piano. Senti il ronzio? Dentro l'arnia c'è la regina.", "sl": "Dober večer, {learner}. Pst. Daj uho sem, počasi. Slišiš brenčanje? V panju je matica.", "en": "Good evening, {learner}. Shh. Put your ear here, gently. Hear the humming? The queen's inside the hive.", "de": "Guten Abend, {learner}. Psst. Leg dein Ohr hierher, ganz sanft. Hörst du das Summen? Im Bienenstock ist die Königin." },
+        { "who": "aldo", "face": "curious", "it": "Lei fa le uova, e le altre api fanno tutto il resto, anche il miele. Lo sai chi lo fa, di preciso?", "sl": "Ona leže jajčeca, druge čebele pa naredijo vse drugo, tudi med. Veš, kdo ga natančno naredi?", "en": "She lays the eggs, and the other bees do everything else, honey too. Do you know exactly who makes it?", "de": "Sie legt die Eier, und die anderen Bienen machen alles andere, auch den Honig. Weißt du, wer ihn genau macht?" },
+        { "choices": [
+          { "it": "Il miele è fatto dalle api operaie, con il nettare dei fiori.", "sl": "Med naredijo čebele delavke, iz nektarja cvetov.", "en": "Honey is made by the worker bees, from the flowers' nectar.", "de": "Der Honig wird von den Arbeitsbienen gemacht, aus dem Nektar der Blüten.", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così. Le operaie lavorano tutto il giorno, e la sera si riposano.", "sl": "Prav tako. Delavke delajo ves dan, zvečer pa počivajo.", "en": "Exactly. The workers work all day, and in the evening they rest.", "de": "Genau. Die Arbeiterinnen arbeiten den ganzen Tag, und abends ruhen sie sich aus." } },
+          { "it": "Il miele è fatto delle api operaie, con il nettare dei fiori.", "sl": "Med naredijo čebele delavke, iz nektarja cvetov.", "en": "Honey is made by the worker bees, from the flowers' nectar.", "de": "Der Honig wird von den Arbeitsbienen gemacht, aus dem Nektar der Blüten.",
+            "grammar": "passivo", "why": { "sl": "Kdo to naredi, pove da: dalle api. Fatto di pove, iz česa je.", "en": "Who does it comes after da: dalle api. Fatto di says what it's made of.", "de": "Wer es macht, steht nach da: dalle api. Fatto di sagt, woraus es ist." },
+            "reply": { "face": "curious", "it": "Fatto delle api? Il miele fatto di api? Oh no, povere api!", "sl": "Fatto delle api? Med iz čebel? O ne, uboge čebele!", "en": "Fatto delle api? Honey made of bees? Oh no, poor bees!", "de": "Fatto delle api? Honig aus Bienen? Oh nein, die armen Bienen!" } }
+        ] },
+        { "who": "aldo", "face": "thinking", "it": "Ogni ape ha il suo lavoro: chi pulisce, chi vola sui fiori, chi fa la guardia alla porta. E tu, se fossi un'ape, quale lavoro sceglieresti?", "sl": "Vsaka čebela ima svoje delo: ena čisti, druga leti na cvetove, tretja straži pri vratih. Pa ti, če bi {m:bil|f:bila} čebela, katero delo bi {m:izbral|f:izbrala}?", "en": "Every bee has its job: some clean, some fly to the flowers, some guard the door. And you, if you were a bee, which job would you choose?", "de": "Jede Biene hat ihre Arbeit: Manche putzen, manche fliegen zu den Blüten, manche bewachen die Tür. Und du, wenn du eine Biene wärst, welche Arbeit würdest du wählen?" },
+        { "choices": [
+          { "it": "Farei la guardia alla porta dell'arnia!", "sl": "{m:Stražil|f:Stražila} bi pri vratih panja!", "en": "I'd guard the door of the hive!", "de": "Ich würde die Tür vom Bienenstock bewachen!", "ok": true,
+            "reply": { "face": "laugh", "it": "Una guardia così piccola e così brava! Le vespe avrebbero paura di te.", "sl": "Tako majhen in tako priden stražar! Ose bi se te bale.", "en": "Such a small and such a good guard! The wasps would be scared of you.", "de": "So ein kleiner und so tüchtiger Wächter! Die Wespen hätten Angst vor dir." } },
+          { "it": "Facessi la guardia alla porta dell'arnia!", "sl": "{m:Stražil|f:Stražila} bi pri vratih panja!", "en": "I'd guard the door of the hive!", "de": "Ich würde die Tür vom Bienenstock bewachen!",
+            "grammar": "condizionale", "why": { "sl": "V glavnem delu stavka je pogojnik: farei. Facessi gre samo za se.", "en": "In the main half, the conditional: farei. Facessi goes only after se.", "de": "Im Hauptteil steht der Konditional: farei. Facessi kommt nur nach se." },
+            "reply": { "face": "curious", "it": "Facessi…? E poi? Mi sembra che la frase sia rimasta a metà, come un favo vuoto.", "sl": "Facessi …? In potem? Zdi se mi, da je stavek ostal na pol, kot prazno satje.", "en": "Facessi…? And then? I think the sentence has stopped halfway, like an empty honeycomb.", "de": "Facessi …? Und dann? Mir scheint, der Satz ist auf halbem Weg stehen geblieben, wie eine leere Wabe." } }
+        ] },
+        { "who": "aldo", "face": "happy", "it": "Adesso le api dormono. Buonanotte, {learner}. Domani torna, piano piano, come sempre.", "sl": "Zdaj čebele spijo. Lahko noč, {learner}. Jutri spet pridi, počasi, kot vedno.", "en": "Now the bees are asleep. Good night, {learner}. Come back tomorrow, slowly, as always.", "de": "Jetzt schlafen die Bienen. Gute Nacht, {learner}. Komm morgen wieder, langsam, wie immer." }
+      ]
+    },
+    {
+      "id": "sera-b2-paglia",
+      "level": "B2",
+      "memory": { "it": "la paglia intorno alle arnie per l'inverno", "sl": "slamo okrog panjev za zimo", "en": "the straw round the hives for winter", "de": "das Stroh um die Bienenstöcke für den Winter" },
+      "lines": [
+        { "who": "aldo", "face": "thinking", "it": "D'inverno le api non dormono, sai? Si stringono tutte intorno alla regina, come una palla, e tremano per scaldarsi.", "sl": "Pozimi čebele ne spijo, veš? Vse se stisnejo okoli matice, kot krogla, in drgetajo, da se ogrejejo.", "en": "In winter bees don't sleep, you know? They all huddle round the queen, like a ball, and shiver to keep warm.", "de": "Im Winter schlafen die Bienen nicht, weißt du? Sie drängen sich alle um die Königin, wie eine Kugel, und zittern, um sich zu wärmen." },
+        { "who": "aldo", "it": "Per questo, finita la raccolta, lascio sempre un po' di miele nell'arnia. Se lo prendessi tutto, a febbraio avrebbero fame.", "sl": "Zato po medenju v panju vedno pustim malo medu. Če bi ga vzel vsega, bi bile februarja lačne.", "en": "That's why, once the harvest's over, I always leave some honey in the hive. If I took it all, they'd be hungry in February.", "de": "Deshalb lasse ich nach der Ernte immer etwas Honig im Stock. Würde ich alles nehmen, hätten sie im Februar Hunger." },
+        { "choices": [
+          { "it": "Allora il miele che resta nell'arnia è il loro pranzo d'inverno.", "sl": "Potem je med, ki ostane v panju, njihovo zimsko kosilo.", "en": "So the honey left in the hive is their winter dinner.", "de": "Dann ist der Honig, der im Stock bleibt, ihr Winteressen.", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così. Io mangio quello d'estate, loro quello d'inverno. Giusto per tutti.", "sl": "Prav tako. Jaz jem poletnega, one zimskega. Pravično za vse.", "en": "Exactly. I eat the summer's, they eat the winter's. Fair for everyone.", "de": "Genau. Ich esse den vom Sommer, sie den vom Winter. Gerecht für alle." } },
+          { "it": "Allora d'inverno le api volano sui fiori a cercare il nettare.", "sl": "Potem čebele pozimi letajo po cvetovih iskat nektar.", "en": "So in winter the bees fly to the flowers looking for nectar.", "de": "Dann fliegen die Bienen im Winter zu den Blüten und suchen Nektar.",
+            "why": { "sl": "Aldo pravi, da se pozimi stisnejo okoli matice in jedo med v panju: cvetov ni.", "en": "Aldo says in winter they huddle round the queen and eat the honey in the hive: there are no flowers.", "de": "Aldo sagt, im Winter drängen sie sich um die Königin und essen den Honig im Stock: Blüten gibt es keine." },
+            "reply": { "face": "surprised", "it": "Sui fiori? A febbraio? Ci sono solo la neve e la brina, {learner}!", "sl": "Na cvetove? Februarja? Tam sta samo sneg in slana, {learner}!", "en": "To the flowers? In February? There's only snow and frost, {learner}!", "de": "Zu den Blüten? Im Februar? Da gibt es nur Schnee und Reif, {learner}!" } }
+        ] },
+        { "who": "aldo", "face": "curious", "it": "Quest'anno dicono che l'inverno sarà freddo. Che cosa potremmo fare, noi due, per le api?", "sl": "Letos pravijo, da bo zima mrzla. Kaj bi lahko midva naredila za čebele?", "en": "This year they say the winter will be cold. What could the two of us do for the bees?", "de": "Dieses Jahr heißt es, der Winter wird kalt. Was könnten wir zwei für die Bienen tun?" },
+        { "choices": [
+          { "it": "Potremmo mettere la paglia intorno alle arnie, affinché il vento non entri.", "sl": "Lahko bi dala slamo okrog panjev, da ne bi veter prišel noter.", "en": "We could put straw round the hives, so that the wind doesn't get in.", "de": "Wir könnten Stroh um die Bienenstöcke legen, damit der Wind nicht hineinkommt.", "ok": true,
+            "reply": { "face": "proud", "it": "Bella idea! Faceva così anche mio nonno. Domani chiediamo la paglia a Bepi.", "sl": "Dobra ideja! Tako je delal tudi moj dedek. Jutri prosiva Bepija za slamo.", "en": "Good idea! My grandfather did that too. Tomorrow we'll ask Bepi for straw.", "de": "Gute Idee! So hat es auch mein Großvater gemacht. Morgen fragen wir Bepi nach Stroh." } },
+          { "it": "Potremmo mettere la paglia intorno alle arnie, affinché il vento non entra.", "sl": "Lahko bi dala slamo okrog panjev, da ne bi veter prišel noter.", "en": "We could put straw round the hives, so that the wind doesn't get in.", "de": "Wir könnten Stroh um die Bienenstöcke legen, damit der Wind nicht hineinkommt.",
+            "grammar": "congiunzioni-congiuntivo", "why": { "sl": "Affinché vedno zahteva konjunktiv: affinché non entri.", "en": "Affinché always takes the congiuntivo: affinché non entri.", "de": "Affinché verlangt immer den Konjunktiv: affinché non entri." },
+            "reply": { "face": "thinking", "it": "Affinché non entra…? Mmm, la paglia va bene, la frase un po' meno.", "sl": "Affinché non entra …? Hm, slama je v redu, stavek pa malo manj.", "en": "Affinché non entra…? Hmm, the straw's fine, the sentence a bit less so.", "de": "Affinché non entra …? Hm, das Stroh passt, der Satz nicht ganz." } }
+        ] },
+        { "who": "aldo", "face": "happy", "it": "Allora è deciso. E a primavera le api ti ringrazieranno con il miele di acacia. Buonanotte, {learner}.", "sl": "Potem je dogovorjeno. Spomladi se ti bodo čebele zahvalile z akacijevim medom. Lahko noč, {learner}.", "en": "Then it's settled. And in spring the bees will thank you with acacia honey. Good night, {learner}.", "de": "Dann ist es beschlossen. Und im Frühling danken dir die Bienen mit Akazienhonig. Gute Nacht, {learner}." }
+      ]
+    },
+    {
+      "id": "sciame-b1-cesto",
+      "level": "B1",
+      "memory": { "it": "lo sciame sull'acacia e il cesto di Aldo", "sl": "roj na akaciji in Aldovo košaro", "en": "the swarm on the acacia and Aldo's basket", "de": "den Schwarm auf der Akazie und Aldos Korb" },
+      "lines": [
+        { "who": "bepi", "face": "surprised", "it": "{learner}! Guarda su, sull'acacia: uno sciame! Corri da Aldo e digli di portare il cesto!", "sl": "{learner}! Poglej gor, na akacijo: roj! Teci k Aldu in mu reci, naj prinese košaro!", "en": "{learner}! Look up, on the acacia: a swarm! Run to Aldo and tell him to bring the basket!", "de": "{learner}! Schau hinauf, auf die Akazie: ein Schwarm! Lauf zu Aldo und sag ihm, er soll den Korb bringen!" },
+        { "who": "bepi", "face": "curious", "it": "Allora? Sei {m:tornato|f:tornata}! Che cosa ha detto Aldo?", "sl": "No? {m:Vrnil|f:Vrnila} si se! Kaj je rekel Aldo?", "en": "Well? You're back! What did Aldo say?", "de": "Und? Du bist zurück! Was hat Aldo gesagt?" },
+        { "choices": [
+          { "it": "Ha detto che arriva subito con il cesto e il fumo.", "sl": "Rekel je, da takoj pride s košaro in dimom.", "en": "He said he's coming right away with the basket and the smoke.", "de": "Er hat gesagt, er kommt gleich mit dem Korb und dem Rauch.", "ok": true,
+            "reply": { "face": "happy", "it": "Bene! Aldo è lento, ma con le api arriva sempre in tempo.", "sl": "Dobro! Aldo je počasen, ampak k čebelam vedno pride pravočasno.", "en": "Good! Aldo's slow, but with bees he always arrives in time.", "de": "Gut! Aldo ist langsam, aber bei Bienen kommt er immer rechtzeitig." } },
+          { "it": "Ha detto che arrivo subito con il cesto e il fumo.", "sl": "Rekel je, da takoj pride s košaro in dimom.", "en": "He said he's coming right away with the basket and the smoke.", "de": "Er hat gesagt, er kommt gleich mit dem Korb und dem Rauch.",
+            "grammar": "discorso-indiretto", "why": { "sl": "Ko poveš naprej, se oseba spremeni: Aldo je rekel »arrivo«, ti rečeš arriva.", "en": "Telling it on, the person changes: Aldo said «arrivo», you say arriva.", "de": "Wenn du es weitersagst, ändert sich die Person: Aldo sagte «arrivo», du sagst arriva." },
+            "reply": { "face": "laugh", "it": "Arrivi tu? Ma sei già qui, {m:piccolo|f:piccola}! Ah, ah!", "sl": "Prideš ti? Saj si že tukaj, {m:mali|f:mala}! Ha, ha!", "en": "You're coming? But you're already here, little one! Ha, ha!", "de": "Du kommst? Du bist doch schon da, {m:Kleiner|f:Kleine}! Ha, ha!" } }
+        ] },
+        { "who": "bepi", "face": "thinking", "it": "Uno sciame è una famiglia che cambia casa. La vecchia regina parte con metà delle api, e cerca un posto nuovo.", "sl": "Roj je družina, ki se seli. Stara matica odide s polovico čebel in išče nov prostor.", "en": "A swarm is a family moving house. The old queen leaves with half the bees, and looks for a new place.", "de": "Ein Schwarm ist eine Familie, die umzieht. Die alte Königin zieht mit der Hälfte der Bienen aus und sucht einen neuen Platz." },
+        { "choices": [
+          { "it": "E perché se ne va? Non le piace più la sua casa?", "sl": "Pa zakaj odide? Ji njen dom ni več všeč?", "en": "And why does she leave? Doesn't she like her home any more?", "de": "Und warum geht sie weg? Gefällt ihr ihr Zuhause nicht mehr?", "ok": true,
+            "reply": { "face": "laugh", "it": "C'è troppa gente! Come in osteria la domenica.", "sl": "Preveč jih je! Kot v gostilni ob nedeljah.", "en": "It's too crowded! Like the osteria on a Sunday.", "de": "Es ist zu voll! Wie in der Osteria am Sonntag." } },
+          { "it": "E perché si ne va? Non le piace più la sua casa?", "sl": "Pa zakaj odide? Ji njen dom ni več všeč?", "en": "And why does she leave? Doesn't she like her home any more?", "de": "Und warum geht sie weg? Gefällt ihr ihr Zuhause nicht mehr?",
+            "grammar": "verbi-pronominali", "why": { "sl": "Pred ne postane si se: se ne va.", "en": "Before ne, si becomes se: se ne va.", "de": "Vor ne wird si zu se: se ne va." },
+            "reply": { "face": "curious", "it": "Si ne va? Mmm, anche le api partono meglio con le parole giuste!", "sl": "Si ne va? Hm, tudi čebele bolje odidejo s pravimi besedami!", "en": "Si ne va? Hmm, even bees leave better with the right words!", "de": "Si ne va? Hm, auch Bienen ziehen mit den richtigen Wörtern besser aus!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Ecco Aldo con il cesto. Piano piano… Chi va piano va sano e va lontano, anche le api!", "sl": "Tu je Aldo s košaro. Počasi, počasi … Kdor počasi hodi, daleč pride, tudi čebele!", "en": "Here's Aldo with the basket. Slowly, slowly… Slow and steady goes far, bees too!", "de": "Da kommt Aldo mit dem Korb. Langsam, langsam … Wer langsam geht, kommt weit, auch die Bienen!" }
+      ]
+    },
+    {
+      "id": "sciame-b2-papa",
+      "level": "B2",
+      "memory": { "it": "mio padre e gli sciami presi cantando", "sl": "mojega očeta in roje, ujete s petjem", "en": "my father and the swarms he caught singing", "de": "mein Vater und die Schwärme, die er singend fing" },
+      "lines": [
+        { "who": "bepi", "face": "thinking", "it": "Mio padre prendeva gli sciami con un cesto di vimini e una piuma d'oca. Niente tuta, niente guanti.", "sl": "Moj oče je lovil roje s košaro iz vrbovja in gosjim peresom. Brez obleke, brez rokavic.", "en": "My father caught swarms with a wicker basket and a goose feather. No suit, no gloves.", "de": "Mein Vater fing Schwärme mit einem Weidenkorb und einer Gänsefeder. Kein Anzug, keine Handschuhe." },
+        { "who": "bepi", "face": "laugh", "it": "Una volta salì in cima al noce, prese lo sciame e, scendendo, si sedette su un'ape. Per tre giorni mangiò in piedi!", "sl": "Nekoč je splezal na vrh oreha, ujel roj in se med spuščanjem usedel na čebelo. Tri dni je jedel stoje!", "en": "Once he climbed to the top of the walnut tree, caught the swarm and, on the way down, sat on a bee. For three days he ate standing up!", "de": "Einmal kletterte er auf den Nussbaum, fing den Schwarm und setzte sich beim Hinuntersteigen auf eine Biene. Drei Tage lang aß er im Stehen!" },
+        { "choices": [
+          { "it": "Con la tuta di Aldo, si sarebbe seduto senza problemi!", "sl": "Z Aldovo obleko bi se brez težav usedel!", "en": "In Aldo's suit, he'd have sat down with no trouble!", "de": "Mit Aldos Anzug hätte er sich ohne Probleme hinsetzen können!", "ok": true,
+            "reply": { "face": "laugh", "it": "Proprio così! Ma lui diceva che la tuta era roba da cittadini.", "sl": "Prav tako! Ampak on je rekel, da je obleka za meščane.", "en": "Exactly! But he used to say the suit was for townsfolk.", "de": "Genau! Aber er sagte immer, der Anzug sei was für Städter." } },
+          { "it": "Con la tuta di Aldo, si avrebbe seduto senza problemi!", "sl": "Z Aldovo obleko bi se brez težav usedel!", "en": "In Aldo's suit, he'd have sat down with no trouble!", "de": "Mit Aldos Anzug hätte er sich ohne Probleme hinsetzen können!",
+            "grammar": "condizionale-passato", "why": { "sl": "Povratni glagoli imajo essere: si è seduto, zato si sarebbe seduto.", "en": "Reflexive verbs take essere: si è seduto, so si sarebbe seduto.", "de": "Reflexive Verben bilden mit essere: si è seduto, also si sarebbe seduto." },
+            "reply": { "face": "curious", "it": "Si avrebbe? Mmm, così si siede storta anche la grammatica!", "sl": "Si avrebbe? Hm, tako se usede postrani še slovnica!", "en": "Si avrebbe? Hmm, that way even the grammar sits down crooked!", "de": "Si avrebbe? Hm, so setzt sich sogar die Grammatik schief hin!" } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "Preso lo sciame, lo portava a casa cantando. Diceva che le api, sentendo la musica, si calmavano. Tu ci credi?", "sl": "Ko je ujel roj, ga je s petjem nesel domov. Rekel je, da so se čebele pomirile, ko so slišale glasbo. Ti verjameš?", "en": "Once he'd caught the swarm, he carried it home singing. He said the bees calmed down when they heard the music. Do you believe it?", "de": "Hatte er den Schwarm, trug er ihn singend nach Hause. Er sagte, die Bienen würden ruhig, wenn sie Musik hörten. Glaubst du das?" },
+        { "choices": [
+          { "it": "Non so se sia vero; tuttavia, cantando, si calmava sicuramente lui!", "sl": "Ne vem, ali je res; vendar se je s petjem zagotovo pomiril on!", "en": "I don't know if it's true; however, singing, he certainly calmed down!", "de": "Ich weiß nicht, ob es stimmt; jedenfalls hat er sich beim Singen bestimmt beruhigt!", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah, ah! Hai ragione. Forse la canzone era per lui, non per le api.", "sl": "Ha, ha! Prav imaš. Morda je bila pesem zanj, ne za čebele.", "en": "Ha, ha! You're right. Maybe the song was for him, not for the bees.", "de": "Ha, ha! Du hast recht. Vielleicht war das Lied für ihn, nicht für die Bienen." } },
+          { "it": "Non so se sia vero; infatti, cantando, si calmava sicuramente lui!", "sl": "Ne vem, ali je res; vendar se je s petjem zagotovo pomiril on!", "en": "I don't know if it's true; however, singing, he certainly calmed down!", "de": "Ich weiß nicht, ob es stimmt; jedenfalls hat er sich beim Singen bestimmt beruhigt!",
+            "grammar": "connettivi", "why": { "sl": "Infatti potrdi, kar je rečeno pred njim; da nekaj postaviš nasproti, rečeš tuttavia.", "en": "Infatti confirms what came before; to set something against it, say tuttavia.", "de": "Infatti bestätigt das Vorige; um etwas dagegenzustellen, sagst du tuttavia." },
+            "reply": { "face": "thinking", "it": "Infatti? Allora è vero o non è vero? Mi confondi, {m:piccolo|f:piccola}.", "sl": "Infatti? Je potem res ali ni res? Zmedeš me, {m:mali|f:mala}.", "en": "Infatti? So is it true or isn't it? You're muddling me, little one.", "de": "Infatti? Stimmt es jetzt oder nicht? Du verwirrst mich, {m:Kleiner|f:Kleine}." } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Aldo invece: niente canzoni, solo silenzio. Ognuno ha il suo modo, come i nonni.", "sl": "Aldo pa: nobene pesmi, samo tišina. Vsak ima svoj način, kot dedki.", "en": "Aldo, though: no songs, only silence. Everyone has their own way, like grandpas.", "de": "Aldo dagegen: keine Lieder, nur Stille. Jeder hat seine Art, wie die Opas." }
       ]
     }
   ]

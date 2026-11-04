@@ -349,6 +349,115 @@
               "de": "Fertig! Morgen zeige ich ihn allen, auch meiner Schwester."
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "Mandi, {learner}! Ho un foglio, una matita e un righello. Se indovini che cosa sto facendo, ti racconto l'ultima notizia.",
+              "sl": "Mandi, {learner}! Imam list, svinčnik in ravnilo. Če uganeš, kaj delam, ti povem najnovejšo novico.",
+              "en": "Mandi, {learner}! I've got a sheet of paper, a pencil and a ruler. If you guess what I'm doing, I'll tell you the latest news.",
+              "de": "Mandi, {learner}! Ich habe ein Blatt, einen Bleistift und ein Lineal. Wenn du errätst, was ich mache, erzähle ich dir die neueste Nachricht."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Scommetto che stai disegnando il progetto della cappelletta!",
+                  "sl": "Stavim, da rišeš načrt kapelice!",
+                  "en": "I bet you're drawing the plan of the chapel!",
+                  "de": "Ich wette, du zeichnest den Plan der Kapelle!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Indovinato! Te l'ha detto la radio, eh?",
+                    "sl": "{m:Uganil|f:Uganila} si! Ti je povedal radio, kaj?",
+                    "en": "Guessed it! The radio told you, eh?",
+                    "de": "Erraten! Das hat dir das Radio gesagt, was?"
+                  }
+                },
+                {
+                  "it": "Scommetto che stai disegnando il menù della cappelletta!",
+                  "sl": "Stavim, da rišeš jedilnik kapelice!",
+                  "en": "I bet you're drawing the chapel's menu!",
+                  "de": "Ich wette, du zeichnest die Speisekarte der Kapelle!",
+                  "why": {
+                    "sl": "Risba kapelice, preden jo zgradimo, je njen načrt: il progetto. Jedilnik je za gostilno.",
+                    "en": "A chapel's drawing before it's built is its plan: il progetto. A menu is for an osteria.",
+                    "de": "Die Zeichnung einer Kapelle vor dem Bau ist ihr Plan: il progetto. Eine Speisekarte gehört in die Osteria."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il menù? Non è un'osteria, {learner}!",
+                    "sl": "Jedilnik? To ni gostilna, {learner}!",
+                    "en": "The menu? It's not an osteria, {learner}!",
+                    "de": "Die Speisekarte? Das ist doch keine Osteria, {learner}!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "rosa",
+              "face": "thinking",
+              "it": "Sarebbe bella una luce dal lato del mattino. Ma lì, sul foglio, il muro è tutto vuoto.",
+              "sl": "Lepa bi bila svetloba z jutranje strani. Ampak tam, na listu, je zid čisto prazen.",
+              "en": "Some light from the morning side would be nice. But there, on the paper, the wall is quite empty.",
+              "de": "Licht von der Morgenseite wäre schön. Aber dort, auf dem Blatt, ist die Wand ganz leer."
+            },
+            {
+              "to": "nives",
+              "choices": [
+                {
+                  "it": "Zia, io una finestra l'avrei messa proprio lì.",
+                  "sl": "Teta, jaz bi okno {m:dal|f:dala} ravno tja.",
+                  "en": "Zia, I'd have put a window right there.",
+                  "de": "Tante, ich hätte genau dort ein Fenster hingesetzt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ma certo! Una finestra piccola e tonda, come una luna.",
+                    "sl": "Seveda! Majhno okroglo okno, kot luna.",
+                    "en": "But of course! A small round window, like a moon.",
+                    "de": "Aber sicher! Ein kleines rundes Fenster, wie ein Mond."
+                  }
+                },
+                {
+                  "it": "Zia, io una finestra l'avrei messo proprio lì.",
+                  "sl": "Teta, jaz bi okno {m:dal|f:dala} ravno tja.",
+                  "en": "Zia, I'd have put a window right there.",
+                  "de": "Tante, ich hätte genau dort ein Fenster hingesetzt.",
+                  "grammar": "condizionale-passato",
+                  "why": {
+                    "sl": "Kadar pred avere stoji la, se deležnik ujema: la finestra, l'avrei messa.",
+                    "en": "When la stands before avere, the participle agrees: la finestra, l'avrei messa.",
+                    "de": "Steht la vor avere, richtet sich das Partizip: la finestra, l'avrei messa."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Messo? La finestra è una lei, {m:caro|f:cara}! O gracchia la radio?",
+                    "sl": "Messo? Okno je ženskega spola, {m:dragi|f:draga}! Ali pa radio prasketa?",
+                    "en": "Messo? Finestra is a she, dear! Or is the radio crackling?",
+                    "de": "Messo? Finestra ist weiblich, {m:mein Lieber|f:meine Liebe}! Oder knistert das Radio?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "nives",
+              "face": "proud",
+              "it": "Ecco fatto! Domani faccio vedere il progetto a tutti … e mia sorella dirà che l'idea era sua.",
+              "sl": "Narejeno! Jutri pokažem načrt vsem … moja sestra pa bo rekla, da je bila ideja njena.",
+              "en": "Done! Tomorrow I'll show the plan to everyone … and my sister will say the idea was hers.",
+              "de": "Fertig! Morgen zeige ich allen den Plan … und meine Schwester wird sagen, die Idee war ihre."
+            }
+          ]
         }
       }
     },
@@ -715,6 +824,114 @@
               "sl": "Končano! Sosedje pravijo, da bodo trajali stoletja. Dlje kot vaške čenče!",
               "en": "Finished! The neighbours say they'll last for centuries. Longer than the village gossip!",
               "de": "Fertig! Die Nachbarn sagen, das hält Jahrhunderte. Länger als das Geschwätz im Dorf!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "Una cappelletta non è una tenda, {learner}: se soffiasse la bora, non dovrebbe volare via.",
+              "sl": "Kapelica ni šotor, {learner}: če bi pihala burja, ne bi smela odleteti.",
+              "en": "A chapel isn't a tent, {learner}: if the bora blew, it mustn't fly away.",
+              "de": "Eine Kapelle ist kein Zelt, {learner}: Wenn die Bora bläst, darf sie nicht davonfliegen."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Allora le servono fondamenta solide, ben sotto terra.",
+                  "sl": "Potem potrebuje trdne temelje, globoko v zemlji.",
+                  "en": "Then it needs solid foundations, well underground.",
+                  "de": "Dann braucht sie ein festes Fundament, tief in der Erde.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Esatto! Di pietra, e belle profonde.",
+                    "sl": "Natanko! Iz kamna, pa lepo globoke.",
+                    "en": "Exactly! Of stone, and nice and deep.",
+                    "de": "Genau! Aus Stein, und schön tief."
+                  }
+                },
+                {
+                  "it": "Allora le servono farfalle solide, ben sotto terra.",
+                  "sl": "Potem potrebuje trdne metulje, globoko v zemlji.",
+                  "en": "Then it needs solid butterflies, well underground.",
+                  "de": "Dann braucht sie feste Schmetterlinge, tief in der Erde.",
+                  "why": {
+                    "sl": "Kar drži stavbo, je pod zemljo: le fondamenta, temelji. Farfalle so metulji.",
+                    "en": "What keeps a building from blowing away is under the ground: le fondamenta. Farfalle are butterflies.",
+                    "de": "Was ein Gebäude hält, liegt unter der Erde: le fondamenta. Farfalle sind Schmetterlinge."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Farfalle sotto terra? Allora vola via di sicuro!",
+                    "sl": "Metulji pod zemljo? Potem zagotovo odleti!",
+                    "en": "Butterflies underground? Then it'll fly away for sure!",
+                    "de": "Schmetterlinge unter der Erde? Dann fliegt sie bestimmt davon!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "rosa",
+              "it": "Prima si scava, poi dentro vanno buttate le pietre più grandi.",
+              "sl": "Najprej se koplje, potem je treba noter zmetati največje kamne.",
+              "en": "First you dig, then the biggest stones have to be thrown in.",
+              "de": "Zuerst wird gegraben, dann müssen die größten Steine hinein."
+            },
+            {
+              "to": "nives",
+              "choices": [
+                {
+                  "it": "E le piccole vanno messe dopo, a riempire i buchi?",
+                  "sl": "Pa je treba majhne dati potem, da zapolnijo luknje?",
+                  "en": "And the small ones go in afterwards, to fill the gaps?",
+                  "de": "Und die kleinen kommen danach, um die Lücken zu füllen?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Proprio così: le piccole riempiono i buchi.",
+                    "sl": "Prav tako: majhni zapolnijo luknje.",
+                    "en": "Just so: the small ones fill the gaps.",
+                    "de": "Genau: Die kleinen füllen die Lücken."
+                  }
+                },
+                {
+                  "it": "E le piccole vanno messo dopo, a riempire i buchi?",
+                  "sl": "Pa je treba majhne dati potem, da zapolnijo luknje?",
+                  "en": "And the small ones go in afterwards, to fill the gaps?",
+                  "de": "Und die kleinen kommen danach, um die Lücken zu füllen?",
+                  "grammar": "passivo-venire-andare",
+                  "why": {
+                    "sl": "Pri andare se deležnik ujema: le piccole vanno messe.",
+                    "en": "With andare the participle agrees: le piccole vanno messe.",
+                    "de": "Bei andare richtet sich das Partizip: le piccole vanno messe."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Messo? Le pietre sono tante, e tutte femmine!",
+                    "sl": "Messo? Kamnov je veliko, in vsi ženskega spola!",
+                    "en": "Messo? There are lots of stones, and all of them feminine!",
+                    "de": "Messo? Es sind viele Steine, und alle weiblich!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "nives",
+              "face": "proud",
+              "it": "Finito! I vicini dicono che dureranno secoli. Più delle chiacchiere del paese!",
+              "sl": "Končano! Sosedje pravijo, da bodo zdržali stoletja. Dlje kot vaške čenče!",
+              "en": "Finished! The neighbours say they'll last for centuries. Longer than the village gossip!",
+              "de": "Fertig! Die Nachbarn sagen, es hält Jahrhunderte. Länger als der Dorftratsch!"
             }
           ]
         }
@@ -1101,6 +1318,133 @@
               "de": "Stein um Stein, {learner}! Sogar die, die uns langsam nennen, kommen schauen."
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "Dicono che siamo lenti, {learner}! Ma senza qualcosa tra una pietra e l'altra, come starebbe in piedi il muro?",
+              "sl": "Pravijo, da smo počasni, {learner}! Ampak brez nečesa med kamni, kako bi zid stal?",
+              "en": "They say we're slow, {learner}! But without something between one stone and the next, how would the wall stand up?",
+              "de": "Sie sagen, wir sind langsam, {learner}! Aber ohne etwas zwischen den Steinen, wie würde die Mauer stehen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Messa la malta tra una pietra e l'altra, starà su per secoli.",
+                  "sl": "Ko je malta med kamni, bo stal stoletja.",
+                  "en": "With the mortar between the stones, it'll stand for centuries.",
+                  "de": "Ist der Mörtel zwischen den Steinen, steht sie Jahrhunderte.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Proprio così! Lenti, ma forti.",
+                    "sl": "Prav tako! Počasni, a močni.",
+                    "en": "Exactly! Slow, but strong.",
+                    "de": "Genau! Langsam, aber stark."
+                  }
+                },
+                {
+                  "it": "Messo la malta tra una pietra e l'altra, starà su per secoli.",
+                  "sl": "Ko je malta med kamni, bo stal stoletja.",
+                  "en": "With the mortar between the stones, it'll stand for centuries.",
+                  "de": "Ist der Mörtel zwischen den Steinen, steht sie Jahrhunderte.",
+                  "grammar": "participio-assoluto",
+                  "why": {
+                    "sl": "Samostojni deležnik se ujema s svojim samostalnikom: la malta, torej messa.",
+                    "en": "The participle on its own agrees with its noun: la malta, so messa.",
+                    "de": "Das Partizip allein richtet sich nach seinem Nomen: la malta, also messa."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Messo? La malta è una lei, {m:caro|f:cara}!",
+                    "sl": "Messo? Malta je ženskega spola, {m:dragi|f:draga}!",
+                    "en": "Messo? Malta is a she, dear!",
+                    "de": "Messo? Malta ist weiblich, {m:mein Lieber|f:meine Liebe}!"
+                  }
+                },
+                {
+                  "it": "Messa la maionese tra una pietra e l'altra, starà su per secoli.",
+                  "sl": "Ko je majoneza med kamni, bo stal stoletja.",
+                  "en": "With the mayonnaise between the stones, it'll stand for centuries.",
+                  "de": "Ist die Mayonnaise zwischen den Steinen, steht sie Jahrhunderte.",
+                  "why": {
+                    "sl": "Med kamne pride malta: la malta. Majoneza je za mizo.",
+                    "en": "Between the stones goes mortar: la malta. Mayonnaise is for the table.",
+                    "de": "Zwischen die Steine kommt Mörtel: la malta. Mayonnaise gehört auf den Tisch."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La maionese? Poi arrivano tutti i gatti del paese!",
+                    "sl": "Majoneza? Potem pridejo vse vaške mačke!",
+                    "en": "Mayonnaise? Then every cat in the village turns up!",
+                    "de": "Mayonnaise? Dann kommen alle Katzen des Dorfes!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "worried",
+              "it": "Stasera forse piove, e la malta è ancora fresca. Che cosa va coperto?",
+              "sl": "Nocoj bo morda deževalo, malta pa je še sveža. Kaj je treba pokriti?",
+              "en": "It may rain tonight, and the mortar's still fresh. What has to be covered?",
+              "de": "Heute Abend regnet es vielleicht, und der Mörtel ist noch frisch. Was muss abgedeckt werden?"
+            },
+            {
+              "to": "nives",
+              "choices": [
+                {
+                  "it": "Va coperto il muro, con un telo grande.",
+                  "sl": "Pokriti je treba zid, z veliko ponjavo.",
+                  "en": "The wall has to be covered, with a big tarpaulin.",
+                  "de": "Die Mauer muss abgedeckt werden, mit einer großen Plane.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto! Un telo grande, e domani è asciutto.",
+                    "sl": "Prav! Velika ponjava, in jutri je suh.",
+                    "en": "Right! A big tarpaulin, and tomorrow it's dry.",
+                    "de": "Richtig! Eine große Plane, und morgen ist sie trocken."
+                  }
+                },
+                {
+                  "it": "Va coperto il gatto, con un telo grande.",
+                  "sl": "Pokriti je treba mačka, z veliko ponjavo.",
+                  "en": "The cat has to be covered, with a big tarpaulin.",
+                  "de": "Die Katze muss abgedeckt werden, mit einer großen Plane.",
+                  "why": {
+                    "sl": "Dež bi pokvaril svež zid: il muro. Mačka se skrije sama.",
+                    "en": "The rain would spoil the fresh wall: il muro. The cat can find its own shelter.",
+                    "de": "Der Regen würde die frische Mauer verderben: il muro. Die Katze sucht sich selbst ein Dach."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il gatto? Quello dorme già sotto il carro!",
+                    "sl": "Mačka? Ta že spi pod vozom!",
+                    "en": "The cat? That one's already asleep under the cart!",
+                    "de": "Die Katze? Die schläft schon unter dem Wagen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "nives",
+              "face": "proud",
+              "it": "Pietra dopo pietra, {learner}! E chi ci chiamava lenti adesso viene a vedere.",
+              "sl": "Kamen za kamnom, {learner}! In tisti, ki so nam rekli, da smo počasni, zdaj prihajajo gledat.",
+              "en": "Stone after stone, {learner}! And whoever called us slow now comes to look.",
+              "de": "Stein für Stein, {learner}! Und wer uns langsam nannte, kommt jetzt gucken."
+            }
+          ]
         }
       }
     },
@@ -1481,6 +1825,141 @@
               "sl": "Zdaj pa vsi v vasi sprašujejo: »Čigava je tista lepa streha?« Moja, rečem!",
               "en": "And now everyone in the village asks: \"Whose is that fine roof?\" Mine, I say!",
               "de": "Und jetzt fragen alle im Dorf: «Wem gehört das schöne Dach?» Mir, sage ich!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "nives",
+              "face": "happy",
+              "it": "Hai sentito, {learner}? Mia sorella dice che dal paese si vede già il tetto rosso!",
+              "sl": "Si {m:slišal|f:slišala}, {learner}? Moja sestra pravi, da se iz vasi že vidi rdeča streha!",
+              "en": "Did you hear, {learner}? My sister says the red roof can already be seen from the village!",
+              "de": "Hast du gehört, {learner}? Meine Schwester sagt, vom Dorf aus sieht man schon das rote Dach!"
+            },
+            {
+              "who": "nives",
+              "face": "curious",
+              "it": "Ieri c'era solo legno. Se qualcuno te lo chiedesse, che cosa gli diresti?",
+              "sl": "Včeraj je bil samo les. Če bi te kdo vprašal, kaj bi mu {m:rekel|f:rekela}?",
+              "en": "Yesterday there was only wood. If someone asked you, what would you tell them?",
+              "de": "Gestern war da nur Holz. Wenn dich jemand fragte, was würdest du ihm sagen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Gli direi che il tetto era stato coperto con i coppi.",
+                  "sl": "{m:Rekel|f:Rekela} bi mu, da so streho pokrili s korci.",
+                  "en": "I'd tell them the roof had been covered with the curved tiles.",
+                  "de": "Ich würde ihm sagen, das Dach sei mit den Hohlziegeln gedeckt worden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Bravi tutti! Ogni tegola al suo posto.",
+                    "sl": "Bravo vsi! Vsak strešnik na svojem mestu.",
+                    "en": "Well done, everyone! Every tile in its place.",
+                    "de": "Bravo alle! Jeder Ziegel an seinem Platz."
+                  }
+                },
+                {
+                  "it": "Gli direi che il tetto aveva stato coperto con i coppi.",
+                  "sl": "{m:Rekel|f:Rekela} bi mu, da so streho pokrili s korci.",
+                  "en": "I'd tell them the roof had been covered with the curved tiles.",
+                  "de": "Ich würde ihm sagen, das Dach sei mit den Hohlziegeln gedeckt worden.",
+                  "grammar": "discorso-indiretto-passato",
+                  "why": {
+                    "sl": "Essere tvori preteklik z essere: era stato coperto.",
+                    "en": "Essere forms its past with essere: era stato coperto.",
+                    "de": "Essere bildet die Vergangenheit mit essere: era stato coperto."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Aveva stato? Parla più forte, la radio gracchia!",
+                    "sl": "Aveva stato? Govori glasneje, radio prasketa!",
+                    "en": "Aveva stato? Speak up, the radio's crackling!",
+                    "de": "Aveva stato? Sprich lauter, das Radio knistert!"
+                  }
+                },
+                {
+                  "it": "Gli direi che il tetto era stato coperto con i coperchi.",
+                  "sl": "{m:Rekel|f:Rekela} bi mu, da so streho pokrili s pokrovkami.",
+                  "en": "I'd tell them the roof had been covered with lids.",
+                  "de": "Ich würde ihm sagen, das Dach sei mit Deckeln gedeckt worden.",
+                  "why": {
+                    "sl": "Upognjeni strešniki so korci: i coppi. I coperchi so pokrovke.",
+                    "en": "Curved roof tiles are i coppi; i coperchi are lids.",
+                    "de": "Gebogene Dachziegel sind i coppi; i coperchi sind Deckel."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con i coperchi? Allora è una pentola!",
+                    "sl": "S pokrovkami? Potem je to lonec!",
+                    "en": "With lids? Then it's a saucepan!",
+                    "de": "Mit Deckeln? Dann ist es ein Kochtopf!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "thinking",
+              "it": "I coppi stanno uno in su e uno in giù. Sai che cosa succede, quando piove?",
+              "sl": "Korci ležijo eden navzgor in eden navzdol. Veš, kaj se zgodi, ko dežuje?",
+              "en": "The tiles lie one face up and one face down. Do you know what happens when it rains?",
+              "de": "Die Ziegel liegen einer nach oben, einer nach unten. Weißt du, was passiert, wenn es regnet?"
+            },
+            {
+              "to": "nives",
+              "choices": [
+                {
+                  "it": "L'acqua scivola giù e dentro resta tutto asciutto.",
+                  "sl": "Voda zdrsi dol in notri ostane vse suho.",
+                  "en": "The water slides down and everything inside stays dry.",
+                  "de": "Das Wasser rinnt hinunter, und drinnen bleibt alles trocken.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ecco! Lavoro vecchio, ma funziona.",
+                    "sl": "Tako je! Staro delo, ampak deluje.",
+                    "en": "That's it! Old work, but it works.",
+                    "de": "Genau! Alte Arbeit, aber sie funktioniert."
+                  }
+                },
+                {
+                  "it": "L'acqua entra e fa una bella doccia.",
+                  "sl": "Voda pride noter in naredi lep tuš.",
+                  "en": "The water gets in and makes a lovely shower.",
+                  "de": "Das Wasser kommt herein und macht eine schöne Dusche.",
+                  "why": {
+                    "sl": "Korci, položeni eden navzgor in eden navzdol, odvajajo dež.",
+                    "en": "Laid one up and one down, the tiles carry the rain away.",
+                    "de": "Einer nach oben, einer nach unten gelegt, leiten die Ziegel den Regen ab."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una doccia in cappelletta? Che idea!",
+                    "sl": "Tuš v kapelici? Kakšna zamisel!",
+                    "en": "A shower in the chapel? What an idea!",
+                    "de": "Eine Dusche in der Kapelle? Was für eine Idee!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "nives",
+              "face": "proud",
+              "it": "E adesso, dal paese, tutti chiedono: «Di chi è quel bel tetto?» Nostro, dico io!",
+              "sl": "Zdaj pa vsi v vasi sprašujejo: »Čigava je tista lepa streha?« Naša, pravim jaz!",
+              "en": "And now everyone in the village asks: 'Whose is that fine roof?' Ours, I say!",
+              "de": "Und jetzt fragen alle im Dorf: »Wem gehört das schöne Dach?« Uns, sage ich!"
             }
           ]
         }
@@ -1867,6 +2346,133 @@
               "sl": "Tako, dam ga na oltar: bel, gladek, brez ene gube. Kaj praviš?",
               "en": "There, I'll lay it on the altar: white, smooth, without a crease. What do you say?",
               "de": "So, ich lege sie auf den Altar: weiß, glatt, ohne eine Falte. Was sagst du?"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "nives",
+              "face": "thinking",
+              "it": "L'altare è pronto, {learner}, ma senza niente sopra sembra triste. Magari avessi una cosa bella da metterci!",
+              "sl": "Oltar je pripravljen, {learner}, ampak brez česa na njem je videti žalosten. Ko bi le imela kaj lepega zanj!",
+              "en": "The altar's ready, {learner}, but with nothing on it, it looks sad. If only I had something beautiful to put on it!",
+              "de": "Der Altar ist fertig, {learner}, aber ohne etwas darauf sieht er traurig aus. Hätte ich doch etwas Schönes dafür!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ci starebbe bene una tovaglia, purché sia bianca.",
+                  "sl": "Prt bi se lepo podal, le da je bel.",
+                  "en": "A cloth would look good on it, as long as it's white.",
+                  "de": "Ein Tuch würde gut passen, vorausgesetzt, es ist weiß.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Hai ragione! E io ne ho una speciale.",
+                    "sl": "Prav imaš! In jaz imam posebnega.",
+                    "en": "You're right! And I've got a special one.",
+                    "de": "Du hast recht! Und ich habe ein besonderes."
+                  }
+                },
+                {
+                  "it": "Ci starebbe bene una tovaglia, purché sarà bianca.",
+                  "sl": "Prt bi se lepo podal, le da je bel.",
+                  "en": "A cloth would look good on it, as long as it's white.",
+                  "de": "Ein Tuch würde gut passen, vorausgesetzt, es ist weiß.",
+                  "grammar": "congiunzioni-congiuntivo",
+                  "why": {
+                    "sl": "Purché zahteva konjunktiv: purché sia bianca.",
+                    "en": "Purché takes the subjunctive: purché sia bianca.",
+                    "de": "Purché verlangt den Congiuntivo: purché sia bianca."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sarà? Quando? Io la voglio stendere oggi!",
+                    "sl": "Sarà? Kdaj? Jaz ga hočem pogrniti danes!",
+                    "en": "Sarà? When? I want to lay it today!",
+                    "de": "Sarà? Wann? Ich will es heute auflegen!"
+                  }
+                },
+                {
+                  "it": "Ci starebbe bene una padella, purché sia bianca.",
+                  "sl": "Ponev bi se lepo podala, le da je bela.",
+                  "en": "A frying pan would look good on it, as long as it's white.",
+                  "de": "Eine Pfanne würde gut passen, vorausgesetzt, sie ist weiß.",
+                  "why": {
+                    "sl": "Oltar se pogrne s prtom: la tovaglia. Ponev je za kuhinjo.",
+                    "en": "An altar is laid with a cloth: la tovaglia. A frying pan belongs in the kitchen.",
+                    "de": "Ein Altar wird mit einem Tuch gedeckt: la tovaglia. Eine Pfanne gehört in die Küche."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una padella? Per friggere il frico sull'altare?",
+                    "sl": "Ponev? Da bi na oltarju cvrli frico?",
+                    "en": "A frying pan? To fry frico on the altar?",
+                    "de": "Eine Pfanne? Um auf dem Altar Frico zu braten?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "rosa",
+              "face": "surprised",
+              "it": "Che lavoro fine! Tutti quei fili, tutti quei fiori bianchi, e nemmeno un nodo!",
+              "sl": "Kako fino delo! Vse te niti, vse te bele rožice, pa niti enega vozla!",
+              "en": "What fine work! All those threads, all those white flowers, and not a single knot!",
+              "de": "Was für eine feine Arbeit! All die Fäden, all die weißen Blüten, und kein einziger Knoten!"
+            },
+            {
+              "to": "nives",
+              "choices": [
+                {
+                  "it": "È di merletto, vero, zia?",
+                  "sl": "Je iz čipke, kajne, teta?",
+                  "en": "It's lace, isn't it, Zia?",
+                  "de": "Das ist Spitze, oder, Tante?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, di merletto! E ci sono voluti tre inverni.",
+                    "sl": "Ja, iz čipke! In trajalo je tri zime.",
+                    "en": "Yes, lace! And it took three winters.",
+                    "de": "Ja, Spitze! Und es hat drei Winter gedauert."
+                  }
+                },
+                {
+                  "it": "È di cartone, vero, zia?",
+                  "sl": "Je iz kartona, kajne, teta?",
+                  "en": "It's cardboard, isn't it, Zia?",
+                  "de": "Das ist Pappe, oder, Tante?",
+                  "why": {
+                    "sl": "Fine niti in rožice: to je čipka, il merletto. Karton nima niti.",
+                    "en": "Fine threads and flowers: that's lace, il merletto. Cardboard has no threads.",
+                    "de": "Feine Fäden und Blüten: Das ist Spitze, il merletto. Pappe hat keine Fäden."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di cartone? Mia sorella ti sente, sai!",
+                    "sl": "Iz kartona? Moja sestra te sliši, veš!",
+                    "en": "Cardboard? My sister can hear you, you know!",
+                    "de": "Pappe? Meine Schwester hört dich, weißt du!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "nives",
+              "face": "proud",
+              "it": "Ecco, la stendo sull'altare: bianca, liscia, senza una piega. Che ne dici?",
+              "sl": "Tako, pogrnem ga na oltar: bel, gladek, brez ene gube. Kaj praviš?",
+              "en": "There, I'm laying it on the altar: white, smooth, without a crease. What do you say?",
+              "de": "So, ich lege es auf den Altar: weiß, glatt, ohne eine Falte. Was sagst du?"
             }
           ]
         }
@@ -2299,6 +2905,143 @@
               "sl": "Adijo, {learner}! Grem povedat sestri, preden izve sama.",
               "en": "Bye, {learner}! I'm off to tell my sister before she finds out by herself.",
               "de": "Tschüss, {learner}! Ich erzähle es meiner Schwester, bevor sie es von selbst erfährt."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "rosa",
+              "face": "thinking",
+              "it": "La campanella pesa poco, ma lassù ci vuole qualcosa di robusto. Che cosa la reggerà?",
+              "sl": "Zvonček je lahek, ampak tam gori je potrebno nekaj trdnega. Kaj ga bo držalo?",
+              "en": "The little bell weighs little, but up there you need something sturdy. What will hold it?",
+              "de": "Das Glöckchen wiegt wenig, aber da oben braucht es etwas Festes. Was wird es halten?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "La reggerà un gancio di ferro, forgiato apposta.",
+                  "sl": "Držal ga bo železen kavelj, skovan nalašč zanj.",
+                  "en": "An iron hook will hold it, forged specially.",
+                  "de": "Ein Eisenhaken wird es halten, eigens geschmiedet.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto! Il ferro dura più di tutti noi.",
+                    "sl": "Prav! Železo zdrži dlje od vseh nas.",
+                    "en": "Right! Iron lasts longer than all of us.",
+                    "de": "Richtig! Eisen hält länger als wir alle."
+                  }
+                },
+                {
+                  "it": "La reggerà un cucchiaio di ferro, forgiato apposta.",
+                  "sl": "Držala ga bo železna žlica, skovana nalašč zanj.",
+                  "en": "An iron spoon will hold it, forged specially.",
+                  "de": "Ein Eisenlöffel wird es halten, eigens geschmiedet.",
+                  "why": {
+                    "sl": "Zvonec visi na kavlju: il gancio. Žlica je za juho.",
+                    "en": "A bell hangs from a hook: il gancio. A spoon is for soup.",
+                    "de": "Eine Glocke hängt an einem Haken: il gancio. Ein Löffel ist für die Suppe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un cucchiaio? Buono per la minestra, non per lei!",
+                    "sl": "Žlica? Dobra za juho, ne zanj!",
+                    "en": "A spoon? Good for soup, not for the bell!",
+                    "de": "Ein Löffel? Gut für die Suppe, nicht für sie!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "nives",
+              "face": "proud",
+              "it": "Ecco fatto, è su! Adesso zitti tutti, anche la mia radio. E tu, che cosa dici?",
+              "sl": "Narejeno, gori je! Zdaj vsi tiho, tudi moj radio. Kaj pa praviš ti?",
+              "en": "Done, it's up! Now quiet, everyone, my radio too. And you, what do you say?",
+              "de": "Fertig, es hängt! Jetzt alle still, auch mein Radio. Und du, was sagst du?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Vorrei che la sentissero fino al bosco! Tira la corda, zia!",
+                  "sl": "{m:Rad|f:Rada} bi, da bi ga slišali do gozda! Potegni vrv, teta!",
+                  "en": "I'd like them to hear it as far as the wood! Pull the rope, Zia!",
+                  "de": "Ich möchte, dass man es bis zum Wald hört! Zieh am Seil, Tante!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Tiro! Tenetevi forte!",
+                    "sl": "Vlečem! Držite se!",
+                    "en": "Pulling! Hold on tight!",
+                    "de": "Ich ziehe! Haltet euch fest!"
+                  }
+                },
+                {
+                  "it": "Vorrei che la sentiranno fino al bosco! Tira la corda, zia!",
+                  "sl": "{m:Rad|f:Rada} bi, da bi ga slišali do gozda! Potegni vrv, teta!",
+                  "en": "I'd like them to hear it as far as the wood! Pull the rope, Zia!",
+                  "de": "Ich möchte, dass man es bis zum Wald hört! Zieh am Seil, Tante!",
+                  "grammar": "concordanza-tempi",
+                  "why": {
+                    "sl": "Za vorrei che gre glagol v nepretekli konjunktiv: che la sentissero.",
+                    "en": "After vorrei che the verb goes into the imperfect subjunctive: che la sentissero.",
+                    "de": "Nach vorrei che steht der Congiuntivo imperfetto: che la sentissero."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sentiranno? E quando? Io tiro adesso, {m:caro|f:cara}!",
+                    "sl": "Sentiranno? Kdaj pa? Jaz vlečem zdaj, {m:dragi|f:draga}!",
+                    "en": "Sentiranno? When? I'm pulling now, dear!",
+                    "de": "Sentiranno? Und wann? Ich ziehe jetzt, {m:mein Lieber|f:meine Liebe}!"
+                  }
+                },
+                {
+                  "it": "Vorrei che la sentissero fino al bosco! Tira la coda, zia!",
+                  "sl": "{m:Rad|f:Rada} bi, da bi ga slišali do gozda! Potegni rep, teta!",
+                  "en": "I'd like them to hear it as far as the wood! Pull the tail, Zia!",
+                  "de": "Ich möchte, dass man es bis zum Wald hört! Zieh am Schwanz, Tante!",
+                  "why": {
+                    "sl": "Zvonec zazvoni, ko potegneš vrv: la corda. Rep ima mačka.",
+                    "en": "A bell rings when you pull its rope: la corda. A tail is a cat's.",
+                    "de": "Eine Glocke läutet, wenn man am Seil zieht: la corda. Einen Schwanz hat die Katze."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La coda? Mica è un gatto, la campanella!",
+                    "sl": "Rep? Saj zvonček ni mačka!",
+                    "en": "The tail? The bell isn't a cat!",
+                    "de": "Den Schwanz? Das Glöckchen ist doch keine Katze!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "nives",
+              "face": "proud",
+              "it": "Din, din, din! Che voce! Scommetto che la sentono fino al bosco!",
+              "sl": "Bim, bim, bim! Kakšen glas! Stavim, da ga slišijo do gozda!",
+              "en": "Ding, ding, ding! What a voice! I bet they can hear it all the way to the wood!",
+              "de": "Bim, bim, bim! Was für eine Stimme! Ich wette, man hört es bis zum Wald!",
+              "fx": {
+                "bell": 1
+              }
+            },
+            {
+              "who": "nives",
+              "face": "happy",
+              "it": "Mandi, {learner}! Vado a dirlo a mia sorella, prima che lo venga a sapere da sola.",
+              "sl": "Mandi, {learner}! Grem povedat sestri, preden izve sama.",
+              "en": "Mandi, {learner}! I'm off to tell my sister, before she finds out by herself.",
+              "de": "Mandi, {learner}! Ich gehe es meiner Schwester sagen, bevor sie es selbst erfährt."
             }
           ]
         }

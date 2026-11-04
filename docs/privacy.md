@@ -111,6 +111,12 @@ the passphrase nobody can open a backup, not even us. See [plans/05-built/git-sy
   (`companion/stt-local`) keeps it on your machine.
 - **Dictionaries:** with `LANI_LEXICON_URL` set, the bridge downloads the word-lookup dictionaries from there. The
   request carries nothing of the learner.
+- **The tutor's outside dictionaries:** when Lani's dictionary has nothing on a word, or the tutor asks for more, the
+  bridge (on a node, or on the phone in the hosted mode) looks that one word up on the sites in its table: Wiktionary,
+  DWDS for German, fran.si only with its consent. The request carries the word and nothing else: no line, no name, no
+  account; a thing that isn't a word, or the learner's name, isn't sent. The site sees the machine's address and the word.
+  An answer is cached on the machine for all its learners. `LANI_DICTIONARY_SOURCE=off` turns this off
+  ([tutor-reach.md](plans/05-built/tutor-reach.md)).
 - **The phone's offline voice:** when the learner asks for it (after pairing, or in the app's settings), the bridge
   downloads that language's Piper voice from Hugging Face once per machine: the model from `rhasspy/piper-voices` and
   the espeak-ng data from `csukuangfj/vits-piper-sl_SI-artur-medium`, at pinned revisions, each file checked against

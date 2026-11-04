@@ -135,8 +135,8 @@ enum class LiveState {
  *   the day's thread with our compaction (the notebook rewritten at the day's end and past the thread's limit, on the
  *   bridge: app/tutor/notebook.md); a role-play's turns on their own short thread; a routine task on another model as
  *   a stateless call. The thread restarts after an app update that changes the prefix.
- * - **Tools:** the bridge's for real ([LiveTools]: reply reaches the chat as Claude Code's does), guide and
- *   dictionary_lookup the app's own.
+ * - **Tools:** the bridge's for real ([LiveTools]: reply reaches the chat as Claude Code's does), guide,
+ *   dictionary_lookup (through the node) and chat_history (the phone's records) the app's own.
  * - **The chat:** a reply streams into the chat sheet as it's written ([onStreaming], from the reply tool's streamed
  *   input), the final message from the bridge replaces it; what goes wrong (the cap, the key, the credit, offline) is
  *   told briefly in the chat ([onNote]), never silently.
@@ -155,7 +155,6 @@ class LiveTutor(
     private val transportFor: (String, suspend () -> String?) -> TutorTransport = { base, key -> AnthropicTransport(base, key) },
     private val openaiTransportFor: (suspend () -> OpenAIBearer?) -> OpenAITransport = { OpenAITransport(it) },
     private val bridgeFor: (BridgeConfig) -> LiveBridge = { LiveBridge(it) },
-    private val fran: FranLookup? = FranLookup(),
     private val clock: () -> Long = System::currentTimeMillis,
     private val zone: () -> ZoneId = ZoneId::systemDefault,
     private val read: (String) -> String? = Bundle::text,
@@ -170,6 +169,8 @@ class LiveTutor(
     private val signInPort: Int = 0,
     /** The learner's GitHub sign-in (git sync's token): report_problem posts to Lani's discussions with it, asked first. */
     private val githubToken: suspend () -> String? = { null },
+    /** The chat as the phone keeps it (app/ChatStore, read only): `chat_history`'s conversation. */
+    private val chat: () -> List<si.lanisce.lani.tutor.PastMessage> = { emptyList() },
     private val discussionsFor: (suspend () -> String?) -> Discussions = { Discussions(it) },
     private val batchesFor: (String, suspend () -> String?) -> AnthropicBatches = { base, key -> AnthropicBatches(base, key) },
     /** Charging on an unmetered network (Wi-Fi): the night's content may run. */
@@ -212,6 +213,9 @@ class LiveTutor(
     private var s = LiveSettings()
     private var q: List<TurnRecord> = emptyList()
     private val logs = mutableMapOf<String, DayLog>()
+
+    /** `chat_history`: the chat and the day logs; what a day's log says was shown is what this tutor replied. */
+    private val history = si.lanisce.lani.tutor.TutorHistory(chat, store, { log -> log.turns.flatMap { it.replies } }, zone)
     /** The tools the node's session listed (its channel's and its own); empty until the session was read. */
     @Volatile private var nodeTools: Set<String> = emptySet()
 
@@ -268,7 +272,7 @@ class LiveTutor(
     var learner: () -> String? = { null }
     var where: () -> String? = { null }
     var photo: (String) -> File? = { null }
-    /** The village's language: what the prefix says is correct, the guide's copy of a topic (fran.si answers for Slovene only). */
+    /** The village's language: what the prefix says is correct, the guide's copy of a topic. */
     var language: () -> String? = { "sl" }
     /** The learner's base, as a code: the guide's language copies are written for any base. */
     var base: () -> String? = { null }
@@ -306,7 +310,6 @@ class LiveTutor(
         providerFor = { m -> providerFor(m) },
         batchesFor = { m -> if (ProviderId.of(m) == ProviderId.ANTHROPIC) batchesFor(baseUrl()) { vault.load() } else null },
         nodeTools = { nodeTools },
-        fran = { fran.takeIf { language() == "sl" } },
         learner = { learner() ?: s.learnerName },
         notebook = { refreshNotebook(force = false) },
         enabled = { s.on && credentialSet() && !s.keyRefused && s.lowCredit == null },
@@ -1327,9 +1330,11 @@ class LiveTutor(
                 else studio.request(use.input, conversation, modelFor(Task.CONTENT), effortFor(Task.CONTENT), s.batches, call = "${t.id}/${use.id}")
             }
             if (github) put("report_problem") { use -> report(use, conversation) }
+            // its own past, from what the phone keeps: nothing leaves but what the turn reads
+            put("chat_history") { use -> withContext(Dispatchers.IO) { history.read(use.input) }.let { it.text to it.isError } }
         }
         val tools = LiveTools(
-            specs.associateBy { it.name }, b, nodeTools, guide, fran.takeIf { language() == "sl" },
+            specs.associateBy { it.name }, b, nodeTools, guide,
             onReply = { r -> replied = true; t = t.copy(replies = t.replies + r); replace(t) },
             learner = { learner() ?: s.learnerName },
             onGuide = { id -> val l = log(dayNow()); saveLog(l.copy(guide = l.guide + (id to (l.guide[id] ?: 0) + 1))) },

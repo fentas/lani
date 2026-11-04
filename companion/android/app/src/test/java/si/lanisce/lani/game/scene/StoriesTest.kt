@@ -56,10 +56,8 @@ class StoriesTest {
     @Test fun `the campfire comes with Janez's stories, in their order, read in Jan's pair`() {
         assertEquals(order, stories.map { it.id })
         assertTrue(stories.all { "A1" in it.levelsTold && "A2" in it.levelsTold })
-        assertEquals(
-            listOf("zlatorog", "kralj-matjaz", "lepa-vida", "zmaj-ljubljanski", "bogatinovo-zlato", "pegam-in-lambergar", "veronika-deseniska"),
-            stories.filter { "B1" in it.levelsTold }.map { it.id },
-        )
+        // every story told at A1, A2, B1 and B2 (readings-primorska: the B1 and B2 tellings for a learner on the way to B2), in every chapter
+        assertEquals(stories.map { it.id to listOf("A1", "A2", "B1", "B2") }, stories.map { it.id to it.levelsTold })
         // the gold of Bogatin goes on from Zlatorog, and joins its book
         assertEquals("zlatorog", stories.first { it.id == "bogatinovo-zlato" }.continues)
         val krpan = stories.first { it.id == "martin-krpan" }
@@ -78,10 +76,15 @@ class StoriesTest {
     @Test fun `tonight's story is told at the learner's level`() {
         assertEquals("A1", Stories.tonight(stories, emptyMap(), "A1")!!.level)
         assertEquals("A2", Stories.tonight(stories, emptyMap(), "A2")!!.level)
-        // higher: the highest there is (Zlatorog has B1, Peter Klepec only A2)
-        assertEquals("B1", Stories.tonight(stories, emptyMap(), "B2")!!.level)
+        assertEquals("B1", Stories.tonight(stories, emptyMap(), "B1")!!.level)
+        assertEquals("B2", Stories.tonight(stories, emptyMap(), "B2")!!.level)
+        // higher: the highest there is (Zlatorog has B2, nothing has C1)
+        assertEquals("B2", Stories.tonight(stories, emptyMap(), "C1")!!.level)
         val klepec = stories.first { it.id == "peter-klepec" }
-        assertEquals("A2", Stories.levelFor(klepec, "C1"))
+        assertEquals("B2", Stories.levelFor(klepec, "C1"))
+        // a story told only at A1 and A2 (as all were before B1): A2 for anyone above
+        val old = klepec.copy(levels = klepec.levels.filterKeys { it == "A1" || it == "A2" })
+        assertEquals("A2", Stories.levelFor(old, "C1"))
         // a story the tutor wrote at B1 only, for an A1 learner: its easiest, all it has
         val b1 = klepec.copy(levels = mapOf("B1" to klepec.levels.getValue("A2")))
         assertEquals("B1", Stories.levelFor(b1, "A1"))
@@ -117,7 +120,11 @@ class StoriesTest {
         assertEquals("A2", again.level)
         assertEquals("B1", Stories.tonight(stories, heard, "A2")!!.level)
         val klepecAgain = Stories.tonight(stories, stories.filter { it.id != "peter-klepec" }.associate { it.id to StoryHeard(told = 2) } + ("peter-klepec" to StoryHeard(told = 1)), "A2")!!
-        assertEquals("peter-klepec" to "A2", klepecAgain.story.id to klepecAgain.level)
+        assertEquals("peter-klepec" to "B1", klepecAgain.story.id to klepecAgain.level)
+        // a story with nothing above A2 is retold at its highest
+        val oldOnes = stories.map { s -> if (s.id == "peter-klepec") s.copy(levels = s.levels.filterKeys { it == "A1" || it == "A2" }) else s }
+        val oldAgain = Stories.tonight(oldOnes, stories.filter { it.id != "peter-klepec" }.associate { it.id to StoryHeard(told = 2) } + ("peter-klepec" to StoryHeard(told = 1)), "A2")!!
+        assertEquals("peter-klepec" to "A2", oldAgain.story.id to oldAgain.level)
     }
 
     @Test fun `a legend under way goes on before anything else`() {
@@ -319,6 +326,15 @@ class StoriesTest {
             his.map { it.id },
         )
         assertTrue(his.all { it.language == "en" && "A1" in it.levelsTold && "A2" in it.levelsTold })
+        // readings-lakeland: told at B1 and B2 too, so a learner at B1 or B2 hears tonight's at their level, a story
+        // without them at the highest below it, and a learner at A2 never above A2 the first time
+        assertTrue(his.all { "B1" in it.levelsTold && "B2" in it.levelsTold })
+        assertEquals("B2", Stories.tonight(his, emptyMap(), "B2")!!.level)
+        assertEquals("B1", Stories.tonight(his, emptyMap(), "B1")!!.level)
+        assertEquals("A2", Stories.tonight(his, emptyMap(), "A2")!!.level)
+        // above B2 the B2 telling, and a retelling for a learner at B1 a level up, at B2
+        assertEquals("B2", Stories.levelFor(his.first(), "C1"))
+        assertEquals("B2", Stories.levelFor(his.first(), "B1", up = 1))
         // the ten older ones heard, the six newer ones come in their order: the Lambton Worm first
         val ten = his.take(10).associate { it.id to StoryHeard(told = 1, level = "A1") }
         assertEquals("the-lambton-worm", Stories.tonight(his, ten, "A1")!!.story.id)

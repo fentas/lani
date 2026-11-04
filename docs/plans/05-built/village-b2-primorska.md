@@ -19,8 +19,9 @@ Each line is a question about how something sounds. A spoken form is never grade
    zbija nihče, ki ima rad svoje prste", "grem kovat podkve kozam", "kot da bi skupaj pasli krave" (Micka on being said ti to),
    "Kakšno tikanje je pa to?" (Ančka), "Mladi ste danes hitri" (Jože), "mi je prirasel k srcu" (Tine about his grandad).
 4. **Single words a native may hear differently:** "barantat" (trg B2, the supine after pojdi), "nimamo ga kam natočiti" (vas B1),
-   "Ti skoči ponje" (vas B2), "na vsakih deset korakov" (mlaj), "obleži, kamor ga postaviš" (most), "lenejši potok" (mlin),
-   "na slepo" (most B2: graditi na slepo).
+   "Ti skoči ponje" (vas B2), "na vsakih deset korakov" (mlaj), "obleži, kamor ga postaviš" (most), "na slepo" (most B2: graditi
+   na slepo). ("lenejši potok" (mlin) is gone: SP2001 gives len "bolj ~" and Sloleks no comparative, so the wrong choice and its
+   reply say "bolj len"; village-b2-primorska-2.)
 5. **The wrong choices that name a grammar page.** Each must be wrong in writing *and* in speech, or it has to go:
    "Prižgem bi …", "rad bi pojem", "bi plešem", "ko bi le znam" (bi with the present); "bi bil treba" (treba with bil);
    "trakove, katere bi plapolali", "vsi, katere so ga zgradili" (katere for a subject); "brez kateri"; "pet medenjaki",
@@ -31,6 +32,9 @@ Each line is a question about how something sounds. A spoken form is never grade
    off the slide; "na igrišču se tečejo"; "velikost številčnica"; "iz štiri cevi", "iz vse štiri cevi"; "od les"; "tako boljša, kot", "tako višjega"; "olupljen deblo"; "Če sem na tvojem
    mestu, bi …"; "ne da bo pritekel"; "z ostrim nož", "z dolgo vrv", "z velikim kolo"; "toliko kruh"; "brez trdni temelji".
    None of them is a dual against a plural (Primorska's speech varies there), and none is a clitic placed first.
+6. **"Nocoj gremo vsi plesati!"** (gasilski_dom, the sixth step, A2): the infinitive after a verb of going, where writing wants
+   the supine. Graded wrong (`namenilnik`) until village-b2-primorska-2; now a second right choice with the standard's reply, and
+   typed it is almost, the supine shown, no mistake recorded. Is that how people say it here, and does it fit a line said to Tone?
 
 ## What the learner gets
 
@@ -39,7 +43,7 @@ Each line is a question about how something sounds. A spoken form is never grade
 | Parties (5 ages) | A1, A2 | + B1, B2 (10 tellings) | `cultures/primorska/celebrations/*.json` |
 | Arrivals (14 villagers + newcomer) | A1, A2, B1 | + B2 (15 tellings) | `cultures/primorska/arrivals.json` |
 | Project steps (13 projects) | A1, A2 (78) | + B1, B2 for all 78 (156 tellings) | `cultures/primorska/project-steps/*.json` |
-| Keeper talks (Oglar Miha's cycle) | A1, A2 | unchanged (to do) | `cultures/primorska/world.json` |
+| Keeper talks (Oglar Miha's cycle) | A1, A2 | + B1, B2, all 62 pieces and the story (village-b2-primorska-2) | `cultures/primorska/world.json` |
 
 The app plays the highest level at or below the learner's (`Arrivals.levelFor`, used by arrivals, steps, parties and the
 keeper), so a B1 learner now meets the B1 telling and a B2 learner the B2 one. An A1 or A2 learner meets what they met before.
@@ -100,21 +104,12 @@ to cast.
 
 ## Found on the way (not changed)
 
-- gasilski_dom step 6 at A2 grades "Nocoj gremo vsi plesati!" wrong (`namenilnik`) against "plesat". The infinitive after
-  a verb of motion is what many people say; by the rule "a spoken form is never wrong" it should be a second `ok` with
-  the same reply, or the turn tested another way. Left for the native check (changing it loses its voice clip).
+- gasilski_dom step 6 at A2 graded "Nocoj gremo vsi plesati!" wrong (`namenilnik`) against "plesat". Fixed in
+  village-b2-primorska-2 (native check, item 6); no clip changes.
 - check-steps' `speakerGendered` flags "sam" and "bil/bila" anywhere in a helper's line, also when they don't refer to
   the speaker ("kamen sam pove", "kako široka bi bila"); the lines were reworded rather than the check changed.
 
-## What's left (ordered)
+## What's left
 
-1. Oglar Miha's cycle (world.json `spots.kopa`): its 62 levelled pieces (33 stage talks, 11 done, the meeting, 3
-   greetings, missed, the breakout's four, 2 nights, the keeper's own meeting, 6 tales; 88 KB of JSON at A2 alone) are
-   at A1 and A2. The brief's line ("Primorska's keeper has 44 levelled talks, the others 1 … give the others a cycle to
-   B2") reads as the other cultures' work; Primorska's own B1/B2 cycle is the next step if "to B2" covers it too.
-2. The lexicon coverage: supplement entries for the 821 word forms in `.lani-lead-kit/village-b2-primorska/unknown-words.txt`
-   (re-made with `newwords.py <coverage output>`), each form's lemma settled against Sloleks, not guessed.
-3. The Android content tests (Arrivals*, Celebrations*, ProjectSteps*, SceneCoherence, StepScenesRender, DialogReactions,
-   WhoAnswers, IntroductionContent) and a short QA through qa-slot (one B2 step: "level:B2" then "step:mlaj/1"; one B2
-   arrival: the LANI_QA_MEET path reads B1, a B2 one needs its level): not run, the machine's heavy slots were taken.
-4. The native check above.
+Items 1 to 3 of this list were done in village-b2-primorska-2 (its doc, same folder): Oglar Miha's cycle, the lexicon, the
+Android tests and QA. The native check above stays.

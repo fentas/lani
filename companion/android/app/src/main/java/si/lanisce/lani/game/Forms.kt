@@ -1,5 +1,8 @@
 package si.lanisce.lani.game
 
+import si.lanisce.lani.game.scene.DialogChoice
+import si.lanisce.lani.game.scene.DialogLine
+
 /**
  * A sentence with one word left out: a dialog turn's right answer with the word its choices differ in as the gap
  * ("Deset ____, prosim."), or an exercise's sentence with its gap ("Nimam ___. (I don't have time.)") and the option
@@ -46,10 +49,13 @@ object Forms {
     /**
      * Whether a turn's choices test a form: a wrong one differs from the one right choice [right] in a single word, case
      * and punctuation aside ("Deset jajc, prosim." / "Deset jajce, prosim."). The word most wrong choices differ in alone
-     * (on a tie, the first one's) is the gap; a wrong choice that differs otherwise (other words, another length, meaning)
-     * is no part of it. Null when none differs in one word.
+     * is the gap; on a tie, the one more of whose wrong choices have a rule ([named]: a choice's index; "Il legno è più
+     * forte ____ carta.", «come» of the comparatives' page, rather than "Il ____ è più forte della carta.", «gelato» a word's
+     * meaning), else the first one's.
+     * A wrong choice that differs otherwise (other words, another length, meaning) is no part of it. Null when none
+     * differs in one word.
      */
-    fun turn(texts: List<String>, right: Int): Turn? {
+    fun turn(texts: List<String>, right: Int, named: (Int) -> Boolean = { false }): Turn? {
         if (texts.size < 2 || right !in texts.indices) return null
         val found = WORD.findAll(texts[right]).toList()
         val key = found.map { it.value.lowercase() }
@@ -61,11 +67,18 @@ object Forms {
             val differ = key.indices.filter { key[it] != w[it] }
             if (differ.size == 1) at.getOrPut(differ[0]) { mutableListOf() } += i
         }
-        val (slot, wrong) = at.entries.maxByOrNull { it.value.size }?.toPair() ?: return null
+        val (slot, wrong) = at.entries.maxWithOrNull(compareBy({ it.value.size }, { it.value.count(named) }))?.toPair() ?: return null
         val m = found[slot]
         val s = texts[right]
         return Turn(FormGap(s.substring(0, m.range.first), m.value, s.substring(m.range.last + 1), slot), wrong)
     }
+
+    /**
+     * Learner's turn [line] as a form ([turn]) with [right] its right choice: on a tie, the word whose wrong choices have
+     * a rule ([DialogChoice.rule]: their page, the turn's, the guess). What the gap, the hint, the turn's mode and its
+     * traps all read, so they are about one word.
+     */
+    fun turn(line: DialogLine, right: Int): Turn? = turn(line.choices.map { it.sl }, right) { line.choices[it].rule(line) != null }
 
     /** The gap of a turn that tests a form ([turn]); null when it tests none. */
     fun gap(texts: List<String>, right: Int): FormGap? = turn(texts, right)?.gap

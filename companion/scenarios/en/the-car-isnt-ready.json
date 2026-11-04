@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "the-car-isnt-ready",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "The car isn't ready", "sl": "Avto ni gotov", "de": "Das Auto ist nicht fertig", "it": "La macchina non è pronta" },
+  "emoji": "🚗",
+  "level": "B1",
+  "setting": {
+    "sl": "Tvoj avto je na servisu v Keswicku na tehničnem pregledu (MOT). Danes ob petih bi ga {m:moral|f:morala} prevzeti, jutri zjutraj pa ga potrebuješ za službo. Zazvoni telefon: kličejo s servisa, nekaj je narobe.",
+    "de": "Dein Auto ist zur Hauptuntersuchung (MOT) in einer Werkstatt in Keswick. Heute um fünf solltest du es abholen, und morgen früh brauchst du es für die Arbeit. Das Telefon läutet: die Werkstatt, es gibt ein Problem.",
+    "it": "La tua macchina è in un'officina di Keswick per la revisione (il MOT). Oggi alle cinque dovevi ritirarla, e domani mattina ti serve per andare al lavoro. Squilla il telefono: è l'officina, c'è un problema.",
+    "en": "Your car is at a garage in Keswick for its MOT. You were going to collect it at five today, and you need it for work tomorrow morning. The phone rings: it's the garage, and there's a problem."
+  },
+  "role": "Darren, at the service desk of a garage in Keswick, on the phone. Sorry but busy: the car failed its MOT (the brake pads, a front tyre), the pads come on Thursday. Offers Friday; a courtesy car only if one comes back, else a lift to the bus. Gives the price when asked.",
+  "who": { "en": "The man from the garage", "sl": "Serviser", "de": "Der Mann von der Werkstatt", "it": "L'addetto dell'officina" },
+  "voice": "male",
+  "place": "kitchen",
+  "goals": [
+    { "en": "Ask what the problem is", "sl": "Vprašaj, kaj je narobe", "de": "Frag, was das Problem ist", "it": "Chiedi qual è il problema" },
+    { "en": "Explain why you need the car tomorrow", "sl": "Pojasni, zakaj potrebuješ avto jutri", "de": "Erklär, warum du das Auto morgen brauchst", "it": "Spiega perché ti serve la macchina domani" },
+    { "en": "Ask what the repair will cost", "sl": "Vprašaj, koliko bo stalo popravilo", "de": "Frag, was die Reparatur kostet", "it": "Chiedi quanto costerà la riparazione" },
+    { "en": "Ask for a courtesy car or another way", "sl": "Prosi za nadomestni avto ali drugo rešitev", "de": "Bitte um einen Leihwagen oder eine andere Lösung", "it": "Chiedi un'auto di cortesia o un'altra soluzione" },
+    { "en": "Agree on a new time to collect it", "sl": "Dogovori se za nov čas prevzema", "de": "Vereinbare eine neue Abholzeit", "it": "Concorda un nuovo orario per ritirarla" }
+  ],
+  "opener_sl": "Hello, it's Darren from the garage. I'm sorry, but I'm afraid your car won't be ready today.",
+  "opener_en": {
+    "sl": "Dober dan, kliče Darren s servisa. Žal mi je, ampak vaš avto danes ne bo gotov.",
+    "de": "Hallo, hier ist Darren von der Werkstatt. Es tut mir leid, aber Ihr Auto wird heute nicht fertig.",
+    "it": "Salve, sono Darren dell'officina. Mi dispiace, ma purtroppo la sua macchina oggi non sarà pronta.",
+    "en": "Hello, this is Darren at the garage. Sorry, but your car won't be ready today."
+  },
+  "vocabulary_hints": [
+    { "sl": "Oh no. What's the problem?", "en": { "sl": "O ne. Kaj pa je narobe?", "de": "Oh nein. Was ist denn das Problem?", "it": "Oh no. Qual è il problema?", "en": "Oh dear. What's wrong?" } },
+    { "sl": "But you said it would be ready at five.", "en": { "sl": "Ampak rekli ste, da bo gotov ob petih.", "de": "Aber Sie haben gesagt, es ist um fünf fertig.", "it": "Ma aveva detto che sarebbe stata pronta alle cinque.", "en": "But you told me it would be ready at five." } },
+    { "sl": "I need it for work tomorrow morning.", "en": { "sl": "Jutri zjutraj ga potrebujem za službo.", "de": "Ich brauche es morgen früh für die Arbeit.", "it": "Mi serve domani mattina per il lavoro.", "en": "I need it to get to work tomorrow morning." } },
+    { "sl": "How much will the repair cost?", "en": { "sl": "Koliko bo stalo popravilo?", "de": "Was kostet die Reparatur?", "it": "Quanto costerà la riparazione?", "en": "What will the repair cost?" } },
+    { "sl": "Have you got a courtesy car?", "en": { "sl": "Imate nadomestni avto?", "de": "Haben Sie einen Leihwagen?", "it": "Avete un'auto di cortesia?", "en": "Do you have a car I could borrow?" } },
+    { "sl": "Is there no way you could finish it by tomorrow?", "en": { "sl": "Ga res ni mogoče popraviti do jutri?", "de": "Geht es wirklich nicht bis morgen?", "it": "Non c'è modo di finirla entro domani?", "en": "Can't you finish it by tomorrow at all?" } },
+    { "sl": "Could you ring me when it's ready?", "en": { "sl": "Bi me lahko poklicali, ko bo gotov?", "de": "Könnten Sie mich anrufen, wenn es fertig ist?", "it": "Potrebbe chiamarmi quando è pronta?", "en": "Could you phone me when it's done?" } },
+    { "sl": "Friday's fine, but not before ten.", "en": { "sl": "Petek je v redu, ampak ne pred deseto.", "de": "Freitag passt, aber nicht vor zehn.", "it": "Venerdì va bene, ma non prima delle dieci.", "en": "Friday is OK, but not earlier than ten." } },
+    { "sl": "Then I'll have to get the bus to work.", "en": { "sl": "Potem bom {m:moral|f:morala} v službo z avtobusom.", "de": "Dann muss ich mit dem Bus zur Arbeit fahren.", "it": "Allora dovrò andare al lavoro in autobus.", "en": "Then I'll have to take the bus to work." } }
+  ],
+  "packs": ["on-the-road", "phones-and-messages", "getting-about", "numbers-and-time", "in-the-village", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

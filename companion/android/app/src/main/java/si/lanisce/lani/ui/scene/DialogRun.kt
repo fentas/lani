@@ -215,7 +215,7 @@ data class DialogRun(
     private fun form(line: DialogLine): Forms.Turn? {
         val turn = line.choices
         val right = turn.indexOfFirst { it.ok }.takeIf { r -> r >= 0 && turn.count { it.ok } == 1 } ?: return null
-        return Forms.turn(turn.map { it.sl }, right)
+        return Forms.turn(line, right)
     }
 
     /** The pages (named, not guessed) the wrong choices of [line]'s form test: what its gap is about. */

@@ -11,7 +11,8 @@ sources it has). The village is in the Lake District: British English is the sta
 - **Spoken, never counted** (name it, the written form beside it): contractions (*I'm*, *don't*, *gonna*); *less* for
   *fewer*; *who* for *whom*; *me and Tom went*; singular *they*; a sentence that ends in a preposition, or a split
   infinitive (neither is a mistake in writing either). Cumbrian and other dialect (*aye*, *lad*, *lass*, *nowt*, *owt*)
-  is named as dialect.
+  is named as dialect, and so is what grown-ups say in the North and in Cumbria: *we was*, *it were*, *I seen it*,
+  *I'm sat here* (the grading table's `nonstandard`); in a talk the villagers say them too.
 - **A mistake is** a missing third-person *-s* (*she go*), a made-up past (*goed*), a wrong tense for the time meant
   (*I am here since Monday*), a missing or wrong article, a wrong preposition, a word order the base language brought
   (*I like very much tea*). A misspelling that keeps the word clear is 🟢 minor.

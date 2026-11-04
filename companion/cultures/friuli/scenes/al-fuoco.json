@@ -5,7 +5,7 @@
   "title": { "it": "Al fuoco", "sl": "Ob ognju", "en": "At the campfire", "de": "Am Lagerfeuer" },
   "emoji": "🔥",
   "level": "A1",
-  "review": "reactions, second right answers: machine-written, not reviewed by a native speaker; variants: machine-written, not reviewed by a native speaker",
+  "review": "reactions, second right answers: machine-written, not reviewed by a native speaker; variants: machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, unreviewed",
   "art": "campfire",
   "from": ["fire"],
   "pack": "al-fuoco",
@@ -31,7 +31,7 @@
   "happenings": [
     {
       "id": "tisana", "title": { "it": "Nonna Rosa porta la tisana", "sl": "Babica Rosa prinese čaj", "en": "Nonna Rosa brings herbal tea", "de": "Nonna Rosa bringt Kräutertee" }, "who": "rosa",
-      "when": ["evening"], "chance": 0.6, "dialog": "tisana", "dialogs": ["tisana-zucchero", "tisana"], "reward": { "food": 20 }, "marker": "🍵",
+      "when": ["evening"], "chance": 0.6, "dialog": "tisana", "dialogs": ["tisana-b2-bora", "tisana-b2-fogolar", "tisana-b1-miele", "tisana-b1-stelle", "tisana-zucchero", "tisana"], "reward": { "food": 20 }, "marker": "🍵",
       "memory": { "it": "la tisana calda che abbiamo bevuto al fuoco", "sl": "vroč čaj, ki sva ga {m:pila|f:pili} ob ognju", "en": "the hot tea we drank by the fire", "de": "den heißen Kräutertee, den wir am Feuer getrunken haben" }
     },
     {
@@ -168,6 +168,106 @@
             "reply": { "face": "laugh", "it": "Alla fuoco? Il fuoco è un maschio, come me!", "sl": "Alla fuoco? Ogenj je fant, tako kot jaz!", "en": "Alla fuoco? The fire's a boy, like me!", "de": "Alla fuoco? Das Feuer ist ein Junge, wie ich!" } }
         ] },
         { "who": "tommaso", "it": "Fatto! Domani ne porto ancora di più. Ciao!", "sl": "Narejeno! Jutri jih prinesem še več. Adijo!", "en": "Done! Tomorrow I'll bring even more. Bye!", "de": "Fertig! Morgen bringe ich noch mehr. Tschüss!" }
+      ]
+    },
+    {
+      "id": "tisana-b1-miele",
+      "level": "B1",
+      "memory": { "it": "il miele nella tisana, sotto le stelle", "sl": "med v čaju, pod zvezdami", "en": "the honey in the tea, under the stars", "de": "der Honig im Tee, unter den Sternen" },
+      "lines": [
+        { "who": "rosa", "face": "happy", "it": "Buonasera, tesoro! Stasera la tisana l'ho fatta con i fiori di tiglio. Il miele ce l'ha il nonno Bepi.", "sl": "Dober večer, srček! Nocoj sem čaj naredila iz lipovih cvetov. Med ima nono Bepi.", "en": "Good evening, sweetheart! Tonight I made the tea with linden flowers. Grandpa Bepi has the honey.", "de": "Guten Abend, Schatz! Heute hab ich den Tee aus Lindenblüten gemacht. Den Honig hat Opa Bepi." },
+        { "who": "rosa", "face": "curious", "it": "Vai a chiedergli il vasetto? Digli che è per la tisana.", "sl": "Greš ponj k njemu? Povej mu, da je za čaj.", "en": "Will you go and ask him for the jar? Tell him it's for the tea.", "de": "Gehst du ihn um das Glas bitten? Sag ihm, es ist für den Tee." },
+        { "choices": [
+          { "it": "Sì, nonna! Glielo chiedo subito.", "sl": "Ja, babica! Takoj ga prosim zanj.", "en": "Yes, Nonna! I'll ask him for it right away.", "de": "Ja, Oma! Ich frag ihn gleich danach.", "ok": true,
+            "reply": { "face": "happy", "it": "Grazie, tesoro. Corri, ma attento al fuoco!", "sl": "Hvala, srček. Teci, ampak pazi na ogenj!", "en": "Thank you, sweetheart. Run, but mind the fire!", "de": "Danke, Schatz. Lauf, aber pass auf das Feuer auf!" } },
+          { "it": "Sì, nonna! Gli lo chiedo subito.", "sl": "Ja, babica! Takoj ga prosim zanj.", "en": "Yes, Nonna! I'll ask him for it right away.", "de": "Ja, Oma! Ich frag ihn gleich danach.",
+            "grammar": "pronomi-combinati", "why": { "sl": "Gli in lo se združita v eno besedo: glielo.", "en": "Gli and lo join into one word: glielo.", "de": "Gli und lo werden ein Wort: glielo." },
+            "reply": { "face": "confused", "it": "Gli lo…? Tesoro, con il nonno parla chiaro, se no ti racconta una storia invece!", "sl": "Gli lo …? Srček, z nonom govori jasno, drugače ti bo namesto tega povedal zgodbo!", "en": "Gli lo…? Sweetheart, speak clearly with Grandpa, or he'll tell you a story instead!", "de": "Gli lo …? Schatz, red mit dem Opa deutlich, sonst erzählt er dir stattdessen eine Geschichte!" } }
+        ] },
+        { "who": "rosa", "it": "Ecco il miele. Che cosa ti ha detto il nonno?", "sl": "Izvoli, med. Kaj ti je rekel nono?", "en": "Here's the honey. What did Grandpa tell you?", "de": "Da ist der Honig. Was hat der Opa dir gesagt?" },
+        { "choices": [
+          { "it": "Ha detto di metterne solo un cucchiaino, perché il miele di acacia è molto dolce.", "sl": "Rekel je, naj dam samo eno žličko, ker je akacijev med zelo sladek.", "en": "He said to put in just one teaspoon, because acacia honey is very sweet.", "de": "Er hat gesagt, ich soll nur einen Teelöffel nehmen, weil Akazienhonig sehr süß ist.", "ok": true,
+            "reply": { "face": "laugh", "it": "Bepi e i suoi cucchiaini! Va bene, uno solo.", "sl": "Bepi in njegove žličke! Prav, samo eno.", "en": "Bepi and his teaspoons! All right, just one.", "de": "Bepi und seine Teelöffel! Na gut, nur einen." } },
+          { "it": "Ha detto metterne solo un cucchiaino, perché il miele di acacia è molto dolce.", "sl": "Rekel je, naj dam samo eno žličko, ker je akacijev med zelo sladek.", "en": "He said to put in just one teaspoon, because acacia honey is very sweet.", "de": "Er hat gesagt, ich soll nur einen Teelöffel nehmen, weil Akazienhonig sehr süß ist.",
+            "grammar": "discorso-indiretto", "why": { "sl": "Naročilo poveš naprej z di in nedoločnikom: ha detto di metterne.", "en": "A request is passed on with di and the infinitive: ha detto di metterne.", "de": "Eine Bitte gibst du mit di und der Grundform weiter: ha detto di metterne." },
+            "reply": { "face": "curious", "it": "Ha detto… metterne? E poi? Mi sembra che manchi un pezzo!", "sl": "Rekel je … dati? In potem? Zdi se mi, da manjka en košček!", "en": "He said… put? And then? I think a bit is missing!", "de": "Er hat gesagt … nehmen? Und dann? Mir scheint, da fehlt ein Stück!" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Mmm, che profumo. Bevi piano e guarda le stelle, tesoro.", "sl": "Mmm, kako diši. Pij počasi in glej zvezde, srček.", "en": "Mmm, what a smell. Drink slowly and look at the stars, sweetheart.", "de": "Mmm, wie das duftet. Trink langsam und schau dir die Sterne an, Schatz." }
+      ]
+    },
+    {
+      "id": "tisana-b1-stelle",
+      "level": "B1",
+      "memory": { "it": "le stelle che volevi andare a vedere", "sl": "zvezde, ki si jih {m:hotel|f:hotela} iti pogledat", "en": "the stars you wanted to go and see", "de": "die Sterne, die du besuchen wolltest" },
+      "lines": [
+        { "who": "rosa", "it": "Guarda quante stelle stasera, tesoro. Quando ero piccola, pensavo che fossero le candele degli angeli.", "sl": "Poglej, koliko zvezd je nocoj, srček. Ko sem bila majhna, sem mislila, da so to sveče angelčkov.", "en": "Look how many stars there are tonight, sweetheart. As a little girl, I thought they were the angels' candles.", "de": "Schau, wie viele Sterne heute da sind, Schatz. Als kleines Mädchen dachte ich, das sind die Kerzen der Engel." },
+        { "who": "rosa", "face": "curious", "it": "E tu, se potessi volare fino a una stella, che cosa ti piacerebbe portare con te?", "sl": "Pa ti, če bi lahko {m:poletel|f:poletela} do zvezde, kaj bi {m:vzel|f:vzela} s seboj?", "en": "And you, if you could fly up to a star, what would you take with you?", "de": "Und du, wenn du bis zu einem Stern fliegen könntest, was würdest du mitnehmen?" },
+        { "choices": [
+          { "it": "Porterei una coperta e un pezzo della tua gubana!", "sl": "{m:Vzel|f:Vzela} bi odejo in kos tvoje gubane!", "en": "I'd take a blanket and a piece of your gubana!", "de": "Ich würde eine Decke und ein Stück von deiner Gubana mitnehmen!", "ok": true,
+            "reply": { "face": "laugh", "it": "La gubana anche lassù? Allora ti preparo un cestino per il viaggio!", "sl": "Gubano tudi tja gor? Potem ti pripravim košarico za na pot!", "en": "Gubana up there too? Then I'll pack you a basket for the journey!", "de": "Gubana auch da oben? Dann pack ich dir ein Körbchen für die Reise!" } },
+          { "it": "Porterò una coperta e un pezzo della tua gubana!", "sl": "{m:Vzel|f:Vzela} bi odejo in kos tvoje gubane!", "en": "I'd take a blanket and a piece of your gubana!", "de": "Ich würde eine Decke und ein Stück von deiner Gubana mitnehmen!",
+            "grammar": "condizionale", "why": { "sl": "Rosa vpraša, kaj bi {m:vzel|f:vzela}: odgovor gre v pogojnik, porterei. Porterò je prihodnjik.", "en": "Rosa asks what you would take: the answer is the conditional, porterei. Porterò is the future.", "de": "Rosa fragt, was du mitnehmen würdest: Die Antwort steht im Konditional, porterei. Porterò ist die Zukunft." },
+            "reply": { "face": "surprised", "it": "Porterai? Parti davvero? E quando, domani?", "sl": "Boš {m:vzel|f:vzela}? Res odhajaš? Kdaj pa, jutri?", "en": "You will take? Are you really leaving? When, tomorrow?", "de": "Du wirst mitnehmen? Fliegst du wirklich? Wann denn, morgen?" } }
+        ] },
+        { "who": "rosa", "face": "thinking", "it": "Io invece resterei qui, vicino al fuoco. Lassù fa troppo freddo per le mie ossa.", "sl": "Jaz bi pa ostala tukaj, pri ognju. Tam gori je preveč mrzlo za moje kosti.", "en": "I'd stay here instead, by the fire. It's too cold up there for my old bones.", "de": "Ich würde lieber hierbleiben, am Feuer. Da oben ist es zu kalt für meine Knochen." },
+        { "choices": [
+          { "it": "Hai ragione, nonna. Senza di te, chi farebbe la tisana?", "sl": "Prav imaš, babica. Kdo bi pa kuhal čaj brez tebe?", "en": "You're right, Nonna. Without you, who would make the tea?", "de": "Du hast recht, Oma. Wer würde ohne dich den Tee kochen?", "ok": true,
+            "reply": { "face": "shy", "it": "Oh, tesoro. Sei proprio un angelo, altro che le stelle.", "sl": "Oh, srček. Ti si pravi angelček, ne pa zvezde.", "en": "Oh, sweetheart. You're a real angel, never mind the stars.", "de": "Oh, Schatz. Du bist ein richtiger Engel, von wegen Sterne." } },
+          { "it": "Hai ragione, nonna. Senza di te, chi faresti la tisana?", "sl": "Prav imaš, babica. Kdo bi pa kuhal čaj brez tebe?", "en": "You're right, Nonna. Without you, who would make the tea?", "de": "Du hast recht, Oma. Wer würde ohne dich den Tee kochen?",
+            "grammar": "condizionale", "why": { "sl": "Chi (kdo) gre z obliko za on: chi farebbe? Faresti je ti bi.", "en": "Chi (who) takes the lui form: chi farebbe? Faresti is you would.", "de": "Chi (wer) steht mit der Form für er: chi farebbe? Faresti heißt du würdest." },
+            "reply": { "face": "laugh", "it": "Chi faresti? Io farei, tu faresti… e la tisana chi la beve?", "sl": "Chi faresti? Jaz bi, ti bi … kdo ga bo pa potem pil?", "en": "Chi faresti? I would, you would… and who drinks the tea?", "de": "Chi faresti? Ich würde, du würdest … und wer trinkt dann den Tee?" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Allora stasera nessuno vola via. Bevi la tisana, che si raffredda.", "sl": "Potem nocoj nihče ne odleti. Popij čaj, da se ne shladi.", "en": "Then nobody flies off tonight. Drink your tea before it gets cold.", "de": "Dann fliegt heute keiner weg. Trink deinen Tee, bevor er kalt wird." }
+      ]
+    },
+    {
+      "id": "tisana-b2-bora",
+      "level": "B2",
+      "memory": { "it": "la notte della bora che mi hai fatto raccontare", "sl": "noč burje, o kateri si me {m:prosil|f:prosila}, naj povem", "en": "the night of the bora you made me tell about", "de": "die Bora-Nacht, von der ich dir erzählen sollte" },
+      "lines": [
+        { "who": "rosa", "face": "thinking", "it": "Senti come soffia piano stasera? Una volta, quando avevo la tua età, la bora soffiò così forte che portò via il tetto del fienile.", "sl": "Slišiš, kako nocoj rahlo piha? Nekoč, ko sem bila tvojih let, je burja pihala tako močno, da je odnesla streho senika.", "en": "Hear how gently it's blowing tonight? Once, when I was your age, the bora blew so hard it took the barn roof away.", "de": "Hörst du, wie sanft es heute weht? Einmal, als ich so alt war wie du, blies die Bora so stark, dass sie das Scheunendach mitnahm." },
+        { "who": "rosa", "it": "Nessuno si fece male, per fortuna. Ma il fieno volò per tutta la valle, fino all'Isonzo.", "sl": "Nihče se ni poškodoval, na srečo. Ampak seno je letelo po vsej dolini, vse do Soče.", "en": "Nobody was hurt, luckily. But the hay flew all over the valley, right down to the Isonzo.", "de": "Zum Glück wurde niemand verletzt. Aber das Heu flog durchs ganze Tal, bis zum Isonzo." },
+        { "choices": [
+          { "it": "Il fieno è volato fino al fiume? Chissà le mucche dove l'hanno ritrovato!", "sl": "Seno je letelo do reke? Kdo ve, kje so ga krave potem našle!", "en": "The hay flew all the way to the river? Who knows where the cows found it again!", "de": "Das Heu ist bis zum Fluss geflogen? Wer weiß, wo die Kühe es wiedergefunden haben!", "ok": true,
+            "reply": { "face": "laugh", "it": "Proprio così! Per una settimana le mucche hanno mangiato nei campi degli altri.", "sl": "Prav tako! Cel teden so krave jedle na tujih poljih.", "en": "Exactly! For a week the cows ate in other people's fields.", "de": "Genau! Eine Woche lang haben die Kühe auf fremden Feldern gefressen." } },
+          { "it": "Il fieno vola fino al fiume? Chissà le mucche dove lo ritrovano!", "sl": "Seno leti do reke? Kdo ve, kje ga krave najdejo!", "en": "The hay flies to the river? Who knows where the cows find it!", "de": "Das Heu fliegt bis zum Fluss? Wer weiß, wo die Kühe es finden!",
+            "grammar": "passato-remoto", "why": { "sl": "Volò je passato remoto: zgodba je iz preteklosti (è volato), ne zdaj.", "en": "Volò is the passato remoto: the story is in the past (è volato), not now.", "de": "Volò ist das passato remoto: Die Geschichte ist vergangen (è volato), nicht jetzt." },
+            "reply": { "face": "surprised", "it": "Vola adesso? No, no, tesoro, è una storia di tanti anni fa!", "sl": "Zdaj leti? Ne, ne, srček, to je zgodba izpred mnogih let!", "en": "Flying now? No, no, sweetheart, that's a story from many years ago!", "de": "Jetzt fliegt es? Nein, nein, Schatz, das ist eine Geschichte von vor vielen Jahren!" } }
+        ] },
+        { "who": "rosa", "face": "curious", "it": "Mio papà diceva sempre: «Se avessimo legato il tetto con le corde, sarebbe ancora lì.» Secondo te aveva ragione?", "sl": "Moj oče je vedno rekel: »Če bi bili streho privezali z vrvmi, bi bila še vedno tam.« Kaj misliš, je imel prav?", "en": "My dad always said: «If we'd tied the roof down with ropes, it would still be there.» Do you think he was right?", "de": "Mein Papa sagte immer: «Hätten wir das Dach mit Seilen festgebunden, wäre es noch da.» Hatte er recht, was meinst du?" },
+        { "choices": [
+          { "it": "Forse sì. Ma anche con le corde, una bora così l'avrebbe portato via lo stesso.", "sl": "Morda. Ampak tudi z vrvmi bi ga taka burja vseeno odnesla.", "en": "Maybe. But even with ropes, a bora like that would have taken it anyway.", "de": "Vielleicht. Aber auch mit Seilen hätte so eine Bora es trotzdem mitgenommen.", "ok": true,
+            "reply": { "face": "thinking", "it": "Lo penso anch'io. Contro la bora, a volte, non c'è corda che tenga.", "sl": "Tudi jaz tako mislim. Proti burji včasih nobena vrv ne pomaga.", "en": "I think so too. Against the bora, sometimes no rope will hold.", "de": "Das denke ich auch. Gegen die Bora hält manchmal kein Seil." } },
+          { "it": "Forse sì. Ma anche con le corde, una bora così l'avrà portato via lo stesso.", "sl": "Morda. Ampak tudi z vrvmi bi ga taka burja vseeno odnesla.", "en": "Maybe. But even with ropes, a bora like that would have taken it anyway.", "de": "Vielleicht. Aber auch mit Seilen hätte so eine Bora es trotzdem mitgenommen.",
+            "grammar": "condizionale-passato", "why": { "sl": "Kar bi se bilo zgodilo, a se ni, je pretekli pogojnik: l'avrebbe portato. L'avrà portato je ugibanje.", "en": "What would have happened but didn't is the past conditional: l'avrebbe portato. L'avrà portato is a guess.", "de": "Was passiert wäre, aber nicht passiert ist, steht im Konditional der Vergangenheit: l'avrebbe portato. L'avrà portato ist eine Vermutung." },
+            "reply": { "face": "confused", "it": "L'avrà portato? Ma no, il tetto l'ha portato via davvero, lo so bene!", "sl": "L'avrà portato? Kje pa, streho je res odnesla, dobro vem!", "en": "L'avrà portato? Oh no, it really did take the roof, I know that well!", "de": "L'avrà portato? Ach was, das Dach hat sie wirklich mitgenommen, das weiß ich genau!" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Stasera però la bora dorme, e anche tu dovresti. Finita la tisana, tutti a letto!", "sl": "Nocoj pa burja spi, in tudi ti bi {m:moral|f:morala}. Ko popiješ čaj, pa vsi v posteljo!", "en": "But tonight the bora's asleep, and you should be too. Tea finished, everyone to bed!", "de": "Heute schläft die Bora aber, und du solltest es auch. Tee ausgetrunken, und alle ins Bett!" }
+      ]
+    },
+    {
+      "id": "tisana-b2-fogolar",
+      "level": "B2",
+      "memory": { "it": "le serate del fogolâr di una volta", "sl": "večere ob ognjišču, kot so bili nekoč", "en": "the fogolâr evenings of the old days", "de": "die Fogolâr-Abende von früher" },
+      "lines": [
+        { "who": "rosa", "face": "thinking", "it": "Sai, tesoro, una volta non c'era la televisione. La sera ci si sedeva tutti intorno al fogolâr, grandi e piccoli.", "sl": "Veš, srček, nekoč ni bilo televizije. Zvečer smo vsi sedeli okoli ognjišča, veliki in mali.", "en": "You know, sweetheart, in the old days there was no television. In the evening everyone sat round the fogolâr, big and small.", "de": "Weißt du, Schatz, früher gab es kein Fernsehen. Abends saßen alle um den Fogolâr, Groß und Klein." },
+        { "who": "rosa", "it": "Le donne filavano la lana, gli uomini riparavano gli attrezzi e i bambini ascoltavano le storie, mezzi addormentati.", "sl": "Ženske so predle volno, moški so popravljali orodje, otroci pa so napol zaspani poslušali zgodbe.", "en": "The women spun wool, the men mended the tools and the children listened to stories, half asleep.", "de": "Die Frauen spannen Wolle, die Männer flickten das Werkzeug, und die Kinder hörten halb im Schlaf die Geschichten." },
+        { "choices": [
+          { "it": "Dev'essere stato bello. Magari ci fossero ancora serate così!", "sl": "Moralo je biti lepo. Ko bi le še bili taki večeri!", "en": "It must have been lovely. If only there were still evenings like that!", "de": "Das muss schön gewesen sein. Wenn es doch noch solche Abende gäbe!", "ok": true,
+            "reply": { "face": "happy", "it": "Ma ci sono, tesoro: guarda noi due, qui, vicino al fuoco!", "sl": "Saj so, srček: poglej naju, tukaj ob ognju!", "en": "But there are, sweetheart: look at the two of us, here by the fire!", "de": "Die gibt es doch, Schatz: Schau uns zwei an, hier am Feuer!" } },
+          { "it": "Dev'essere stato bello. Magari ci sono ancora serate così!", "sl": "Moralo je biti lepo. Ko bi le še bili taki večeri!", "en": "It must have been lovely. If only there were still evenings like that!", "de": "Das muss schön gewesen sein. Wenn es doch noch solche Abende gäbe!",
+            "grammar": "congiuntivo-indipendente", "why": { "sl": "Magari s sedanjikom pomeni morda; želja, ki se ne izpolni, je magari ci fossero.", "en": "Magari with the present means maybe; a wish that isn't so is magari ci fossero.", "de": "Magari mit dem Präsens heißt vielleicht; ein Wunsch, der nicht wahr ist, heißt magari ci fossero." },
+            "reply": { "face": "curious", "it": "Magari ci sono? Forse sì, forse no… Dove, secondo te?", "sl": "Morda so? Morda ja, morda ne … Kje pa, misliš?", "en": "Maybe there are? Maybe yes, maybe no… Where, do you think?", "de": "Vielleicht gibt es sie? Vielleicht ja, vielleicht nein … Wo denn, meinst du?" } }
+        ] },
+        { "who": "rosa", "face": "curious", "it": "E secondo te, che cosa è meglio: la televisione o le storie del fogolâr?", "sl": "Kaj pa misliš ti, kaj je boljše: televizija ali zgodbe ob ognjišču?", "en": "And what do you think is better: the television or the stories by the fogolâr?", "de": "Und was meinst du, was ist besser: der Fernseher oder die Geschichten am Fogolâr?" },
+        { "choices": [
+          { "it": "Le storie! La televisione non mi piace tanto, anzi, a volte mi annoia.", "sl": "Zgodbe! Televizija mi ni preveč všeč, še več, včasih mi je ob njej dolgčas.", "en": "The stories! I don't like television that much; in fact, sometimes it bores me.", "de": "Die Geschichten! Fernsehen mag ich nicht so sehr, im Gegenteil, manchmal langweilt es mich.", "ok": true,
+            "reply": { "face": "proud", "it": "Ecco una risposta {m:da vero friulano|f:da vera friulana}! Il fogolâr vince sempre.", "sl": "To je odgovor {m:pravega Furlana|f:prave Furlanke}! Ognjišče vedno zmaga.", "en": "Now that's an answer from a true Friulian! The fogolâr always wins.", "de": "Das ist eine Antwort {m:wie von einem echten Friauler|f:wie von einer echten Friaulerin}! Der Fogolâr gewinnt immer." } },
+          { "it": "Le storie! La televisione non mi piace tanto, tuttavia, a volte mi annoia.", "sl": "Zgodbe! Televizija mi ni preveč všeč, še več, včasih mi je ob njej dolgčas.", "en": "The stories! I don't like television that much; in fact, sometimes it bores me.", "de": "Die Geschichten! Fernsehen mag ich nicht so sehr, im Gegenteil, manchmal langweilt es mich.",
+            "grammar": "connettivi", "why": { "sl": "Tuttavia (vendar) postavi nekaj nasproti; da greš še dlje v isti smeri, rečeš anzi.", "en": "Tuttavia (however) sets against; to go even further the same way, say anzi.", "de": "Tuttavia (jedoch) stellt etwas dagegen; um noch weiter in dieselbe Richtung zu gehen, sagst du anzi." },
+            "reply": { "face": "thinking", "it": "Non ti piace, tuttavia ti annoia? Mmm, e allora dov'è il «però», tesoro?", "sl": "Ni ti všeč, vendar ti je dolgčas? Hm, kje je pa potem tisti »ampak«, srček?", "en": "You don't like it, however it bores you? Hmm, so where's the «but», sweetheart?", "de": "Du magst es nicht, jedoch langweilt es dich? Hm, und wo ist dann das «aber», Schatz?" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Allora domani sera ti racconto io una storia di quelle vere. Finita la storia, si va a dormire, d'accordo?", "sl": "Potem ti jutri zvečer jaz povem pravo zgodbo. Ko je zgodbe konec, gremo spat, prav?", "en": "Then tomorrow evening I'll tell you a proper story. Story over, off to sleep, all right?", "de": "Dann erzähl ich dir morgen Abend eine richtige Geschichte. Geschichte zu Ende, ab ins Bett, einverstanden?" }
       ]
     }
   ]

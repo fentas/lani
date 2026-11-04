@@ -342,7 +342,11 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   that goes wrong, the hailstorm night told to the fire brigade, advice for Tante Mitzi and her hearing aid, summer help
   at Kathi's Gasthaus; the mayor and the village shop that closes, a job interview at a hotel on the Faaker See, a new
   family doctor's history, a second-hand car, a ski accident told to the Alpine police, Florian between a job and an
-  Almhütte; docs/plans/05-built/talks-de.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
+  Almhütte; docs/plans/05-built/talks-de.md), the Lake District twelve more (`companion/scenarios/en/`: a jacket that
+  leaks, a gate from Mr Dixon's smithy, the garage on the phone, the night the beck came up told to Auntie Edna, advice
+  for Granny Maggie's trip to London, a summer job at Mrs Birkett's inn; a word with the councillor, an interview at the
+  visitor centre, the new patient check, a cottage to let, a statement for the police, Jack at a crossroads;
+  docs/plans/05-built/talks-en.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
   A1 and A2 talks, never B1 or B2. The list goes by level, easiest first.
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
@@ -1137,6 +1141,7 @@ event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land
 | `GET` | `/drills/:id` | one drill |
 | `POST` | `/packs/:id/learn` | `{results: [{word_id, quality 0-5}], duration_minutes, language?}` → new vocabulary SR items via `update-db.py` (known words skipped), in the home language's data or `language`'s, Claude gets a `words_learned` summary. A pack session and a festival's run in the village both post here |
 | `GET` | `/lookup?w=…&line=…&en=…&base=…&language=…` | what a word tapped in a dialog means, in the learner's base language (or `base`); `language`: another town's, on a visit: `{word, entries: [{lemma, pos, gloss, gloss_lang, gloss_via?, gloss_en?, fallback?, grammar, gender, source, item_id, known, example, emoji, aspect?, partner?, here?}], attribution}` (see [Word lookup](#word-lookup), and [Word forms](#word-forms) for a verb's partner) |
+| `GET` | `/dictionary?w=…&line=…&deep=1` | the tutor's lookup (`dictionary_lookup`): `{lexicon, asked?, outside?}`: `/lookup`'s answer and, when it has nothing on the word or with `deep=1`, the language's outside sources (`src/dictionaries.ts`): `outside: {language, found: [{source, url, licence, text, cached, at}], none: [{source, url}], failed: [{source, why}], note?}`; only the word leaves the node, never `line`; an older bridge answers 404 ([docs/plans/05-built/tutor-reach.md](../docs/plans/05-built/tutor-reach.md)) |
 | `GET` | `/forms?w=…&w=…&v=2` | a word's forms (1-40 words): `{language, words: [{word, entries: [{lemma, pos, gloss, gender, aspect?, partner?, language?, aux?, table: wiktionary\|checked, slots: [{key, forms, also?, grammar, page, needs?, lines?}]}]}], attribution}`; `v=2`: Italian's, German's and English's tables too (without it their villages answer none, for an older app); an older bridge answers 404 (see [Word forms](#word-forms)) |
 | `POST` | `/words` | `{sl, en, pos?, item_id?, example_sl?, example_en?, from?, language?, client_id}` → `{item_id, added}`: a vocabulary SR item, without a session, the home language's or `language`'s (see [Word lookup](#word-lookup)) |
 | `POST` | `/counting` | `{words: [{word, item_id?}], client_id?}` (1–40) → `{added, skipped, made_today, per_day}`: counting cards of the learner's learned nouns, from the dictionary's forms, at most `LANI_COUNTING_PER_DAY` (3) a day (see [Counting cards](#counting-cards)); `400` without words or in a village that isn't Slovene |
@@ -1621,7 +1626,14 @@ tutor hears `override_retired`.
 - the studio's: `POST /tutor/check {kind?, path?, text}` (a validator's verdict, nothing written), `GET /tutor/jobs`,
   `GET`/`PUT`/`DELETE /tutor/jobs/:id`, `GET`/`POST /tutor/reports`, `GET /tutor/overrides`.
 
-**QA.** `companion/bin/qa --steps tutor-live` runs on the emulator with the dev bridge and QA's mock of the Messages
+**Its reach.** `dictionary_lookup` goes through the node (`GET /dictionary`): Lani's lexicon and, when that has nothing or the
+tutor asks (`deep`), the language's outside sources, in one table in `bridge/src/dictionaries.ts`: Wiktionary for every
+language, DWDS's published API for German, fran.si only once the node names its written consent
+(`LANI_DICTIONARY_CONSENT=fran.si`). Only the word leaves, at a polite pace with a daily cap, cached for all the node's learners;
+`LANI_DICTIONARY_SOURCE=off` keeps to the lexicon. `chat_history` reads what the phone keeps: the chat, its archive and the
+day logs, by word or day. Each site's terms and Jan's decisions: [tutor-reach.md](../docs/plans/05-built/tutor-reach.md).
+
+**QA.** `companion/bin/qa --steps tutor-reach`: one turn of the shadow on QA's mock calls `dictionary_lookup` and `chat_history`, the dev bridge's fake dictionary answers ([docs/plans/05-built/tutor-reach.md](../docs/plans/05-built/tutor-reach.md)). `companion/bin/qa --steps tutor-live` runs on the emulator with the dev bridge and QA's mock of the Messages
 API (`test/tutor-mock.ts`, its `[mock:slow]` reply). The step:
 1. turns the app's tutor on with a fake key, and checks the dev bridge's channel is the app's;
 2. sends a chat, and takes the streamed reply mid-way and in full; the dev tutor never hears the chat;
@@ -1742,13 +1754,13 @@ fix, progress, analysis, session-end, studio), with `tools/guide.json` (`guide(t
 the bridge (the smoke section `tutor` runs it): regenerate with `cd companion/bridge && bun src/cli/tutor-export.ts`
 after changing a tool, a feature's paragraph or the curated content the guide names. The app's new tools are
 hand-written in `companion/tutor/app-tools/`. The Gradle task `tutorFiles` bundles `companion/tutor` as resources
-under `tutor/`. Phase A's 18 tools in shadow mode (`tutor/ShadowTools.kt`):
+under `tutor/`. Phase A's 19 tools in shadow mode (`tutor/ShadowTools.kt`):
 - `reply`: into the panel, never the chat, never a notification;
 - reads, through the paired bridge's GET routes only (`tutor/Reads.kt` `ShadowBridge`, the app's bearer token, its
   client refusing anything else, `GetOnly`): `learner_state` (`/state`, summed up), `get_village` (`/game`),
-  `list_packs` (`/packs`), `list_grammar` and `get_grammar` (`/grammar`), `dictionary_lookup` (`/lookup`, the node's
-  dictionary as marked untrusted data; fran.si comes later), `card` find, show and overlaps (`/state`'s deck);
-  `recent_answers` from the reviews the shadow saw;
+  `list_packs` (`/packs`), `list_grammar` and `get_grammar` (`/grammar`), `dictionary_lookup` (`/dictionary`, the node's
+  dictionary and the language's outside sources, as marked untrusted data), `card` find, show and overlaps (`/state`'s deck);
+  `recent_answers` from the reviews the shadow saw; `chat_history` from the phone's chat and day logs, what the learner saw;
 - writes, dry runs (validated against their schema, recorded with their input, never sent): `publish_gloss`,
   `publish_sentence_note`, `set_rhythm`, `set_target_level`, `record_session`, `report_problem`, `card` edit, merge,
   split, regrade and forgive. The model reads what the live tool answers on success, made from the input
@@ -4271,7 +4283,16 @@ the trigger, the case and the question the lens names (`TurnHintLensTest`; the s
 so, `bun test/hint-lens.ts --write` records them again). An Italian turn's chip has Italian's own table, in the app
 too (`game/ItalianHints.kt`; docs/plans/05-built/hint-chip-it.md): every page's rule in words and what the sentence shows
 of it (the noun an article goes with, who does it, who is spoken to, the participle that picks essere or avere, the
-word that asks for the congiuntivo …), from word lists, without the bridge.
+word that asks for the congiuntivo …), from word lists, without the bridge. An English turn's chip has English's (`game/EnglishHints.kt`;
+docs/plans/05-built/hint-chip-en.md): every page's rule in words (its card's) and the word beside the form that decides
+it (who does it, the helper before a verb, the -ing form after be, what there is, the first sound after a or an, a number
+before a noun, whose it is, a no before any, the place or time after a preposition …). A German turn's chip has German's
+(`game/GermanHints.kt`; docs/plans/05-built/hint-chip-de.md): every page's rule in words (its card's), what decides a case read
+from German's trigger table (the preposition, a two-way one by the sentence's verb, the verb with a dative, the chunk), and
+the word beside the form that decides the rest (the noun of an article, who does it, the helper, the participle that picks
+sein or haben, who is spoken to …), and at a turn of the same words in another order, where the verb goes; what people say
+(wegen dem, weil with the verb second) it names as such. The chip takes the scene's and
+the village's names for people (`TurnHints.of`'s cast), and on a tie `Forms.turn` takes the word a rule names.
 
 **German's lens** (docs/plans/05-built/case-de.md): a German village's word shows its case the same way, read by
 `bridge/src/case-lens-de.ts` from German's own trigger table (`companion/grammar/de/data/case-triggers.json`, made by
