@@ -5,7 +5,7 @@
   "title": { "en": "On the fell", "sl": "Na hribu", "it": "Sul monte", "de": "Auf dem Berg" },
   "emoji": "⛰️",
   "level": "A1",
-  "review": "reactions, second right answers: machine-written, not reviewed by a native speaker; variants: machine-written, not reviewed by a native speaker",
+  "review": "reactions, second right answers: machine-written, not native-checked; variants: machine-written, not native-checked; B1, B2 variants too",
   "art": "alps",
   "from": ["spot:horizon"],
   "pack": "on-the-fell",
@@ -42,12 +42,12 @@
     },
     {
       "id": "daisy", "title": { "en": "Jack and Daisy the cow", "sl": "Jack in krava Daisy", "it": "Jack e la mucca Daisy", "de": "Jack und die Kuh Daisy" }, "who": "jack",
-      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "daisy", "dialogs": ["daisy-count", "daisy"], "reward": { "food": 20 }, "marker": "🐄",
+      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "daisy", "dialogs": ["daisy-b2-clapper", "daisy-b1-tyrol", "daisy-count", "daisy"], "reward": { "food": 20 }, "marker": "🐄",
       "memory": { "en": "Daisy and her bell from Austria", "sl": "Daisy in njen zvonec iz Avstrije", "it": "Daisy e il suo campanaccio dall'Austria", "de": "Daisy und ihre Glocke aus Österreich" }
     },
     {
       "id": "sunset", "title": { "en": "Jack watches the sunset", "sl": "Jack gleda sončni zahod", "it": "Jack guarda il tramonto", "de": "Jack schaut den Sonnenuntergang an" }, "who": "jack",
-      "when": ["evening"], "chance": 0.5, "dialog": "sunset", "dialogs": ["sunset-yesterday", "sunset"], "reward": { "wood": 20 }, "marker": "🌅",
+      "when": ["evening"], "chance": 0.5, "dialog": "sunset", "dialogs": ["sunset-b2-rarely", "sunset-b1-late", "sunset-yesterday", "sunset"], "reward": { "wood": 20 }, "marker": "🌅",
       "memory": { "en": "the evening the fells went pink", "sl": "večer, ko so hribi postali rožnati", "it": "la sera in cui i monti sono diventati rosa", "de": "den Abend, an dem die Berge rosa wurden" }
     },
     {
@@ -296,6 +296,76 @@
             "reply": { "face": "surprised", "en": "Cool! Then we can both fish. Look, a fish!", "sl": "Kul! Potem lahko loviva oba. Poglej, riba!", "it": "Forte! Allora peschiamo tutti e due. Guarda, un pesce!", "de": "Cool! Dann angeln wir beide. Schau, ein Fisch!", "fx": { "fish": 1 }, "sky": { "fog": 0 } } }
         ] },
         { "who": "harry", "face": "happy", "en": "It jumped right out of the water! Today we're going to catch it!", "sl": "Skočila je čisto iz vode! Danes jo bova ujela!", "it": "È saltato proprio fuori dall'acqua! Oggi lo prendiamo!", "de": "Der ist richtig aus dem Wasser gesprungen! Heute fangen wir ihn!" }
+      ]
+    },
+    {
+      "id": "daisy-b2-clapper", "level": "B2",
+      "memory": {"en": "Daisy's bell with its new clapper", "sl": "Daisyjin zvonec z novim kembljem", "it": "il campanaccio di Daisy col batacchio nuovo", "de": "Daisys Glocke mit dem neuen Klöppel"},
+      "lines": [
+        {"who": "jack", "face": "happy", "en": "Now then! Hear that? Daisy's bell again. The clapper fell off last week, and the cows went everywhere.", "sl": "Živjo! Slišiš? Spet Daisyjin zvonec. Prejšnji teden je kembelj odpadel in krave so se razbežale povsod.", "it": "Ehi! Senti? Di nuovo il campanaccio di Daisy. La settimana scorsa è caduto il batacchio e le mucche sono andate dappertutto.", "de": "Na! Hörst du? Wieder Daisys Glocke. Letzte Woche ist der Klöppel abgefallen, und die Kühe sind überall hin."},
+        { "choices": [
+          {"en": "Did you have it fixed at the smithy?", "sl": "Si ga dal popraviti v kovačnici?", "it": "L'hai fatto riparare alla fucina?", "de": "Hast du ihn in der Schmiede reparieren lassen?", "ok": true, "reply": {"en": "Aye. The smith did it for a pint.", "sl": "Ja. Kovač ga je popravil za vrček piva.", "it": "Sì. Il fabbro l'ha fatto per una pinta.", "de": "Ja. Der Schmied hat's für ein Pint gemacht."}},
+          {"en": "Did you have fixed it at the smithy?", "sl": "Si ga dal popraviti v kovačnici?", "it": "L'hai fatto riparare alla fucina?", "de": "Hast du ihn in der Schmiede reparieren lassen?", "grammar": "have-it-done", "why": {"en": "Have + it + the participle: have it fixed. The thing in the middle; someone else does it.", "sl": "Have + it + deležnik: have it fixed. Stvar v sredini; naredi nekdo drug.", "it": "Have + it + il participio: have it fixed. La cosa in mezzo; lo fa qualcun altro.", "de": "Have + it + Partizip: have it fixed. Die Sache in die Mitte; ein anderer macht es."}, "reply": {"face": "laugh", "en": "Me? I can't even mend a kettle, mate.", "sl": "Jaz? Še čajnika ne znam popraviti.", "it": "Io? Non so aggiustare nemmeno un bollitore.", "de": "Ich? Ich kann nicht mal einen Wasserkessel reparieren."}}
+        ] },
+        {"who": "jack", "face": "curious", "en": "Funny thing. The others all follow her. Why, do you reckon?", "sl": "Smešno. Vse druge ji sledijo. Zakaj, kaj misliš?", "it": "Buffo. Tutte le altre la seguono. Perché, secondo te?", "de": "Komisch. Alle anderen laufen ihr nach. Warum wohl?"},
+        { "choices": [
+          {"en": "Hearing her bell, they know where to go.", "sl": "Ko slišijo njen zvonec, vedo, kam iti.", "it": "Sentendo il suo campanaccio, sanno dove andare.", "de": "Wenn sie ihre Glocke hören, wissen sie, wohin.", "ok": true, "reply": {"face": "happy", "en": "That's it. Where Daisy goes, they go.", "sl": "Tako je. Kamor gre Daisy, gredo one.", "it": "Esatto. Dove va Daisy, vanno loro.", "de": "Genau. Wo Daisy hingeht, gehen sie hin."}},
+          {"en": "Heard her bell, they know where to go.", "sl": "Ko slišijo njen zvonec, vedo, kam iti.", "it": "Sentendo il suo campanaccio, sanno dove andare.", "de": "Wenn sie ihre Glocke hören, wissen sie, wohin.", "grammar": "participle-clauses", "why": {"en": "For what happens at the same time: -ing, hearing her bell. The participle heard is for what was done.", "sl": "Za tisto, kar se dogaja hkrati: -ing, hearing her bell. Deležnik heard je za tisto, kar je bilo narejeno.", "it": "Per ciò che succede nello stesso momento: -ing, hearing her bell. Il participio heard è per ciò che è stato fatto.", "de": "Für das, was gleichzeitig passiert: -ing, hearing her bell. Das Partizip heard ist für das, was getan wurde."}, "reply": {"face": "confused", "en": "Heard? When? It's ringing right now, mate!", "sl": "Heard? Kdaj? Saj ga slišijo zdaj!", "it": "Heard? Quando? Lo sentono adesso, amico!", "de": "Heard? Wann? Die hören sie doch jetzt, Kumpel!"}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Ding, ding. Listen to that. Better than any whistle.", "sl": "Cing, cing. Poslušaj. Boljše od vsake piščalke.", "it": "Din, din. Senti. Meglio di qualsiasi fischio.", "de": "Bim, bim. Hör dir das an. Besser als jede Pfeife."}
+      ]
+    },
+    {
+      "id": "daisy-b1-tyrol", "level": "B1",
+      "memory": {"en": "Daisy's bell from Tyrol", "sl": "Daisyjin zvonec s Tirolske", "it": "il campanaccio di Daisy dal Tirolo", "de": "Daisys Glocke aus Tirol"},
+      "lines": [
+        {"who": "jack", "face": "happy", "en": "Now then! Can you hear that bell? That's Daisy, my cow. Her bell came all the way from Austria.", "sl": "Živjo! Slišiš tisti zvonec? To je Daisy, moja krava. Njen zvonec je prišel vse od Avstrije.", "it": "Ehi! Senti quel campanaccio? È Daisy, la mia mucca. Il suo campanaccio viene dall'Austria.", "de": "Na! Hörst du die Glocke? Das ist Daisy, meine Kuh. Ihre Glocke kommt den ganzen Weg aus Österreich."},
+        {"who": "jack", "face": "curious", "en": "Guess where it was made.", "sl": "Ugani, kje je bil narejen.", "it": "Indovina dov'è stato fatto.", "de": "Rat mal, wo sie gemacht wurde."},
+        { "choices": [
+          {"en": "Was it made in the Alps?", "sl": "Je bil narejen v Alpah?", "it": "È stato fatto nelle Alpi?", "de": "Wurde sie in den Alpen gemacht?", "ok": true, "reply": {"face": "happy", "en": "In Tyrol. A walker from Innsbruck gave it to me.", "sl": "Na Tirolskem. Podaril mi ga je pohodnik iz Innsbrucka.", "it": "In Tirolo. Me l'ha regalato un escursionista di Innsbruck.", "de": "In Tirol. Ein Wanderer aus Innsbruck hat sie mir geschenkt."}},
+          {"en": "Did it make in the Alps?", "sl": "Je bil narejen v Alpah?", "it": "È stato fatto nelle Alpi?", "de": "Wurde sie in den Alpen gemacht?", "grammar": "passive", "why": {"en": "The passive: was + the participle, was it made? Did it make would mean the bell made something.", "sl": "Trpnik: was + deležnik, was it made? Did it make bi pomenilo, da je zvonec nekaj naredil.", "it": "Il passivo: was + il participio, was it made? Did it make vorrebbe dire che il campanaccio ha fatto qualcosa.", "de": "Das Passiv: was + Partizip, was it made? Did it make hieße, die Glocke hat etwas gemacht."}, "reply": {"face": "laugh", "en": "Did it make? Make what, mate? Music?", "sl": "Did it make? Kaj, prijatelj? Glasbo?", "it": "Did it make? Fare cosa, amico? Musica?", "de": "Did it make? Etwa Musik, Kumpel?"}}
+        ] },
+        {"who": "jack", "en": "Tomorrow we're taking the cows up to the top pasture.", "sl": "Jutri peljemo krave gor na zgornji pašnik.", "it": "Domani portiamo le mucche su al pascolo alto.", "de": "Morgen bringen wir die Kühe hinauf auf die obere Weide."},
+        { "choices": [
+          {"en": "Will you be leaving early?", "sl": "Boste zgodaj odšli?", "it": "Partirete presto?", "de": "Brecht ihr früh auf?", "ok": true, "reply": {"face": "happy", "en": "At five. Daisy first, bell and all.", "sl": "Ob petih. Daisy prva, z zvoncem vred.", "it": "Alle cinque. Daisy per prima, campanaccio compreso.", "de": "Um fünf. Daisy vorneweg, mit Glocke und allem."}},
+          {"en": "Will you leaving early?", "sl": "Boste zgodaj odšli?", "it": "Partirete presto?", "de": "Brecht ihr früh auf?", "grammar": "future-continuous", "why": {"en": "To ask about plans: will you be + -ing, will you be leaving? The be can't go.", "sl": "Za vprašanje o načrtih: will you be + -ing, will you be leaving? Be ne sme izpasti.", "it": "Per chiedere dei programmi: will you be + -ing, will you be leaving? Il be non può mancare.", "de": "Nach Plänen fragen: will you be + -ing, will you be leaving? Das be darf nicht fehlen."}, "reply": {"face": "curious", "en": "Will I leaving? Mate, a word's run off up the fell.", "sl": "Will I leaving? Prijatelj, ena beseda je ušla na hrib.", "it": "Will I leaving? Amico, una parola è scappata sul monte.", "de": "Will I leaving? Kumpel, ein Wort ist den Berg rauf abgehauen."}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Ding, ding. There she goes. Best cow on the fell.", "sl": "Cing, cing. Tam gre. Najboljša krava na hribu.", "it": "Din, din. Eccola che va. La miglior mucca del monte.", "de": "Bim, bim. Da geht sie. Die beste Kuh am Berg."}
+      ]
+    },
+    {
+      "id": "sunset-b2-rarely", "level": "B2",
+      "memory": {"en": "the evening Meg fell asleep on my boots", "sl": "večer, ko je Meg zaspala na mojih čevljih", "it": "la sera in cui Meg si è addormentata sui miei scarponi", "de": "den Abend, an dem Meg auf meinen Stiefeln eingeschlafen ist"},
+      "lines": [
+        {"who": "jack", "face": "happy", "en": "Now then! Look at that. Skiddaw's pink, Blencathra's red.", "sl": "Živjo! Poglej to. Skiddaw je rožnat, Blencathra rdeča.", "it": "Ehi! Guarda. Lo Skiddaw è rosa, il Blencathra rosso.", "de": "Na! Schau dir das an. Der Skiddaw ist rosa, der Blencathra rot.", "fx": {"glow": 1}},
+        { "choices": [
+          {"en": "Rarely have I seen anything so beautiful.", "sl": "Redko sem {m:videl|f:videla} kaj tako lepega.", "it": "Raramente ho visto qualcosa di così bello.", "de": "Selten habe ich etwas so Schönes gesehen.", "ok": true, "reply": {"face": "happy", "en": "Me neither. And I see it most nights.", "sl": "Jaz tudi ne. Pa ga vidim skoraj vsak večer.", "it": "Nemmeno io. E lo vedo quasi tutte le sere.", "de": "Ich auch nicht. Und ich seh's fast jeden Abend."}},
+          {"en": "Rarely I have seen anything so beautiful.", "sl": "Redko sem {m:videl|f:videla} kaj tako lepega.", "it": "Raramente ho visto qualcosa di così bello.", "de": "Selten habe ich etwas so Schönes gesehen.", "grammar": "emphasis", "why": {"en": "With rarely at the front, the helping verb comes first, as in a question: rarely have I seen.", "sl": "Ko je rarely spredaj, pride pomožni glagol prvi, kot v vprašanju: rarely have I seen.", "it": "Con rarely all'inizio, l'ausiliare viene prima, come in una domanda: rarely have I seen.", "de": "Mit rarely am Anfang kommt das Hilfsverb zuerst, wie in einer Frage: rarely have I seen."}, "reply": {"face": "laugh", "en": "Ha! You sound like a poem gone wrong, mate.", "sl": "Ha! Zveniš kot ponesrečena pesem.", "it": "Ah! Sembri una poesia venuta male, amico.", "de": "Ha! Du klingst wie ein schiefgegangenes Gedicht, Kumpel."}}
+        ] },
+        {"who": "jack", "face": "laugh", "en": "Meg's fallen asleep on my boots, which means I'm stuck here.", "sl": "Meg je zaspala na mojih čevljih, kar pomeni, da sem obtičal.", "it": "Meg si è addormentata sui miei scarponi, il che vuol dire che sono bloccato.", "de": "Meg ist auf meinen Stiefeln eingeschlafen, was heißt, dass ich festsitze."},
+        { "choices": [
+          {"en": "So you can't move until Meg wakes up.", "sl": "Torej se ne moreš premakniti, dokler se Meg ne zbudi.", "it": "Quindi non puoi muoverti finché Meg non si sveglia.", "de": "Du kannst dich also nicht rühren, bis Meg aufwacht.", "ok": true, "reply": {"face": "laugh", "en": "Stuck till she's ready. That's sheepdogs for you.", "sl": "Obtičal, dokler ne bo pripravljena. Taki so ovčarji.", "it": "Bloccato finché lei non è pronta. I cani pastore sono così.", "de": "Fest, bis sie so weit ist. So sind Hütehunde."}},
+          {"en": "So Meg's stuck under your boots.", "sl": "Torej je Meg obtičala pod tvojimi čevlji.", "it": "Quindi Meg è rimasta bloccata sotto i tuoi scarponi.", "de": "Meg steckt also unter deinen Stiefeln fest.", "grammar": "relative-clauses-more", "why": {"en": "Which stands for the whole first part: Meg asleep on his boots means he's the one who's stuck.", "sl": "Which stoji za cel prvi del: Meg spi na njegovih čevljih, zato je obtičal on.", "it": "Which sta per tutta la prima parte: Meg dorme sui suoi scarponi, quindi è lui a essere bloccato.", "de": "Which steht für den ganzen ersten Teil: Meg schläft auf seinen Stiefeln, also sitzt er fest."}, "reply": {"face": "laugh", "en": "Under my boots? She's on them, mate, like a hot water bottle.", "sl": "Pod čevlji? Na njih je, kot termofor.", "it": "Sotto gli scarponi? Ci sta sopra, amico, come una borsa dell'acqua calda.", "de": "Unter meinen Stiefeln? Sie liegt drauf, Kumpel, wie eine Wärmflasche."}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "There. Gone. Purple now. Come on, Meg, home.", "sl": "Tako. Ni ga več. Zdaj je vijolično. Daj, Meg, domov.", "it": "Ecco. Finito. Ora è viola. Dai, Meg, a casa.", "de": "So. Vorbei. Jetzt lila. Komm, Meg, heim.", "fx": {"glow": 0.2}}
+      ]
+    },
+    {
+      "id": "sunset-b1-late", "level": "B1",
+      "memory": {"en": "the sunset I nearly missed", "sl": "sončni zahod, ki bi ga skoraj zamudil", "it": "il tramonto che ho quasi perso", "de": "den Sonnenuntergang, den ich fast verpasst hätte"},
+      "lines": [
+        {"who": "jack", "face": "happy", "en": "Now then! Look at the fells. They're going pink!", "sl": "Živjo! Poglej hribe. Postajajo rožnati!", "it": "Ehi! Guarda i monti. Stanno diventando rosa!", "de": "Na! Schau dir die Berge an. Sie werden rosa!", "fx": {"glow": 1}},
+        {"who": "jack", "face": "thinking", "en": "I nearly stayed down at the farm tonight.", "sl": "Nocoj bi skoraj ostal spodaj na kmetiji.", "it": "Stasera stavo quasi per restare giù alla fattoria.", "de": "Heute Abend wäre ich fast unten auf dem Hof geblieben."},
+        { "choices": [
+          {"en": "If you'd stayed down, you wouldn't have seen this.", "sl": "Če bi ostal spodaj, tega ne bi videl.", "it": "Se fossi rimasto giù, non avresti visto questo.", "de": "Wärst du unten geblieben, hättest du das nicht gesehen.", "ok": true, "reply": {"face": "happy", "en": "Not a chance. Worth every step.", "sl": "Niti slučajno. Vreden vsakega koraka.", "it": "Neanche per sogno. Vale ogni passo.", "de": "Keine Chance. Jeden Schritt wert."}},
+          {"en": "If you'd stayed down, you won't have seen this.", "sl": "Če bi ostal spodaj, tega ne bi videl.", "it": "Se fossi rimasto giù, non avresti visto questo.", "de": "Wärst du unten geblieben, hättest du das nicht gesehen.", "grammar": "third-conditional", "why": {"en": "What didn't happen: wouldn't have + the participle. Won't have is for the future.", "sl": "Za tisto, kar se ni zgodilo: wouldn't have + deležnik. Won't have je za prihodnost.", "it": "Per ciò che non è successo: wouldn't have + il participio. Won't have è per il futuro.", "de": "Für das, was nicht passiert ist: wouldn't have + Partizip. Won't have ist für die Zukunft."}, "reply": {"face": "curious", "en": "Won't have? It's happening now, mate. Look!", "sl": "Won't have? Saj se dogaja zdaj, prijatelj. Poglej!", "it": "Won't have? Sta succedendo adesso, amico. Guarda!", "de": "Won't have? Es passiert doch jetzt, Kumpel. Schau!"}}
+        ] },
+        {"who": "jack", "face": "curious", "en": "Last week I came up too late. Guess what?", "sl": "Prejšnji teden sem prišel gor prepozno. Ugani, kaj?", "it": "La settimana scorsa sono salito troppo tardi. Indovina?", "de": "Letzte Woche bin ich zu spät raufgekommen. Rate mal?"},
+        { "choices": [
+          {"en": "Had the sun already gone down?", "sl": "Je sonce že zašlo?", "it": "Il sole era già tramontato?", "de": "War die Sonne schon untergegangen?", "ok": true, "reply": {"face": "laugh", "en": "Gone. Just grey. I sat here like a lemon.", "sl": "Zašlo. Samo sivo. Sedel sem tu kot tepec.", "it": "Tramontato. Solo grigio. Me ne stavo qui come un allocco.", "de": "Weg. Nur grau. Ich saß hier wie bestellt und nicht abgeholt."}},
+          {"en": "Had the sun already go down?", "sl": "Je sonce že zašlo?", "it": "Il sole era già tramontato?", "de": "War die Sonne schon untergegangen?", "grammar": "past-perfect", "why": {"en": "Had + the participle: had gone down. Go, went, gone.", "sl": "Had + deležnik: had gone down. Go, went, gone.", "it": "Had + il participio: had gone down. Go, went, gone.", "de": "Had + Partizip: had gone down. Go, went, gone."}, "reply": {"face": "curious", "en": "Had go? Mate, the sun went, and so did that word.", "sl": "Had go? Prijatelj, sonce je šlo, in tista beseda tudi.", "it": "Had go? Amico, il sole è andato, e anche quella parola.", "de": "Had go? Kumpel, die Sonne ist weg, und das Wort auch."}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Come on, down we go before it's dark. Mind the stones.", "sl": "Daj, dol greva, preden se stemni. Pazi na kamne.", "it": "Dai, scendiamo prima che faccia buio. Attento ai sassi.", "de": "Komm, runter, bevor's dunkel wird. Pass auf die Steine auf."}
       ]
     }
   ]

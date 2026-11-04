@@ -1258,7 +1258,10 @@ The village's scroll has a collection "📖 Slovnica · Grammar" (`Collection.GR
 - **A page** shows its level and who wrote it, the rule in Jan's base language (English; German or Italian for a learner from those), the tutor's addition ("🧑‍🏫 Učitelj dodaja · Your tutor adds"), the table (its words of Slovene looked up with a tap), the examples (each with 🔊 and word lookup, its translation, the tutor's marked 🧑‍🏫), "🙋 Tvoji stavki · Your sentences" (what they said right on the rule, their grammar cards on it), "🩹 Tvoje napake · Your mistakes" (the mistakes-db patterns its tags name, with their examples, and their slips here), "📈 Kako dobro · How well" in stars, the related pages they have met ("Glej tudi · See also"), and whether a machine wrote it.
 - **How well** (0 to 5 stars, `GrammarBook.meter`): the answers on the rule (right of all, weighing up to 8) and their grammar cards on it (how far their reviews are: 5 in a row is 5, a failed last review 1), weighed together; each open mistake on it (its last answer wrong, not fixed since by a review or the run: see "Mastery and adaptive turns") takes a star off, two at most. Nothing practised yet says so.
 - **"🎯 Vadi · Practise"** (not during a run): a short run of at most 8 (`Grammar.practice`): the exercises that name the page (the modules', the tent challenge's questions, and the letters' questions and pilgrim's ways that name it: `Surprises.onRules`), then the other exercises of the modules it links; with none, their grammar cards on it, reviewed like a polishing run (their answers go to SM-2); with none of those either, the tutor is asked for a drill ("Pripravi mi kratko vajo: … · Make me a short drill: …", `data.grammar_drill`) and the chat opens. The answers feed the village like practice and count on the page; the module exercises' results go to the tutor as a session to keep. The finish shows the stars and leads back to the page.
-- **"🧩 Vadi sklone · Case trainer"** on a page about a case or what decides one (the six cases', skloni, rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, the plural's and the dual's cases, pridevniki-ujemanje): a session of the case trainer on that case or rule, at once (skloni: all six mixed). See [README.md](README.md#case-trainer).
+- **"🧩 Vadi sklone · Case trainer"** on a page about a case or what decides one (the six cases', skloni, rodilnik-predlogi, rodilnik-nikalnica, rodilnik-kolicina, kam-tozilnik, kje-mestnik-orodnik, the plural's and the dual's cases, pridevniki-ujemanje): a session of the case trainer on that case or rule, at once (skloni: all six mixed). See [README.md](README.md#case-trainer). In a German village **"🧩 Fälle üben"** on German's case
+  pages (faelle, akkusativ, dativ, genitiv, the prepositions' pages, wechselpraepositionen, pronomen-dativ,
+  verben-praepositionen, adjektive-praepositionen, relativsatz, reflexive-verben, stehen-stellen, the adjective endings'
+  pages, n-deklination): its four cases (docs/plans/05-built/case-de.md).
 - **"💬 Vprašaj · Ask the tutor"** opens the chat with the page attached (`data.about_grammar`: its id, title, the rule as they read it, their answers, slips and mistakes on it).
 - **From a "why" and an intro.** Beside the explanation of an answer whose rule has a page, and under a scene's why that names one, "📖 V knjigo · To the book: Kje? Predlogi kraja"; a challenge's and a module's intro list their rules' pages under "📖 V knjigi · In the book" (a request's own page first). Both open the page on a sheet over the run, without leaving it.
 - **From a dialog, before answering and after.** A turn whose rule has a page offers "📖 Namig · Hint" beside the 🎤: the rule without the answer, and "📖 V knjigo" to its pages; a long press on a line said opens "🔍 Slovnica stavka · The sentence's grammar", each word's form and why with a 📖 to its page, and the tutor's explanation of the line once asked ([SCENES.md](SCENES.md#the-sentences-grammar-a-long-press-on-a-line)). Opening a page from them meets it, as the why's link does.
@@ -1320,7 +1323,8 @@ A word Jan added (a word card's "➕ Dodaj med moje besede", a pack's word) is o
 - **What an answer counts:** a right form gives the word its usual quality (4 chosen, 5 typed). A wrong one leaves the word as known (quality 3: its meaning wasn't asked, the interval isn't reset) and counts on the form's rule instead: a slip on that page with both sentences ("Jaz sedi na klop." for "Jaz sedem na klop."), as a dialog's turn records one, so the page's "🩹 Tvoje napake" shows it and the rule's run steps back. The review's report (`POST /reviews`, `forms`) tells the tutor which forms were asked and which were wrong, to record in mistakes-db if it wants.
 - **On the word's card:** a word Jan has shows "📚 Oblike · Forms": its present, negative and future by person (ednina, množina, dvojina), its past by gender, its imperative; a noun's six cases by number; an adjective's genders and comparative. The forms reached are filled in, the rest 🔒, with the page that opens them: "🔒 6. sklon · instrumental — Orodnik, A2" (a tap opens the page, which introduces it). A hand-checked table says it's machine-written.
 - **Verb partners:** a tapped form two verbs share ("sedite": sesti and sedeti) shows the one the line means ("📍 tukaj · here", by its translation: "Sit down, sit down" → sesti) and the other under it as its partner, not as a second meaning: "↔ par · partner: sedeti — to sit" and how the two differ ("sesti: a movement, once · sedeti: a state that lasts"; an aspect pair: "kupiti: once, to the end (perfective) · kupovati: ongoing or repeated (imperfective)"), with its own ➕. A verb of the bridge's pairs says its aspect ("dovršni · perfective").
-- **QA:** `companion/bin/qa --steps word-forms`: the dev bridge's forms of the deck's words, then the debug build's "forms" hook starts a review of the words with a form reached, each asking one.
+- **Italian, German, English** (since forms-tap, 2026-11-03; [README.md](README.md#other-languages-italian-german-english)): the same, with each language's own forms and pages: Italian's tenses and moods by person (the passato prossimo with avere or essere: "ho mangiato", "sono andato/a"; the passato remoto read, never asked: its page teaches it to recognise), German's tenses and a noun's four cases with the article ("dem Haus", "den Häusern"; a case the same as the nominative never asked), English's -s, past, participle and -ing; asked in a line of the content or a frame of the language ("Io ____.", "mit den ____", "Yesterday I ____."). A card's word without its article or "to" ("la casa", "der Wald", "to run"). A child's card says what its terms mean ("presente · Präsens (jetzt)"). An older app gets none of it.
+- **QA:** `companion/bin/qa --steps word-forms`: the dev bridge's forms of the deck's words, then the debug build's "forms" hook starts a review of the words with a form reached, each asking one; `--steps forms-other` the same for a synthetic learner of Italian, German or English (LANI_CULTURE=friuli, kaernten, lakeland).
 
 ### Forms cards
 
@@ -1482,6 +1486,18 @@ once (passed, it is done, `testedOut`; not passed, nothing is lost). Inside a un
 (resumable: its place kept; "⏭ Poznam to · I know this" skips it), the worksheets in order (the next one ★), the test,
 the tutor's homework; the main button is the next step.
 
+**The placement test.** Jan, 2026-11-03: a starter who knows some of the language begins at their level, not at A1
+testing out of one unit after another. "🧭 Uvrstitveni test · Placement test" (`game/LevelPlacement.kt`; COURSE.md, "The
+placement test"): short (10 to 15 minutes, a child's up to 10), adaptive (probes of the course's three parts a level, from
+just below the learner's level, climbing while it goes well, halving the gap once a part fails), from the units' own
+tests, with no cheat sheet and nothing counted on the rules. Offered, never run on its own: a card in the school for a
+learner who hasn't begun the course, a quiet row for everyone else, a choice at setup ("Najprej kratek test · A short test
+first") that opens it once the village is founded. Its result changes nothing until the learner takes it ("✓ Začnem tukaj
+· Start here"; a child's behind a parent's hold), and taking it only adds: the units of the parts known done (tested out,
+still open to do again), the levels up to where the learner starts opened (the school's building and its upgrades don't
+hold those back; the hamlet still begins the class, and the levels after it open as before), the level raised on the node
+(never lowered). Its answers pay as a test's; no unit's bonus.
+
 **A level a bit at a time.** Jan, 2026-10-27, as A2 (14 units) and B1 (16) were written: "no need to show it all
 directly". The school's screen (`School.reveal`) shows of each open level its units done and begun, the current one (the
 first not done: ★ in the level the course is at) and the next two after it, and folds the rest into one quiet line, "📝
@@ -1508,7 +1524,10 @@ cheat sheet (`CheatSheetController.met`); a sheet of the unit opened first meets
 stage. The school's four types (COURSE.md): a **gap text** (the text with a field in each gap, a word bank to tap in, all
 checked at once, each gap marked right / almost / wrong with its correction and why under the text, the translation
 after), a **table** (cells to fill by person and number, or by case), a **transform list** (each line written whole),
-a **sort** (a word, then its column). Help is always there: **📋** in the run's top bar opens the cheat sheet ("The
+a **sort** (a word, then its column); from B1 also **speaking** (said aloud or an answer to the teacher, through the
+recognizer) and **writing** (a short text checked at once by what it must use, then read by the tutor: COURSE.md
+"Speaking and writing"; a child says it first, and in a test a speaking item rated without a microphone doesn't count).
+Help is always there: **📋** in the run's top bar opens the cheat sheet ("The
 cheat sheet") over the sheet, without leaving it, the exercise's own card first, then the unit's (its pages are met by
 the intro, or when a sheet of it opens; the items answered after it opened are right with help: full pay, the tutor
 told), and a table's "📖 Tabela v knjigi" opens its page in the book; the sheet's
@@ -1740,8 +1759,14 @@ Primorska's corner has, besides what the chest holds, Babica Micka's morning ("J
 A1: she gets up at six, bakes bread, Luka comes by with the sheep), Vinar Marko's letter ("Pismo od Marka · A letter
 from Marko", A1: an invitation to the grape harvest on Saturday) and Stari Janez on the bora ("Burja · The bora", A2:
 the stones on the roofs, the clear sky after it, the pršut it dries); each with five questions, one of every type, and
-five or six new words. The chest's readings have their questions' types, a true/false statement (the potica: a word in
-context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
+five or six new words. Above them, for a learner on the way to B2 (readings-primorska): Vinar Marko on the osmica ("Osmica",
+B1: Joseph II's eight days of 1784, the green branches at the crossroads, the long table), Ančka's radio piece on Nova
+Gorica and Gorizia ("Dve mesti, en trg · Two towns, one square", B2: the border of 1947 across the station square, Ravnikar's
+new town, the fence down in 2004, GO! 2025), Stari Janez on what his grandfather told him of the Isonzo Front ("Soška
+fronta", B2: Sabotin, the twelve battles, Kobarid, the Walk of Peace) and Mojca's letter from the carnival in Cerkno ("Pismo
+iz Cerknega · A letter from Cerkno", B2: the laufarji's wooden masks, the Pust of moss, his trial and sentence); each with
+five questions, one of every type, and seven or eight new words. The chest's readings have their questions' types, a
+true/false statement (the potica: a word in context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
 readings say so in their `review`). Friuli's corner has as many, nine: besides Nonna Rosa's recipes and Nonno Bepi's
 books, Tommaso's letter and Giulia's trip to Aquileia (A1), the Tagliamento and the cjarsons (A2), the pilgrims of
 Monte Lussari (B1), each with five questions of every type (see "The friuli pack"). The Lake District's has nine too:
@@ -2005,7 +2030,7 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
   "The pile over the days"). Its reward is his own, once a day.
 - **The night watch.** A round may break out one night (`breakout`: in a share of rounds, a night of its stages); that
   evening and night he is there and his talk is the call: its last line the learner's turn against the clock (25 s at
-  A1, 18 at A2; twice that with TalkBack). The right choice in time covers it with earth (`saved`, the chronicle's
+  A1, 18 from A2 on: a B1 or B2 choice is longer, not shorter; twice that with TalkBack). The right choice in time covers it with earth (`saved`, the chronicle's
   `covered`); the clock run out, the pile burns down (`lost`, the chronicle's `burnt`): from that night to the round's
   end the spot is its `lost` entry (ash) and its yield never comes. A wrong pick costs time, nothing else. What the
   learner decided is kept (`GameState.cycles[spot]`: the rounds `lost`, `saved`; `SpotCycles.decide`), once.
@@ -2026,7 +2051,16 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
   "kopa:delivery", "kopa:rest", "kopa:winter" (app/QaHooks); the keepers are there whatever their dice then. "show:kopa"
   flies the village's camera to the pile, as a place of the scroll's "Kraji" does.
 
-A culture without a `cycle` keeps its pile as it always was (Friuli, the Lake District for now). Kärnten's Meiler has its
+A culture without a `cycle` keeps its pile as it always was (all four have one now). Friuli's carbonaia has its
+own since village-b2-friuli (`seed` "carbonaia-friuli", so its piles fall on other days than Primorska's): Carbonaio Pieri's ten stages
+(`taglio` and `catasta` with the village's wood, `copertura`, `accensione`, `fumo-bianco`, `fumo-giallo`, `fumo-azzurro`,
+`raffreddamento`, `scarbonatura`, `sacchi`, which delivers to Fabbro Bruno), the bora and a fox at night, the breakout on a white or
+yellow smoke night (25, 18, 15 and 12 s at A1, A2, B1 and B2), every talk and piece at A1, A2, B1 and B2, and his own story in six
+parts. There is no Friulian record of the stages' days either: they follow the Alpine craft as Primorska's do (the stages as the
+museum of Premana describes them, and the yield, about a fifth of the wood: museo.premana.lc.it, "Carbonèer, jaal e pojàt"), and the
+Friulian mountains' charcoal burning until the 1950s, its black clearings still along the beech woods' paths (turismofvg.it, "Ring of
+the carbonaie and Col Cornier", Piancavallo).
+Kärnten's Meiler has its
 own since village-b2-kaernten (`seed` "meiler-kaernten", so its piles fall on other days than Primorska's): Köhler Michl's eleven
 stages (`holz` and `aufschichten` with the village's wood, `zudecken`, `anzuenden`, `weisser-rauch`, `gelber-rauch`, `blauer-rauch`,
 `abkuehlen`, `ausziehen`, `saecke`, `liefern`, which delivers to Schmied Toni), the wind and a fox at night, the breakout on a white
@@ -2063,6 +2097,18 @@ A round takes 21–32 days, and between two piles Miha gets the next one's wood 
 days; with them a pile's whole work is about the 43 days the sources give): three or four piles a season from mid-April
 to the end of October (the sources say April to September; a month of autumn more), none in winter.
 A breakout comes in about half the rounds, on a night of white or yellow smoke.
+
+**The Lake District's pit** (`lakeland`, Collier Ned, every piece at A1, A2, B1 and B2). The craft as the sources give it, the days
+shorter than Primorska's because a pit here is smaller: coppice poles cut in winter, sawn to equal lengths and stacked by the
+pit (Ransome, *Swallows and Amazons*, ch. XIII), stood round a stake on a pitstead, the flat circle cut into the slope
+(nancyblackett.org/?p=11161; hvfarmscape.org/charcoal), covered with bracken, then earth, the stake drawn and embers dropped
+down the hole (butserancientfarm.co.uk, "An experimental charcoal burn"), watched day and night, patched with earth wherever
+smoke breaks through: "the slower the fire the better the charcoal" (Ransome), from a hut of larch poles and moss with a sack
+for a door; a week to ten days of smoke (canmore.org.uk/event/1018726); the iron at Backbarrow, Furness Abbey's woods
+(nancyblackett.org, kentsbankholiday.co.uk/?p=8649). The stages are `cutting`, `stacking`, `covering`, `lighting`, `white-smoke`,
+`yellow-smoke`, `blue-smoke`, `cooling`, `drawing`, `bagging`, `delivery`; season 20 April to 20 October; the delivery goes to
+Mr Dixon; a breakout at 25, 18, 16 and 15 seconds; a badger for Primorska's fox. Ned's own story: `father`, `hut`, `last`, `show`
+(the pit he lost at seventeen, gone to a dance), `iron`, `after`.
 
 ## Jutri · Tomorrow
 

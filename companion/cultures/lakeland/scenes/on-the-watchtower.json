@@ -5,7 +5,7 @@
   "title": { "en": "On the watchtower", "sl": "Na stražnem stolpu", "it": "Sulla torre di guardia", "de": "Auf dem Wachturm" },
   "emoji": "🗼",
   "level": "A2",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "watchtower",
   "from": ["watchtower"],
   "pack": "on-the-watchtower",
@@ -36,7 +36,7 @@
     {
       "id": "watch", "title": { "en": "Jack on watch", "sl": "Jack na straži", "it": "Jack di guardia", "de": "Jack hält Wache" }, "who": "jack",
       "when": ["evening", "night"], "chance": 0.55,
-      "dialog": "watch", "dialogs": ["watch-wind", "watch-fog", "watch"], "reward": { "wood": 20 }, "marker": "🔥",
+      "dialog": "watch", "dialogs": ["watch-b2-fox", "watch-b1-lights", "watch-wind", "watch-fog", "watch"], "reward": { "wood": 20 }, "marker": "🔥",
       "memory": { "en": "the night we blew the horn at the foxes", "sl": "noč, ko sva z rogom pregnala lisice", "it": "la notte in cui abbiamo suonato il corno contro le volpi", "de": "die Nacht, in der wir die Füchse mit dem Horn verjagt haben" }
     },
     {
@@ -54,7 +54,7 @@
     {
       "id": "village", "title": { "en": "The village from up high", "sl": "Vas od zgoraj", "it": "Il paese dall'alto", "de": "Das Dorf von oben" }, "who": "tyson",
       "when": ["morning"], "chance": 0.45,
-      "dialog": "village", "dialogs": ["village-people", "village"], "reward": { "stone": 15 }, "marker": "🏘️",
+      "dialog": "village", "dialogs": ["village-b2-roofs", "village-b1-door", "village-people", "village"], "reward": { "stone": 15 }, "marker": "🏘️",
       "memory": { "en": "the village from up high", "sl": "vas od zgoraj", "it": "il paese visto dall'alto", "de": "das Dorf von oben" }
     },
     {
@@ -429,6 +429,77 @@
             "reply": { "face": "laugh", "en": "Say you? OK… YOU! Ha ha! That's not the joke!", "sl": "Say you? Prav … TI! Ha ha! To ni šala!", "it": "Say you? Va bene… TU! Ah ah! Non è questa la barzelletta!", "de": "Say you? Okay … DU! Haha! Das ist nicht der Witz!" } }
         ] },
         { "who": "harry", "face": "laugh", "en": "Why do crows sit on the railing? Because they can't sit on the sky! Ha ha!", "sl": "Zakaj vrane sedijo na ograji? Ker ne morejo sedeti na nebu! Ha ha!", "it": "Perché i corvi si siedono sulla ringhiera? Perché non possono sedersi sul cielo! Ah ah!", "de": "Warum sitzen Krähen auf dem Geländer? Weil sie nicht auf dem Himmel sitzen können! Haha!" }
+      ]
+    },
+    {
+      "id": "watch-b2-fox", "level": "B2",
+      "memory": {"en": "the night the fox got away from the hens", "sl": "noč, ko je lisica ušla od kokoši", "it": "la notte in cui la volpe è scappata dalle galline", "de": "die Nacht, in der der Fuchs den Hühnern entkam"},
+      "lines": [
+        {"who": "jack", "en": "Now then, mate. Last night, standing up here, I heard the hens go mad down at the farm.", "sl": "Živjo, prijatelj. Sinoči sem stal tu gori in zaslišal, kako so kokoši na kmetiji podivjale.", "it": "Ehi, amico. Ieri sera, stando quassù, ho sentito le galline impazzire giù alla fattoria.", "de": "Na, Kumpel. Letzte Nacht stand ich hier oben und hörte unten auf dem Hof die Hühner verrückt spielen."},
+        { "choices": [
+          {"en": "So you were up here when you heard them.", "sl": "Torej si bil tu gori, ko si jih slišal.", "it": "Quindi eri quassù quando le hai sentite.", "de": "Du warst also hier oben, als du sie gehört hast.", "ok": true, "reply": {"en": "Right up here, freezing. Then I blew the horn.", "sl": "Prav tu gori, premražen. Potem sem zatrobil v rog.", "it": "Proprio quassù, congelato. Poi ho suonato il corno.", "de": "Genau hier oben, halb erfroren. Dann hab ich ins Horn geblasen."}},
+          {"en": "So the hens were standing up here.", "sl": "Torej so kokoši stale tu gori.", "it": "Quindi le galline stavano quassù.", "de": "Die Hühner standen also hier oben.", "grammar": "participle-clauses", "why": {"en": "Standing up here, I heard: the -ing belongs to I, the one who heard. Jack was up here.", "sl": "Standing up here, I heard: -ing pripada osebku I, tistemu, ki je slišal. Jack je bil gori.", "it": "Standing up here, I heard: l'-ing appartiene a I, a chi ha sentito. Jack era quassù.", "de": "Standing up here, I heard: Das -ing gehört zu I, dem, der hörte. Jack war hier oben."}, "reply": {"face": "laugh", "en": "The hens? Up a tower? They can barely fly, mate!", "sl": "Kokoši? Na stolpu? Saj komaj letijo!", "it": "Le galline? Su una torre? Volano a malapena, amico!", "de": "Die Hühner? Auf einem Turm? Die können kaum fliegen, Kumpel!"}}
+        ] },
+        {"who": "jack", "face": "sad", "en": "The fox got away. I wish I'd been quicker with the torch.", "sl": "Lisica je ušla. Ko bi le bil hitrejši s svetilko.", "it": "La volpe è scappata. Avrei voluto essere più veloce con la torcia.", "de": "Der Fuchs ist entwischt. Wär ich doch schneller mit der Lampe gewesen."},
+        { "choices": [
+          {"en": "If only you'd had the torch ready!", "sl": "Ko bi le imel svetilko pripravljeno!", "it": "Se solo avessi avuto la torcia pronta!", "de": "Hättest du nur die Lampe bereitgehabt!", "ok": true, "reply": {"en": "Next time it's in my hand, not my pocket.", "sl": "Naslednjič jo bom imel v roki, ne v žepu.", "it": "La prossima volta ce l'avrò in mano, non in tasca.", "de": "Nächstes Mal hab ich sie in der Hand, nicht in der Tasche."}},
+          {"en": "If only you have had the torch ready!", "sl": "Ko bi le imel svetilko pripravljeno!", "it": "Se solo avessi avuto la torcia pronta!", "de": "Hättest du nur die Lampe bereitgehabt!", "grammar": "wish-if-only", "why": {"en": "A regret about then: if only + had + the participle, if only you'd had it ready.", "sl": "Obžalovanje za takrat: if only + had + deležnik, if only you'd had it ready.", "it": "Un rimpianto per allora: if only + had + il participio, if only you'd had it ready.", "de": "Bedauern über damals: if only + had + Partizip, if only you'd had it ready."}, "reply": {"face": "confused", "en": "Have had? I didn't have it, mate. That's the whole point.", "sl": "Have had? Saj je nisem imel. V tem je stvar.", "it": "Have had? Non ce l'avevo, amico. È proprio questo il punto.", "de": "Have had? Ich hatte sie ja nicht, Kumpel. Genau darum geht's."}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Tonight, torch in hand. Fox, you've been warned!", "sl": "Nocoj s svetilko v roki. Lisica, opozorjena si!", "it": "Stanotte, torcia in mano. Volpe, sei avvisata!", "de": "Heute Nacht, Lampe in der Hand. Fuchs, du bist gewarnt!"}
+      ]
+    },
+    {
+      "id": "watch-b1-lights", "level": "B1",
+      "memory": {"en": "the three flashes on the far fell", "sl": "tri bliske na oddaljenem hribu", "it": "i tre lampi sul monte lontano", "de": "die drei Lichtzeichen auf dem fernen Berg"},
+      "lines": [
+        {"who": "jack", "face": "happy", "en": "Now then, mate! It's my turn on watch tonight. Will you help me with the torch?", "sl": "Živjo, prijatelj! Nocoj sem jaz na straži. Mi pomagaš s svetilko?", "it": "Ehi, amico! Stanotte tocca a me fare la guardia. Mi aiuti con la torcia?", "de": "Na, Kumpel! Heute Nacht hab ich Wache. Hilfst du mir mit der Lampe?"},
+        {"who": "jack", "face": "curious", "en": "See that light on the far fell? What is it, do you reckon?", "sl": "Vidiš tisto luč na oddaljenem hribu? Kaj misliš, kaj je?", "it": "Vedi quella luce sul monte lontano? Che cos'è, secondo te?", "de": "Siehst du das Licht auf dem fernen Berg? Was ist das wohl?"},
+        { "choices": [
+          {"en": "It might be a walker with a head torch.", "sl": "Morda je pohodnik z naglavno svetilko.", "it": "Potrebbe essere un escursionista con la frontale.", "de": "Das könnte ein Wanderer mit Stirnlampe sein.", "ok": true, "reply": {"en": "A walker, this late? Daft, but probably.", "sl": "Pohodnik, tako pozno? Neumno, ampak verjetno.", "it": "Un escursionista, così tardi? Pazzesco, ma probabile.", "de": "Ein Wanderer, so spät? Verrückt, aber wahrscheinlich."}},
+          {"en": "It mights be a walker with a head torch.", "sl": "Morda je pohodnik z naglavno svetilko.", "it": "Potrebbe essere un escursionista con la frontale.", "de": "Das könnte ein Wanderer mit Stirnlampe sein.", "grammar": "might-must", "why": {"en": "Might never takes -s: it might be. It's the same for every person.", "sl": "Might nikoli ne dobi -s: it might be. Enak je za vse osebe.", "it": "Might non prende mai la -s: it might be. È uguale per tutti.", "de": "Might bekommt nie ein -s: it might be. Für alle gleich."}, "reply": {"face": "laugh", "en": "Mights? Now you sound like Sooty, mate.", "sl": "Mights? Zdaj zveniš kot Sooty.", "it": "Mights? Adesso sembri Sooty, amico.", "de": "Mights? Jetzt klingst du wie Sooty, Kumpel."}}
+        ] },
+        {"who": "jack", "face": "worried", "en": "Up there at this hour, in the dark.", "sl": "Tam gori ob tej uri, v temi.", "it": "Lassù a quest'ora, al buio.", "de": "Da oben um diese Zeit, im Dunkeln."},
+        { "choices": [
+          {"en": "He'll be cold up there, won't he?", "sl": "Tam gori ga bo zeblo, kajne?", "it": "Avrà freddo lassù, vero?", "de": "Dem wird's da oben kalt sein, oder?", "ok": true, "reply": {"en": "Freezing. Let's flash the torch. He'll know someone's watching.", "sl": "Zmrznil bo. Zabliskajva s svetilko. Vedel bo, da nekdo pazi.", "it": "Congelato. Facciamo lampeggiare la torcia. Saprà che qualcuno lo guarda.", "de": "Eiskalt. Lass uns mit der Lampe blinken. Dann weiß er, dass jemand aufpasst."}},
+          {"en": "He'll be cold up there, doesn't he?", "sl": "Tam gori ga bo zeblo, kajne?", "it": "Avrà freddo lassù, vero?", "de": "Dem wird's da oben kalt sein, oder?", "grammar": "question-tags", "why": {"en": "Take the helping verb from the sentence: he'll, so won't he?", "sl": "Vzemi pomožni glagol iz stavka: he'll, torej won't he?", "it": "Prendi l'ausiliare dalla frase: he'll, quindi won't he?", "de": "Nimm das Hilfsverb aus dem Satz: he'll, also won't he?"}, "reply": {"face": "confused", "en": "Doesn't he what, mate? Freeze? Probably!", "sl": "Doesn't he kaj, prijatelj? Zmrzne? Verjetno!", "it": "Doesn't he cosa, amico? Congelare? Probabile!", "de": "Doesn't he was, Kumpel? Frieren? Wahrscheinlich!"}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Three flashes. And three back from the fell. He's fine. Good.", "sl": "Trije bliski. In trije nazaj s hriba. V redu je. Dobro.", "it": "Tre lampi. E tre in risposta dal monte. Sta bene. Bene.", "de": "Drei Blinker. Und drei zurück vom Berg. Ihm geht's gut. Gut."}
+      ]
+    },
+    {
+      "id": "village-b2-roofs", "level": "B2",
+      "memory": {"en": "forty-two roofs, counted twice", "sl": "dvainštirideset streh, dvakrat preštetih", "it": "quarantadue tetti, contati due volte", "de": "zweiundvierzig Dächer, zweimal gezählt"},
+      "lines": [
+        {"who": "tyson", "en": "Good morning, {m:lad|f:lass}. From up here you see everything. That roof's been mended, that one hasn't.", "sl": "Dobro jutro. Od tod se vidi vse. Ta streha je popravljena, ona ni.", "it": "Buongiorno, {m:ragazzo|f:ragazza}. Da quassù si vede tutto. Quel tetto è stato riparato, quell'altro no.", "de": "Guten Morgen, {m:Junge|f:Mädchen}. Von hier oben sieht man alles. Das Dach ist repariert, das da nicht."},
+        {"who": "tyson", "face": "curious", "en": "And the chapel roof? Last month it was full of holes.", "sl": "Pa streha kapele? Prejšnji mesec je bila polna lukenj.", "it": "E il tetto della cappella? Il mese scorso era pieno di buchi.", "de": "Und das Kapellendach? Letzten Monat war es voller Löcher."},
+        { "choices": [
+          {"en": "It looks as if it's been repaired since then.", "sl": "Videti je, kot da so jo od takrat popravili.", "it": "Sembra che sia stato riparato da allora.", "de": "Es sieht so aus, als wäre es seitdem repariert worden.", "ok": true, "reply": {"face": "proud", "en": "Mended last week. I counted the new slates. Thirty.", "sl": "Popravljena prejšnji teden. Preštel sem nove skrilavce. Trideset.", "it": "Riparato la settimana scorsa. Ho contato le ardesie nuove. Trenta.", "de": "Letzte Woche geflickt. Ich hab die neuen Schieferplatten gezählt. Dreißig."}},
+          {"en": "It looks as if it's repaired since then.", "sl": "Videti je, kot da so jo od takrat popravili.", "it": "Sembra che sia stato riparato da allora.", "de": "Es sieht so aus, als wäre es seitdem repariert worden.", "grammar": "passive-more", "why": {"en": "Since then, up to now: has been + the participle, it's been repaired.", "sl": "Od takrat do zdaj: has been + deležnik, it's been repaired.", "it": "Da allora fino ad adesso: has been + il participio, it's been repaired.", "de": "Von damals bis jetzt: has been + Partizip, it's been repaired."}, "reply": {"face": "curious", "en": "It's repaired since? Since when, {m:lad|f:lass}? Again.", "sl": "It's repaired since? Od kdaj? Še enkrat.", "it": "It's repaired since? Da quando, {m:ragazzo|f:ragazza}? Di nuovo.", "de": "It's repaired since? Seit wann, {m:Junge|f:Mädchen}? Noch mal."}}
+        ] },
+        {"who": "tyson", "face": "thinking", "en": "Forty-two houses. And not one of them without smoke this morning.", "sl": "Dvainštirideset hiš. In niti ena danes zjutraj ni brez dima.", "it": "Quarantadue case. E stamattina nessuna senza fumo.", "de": "Zweiundvierzig Häuser. Und heute Morgen keins ohne Rauch."},
+        { "choices": [
+          {"en": "So all of them have their fires lit.", "sl": "Torej imajo vse zakurjeno.", "it": "Quindi in tutte hanno acceso il fuoco.", "de": "Dann haben also alle ihr Feuer an.", "ok": true, "reply": {"face": "happy", "en": "All of them. A cold morning, and a warm village.", "sl": "Vse. Mrzlo jutro in topla vas.", "it": "Tutte. Una mattina fredda, e un villaggio caldo.", "de": "Alle. Ein kalter Morgen und ein warmes Dorf."}},
+          {"en": "So none of them have their fires lit.", "sl": "Torej nobena nima zakurjeno.", "it": "Quindi in nessuna hanno acceso il fuoco.", "de": "Dann hat also keins sein Feuer an.", "grammar": "quantifiers", "why": {"en": "Not one of them without smoke: every house has smoke, so all of them have fires.", "sl": "Niti ena brez dima: vsaka hiša se kadi, torej imajo vse ogenj.", "it": "Nessuna senza fumo: ogni casa fuma, quindi tutte hanno il fuoco.", "de": "Keins ohne Rauch: Jedes Haus raucht, also haben alle Feuer."}, "reply": {"face": "surprised", "en": "None? I counted the chimneys, {m:lad|f:lass}. Smoke from every one.", "sl": "Nobena? Preštel sem dimnike. Dim iz vsakega.", "it": "Nessuna? Ho contato i camini, {m:ragazzo|f:ragazza}. Fumo da ognuno.", "de": "Keins? Ich hab die Schornsteine gezählt, {m:Junge|f:Mädchen}. Aus jedem kommt Rauch."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Down we go. Forty-two roofs, counted twice.", "sl": "Prav. Dol greva. Dvainštirideset streh, dvakrat preštetih.", "it": "Bene. Scendiamo. Quarantadue tetti, contati due volte.", "de": "Gut. Runter geht's. Zweiundvierzig Dächer, zweimal gezählt."}
+      ]
+    },
+    {
+      "id": "village-b1-door", "level": "B1",
+      "memory": {"en": "the inn's blue door from the top of the tower", "sl": "modra vrata gostilne z vrha stolpa", "it": "la porta blu della locanda dalla cima della torre", "de": "die blaue Tür des Gasthauses vom Turm aus"},
+      "lines": [
+        {"who": "tyson", "en": "Good morning, {m:lad|f:lass}. From up here you can see the whole village. Count the roofs with me.", "sl": "Dobro jutro. Od tod se vidi vsa vas. Štej strehe z mano.", "it": "Buongiorno, {m:ragazzo|f:ragazza}. Da quassù si vede tutto il villaggio. Conta i tetti con me.", "de": "Guten Morgen, {m:Junge|f:Mädchen}. Von hier oben sieht man das ganze Dorf. Zähl die Dächer mit mir."},
+        {"who": "tyson", "face": "curious", "en": "Which one is the inn, then?", "sl": "Katera je potem gostilna?", "it": "Allora, qual è la locanda?", "de": "Welches ist dann das Gasthaus?"},
+        { "choices": [
+          {"en": "It's the house which has the blue door.", "sl": "To je hiša, ki ima modra vrata.", "it": "È la casa che ha la porta blu.", "de": "Das ist das Haus, das die blaue Tür hat.", "ok": true, "reply": {"en": "Blue door. Aye. You can nearly see it from Keswick.", "sl": "Modra vrata. Ja. Skoraj iz Keswicka se jih vidi.", "it": "Porta blu. Sì. Si vede quasi da Keswick.", "de": "Blaue Tür. Ja. Die sieht man fast von Keswick aus."}},
+          {"en": "It's the house who has the blue door.", "sl": "To je hiša, ki ima modra vrata.", "it": "È la casa che ha la porta blu.", "de": "Das ist das Haus, das die blaue Tür hat.", "grammar": "relative-clauses", "why": {"en": "For things: which or that, the house which has the blue door. Who is for people.", "sl": "Za stvari: which ali that, the house which has the blue door. Who je za ljudi.", "it": "Per le cose: which o that, the house which has the blue door. Who è per le persone.", "de": "Für Dinge: which oder that, the house which has the blue door. Who ist für Menschen."}, "reply": {"face": "curious", "en": "The house who? Houses aren't people, {m:lad|f:lass}. Well, not most.", "sl": "The house who? Hiše niso ljudje. No, večina ne.", "it": "The house who? Le case non sono persone, {m:ragazzo|f:ragazza}. Be', quasi tutte.", "de": "The house who? Häuser sind keine Menschen, {m:Junge|f:Mädchen}. Die meisten jedenfalls."}}
+        ] },
+        {"who": "tyson", "face": "thinking", "en": "And that old barn down by the beck. It's older than the bridge, some say.", "sl": "Pa tisti stari skedenj spodaj ob potoku. Nekateri pravijo, da je starejši od mostu.", "it": "E quel vecchio fienile giù al torrente. C'è chi dice che è più vecchio del ponte.", "de": "Und die alte Scheune unten am Bach. Manche sagen, sie ist älter als die Brücke."},
+        { "choices": [
+          {"en": "Was it built before the bridge, then?", "sl": "Je bil torej zgrajen pred mostom?", "it": "Allora è stato costruito prima del ponte?", "de": "Wurde sie also vor der Brücke gebaut?", "ok": true, "reply": {"en": "Before, aye. Everything here is older than me. Nearly.", "sl": "Pred njim, ja. Tu je vse starejše od mene. Skoraj.", "it": "Prima, sì. Qui tutto è più vecchio di me. Quasi.", "de": "Vorher, ja. Hier ist alles älter als ich. Fast."}},
+          {"en": "Was it build before the bridge, then?", "sl": "Je bil torej zgrajen pred mostom?", "it": "Allora è stato costruito prima del ponte?", "de": "Wurde sie also vor der Brücke gebaut?", "grammar": "passive", "why": {"en": "The passive is be + the participle: was it built? Build, built, built.", "sl": "Trpnik je be + deležnik: was it built? Build, built, built.", "it": "Il passivo è be + il participio: was it built? Build, built, built.", "de": "Das Passiv ist be + Partizip: was it built? Build, built, built."}, "reply": {"face": "curious", "en": "Was it build? Count your letters, {m:lad|f:lass}.", "sl": "Was it build? Preštej črke.", "it": "Was it build? Conta le lettere, {m:ragazzo|f:ragazza}.", "de": "Was it build? Zähl deine Buchstaben, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Forty-two roofs. I counted. Every one with a fire going.", "sl": "Dvainštirideset streh. Preštel sem. Na vsaki gori ogenj.", "it": "Quarantadue tetti. Li ho contati. Ognuno col fuoco acceso.", "de": "Zweiundvierzig Dächer. Ich hab gezählt. Überall brennt ein Feuer."}
       ]
     }
   ]

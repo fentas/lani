@@ -21,6 +21,7 @@ how to write units.
 - [Texts in the learner's language](#texts-in-the-learners-language)
 - [The school's exercise types](#the-schools-exercise-types)
 - [Spoken forms](#spoken-forms)
+- [Speaking and writing](#speaking-and-writing)
 - [Homework (lani.worksheet/v0)](#homework-laniworksheetv0)
 - [The learner's progress](#the-learners-progress)
 - [Writing a unit](#writing-a-unit)
@@ -262,8 +263,8 @@ bold stays English), give a form's meaning in brackets right after it, and keep 
 - A worksheet: `id` (kebab-case, unique in the unit; never `test`), `title` (per language: the language learned and
   English at least), `exercises` (1–8): every exercise type of
   a module (`flashcard`, `choice`, `cloze`, `reorder`, `translate`, `free`, `multi`, `scenario`, `dictation`, `speak`:
-  `.claude/skills/lani-studio/reference/module-spec.md`) and the school's own four (below). An optional `intro` (as the
-  unit's) comes before its exercises.
+  `.claude/skills/lani-studio/reference/module-spec.md`), the school's own four (below), and `speaking` and `writing`
+  ([Speaking and writing](#speaking-and-writing)). An optional `intro` (as the unit's) comes before its exercises.
 - **A choice's options show in the day's order**, a multi's and an intro's quick question's too: the same through a day,
   another the next (`data/ChoiceOrder.kt`; docs/plans/05-built/choices-order.md). `answer`, `almost` and `answers` stay the
   file's indices and the file's order is never shown, so write the options in any order, and nothing may lean on it (no
@@ -473,6 +474,179 @@ take `spoken`: the forms a native speaker says beside the standard answer, 1–8
   so an older app grades with the table it has (`good` for `well` wrong there) and an older bridge stores the hint as any other
   (a free string, `answers.ts`). A table without the key behaves as before.
 
+## Speaking and writing
+
+Jan, 2026-11-03 (the brief "lesson-production"): "speaking and free writing inside a unit". Two of the school's types
+for a unit's worksheets, its test and homework: **`speaking`** (say it, or answer the teacher, aloud; graded through the
+recognizer and the language's grading table) and **`writing`** (a short text to a prompt, with what it must use; checked
+at once by rules, then read by the tutor when one is there). The bridge's half is `bridge/src/production.ts` (the format,
+the rules, what an older app gets), the app's `data/Production.kt` (the rules, the grading) and
+`ui/school/ProductionExercises.kt` (the screens); `bridge/test/fixtures/production-rules.json` holds rule cases both read
+(the smoke's `production`, the app's `ProductionTest`). Any level may use them; the course has them from B1, in the model
+units (each language's B1 and B2: below).
+
+### speaking
+
+```json
+{
+  "type": "speaking", "grammar": "pogojnik-ce-bi",
+  "instruction": "Odgovori na glas · Answer aloud",
+  "prompt": "Mojca asks what you would do on a free day. Answer with **bi**.",
+  "ask": "Kaj bi {m:naredil|f:naredila} na prost dan?",
+  "say": "Na prost dan bi {m:šel|f:šla} v hribe.",
+  "accept": ["Šel bi v hribe."],
+  "spoken": ["Na prost dan bi {m:šu|f:šla} v hribe."],
+  "must": [{ "label": "bi + the -l form (bi šel, bi brala)", "any": ["bi *l", "bi *la", "*l bi", "*la bi", "bi … *l", "bi … *la"] }],
+  "min_words": 3,
+  "explain": "**bi** + the -l form: bi šel, bi šla."
+}
+```
+
+| Key | What |
+|---|---|
+| `prompt` | the task in the learner's own language (a text per base as any): what to say, or what to answer |
+| `ask` | what the teacher asks, one sentence in the language learned: shown in her bubble and said in her voice as the item comes (🔊 again); optional |
+| `say` | the model answer, one sentence in the language learned: right, shown and heard once answered (before, with `show`) |
+| `accept` | other whole sentences that are right |
+| `spoken` | whole sentences as people say them (the course's variety): right, labelled with the standard (`say`) |
+| `must`, `avoid`, `min_words` | an open answer: any sentence that meets its `must` is right, the model and `accept` anyway ([Rules](#rules-must-and-avoid)); `min_words` its fewest words |
+| `show` | `true`: the model shows (and is heard) before, "repeat after me"; `false` (the default): produced, then shown |
+| `hint`, `explain`, `instruction`, `grammar` | as any exercise's |
+| `child` | a child's version ([A child's version](#a-childs-version)) |
+
+It plays as the module's `speak` does (README "Speaking"): the phone's recognizer or the node's (Whisper: "🎯 Natančneje ·
+More accurate"), three tries, 💡 hints toward the hidden model, "Povej pravilno · Say it correctly" after a miss, the words
+heard differently underlined. Each take is graded by the item (`Production.grade`): the model and `accept` as any
+answer (`Grading.check`: the language's endings count, a slip in a stem is forgiven); a `spoken` sentence right
+("🗣️ Pogovorno, prav tako prav; knjižno: … · Spoken, and right too; the standard form: …"); **in speech the grading
+table's `nonstandard` is right too** (`Hint.SPOKEN`, the standard shown: "She sings good" aloud), since what it marks is
+what writing wants; a recognizer's sound-spelling is the standard (Slovene *u vasi*, *f šoli* for *v*:
+`Production.asWritten`; tutor-live.md, "Speaking items"); an open answer right by its checks, almost with one not met.
+An open answer's model isn't told to the node's recognizer, which would hear it.
+
+**No microphone, no recognizer, no permission, or "Brez mikrofona · Can't speak now":** the learner says it
+anyway and rates themselves (✓ "I said it right" / ✗ "Still practising"), as in a module; nothing waits. On a worksheet
+the rating counts as it was rated; in a test it is practice and doesn't count, and the rating says so ("📝 V testu to šteje
+le, ko te sliši mikrofon: zdaj je to vaja · In the test this counts only when the microphone hears you: now it is
+practice"). With a recognizer that can't take the language, the node listens when it can (as a module's).
+
+### writing
+
+```json
+{
+  "type": "writing", "grammar": "pogojnik-ce-bi",
+  "instruction": "Napiši · Write",
+  "prompt": "Write Mojca three sentences: what would you do if you had a free week?",
+  "model": "Če bi {m:imel|f:imela} prost teden, bi {m:šel|f:šla} v hribe. {m:Spal|f:Spala} bi dolgo. Zvečer bi {m:bral|f:brala} knjigo.",
+  "must": [
+    { "label": "twice the conditional: bi + -l", "any": ["bi *l", "bi *la", "*l bi", "*la bi"], "n": 2 },
+    { "label": "če (if)", "any": ["če"] }
+  ],
+  "avoid": [{ "any": ["bom *l", "bom *la"], "explain": "**bom šel** is the future: here **bi šel**." }],
+  "length": { "min": 12, "max": 60 }
+}
+```
+
+`prompt` (the task: what, to whom, how long), `ask` (a line the text answers: a letter's, a question; optional), `model`
+(a text that meets every check, for either gender: shown once checked, printed with the answers), `must`, `avoid`,
+`length` (`min` words at least, a check; `max` what the prompt asks at most, said under the field, never graded), and
+`hint`, `explain`, `instruction`, `grammar`, `child`.
+
+The screen: the task, the teacher's line, **what the text must use** (✅ Uporabi · Use: each must and the length, ticked
+✓ as the text meets it on a worksheet, a plain list to keep to in the test, where it is checked only once), the field
+(no suggestions, the language's letters under it: č š ž, à è, ä ö ü ß), the words counted against the length, and
+"Preveri · Check". **Checked at once by rules** (`Production.check`, `Production.verdict`): every check met is right, one
+not met almost (half in a test), two or more, none of the musts, nothing written or not half the length asked wrong. Then
+the checks (✓ ✗, a mistake avoided not struck through with why), "📝 Primer odgovora · A model answer" (🔊), and **the
+tutor's feedback** when there is a tutor: the text goes as an `answer` (`ChatController.requestFeedback`, conversation
+`exw…`; the guide's "answer": feedback only, the verdict stays the app's), "Učitelj bere … · Your tutor is reading it …"
+under the text and the reply there once it comes, and in the chat whenever it lands ("✍️ Tvoje pisanje · Your
+writing"). **Offline it never blocks:** the verdict is the rules', now; the text waits in the outbox ("📶 Učitelj bo
+prebral, ko bo dosegljiv; odgovor pride v klepet · Your tutor reads it once they can be reached; the answer comes to the
+chat"); "Naprej · Next" is there all along. Without a tutor at all (none paired) the rules' check is all.
+
+### Rules: must and avoid
+
+A rule is a few words matched against the answer's words, folded as the language's grading table folds them
+(`Grading.fold`: case, the letters a keyboard may lack, German *ü* as *ue*, English's contractions written out; a stem
+or an ending as written, `Grading.foldStem`, so the table's *würd* → *würde* doesn't make `würd*` miss *würde*; the
+bridge's check of the content folds plainly):
+
+| Rule | Matches |
+|---|---|
+| `če` | the word |
+| `pogovor*` | a word that begins so and goes on (*pogovoru*, *pogovorih*; not *pogovor*) |
+| `*la` | a word that ends so, longer than the ending (*bila*, *šla*; not *la*) |
+| `bi … *l` | words in a row, `…` (or `...`) for none to three words between (*bi šel*, *bi rad šel*) |
+
+A must's `any` lists one rule for each way to say it (1–32; no `/` or `|`, brackets or placeholders): every word order and
+gender a right answer has (`bi *l`, `bi *la`, `*l bi`, `*la bi`). It is met when its rules match `n` times (default 1) in
+all, without overlapping, left to right. `label` (a text per base) is what the learner reads. An `avoid` is the unit's
+own mistake (*bom šel* for *bi šel*, *more bigger*), caught at once with its `explain`; **never a form people say**: the
+bridge refuses an avoid that matches the item's `spoken`, and the smoke one that matches the grading table's
+`nonstandard`. The bridge checks that the model and each accepted answer meet their own rules for a learner of either
+gender and hit no avoid.
+
+### How they count
+
+Each is one item, as an exercise of a module type is ([Worksheets and the test](#worksheets-and-the-test)): right, almost
+(half) or wrong. **In the test:** a speaking item counts when a recognizer heard it, the best of its tries; one the
+learner rated themselves is left out of the count (`counted()`, `SheetAnswer.rated`), so the pass is the share of the
+other items; a writing item counts by its check at once; the tutor's feedback never changes a verdict. Why:
+
+- The test's pass must be known when the test ends, on the phone, offline too: the rules can say it at once, the tutor
+  can't (it may answer tomorrow).
+- A missing microphone, a recognizer without the language or a quiet place must neither block a learner nor fail them,
+  and a self-rating isn't a measurement: practice, which the worksheets keep.
+- Speaking and writing are what B1 and B2 are for, so a measured one counts like any other item: a unit's test has one of
+  each among its 14–17 items, a few percent each, so one misheard take doesn't fail a test at 80 %.
+- What a rule can't see (a wrong ending in a free text, the register) is the tutor's to say, and the mistakes database
+  gets it from the session's end; the rule checks what the unit teaches (the conditional used, the formal greeting).
+
+### A child's version
+
+A child (Teo, 7: the pairing's or the hosted profile's flag, `AppViewModel.child`) plays each item's `child`: its keys
+over the item's (`forChild`, the bridge's and the app's). It is short and spoken first: a speaking item's `say` at most
+12 words, a writing item's `model` at most 24 and its `length.max` at most 25; and a child **says a writing item aloud
+first**, as a speaking item of its model and its checks (that counts), then "✍️ Napiši še · Write it too" is practice
+beside it. Every Italian item has one (the smoke: Friuli's school is a child's). A child's bridge prints the child's
+version (`school-prints --child`).
+
+### Older apps
+
+The app says it plays them: `GET /course?types=2` (`COURSE_TYPES`). An app that doesn't (0.2.698 on Teo's tablet, every
+app before this one) gets every unit without them (`heldBack`): a sheet of only speaking and writing is left out, the test
+keeps the rest, ids stay, so its progress reads the same. Such an app would have shown them as a type to skip (half a
+point) or, a `free`, waited for the tutor. An older bridge refuses the types (the sheets are strict): **the bridge goes
+out before the content**, or it serves the units that have them as planned.
+
+### Printed and heard
+
+A unit's sheet prints **"Povej in napiši · Speak and write"** (`prints/sheet.ts` `chooseProduce`): the worksheets'
+speaking prompts (two at most, »what the teacher asks« with them) and the writing task with a box to tick for each must
+and its length; the ruled lines after it are the room to write in; the models with the answers upside down (the
+writing's left out first to fit). The test's stay the app's, as its other items. A Slovene unit's English prompts print
+on an English sheet only, as its hints. What the teacher asks and the speaking models are in the course's voice corpus
+(`course-speech.ts` `courseTexts`): voiced ahead in her voice, else on demand.
+
+### Writing them
+
+- **Where:** a unit's 4th worksheet `<unit>-4`, "Povej in napiši · Speak and write" (it *Parla e scrivi*, de *Sprich und
+  schreib*, en *Speak and write*), after the sheets that practise the form: a "say it" speaking item (a situation in the
+  base, one sentence of the unit's grammar, `show: false`, `accept`, `spoken`), an "answer aloud" one (`ask`, an open
+  answer with `must` and `min_words`), a writing item; and in the test one of each, on another situation.
+- **Length:** B1 a writing about 25–60 words (the test's 20–50), B2 about 50–110 (40–80); a speaking answer one sentence,
+  `min_words` 3–6.
+- **What B1 and B2 ask:** the unit's grammar used freely (B1: the conditional, the past told, a reason given), at B2 a
+  register and a text's shape too (a formal letter's greeting and close, connectors, a story's tenses); set in the
+  village with its cast (Mojca, Elena, Eva, Mrs Hartley ask; the villagers are written to), never the learner's name
+  spelled out (`{learner}`), gender pairs where the learner speaks of themselves.
+- **Rules:** `must` 1–3, each the unit's point, every right order and gender listed; `avoid` 0–1, a real learner's
+  mistake only. List the spoken sentences of a speaking item whole. No digits in `ask`, `say`, `accept` (recognizers
+  write numbers as digits).
+- **Italian:** a `child` on each, from the child's world (family, animals, games, the village's children).
+- Machine-written as everything else. A unit's `review` takes 200 characters at most (the bridge refuses a unit over it): say these are for the native check where it fits, and list them in the content's doc.
+
 ## Homework (lani.worksheet/v0)
 
 The tutor adds worksheets to a unit (`publish_worksheet`): homework after a unit, an extra sheet on what the learner
@@ -516,7 +690,12 @@ saves it (a field left out is its default: null, 0, false, empty):
       "test": { "right": 9, "almost": 0, "of": 10, "day": "2026-10-14", "tries": 2 },
       "done": "2026-10-14",
       "testedOut": false
-    }
+    },
+    "sl/rodilnik": { "started": "2026-11-03", "introDone": true, "done": "2026-11-03", "testedOut": true, "placed": true }
+  },
+  "placements": {
+    "sl": { "day": "2026-11-03", "from": "A1", "level": "B1", "start": "B1", "part": 1, "parts": 3, "units": 32,
+            "right": 31, "almost": 2, "of": 41, "minutes": 12, "report": "9f2c…", "confirmed": true }
   }
 }
 ```
@@ -527,7 +706,68 @@ saves it (a field left out is its default: null, 0, false, empty):
 - `units`, by `"<language>/<unit id>"`: `intro` the intro's steps done, `introDone` finished or skipped; `sheets` each
   worksheet's (and homework's) best try, by its id (`right`, `almost`, `of` items, its `day`, `tries`); `test` the best
   try of the test and its `tries`; `done` the day the test was passed; `testedOut` passed straight away, without the
-  worksheets.
+  worksheets; `placed` marked done by the placement test (below), its intro counted as skipped.
+- `placements`, by language: the placement test's result the learner took (below): its day, the level before (`from`)
+  and the one it set (`level`), where the school went on (`start`, its `part` of `parts`), the units it marked, its items
+  and minutes, `child` for a child's version, the outbox entry that told the node (`report`), and `confirmed` once the
+  node has the level (until then the app goes by `level`). An older app drops it; what it marked stays in `units` and
+  `opened`.
+
+### The placement test
+
+Jan, 2026-11-03 ("I want to have app finished to release"): a starter who knows some of the language begins at their
+level. Before, the school's levels ignored the learner's level (`School.isOpen`): a B1 starter began at A1 and tested out
+of one unit after another. "🧭 Uvrstitveni test · Placement test" (`game/LevelPlacement.kt`, pure;
+`app/PlacementController.kt`, `ui/school/PlacementScreen.kt`; docs/plans/05-built/placement.md) is short, adaptive and
+made of the course's own test items. **Optional**: offered at setup and in the school, never run on its own; **nothing
+changes until the learner takes its result**, and taking it only adds.
+
+- **Parts.** Each level's written units, in the course's order, in three parts (a level of fewer units: a part a unit):
+  A1 1/3 … B2 3/3, twelve for a course of four levels.
+- **A probe** of a part: exercises of its units' own tests, each from another unit, the ones that ask the most in the
+  least time first, another kind before the same (a table cut to its first rows of at most 6 cells, a list to its first 4
+  lines, a sort to 6 words, a gap text of at most 6 gaps; nothing heard, said or graded by the tutor), until it has 8 items
+  in 2 exercises at least, or 3 exercises. It passes at 75 % of its items, an almost counting half, as a unit's test
+  counts.
+- **Adaptive.** The first probe is just below the learner's level: A1's middle for an A1 learner, the end of the level
+  below for anyone above (A2's last part for a B1 learner), and after the parts whose units are all done already (Jan's
+  A1, say). Passed, it climbs two parts, then four, then eight; once a part fails it halves the gap between the highest
+  part passed and the lowest failed until they meet. It ends there, after 6 probes, when the next probe wouldn't fit in 15
+  minutes at the pace so far, or when the learner stops ("✕" before a probe's first answer, or "Končaj · Done" in it: a
+  probe left half done decides nothing). Every part up to the highest passed counts as known (when the time ends the search
+  early, the result is the part passed, at most one below where it would have met). A beginner is done in two probes
+  (about 4 minutes); the longest way takes about 14 minutes, the average about 10 (`LevelPlacementTest`, the four
+  courses, each estimated by its exercises).
+- **No help, nothing counted.** The run has no 📋 cheat sheet and no 💬 tutor in its top bar (the feedback after each
+  answer stays, with its why), its answers count on no rule of the grammar book (it unlocks no page, makes nothing secure,
+  asks no choice typed) and a 💡 hint makes an item almost, as everywhere. Its answers pay as a test's (the fresh-mind
+  rule applies); no unit's bonus.
+- **The result** ("🧭 Tvoje mesto v šoli · Your place in the school"): the teacher says where the learner starts ("Začneš
+  na ravni B1!"; "Začneva na začetku" with nothing known), the first unit, how many units before it count as done, the
+  level ("🎓 A1 → B1", or that it stays), and what the answers paid. "✓ Začnem tukaj · Start here" takes it: every unit of
+  the parts known that isn't done yet is done today, tested out and `placed` (its intro counted as skipped, as "⏭ Poznam
+  to" does, so what a unit turns on is on: counting cards, the numbers, forms cards' rows); a unit begun keeps its sheets,
+  a unit done is as it was; the levels up to the one the learner starts in open (`opened`; the hamlet still begins the
+  class); the level rises on the node (`POST /placement`, never lowered: a level the node has above it stays) and in the
+  app at once until the node has it (`LevelPlacement.level`); a line in the chronicle ("🧭 Uvrstitveni test: začetek pri
+  B1 1/3 (32 enot opravljenih)"); then the school, the unit it starts with ★. "Ostanem, kjer sem · Keep my place" takes
+  nothing (the tutor hears of the test all the same). With nothing to take, one "✓ V redu · OK".
+- **The school's units marked** show "✅ Opravljeno z uvrstitvenim testom · Done by the placement test" and open as any
+  done unit, to do again.
+- **A child's version** (the app set up for a child: Teo, 7): "Igrajva se: pokaži mi, kaj že znaš!", tap exercises only
+  (a choice, a multi, a sort of 6 words at most, word chips of 6, a gap text of 3 gaps with its word bank), A1 to the end
+  of B1, probes of 4 items in 3 or 4 exercises, at most 4 probes and 10 minutes (about 8 on average); "✓ Začnem tukaj"
+  behind a parent's two-second hold (`ParentGated`: a parent decides where the child starts).
+- **Where it is offered.** In the school: a card at the top for a learner who hasn't done or begun a unit of the course
+  and hasn't taken it ("🧭 Nekaj že znaš? · Know some already?", "🧭 Na test"); a quiet row under the levels for everyone
+  else ("🧭 Uvrstitveni test: kje začnem?"), Jan's and Teo's school among them. At setup: "🧭 Nekaj že znaš?" on "Še o
+  tebi" and on this device's questions, "Od začetka · From the start" (the default) or "Najprej kratek test · A short test
+  first", which opens the test's page once the village is founded. Its page says what it is first ("▶️ Začniva",
+  "Pozneje").
+- **The tutor** hears it through `POST /placement` (the bridge persists it as a session `/lani-app-placement`, the level
+  when it rises, and tells the tutor: `placement`); a node from before it gets a `session_end` with the report instead.
+  `get_course` shows the units `placed` and the test's `placement`.
+- **Prints:** none; the test is the app's only (its exercises are the units' own tests, which print with their units).
 
 ### What the school shows
 
@@ -558,7 +798,7 @@ shows a level a bit at a time (`School.reveal`, pure; `game/SchoolRevealTest`):
 
 The rules that open a level are unchanged (`School.isOpen`: A1 with the hamlet; A2 with the school standing and A1's
 written units done, i.e. every A1 test passed; B1 and B2 with the school's levels 2 and 3 and the level before done; a
-level once open stays open). The order stays free: a folded unit is one tap away once it comes into view, and testing out
+level once open stays open, also one the placement test opened: [The placement test](#the-placement-test)). The order stays free: a folded unit is one tap away once it comes into view, and testing out
 of a unit ("⏩ Znam že") brings the next one in. Each level's booklet (🖨️ Vsi listi) stays under it. QA:
 `companion/bin/qa --steps school-reveal` (its hook `school:reveal`: the school standing, A1 done, A2 begun).
 
@@ -1155,7 +1395,7 @@ school is the course's language's:
 | Austrian standard | the village's German: Grüß Gott, Servus, Baba, Jänner, heuer, Paradeiser, Erdapfel, Topfen, Sackerl; where Germany says otherwise (Januar, Tomate, Kartoffel, Tschüss), that form is accepted too and named in the explanation |
 | The blackboard | "Willkommen!" and the day as Austria writes it (1.11.2026) before the first unit; the unit's title and forms in chalk (ä, ö, ü, ß written) |
 | Prints | headed in German and the base ("Regel · The rule", "Lektion"), the words from the German and the culture's packs with their article (der Hund), the supplement's words (`lexicon/de.extra.json`) with their meanings in Slovene and Italian; Slovene, English and Italian as bases |
-| Not for German | forms cards, counting cards, case rows, the cases overview (Slovene's); the numbers module is German's too since practice-de (unit zahlen opens it, uhrzeit the clock, am-ersten-mai the dates); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`) |
+| Not for German | forms cards, counting cards, case rows (Slovene's); the numbers module is German's too since practice-de (unit zahlen opens it, uhrzeit the clock, am-ersten-mai the dates); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`). German has its own cases overview (`faelle`, "The cases overview") and case trainer (docs/plans/05-built/case-de.md) |
 | Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GermanA2aContentTest`, `GermanA2bContentTest` and `GermanA2cContentTest` (A2's grading pairs and spoken forms), `GermanB1aContentTest`, `GermanB1bContentTest` and `GermanB1cContentTest` (B1's, and that no choice or bank of the course offers what the table's `nonstandard` says people say), `GermanB2aContentTest`, `GermanB2bContentTest` and `GermanB2cContentTest` (B2's), `GradingNonstandardTest`, `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
 
 Writing a German unit: as [Writing a unit](#writing-a-unit), for adults: the village's grown-ups and their work, never
@@ -1445,7 +1685,8 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | British, American | British spelling and usage in every text (colour, Mum, the inn, have got, a hundred and five); the American form is right where a learner types it: by the grading (its spelling) or listed in `accept` (Do you have …? beside Have you got …?) |
 | The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
 | Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
-| Not for English | forms cards, counting cards, the numbers module and the case rows (Slovene's: `numbers` turns nothing on); no `lemma`/`form` on the cells (`FORMS_LANGUAGES` has no English) |
+| The numbers module | `numbers`'s intro opens "🔢 Numbers" (README.md "Numbers", `EnglishNumbers`), `time`'s brings its dates and clock times (page `time-dates`) |
+| Not for English | forms cards, counting cards and the case rows (Slovene's); no `lemma`/`form` on the cells (`FORMS_LANGUAGES` has no English) |
 | Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `EnglishA2aContentTest`, `EnglishA2bContentTest`, `EnglishA2cContentTest` (A2's parts and, the last, what people say over the whole level), `EnglishB1aContentTest`, `EnglishB1bContentTest`, `EnglishB1cContentTest` (B1's parts and, the last, what people say over the 18), `EnglishB2aContentTest`, `EnglishB2bContentTest`, `EnglishB2cContentTest` (B2's parts and, the last, what people say over the 18, an item's `spoken` against the table), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
 
 Writing an English unit: as [Writing a unit](#writing-a-unit), with the explanations in each base (du, ti and tu, as the
@@ -1798,6 +2039,7 @@ What a sheet has, and where it comes from (`companion/prints/sheet.ts`):
 | **Pazi · Watch out** | three wrong ✗ / right ✓ pairs: what a text says is wrong ("**Kje je Luka?** (never *Kje Luka je?*)", "Never *ne sem*", "*Vidim nič* is wrong"), a quick question's or a worksheet choice's wrong option in its sentence (never one marked `almost`: a spoken or near form), a gap whose word in brackets left unchanged is the mistake ("To je ___ (moj) hiša.") |
 | **Besede · Words** | the unit's `words`, with gender and meaning in the sheet's base, in this order: the unit's own gloss ("**quando** (wenn)" in its intro, unless its English bracket is a note: "**rad** (a man)"), the dictionary's supplement's entry of the word with its own meaning in the base (an Italian noun by the word without its article, il treno), a pack's word (an Italian noun in the plural with its article, i cavalli, by the pack's plural, its singular beside it), then the supplement's and Wiktionary's other readings (the meaning the unit's own text points to: peti is "fifth" in the numbers); not the ones the table shows, nor names. A sheet reads only the packs of its unit's level and below, an A1 sheet the A2 packs too (`Dictionary.at`): an A1 or A2 sheet never takes a B1 or B2 pack's meaning (English open stays odpreti, the verb, beside the B1 pack's open, odprt), and a word only a higher pack has is meant by the supplement and the course, as before that pack came; on a sheet of B1 and above, which reads both, the A1 and A2 packs come before the B1 and B2 ones (die Bank, the bench, before the money pack's bank). A word nothing knows is left out (the run lists them); the Italian course's A1, A2 and B1 leave none out (the supplement has the rest, it-print-meanings) |
 | **Preveri se · Check yourself** | five items of the worksheets (the test stays the app's): gaps in their sentence, transforms, choices (their options in the sheet's own order, `printedOrder`: the same on every print of it, never the file's, the answers naming the right one by its text), grouped by instruction; ten on a sheet of two pages. The answers upside down at the page's foot |
+| **Povej in napiši · Speak and write** | the worksheets' speaking items (two at most: the task, »what the teacher asks«) and writing item (the task, ☐ each must, its length), the ruled lines after it to write on; their models with the answers, the writing's left out first to fit ([Speaking and writing](#printed-and-heard)) |
 | The footer | "Strojno napisano, preveri z naravnim govorcem · machine-written, to be checked by a native speaker" while the unit's `review` says it's unreviewed; the Wiktionary attribution when a meaning comes from it |
 
 The layout (`companion/prints/html.ts`, `sheet.css`): A4 with 12 mm margins, Nunito with the Lani mark in Pixelify Sans
@@ -1880,6 +2122,14 @@ fits a unit's sheet (tighter, then without its optional parts) and reports it (`
 companion/bin/school-prints --overview skloni --png             # ~/.local/share/lani/prints/sl-skloni-en/pregled-sklonov.pdf
 companion/bin/school-prints --overview skloni --base de --explain   # in German, and what each case's row took
 ```
+
+**German's overview**, "Der, den, dem, des: die vier Fälle" (`ueberblick-faelle`, docs/plans/05-built/case-de.md), is made
+the same way from German's pages: the four cases at a glance (`faelle`'s table, its examples' notes, the prepositions
+pages' first columns), how to find the case (`faelle`'s rule and tip), Wo? Wohin? (`wechselpraepositionen`), the endings
+(`adjektiv-tabelle`, `n-deklination`), the pronouns (`pronomen-dativ`) and the prepositions with their case (the three
+prepositions pages, `verben-praepositionen`); German's headings first, the base's (sl, en, it) second.
+`companion/bin/school-prints --overview faelle --language de --base sl`; the app offers it on the page `faelle`, on the units
+naming it and on their levels.
 
 The bridge serves it as `GET /course/overview/skloni` (`x-lani-print-name: pregled-sklonov`; `?base=`, `?learner=`,
 `?gender=` as a sheet's; a page without an overview is a `404`), kept as the sheets are. The app offers it as

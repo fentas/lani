@@ -53,6 +53,8 @@ for (const f of existsSync(dDir) ? readdirSync(dDir).filter(f => f.endsWith('.js
   if (problems.length) { bad += problems.length; console.log(`✖ drills/${language}/${f}: ${problems.join('; ')}`) }
   console.log(`✓ drills/${language}/${f}`)
 }
+/** Jan's six Slovene A1 modules, in plain English strings: his village has their requests (practice-it.md "The pace"). */
+const JAN_SIX = ['biti-sedanjik', 'dvojina-osnove', 'imeti-in-iti', 'predlogi-kraja', 'rodilnik-po-nikalnici', 'tozilnik-osnove']
 const mDir = language === 'sl' ? join(repo, 'modules') : join(repo, 'modules', language)
 for (const f of existsSync(mDir) ? readdirSync(mDir).filter(f => f.endsWith('.json')).sort() : []) {
   const raw = JSON.parse(readFileSync(join(mDir, f), 'utf8'))
@@ -63,8 +65,8 @@ for (const f of existsSync(mDir) ? readdirSync(mDir).filter(f => f.endsWith('.js
     if (named.length) { bad++; console.log(`✖ modules/${language}/${f}: no grammar page ${named.join(', ')}`) }
     if (v.spec.exercises.some(e => !e.grammar)) { bad++; console.log(`✖ modules/${language}/${f}: an exercise names no grammar page`) }
     if (base === 'en') {
-      // Slovene's modules are written for Jan, in plain English strings
-      const lacking = language === 'sl' ? [] : untexted(raw, f, [])
+      // Jan's six Slovene A1 modules, written before texts per base, are kept as they are (practice-sl.md); the others per base
+      const lacking = language === 'sl' && JAN_SIX.includes(raw.id) ? [] : untexted(raw, f, [])
       if (lacking.length) { bad++; console.log(`✖ modules/${language}/${f}: not in each base (${bases.join(', ')}): ${lacking.slice(0, 6).join(', ')}`) }
       console.log(`✓ modules/${language}/${f}: ${v.spec.exercises.length} exercises`)
     }

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """What each language and culture has, counted from the content files and from no doc: the school (units and pages by
-level, the outline's planned units), modules, the car's drills, packs and their words by level, scenes, stories,
+level, the outline's planned units), modules, the car's drills, role-plays by level, packs and their words by level, scenes, stories,
 readings, arrivals by level, project steps, the ages' parties and the keepers' talks.
 
 Usage: companion/bin/content-count [--root DIR] [--json]
@@ -76,6 +76,12 @@ def course(root: Path, language: str) -> dict:
 def modules(root: Path, language: str) -> dict:
     ms = [read(f) for f in files(own_dir(root, "modules", language))]
     return {"total": len(ms), "by_level": by_level(m.get("level") for m in ms), "exercises": sum(len(m.get("exercises", [])) for m in ms)}
+
+
+def roleplays(root: Path, language: str) -> dict:
+    """The curated role-plays ("Pogovor · Talk"): companion/scenarios for Slovene, companion/scenarios/<language> for another."""
+    rs = [read(f) for f in files(own_dir(root, "scenarios", language))]
+    return {"total": len(rs), "by_level": by_level(r.get("level") for r in rs)}
 
 
 def drills(root: Path, language: str) -> dict:
@@ -174,7 +180,8 @@ def count(root: Path) -> dict:
     languages = sorted(p.name for p in (root / "course").iterdir() if (p / "course.json").exists() or (p / "units").is_dir())
     return {
         "languages": {
-            lang: {"course": course(root, lang), "modules": modules(root, lang), "drills": drills(root, lang)} for lang in languages
+            lang: {"course": course(root, lang), "modules": modules(root, lang), "drills": drills(root, lang), "roleplays": roleplays(root, lang)}
+            for lang in languages
         },
         "cultures": {c.name: culture(root, c) for c in sorted((root / "cultures").iterdir()) if (c / "culture.json").exists()},
     }
@@ -220,6 +227,7 @@ def markdown(n: dict) -> str:
         lang_row("drills: transforms", drill("transform")),
         lang_row("drills: rapid", drill("rapid")),
         lang_row("drills: riddles", drill("riddle")),
+        lang_row("role-plays", lambda x: f"{x['roleplays']['total']} ({levels_text(x['roleplays']['by_level'])})" if x["roleplays"]["total"] else "–"),
     ])
 
     def cult_row(name, fn):

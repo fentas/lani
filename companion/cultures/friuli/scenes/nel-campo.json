@@ -5,7 +5,7 @@
   "title": { "it": "Nel campo", "sl": "Na njivi", "en": "In the field", "de": "Auf dem Acker" },
   "emoji": "🌾",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "field",
   "from": ["field", "kozolec"],
   "pack": "nel-campo",
@@ -44,12 +44,12 @@
     },
     {
       "id": "grano", "title": { "it": "Franco miete il grano", "sl": "Franco žanje pšenico", "en": "Franco is harvesting the wheat", "de": "Franco erntet den Weizen" }, "who": "franco",
-      "when": ["morning", "afternoon"], "months": [6, 7, 8], "weekdays": [1, 2, 3, 4, 5, 6], "chance": 0.5, "dialog": "grano", "dialogs": ["grano-nuvole", "grano"], "reward": { "food": 20 }, "marker": "🌾",
+      "when": ["morning", "afternoon"], "months": [6, 7, 8], "weekdays": [1, 2, 3, 4, 5, 6], "chance": 0.5, "dialog": "grano", "dialogs": ["grano-b2-pecorelle", "grano-b1-covoni", "grano-nuvole", "grano"], "reward": { "food": 20 }, "marker": "🌾",
       "memory": { "it": "il grano che abbiamo raccolto insieme", "sl": "pšenico, ki sva jo skupaj požela", "en": "the wheat we brought in together", "de": "den Weizen, den wir zusammen eingebracht haben" }
     },
     {
       "id": "cavallo", "title": { "it": "Baio, il cavallo di Franco", "sl": "Baio, Francov konj", "en": "Baio, Franco's horse", "de": "Baio, Francos Pferd" }, "who": "franco",
-      "when": ["evening"], "chance": 0.3, "dialog": "cavallo", "dialogs": ["cavallo-mela", "cavallo"], "reward": { "wisdom": 15 }, "marker": "🐴",
+      "when": ["evening"], "chance": 0.3, "dialog": "cavallo", "dialogs": ["cavallo-b2-trattore", "cavallo-b1-mela", "cavallo-mela", "cavallo"], "reward": { "wisdom": 15 }, "marker": "🐴",
       "memory": { "it": "la sera che hai conosciuto Baio", "sl": "večer, ko si {m:spoznal|f:spoznala} Baia", "en": "the evening you met Baio", "de": "den Abend, an dem du Baio kennengelernt hast" }
     }
   ],
@@ -215,6 +215,106 @@
             "reply": { "face": "confused", "it": "Piace le mele? Hm, una mela o tante?", "sl": "Piace le mele? Hm, eno jabolko ali več?", "en": "Piace le mele? Hm, one apple or lots?", "de": "Piace le mele? Hm, ein Apfel oder viele?" } }
         ] },
         { "who": "franco", "it": "Bravo, Baio. Adesso a casa, nella stalla. Buonanotte, {learner}!", "sl": "Priden, Baio. Zdaj pa domov, v hlev. Lahko noč, {learner}!", "en": "Good boy, Baio. Now home, to the stable. Good night, {learner}!", "de": "Brav, Baio. Jetzt nach Hause, in den Stall. Gute Nacht, {learner}!" }
+      ]
+    },
+    {
+      "id": "grano-b1-covoni",
+      "level": "B1",
+      "memory": { "it": "i covoni del grano d'oro", "sl": "snope zlate pšenice", "en": "the sheaves of golden wheat", "de": "die Garben aus goldenem Weizen" },
+      "lines": [
+        { "who": "franco", "it": "Buongiorno, {learner}! Il grano è d'oro e il cielo è pulito. Oggi tagliamo e leghiamo i covoni.", "sl": "Dober dan, {learner}! Pšenica je zlata in nebo čisto. Danes žanjemo in vežemo snope.", "en": "Good morning, {learner}! The wheat is golden and the sky is clear. Today we cut and tie the sheaves.", "de": "Guten Morgen, {learner}! Der Weizen ist golden und der Himmel klar. Heute schneiden wir und binden die Garben." },
+        { "who": "franco", "face": "curious", "it": "Sai dove finiscono i covoni, quando sono pronti?", "sl": "Veš, kam gredo snopi, ko so pripravljeni?", "en": "Do you know where the sheaves go when they're ready?", "de": "Weißt du, wo die Garben hinkommen, wenn sie fertig sind?" },
+        { "choices": [
+          { "it": "Sono portati nel fienile con il carro!", "sl": "Z vozom jih odpeljejo v senik!", "en": "They're taken to the barn on the cart!", "de": "Sie werden mit dem Wagen in die Scheune gebracht!", "ok": true,
+            "reply": { "face": "happy", "it": "Giusto. E nel fienile aspettano la trebbiatura.", "sl": "Prav. V seniku pa čakajo mlačev.", "en": "Right. And in the barn they wait for threshing.", "de": "Richtig. Und in der Scheune warten sie aufs Dreschen." } },
+          { "it": "Sono portate nel fienile con il carro!", "sl": "Z vozom jih odpeljejo v senik!", "en": "They're taken to the barn on the cart!", "de": "Sie werden mit dem Wagen in die Scheune gebracht!",
+            "grammar": "passivo", "why": { "sl": "I covoni so moškega spola v množini: sono portati.", "en": "I covoni are masculine plural: sono portati.", "de": "I covoni sind männlich Mehrzahl: sono portati." },
+            "reply": { "face": "curious", "it": "Portate? Chi, le pecore di Davide? No, no, parliamo dei covoni!", "sl": "Portate? Kdo, Davidove ovce? Ne, ne, govoriva o snopih!", "en": "Portate? Who, Davide's sheep? No, no, we're talking about the sheaves!", "de": "Portate? Wer, Davides Schafe? Nein, nein, wir reden von den Garben!" } }
+        ] },
+        { "who": "franco", "it": "Il carro è pronto. Lo tira Baio, il mio cavallo. Lui lavora, e poi vuole il suo premio.", "sl": "Voz je pripravljen. Vleče ga Baio, moj konj. On dela, potem pa hoče svojo nagrado.", "en": "The cart's ready. Baio pulls it, my horse. He works, and then he wants his reward.", "de": "Der Wagen ist bereit. Baio zieht ihn, mein Pferd. Er arbeitet, und dann will er seine Belohnung." },
+        { "choices": [
+          { "it": "È Baio il cavallo a cui Lei dà sempre le mele?", "sl": "Je to Baio, konj, ki mu vedno dajete jabolka?", "en": "Is Baio the horse you always give apples to?", "de": "Ist Baio das Pferd, dem Sie immer Äpfel geben?", "ok": true,
+            "reply": { "face": "laugh", "it": "Proprio lui! Una mela per ogni carro. Oggi ne mangia tre.", "sl": "Prav on! Eno jabolko za vsak voz. Danes jih bo pojedel tri.", "en": "That's him! One apple for every cartload. Today he'll eat three.", "de": "Genau der! Ein Apfel für jede Fuhre. Heute frisst er drei." } },
+          { "it": "È Baio il cavallo di cui Lei dà sempre le mele?", "sl": "Je to Baio, konj, ki mu vedno dajete jabolka?", "en": "Is Baio the horse you always give apples to?", "de": "Ist Baio das Pferd, dem Sie immer Äpfel geben?",
+            "grammar": "relativi-cui", "why": { "sl": "Dare gre z a (komu): dare a Baio, zato a cui.", "en": "Dare takes a (to someone): dare a Baio, so a cui.", "de": "Dare steht mit a (jemandem): dare a Baio, also a cui." },
+            "reply": { "face": "curious", "it": "Di cui? Le mele sono di Baio, sì, ma gliele do io! Riprova.", "sl": "Di cui? Jabolka so Baiova, ja, ampak jaz mu jih dam! Še enkrat.", "en": "Di cui? The apples are Baio's, yes, but I give them to him! Try again.", "de": "Di cui? Die Äpfel gehören Baio, ja, aber ich geb sie ihm! Nochmal." } }
+        ] },
+        { "who": "franco", "face": "happy", "it": "Bene. Baio lavora, Baio mangia le mele. È giusto così. Avanti, un'altra riga!", "sl": "Dobro. Baio dela, Baio je jabolka. Tako je prav. Naprej, še ena vrsta!", "en": "Good. Baio works, Baio eats apples. That's how it should be. On we go, another row!", "de": "Gut. Baio arbeitet, Baio frisst Äpfel. So ist es richtig. Weiter, noch eine Reihe!" }
+      ]
+    },
+    {
+      "id": "grano-b2-pecorelle",
+      "level": "B2",
+      "memory": { "it": "il cielo a pecorelle sopra il grano", "sl": "ovčasto nebo nad pšenico", "en": "the mackerel sky over the wheat", "de": "den Schäfchenhimmel über dem Weizen" },
+      "lines": [
+        { "who": "franco", "face": "thinking", "it": "Hai visto le nuvole di stamattina sopra il Collio, tutte a ricciolini? Mio padre diceva: «Cielo a pecorelle, acqua a catinelle.»", "sl": "Si {m:videl|f:videla} zjutrajšnje oblake nad Collom, vse v kodrčkih? Moj oče je rekel: »Ovčasto nebo, dež bo kot iz škafa.«", "en": "Did you see this morning's clouds over the Collio, all little curls? My father used to say: «Mackerel sky, rain by the bucket.»", "de": "Hast du die Wolken heute früh über dem Collio gesehen, lauter Löckchen? Mein Vater sagte: «Schäfchenhimmel, Regen wie aus Kübeln.»" },
+        { "who": "franco", "it": "Se domani piovesse sul grano tagliato, marcirebbe tutto. Per questo oggi si lavora fino al buio.", "sl": "Če bi jutri deževalo na požeto pšenico, bi vse zgnilo. Zato danes delamo do teme.", "en": "If it rained on the cut wheat tomorrow, it would all rot. That's why today we work until dark.", "de": "Würde es morgen auf den geschnittenen Weizen regnen, würde alles verfaulen. Deshalb arbeiten wir heute bis zur Dunkelheit." },
+        { "choices": [
+          { "it": "Allora, avendo visto il cielo a pecorelle, conviene finire oggi.", "sl": "Potem se, ker smo videli ovčasto nebo, splača končati danes.", "en": "So, having seen the mackerel sky, it's best to finish today.", "de": "Da wir den Schäfchenhimmel gesehen haben, sollten wir heute fertig werden.", "ok": true,
+            "reply": { "face": "proud", "it": "Esatto. Le nuvole avvisano, il contadino ascolta.", "sl": "Tako je. Oblaki opozorijo, kmet posluša.", "en": "Exactly. The clouds warn, the farmer listens.", "de": "Genau. Die Wolken warnen, der Bauer hört zu." } },
+          { "it": "Allora, essendo visto il cielo a pecorelle, conviene finire oggi.", "sl": "Potem se, ker smo videli ovčasto nebo, splača končati danes.", "en": "So, having seen the mackerel sky, it's best to finish today.", "de": "Da wir den Schäfchenhimmel gesehen haben, sollten wir heute fertig werden.",
+            "grammar": "gerundio-passato", "why": { "sl": "Vedere ima avere: ho visto, zato avendo visto.", "en": "Vedere takes avere: ho visto, so avendo visto.", "de": "Vedere bildet mit avere: ho visto, also avendo visto." },
+            "reply": { "face": "curious", "it": "Essendo visto? Chi è visto, il cielo o noi? Mmm, conta meglio le parole, {learner}.", "sl": "Essendo visto? Kdo je viden, nebo ali mi? Hm, bolje preštej besede, {learner}.", "en": "Essendo visto? Who's seen, the sky or us? Hmm, count your words better, {learner}.", "de": "Essendo visto? Wer wird gesehen, der Himmel oder wir? Hm, zähl deine Wörter besser, {learner}." } }
+        ] },
+        { "who": "franco", "face": "curious", "it": "Zia Nives dice che i proverbi sono roba vecchia, e che basta ascoltare il meteo alla radio. Tu chi ascolteresti?", "sl": "Teta Nives pravi, da so pregovori stara šara in da je dovolj poslušati vremensko napoved po radiu. Koga bi ti {m:poslušal|f:poslušala}?", "en": "Zia Nives says proverbs are old stuff, and listening to the forecast on the radio is enough. Whom would you listen to?", "de": "Zia Nives sagt, Sprichwörter seien altes Zeug, und es reiche, den Wetterbericht im Radio zu hören. Auf wen würdest du hören?" },
+        { "choices": [
+          { "it": "Tutti e due: il proverbio e la radio, di solito, dicono la stessa cosa!", "sl": "Oba: pregovor in radio navadno povesta isto!", "en": "Both: the proverb and the radio usually say the same thing!", "de": "Beide: Das Sprichwort und das Radio sagen meistens dasselbe!", "ok": true,
+            "reply": { "face": "laugh", "it": "Saggio. Allora oggi lavoriamo, e stasera sentiamo la radio di Nives. Due voci sono meglio di una.", "sl": "Pametno. Potem danes delamo, zvečer pa poslušamo Nivesin radio. Dva glasova sta boljša od enega.", "en": "Wise. Then today we work, and tonight we listen to Nives's radio. Two voices are better than one.", "de": "Klug. Dann arbeiten wir heute, und heute Abend hören wir Nives' Radio. Zwei Stimmen sind besser als eine." } },
+          { "it": "Nessuno dei due: il grano si può lasciare sotto la pioggia, non succede niente.", "sl": "Nobenega: pšenico lahko pustiš na dežju, nič se ne zgodi.", "en": "Neither: you can leave the wheat in the rain, nothing happens.", "de": "Keinem von beiden: Den Weizen kann man im Regen lassen, da passiert nichts.",
+            "why": { "sl": "Franco je pravkar rekel, da bi požeta pšenica na dežju zgnila.", "en": "Franco has just said cut wheat in the rain would rot.", "de": "Franco hat gerade gesagt, geschnittener Weizen würde im Regen verfaulen." },
+            "reply": { "face": "surprised", "it": "Non succede niente? Marcisce tutto, {learner}! Te l'ho appena detto.", "sl": "Nič se ne zgodi? Vse zgnije, {learner}! Pravkar sem ti povedal.", "en": "Nothing happens? It all rots, {learner}! I've just told you.", "de": "Da passiert nichts? Alles verfault, {learner}! Hab ich dir gerade gesagt." } }
+        ] },
+        { "who": "franco", "it": "Allora, al lavoro. Una riga, due righe… e stasera il grano dorme asciutto nel fienile.", "sl": "Torej, na delo. Ena vrsta, dve vrsti … zvečer pa pšenica suha spi v seniku.", "en": "Right, to work. One row, two rows… and tonight the wheat sleeps dry in the barn.", "de": "Also, an die Arbeit. Eine Reihe, zwei Reihen … und heute Abend schläft der Weizen trocken in der Scheune." }
+      ]
+    },
+    {
+      "id": "cavallo-b1-mela",
+      "level": "B1",
+      "memory": { "it": "la mela che hai dato a Baio", "sl": "jabolko, ki si ga {m:dal|f:dala} Baiu", "en": "the apple you gave Baio", "de": "den Apfel, den du Baio gegeben hast" },
+      "lines": [
+        { "who": "franco", "it": "{learner}, vieni. Baio ha lavorato tutto il giorno. Adesso è stanco.", "sl": "{learner}, pridi. Baio je delal ves dan. Zdaj je utrujen.", "en": "{learner}, come. Baio has worked all day. Now he's tired.", "de": "{learner}, komm. Baio hat den ganzen Tag gearbeitet. Jetzt ist er müde." },
+        { "who": "franco", "face": "thinking", "it": "Ha vent'anni, sai? Se un giorno non tirasse più il carro, che cosa farebbe, secondo te?", "sl": "Dvajset let ima, veš? Če nekoč ne bi več vlekel voza, kaj bi počel, kaj misliš?", "en": "He's twenty, you know? If one day he didn't pull the cart any more, what would he do, do you think?", "de": "Er ist zwanzig, weißt du? Wenn er eines Tages den Wagen nicht mehr ziehen würde, was würde er dann machen, meinst du?" },
+        { "choices": [
+          { "it": "Starebbe nel prato a mangiare l'erba tutto il giorno!", "sl": "Ves dan bi bil na travniku in jedel travo!", "en": "He'd be in the meadow eating grass all day!", "de": "Er würde den ganzen Tag auf der Wiese stehen und Gras fressen!", "ok": true,
+            "reply": { "face": "laugh", "it": "Proprio così! Come un signore in pensione.", "sl": "Prav tako! Kot gospod v pokoju.", "en": "Exactly! Like a retired gentleman.", "de": "Genau! Wie ein Herr in Rente." } },
+          { "it": "Sterebbe nel prato a mangiare l'erba tutto il giorno!", "sl": "Ves dan bi bil na travniku in jedel travo!", "en": "He'd be in the meadow eating grass all day!", "de": "Er würde den ganzen Tag auf der Wiese stehen und Gras fressen!",
+            "grammar": "condizionale", "why": { "sl": "Stare ima kratek pogojnik: starebbe (kot starà).", "en": "Stare has a short conditional: starebbe (as in starà).", "de": "Stare hat einen kurzen Konditional: starebbe (wie starà)." },
+            "reply": { "face": "curious", "it": "Sterebbe? Mmm, questa parola Baio non la conosce, e nemmeno io!", "sl": "Sterebbe? Hm, te besede Baio ne pozna, pa tudi jaz ne!", "en": "Sterebbe? Hmm, Baio doesn't know that word, and neither do I!", "de": "Sterebbe? Hm, das Wort kennt Baio nicht, und ich auch nicht!" } }
+        ] },
+        { "who": "franco", "it": "Ma intanto, attento: annusa la tua tasca. Vuole la mela che hai lì dentro.", "sl": "Ampak pazi: voha tvoj žep. Hoče jabolko, ki ga imaš notri.", "en": "But careful: he's sniffing your pocket. He wants the apple you've got in there.", "de": "Aber Achtung: Er schnuppert an deiner Tasche. Er will den Apfel, den du drin hast." },
+        { "choices": [
+          { "it": "Va bene, gliela do subito!", "sl": "Prav, takoj mu ga dam!", "en": "All right, I'll give it to him right away!", "de": "Na gut, ich geb ihn ihm sofort!", "ok": true,
+            "reply": { "face": "happy", "it": "Piano, con la mano aperta. Così non ti morde le dita.", "sl": "Počasi, z odprto dlanjo. Tako te ne ugrizne v prste.", "en": "Gently, with your hand open. That way he won't nibble your fingers.", "de": "Langsam, mit offener Hand. Dann knabbert er dir nicht an den Fingern." } },
+          { "it": "Va bene, gli la do subito!", "sl": "Prav, takoj mu ga dam!", "en": "All right, I'll give it to him right away!", "de": "Na gut, ich geb ihn ihm sofort!",
+            "grammar": "pronomi-combinati", "why": { "sl": "Gli in la se združita v eno besedo: gliela.", "en": "Gli and la join into one word: gliela.", "de": "Gli und la werden ein Wort: gliela." },
+            "reply": { "face": "curious", "it": "Gli la? Baio aspetta la mela, non due parole staccate!", "sl": "Gli la? Baio čaka na jabolko, ne na dve ločeni besedi!", "en": "Gli la? Baio's waiting for the apple, not two separate words!", "de": "Gli la? Baio wartet auf den Apfel, nicht auf zwei getrennte Wörter!" } }
+        ] },
+        { "who": "franco", "face": "happy", "it": "Ecco. Mela mangiata, cavallo contento. Buonanotte, Baio. Buonanotte, {learner}.", "sl": "Tako. Jabolko pojedeno, konj zadovoljen. Lahko noč, Baio. Lahko noč, {learner}.", "en": "There. Apple eaten, horse happy. Good night, Baio. Good night, {learner}.", "de": "So. Apfel gefressen, Pferd zufrieden. Gute Nacht, Baio. Gute Nacht, {learner}." }
+      ]
+    },
+    {
+      "id": "cavallo-b2-trattore",
+      "level": "B2",
+      "memory": { "it": "Baio e il primo trattore del paese", "sl": "Baio in prvi traktor v vasi", "en": "Baio and the village's first tractor", "de": "Baio und den ersten Traktor im Dorf" },
+      "lines": [
+        { "who": "franco", "face": "thinking", "it": "Lorenzo dice sempre che, se avessimo un trattore, finiremmo il lavoro in metà tempo.", "sl": "Lorenzo vedno pravi, da bi delo končali v pol krajšem času, če bi imeli traktor.", "en": "Lorenzo always says that if we had a tractor, we'd finish the work in half the time.", "de": "Lorenzo sagt immer, wenn wir einen Traktor hätten, wären wir in der halben Zeit fertig." },
+        { "who": "franco", "it": "Ha ragione, certo. Però un trattore non ti aspetta alla porta della stalla, e non ti riconosce quando torni a casa.", "sl": "Prav ima, seveda. Ampak traktor te ne čaka pri vratih hleva in te ne prepozna, ko prideš domov.", "en": "He's right, of course. But a tractor doesn't wait for you at the stable door, and doesn't know you when you come home.", "de": "Er hat recht, sicher. Aber ein Traktor wartet nicht an der Stalltür auf dich und erkennt dich nicht, wenn du heimkommst." },
+        { "choices": [
+          { "it": "Sebbene il trattore sia più veloce, Baio è un amico, e gli amici non si cambiano.", "sl": "Čeprav je traktor hitrejši, je Baio prijatelj, prijateljev pa se ne menja.", "en": "Although the tractor is faster, Baio is a friend, and you don't swap friends.", "de": "Obwohl der Traktor schneller ist, ist Baio ein Freund, und Freunde tauscht man nicht.", "ok": true,
+            "reply": { "face": "proud", "it": "Ben detto. Gli amici si tengono, anche quando sono vecchi.", "sl": "Dobro rečeno. Prijatelje obdržiš, tudi ko so stari.", "en": "Well said. You keep friends, even when they're old.", "de": "Gut gesagt. Freunde behält man, auch wenn sie alt sind." } },
+          { "it": "Sebbene il trattore è più veloce, Baio è un amico, e gli amici non si cambiano.", "sl": "Čeprav je traktor hitrejši, je Baio prijatelj, prijateljev pa se ne menja.", "en": "Although the tractor is faster, Baio is a friend, and you don't swap friends.", "de": "Obwohl der Traktor schneller ist, ist Baio ein Freund, und Freunde tauscht man nicht.",
+            "grammar": "congiunzioni-congiuntivo", "why": { "sl": "Sebbene zahteva konjunktiv: sebbene sia; z indikativom rečeš anche se.", "en": "Sebbene takes the congiuntivo: sebbene sia; with the indicative, say anche se.", "de": "Sebbene verlangt den Konjunktiv: sebbene sia; mit dem Indikativ sagst du anche se." },
+            "reply": { "face": "thinking", "it": "Sebbene è…? Il pensiero è giusto, la frase zoppica come Baio.", "sl": "Sebbene è …? Misel je prava, stavek pa šepa kot Baio.", "en": "Sebbene è…? The thought is right, the sentence limps like Baio.", "de": "Sebbene è …? Der Gedanke stimmt, der Satz hinkt wie Baio." } }
+        ] },
+        { "who": "franco", "face": "curious", "it": "Mio nonno ebbe il primo trattore del paese, rosso come un pomodoro. Si dice che lo fece guidare a tutti i bambini, uno per uno. Ti sarebbe piaciuto?", "sl": "Moj dedek je imel prvi traktor v vasi, rdeč kot paradižnik. Pravijo, da ga je dal voziti vsem otrokom, enemu za drugim. Bi ti bilo všeč?", "en": "My grandfather had the village's first tractor, red as a tomato. They say he let all the children drive it, one by one. Would you have liked that?", "de": "Mein Großvater hatte den ersten Traktor im Dorf, rot wie eine Tomate. Man sagt, er ließ alle Kinder fahren, eins nach dem anderen. Hätte dir das gefallen?" },
+        { "choices": [
+          { "it": "Moltissimo! Me l'avrebbe fatto guidare, anche se ero {m:piccolo|f:piccola}?", "sl": "Zelo! Bi mi ga dal voziti, čeprav sem {m:bil majhen|f:bila majhna}?", "en": "Very much! Would he have let me drive it, even though I was little?", "de": "Total! Hätte er mich ihn fahren lassen, auch wenn ich klein war?", "ok": true,
+            "reply": { "face": "laugh", "it": "Certo, seduto sulle sue ginocchia! Lorenzo sa questa storia a memoria.", "sl": "Seveda, sedeč na njegovih kolenih! Lorenzo zna to zgodbo na pamet.", "en": "Of course, sitting on his knee! Lorenzo knows this story by heart.", "de": "Klar, auf seinem Schoß! Lorenzo kennt die Geschichte auswendig." } },
+          { "it": "Moltissimo! Mi avrebbe fatto guidarlo, anche se ero {m:piccolo|f:piccola}?", "sl": "Zelo! Bi mi ga dal voziti, čeprav sem {m:bil majhen|f:bila majhna}?", "en": "Very much! Would he have let me drive it, even though I was little?", "de": "Total! Hätte er mich ihn fahren lassen, auch wenn ich klein war?",
+            "grammar": "fare-lasciare", "why": { "sl": "Pri fare gredo zaimki pred fare: me l'avrebbe fatto guidare.", "en": "With fare the pronouns go before fare: me l'avrebbe fatto guidare.", "de": "Bei fare stehen die Pronomen vor fare: me l'avrebbe fatto guidare." },
+            "reply": { "face": "curious", "it": "Fatto guidarlo? Mmm, il trattore va avanti, ma la frase va un po' all'indietro!", "sl": "Fatto guidarlo? Hm, traktor gre naprej, stavek pa malo nazaj!", "en": "Fatto guidarlo? Hmm, the tractor goes forward, but the sentence goes a bit backwards!", "de": "Fatto guidarlo? Hm, der Traktor fährt vorwärts, aber der Satz ein bisschen rückwärts!" } }
+        ] },
+        { "who": "franco", "face": "happy", "it": "Allora facciamo così: Baio per il campo, e un trattore di legno per Lorenzo. Buonanotte, {learner}.", "sl": "Potem narediva tako: Baio za polje, lesen traktor pa za Lorenza. Lahko noč, {learner}.", "en": "Then let's do this: Baio for the field, and a wooden tractor for Lorenzo. Good night, {learner}.", "de": "Dann machen wir es so: Baio fürs Feld, und ein Holztraktor für Lorenzo. Gute Nacht, {learner}." }
       ]
     }
   ]

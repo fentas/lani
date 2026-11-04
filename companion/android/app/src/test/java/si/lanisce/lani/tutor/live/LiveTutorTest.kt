@@ -123,7 +123,6 @@ class LiveTutorTest {
             debug = false,
             transportFor = { base, key -> AnthropicTransport(base, key, OkHttpClient.Builder().addInterceptor(api).build(), clock = { now }) },
             bridgeFor = { c -> LiveBridge(c, OkHttpClient.Builder().addInterceptor(node).build()) },
-            fran = null,
             clock = { now }, zone = { zone }, device = "test phone",
             logLine = { lines += it }, sleep = {},
             io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
@@ -557,7 +556,7 @@ class LiveTutorTest {
             debug = false,
             openaiTransportFor = { bearer -> si.lanisce.lani.tutor.OpenAITransport(bearer, responses.client, clock = { now }) },
             bridgeFor = { c -> LiveBridge(c, OkHttpClient.Builder().addInterceptor(node).build()) },
-            fran = null, clock = { now }, zone = { zone }, device = "test phone", logLine = { lines += it }, sleep = {},
+            clock = { now }, zone = { zone }, device = "test phone", logLine = { lines += it }, sleep = {},
             io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(), texts = { key, _ -> key },
         )
         t.refreshCredentials()

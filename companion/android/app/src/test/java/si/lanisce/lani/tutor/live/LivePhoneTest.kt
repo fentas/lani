@@ -72,7 +72,7 @@ class LivePhoneTest {
             debug = false,
             transportFor = { base, key -> AnthropicTransport(base, key, OkHttpClient.Builder().addInterceptor(api).build()) },
             bridgeFor = { c -> LiveBridge(c, PhoneLink.client { bridge }) },
-            fran = null, device = "phone test", sleep = {},
+            device = "phone test", sleep = {},
             io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
         )
     }

@@ -908,7 +908,10 @@ private fun rememberHint(vm: AppViewModel, talk: SceneTalk, onHint: () -> Unit):
     val pages = vm.grammar.pages
     val later = run.later
     val (text, speech) = remember(talk.key, run.at, run.step, pages) {
-        val h = run.turn?.let { vm.grammar.hint(it, hidden = later) }
+        // who's who: the names of the dialog's people, the scene's and the village's (a name is who does it: TurnHints.of)
+        val cast = listOf(talk.person.name) + talk.step?.cast.orEmpty().map { it.name } +
+            vm.scenes.byId(talk.sceneId)?.people.orEmpty().map { it.name } + vm.villagers.all.map { it.name }
+        val h = run.turn?.let { vm.grammar.hint(it, hidden = later, cast = cast) }
         val t = h?.let { TurnHints.text(it, vm.grammar::page) }?.takeIf { !it.isEmpty }
         // the 🔊 says what the card says: the hint's rule, and the rules that come later
         t to HintSpeech.of(h?.takeIf { t != null }, vm.grammar.laterTitles(later))

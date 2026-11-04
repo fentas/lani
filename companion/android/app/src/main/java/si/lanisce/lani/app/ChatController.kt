@@ -93,6 +93,12 @@ class ChatStore(private val dir: File, private val legacy: File, private val kee
         return old + dated
     }
 
+    /** Everything kept, as [load] has it, for a reader beside the chat (the tutor's `chat_history`): nothing is let go or written. */
+    fun read(): List<ChatMessage> {
+        val old = FileStorage(legacy).read()?.let(ChatHistory::decode).orEmpty()
+        return old + dir.listFiles { f -> MONTH_FILE.matches(f.name) }.orEmpty().sortedBy { it.name }.flatMap { FileStorage(it).read()?.let(ChatHistory::decode).orEmpty() }
+    }
+
     /** Writes the file of [part] ([partOf]) with its messages of [all]. */
     fun write(part: String, all: List<ChatMessage>) {
         val mine = all.filter { partOf(it) == part }
@@ -396,9 +402,26 @@ class ChatController(
     }
 
     fun onGraded(ev: BridgeEvent.Reply) {
-        if (ev.conversationId !in gradedReplies) gradedOrder.addLast(ev.conversationId)
+        val first = ev.conversationId !in gradedReplies
+        if (first) gradedOrder.addLast(ev.conversationId)
         gradedReplies[ev.conversationId] = ev
         while (gradedOrder.size > MAX_GRADED) gradedReplies.remove(gradedOrder.removeFirst())
+        // a school writing item's feedback may come after its sheet (offline, the tutor away): it is kept in the chat too
+        if (first && ev.conversationId.startsWith(WRITING) && ev.text.isNotBlank()) {
+            add(ChatMessage(fromMe = false, text = ev.text, about = "✍️ ${bi("production.feedbackAbout")}"))
+            if (!isOpen) unread++
+        }
+    }
+
+    /**
+     * Sends a school writing item's text for the tutor's feedback (kind answer, COURSE.md "Speaking and writing"): the
+     * reply shows under the text while it is on screen ([gradedReplies]) and lands in the chat whenever it comes ([onGraded]);
+     * offline it waits in the outbox. The item's verdict is the app's already.
+     */
+    fun requestFeedback(text: String, data: JsonObject): String {
+        val conv = WRITING + UUID.randomUUID().toString().replace("-", "").take(12)
+        scope.launchSafely(notices::fail) { sync.submit(Writes.message("answer", conv, text, data)) }
+        return conv
     }
 
     /**
@@ -427,5 +450,7 @@ class ChatController(
     private companion object {
         /** An exercise waits for its grade on screen; older grades are long shown (and in the chat). */
         const val MAX_GRADED = 20
+        /** A school writing item's feedback conversation ("ex…" as every graded one: AppViewModel routes it here). */
+        const val WRITING = "exw"
     }
 }

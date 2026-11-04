@@ -4,6 +4,7 @@
 // else the repo's data/), with its voice clips (the voice cache, paths.ts voiceDir); LANI_DEV_KEEP_TOWNS=1
 // keeps the copy's town links (by default QA's town knows only the towns QA links, e.g. test/dev-town.ts, and never
 // asks a real learner's town); LANI_DEV_FAKE_ELEVENLABS=1 a fake ElevenLabs (below).
+// The outside dictionaries are always a fake here (test/fakes/dictionary.ts): QA never reaches a real site.
 import '../src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
@@ -13,6 +14,7 @@ import { join, resolve } from 'node:path'
 import { setting } from '../src/env'
 import { learnerLangs } from '../src/learners'
 import { voiceDir } from '../src/paths'
+import { fakeDictionary } from './fakes/dictionary'
 import { fakeEleven } from './fakes/eleven'
 
 const port = process.env.LANI_DEV_PORT ?? '8791'
@@ -114,6 +116,117 @@ const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; corre
     practise: "*I'd like*, *how much is it?*",
   },
 }
+/**
+ * One set of canned lines for every B1 and B2 talk of a language (a complaint, the mayor, a job interview: no soup there):
+ * Slovene's, German's and English's, which ROLEPLAY_LEVELS takes for both levels. Machine-written, for QA only.
+ */
+const ABOVE_A2: Record<string, (typeof ROLEPLAY)[string]> = {
+  sl: {
+    // any of Jan's B1 and B2 role-plays (companion/scenarios: the shop, the winemaker, the surgery, the bora, the
+    // neighbour, the tourist farm, the mayor, the interview, the doctor, the stone house, the insurance, Marko)
+    hint: { sl: 'Razumem. Bi lahko to še enkrat razložili?', en: 'I see. Could you explain that once more?', de: 'Verstehe. Könnten Sie das noch einmal erklären?', it: 'Capisco. Potrebbe spiegarlo ancora una volta?' },
+    puzzled: { sl: 'Oprostite, kako prosim? Lahko to ponovite?', en: 'Sorry, pardon? Could you say that again?', de: 'Entschuldigung, wie bitte? Können Sie das wiederholen?', it: 'Scusi, come? Può ripetere?' },
+    turns: [
+      { sl: 'Razumem. Kaj pa potem?', en: 'I see. And then?', de: 'Verstehe. Und dann?', it: 'Capisco. E poi?' },
+      { sl: 'Zanimivo. Zakaj pa?', en: 'Interesting. Why, though?', de: 'Interessant. Und warum?', it: 'Interessante. E perché?' },
+      { sl: 'Prav, to se mi zdi smiselno.', en: 'All right, that makes sense to me.', de: 'Gut, das finde ich sinnvoll.', it: 'Va bene, mi sembra sensato.' },
+      { sl: 'Dobro, hvala. Tako bomo naredili.', en: "Good, thank you. That's what we'll do.", de: 'Gut, danke. So machen wir es.', it: 'Bene, grazie. Faremo così.' },
+    ],
+    correction: {
+      en: 'Rekli bi: **Bi lahko to ponovili?** · "bi" with the -l form asks politely (the conditional).',
+      de: 'Man sagt: **Bi lahko to ponovili?** · „bi" mit der l-Form fragt höflich (der Konditional).',
+      it: 'Si dice: **Bi lahko to ponovili?** · «bi» con la forma in -l chiede con cortesia (il condizionale).',
+    },
+    practise: '*bi lahko*, *na vašem mestu bi*',
+  },
+  en: {
+    // any of the Lake District's B1 and B2 role-plays (companion/scenarios/en: the jacket, Mr Dixon's gate, the garage,
+    // the flood with Auntie Edna, Maggie's trip, the inn's summer job; the councillor, the interview, the new patient
+    // check, the cottage, the police statement, Jack at a crossroads); the correction is a learner's mistake (would
+    // after if), never what people here say (we was, aye: tutor/languages/en.md)
+    hint: { sl: 'I see. Could you explain that a bit more?', en: 'I see. Could you explain that a bit more?', de: 'Verstehe. Könnten Sie das etwas genauer erklären?', it: 'Capisco. Potrebbe spiegarlo meglio?', sl_base: 'Razumem. Bi lahko to malo bolj razložili?' },
+    puzzled: { sl: "Sorry, I didn't quite catch that. Could you say it again?", en: "Sorry, I didn't quite catch that. Could you say it again?", de: 'Entschuldigung, das habe ich nicht ganz verstanden. Können Sie das wiederholen?', it: 'Scusi, non ho capito bene. Può ripetere?', sl_base: 'Oprostite, tega nisem čisto razumel. Lahko ponovite?' },
+    turns: [
+      { sl: 'I see. And what happened then?', en: 'I see. And what happened then?', de: 'Verstehe. Und was ist dann passiert?', it: 'Capisco. E poi che cosa è successo?', sl_base: 'Razumem. Kaj pa se je zgodilo potem?' },
+      { sl: "Right. And why's that, then?", en: 'All right. And why is that?', de: 'Gut. Und warum das?', it: 'Va bene. E come mai?', sl_base: 'Prav. Zakaj pa?' },
+      { sl: 'Aye, that makes sense.', en: 'Yes, that makes sense.', de: 'Ja, das klingt vernünftig.', it: 'Sì, ha senso.', sl_base: 'Ja, to je smiselno.' },
+      { sl: "Grand. Thanks, that's what we'll do.", en: "Great. Thanks, that's what we'll do.", de: 'Prima. Danke, so machen wir es.', it: 'Perfetto. Grazie, faremo così.', sl_base: 'Odlično. Hvala, tako bomo naredili.' },
+    ],
+    correction: {
+      en: 'Better: **If I were you, I\'d book early.** · after "if", no "would": "if I were", and "I\'d" in the other half.',
+      de: 'Besser: **If I were you, I\'d book early.** · nach „if“ kein „would“: „if I were“, und „I\'d“ im anderen Satzteil.',
+      sl: 'Bolje: **If I were you, I\'d book early.** · za »if« ni »would«: »if I were«, »I\'d« pa v drugem delu.',
+      it: 'Meglio: **If I were you, I\'d book early.** · dopo «if» niente «would»: «if I were», e «I\'d» nell\'altra parte.',
+    },
+    practise: "*if I were you, I'd …*, *could you …?*",
+  },
+  de: {
+    // any of the German B1 and B2 role-plays (companion/scenarios/de: the jacket, Stefan's Most, the surgery, the storm,
+    // Tante Mitzi, Kathi's Gasthaus, the mayor, the interview, the new doctor, the car, the slopes, Florian)
+    hint: { sl: 'Verstehe. Könnten Sie das noch einmal erklären?', en: 'I see. Could you explain that once more?', it: 'Capisco. Potrebbe spiegarlo ancora una volta?', sl_base: 'Razumem. Bi lahko to še enkrat razložili?' },
+    puzzled: { sl: 'Entschuldigung, wie bitte? Können Sie das wiederholen?', en: 'Sorry, pardon? Could you say that again?', it: 'Scusi, come? Può ripetere?', sl_base: 'Oprostite, kako prosim? Lahko to ponovite?' },
+    turns: [
+      { sl: 'Verstehe. Und wie ist es dann weitergegangen?', en: 'I see. And what happened then?', it: 'Capisco. E poi com\'è andata avanti?', sl_base: 'Razumem. Kaj pa se je zgodilo potem?' },
+      { sl: 'Interessant. Und warum eigentlich?', en: 'Interesting. And why, actually?', it: 'Interessante. E perché, di preciso?', sl_base: 'Zanimivo. Zakaj pa pravzaprav?' },
+      { sl: 'Gut, das klingt vernünftig.', en: 'All right, that sounds reasonable.', it: 'Bene, mi sembra ragionevole.', sl_base: 'Dobro, to se sliši smiselno.' },
+      { sl: 'Passt, danke. So machen wir es.', en: "Fine, thank you. That's what we'll do.", it: 'Va bene, grazie. Facciamo così.', sl_base: 'Velja, hvala. Tako bomo naredili.' },
+    ],
+    correction: {
+      en: 'Better: **Könnten Sie das bitte wiederholen?** · "könnten" (the Konjunktiv II) asks politely.',
+      sl: 'Bolje: **Könnten Sie das bitte wiederholen?** · »könnten« (Konjunktiv II) vljudno prosi.',
+      it: 'Meglio: **Könnten Sie das bitte wiederholen?** · «könnten» (il Konjunktiv II) chiede con cortesia.',
+    },
+    practise: '*könnten Sie*, *an deiner Stelle würde ich*',
+  },
+}
+/**
+ * A B1 or B2 role-play's canned lines (its brief's level), over its language's A1 ones: a story asked for, a problem
+ * weighed, a deal settled, with the level's forms (the imperfetto beside the passato prossimo at B1, the congiuntivo and
+ * the unreal past at B2). B1's say tu, as every B1 talk does; B2's neither tu nor Lei, so they fit Davide and the counter.
+ * Machine-written, for QA only.
+ */
+const ROLEPLAY_LEVELS: Record<string, Partial<Record<string, Partial<(typeof ROLEPLAY)[string]>>>> = {
+  // Jan's B1 and B2 talks (companion/scenarios), the Carinthian village's and the Lake District's (scenarios/de, en): one set each
+  sl: { B1: ABOVE_A2.sl, B2: ABOVE_A2.sl },
+  de: { B1: ABOVE_A2.de, B2: ABOVE_A2.de },
+  en: { B1: ABOVE_A2.en, B2: ABOVE_A2.en },
+  it: {
+    // the B1 talks (companion/scenarios/it: the broken kite, the stickers, the swing, the ankle, Lorenzo, the cat)
+    B1: {
+      hint: { sl: 'Mentre giocavo, è successa una cosa strana.', en: 'While I was playing, something strange happened.', de: 'Während ich gespielt habe, ist etwas Komisches passiert.', sl_base: 'Med igro se je zgodilo nekaj čudnega.' },
+      puzzled: { sl: 'Scusa, non ho capito bene. Me lo ripeti?', en: "Sorry, I didn't quite get that. Will you say it again?", de: 'Entschuldige, das habe ich nicht ganz verstanden. Sagst du es noch mal?', sl_base: 'Oprosti, ne razumem čisto. Mi ponoviš?' },
+      turns: [
+        { sl: 'Ah, capisco. E poi che cosa è successo?', en: 'Ah, I see. And then what happened?', de: 'Ah, verstehe. Und was ist dann passiert?', sl_base: 'Aha, razumem. Pa kaj se je zgodilo potem?' },
+        { sl: 'Davvero? Hai fatto bene a dirmelo.', en: 'Really? You were right to tell me.', de: 'Wirklich? Gut, dass du es mir sagst.', sl_base: 'Res? Prav je, da mi to poveš.' },
+        { sl: 'Va bene, allora facciamo così.', en: "All right, let's do it like that, then.", de: 'Gut, dann machen wir es so.', sl_base: 'Prav, potem naredimo tako.' },
+        { sl: 'Grazie mille! Ci vediamo presto!', en: 'Thanks a lot! See you soon!', de: 'Vielen Dank! Bis bald!', sl_base: 'Najlepša hvala! Se kmalu vidimo!' },
+      ],
+      correction: {
+        en: 'Si dice: **Mentre giocavo, è arrivato il temporale.** · the imperfetto for what was going on, the passato prossimo for what happened.',
+        de: 'Man sagt: **Mentre giocavo, è arrivato il temporale.** · das Imperfetto für das, was gerade lief, das Passato prossimo für das, was passiert ist.',
+        sl: 'Rečemo: **Mentre giocavo, è arrivato il temporale.** · imperfetto za to, kar je potekalo, passato prossimo za to, kar se je zgodilo.',
+      },
+      practise: '*mentre + imperfetto*, *vorrei*',
+    },
+    // the B2 talks (the cancelled train, the landslide, the smith's gate, the interview, the family doctor, Davide)
+    B2: {
+      hint: { sl: "Capisco, però credo che ci sia un'altra soluzione.", en: "I understand, but I think there's another solution.", de: 'Ich verstehe, aber ich glaube, es gibt eine andere Lösung.', sl_base: 'Razumem, a mislim, da obstaja druga rešitev.' },
+      puzzled: { sl: 'Temo di non aver capito bene. Ancora una volta?', en: "I'm afraid I didn't quite understand. Once more?", de: 'Ich fürchte, ich habe das nicht ganz verstanden. Noch einmal?', sl_base: 'Bojim se, da tega ne razumem čisto. Še enkrat?' },
+      turns: [
+        { sl: 'Capisco perfettamente. Mi dispiace che sia andata così.', en: "I understand completely. I'm sorry it turned out like that.", de: 'Das verstehe ich gut. Es tut mir leid, dass es so gelaufen ist.', sl_base: 'Popolnoma razumem. Žal mi je, da se je tako izteklo.' },
+        { sl: "Se l'avessimo saputo prima, avremmo trovato una soluzione.", en: "If we'd known earlier, we'd have found a solution.", de: 'Hätten wir das früher gewusst, hätten wir eine Lösung gefunden.', sl_base: 'Če bi to vedeli prej, bi našli rešitev.' },
+        { sl: 'Benché non sia facile, vediamo che cosa si può fare.', en: "Although it isn't easy, let's see what can be done.", de: 'Auch wenn es nicht leicht ist: Schauen wir, was sich machen lässt.', sl_base: 'Čeprav ni lahko, poglejmo, kaj se da narediti.' },
+        { sl: "D'accordo, allora restiamo così. Grazie e buona giornata!", en: "Agreed, that's settled, then. Thank you and have a good day!", de: 'Einverstanden, dann bleibt es dabei. Danke und einen schönen Tag!', sl_base: 'Dogovorjeno, potem ostane tako. Hvala in lep dan!' },
+      ],
+      correction: {
+        en: "Si dice: **Se l'avessi saputo, avrei preso il treno prima.** · an unreal past: se + the congiuntivo trapassato, then the condizionale passato.",
+        de: "Man sagt: **Se l'avessi saputo, avrei preso il treno prima.** · Für eine Vergangenheit, die nicht so war: se + Congiuntivo trapassato, dann Condizionale passato.",
+        sl: "Rečemo: **Se l'avessi saputo, avrei preso il treno prima.** · za preteklost, ki ni bila taka: se + congiuntivo trapassato, nato condizionale passato.",
+      },
+      practise: '*se avessi …, avrei …*, *penso che + congiuntivo*',
+    },
+  },
+}
 const DEBRIEF: Said = {
   en: '✅ You greeted politely.\n\n📌 Practise',
   de: '✅ Du hast höflich gegrüßt.\n\n📌 Übe',
@@ -155,13 +268,15 @@ async function courseLangs(): Promise<{ target: string; base: string }> {
 
 /**
  * A role-play's language: the scenario's own (its brief's language: an Italian role-play in Italian, whatever the course),
- * a visit's talk the visited town's (data.visit.language), any other the course's.
+ * a visit's talk the visited town's (data.visit.language), any other the course's. Its lines are the language's, a B1 or
+ * B2 one's at its level where the language has them (ROLEPLAY_LEVELS).
  */
-async function talkLangs(d: { scenario?: { language?: string }; visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
+async function talkLangs(d: { scenario?: { language?: string; level?: string }; visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
   const c = await courseLangs()
   const target = d.scenario?.language ?? d.visit?.language ?? c.target
   const base = c.base === target ? 'en' : c.base
-  return { lines: ROLEPLAY[target] ?? ROLEPLAY.sl, target, base }
+  const lines = ROLEPLAY[target] ?? ROLEPLAY.sl
+  return { lines: { ...lines, ...ROLEPLAY_LEVELS[target]?.[d.scenario?.level ?? ''] }, target, base }
 }
 
 /**
@@ -291,11 +406,19 @@ const eleven = fake
   : // QA must not spend the ElevenLabs quota; LANI_DEV_ELEVENLABS=1 allows it. Cached clips still play.
     { ELEVENLABS_API_KEY: process.env.LANI_DEV_ELEVENLABS === '1' ? (process.env.ELEVENLABS_API_KEY ?? '') : '' }
 
+// what QA's tutor turn looks up (bin/qa): words the lexicon has nothing on, one in each language's section
+const dictionary = fakeDictionary({
+  zlatoperka: { section: 'Slovene', text: 'a word of the fake dictionary (QA)' },
+  zibaldone: { section: 'Italian', text: 'a word of the fake dictionary (QA)' },
+  Schnickschnack: { section: 'German', text: 'a word of the fake dictionary (QA)', wortart: 'Substantiv' },
+  thingamajig: { section: 'English', text: 'a word of the fake dictionary (QA)' },
+})
+
 await client.connect(
   new StdioClientTransport({
     command: 'bun',
     args: [resolve(import.meta.dir, '../src/index.ts')],
-    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off', ...eleven } as Record<string, string>,
+    env: { ...process.env, LANI_DICTIONARY_SOURCE: dictionary.url, LANI_DICTIONARY_CACHE: join(dataDir, 'app', 'dictionary-cache'), LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off', ...eleven } as Record<string, string>,
     stderr: 'inherit',
   }),
 )

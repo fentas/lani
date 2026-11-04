@@ -150,6 +150,14 @@ class CasesController(
      */
     fun nouns(): List<CaseNoun> {
         val cards = content.dashboard?.pool.orEmpty().filter { it.kind == "vocabulary" }
+        // German's: the bridge's list of the learner's nouns (gender, plural), declined by German's rules
+        if (language == "de") {
+            val byId = cards.associateBy { it.id }
+            return bank?.learnerNouns.orEmpty().mapNotNull { n ->
+                val card = byId[n.card] ?: return@mapNotNull null
+                CaseTrainer.nounDe(n.lemma, n.gender, n.plural, si.lanisce.lani.data.ReviewPlanner.meaning(card.back), card = card.id)
+            }
+        }
         val out = mutableListOf<CaseNoun>()
         val seen = mutableSetOf<String>()
         for (c in cards) {
@@ -234,7 +242,7 @@ class CasesController(
             CaseAnswer(o.verdict, w, o.answer, ex?.let(CaseTrainer::expectedLine).orEmpty(), lookedUp = o.lookedUp != null)
         }
         why.clear()
-        val recorded = CaseTrainer.record(progress, tasks, answers, today)
+        val recorded = CaseTrainer.record(progress, tasks, answers, today, CaseTrainer.agreement(language))
         game.apply { it.copy(cases = recorded.progress) }
         val pool = pool()
         if (outs.isNotEmpty() && pool != null) {
@@ -242,7 +250,7 @@ class CasesController(
             val body = CaseTrainer.wire(pool, recorded, tasks, exercises, answers, mistakes, minutes, focus).let { b -> if (storm) JsonObject(b + ("storm" to kotlinx.serialization.json.JsonPrimitive(true))) else b }
             sync.submitLater(Writes.casesDone(body, summary(tasks, answers, focus), sessionData(body)))
         }
-        val stars = Case.entries.associateWith { CaseTrainer.stars(recorded.progress, CaseTrainer.caseKey(it)) }
+        val stars = si.lanisce.lani.data.CaseSets.current.cases.associateWith { CaseTrainer.stars(recorded.progress, CaseTrainer.caseKey(it)) }
         return CasesDone(answers.map { it.verdict }, tasks.take(answers.size), recorded.missed, stars)
     }
 
@@ -277,7 +285,8 @@ class CasesController(
             "${tasks[i].kind.wire} ${tasks[i].case.lexicon} (${tasks[i].rule}): \"${answers[i].answer.take(40)}\" for \"${answers[i].expected.take(40)}\""
         }
         val early = if (answers.size < tasks.size) " Left early after ${answers.size} of ${tasks.size}." else ""
-        return "Practised the cases (🧩 Skloni · Cases${focus?.let { ", focused on $it" }.orEmpty()}) in the app: $right/${answers.size} right" +
+        val trainer = if (language == "de") "🧩 Fälle · Cases, German" else "🧩 Skloni · Cases"
+        return "Practised the cases ($trainer${focus?.let { ", focused on $it" }.orEmpty()}) in the app: $right/${answers.size} right" +
             (if (almost > 0) ", $almost almost (the deciding word missed)" else "") + "." + (if (wrong.isNotEmpty()) " Wrong: $wrong." else "") + early +
             " Persist it with its data.cases.errors (lani-db-updater: skills grammar, and writing for the typed ones)."
     }

@@ -120,9 +120,8 @@ class GradingNonstandardTest {
         assertEquals(Triple(Verdict.CORRECT, "slowly", Hint.NONE), Triple(said.verdict, said.standard, said.hint))
     }
 
-    @Test fun `a table without the key is unchanged - only Slovene has none now, and it parses as before`() {
-        assertTrue(Spelling.of(Lang.SL).nonstandard.isEmpty())
-        assertFalse(File(tables, "sl.json").readText().contains("\"nonstandard\""))
+    @Test fun `Slovene's table has the one form people say, and a word of another language stays wrong`() {
+        assertEquals("the infinitive after a verb of going (GradingLanguagesTest)", 1, Spelling.of(Lang.SL).nonstandard.size)
         assertTrue("English has its table", Spelling.of(Lang.EN).nonstandard.isNotEmpty())
         // those languages' words for the same thing are simply wrong, or their slips, as before
         assertEquals(Verdict.WRONG, Grading.check("dobro", listOf("lepo"), Lang.SL).verdict)

@@ -207,6 +207,8 @@ programs' environments, so a process of another learner (`lani-profile`) never g
 | `LANI_BRIDGE_HOST` | `127.0.0.1` | Keep it: Tailscale Serve or your proxy is in front. |
 | `LANI_RELAY_URL` | off | The relay for towns and the family page without a node ([companion/README.md, "Through the relay"](../companion/README.md#through-the-relay)). Unset: nothing goes to a relay. |
 | `LANI_RELAY_FAMILY` | `relay` towns only | `on`: the family page goes through the relay too; `off`: never. |
+| `LANI_DICTIONARY_CONSENT` | empty | The hosts of the tutor's outside dictionaries the node has written consent for, comma-separated: `fran.si` ([tutor-reach.md](plans/05-built/tutor-reach.md)). |
+| `LANI_DICTIONARY_SOURCE` | the table's sites | `off`: the tutor's `dictionary_lookup` reads Lani's lexicon alone. |
 
 Other `LANI_*` settings (from [companion/README.md](../companion/README.md)) can go in the file too; the wizard keeps
 them. Secrets never go in `lani.env`: the ElevenLabs key belongs in `keys.env`.

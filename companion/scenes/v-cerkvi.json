@@ -4,7 +4,7 @@
   "title": { "sl": "V cerkvi", "en": "In the church", "de": "In der Kirche", "it": "In chiesa" },
   "emoji": "⛪",
   "level": "A1",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker; checked against Fran 2026-10-30: ob deset is spoken, accepted",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker; checked against Fran 2026-10-30: ob deset is spoken, accepted",
   "art": "church",
   "from": ["church"],
   "pack": "v-cerkvi",
@@ -29,13 +29,13 @@
   ],
   "happenings": [
     { "id": "roze", "title": { "sl": "Ančka nosi rože za nedeljo", "en": "Ančka brings flowers for Sunday", "de": "Ančka bringt Blumen für den Sonntag", "it": "Ančka porta i fiori per la domenica" }, "who": "ancka",
-      "when": ["morning"], "weekdays": [5, 6], "chance": 0.6, "dialog": "roze", "dialogs": ["roze-voda", "roze-ura", "roze"],"reward": { "wisdom": 15 }, "marker": "💐",
+      "when": ["morning"], "weekdays": [5, 6], "chance": 0.6, "dialog": "roze", "dialogs": ["roze-b2-trst", "roze-b1-oklici", "roze-voda", "roze-ura", "roze"],"reward": { "wisdom": 15 }, "marker": "💐",
       "memory": { "sl": "rože, ki sva jih {m:nesla|f:nesli} na oltar", "en": "the flowers we took to the altar", "de": "die Blumen, die wir zum Altar gebracht haben", "it": "i fiori che abbiamo portato all'altare" } },
     { "id": "poldne", "title": { "sl": "Tine zvoni poldne", "en": "Tine rings the noon bell", "de": "Tine läutet die Mittagsglocke", "it": "Tine suona la campana di mezzogiorno" }, "who": "tine",
       "when": ["afternoon"], "chance": 0.5, "dialog": "poldne", "dialogs": ["poldne-vrv", "poldne-sam", "poldne"],"reward": { "wisdom": 15 }, "marker": "🔔",
       "memory": { "sl": "poldne, ki sva ga zvonila skupaj", "en": "the noon bell we rang together", "de": "die Mittagsglocke, die wir zusammen geläutet haben", "it": "la campana di mezzogiorno che abbiamo suonato insieme" } },
     { "id": "sveca", "title": { "sl": "Babica Micka prižge svečo", "en": "Grandma Micka lights a candle", "de": "Oma Micka zündet eine Kerze an", "it": "Nonna Micka accende una candela" }, "who": "babica",
-      "when": ["evening"], "chance": 0.5, "dialog": "sveca", "dialogs": ["sveca-stejem", "sveca-veter", "sveca"],"reward": { "wisdom": 20 }, "marker": "🕯️",
+      "when": ["evening"], "chance": 0.5, "dialog": "sveca", "dialogs": ["sveca-b2-zvon", "sveca-b1-zala", "sveca-stejem", "sveca-veter", "sveca"],"reward": { "wisdom": 20 }, "marker": "🕯️",
       "memory": { "sl": "sveča, ki sva jo {m:prižgala|f:prižgali} v cerkvi", "en": "the candle we lit in the church", "de": "die Kerze, die wir in der Kirche angezündet haben", "it": "la candela che abbiamo acceso in chiesa" } }
   ],
   "dialogs": [
@@ -330,6 +330,673 @@
             "reply": { "face": "laugh", "sl": "Z vodo? Ojoj, voda ne gori!", "en": "With water? Oh dear, water doesn't burn!", "de": "Mit Wasser? Oje, Wasser brennt nicht!", "it": "Con l'acqua? Oddio, l'acqua non brucia!" } }
         ] },
         { "who": "babica", "sl": "Zdaj gori in vrata so zaprta. Hvala, {m:sinko|f:{learner}}.", "en": "Now it's burning and the door is shut. Thank you, {m:son|f:{learner}}.", "de": "Jetzt brennt sie, und die Tür ist zu. Danke, {m:mein Junge|f:{learner}}.", "it": "Adesso brucia e la porta è chiusa. Grazie, {m:figliolo|f:{learner}}." }
+      ]
+    },
+    {
+      "id": "roze-b1-oklici",
+      "level": "B1",
+      "months": [
+        4,
+        5,
+        6
+      ],
+      "memory": {
+        "sl": "dan, ko si mi {m:povedal|f:povedala}, kdaj bo poroka",
+        "en": "the day you told me when the wedding is",
+        "de": "den Tag, an dem du mir gesagt hast, wann die Hochzeit ist",
+        "it": "il giorno in cui mi hai detto quando sarà il matrimonio"
+      },
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "happy",
+          "sl": "{learner}! Župnik je v nedeljo bral oklice. Poroka bo! Ampak datuma nisem slišala. Ti veš?",
+          "en": "{learner}! On Sunday the priest read the banns. There's going to be a wedding! But I didn't hear the date. Do you know?",
+          "de": "{learner}! Am Sonntag hat der Pfarrer das Aufgebot verlesen. Es gibt eine Hochzeit! Aber das Datum habe ich nicht gehört. Weißt du es?",
+          "it": "{learner}! Domenica il parroco ha letto le pubblicazioni. Ci sarà un matrimonio! Ma la data non l'ho sentita. Tu la sai?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Poroka bo v soboto, štirinajstega junija.",
+              "en": "The wedding is on Saturday, the fourteenth of June.",
+              "de": "Die Hochzeit ist am Samstag, dem vierzehnten Juni.",
+              "it": "Il matrimonio è sabato, il quattordici giugno.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Štirinajstega! Kaj? Ja, ja, štirinajstega. Takoj si zapišem.",
+                "en": "The fourteenth! What? Yes, yes, the fourteenth. I'll write it down at once.",
+                "de": "Am vierzehnten! Was? Ja, ja, am vierzehnten. Ich schreib's mir gleich auf.",
+                "it": "Il quattordici! Cosa? Sì, sì, il quattordici. Me lo scrivo subito."
+              }
+            },
+            {
+              "sl": "Poroka bo v soboto, na štirinajsti junij.",
+              "en": "The wedding is on Saturday, onto the fourteenth of June.",
+              "de": "Die Hochzeit ist am Samstag, auf den vierzehnten Juni.",
+              "it": "Il matrimonio è sabato, sul quattordici giugno.",
+              "grammar": "cas-izrazi",
+              "why": {
+                "en": "On the date is the genitive, with no preposition: štirinajstega junija. Na štirinajsti junij is an English on in Slovene words.",
+                "de": "An einem Datum steht der Genitiv, ohne Präposition: štirinajstega junija. Na štirinajsti junij ist ein englisches on in slowenischen Wörtern.",
+                "it": "In una data si usa il genitivo, senza preposizione: štirinajstega junija. Na štirinajsti junij è un on inglese con parole slovene."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Na štirinajsti? Kaj? Na kateri? Glasneje!",
+                "en": "Onto the fourteenth? What? Onto which? Louder!",
+                "de": "Auf den vierzehnten? Was? Auf welchen? Lauter!",
+                "it": "Sul quattordici? Cosa? Su quale? Più forte!"
+              }
+            },
+            {
+              "sl": "Poroka bo v sobota, štirinajstega junija.",
+              "en": "The wedding is in Saturday (nominative), the fourteenth of June.",
+              "de": "Die Hochzeit ist in Samstag (Nominativ), am vierzehnten Juni.",
+              "it": "Il matrimonio è in sabato (nominativo), il quattordici giugno.",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "A day of the week takes v and the accusative: v soboto. Sobota is the nominative.",
+                "de": "Ein Wochentag steht mit v und dem Akkusativ: v soboto. Sobota ist der Nominativ.",
+                "it": "Un giorno della settimana vuole v e l'accusativo: v soboto. Sobota è il nominativo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Sobota? Ja, sobota je lep dan. Ampak kdaj? Glasneje!",
+                "en": "Saturday? Yes, Saturday's a nice day. But when? Louder!",
+                "de": "Samstag? Ja, Samstag ist ein schöner Tag. Aber wann? Lauter!",
+                "it": "Sabato? Sì, il sabato è un bel giorno. Ma quando? Più forte!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, {learner}! Orgle so glasne.",
+            "en": "What? Louder, {learner}! The organ's loud.",
+            "de": "Was? Lauter, {learner}! Die Orgel ist laut.",
+            "it": "Cosa? Più forte, {learner}! L'organo è forte."
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "curious",
+          "sl": "In kdo se poroči? Mislim, da sosedova hči. Ampak s kom?",
+          "en": "And who's getting married? The neighbour's daughter, I think. But to whom?",
+          "de": "Und wer heiratet? Die Tochter der Nachbarn, glaube ich. Aber wen?",
+          "it": "E chi si sposa? La figlia dei vicini, credo. Ma con chi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Z mladim mlinarjem iz doline, ki ima rdeč avto.",
+              "en": "To the young miller from the valley, the one with the red car.",
+              "de": "Mit dem jungen Müller aus dem Tal, der ein rotes Auto hat.",
+              "it": "Con il giovane mugnaio della valle, quello con la macchina rossa.",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "sl": "Z mlinarjem? Potem bo na poroki vsaj dovolj kruha!",
+                "en": "To the miller? Then at least there'll be enough bread at the wedding!",
+                "de": "Mit dem Müller? Dann gibt es auf der Hochzeit wenigstens genug Brot!",
+                "it": "Col mugnaio? Allora al matrimonio almeno il pane non mancherà!"
+              }
+            },
+            {
+              "sl": "Z mladim mlinarom iz doline, ki ima rdeč avto.",
+              "en": "To the young miller (wrong ending) from the valley, the one with the red car.",
+              "de": "Mit dem jungen Müller (falsche Endung) aus dem Tal, der ein rotes Auto hat.",
+              "it": "Con il giovane mugnaio (desinenza sbagliata) della valle, quello con la macchina rossa.",
+              "grammar": "sklanjatev-posebnosti",
+              "why": {
+                "en": "Mlinar grows a j before its endings (mlinar → mlinarja), and after the j the o of -om turns to e: z mlinarjem, the instrumental with z.",
+                "de": "Mlinar bekommt vor seinen Endungen ein j (mlinar → mlinarja), und nach dem j wird das o von -om zu e: z mlinarjem, der Instrumental mit z.",
+                "it": "Mlinar prende una j prima delle desinenze (mlinar → mlinarja), e dopo la j la o di -om diventa e: z mlinarjem, lo strumentale con z."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Z mlinarom? Kaj? Je to kakšen nov poklic? Glasneje!",
+                "en": "Mlinarom? What? Is that some new trade? Louder!",
+                "de": "Mlinarom? Was? Ist das ein neuer Beruf? Lauter!",
+                "it": "Mlinarom? Cosa? È un mestiere nuovo? Più forte!"
+              }
+            },
+            {
+              "sl": "Z mladim mlinarjom iz doline, ki ima rdeč avto.",
+              "en": "To the young miller (wrong ending) from the valley, the one with the red car.",
+              "de": "Mit dem jungen Müller (falsche Endung) aus dem Tal, der ein rotes Auto hat.",
+              "it": "Con il giovane mugnaio (desinenza sbagliata) della valle, quello con la macchina rossa.",
+              "grammar": "sklanjatev-posebnosti",
+              "why": {
+                "en": "After the j the o of an ending turns to e: the instrumental with z is z mlinarjem, never -jom.",
+                "de": "Nach dem j wird das o einer Endung zu e: der Instrumental mit z heißt z mlinarjem, nie -jom.",
+                "it": "Dopo la j la o di una desinenza diventa e: lo strumentale con z è z mlinarjem, mai -jom."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Mlinarjom? Hm. Moj radio tega ne bi tako rekel.",
+                "en": "Mlinarjom? Hm. My radio wouldn't put it like that.",
+                "de": "Mlinarjom? Hm. Mein Radio würde das nicht so sagen.",
+                "it": "Mlinarjom? Mm. La mia radio non lo direbbe così."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, {learner}! Orgle so glasne.",
+            "en": "What? Louder, {learner}! The organ's loud.",
+            "de": "Was? Lauter, {learner}! Die Orgel ist laut.",
+            "it": "Cosa? Più forte, {learner}! L'organo è forte."
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "proud",
+          "sl": "Hvala, {learner}! Do kosila bo vedela vsa vas. … Kaj? Saj sem tiho!",
+          "en": "Thank you, {learner}! The whole village will know by lunch. … What? I'm being quiet!",
+          "de": "Danke, {learner}! Bis zum Mittagessen weiß es das ganze Dorf. … Was? Ich bin doch still!",
+          "it": "Grazie, {learner}! Per pranzo lo saprà tutto il paese. … Cosa? Ma se sto zitta!"
+        }
+      ]
+    },
+    {
+      "id": "roze-b2-trst",
+      "level": "B2",
+      "memory": {
+        "sl": "fanta iz Trsta, o katerem sem ti pravila",
+        "en": "the lad from Trieste I told you about",
+        "de": "den Burschen aus Triest, von dem ich dir erzählt habe",
+        "it": "il ragazzo di Trieste di cui ti ho parlato"
+      },
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "thinking",
+          "sl": "Veš, {learner}, ko sem bila mlada, bi se bila skoraj poročila. S fantom iz Trsta.",
+          "en": "You know, {learner}, when I was young, I very nearly got married. To a lad from Trieste.",
+          "de": "Weißt du, {learner}, als ich jung war, hätte ich fast geheiratet. Einen Burschen aus Triest.",
+          "it": "Sai, {learner}, da giovane per poco non mi sposavo. Con un ragazzo di Trieste."
+        },
+        {
+          "who": "ancka",
+          "face": "laugh",
+          "sl": "Pa sem rekla ne. Kaj? Ja, ne! Bil je preveč tih. Jaz pa, veš, rada govorim.",
+          "en": "But I said no. What? Yes, no! He was too quiet. And I, you know, like to talk.",
+          "de": "Aber ich habe nein gesagt. Was? Ja, nein! Er war zu still. Und ich rede eben gern.",
+          "it": "Ma ho detto di no. Cosa? Sì, no! Era troppo silenzioso. E io, sai, parlo volentieri."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak mogoče bi se z vami naučil govoriti.",
+              "en": "Of course, but maybe with you he'd have learned to talk.",
+              "de": "Sicher, aber vielleicht hätte er bei Ihnen reden gelernt.",
+              "it": "Certo, ma forse con Lei avrebbe imparato a parlare.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Ali pa bi jaz utihnila. Tega pa ne!",
+                "en": "Ha! Or I'd have gone quiet. Not that!",
+                "de": "Ha! Oder ich wäre verstummt. Das nicht!",
+                "it": "Ah! O sarei diventata muta io. Questo no!"
+              }
+            },
+            {
+              "sl": "Potem ste naredili napako. V Trstu bi imeli morje.",
+              "en": "Then you made a mistake. In Trieste you'd have the sea.",
+              "de": "Dann haben Sie einen Fehler gemacht. In Triest hätten Sie das Meer.",
+              "it": "Allora ha sbagliato. A Trieste avrebbe il mare.",
+              "why": {
+                "en": "Ančka laughs about it and regrets nothing: answer in her spirit, not tell her she made a mistake.",
+                "de": "Ančka lacht darüber und bereut nichts: antworte in ihrem Sinn, statt ihr einen Fehler vorzuhalten.",
+                "it": "Ančka ci ride sopra e non rimpiange nulla: rispondi nel suo spirito, non dirle che ha sbagliato."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Napako? Kaj? Jaz? Nikoli! Morje imam po radiu vsak dan.",
+                "en": "A mistake? What? Me? Never! I get the sea on the radio every day.",
+                "de": "Einen Fehler? Was? Ich? Nie! Das Meer habe ich jeden Tag im Radio.",
+                "it": "Sbagliato? Cosa? Io? Mai! Il mare ce l'ho alla radio ogni giorno."
+              }
+            },
+            {
+              "sl": "Seveda, ampak mogoče bi se s tabo naučil govoriti.",
+              "en": "Of course, but maybe with you (ti) he'd have learned to talk.",
+              "de": "Sicher, aber vielleicht hätte er bei dir reden gelernt.",
+              "it": "Certo, ma forse con te avrebbe imparato a parlare.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Ančka says ti to you but expects vi back: z vami. S tabo is ti, for friends and children.",
+                "de": "Ančka sagt ti zu dir, erwartet aber vi: z vami. S tabo ist ti, für Freunde und Kinder.",
+                "it": "Ančka ti dà del ti ma si aspetta il vi: z vami. S tabo è il ti, per amici e bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "S tabo? Kaj? Tikaš teto? Ha, saj sem rekla, da slabo slišim!",
+                "en": "With you (ti)? What? Saying ti to your aunt? Ha, I did say I'm hard of hearing!",
+                "de": "Mit dir? Was? Du duzt die Tante? Ha, ich hab ja gesagt, dass ich schlecht höre!",
+                "it": "Con te? Cosa? Dai del tu alla zia? Ah, l'ho detto che ci sento poco!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim! Orgle so glasne.",
+            "en": "What? Louder, please! The organ's loud.",
+            "de": "Was? Lauter, bitte! Die Orgel ist laut.",
+            "it": "Cosa? Più forte, per favore! L'organo è forte."
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "curious",
+          "sl": "Zdaj pa mi pomagaj. Stare rože so vse suhe. Kam z njimi?",
+          "en": "Now give me a hand. The old flowers are all dry. Where shall they go?",
+          "de": "Jetzt hilf mir. Die alten Blumen sind ganz trocken. Wohin damit?",
+          "it": "Adesso aiutami. I fiori vecchi sono tutti secchi. Dove li mettiamo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Te ovenele rože nesem na kompost?",
+              "en": "Shall I take these wilted flowers to the compost?",
+              "de": "Soll ich die verwelkten Blumen auf den Kompost bringen?",
+              "it": "Porto questi fiori appassiti sul compost?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ja, na kompost. Nove so že v vedru pri vratih.",
+                "en": "Yes, to the compost. The new ones are already in the bucket by the door.",
+                "de": "Ja, auf den Kompost. Die neuen sind schon im Eimer an der Tür.",
+                "it": "Sì, sul compost. Quelli nuovi sono già nel secchio vicino alla porta."
+              }
+            },
+            {
+              "sl": "Te ovenjene rože nesem na kompost?",
+              "en": "Shall I take these wilted-by-someone (wrong participle) flowers to the compost?",
+              "de": "Soll ich die von jemandem verwelkten (falsches Partizip) Blumen auf den Kompost bringen?",
+              "it": "Porto questi fiori appassiti da qualcuno (participio sbagliato) sul compost?",
+              "grammar": "delezniki",
+              "why": {
+                "en": "Oveneti (to wilt) needs no one to do it: its participle is the past l-form, ovenele rože. A participle in -en is for what someone did to it.",
+                "de": "Oveneti (verwelken) braucht niemanden, der es tut: sein Partizip ist die l-Form, ovenele rože. Ein Partizip auf -en ist für das, was jemand damit gemacht hat.",
+                "it": "Oveneti (appassire) non ha bisogno di nessuno che lo faccia: il suo participio è la forma in -l, ovenele rože. Un participio in -en è per ciò che qualcuno ci ha fatto."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ovenjene? Kaj? Kdo jih je pa venil? Jaz že ne!",
+                "en": "Wilted by whom? What? Who did that to them? Not me!",
+                "de": "Verwelkt von wem? Was? Wer hat ihnen das angetan? Ich nicht!",
+                "it": "Appassiti da chi? Cosa? Chi gliel'ha fatto? Io no!"
+              }
+            },
+            {
+              "sl": "Te ovenele rože nesem na kompostu?",
+              "en": "Shall I take these wilted flowers on the compost (locative)?",
+              "de": "Soll ich die verwelkten Blumen auf dem Kompost (Lokativ) bringen?",
+              "it": "Porto questi fiori appassiti sopra il compost (locativo)?",
+              "grammar": "kam-tozilnik",
+              "why": {
+                "en": "Where to: na and the accusative, na kompost. Na kompostu (locative) is where they already are.",
+                "de": "Wohin: na und der Akkusativ, na kompost. Na kompostu (Lokativ) ist, wo sie schon sind.",
+                "it": "Dove (moto): na e l'accusativo, na kompost. Na kompostu (locativo) è dove sono già."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Na kompostu? Saj so še tukaj, v cerkvi!",
+                "en": "On the compost? But they're still here, in the church!",
+                "de": "Auf dem Komposthaufen? Die sind doch noch hier, in der Kirche!",
+                "it": "Sul compost? Ma sono ancora qui, in chiesa!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim! Orgle so glasne.",
+            "en": "What? Louder, please! The organ's loud.",
+            "de": "Was? Lauter, bitte! Die Orgel ist laut.",
+            "it": "Cosa? Più forte, per favore! L'organo è forte."
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "happy",
+          "sl": "Hvala, {learner}. In nikomur ne povej za tistega fanta iz Trsta. … No, saj vsi že vedo.",
+          "en": "Thank you, {learner}. And don't tell anyone about that lad from Trieste. … Well, everyone knows already.",
+          "de": "Danke, {learner}. Und erzähl niemandem von dem Burschen aus Triest. … Na, es wissen ja schon alle.",
+          "it": "Grazie, {learner}. E non dire a nessuno di quel ragazzo di Trieste. … Be', lo sanno già tutti."
+        }
+      ]
+    },
+    {
+      "id": "sveca-b1-zala",
+      "level": "B1",
+      "memory": {
+        "sl": "svečo, ki sva jo {m:prižgala|f:prižgali} za Zalo",
+        "en": "the candle we lit for Zala",
+        "de": "die Kerze, die wir für Zala angezündet haben",
+        "it": "la candela che abbiamo acceso per Zala"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "worried",
+          "sl": "{learner}, pridi, pridi. To svečo prižgem za Zalo. Jutri ima v šoli test iz računanja.",
+          "en": "{learner}, come, come. I'm lighting this candle for Zala. Tomorrow she has a maths test at school.",
+          "de": "{learner}, komm, komm. Diese Kerze zünde ich für Zala an. Morgen hat sie in der Schule eine Rechenprobe.",
+          "it": "{learner}, vieni, vieni. Questa candela la accendo per Zala. Domani ha un compito di matematica a scuola."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Naj vas ne skrbi, Zala je pametna in pridna.",
+              "en": "Don't let it worry you, Zala is clever and hard-working.",
+              "de": "Machen Sie sich keine Sorgen, Zala ist klug und fleißig.",
+              "it": "Non si preoccupi, Zala è intelligente e diligente.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav imaš. Pa vseeno prižgem še eno, za vsak primer.",
+                "en": "You're right. But I'll light one more all the same, just in case.",
+                "de": "Recht hast du. Aber ich zünde trotzdem noch eine an, für alle Fälle.",
+                "it": "Hai ragione. Ma ne accendo un'altra lo stesso, non si sa mai."
+              }
+            },
+            {
+              "sl": "Naj vam ne skrbi, Zala je pametna in pridna.",
+              "en": "Don't let it worry to you (dative), Zala is clever and hard-working.",
+              "de": "Es soll Ihnen (Dativ) keine Sorgen machen, Zala ist klug und fleißig.",
+              "it": "Non si preoccupi (con il dativo), Zala è intelligente e diligente.",
+              "grammar": "custva",
+              "why": {
+                "en": "Skrbi (it worries) takes the accusative of who is worried: naj vas ne skrbi, as skrbi me. Vam is the dative.",
+                "de": "Skrbi (es macht Sorgen) verlangt den Akkusativ dessen, der sich sorgt: naj vas ne skrbi, wie skrbi me. Vam ist der Dativ.",
+                "it": "Skrbi (preoccupa) vuole l'accusativo di chi si preoccupa: naj vas ne skrbi, come skrbi me. Vam è il dativo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Vam? … Hm, kako že? Stara sem, besede mi bežijo.",
+                "en": "Vam? … Hm, how does it go? I'm old, the words run away from me.",
+                "de": "Vam? … Hm, wie war das? Ich bin alt, die Wörter laufen mir davon.",
+                "it": "Vam? … Mm, com'era? Sono vecchia, le parole mi scappano."
+              }
+            },
+            {
+              "sl": "Naj vas ne skrbite, Zala je pametna in pridna.",
+              "en": "Don't you (vi) worry you, Zala is clever and hard-working.",
+              "de": "Sie sollen sich nicht sorgen Sie (vi), Zala ist klug und fleißig.",
+              "it": "Non La preoccupi Lei (vi), Zala è intelligente e diligente.",
+              "grammar": "custva",
+              "why": {
+                "en": "Skrbi has no subject: the verb stays in the third person, naj vas ne skrbi, and you are in the accusative.",
+                "de": "Skrbi hat kein Subjekt: das Verb bleibt in der dritten Person, naj vas ne skrbi, und du stehst im Akkusativ.",
+                "it": "Skrbi non ha soggetto: il verbo resta alla terza persona, naj vas ne skrbi, e tu vai all'accusativo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Skrbite? Jaz ne skrbim, jaz molim, {learner}!",
+                "en": "Worry? I'm not worrying, I'm praying, {learner}!",
+                "de": "Sorgen? Ich sorge mich nicht, ich bete, {learner}!",
+                "it": "Preoccuparmi? Io non mi preoccupo, io prego, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo il filo."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "thinking",
+          "sl": "Ko sem bila jaz v šoli, sem pri računanju vedno jokala. Kaj bi ti {m:naredil|f:naredila}, če bi te bilo strah testa?",
+          "en": "When I was at school, I always cried over sums. What would you do if you were afraid of a test?",
+          "de": "Als ich in der Schule war, habe ich beim Rechnen immer geweint. Was würdest du tun, wenn du Angst vor einer Probe hättest?",
+          "it": "Quando andavo a scuola io, coi conti piangevo sempre. Tu cosa faresti, se avessi paura di un compito?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi me bilo strah, bi {m:pojedel|f:pojedla} kos vaše potice.",
+              "en": "If I were scared, I'd eat a piece of your potica.",
+              "de": "Wenn ich Angst hätte, würde ich ein Stück von Ihrer Potica essen.",
+              "it": "Se avessi paura, mangerei una fetta della Sua potica.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! To je najboljše zdravilo. Jutri jo spečem za Zalo.",
+                "en": "Ha! That's the best medicine. Tomorrow I'll bake one for Zala.",
+                "de": "Ha! Das ist die beste Medizin. Morgen backe ich eine für Zala.",
+                "it": "Ah! È la medicina migliore. Domani ne faccio una per Zala."
+              }
+            },
+            {
+              "sl": "Če me bo strah, bi {m:pojedel|f:pojedla} kos vaše potice.",
+              "en": "If I will be scared, I'd eat a piece of your potica.",
+              "de": "Wenn ich Angst haben werde, würde ich ein Stück von Ihrer Potica essen.",
+              "it": "Se avrò paura, mangerei una fetta della Sua potica.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "An imagined condition takes the conditional in both halves: če bi me bilo strah, bi … Bo is the future.",
+                "de": "Eine nur gedachte Bedingung verlangt den Konditional in beiden Hälften: če bi me bilo strah, bi … Bo ist das Futur.",
+                "it": "Una condizione solo immaginata vuole il condizionale in tutte e due le parti: če bi me bilo strah, bi … Bo è il futuro."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bo? Kdaj bo? … Joj, zdaj sem se pa jaz zmedla.",
+                "en": "Will? When will it? … Oh dear, now I'm the one muddled.",
+                "de": "Wird? Wann denn? … Ach je, jetzt bin ich durcheinander.",
+                "it": "Avrò? Quando? … Oddio, adesso mi sono confusa io."
+              }
+            },
+            {
+              "sl": "Če bi me bilo strah, bi {m:pojedel|f:pojedla} kos vašo potico.",
+              "en": "If I were scared, I'd eat a piece your potica (accusative).",
+              "de": "Wenn ich Angst hätte, würde ich ein Stück Ihre Potica (Akkusativ) essen.",
+              "it": "Se avessi paura, mangerei una fetta la Sua potica (accusativo).",
+              "grammar": "rodilnik-kolicina",
+              "why": {
+                "en": "Kos (a piece of) is an amount: what it is a piece of goes into the genitive, kos vaše potice.",
+                "de": "Kos (ein Stück) ist eine Menge: wovon es ein Stück ist, steht im Genitiv, kos vaše potice.",
+                "it": "Kos (un pezzo di) è una quantità: ciò di cui è un pezzo va al genitivo, kos vaše potice."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Kos vašo? Hm, pojej kar celo, pa ne bo težav z besedami!",
+                "en": "A piece your? Hm, just eat the whole one, then there's no trouble with words!",
+                "de": "Ein Stück Ihre? Hm, iss gleich die ganze, dann gibt's keinen Ärger mit den Wörtern!",
+                "it": "Una fetta la Sua? Mm, mangiala tutta, così niente guai con le parole!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo il filo."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Pridi jutri na potico, {learner}. Ko je trebuh poln, je tudi glava pametnejša.",
+          "en": "Come round for potica tomorrow, {learner}. When the belly's full, the head is cleverer too.",
+          "de": "Komm morgen auf eine Potica, {learner}. Ist der Bauch voll, ist auch der Kopf klüger.",
+          "it": "Vieni domani a mangiare la potica, {learner}. Con la pancia piena, anche la testa è più sveglia."
+        }
+      ]
+    },
+    {
+      "id": "sveca-b2-zvon",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o zvonu, ki so ga odpeljali v vojno",
+        "en": "the story of the bell they took away to the war",
+        "de": "die Geschichte von der Glocke, die sie in den Krieg mitnahmen",
+        "it": "la storia della campana portata via per la guerra"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "thinking",
+          "sl": "{learner}, pridi, pridi. Slišiš, kako je tiho? … Moja babica je pravila, da je bilo med prvo vojno v naši stari fari še bolj tiho.",
+          "en": "{learner}, come, come. Do you hear how quiet it is? … My grandmother used to say it was even quieter in our old parish during the First World War.",
+          "de": "{learner}, komm, komm. Hörst du, wie still es ist? … Meine Großmutter erzählte, im Ersten Weltkrieg war es in unserer alten Pfarre noch stiller.",
+          "it": "{learner}, vieni, vieni. Senti com'è silenzioso? … Mia nonna raccontava che durante la Prima guerra mondiale nella nostra vecchia parrocchia era ancora più silenzioso."
+        },
+        {
+          "who": "babica",
+          "face": "sad",
+          "sl": "Avstrijci so namreč odpeljali zvon. Iz zvonov so lili topove za fronto na Soči.",
+          "en": "You see, the Austrians took the bell away. They cast cannons from bells for the front on the Soča.",
+          "de": "Die Österreicher haben nämlich die Glocke weggebracht. Aus Glocken haben sie Kanonen für die Front am Isonzo gegossen.",
+          "it": "Gli austriaci infatti portarono via la campana. Con le campane fondevano cannoni per il fronte dell'Isonzo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kako žalostno. Brez zvona je bila vas gotovo kot brez glasu.",
+              "en": "How sad. Without its bell the village must have been as if without a voice.",
+              "de": "Wie traurig. Ohne Glocke war das Dorf sicher wie ohne Stimme.",
+              "it": "Che tristezza. Senza campana il paese sarà stato come senza voce.",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Tako je pravila babica. Kot brez glasu.",
+                "en": "That's what my grandmother said. As if without a voice.",
+                "de": "So hat es Großmutter gesagt. Wie ohne Stimme.",
+                "it": "Così diceva la nonna. Come senza voce."
+              }
+            },
+            {
+              "sl": "Kako žalostno. Brez zvona je bila vas gotovo kot brez glas.",
+              "en": "How sad. Without its bell the village must have been as if without a voice (nominative).",
+              "de": "Wie traurig. Ohne Glocke war das Dorf sicher wie ohne Stimme (Nominativ).",
+              "it": "Che tristezza. Senza campana il paese sarà stato come senza voce (nominativo).",
+              "grammar": "rodilnik-predlogi",
+              "why": {
+                "en": "Brez (without) takes the genitive: brez glasu, as brez zvona. Glas is the nominative.",
+                "de": "Brez (ohne) verlangt den Genitiv: brez glasu, wie brez zvona. Glas ist der Nominativ.",
+                "it": "Brez (senza) vuole il genitivo: brez glasu, come brez zvona. Glas è il nominativo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Brez glas? … Hm, zdaj pa jaz izgubljam besede.",
+                "en": "Without voice (nominative)? … Hm, now I'm the one losing words.",
+                "de": "Ohne Stimme (Nominativ)? … Hm, jetzt verliere ich die Wörter.",
+                "it": "Senza voce (nominativo)? … Mm, adesso sono io a perdere le parole."
+              }
+            },
+            {
+              "sl": "Saj je bil samo kos brona.",
+              "en": "But it was only a lump of bronze.",
+              "de": "Es war doch nur ein Stück Bronze.",
+              "it": "Ma era solo un pezzo di bronzo.",
+              "why": {
+                "en": "Micka is telling a grief her grandmother carried: answer with feeling, not that a bell is only metal.",
+                "de": "Micka erzählt von einem Kummer, den ihre Großmutter trug: antworte mit Gefühl, nicht dass eine Glocke nur Metall ist.",
+                "it": "Micka racconta un dolore che portava sua nonna: rispondi con sentimento, non che una campana è solo metallo."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Samo bron? … Joj, {learner}, zvon ima dušo, veš.",
+                "en": "Only bronze? … Oh, {learner}, a bell has a soul, you know.",
+                "de": "Nur Bronze? … Ach, {learner}, eine Glocke hat eine Seele, weißt du.",
+                "it": "Solo bronzo? … Oh, {learner}, una campana ha un'anima, sai."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo il filo."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "thinking",
+          "sl": "Babica je imela takrat deset let. Rekla je, da je zvon zadnjič zazvonil, ko so ga nalagali na voz.",
+          "en": "Grandmother was ten then. She said the bell rang one last time as they were loading it onto the cart.",
+          "de": "Großmutter war damals zehn. Sie sagte, die Glocke hat ein letztes Mal geläutet, als man sie auf den Wagen lud.",
+          "it": "La nonna allora aveva dieci anni. Diceva che la campana suonò un'ultima volta mentre la caricavano sul carro."
+        },
+        {
+          "choices": [
+            {
+              "sl": "In ko se je vojna končala, so ga bili že pretopili?",
+              "en": "And when the war ended, they had already melted it down?",
+              "de": "Und als der Krieg zu Ende war, hatten sie sie schon eingeschmolzen?",
+              "it": "E quando la guerra finì, l'avevano già fusa?",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Že, ja. Potem so zbrali denar za novega. Vsaka hiša je dala, kar je imela.",
+                "en": "Already, yes. Then they collected money for a new one. Every house gave what it had.",
+                "de": "Schon, ja. Dann haben sie Geld für eine neue gesammelt. Jedes Haus gab, was es hatte.",
+                "it": "Sì, già. Poi raccolsero i soldi per una nuova. Ogni casa diede quello che aveva."
+              }
+            },
+            {
+              "sl": "In ko se je vojna končala, ga bodo že pretopili?",
+              "en": "And when the war ended, they will already melt it down?",
+              "de": "Und als der Krieg zu Ende war, werden sie sie schon einschmelzen?",
+              "it": "E quando la guerra finì, la fonderanno già?",
+              "grammar": "predpreteklik",
+              "why": {
+                "en": "It was done before the end of the war, in the past: so ga bili že pretopili (or so ga že pretopili), the past before the past. Bodo is the future.",
+                "de": "Es geschah vor dem Kriegsende, in der Vergangenheit: so ga bili že pretopili (oder so ga že pretopili), die Vorvergangenheit. Bodo ist das Futur.",
+                "it": "Fu fatto prima della fine della guerra, nel passato: so ga bili že pretopili (o so ga že pretopili), il trapassato. Bodo è il futuro."
+              },
+              "reply": {
+                "face": "worried",
+                "sl": "Bodo? Joj, upam, da nihče več ne bo topil zvonov!",
+                "en": "Will? Oh dear, I hope nobody will ever melt bells again!",
+                "de": "Werden? Ach je, hoffentlich schmilzt nie wieder jemand Glocken ein!",
+                "it": "Fonderanno? Oddio, spero che nessuno fonda mai più le campane!"
+              }
+            },
+            {
+              "sl": "In ko se je vojna končala, so ga bili že pretopil?",
+              "en": "And when the war ended, they had already he-melted (singular) it down?",
+              "de": "Und als der Krieg zu Ende war, hatten sie sie schon eingeschmolzen (Singular)?",
+              "it": "E quando la guerra finì, l'avevano già fuso (singolare)?",
+              "grammar": "pretekli-cas",
+              "why": {
+                "en": "The l-form agrees with its subject: they (so) take the plural, so ga bili pretopili. Pretopil is one man.",
+                "de": "Die l-Form richtet sich nach dem Subjekt: sie (so) verlangen den Plural, so ga bili pretopili. Pretopil ist ein einzelner Mann.",
+                "it": "La forma in -l concorda col soggetto: loro (so) vogliono il plurale, so ga bili pretopili. Pretopil è un uomo solo."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Pretopil? Kdo, en sam vojak? Joj, kakšen močan fant!",
+                "en": "One man melted it? A single soldier? My, what a strong lad!",
+                "de": "Einer hat sie eingeschmolzen? Ein einziger Soldat? Mein Gott, was für ein starker Kerl!",
+                "it": "L'ha fusa uno solo? Un soldato? Mamma mia, che ragazzo forte!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo il filo."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Zato imam tako rada naš novi zvon. Kadar zazvoni, se spomnim na babico.",
+          "en": "That's why I love our new bell so much. Whenever it rings, I think of my grandmother.",
+          "de": "Darum habe ich unsere neue Glocke so gern. Immer wenn sie läutet, denke ich an meine Großmutter.",
+          "it": "Per questo voglio così bene alla nostra campana nuova. Quando suona, penso alla nonna."
+        }
       ]
     }
   ]

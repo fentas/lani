@@ -102,6 +102,17 @@ class ItalianHintTest {
         assertNull(hint("Gioca con noi.", "presente-regolare", "Giochi con noi.").trigger)
     }
 
+    @Test fun `a name of the cast is who does it at a sentence's start, and the one spoken to`() {
+        fun cast(right: String, page: String, bad: String) =
+            TurnHints.of(DialogLine(choices = listOf(DialogChoice(right, ok = true), wrong(bad, page))), "it", listOf("Giulia", "Nonna Rosa"), this.page)!!
+        // without the cast a word at the start may be Adesso: nothing named
+        assertNull(hint("Giulia dorme sul prato.", "presente-regolare", "Giulia dormo sul prato.").trigger)
+        assertEquals(Trigger.Cue("Giulia", 0, Trigger.Cue.Kind.WHO), cast("Giulia dorme sul prato.", "presente-regolare", "Giulia dormo sul prato.").trigger)
+        assertEquals("Giulia", cast("Giulia è stanca.", "aggettivi-accordo", "Giulia è stanco.").trigger!!.word)
+        assertEquals("Giulia", cast("Giulia, vieni qui!", "imperativo", "Giulia, venite qui!").trigger!!.word)
+        assertEquals("talking to «Giulia»", line(cast("Giulia, vieni qui!", "imperativo", "Giulia, venite qui!"))[0])
+    }
+
     @Test fun `essere or avere, by the participle, a feeling, a reflexive verb, and the participle after its helper`() {
         assertEquals("scelto", hint("Hai scelto un posto piano, nonno.", "passato-prossimo", "Sei scelto un posto piano, nonno.").trigger!!.word)
         assertEquals("with «scelto»: its verb decides, essere or avere", line(hint("Hai scelto un posto piano, nonno.", "passato-prossimo", "Sei scelto un posto piano, nonno."))[0])
@@ -250,6 +261,21 @@ class ItalianHintTest {
         assertTrue("turns with a hint: $hints", hints > 900)
         assertTrue("$said of $hints hints say more than the link", said * 100 >= hints * 95)
         assertTrue("$triggered of $formTurns form turns name what decides their form", triggered * 100 >= formTurns * 45)
+    }
+
+    @Test fun `what the cast adds on the curated Italian turns`() {
+        val root = listOf(File("../.."), File(".."), File("companion")).first { File(it, "cultures").isDirectory }
+        val friuli = File(root, "cultures/friuli")
+        val villagers = File(friuli, "villagers").listFiles { f -> f.extension == "json" }.orEmpty()
+            .mapNotNull { (json.parseToJsonElement(it.readText()) as? JsonObject)?.let { o -> str(o, "name") } }
+        val cast = (villagers + File(friuli, "scenes").listFiles { f -> f.extension == "json" }.orEmpty().flatMap { parseScene(it.readText()).people.map { p -> p.name } }).distinct()
+        val changed = curatedTurns().mapNotNull { (_, line) ->
+            val h = TurnHints.of(line, "it", cast, page) ?: return@mapNotNull null
+            val before = TurnHints.of(line, "it", page)?.trigger
+            if (h.trigger != before) "${line.choices.firstOrNull { it.ok }?.sl} | ${before?.word} → ${TurnHints.text(h, page).lines.firstOrNull()}" else null
+        }
+        File("build/reports/hints").apply { mkdirs() }.resolve("it-cast.txt").writeText(changed.sorted().joinToString("\n") + "\n")
+        println("Italian: the cast changes what decides at ${changed.size} turns")
     }
 
     @Test fun `over the curated Italian turns the 🔊 says something short, the Italian marked`() {

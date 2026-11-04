@@ -60,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.Exercise
+import si.lanisce.lani.data.Grading
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.Hints
 import si.lanisce.lani.data.Recognizer
@@ -133,14 +134,15 @@ internal data class SpeakRound(
         val b = SpeechGrading.bestOf(attempts) ?: return this
         val r = b.result
         val marks = if (r.verdict == Verdict.CORRECT) emptyList() else r.marks.ifEmpty { SpeechGrading.differingWords(r.expected, b.text) }
-        return copy(result = Outcome(r.verdict, b.text, r.expected, ex.explain, marks = marks, hint = r.hint, spoken = true, hints = hints))
+        val standard = r.expected.takeIf { r.hint == Grading.Hint.SPOKEN }
+        return copy(result = Outcome(r.verdict, b.text, r.expected, ex.explain, marks = marks, hint = r.hint, spoken = true, hints = hints, standard = standard))
     }
 
     /** No recognizer: the learner [said] it right, or is still practising. */
     fun rate(said: Boolean): SpeakRound = if (result != null) this else copy(
         rated = true,
-        result = if (said) Outcome(Verdict.CORRECT, "self-rated: said it", ex.say, ex.explain, hints = hints)
-        else Outcome(Verdict.WRONG, "self-rated: still practising", ex.say, ex.explain, hints = hints),
+        result = if (said) Outcome(Verdict.CORRECT, "self-rated: said it", ex.say, ex.explain, hints = hints, rated = true)
+        else Outcome(Verdict.WRONG, "self-rated: still practising", ex.say, ex.explain, hints = hints, rated = true),
     )
 }
 
@@ -159,6 +161,15 @@ private class SpeakState(ex: Exercise.Speak, noMic: NoMic?, server: Boolean) {
 }
 
 /**
+ * How a speak exercise's takes are graded: the recognizer's [alternatives] (the most likely first) with their
+ * [confidences] (null: none reported), the best of them. A module's: against its answers ([SpeechGrading.best]); a unit's
+ * speaking item's by its own rules ([si.lanisce.lani.data.Production.heard]).
+ */
+internal fun interface SpeechGrader {
+    fun best(alternatives: List<String>, confidences: FloatArray?): SpeechGrading.Heard?
+}
+
+/**
  * Say it out loud: the learner reads the prompt, may hear the model, taps 🎤 and speaks.
  * In-app [SpeechRecognizer] first (needs the microphone permission), then the system's voice
  * dialog. When the phone can't take Slovene, or the learner picks "Natančneje · More accurate",
@@ -167,7 +178,19 @@ private class SpeakState(ex: Exercise.Speak, noMic: NoMic?, server: Boolean) {
  * aloud; after a miss, the learner may say it again correctly, just for practice ([SpeakRound]).
  */
 @Composable
-fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcome) -> Unit) {
+fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcome) -> Unit) =
+    SpeakEx(vm, ex, locked, done, remember(ex) { SpeechGrader { a, c -> SpeechGrading.best(a, c, ex.answers()) } })
+
+/**
+ * [SpeakEx] with its takes graded by [grader]; [steer]: what the node's recognizer is told to expect (the model; for an
+ * open answer not the model, which it would hear), [asked] under the prompt (what the teacher asks), [ratedNote] by the
+ * learner's own rating (it doesn't count in a test).
+ */
+@Composable
+internal fun SpeakEx(
+    vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcome) -> Unit, grader: SpeechGrader,
+    steer: String? = ex.say, asked: (@Composable () -> Unit)? = null, ratedNote: String? = null,
+) {
     val context = LocalContext.current
     val rec = vm.recognizer
     val node = rememberNodeMic(vm)
@@ -202,7 +225,7 @@ fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcom
     fun heard(alternatives: List<String>, confidences: FloatArray?) {
         st.listening = false
         st.partial = ""
-        val h = SpeechGrading.best(alternatives, confidences, ex.answers())
+        val h = grader.best(alternatives, confidences)
         if (h == null) {
             st.message = "🤔 ${bi("common.iDidntCatchTap")}"
             return
@@ -215,7 +238,9 @@ fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcom
     /** What the node's Whisper heard: graded the same way, with its unsure words as a pronunciation hint. */
     fun nodeHeard(r: SttResult?, failed: String?) {
         st.listening = false
-        val h = r?.let { SttSpeech.heard(it, ex.answers()) }
+        val h = r?.takeIf { it.text.isNotBlank() }?.let { rr ->
+            grader.best(listOf(rr.text), SttSpeech.confidence(rr)?.let { floatArrayOf(it) })?.let { it.copy(unclear = SttSpeech.unclear(rr, it.result.expected)) }
+        }
         if (h == null) {
             st.message = failed ?: NodeMic.NOT_HEARD
             if (vm.stt.available == false && phone) st.server = false // node down: back to the phone
@@ -286,7 +311,7 @@ fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcom
         when {
             st.server && micAllowed(context) -> {
                 st.listening = true
-                node.start(ex.say, ::nodeHeard)
+                node.start(steer, ::nodeHeard)
             }
             st.server && !st.denied -> st.asking = true
             st.server -> st.noMic = NoMic.NO_PERMISSION
@@ -339,6 +364,10 @@ fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcom
     val shown = remember(ex.prompt) { inlineMarkdown(ex.prompt) }
     ExText(shown, remember(shown, look) { look?.taps?.prompt(shown.text, shown.emphasized()).orEmpty() }, style = MaterialTheme.typography.headlineSmall, tag = "prompt")
     look?.let { WordTip(it) }
+    asked?.let {
+        Spacer(Modifier.height(12.dp))
+        it()
+    }
     Spacer(Modifier.height(16.dp))
     if (ex.show || st.revealed || locked) Model(vm, ex.say, autoplay = !ex.show) {
         // After a miss, saying it again right under the model: optional, the feedback's "Naprej" moves on.
@@ -354,7 +383,7 @@ fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcom
 
     val noMic = st.noMic
     when {
-        noMic != null -> SelfRate(vm, ex, noMic, st) { said -> update(st.round.rate(said)) }
+        noMic != null -> SelfRate(vm, ex, noMic, st, ratedNote) { said -> update(st.round.rate(said)) }
         st.asking -> rationale()
         else -> {
             MicButton(st.listening && !node.thinking, if (st.server) node.level else st.level, onClick = ::mic)
@@ -551,7 +580,7 @@ private fun Rationale(node: Boolean, onAllow: () -> Unit, onNotNow: () -> Unit) 
 
 /** No usable recognizer: say it anyway, compare with the model, and rate yourself ([rate]: said it right). */
 @Composable
-private fun SelfRate(vm: AppViewModel, ex: Exercise.Speak, why: NoMic, st: SpeakState, rate: (Boolean) -> Unit) {
+private fun SelfRate(vm: AppViewModel, ex: Exercise.Speak, why: NoMic, st: SpeakState, note: String?, rate: (Boolean) -> Unit) {
     val context = LocalContext.current
     val reason = when (why) {
         NoMic.CHOSEN -> null
@@ -563,6 +592,7 @@ private fun SelfRate(vm: AppViewModel, ex: Exercise.Speak, why: NoMic, st: Speak
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             reason?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
             Text(bi("speakExercise.sayOutLoudThen"), style = MaterialTheme.typography.titleSmall)
+            note?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             Row {
                 when (why) {
                     NoMic.NO_SLOVENE -> {

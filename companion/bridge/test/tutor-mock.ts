@@ -22,6 +22,7 @@
 // 3. after the reply: a short text (end_turn);
 // 4. a closing call (the last user message says [notebook_write]): notebook_write (tool_use), then end_turn.
 // Markers in the turn's first user message act once per distinct message, so the app's retry then succeeds:
+// [mock:reach]: dictionary_lookup and chat_history in the turn's first call;
 // [mock:429] (retry-after: 1), [mock:529], [mock:500], [mock:refusal] (stop_reason refusal, stop_details),
 // [mock:max_tokens] (a text cut off), [mock:stream-error] (message_start, then an error event), [mock:no-reply] (the
 // answer as text, end_turn, no reply call); [mock:credit] (a 400: the credit balance is too low) acts every time;
@@ -306,6 +307,11 @@ export function startTutorMock(o: MockOptions = {}) {
       const looks: Block[] = []
       if (guide) looks.push(toolUse('guide', { topic: topics.includes('feedback') ? 'feedback' : (topics[0] ?? 'events') }))
       if (tools.has('learner_state')) looks.push(toolUse('learner_state', {}))
+      // [mock:reach]: the tutor's reach (bin/qa tutor-reach): a word the lexicon has nothing on, and the chat's record
+      if (turn.includes('[mock:reach]')) {
+        if (tools.has('dictionary_lookup')) looks.push(toolUse('dictionary_lookup', { word: 'zlatoperka', line: 'Kaj je zlatoperka?' }))
+        if (tools.has('chat_history')) looks.push(toolUse('chat_history', { word: 'zlatoperka' }))
+      }
       // [mock:request] (or [mock:request:file|slow|subtask|batch]): a chat that hands a brief to the studio
       const asked = /\[mock:request(?::(\w+))?\]/.exec(turn)
       if (asked && tools.has('request_content')) {

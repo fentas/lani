@@ -3,6 +3,8 @@ package si.lanisce.lani.tutor.live
 import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.booleanOrNull
+import si.lanisce.lani.tutor.DictionaryText
 import si.lanisce.lani.tutor.Guide
 import si.lanisce.lani.tutor.PhaseA
 import si.lanisce.lani.tutor.ReplyData
@@ -22,8 +24,8 @@ import java.util.concurrent.atomic.AtomicInteger
  * the very handlers Claude Code's calls use, `reply` among them, so a reply reaches the chat as Claude Code's do), and
  * the app's own:
  * - `guide(topic)`: one topic of the bundled guide;
- * - `dictionary_lookup`: the app's dictionary on the node (GET /lookup) and, for Slovene, fran.si fetched by the app
- *   ([FranLookup]), both as marked untrusted data;
+ * - `dictionary_lookup`: the app's dictionary and the language's outside sources, by the node (GET /dictionary: the bridge's
+ *   table, its limits and its cache; the app reaches no dictionary itself), each as marked untrusted data ([DictionaryText]);
  * - `report_problem`: a fix about a word needs a `dictionary_lookup` earlier in the turn ([ReportCheck]), then the
  *   bridge's (the wishlist until the discussions have a GitHub token).
  *
@@ -39,7 +41,6 @@ class LiveTools(
     /** The tools the node's session listed (its channel's and its own); empty: not known yet, every call is tried. */
     private val nodeTools: Set<String>,
     private val guide: Guide,
-    private val fran: FranLookup?,
     private val onReply: suspend (ShadowReply) -> Unit,
     private val learner: () -> String? = { null },
     private val onGuide: (String) -> Unit = {},
@@ -143,19 +144,19 @@ class LiveTools(
         return out(kind, r.text.ifBlank { if (r.isError) "${use.name} failed" else "done" }, r.isError, emptyList())
     }
 
-    /** The app's dictionary on the node, and fran.si for Slovene, each as marked untrusted data. */
+    /** The node's dictionary and the language's outside sources ([LiveBridge.dictionary]), each as marked untrusted data. */
     private suspend fun lookup(input: JsonObject): Pair<String, Boolean> {
         val word = input.s("word")?.trim().orEmpty()
         if (word.isEmpty()) return "word: required" to true
-        val line = input.s("line")
-        val own = runCatching { bridge?.lookup(word, line) }.getOrNull()
-        val outside = runCatching { fran?.look(word) }.getOrNull()
-        if (own == null && outside == null) return "dictionary_lookup: no dictionary could be reached for \"$word\" (the node's lookup${if (fran != null) " and fran.si" else ""}): say so, and don't call it a mistake" to true
-        val parts = buildList {
-            own?.let { add("<untrusted_dictionary_content source=\"Lani's dictionary\">\n${it.take(6_000)}\n</untrusted_dictionary_content>") }
-            outside?.let { add("<untrusted_dictionary_content source=\"fran.si\">\n$it\n</untrusted_dictionary_content>") }
-        }
-        return parts.joinToString("\n\n") to false
+        val deep = (input["deep"] as? JsonPrimitive)?.booleanOrNull == true
+        val raw = try {
+            bridge?.dictionary(word, input.s("line"), deep)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            null
+        } ?: return "dictionary_lookup: no dictionary could be reached for \"$word\": say so, and don't call it a mistake" to true
+        return DictionaryText.of(raw, word) to false
     }
 
     private fun JsonObject.s(k: String) = (this[k] as? JsonPrimitive)?.takeIf { it.isString }?.content

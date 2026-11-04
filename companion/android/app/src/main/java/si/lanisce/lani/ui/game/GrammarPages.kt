@@ -176,7 +176,7 @@ internal fun LazyListScope.rulePage(view: RuleView, vm: AppViewModel, onSee: (St
         }
     }
     // a page about a case or what decides one: the case trainer, a session on it (companion/README.md "Case trainer")
-    if (p.id in si.lanisce.lani.data.CaseLook.PAGES && p.language == si.lanisce.lani.data.CaseTrainer.LANGUAGE && vm.caseTrainer.available && !vm.runBusy) {
+    if (p.language in si.lanisce.lani.data.CaseBanks.LANGUAGES && p.id in si.lanisce.lani.data.CaseLook.pagesOf(p.language) && vm.caseTrainer.available && !vm.runBusy) {
         item("rule:cases") {
             val focus = vm.caseTrainer.bank?.let { b -> si.lanisce.lani.data.CaseTrainer.focusOfPage(p.id, b.rules.values.map { it.page }) }
             PageButton("🧩 ${bi("cases.fromPage")}", Modifier.fillMaxWidth()) { if (vm.caseTrainer.open) vm.startCases(focus) else vm.openCases(focus) }

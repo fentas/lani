@@ -6,7 +6,7 @@
   "emoji": "🕵️",
   "title": {"sl": "Uganke", "en": "Riddles", "de": "Rätsel"},
   "teller": "janez",
-  "about": {"en": "Stari Janez describes a thing, an animal, a person or a place of the village in three or four short clues. Guess aloud, then hear the answer and the clues again with their meaning. Every answer is a word of the A1 packs, or someone of the village.", "de": "Stari Janez beschreibt ein Ding, ein Tier, einen Menschen oder einen Ort des Dorfes in drei oder vier kurzen Hinweisen. Rate laut, dann hörst du die Antwort und die Hinweise noch einmal mit ihrer Bedeutung. Jede Antwort ist ein Wort der A1-Pakete oder jemand aus dem Dorf."},
+  "about": {"en": "Stari Janez describes a thing, an animal, a person or a place of the village in three or four short clues. Guess aloud, then hear the answer and the clues again with their meaning. Every answer is a word of the packs, or someone of the village; from A2 on the clues use the grammar of their level (whom, with what, which, if only…).", "de": "Stari Janez beschreibt ein Ding, ein Tier, einen Menschen oder einen Ort des Dorfes in drei oder vier kurzen Hinweisen. Rate laut, dann hörst du die Antwort und die Hinweise noch einmal mit ihrer Bedeutung. Jede Antwort ist ein Wort der Pakete oder jemand aus dem Dorf; ab A2 nutzen die Hinweise die Grammatik ihrer Stufe (wem, womit, der/die, wenn doch…)."},
   "riddles": [
     {
       "id": "miza",
@@ -693,6 +693,246 @@
       ],
       "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
       "answer": {"sl": "Lovec Jože!", "en": "Jože the hunter!", "de": "Der Jäger Jože!"}
+    },
+    {
+      "id": "zdravnik",
+      "level": "A2",
+      "word": "telo-in-zdravje/zdravnik",
+      "clues": [
+        {"sl": "Ko te boli glava, prideš k meni.", "en": "When your head hurts, you come to me.", "de": "Wenn dir der Kopf wehtut, kommst du zu mir."},
+        {"sl": "Pogledam ti v grlo.", "en": "I look into your throat.", "de": "Ich schaue dir in den Hals."},
+        {"sl": "Dam ti recept za zdravilo.", "en": "I give you a prescription for medicine.", "de": "Ich gebe dir ein Rezept für ein Medikament."}
+      ],
+      "ask": {"sl": "Kdo sem?", "en": "Who am I?", "de": "Wer bin ich?"},
+      "answer": {"sl": "Zdravnik!", "en": "A doctor!", "de": "Ein Arzt!"}
+    },
+    {
+      "id": "vlak",
+      "level": "A2",
+      "word": "pot-in-promet/vlak",
+      "clues": [
+        {"sl": "Hitrejši sem od avtobusa.", "en": "I'm faster than the bus.", "de": "Ich bin schneller als der Bus."},
+        {"sl": "Vozim po tirih.", "en": "I run on rails.", "de": "Ich fahre auf Schienen."},
+        {"sl": "Na postaji ljudje čakajo name.", "en": "At the station people wait for me.", "de": "Am Bahnhof warten die Leute auf mich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Vlak!", "en": "A train!", "de": "Ein Zug!"}
+    },
+    {
+      "id": "kljuc",
+      "level": "A2",
+      "word": "dom-in-hisa/kljuc",
+      "clues": [
+        {"sl": "Majhen sem in iz železa.", "en": "I'm small and made of iron.", "de": "Ich bin klein und aus Eisen."},
+        {"sl": "Z mano odpreš vrata.", "en": "You open the door with me.", "de": "Mit mir sperrst du die Tür auf."},
+        {"sl": "Če me izgubiš, ostaneš pred hišo.", "en": "If you lose me, you stay outside the house.", "de": "Wenn du mich verlierst, bleibst du vor dem Haus."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Ključ!", "en": "A key!", "de": "Ein Schlüssel!"}
+    },
+    {
+      "id": "ogledalo",
+      "level": "A2",
+      "word": "v-hisi/ogledalo",
+      "clues": [
+        {"sl": "Visim na steni.", "en": "I hang on the wall.", "de": "Ich hänge an der Wand."},
+        {"sl": "Ko me pogledaš, vidiš sebe.", "en": "When you look at me, you see yourself.", "de": "Wenn du mich anschaust, siehst du dich selbst."},
+        {"sl": "Zjutraj se Zala pred mano počeše.", "en": "In the morning Zala combs her hair in front of me.", "de": "Am Morgen kämmt sich Zala vor mir."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Ogledalo!", "en": "A mirror!", "de": "Ein Spiegel!"}
+    },
+    {
+      "id": "harmonika",
+      "level": "A2",
+      "word": "slavje-veselica/harmonika",
+      "clues": [
+        {"sl": "Imam tipke in meh.", "en": "I have keys and bellows.", "de": "Ich habe Tasten und einen Balg."},
+        {"sl": "Na veselici igram polko.", "en": "At the village dance I play the polka.", "de": "Beim Fest spiele ich die Polka."},
+        {"sl": "Brez mene ljudje ne plešejo.", "en": "Without me people don't dance.", "de": "Ohne mich tanzen die Leute nicht."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Harmonika!", "en": "An accordion!", "de": "Eine Ziehharmonika!"}
+    },
+    {
+      "id": "tehtnica",
+      "level": "A2",
+      "word": "trzni-dan/tehtnica",
+      "clues": [
+        {"sl": "Stojim na stojnici.", "en": "I stand on a market stall.", "de": "Ich stehe auf einem Marktstand."},
+        {"sl": "Name položiš jabolka.", "en": "You put apples on me.", "de": "Auf mich legst du Äpfel."},
+        {"sl": "Povem ti, koliko kilogramov imaš.", "en": "I tell you how many kilos you've got.", "de": "Ich sage dir, wie viele Kilo du hast."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Tehtnica!", "en": "Scales!", "de": "Eine Waage!"}
+    },
+    {
+      "id": "daljnogled",
+      "level": "A2",
+      "word": "na-stolpu/daljnogled",
+      "clues": [
+        {"sl": "Imam dve stekli.", "en": "I have two lenses.", "de": "Ich habe zwei Gläser."},
+        {"sl": "Z mano vidiš dlje.", "en": "With me you see farther.", "de": "Mit mir siehst du weiter."},
+        {"sl": "Lovec me nosi okoli vratu.", "en": "The hunter wears me round his neck.", "de": "Der Jäger trägt mich um den Hals."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Daljnogled!", "en": "Binoculars!", "de": "Ein Fernglas!"}
+    },
+    {
+      "id": "luna-krajec",
+      "level": "A2",
+      "word": "nebo/luna",
+      "clues": [
+        {"sl": "Ponoči svetim na nebu.", "en": "At night I shine in the sky.", "de": "In der Nacht leuchte ich am Himmel."},
+        {"sl": "Včasih sem okrogla, včasih samo krajec.", "en": "Sometimes I'm round, sometimes just a crescent.", "de": "Manchmal bin ich rund, manchmal nur eine Sichel."},
+        {"sl": "Manjša sem od sonca, a bližje Zemlji.", "en": "I'm smaller than the sun, but closer to the Earth.", "de": "Ich bin kleiner als die Sonne, aber näher an der Erde."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Luna!", "en": "The moon!", "de": "Der Mond!"}
+    },
+    {
+      "id": "coln",
+      "level": "B1",
+      "word": "ob-vodi/coln",
+      "clues": [
+        {"sl": "Lesen sem in plavam po vodi.", "en": "I'm wooden and I float on the water.", "de": "Ich bin aus Holz und schwimme auf dem Wasser."},
+        {"sl": "Ribič, ki sedi v meni, lovi postrvi.", "en": "The fisherman who sits in me catches trout.", "de": "Der Fischer, der in mir sitzt, fängt Forellen."},
+        {"sl": "Če bi imel luknjo, bi potonil.", "en": "If I had a hole, I'd sink.", "de": "Wenn ich ein Loch hätte, würde ich sinken."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Čoln!", "en": "A boat!", "de": "Ein Boot!"}
+    },
+    {
+      "id": "zibelka",
+      "level": "B1",
+      "word": "v-hisi/zibelka",
+      "clues": [
+        {"sl": "V meni spi otrok, ki je star šele nekaj tednov.", "en": "A baby only a few weeks old sleeps in me.", "de": "In mir schläft ein Kind, das erst ein paar Wochen alt ist."},
+        {"sl": "Mama me ziblje, da bi dojenček zaspal.", "en": "Mum rocks me so that the baby falls asleep.", "de": "Mama schaukelt mich, damit das Baby einschläft."},
+        {"sl": "Narejena sem iz lesa.", "en": "I'm made of wood.", "de": "Ich bin aus Holz gemacht."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Zibelka!", "en": "A cradle!", "de": "Eine Wiege!"}
+    },
+    {
+      "id": "utrinek",
+      "level": "B1",
+      "word": "nebo/utrinek",
+      "clues": [
+        {"sl": "Padem z neba, a me nihče ne ujame.", "en": "I fall from the sky, but nobody catches me.", "de": "Ich falle vom Himmel, aber niemand fängt mich."},
+        {"sl": "Videti me je mogoče samo ponoči.", "en": "I can only be seen at night.", "de": "Man kann mich nur in der Nacht sehen."},
+        {"sl": "Ko me vidiš, si nekaj zaželi.", "en": "When you see me, make a wish.", "de": "Wenn du mich siehst, wünsch dir etwas."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Utrinek!", "en": "A shooting star!", "de": "Eine Sternschnuppe!"}
+    },
+    {
+      "id": "lekarna",
+      "level": "B1",
+      "word": "telo-in-zdravje/lekarna",
+      "clues": [
+        {"sl": "Sem prostor, kjer se prodajajo zdravila.", "en": "I'm a place where medicines are sold.", "de": "Ich bin ein Ort, wo Medikamente verkauft werden."},
+        {"sl": "Ljudje, ki imajo recept, pridejo k meni.", "en": "People who have a prescription come to me.", "de": "Leute, die ein Rezept haben, kommen zu mir."},
+        {"sl": "Če bi bila zaprta, bi te glava bolela do jutra.", "en": "If I were closed, your head would ache till morning.", "de": "Wenn ich zu hätte, würde dir der Kopf bis zum Morgen wehtun."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Lekarna!", "en": "A pharmacy!", "de": "Eine Apotheke!"}
+    },
+    {
+      "id": "zaga",
+      "level": "B1",
+      "word": "v-delavnici/zaga",
+      "clues": [
+        {"sl": "Imam veliko zob, a ne jem.", "en": "I have lots of teeth, but I don't eat.", "de": "Ich habe viele Zähne, aber ich esse nicht."},
+        {"sl": "Z mano je bila razrezana vsaka deska v delavnici.", "en": "Every board in the workshop was cut with me.", "de": "Mit mir wurde jedes Brett in der Werkstatt zugeschnitten."},
+        {"sl": "Ko delam, pada žagovina.", "en": "When I work, sawdust falls.", "de": "Wenn ich arbeite, fallen Sägespäne."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Žaga!", "en": "A saw!", "de": "Eine Säge!"}
+    },
+    {
+      "id": "vida-gostilna",
+      "level": "B1",
+      "villager": "vida",
+      "clues": [
+        {"sl": "Ima gostilno, v kateri se zvečer zbere vsa vas.", "en": "She has an inn where the whole village gathers in the evening.", "de": "Sie hat ein Gasthaus, in dem sich am Abend das ganze Dorf trifft."},
+        {"sl": "Kuha juho, ki jo vsi radi jedo.", "en": "She cooks a soup that everyone loves.", "de": "Sie kocht eine Suppe, die alle gern essen."},
+        {"sl": "Če ti je hudo, ti natoči kozarec terana.", "en": "If you're feeling low, she pours you a glass of Teran.", "de": "Wenn es dir schlecht geht, schenkt sie dir ein Glas Teran ein."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Gostilničarka Vida!", "en": "Vida the innkeeper!", "de": "Die Wirtin Vida!"}
+    },
+    {
+      "id": "sod",
+      "level": "B2",
+      "word": "praznik-martinovo/sod",
+      "clues": [
+        {"sl": "Iz hrasta sem, okoli mene so železni obroči.", "en": "I'm made of oak, with iron hoops around me.", "de": "Ich bin aus Eiche, um mich sind eiserne Reifen."},
+        {"sl": "Kar je v meni, se počasi spreminja v vino.", "en": "What's inside me slowly turns into wine.", "de": "Was in mir ist, wird langsam zu Wein."},
+        {"sl": "Na martinovo me Marko odpre in vsa vas pride pokušat.", "en": "On St Martin's Day Marko opens me and the whole village comes to taste.", "de": "Zu Martini macht Marko mich auf und das ganze Dorf kommt kosten."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Sod!", "en": "A barrel!", "de": "Ein Fass!"}
+    },
+    {
+      "id": "velikan",
+      "level": "B2",
+      "word": "zgodbe/velikan",
+      "clues": [
+        {"sl": "Kdor me sreča, mora pogledati visoko gor.", "en": "Whoever meets me has to look high up.", "de": "Wer mir begegnet, muss hoch hinaufschauen."},
+        {"sl": "V pravljicah sem močnejši od dvanajstih mož.", "en": "In fairy tales I'm stronger than twelve men.", "de": "Im Märchen bin ich stärker als zwölf Männer."},
+        {"sl": "Z enim korakom prestopim reko.", "en": "In one stride I step across a river.", "de": "Mit einem Schritt steige ich über einen Fluss."}
+      ],
+      "ask": {"sl": "Kdo sem?", "en": "Who am I?", "de": "Wer bin ich?"},
+      "answer": {"sl": "Velikan!", "en": "A giant!", "de": "Ein Riese!"}
+    },
+    {
+      "id": "oglje",
+      "level": "B2",
+      "word": "pri-kopi/oglje",
+      "clues": [
+        {"sl": "Narejeno sem iz lesa, ki je tlel brez plamena.", "en": "I'm made of wood that smouldered without a flame.", "de": "Ich bin aus Holz gemacht, das ohne Flamme geschwelt hat."},
+        {"sl": "Črno sem in lahko.", "en": "I'm black and light.", "de": "Ich bin schwarz und leicht."},
+        {"sl": "Kovač brez mene ne bi mogel kovati.", "en": "Without me the blacksmith couldn't forge.", "de": "Ohne mich könnte der Schmied nicht schmieden."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Oglje!", "en": "Charcoal!", "de": "Holzkohle!"}
+    },
+    {
+      "id": "trnek",
+      "level": "B2",
+      "word": "ob-vodi/trnek",
+      "clues": [
+        {"sl": "Majhen sem in ukrivljen.", "en": "I'm small and bent.", "de": "Ich bin klein und gebogen."},
+        {"sl": "Na meni visi nataknjena vaba.", "en": "The bait hangs on me, threaded on.", "de": "An mir hängt ein aufgespießter Köder."},
+        {"sl": "Ribe se me bojijo, čeprav sem tako majhen.", "en": "The fish are afraid of me, although I'm so small.", "de": "Die Fische haben Angst vor mir, obwohl ich so klein bin."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Trnek!", "en": "A fishhook!", "de": "Ein Angelhaken!"}
+    },
+    {
+      "id": "zmaj",
+      "level": "B2",
+      "word": "pripovedke/zmaj",
+      "clues": [
+        {"sl": "Iz ust mi bruha ogenj.", "en": "Fire bursts out of my mouth.", "de": "Aus meinem Maul schießt Feuer."},
+        {"sl": "Ljubljana me ima v grbu, čeprav me ni nihče nikoli videl.", "en": "Ljubljana has me on its coat of arms, though no one has ever seen me.", "de": "Ljubljana hat mich im Wappen, obwohl mich noch nie jemand gesehen hat."},
+        {"sl": "Kdor bi me hotel premagati, bi moral biti pogumen vitez.", "en": "Whoever wanted to defeat me would have to be a brave knight.", "de": "Wer mich besiegen wollte, müsste ein mutiger Ritter sein."}
+      ],
+      "ask": {"sl": "Kdo sem?", "en": "Who am I?", "de": "Wer bin ich?"},
+      "answer": {"sl": "Zmaj!", "en": "A dragon!", "de": "Ein Drache!"}
+    },
+    {
+      "id": "micka-potica",
+      "level": "B2",
+      "villager": "micka",
+      "clues": [
+        {"sl": "Dokler niso vsi siti, ne sede k mizi.", "en": "Until everyone has had enough, she doesn't sit down at the table.", "de": "Solange nicht alle satt sind, setzt sie sich nicht an den Tisch."},
+        {"sl": "Njena potica slovi po vsej vasi.", "en": "Her potica is famous all over the village.", "de": "Ihre Potica ist im ganzen Dorf berühmt."},
+        {"sl": "Kar je nekoč pripovedovala njena mama, zdaj pove vnukom.", "en": "What her mother used to tell, she now tells her grandchildren.", "de": "Was ihre Mutter einst erzählt hat, erzählt sie jetzt den Enkeln."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Babica Micka!", "en": "Granny Micka!", "de": "Oma Micka!"}
     }
   ],
   "machine_written": true,
