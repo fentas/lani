@@ -45,7 +45,7 @@ data class SetupFlow(
     /** The learner's data couldn't be made on this device: why ([Step.NAME]). */
     val problem: String? = null,
 ) {
-    enum class Step { WELCOME, NAME, OTHER, COMPUTER, MANUAL, DEVICE }
+    enum class Step { WELCOME, NAME, OTHER, FAMILY, COMPUTER, MANUAL, DEVICE }
 
     /** "S svojim računalnikom · With my family's computer", or an export imported into this device. */
     enum class Way { DEVICE, COMPUTER }
@@ -82,6 +82,16 @@ data class SetupFlow(
 
     /** The small link on the first screen: the ways in for someone with a code or a file. */
     fun other(): SetupFlow = copy(step = Step.OTHER, trouble = null, busy = false)
+
+    /** "👪 Someone in my family already uses Lani": the camera for the code a set-up device shows. */
+    fun family(): SetupFlow = copy(step = Step.FAMILY, trouble = null, busy = false)
+
+    /** What the family shared came: its languages as a suggestion, and only the name is left (without them, the language). */
+    fun fromFamily(g: si.lanisce.lani.data.FamilyLink.Gift): SetupFlow {
+        val t = g.target?.let(Lang::of)
+        val b = g.base?.let(Lang::of)?.takeIf { it != t } ?: base
+        return if (t == null) copy(step = Step.WELCOME, base = b) else copy(step = Step.NAME, target = t, base = if (b == t) otherThan(t) else b)
+    }
 
     fun choose(w: Way): SetupFlow = copy(way = w, step = if (w == Way.DEVICE) Step.DEVICE else Step.COMPUTER, trouble = null, busy = false)
 
@@ -122,7 +132,7 @@ data class SetupFlow(
         val to = when (step) {
             Step.WELCOME -> Step.WELCOME
             Step.NAME, Step.OTHER -> Step.WELCOME
-            Step.COMPUTER, Step.DEVICE -> Step.OTHER
+            Step.FAMILY, Step.COMPUTER, Step.DEVICE -> Step.OTHER
             Step.MANUAL -> Step.COMPUTER
         }
         return copy(step = to, trouble = null, busy = false)
@@ -143,8 +153,8 @@ data class SetupFlow(
 }
 
 /**
- * "🎯 Cilj · Aim" (docs/plans/05-built/setup-refresh.md): the CEFR level the village's ages lead to (each age's words are
- * its share of what the aim needs: game/Catalog.ageWords), asked at setup with the level. B2 by default (Jan: "b2
+ * "🎯 Cilj · Aim" (docs/plans/05-built/setup-refresh.md, first-minutes.md): the CEFR level the village's ages lead to (each
+ * age's words are its share of what the aim needs: game/Catalog.ageWords), asked after the first session. B2 by default (Jan: "b2
  * should be default aim"), the level after the learner's when they are at B2 or above; only levels above theirs (C2 at
  * C2). Pure.
  */

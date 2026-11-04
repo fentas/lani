@@ -433,7 +433,7 @@ private fun InviteDialog(invite: TownInvite, onDismiss: () -> Unit) {
 
 /** [text] as a QR code, [size] wide, dark on the light background around it. */
 @Composable
-private fun QrImage(text: String, size: Dp, modifier: Modifier = Modifier) {
+internal fun QrImage(text: String, size: Dp, modifier: Modifier = Modifier) {
     val matrix = remember(text) {
         runCatching {
             QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, 0, 0, mapOf(EncodeHintType.MARGIN to 1, EncodeHintType.ERROR_CORRECTION to ErrorCorrectionLevel.M))

@@ -28,6 +28,9 @@ Lani on this phone" until the first launch was redone: a tablet runs it too.)
 
 ## The onboarding
 
+*Since 2026-11-04 the first run asks only the language and the name, on defaults ([first-minutes.md](first-minutes.md)). What
+follows still holds for the settings' switch from a node, for a learner already on the device and for an import.*
+
 What `/lani-setup` and `lani-setup` ask a new learner (`companion/bridge/src/cli/setup.ts`). With no learner on the
 phone yet the questions come at once; with one, "▶ Nadaljuj kot Ana", "✨ Nov začetek" and "📥 Uvozi izvoz" first.
 

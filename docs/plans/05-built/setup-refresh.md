@@ -1,5 +1,7 @@
 # Built: the first launch brought up to date (setup-refresh)
 
+*Since 2026-11-04 ([first-minutes.md](first-minutes.md)) the first run is shorter: the aim, the voice and the tutor are no longer asked at setup, and "Še o tebi" is gone; each comes when it matters. The reading aloud and the tablet's layout below still hold.*
+
 *Built 2026-10-31, branch `setup-refresh`. Jan: "did we updated the bootstrap view? -> with speach - selection - etc?"
 The first-run setup ([onboarding.md](onboarding.md)) had not kept up with what the app gained since: no step spoke,
 "🗣️ Moj glas · My voice" was only in the settings, and there was no aim (target level) at all. This round brings it up

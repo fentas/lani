@@ -70,13 +70,13 @@ class SetupSpeechTest {
         val teo = SetupSpeech.voiceAndTutor(itDe, child = true)
         assertEquals(L10n.text(Lang.IT, "myVoice.title"), teo[0].text)
         assertEquals(L10n.text(Lang.DE, "setup.parentSets"), teo.last().text)
-        assertEquals(L10n.text(Lang.EN, "hosted.tutorWhat"), SetupSpeech.voiceAndTutor(LangPair.DEFAULT, child = false).last().text)
+        assertEquals(L10n.text(Lang.EN, "firstRun.tutorWhat"), SetupSpeech.voiceAndTutor(LangPair.DEFAULT, child = false).last().text)
     }
 
     @Test fun `every step says something in all 12 pairs, each piece from its language's table`() {
         for (pair in pairs) {
             val steps = mapOf(
-                "who" to SetupSpeech.who(pair), "other" to SetupSpeech.other(pair), "computer" to SetupSpeech.computer(pair),
+                "who" to SetupSpeech.who(pair), "other" to SetupSpeech.other(pair), "family" to SetupSpeech.family(pair), "computer" to SetupSpeech.computer(pair),
                 "manual" to SetupSpeech.manual(pair), "start" to SetupSpeech.deviceStart(pair), "questions" to SetupSpeech.questions(pair),
                 "voice" to SetupSpeech.voiceAndTutor(pair, child = false), "voice-child" to SetupSpeech.voiceAndTutor(pair, child = true),
             )

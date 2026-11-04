@@ -137,6 +137,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "request:<card id>,<card id>…": the village (the dev bridge's copy) gets Mojca's request "Napake na tabli" of those
  *   cards of the learner's ([withRequest]: the cards a request was made from, a grammar card among them) and its challenge
  *   starts, as from its bubble: what the challenge asks of each card (companion/GAME.md, "Cards in a challenge").
+ * - "firstrun:device", "firstrun:paired", "firstrun:": app/FirstRun as after a first run on this device or with a computer, or
+ *   none; "family:scan:<text, URL-encoded>": a family's code as if the camera had read it.
  * - "setup:phone:<code>": the first launch from its welcome as on a phone in that language ("setup:phone:de": Teo's
  *   German tablet on an English emulator).
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the settings' languages page
@@ -402,6 +404,7 @@ object QaHooks {
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
         cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {}, icon: (String) -> Unit = {}, notify: (String) -> Unit = {},
         setupPhone: (String) -> Unit = {}, readOlder: (Long) -> Unit = {}, placement: (String) -> Unit = {},
+        firstRun: (String) -> Unit = {}, family: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -409,6 +412,10 @@ object QaHooks {
             // "setup:phone:<code>": the first launch starts again as on a phone in that language ("setup:phone:de": Teo's
             // German tablet), its welcome in it (docs/plans/05-built/setup-refresh.md)
             command.startsWith("setup:phone:") -> setupPhone(command.removePrefix("setup:phone:").trim())
+            // "firstrun:device", "firstrun:paired", "firstrun:": this device as if it came through a first run (the moment over), or not
+            command.startsWith("firstrun:") -> firstRun(command.removePrefix("firstrun:").trim())
+            // "family:scan:<the code's text>": as if the camera had read it (the emulator's camera can't)
+            command.startsWith("family:scan:") -> family(java.net.URLDecoder.decode(command.removePrefix("family:scan:").trim(), "UTF-8"))
             // "icon:<alias>": the launcher shows that alias a few seconds after the app goes to the background, as the
             // developer's "Try the next icon" does; "icon:" the day's icon again (data/AppIconWork.kt)
             command.startsWith("icon:") -> icon(command.removePrefix("icon:"))

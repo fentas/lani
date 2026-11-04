@@ -33,8 +33,12 @@ object SetupSpeech {
     /** "Already have something?": its title in the language learned; in the base the title and the ways in. */
     fun other(pair: LangPair): List<HintPiece> = pieces(
         target(pair, "setup.otherTitle") +
-            base(pair.base, pair, "setup.otherTitle", "setup.computerTitle", "setup.computerWhat", "hosted.importExport", "hosted.importWhat"),
+            base(pair.base, pair, "setup.otherTitle", "family.scanTitle", "setup.computerTitle", "setup.computerWhat", "hosted.importExport", "hosted.importWhat"),
     )
+
+    /** The code of a set-up device in the family: its title; in the base the title and what to do. */
+    fun family(pair: LangPair): List<HintPiece> =
+        pieces(target(pair, "family.scanTitle") + base(pair.base, pair, "family.scanTitle", "family.scanWhat"))
 
     /** The family's computer: its title; in the base, the title and how to scan its code. */
     fun computer(pair: LangPair): List<HintPiece> =
@@ -63,7 +67,7 @@ object SetupSpeech {
      */
     fun voiceAndTutor(pair: LangPair, child: Boolean): List<HintPiece> = pieces(
         target(pair, "myVoice.title") +
-            base(pair.base, pair, "myVoice.title", "myVoice.offerText", "hosted.tutorTitle", if (child) "setup.parentSets" else "hosted.tutorWhat"),
+            base(pair.base, pair, "myVoice.title", "myVoice.offerText", "hosted.tutorTitle", if (child) "setup.parentSets" else "firstRun.tutorWhat"),
     )
 
     /** [keys] in the language learned of [pair]. */

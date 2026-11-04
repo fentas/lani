@@ -1,5 +1,7 @@
 # Built: the placement test (placement)
 
+*Since 2026-11-04 ([first-minutes.md](first-minutes.md)) the first run is shorter: the choice at setup is gone: the school's card asks, and its "Later" puts it away for good.*
+
 *Built 2026-11-03, branch `placement` (wave E, followups-14.md section 3). Jan: "I want to have app finished to
 release". Before, the school's levels ignored the learner's level (`School.needs`, game/School.kt): a B1 starter began
 at A1 and tested out of one unit after another: 32 tests before the first B1 lesson in Slovene, 36 in the other courses.

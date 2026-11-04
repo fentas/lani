@@ -534,6 +534,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        320 dpi, each step on its side and upright): German (hook setup:phone:de), Italian on this device
                        for a child (LANI_QA_SETUP_PAIR=it-de), what each step said, Back, the aim, the voice's ▶, the
                        founding; tour-*.png, tour-speech.txt and tour-taps.txt, also in $LANI_QA_TOUR_SHOTS;
+                       "first-cards" (only when named) the voice's card after the first dialog, the minutes and the aim on
+                       Home, the school's card put away, each once (hook firstrun:…);
+                       "family-parent", "family-child" (each alone, at the same time on the two emulators) add a family
+                       member: the code, the parent's hold, the key on a child's device, a second scan refused;
                        "first-run" (alone, --steps first-run: no node) the first run timed, to the village and a line said
                        aloud (firstrun.txt, firstrun-*.png in $LANI_QA_FIRSTRUN_SHOTS; LANI_QA_FIRSTRUN_CHILD=1,
                        LANI_QA_FIRSTRUN_TABLET=1)
@@ -12690,6 +12694,238 @@ def school_reveal():
     assert not find("Biti: sem, si, je"), "A1's done units folded again"
 
 
+def first_cards():
+    """What the first run leaves for later, each once (docs/plans/05-built/first-minutes.md), on the dev learner as if it had
+    come through a first run (QA's hook "firstrun:paired" or "firstrun:device"; "firstrun:" back to an existing learner):
+    "Kateri glas je tvoj?" not over the first dialog but when it's closed, and not at the next one; the minutes and the aim on
+    Home, skipped, and not again after the app starts anew; the school's card put away with "Pozneje", the quiet row left."""
+    sid, hid, did = PLAYER_DIALOG
+    wait_home(30)
+    go_home()
+    try:
+        scene = next(s for s in api("/scenes") if isinstance(s, dict) and s.get("id") == sid)
+    except (OSError, RuntimeError, ValueError, StopIteration) as e:
+        return f"the scene {sid}: {e}"
+    dialog = next((d for d in scene.get("dialogs", []) if d.get("id") == did), None)
+    if dialog is None:
+        return f"no dialog {did} in {sid}"
+    turns = [l for l in dialog["lines"] if l.get("choices")]
+    first = next(c["sl"] for c in turns[0]["choices"] if c.get("ok"))
+    try:
+        qa_hook("firstrun:paired")
+        qa_hook("audio:myvoice:offer")
+        qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+        assert wait_for("‹ Vas · Village", 10), "the fire's scene"
+        assert wait_for("Zapri · Close", 8), f"the dialog {did} (QA's hook)"
+        assert at_turn(), "the learner's first turn"
+        if any(TYPED_TURN in t for t, _ in nodes()):
+            return "the first turn came typed (the dev learner has its rule secure): the offer at a tap isn't checked"
+        assert answer_right({first}), f"the right choice «{first}» on screen"
+        time.sleep(5 * slow())
+        assert find(MY_VOICE_OFFER) is None, "the voice's card over the first dialog"
+        shot("first-cards-dialog")
+        assert tap("Zapri · Close", 5), "the dialog closed"
+        assert wait_for(MY_VOICE_OFFER, 12), "the voice's card once the dialog is over"
+        shot("first-cards-voice")
+        ok = scroll_to("V redu · OK", 4) or find("V redu · OK")
+        assert ok, "its ✓ V redu"
+        tap_at(ok)
+        time.sleep(2 * slow())
+        assert find(MY_VOICE_OFFER) is None, "the voice's card closed"
+        qa_hook("happening:")
+        go_home()
+
+        qa_hook("firstrun:device")
+        to_top()
+        pace = "Lep začetek"
+        c = wait_for(pace, 12) or scroll_to(pace, 4)
+        assert c, "the minutes and the aim on Home after a session"
+        shot("first-cards-pace")
+        skip = scroll_to("Preskoči · Skip", 3) or find("Preskoči · Skip")
+        assert skip, "its Skip"
+        tap_at(skip)
+        time.sleep(2 * slow())
+        assert find(pace) is None, "the question gone once skipped"
+        adb("shell", "am", "force-stop", PKG)
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+        wait_home(30)
+        to_top()
+        time.sleep(2 * slow())
+        assert find(pace) is None, "skipped, it never comes again"
+
+        if (ROOT / "companion/course/sl/course.json").exists():
+            for _ in range(3):
+                qa_hook("placement:fresh")
+                if wait_for("Nekaj že znaš?", 10):
+                    break
+            assert find("Nekaj že znaš?"), "the school's card"
+            shot("first-cards-school")
+            later = scroll_to("Pozneje · Later", 3) or find("Pozneje · Later")
+            assert later, "the card's Later"
+            tap_at(later)
+            time.sleep(2 * slow())
+            assert find("Nekaj že znaš?") is None, "the card put away"
+            row = scroll_to("Uvrstitveni test", 8)
+            assert row, "the quiet row left"
+            shot("first-cards-school-after")
+            go_home()
+    finally:
+        qa_hook("firstrun:")
+
+
+FAMILY_DIR = Path(os.environ.get("LANI_QA_FAMILY_DIR", OUT / "family"))
+FAMILY_PORT = int(os.environ.get("LANI_QA_FAMILY_PORT", "11079"))  # the host's port forwarded to the parent's listener
+
+
+def family_wait(name: str, timeout: float) -> Path:
+    """The other emulator's file [name] in $LANI_QA_FAMILY_DIR, once it's there."""
+    f = FAMILY_DIR / name
+    end = time.time() + timeout
+    while time.time() < end and not f.exists():
+        time.sleep(1)
+    assert f.exists(), f"the other emulator's {name}"
+    return f
+
+
+def family_log(pattern: str, timeout=20.0) -> str:
+    """The first match of [pattern] in the app's tag Family; "" when it doesn't come."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        for line in adb("logcat", "-d", "-s", "Family:I", check=False).splitlines():
+            if m := re.search(pattern, line):
+                return m[1]
+        time.sleep(1)
+    return ""
+
+
+def family_name(name: str, child=False):
+    """The name's step to Home: the village founded and its first word said."""
+    c = wait_for("Kako ti je ime?", 8)
+    assert c, "the name field"
+    adb("shell", "input", "tap", str(c[0]), str(c[1]))
+    time.sleep(1.2 * slow())
+    adb("shell", "input", "text", name)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    if child:
+        assert tap("Za otroka", 4), "for a child"
+    assert tap("Ustanovi mojo vas", 5), "found my village"
+    hosted_home(found=True)
+
+
+def family_parent():
+    """"👪 Add a family member" (data/FamilyLink), the parent's side, on one emulator while family-child runs on the other
+    (companion/README.md; $LANI_QA_FAMILY_DIR between them, the code's port forwarded through the host): a first run, a key
+    (QA's mock) set through the tutor's ways, the settings' page, the code; the page says who claimed it and what they'd get, a
+    tap doesn't send it and a hold does."""
+    FAMILY_DIR.mkdir(parents=True, exist_ok=True)
+    for f in FAMILY_DIR.glob("*"):
+        f.unlink()
+    start_tutor_mock()
+    first_launch(way_key=None)
+    qa_hook(f"tutorlive:{SHADOW_MOCK}")
+    family_name("Mama")
+    assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+    assert wait_for(say("setup.tutorClaude", 0), 10), "the tutor's ways"
+    shot("family-tutor-ways")
+    assert tap(say("setup.tutorClaude", 0), 4), "Claude (your own key)"
+    field = wait_for("sk-ant-…", 8)
+    assert field, "the key's field"
+    tap_at(field)
+    time.sleep(slow())
+    adb("shell", "input", "text", SHADOW_KEY)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    assert tap(say("tutorLive.keyCheck", 0), 4), "the key's check"
+    time.sleep(3 * slow())
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    go_home()
+    open_settings("family")
+    shot("family-page")
+    adb("logcat", "-c")
+    assert tap(say("family.show", 0), 4), "show the code"
+    text = family_log(r"showing (lani://family\S+)")
+    assert text, "the code shown"
+    assert "sk-" not in text, "a key in the QR's text"
+    time.sleep(1)
+    shot("family-code")
+    port = re.search(r"[?&]p=(\d+)", text)[1]
+    adb("forward", f"tcp:{FAMILY_PORT}", f"tcp:{port}")
+    (FAMILY_DIR / "offer.txt").write_text(re.sub(r"p=\d+", f"p={FAMILY_PORT}", re.sub(r"h=[^&]+", "h=10.0.2.2", text)))
+    try:
+        asking = wait_for("Deliš z napravo", 240)
+        assert asking, "the device that claimed the code"
+        shot("family-confirm")
+        hold = scroll_to(say("family.hold", 0), 3) or find(say("family.hold", 0))
+        assert hold, "the parent's hold"
+        tap_at(hold)  # a tap doesn't send it
+        time.sleep(1.5)
+        assert find("Deliš z napravo"), "a tap sent the key"
+        adb("shell", "input", "swipe", str(hold[0]), str(hold[1]), str(hold[0]), str(hold[1]), "2800")
+        assert wait_for("Deljeno z napravo", 15), "shared"
+        shot("family-sent")
+        (FAMILY_DIR / "sent").touch()
+        family_wait("done", 400)
+    finally:
+        adb("forward", "--remove", f"tcp:{FAMILY_PORT}", check=False)
+
+
+def family_child():
+    """The new device's side of [family_parent]: the first screen's small link, "Someone in my family already uses Lani", the
+    code as if scanned (QA's hook "family:scan:", the emulator's camera can't), the wait, then only the name and "For a child";
+    the tutor is there with no ways asked, its key nowhere on the settings' page; the same code again gets nothing."""
+    start_tutor_mock()
+    qa_hook(f"tutorlive:{SHADOW_MOCK}")
+    assert wait_for("slovenščina", 30), "the first screen"
+    link = l10n("en").get("setup.otherLink")
+    c = scroll_to(link, 3) or find(link)
+    assert c, "the first screen's small link"
+    tap_at(c)
+    title = say("family.scanTitle", 0)
+    assert wait_for(title, 8), "the other ways in"
+    shot("family-other")
+    assert tap(title, 4), "someone in my family"
+    time.sleep(2 * slow())
+    allow = next((c for t, c in nodes() if t in ("While using the app", "Only this time", "Allow")), None)
+    if allow is not None:
+        tap_at(allow)
+        time.sleep(slow())
+    shot("family-scan")
+    text = family_wait("offer.txt", 400).read_text()
+    adb("logcat", "-c")
+    qa_hook("family:scan:" + urllib.parse.quote(text, safe=""))
+    assert wait_for("Zdaj potrdijo", 15), "the wait for the parent"
+    shot("family-waiting")
+    assert wait_for("Kako ti je ime?", 120), "only the name is left"
+    assert family_log(r"fetched (Got)", 5) == "Got", "the gift"
+    shot("family-name")
+    family_name("Teo", child=True)
+    assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+    time.sleep(3 * slow())
+    assert not find("Na tem telefonu še ni učitelja"), "the family's key isn't a tutor here"
+    assert not find(say("setup.tutorClaude", 0)), "the tutor's ways asked though the family's key is here"
+    shot("family-chat")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    go_home()
+    open_settings("tutor")
+    gate = wait_for("Drži za starše", 6)
+    assert gate, "a child's tutor settings behind the parent's hold"
+    assert not any("sk-ant" in t for t, _ in nodes()), "the key on a child's screen"
+    adb("shell", "input", "swipe", str(gate[0]), str(gate[1]), str(gate[0]), str(gate[1]), "2800")
+    time.sleep(2 * slow())
+    assert not any("sk-ant-qa" in t for t, _ in nodes()), "the key shown behind the hold"
+    shot("family-tutor-settings")
+    go_home()
+    adb("logcat", "-c")
+    qa_hook("family:scan:" + urllib.parse.quote(text, safe=""))
+    again = family_log(r"fetched (\w+)", 20)
+    assert again in ("Refused", "Unreachable"), f"a second scan: {again!r}"
+    print(f"    a second scan: {again}")
+    (FAMILY_DIR / "done").touch()
+
+
 def placement():
     """The placement test (COURSE.md "The placement test"; QA's hooks "placement:fresh" and "placement:answer:<part>"):
     the dev village's class readied with nothing of the course done; the school's card offering the test ("🧭 Nekaj že
@@ -16555,7 +16791,7 @@ SETTINGS = "Nastavitve · Settings"  # Home's ⚙️ (its TalkBack label starts 
 SETTINGS_SECTIONS = {
     "tutor": "Učitelj · Tutor", "data": "Podatki · Data", "languages": "Jeziki · Languages",
     "sound": "Zvok in glas · Sound and voice", "connection": "Povezava · Connection", "developer": "Razvijalec · Developer",
-    "aim": "Cilj · Aim",
+    "aim": "Cilj · Aim", "family": "Dodaj člana družine · Add a family member", "about": "O meni · About me",
 }
 
 
@@ -20418,6 +20654,7 @@ def plan():
         ("school-reveal", school_reveal, go_home, False, ""),
         # only when named: the placement test from the school's card to the school after its result (QA's hooks placement:…)
         ("placement", placement, go_home, False, ""),
+        ("first-cards", first_cards, go_home, False, ""),
         ("school-a2", school_a2, go_home, False, ""),
         ("school-cases", school_cases, go_home, False, ""),
         ("school-print-overview", school_print_overview, go_home, False, ""),
@@ -20558,6 +20795,9 @@ def plan():
         ("setup-tour", setup_tour, None, False, ""),
         # only with --steps first-run: no node, the first run timed, to the village and a line said aloud
         ("first-run", first_run, None, False, ""),
+        # only by name, each alone on its own emulator at the same time: "Add a family member"
+        ("family-parent", family_parent, None, False, ""),
+        ("family-child", family_child, None, False, ""),
     ]
 
 
@@ -21107,7 +21347,7 @@ HOSTED: dict = {}
 
 
 # The steps that run alone, with no node: the hosted mode, the tablet's first launch on this device alone.
-ALONE = {"hosted", "setup-tour", "first-run"}
+ALONE = {"hosted", "setup-tour", "first-run", "family-parent", "family-child"}
 
 
 def hosted_only(steps) -> bool:
@@ -21122,7 +21362,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")

@@ -702,8 +702,59 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
                 .onSuccess { c ->
                     firstRun.begin(onDevice = true)
                     hostedReady(c)
+                    takeFamilyGift()
                 }
                 .onFailure { failed(it.message ?: it.toString()) }
+        }
+    }
+
+    /** The sending side of "👪 Add a family member" (data/FamilyLink; the settings' page). */
+    val familyShare = si.lanisce.lani.app.FamilyShareController(viewModelScope, app) {
+        live.familyShare().copy(target = langPair.target.code, base = langPair.base.code)
+    }
+
+    /** What the sending device will share, in words for the parent who decides. */
+    suspend fun familyWhat(): String {
+        val p = live.familyShare().provider?.let { id -> si.lanisce.lani.tutor.ProviderId.entries.firstOrNull { it.id == id } }
+        return listOfNotNull(p?.let { bi("family.whatKey", "provider" to it.label) }, bi("family.whatLanguages")).joinToString("; ")
+    }
+
+    /** The receiving side: a code being fetched, or why one gave nothing; null: the camera is on. */
+    var familyFetch by mutableStateOf<FamilyFetch?>(null)
+
+    enum class FamilyFetch { WAITING, REFUSED, UNREACHABLE }
+
+    /** What the family shared, in memory only until the tutor's vault has it ([takeFamilyGift]). */
+    private var familyGift: si.lanisce.lani.data.FamilyLink.Gift? = null
+
+    /** [text] the camera read: when it's a family's code, what it gives, then [got]. Anything else: the camera goes on. */
+    fun scanFamily(text: String, got: (si.lanisce.lani.data.FamilyLink.Gift) -> Unit) {
+        if (familyFetch == FamilyFetch.WAITING) return
+        val offer = si.lanisce.lani.data.FamilyLink.parse(text) ?: return
+        familyFetch = FamilyFetch.WAITING
+        viewModelScope.launch {
+            val r = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { si.lanisce.lani.data.FamilyLink.fetch(offer, android.os.Build.MODEL ?: "Android") }
+            if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("Family", "fetched ${r::class.simpleName}") // how it ended, never what came
+            familyFetch = when (r) {
+                is si.lanisce.lani.data.FamilyLink.Fetched.Got -> {
+                    familyGift = r.gift
+                    got(r.gift)
+                    null
+                }
+                si.lanisce.lani.data.FamilyLink.Fetched.Refused -> FamilyFetch.REFUSED
+                si.lanisce.lani.data.FamilyLink.Fetched.Unreachable -> FamilyFetch.UNREACHABLE
+            }
+        }
+    }
+
+    /** The learner's data made: what the family shared into the tutor's vault, and gone from memory. */
+    private fun takeFamilyGift() {
+        val g = familyGift ?: return
+        familyGift = null
+        if (g.key == null) return
+        viewModelScope.launch {
+            val problem = live.receiveFamily(g)
+            notices.banner = if (problem == null) "🧑‍🏫 ${bi("family.received")}" else "⚠️ ${bi("family.keyBad")}"
         }
     }
 
@@ -714,6 +765,18 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun found(f: si.lanisce.lani.game.Founding) {
         if (!game.introSeen) firstRun.begin(onDevice = firstRun.state.onDevice)
         game.found(f).invokeOnCompletion { viewModelScope.launch { if (game.state != null && firstRun.state.moment) openVillage() } }
+    }
+
+    /** QA's "firstrun:device", "firstrun:paired" (the moment over) or "firstrun:" (an existing learner's device). */
+    fun qaFirstRun(how: String) {
+        val moment = si.lanisce.lani.app.FirstRun.Ask.MOMENT
+        firstRun.qa(
+            when (how) {
+                "device" -> si.lanisce.lani.app.FirstRun().begin(onDevice = true).settle(moment)
+                "paired" -> si.lanisce.lani.app.FirstRun().begin(onDevice = false).settle(moment)
+                else -> si.lanisce.lani.app.FirstRun()
+            },
+        )
     }
 
     /** The first moment over ([won]: the first word said back, the fire lit, a little food for it): the map. */

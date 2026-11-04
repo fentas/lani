@@ -96,6 +96,18 @@ class SetupFlowTest {
         assertNull("typing again clears it", failed.named("Teo").problem)
     }
 
+    @Test fun `what the family shared leaves only the name, its languages a suggestion`() {
+        val f = SetupFlow.start("en").other().family().fromFamily(si.lanisce.lani.data.FamilyLink.Gift(target = "it", base = "de"))
+        assertEquals(Step.NAME, f.step)
+        assertEquals(LangPair(Lang.IT, Lang.DE), f.pair)
+        assertEquals("back on the first screen, they can be changed", Step.WELCOME, f.back().step)
+        // no languages: the first screen asks, in the phone's
+        val none = SetupFlow.start("de").other().family().fromFamily(si.lanisce.lani.data.FamilyLink.Gift())
+        assertEquals(listOf<Any?>(Step.WELCOME, null, Lang.DE), listOf(none.step, none.target, none.base))
+        // never the explanations in the language learned
+        assertEquals(Lang.EN, SetupFlow.start("de").fromFamily(si.lanisce.lani.data.FamilyLink.Gift(target = "de", base = "de")).base)
+    }
+
     // --- the other ways in -------------------------------------------------------------------------------------------
 
     @Test fun `the other ways in leave the main path, and back`() {
@@ -262,11 +274,12 @@ class SetupFlowTest {
         val welcome = SetupFlow.start("de")
         val name = welcome.chooseTarget(Lang.IT)
         val other = name.other()
+        val family = other.family()
         val device = other.choose(Way.DEVICE)
         val computer = other.choose(Way.COMPUTER)
         val manual = computer.manual()
         val back = mapOf(
-            welcome to Step.WELCOME, name to Step.WELCOME, other to Step.WELCOME, device to Step.OTHER,
+            welcome to Step.WELCOME, name to Step.WELCOME, other to Step.WELCOME, family to Step.OTHER, device to Step.OTHER,
             computer to Step.OTHER, manual to Step.COMPUTER,
         )
         assertEquals("every step has its Back", Step.entries.toSet(), back.keys.map { it.step }.toSet())

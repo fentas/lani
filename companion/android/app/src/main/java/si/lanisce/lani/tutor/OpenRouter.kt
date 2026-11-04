@@ -87,6 +87,9 @@ class OpenRouterAuth(
     /** The key kept, or null. */
     suspend fun key(): String? = vault.load()
 
+    /** A key that came from the family (data/FamilyLink) instead of this device's sign-in. */
+    suspend fun keep(key: String) = vault.save(key)
+
     suspend fun has(): Boolean = vault.has()
 
     /** Starts a sign-in: the loopback on [port] (0: a free one), the authorize URL. Open [SignIn.url], then [SignIn.await]. */

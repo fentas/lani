@@ -4567,6 +4567,11 @@ screens say "☁️ Lani na tej napravi · Lani on this device". The bridge runs
   tutor opens ("💬 Nadaljuj s ChatGPT · Continue with ChatGPT", OpenRouter's sign-in, "🔑 Claude (svoj ključ)", "Pozneje ·
   Later"; on a child's device "👪 To nastavi starš · A parent sets this up" and a two-second hold). "📥 Uvozi izvoz · Import
   an export", behind the first screen's small link, takes a file `lani export` made.
+- **Add a family member:** ⚙️ Nastavitve → "👪 Dodaj člana družine" shows a QR code (once, three minutes, both devices on the same
+  Wi-Fi); on the new device the first screen's small link → "Someone in my family already uses Lani" scans it. A parent sees
+  which device claimed it and what it gets, and a two-second hold sends it: the tutor's provider, key and preset, and the
+  languages as a suggestion, end to end encrypted device to device. Then only the name. A ChatGPT sign-in, progress, names and
+  notebooks never come ([first-minutes.md](../docs/plans/05-built/first-minutes.md)).
   Every step reads itself aloud as it opens, offline by the phone's voice
   ([setup-refresh.md](../docs/plans/05-built/setup-refresh.md)).
 - **Moving a learner here from a node:**
@@ -5270,6 +5275,9 @@ LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/qa
   companion/bin/qa --steps friends,town-progress,town-progress-child   # a parent sees a child's progress, then the child's side
 companion/bin/qa --steps visit-voices,visit-voices-silent,visit-sky   # a visit's voices on a tablet without Slovene (a synthetic Italian learner from German, the Slovene fixture town with its own clips, a fake ElevenLabs; LANI_DEV_TOWN_PORT of your own): the town's clip, one voiced on the node, the offer, Ne zdaj, the 🔇 note, the download, Piper; the moon's card on the visit in sl · de
 LANI_DEV_DATA=<a synthetic learner> LANI_QA_MILL_SHOTS=<dir> companion/bin/qa-slot --steps mill-turning   # the mill's wheels turning: in from the stream's mill, closer up, the waterwheel in the middle, a burst of screenshots a fraction of a second apart, the wheel's frames side by side; LANI_QA_MILL_HOUR=22.5 at night (docs/plans/05-built/mill-mechanics.md)
+LANI_QA_FIRSTRUN_SHOTS=<dir> companion/bin/qa-slot --steps first-run   # the first run timed on a phone, alone (no node): the taps and seconds to the first line and the map (firstrun.txt); LANI_QA_SETUP_PAIR=it-de LANI_QA_FIRSTRUN_CHILD=1 LANI_QA_FIRSTRUN_TABLET=1 a child on Teo's tablet (docs/plans/05-built/first-minutes.md)
+companion/bin/qa-slot --steps first-cards        # what the first run leaves for later, each once: the voice's card after the first dialog, the minutes and the aim on Home, the school's card put away
+LANI_QA_FAMILY_DIR=<dir> companion/bin/qa-slot --slot 1 --steps family-parent & LANI_QA_FAMILY_DIR=<dir> companion/bin/qa-slot --slot 2 --steps family-child   # add a family member on both emulators at once: a parent's key (QA's mock), the code through a forwarded port, the hold, a child's device, a second scan refused
 LANI_QA_SETUP_PAIR=it-de LANI_QA_TOUR_SHOTS=<dir> companion/bin/qa-slot --steps setup-tour   # the first launch on Teo's tablet (2560 × 1600, on its side and upright), alone (no node): a child learning Italian from German on this device, each step's shots, what it said (tour-speech.txt), Back, the aim, the voice, the founding; the taps counted (docs/plans/05-built/setup-refresh.md)
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes; on a synthetic learner with LANI_DEV_FAKE_ELEVENLABS=1 (its clips made first)
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes

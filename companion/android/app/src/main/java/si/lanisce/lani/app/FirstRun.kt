@@ -96,6 +96,9 @@ class FirstRunController(private val scope: CoroutineScope, private val prefs: P
 
     fun settle(a: FirstRun.Ask) = keep(state.settle(a))
 
+    /** QA's hook "firstrun:…" (a debug build): this device as if it came through a first run, or as an existing learner's. */
+    fun qa(f: FirstRun) = keep(f)
+
     private fun keep(f: FirstRun) {
         if (f == state) return
         state = f

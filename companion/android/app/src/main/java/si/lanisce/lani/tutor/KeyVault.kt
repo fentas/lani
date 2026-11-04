@@ -127,12 +127,15 @@ object Redact {
     private val named = Regex("""\b($SECRET_NAME)(\s*["']?\s*[=:]\s*["']?\s*)(?:(?:Bearer|Basic|Token)\s+)?([^\s&#"',;<>()\[\]\{\}]+)""", RegexOption.IGNORE_CASE)
     private val secretKey = Regex("^$SECRET_NAME$", RegexOption.IGNORE_CASE)
     private val bearer = Regex("""\bBearer\s+[A-Za-z0-9._~+/=\-]{6,}""", RegexOption.IGNORE_CASE)
+    /** A family's one-time code (data/FamilyLink): useless once used or expired, and still nobody's business in a log. */
+    private val familyCode = Regex("""lani://family\?[^\s"'<>]+""")
     /** A URL's key, signature or code (a token's own name is [named]'s). */
     private val query = Regex("""([?&](?:key|sig|signature|code|auth)=)[^&\s#"']+""", RegexOption.IGNORE_CASE)
 
     fun of(text: String, key: String? = null): String {
         var t = text
         if (!key.isNullOrBlank() && key.length >= 8) t = t.replace(key, "‹key›")
+        t = familyCode.replace(t, "‹family code›")
         t = keyLike.replace(t, "sk-ant-‹…›")
         t = openAIKey.replace(t, "sk-‹…›")
         t = googleKey.replace(t, "AIza‹…›")

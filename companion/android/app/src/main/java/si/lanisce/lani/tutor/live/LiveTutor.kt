@@ -60,6 +60,7 @@ import si.lanisce.lani.tutor.OpenRouterKey
 import si.lanisce.lani.tutor.OpenRouterModels
 import si.lanisce.lani.tutor.OpenRouterProvider
 import si.lanisce.lani.tutor.OpenRouterTransport
+import si.lanisce.lani.tutor.Preset
 import si.lanisce.lani.tutor.PartialJson
 import si.lanisce.lani.tutor.PhaseA
 import si.lanisce.lani.tutor.Prefix
@@ -650,6 +651,39 @@ class LiveTutor(
         line("key checked: ${models.size} model(s)")
         wakeUp()
         null
+    }
+
+    /**
+     * The tutor as a family shares it ("👪 Add a family member", data/FamilyLink): the provider and its key and preset. A ChatGPT
+     * sign-in is one person's and each host has its own id, so it never comes; nor does a key of another provider than the one in use.
+     */
+    suspend fun familyShare(): si.lanisce.lani.data.FamilyLink.Gift = withContext(io) {
+        val p = settings.provider
+        val key = when (p) {
+            ProviderId.ANTHROPIC -> vault.load()
+            ProviderId.OPENROUTER -> openrouter?.key()
+            ProviderId.OPENAI -> if (openaiBilling() == Billing.API_KEY) openai?.apiKey?.load() else null
+            ProviderId.GEMINI -> null
+        }
+        si.lanisce.lani.data.FamilyLink.Gift(provider = p.id.takeIf { key != null }, key = key, preset = settings.preset.name.takeIf { key != null })
+    }
+
+    /** What the family shared into this device's own vault, checked as a key typed here is. Null when kept, else what went wrong (redacted). */
+    suspend fun receiveFamily(g: si.lanisce.lani.data.FamilyLink.Gift): String? {
+        val key = g.key ?: return null
+        val p = ProviderId.entries.firstOrNull { it.id == g.provider } ?: return "another provider"
+        val preset = Preset.entries.firstOrNull { it.name == g.preset }
+        update { it.copy(provider = p, models = emptyMap(), preset = preset ?: it.preset) }.join()
+        return when (p) {
+            ProviderId.ANTHROPIC -> setKey(key)?.let { "refused" }
+            ProviderId.OPENAI -> setOpenAIKey(key)?.let { Redact.of(it, key) }
+            ProviderId.OPENROUTER -> withContext(io) {
+                openrouter?.auth?.keep(key)
+                loadOthers()
+                routerCheck()?.let { Redact.of(it, key) }
+            }
+            ProviderId.GEMINI -> "not shared"
+        }
     }
 
     fun removeKey() = scope.launch(io) {

@@ -1,5 +1,7 @@
 # Built: the first launch, and the village's first words read aloud
 
+*Since 2026-11-04 ([first-minutes.md](first-minutes.md)) the first run is shorter: the language, the name and "For a child", the founding; the computer and an import are behind a small link on the first screen, and the rest is asked when it matters.*
+
 *2026-10-26, branch `onboarding`. Jan set up a tablet for their son Teo (learning Italian from German, the Friuli
 culture) and found the first screen "quite dev mode": a masculine "Dobrodošel!" before anyone said who they are, a raw
 "Bridge URL" and "Token", and a paragraph about `tailscale serve status` and `data/app/bridge-token`. The introduction

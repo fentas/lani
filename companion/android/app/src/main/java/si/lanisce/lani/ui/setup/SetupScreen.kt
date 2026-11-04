@@ -135,7 +135,8 @@ fun SetupScreen(vm: AppViewModel) {
     ) else when (flow.step) {
         Step.WELCOME -> Welcome(vm, flow, speech, onTarget = { sayName(it); go(flow.chooseTarget(it)) }, onOther = { go(flow.other()) })
         Step.NAME -> Name(vm, flow, speech, onBase = { if (it != flow.base) sayName(it); go(vm.setupFlow.chooseBase(it)) }, go = ::go)
-        Step.OTHER -> Other(vm, speech, onWay = { go(flow.choose(it)) }, onBack = { go(flow.back()) })
+        Step.OTHER -> Other(vm, speech, onWay = { go(flow.choose(it)) }, onFamily = { go(flow.family()) }, onBack = { go(flow.back()) })
+        Step.FAMILY -> Family(vm, speech, ::go)
         Step.COMPUTER -> Computer(vm, speech, onScan = { scanning = true }, onManual = { go(flow.manual()) }, onBack = { go(flow.back()) })
         Step.MANUAL -> Manual(vm, flow, speech, ::go)
         Step.DEVICE -> Unit
@@ -149,6 +150,7 @@ private fun stepSpeech(flow: SetupFlow): List<HintPiece> = when (flow.step) {
     Step.WELCOME -> SetupSpeech.welcome(flow.base)
     Step.NAME -> SetupSpeech.who(flow.pair)
     Step.OTHER -> SetupSpeech.other(flow.pair)
+    Step.FAMILY -> SetupSpeech.family(flow.pair)
     Step.COMPUTER -> SetupSpeech.computer(flow.pair)
     Step.MANUAL -> SetupSpeech.manual(flow.pair)
     Step.DEVICE -> emptyList()
@@ -334,9 +336,10 @@ private fun Name(vm: AppViewModel, flow: SetupFlow, speech: List<HintPiece>, onB
 
 /** The other ways in, for those who have a code or a file (the first screen's small link): the family's computer, an export. */
 @Composable
-private fun Other(vm: AppViewModel, speech: List<HintPiece>, onWay: (Way) -> Unit, onBack: () -> Unit) {
+private fun Other(vm: AppViewModel, speech: List<HintPiece>, onWay: (Way) -> Unit, onFamily: () -> Unit, onBack: () -> Unit) {
     SetupPage(vm.hintVoice, speech) {
         Text(bi("setup.otherTitle"), style = MaterialTheme.typography.headlineSmall, color = White, textAlign = TextAlign.Center)
+        WayCard("👪", bi("family.scanTitle"), bi("family.scanWhat"), onClick = onFamily)
         WayCard("🖥️", bi("setup.computerTitle"), bi("setup.computerWhat"), onClick = { onWay(Way.COMPUTER) })
         WayCard("📥", bi("hosted.importExport"), bi("hosted.importWhat"), onClick = { onWay(Way.DEVICE) })
         TextButton(onClick = onBack) { Text("‹ ${bi("components.back")}", color = White) }
@@ -357,6 +360,36 @@ private fun WayCard(emoji: String, title: String, what: String, onClick: () -> U
             }
             Text("›", style = MaterialTheme.typography.headlineMedium, color = White)
         }
+    }
+}
+
+/**
+ * "👪 Nekdo v družini že uporablja Lani · Someone in my family already uses Lani" (data/FamilyLink): the camera for the code a
+ * set-up device shows, then the wait while a parent confirms there; what's shared kept for when the learner's data is made,
+ * and the name's step next. A code that gives nothing says so, and the camera comes back.
+ */
+@Composable
+private fun Family(vm: AppViewModel, speech: List<HintPiece>, go: (SetupFlow) -> Unit) {
+    val context = LocalContext.current
+    var granted by remember { mutableStateOf(si.lanisce.lani.ui.cameraGranted(context)) }
+    val ask = androidx.activity.compose.rememberLauncherForActivityResult(androidx.activity.result.contract.ActivityResultContracts.RequestPermission()) { granted = it }
+    LaunchedEffect(Unit) { if (!granted) ask.launch(android.Manifest.permission.CAMERA) }
+    val fetch = vm.familyFetch
+    SetupPage(vm.hintVoice, speech) {
+        Text("👪 ${bi("family.scanTitle")}", style = MaterialTheme.typography.headlineSmall, color = White, textAlign = TextAlign.Center)
+        Text(bi("family.scanWhat"), color = Muted, textAlign = TextAlign.Center)
+        if (fetch == AppViewModel.FamilyFetch.WAITING) {
+            androidx.compose.material3.CircularProgressIndicator(color = White)
+            Text(bi("family.waiting"), color = White, textAlign = TextAlign.Center)
+        } else {
+            if (fetch == AppViewModel.FamilyFetch.REFUSED) Text("⌛ ${bi("family.refused")}", color = Warn, textAlign = TextAlign.Center)
+            if (fetch == AppViewModel.FamilyFetch.UNREACHABLE) Text("📶 ${bi("family.unreachable")}", color = Warn, textAlign = TextAlign.Center)
+            if (granted) si.lanisce.lani.ui.QrCamera(
+                onCode = { text -> vm.scanFamily(text) { gift -> go(vm.setupFlow.fromFamily(gift)) } },
+                modifier = Modifier.fillMaxWidth().widthIn(max = 360.dp).aspectRatio(1f).clip(RoundedCornerShape(16.dp)),
+            )
+        }
+        TextButton(onClick = { vm.familyFetch = null; go(vm.setupFlow.back()) }, enabled = fetch != AppViewModel.FamilyFetch.WAITING) { Text("‹ ${bi("components.back")}", color = White) }
     }
 }
 
@@ -482,7 +515,7 @@ fun ParentGated(
 
 /** A button that opens only when held ([ParentGate.HOLD_MS]): it fills as it's held, and empties again when let go early. */
 @Composable
-private fun HoldToOpen(label: String, onLight: Boolean, onOpen: () -> Unit) {
+internal fun HoldToOpen(label: String, onLight: Boolean, onOpen: () -> Unit) {
     var pressing by remember { mutableStateOf(false) }
     val fill = remember { Animatable(0f) }
     LaunchedEffect(pressing) {
