@@ -48,13 +48,48 @@ class TalkTest {
     @Test fun `every curated scenario parses`() {
         val dir = listOf(File("../../scenarios"), File("../scenarios"), File("companion/scenarios")).first { it.isDirectory }
         val files = dir.listFiles { f -> f.extension == "json" }.orEmpty()
-        assertEquals(6, files.size)
+        assertEquals(18, files.size)
         for (f in files) {
             val s = parseScenario(f.readText())
             assertEquals(f.nameWithoutExtension, s.id)
             assertTrue(s.goals.size in 3..5)
             assertFalse(s.character.isBlank())
         }
+        // Jan's six at A1, and six talks each at B1 and B2 (docs/plans/05-built/talks-sl.md)
+        val levels = files.map { parseScenario(it.readText()).level }.groupingBy { it }.eachCount()
+        assertEquals(mapOf("A1" to 6, "B1" to 6, "B2" to 6), levels)
+    }
+
+    @Test fun `Jan's B1 and B2 talks read in the pair, for a grown-up, with their packs`() {
+        val dir = listOf(File("../../scenarios"), File("../scenarios"), File("companion/scenarios")).first { it.isDirectory }
+        val above = dir.listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
+            .filter { parseScenario(it.readText()).level in setOf("B1", "B2") }
+        assertEquals(12, above.size)
+        inPair(si.lanisce.lani.l10n.Lang.SL, si.lanisce.lani.l10n.Lang.EN) {
+            for (f in above) {
+                val s = parseScenario(f.readText())
+                assertEquals("sl", s.language)
+                assertEquals("adult", s.audience)
+                assertTrue(s.packs.isNotEmpty())
+                // "Pri županji · At the mayor's office": Slovene, then English, for the title, the goals and who
+                assertTrue(s.title, " · " in s.title)
+                assertTrue(s.goals.toString(), s.goals.all { " · " in it })
+                assertTrue(s.who.orEmpty(), " · " in s.who.orEmpty())
+            }
+            val boots = parseScenario(File(dir, "reklamacija.json").readText())
+            assertEquals("Reklamacija v trgovini · A complaint at the shop", boots.title)
+            assertEquals("Povej, kaj je narobe s čevlji · Say what is wrong with the boots", boots.goals.first())
+            assertEquals("Prodajalec Gregor", boots.character)
+            assertEquals("B1", boots.level)
+            assertEquals("Vinar Marko", parseScenario(File(dir, "marko-na-razpotju.json").readText()).character)
+        }
+        val mayor = inPair(si.lanisce.lani.l10n.Lang.SL, si.lanisce.lani.l10n.Lang.DE) { parseScenario(File(dir, "pri-zupanji.json").readText()) }
+        assertEquals("Pri županji · Bei der Bürgermeisterin", mayor.title)
+        assertEquals("Županja · Die Bürgermeisterin", mayor.who)
+        assertTrue(mayor.setting, mayor.setting.startsWith("Seit die Bushaltestelle"))
+        assertEquals("Ich fürchte, dass früher oder später ein Unfall passiert.", mayor.vocabularyHints.first { it.sl.startsWith("Bojim se") }.en)
+        assertEquals("Županja Majda", mayor.character)
+        assertEquals("B2", mayor.level)
     }
 
     @Test fun `every Italian scenario parses, its texts in the child's pair`() {
@@ -68,7 +103,8 @@ class TalkTest {
                 val s = parseScenario(f.readText())
                 assertEquals(f.nameWithoutExtension, s.id)
                 assertEquals("it", s.language)
-                assertEquals("child", s.audience)
+                // A1 to B1 a child's; B2 an older learner's, with nothing a child mayn't hear (no audience)
+                assertEquals(s.id, if (s.level == "B2") null else "child", s.audience)
                 assertTrue(s.goals.size in 3..5)
                 assertTrue(s.packs.isNotEmpty())
                 assertFalse(s.character.isBlank())
@@ -105,10 +141,35 @@ class TalkTest {
         return dir.listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
     }
 
+    @Test fun `Teo's talks reach B2, six at B1 for a child and six at B2, read in it · de`() {
+        val talks = scenariosOf("it").map { parseScenario(it.readText()) }
+        val byLevel = talks.groupBy { it.level }
+        assertEquals(setOf("A1", "A2", "B1", "B2"), byLevel.keys)
+        assertEquals(6, byLevel.getValue("B1").size)
+        assertEquals(6, byLevel.getValue("B2").size)
+        assertTrue(byLevel.getValue("B1").all { it.audience == "child" })
+        assertTrue(byLevel.getValue("B2").all { it.audience == null && it.language == "it" })
+        inPair(si.lanisce.lani.l10n.Lang.IT, si.lanisce.lani.l10n.Lang.DE) {
+            val dir = scenariosOf("it").first().parentFile
+            val cat = parseScenario(File(dir, "il-gatto-sull-albero.json").readText())
+            assertEquals("Il gatto sull'albero · Die Katze auf dem Baum", cat.title)
+            assertEquals("Zia Nives", cat.character)
+            assertEquals("Racconta come è finita · Erzähl, wie es ausgegangen ist", cat.goals[3])
+            assertTrue(cat.setting, cat.setting.startsWith("Am Brunnen auf dem Platz."))
+            assertEquals("Da haben wir die Feuerwehr gerufen.", cat.vocabularyHints.first { it.sl == "Allora abbiamo chiamato i pompieri." }.en)
+            val davide = parseScenario(File(dir, "se-fossi-in-te.json").readText())
+            assertEquals("B2", davide.level)
+            assertEquals("Pastore Davide", davide.character)
+            assertEquals("Se fossi in te… · Wenn ich du wäre …", davide.title)
+            assertEquals("Wenn ich du wäre, würde ich hingehen.", davide.vocabularyHints.first { it.sl == "Se fossi in te, ci andrei." }.en)
+        }
+    }
+
     @Test fun `every German and English scenario parses for a grown-up, its texts in the learner's pair`() {
         for ((language, pair) in listOf("de" to (si.lanisce.lani.l10n.Lang.DE to si.lanisce.lani.l10n.Lang.SL), "en" to (si.lanisce.lani.l10n.Lang.EN to si.lanisce.lani.l10n.Lang.IT))) {
             val files = scenariosOf(language)
-            assertEquals(language, 8, files.size)
+            // German: eight to A2 and six each at B1 and B2 (docs/plans/05-built/talks-de.md); English: eight to A2
+            assertEquals(language, if (language == "de") 20 else 8, files.size)
             inPair(pair.first, pair.second) {
                 for (f in files) {
                     val s = parseScenario(f.readText())
@@ -138,6 +199,43 @@ class TalkTest {
         assertTrue(shop.setting, shop.setting.startsWith("Sabato mattina"))
         assertEquals("Quanto costa?", shop.vocabularyHints.first { it.sl == "How much is that?" }.en)
         assertEquals("Mrs Atkinson", shop.character)
+    }
+
+    @Test fun `the German talks at B1 and B2 read in the pair, for a grown-up, the cast's own by their names`() {
+        val above = scenariosOf("de").filter { parseScenario(it.readText()).level in setOf("B1", "B2") }
+        val levels = above.map { parseScenario(it.readText()).level }.groupingBy { it }.eachCount()
+        assertEquals(mapOf("B1" to 6, "B2" to 6), levels)
+        inPair(si.lanisce.lani.l10n.Lang.DE, si.lanisce.lani.l10n.Lang.SL) {
+            for (f in above) {
+                val s = parseScenario(f.readText())
+                assertEquals("de", s.language)
+                assertEquals("adult", s.audience)
+                assertTrue(s.packs.isNotEmpty())
+                assertTrue(s.title, " · " in s.title)
+                assertTrue(s.goals.toString(), s.goals.all { " · " in it })
+                assertTrue(s.who.orEmpty(), " · " in s.who.orEmpty())
+            }
+            val mayor = parseScenario(above.first { it.name == "beim-buergermeister.json" }.readText())
+            assertEquals("Beim Bürgermeister · Pri županu", mayor.title)
+            assertEquals("Der Bürgermeister · Župan", mayor.who)
+            assertEquals("Stell dich vor und sag kurz, worum es geht · Predstavi se in na kratko povej, za kaj gre", mayor.goals.first())
+            assertTrue(mayor.setting, mayor.setting.startsWith("Vaška trgovina"))
+            assertEquals("Bürgermeister Wutti", mayor.character)
+            assertEquals("B2", mayor.level)
+        }
+        // the cast plays its own: Stefan's Most, Tante Mitzi's hearing aid, Kathi's Gasthaus, Florian's choice
+        val played = above.associate { it.nameWithoutExtension to parseScenario(it.readText()).character }
+        assertEquals("Mostbauer Stefan", played["most-fuer-das-fest"])
+        assertEquals("Tante Mitzi", played["tante-mitzi-und-das-hoergeraet"])
+        assertEquals("Wirtin Kathi", played["aushilfe-im-gasthaus"])
+        assertEquals("Hirte Florian", played["florian-muss-sich-entscheiden"])
+        assertEquals("Inspektor Zankl", played["ein-unfall-auf-der-piste"])
+        // an English base reads the same talk in English (de · en)
+        val storm = inPair(si.lanisce.lani.l10n.Lang.DE, si.lanisce.lani.l10n.Lang.EN) { parseScenario(above.first { it.name == "nach-dem-unwetter.json" }.readText()) }
+        assertEquals("Nach dem Unwetter · After the storm", storm.title)
+        assertTrue(storm.setting, storm.setting.startsWith("In the night a heavy storm"))
+        assertEquals("Then the stream burst its banks.", storm.vocabularyHints.first { it.sl == "Dann ist der Bach über die Ufer getreten." }.en)
+        assertEquals("B1", storm.level)
     }
 
     @Test fun `Jan's scenarios read in a German base too, and as they were in English`() {

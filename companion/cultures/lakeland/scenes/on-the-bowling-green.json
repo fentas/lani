@@ -5,7 +5,7 @@
   "title": { "en": "On the bowling green", "sl": "Na travnatem balinišču", "it": "Sul prato da bocce", "de": "Auf dem Bowlingrasen" },
   "emoji": "🎳",
   "level": "A1",
-  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not reviewed by a native speaker; check: bias, end, toucher, bulin, Zielkugel, Zollstock",
+  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not native-checked; check: bias, end, toucher, bulin, Zielkugel, Zollstock; B1, B2 variants too",
   "art": "bocce",
   "from": ["project:balinisce"],
   "pack": "on-the-bowling-green",
@@ -82,7 +82,7 @@
       "months": [4, 5, 6, 7, 8, 9],
       "chance": 0.5,
       "dialog": "measure",
-      "dialogs": ["measure-count", "measure-find", "measure"],
+      "dialogs": ["measure-b2-ten", "measure-b1-wilf", "measure-count", "measure-find", "measure"],
       "reward": { "stone": 15 },
       "marker": "📏",
       "memory": {
@@ -104,7 +104,7 @@
       "when": ["afternoon"],
       "chance": 0.5,
       "dialog": "lemonade",
-      "dialogs": ["lemonade-pour", "lemonade-winter", "lemonade"],
+      "dialogs": ["lemonade-b2-bottles", "lemonade-b1-match", "lemonade-pour", "lemonade-winter", "lemonade"],
       "reward": { "food": 15 },
       "marker": "🍋",
       "memory": {
@@ -2010,6 +2010,79 @@
           "it": "Adesso a casa, prima che escano i pipistrelli.",
           "de": "Jetzt nach Hause, bevor die Fledermäuse kommen."
         }
+      ]
+    },
+    {
+      "id": "lemonade-b2-bottles", "level": "B2",
+      "memory": {"en": "the forty bottles of lemonade and the last one under the roses", "sl": "štirideset steklenic limonade in zadnjo pod vrtnicami", "it": "le quaranta bottiglie di limonata e l'ultima sotto le rose", "de": "die vierzig Flaschen Limonade und die letzte unter den Rosen"},
+      "lines": [
+        {"who": "sam", "face": "laugh", "en": "Now then, {learner}. Forty bottles of lemonade for the match, most of which have gone already.", "sl": "Živjo, {learner}. Štirideset steklenic limonade za tekmo, večina jih je že izginila.", "it": "Ehilà, {learner}. Quaranta bottiglie di limonata per la partita, la maggior parte già sparite.", "de": "Na, {learner}. Vierzig Flaschen Limonade fürs Spiel, die meisten schon weg."},
+        {"who": "sam", "face": "curious", "en": "Who drank them all, do you reckon?", "sl": "Kaj misliš, kdo jih je popil?", "it": "Chi se le è bevute tutte, secondo te?", "de": "Wer hat die wohl alle getrunken?"},
+        { "choices": [
+          {"en": "The players, most of whom were thirsty after the game?", "sl": "Igralci, ki so bili po igri večinoma žejni?", "it": "I giocatori, che dopo la partita avevano quasi tutti sete?", "de": "Die Spieler, von denen die meisten nach dem Spiel Durst hatten?", "ok": true, "reply": {"face": "laugh", "en": "The players, and Old Wilf. Mostly Old Wilf.", "sl": "Igralci in stari Wilf. Predvsem stari Wilf.", "it": "I giocatori, e il vecchio Wilf. Soprattutto il vecchio Wilf.", "de": "Die Spieler und der alte Wilf. Vor allem der alte Wilf."}},
+          {"en": "The players, most of that were thirsty after the game?", "sl": "Igralci, ki so bili po igri večinoma žejni?", "it": "I giocatori, che dopo la partita avevano quasi tutti sete?", "de": "Die Spieler, von denen die meisten nach dem Spiel Durst hatten?", "grammar": "relative-clauses-more", "why": {"en": "After most of and both of: whom for people, which for things. That never comes after of.", "sl": "Za most of in both of: whom za ljudi, which za stvari. That nikoli ne pride za of.", "it": "Dopo most of e both of: whom per le persone, which per le cose. That non va mai dopo of.", "de": "Nach most of und both of: whom für Menschen, which für Dinge. That steht nie nach of."}, "reply": {"face": "curious", "en": "Most of that? Most of what, {learner}?", "sl": "Most of that? Večina česa?", "it": "Most of that? La maggior parte di cosa?", "de": "Most of that? Die meisten wovon?"}}
+        ] },
+        {"who": "sam", "face": "thinking", "en": "Wilf says he'd known my grandad for sixty years when my grandad died.", "sl": "Wilf pravi, da je mojega deda poznal šestdeset let, ko je ded umrl.", "it": "Wilf dice che conosceva mio nonno da sessant'anni quando il nonno è morto.", "de": "Wilf sagt, er kannte meinen Opa sechzig Jahre, als Opa starb."},
+        { "choices": [
+          {"en": "Then he'd known him longer than anyone.", "sl": "Potem ga je poznal dlje kot kdor koli.", "it": "Allora lo conosceva da più tempo di chiunque altro.", "de": "Dann kannte er ihn länger als jeder andere.", "ok": true, "reply": {"face": "happy", "en": "Longer than my gran, even. They were at school together.", "sl": "Dlje celo kot moja babica. Skupaj sta hodila v šolo.", "it": "Più a lungo perfino di mia nonna. Andavano a scuola insieme.", "de": "Länger sogar als meine Oma. Sie waren zusammen in der Schule."}},
+          {"en": "Then he'd been knowing him longer than anyone.", "sl": "Potem ga je poznal dlje kot kdor koli.", "it": "Allora lo conosceva da più tempo di chiunque altro.", "de": "Dann kannte er ihn länger als jeder andere.", "grammar": "narrative-tenses", "why": {"en": "With know, own and be there's no -ing: he'd known him. Had been + -ing is for doing.", "sl": "Pri know, own in be ni -ing: he'd known him. Had been + -ing je za dejanja.", "it": "Con know, own e be niente -ing: he'd known him. Had been + -ing è per le azioni.", "de": "Bei know, own und be kein -ing: he'd known him. Had been + -ing ist für Tätigkeiten."}, "reply": {"face": "curious", "en": "Been knowing? We don't say it like that round here.", "sl": "Been knowing? Tukaj tako ne govorimo.", "it": "Been knowing? Qui non si dice così.", "de": "Been knowing? So sagt man das hier nicht."}}
+        ] },
+        {"who": "sam", "face": "happy", "en": "Here, the last bottle. I hid it under the roses. For us.", "sl": "Na, zadnja steklenica. Skril sem jo pod vrtnice. Za naju.", "it": "Tieni, l'ultima bottiglia. L'avevo nascosta sotto le rose. Per noi.", "de": "Hier, die letzte Flasche. Ich hab sie unter den Rosen versteckt. Für uns."}
+      ]
+    },
+    {
+      "id": "lemonade-b1-match", "level": "B1",
+      "memory": {"en": "the Saturday match and the bowls you'd learn", "sl": "sobotno tekmo in balinanje, ki bi se ga rad naučil", "it": "la partita del sabato e le bocce che vorresti imparare", "de": "das Samstagsspiel und das Bowls, das du lernen würdest"},
+      "lines": [
+        {"who": "sam", "face": "happy", "en": "Now then, {learner}! Come and sit under the roses. Fancy a glass of my homemade lemonade?", "sl": "Živjo, {learner}! Pridi sedet pod vrtnice. Bi kozarec moje domače limonade?", "it": "Ehilà, {learner}! Vieni a sederti sotto le rose. Un bicchiere della mia limonata fatta in casa?", "de": "Na, {learner}! Komm, setz dich unter die Rosen. Lust auf ein Glas von meiner hausgemachten Limonade?"},
+        {"who": "sam", "face": "curious", "en": "I'll be playing in the big match on Saturday. Will you be there?", "sl": "V soboto bom igral na veliki tekmi. Boš tam?", "it": "Sabato giocherò nella grande partita. Ci sarai?", "de": "Am Samstag spiel ich im großen Match. Bist du da?"},
+        { "choices": [
+          {"en": "I'll be cheering for you all afternoon!", "sl": "Ves popoldan bom {m:navijal|f:navijala} zate!", "it": "Farò il tifo per te tutto il pomeriggio!", "de": "Ich feuere dich den ganzen Nachmittag an!", "ok": true, "reply": {"face": "happy", "en": "Brilliant. I'll need it. Old Wilf never misses the jack.", "sl": "Odlično. Potreboval bom. Stari Wilf nikoli ne zgreši balinčka.", "it": "Fantastico. Ne avrò bisogno. Il vecchio Wilf non sbaglia mai il boccino.", "de": "Super. Das brauch ich. Der alte Wilf trifft den Jack immer."}},
+          {"en": "I'll be cheer for you all afternoon!", "sl": "Ves popoldan bom {m:navijal|f:navijala} zate!", "it": "Farò il tifo per te tutto il pomeriggio!", "de": "Ich feuere dich den ganzen Nachmittag an!", "grammar": "future-continuous", "why": {"en": "Will be + -ing for what will be going on then: I'll be cheering.", "sl": "Will be + -ing za tisto, kar bo takrat potekalo: I'll be cheering.", "it": "Will be + -ing per ciò che sarà in corso: I'll be cheering.", "de": "Will be + -ing für das, was dann gerade läuft: I'll be cheering."}, "reply": {"face": "curious", "en": "Be cheer? Nearly there, {learner}. One ending short.", "sl": "Be cheer? Skoraj. Ena končnica manjka.", "it": "Be cheer? Quasi, {learner}. Manca una desinenza.", "de": "Be cheer? Fast, {learner}. Eine Endung fehlt."}}
+        ] },
+        {"who": "sam", "face": "curious", "en": "What about you? If you could play any sport, what would it be?", "sl": "Pa ti? Če bi lahko {m:igral|f:igrala} katerikoli šport, kateri bi bil?", "it": "E tu? Se potessi fare qualsiasi sport, quale sarebbe?", "de": "Und du? Wenn du jeden Sport spielen könntest, welcher wäre es?"},
+        { "choices": [
+          {"en": "If I could, I'd learn to play bowls.", "sl": "Če bi lahko, bi se {m:naučil|f:naučila} balinati.", "it": "Se potessi, imparerei a giocare a bocce.", "de": "Wenn ich könnte, würde ich Bowls lernen.", "ok": true, "reply": {"face": "happy", "en": "Bowls! I'll teach you. Wilf taught me.", "sl": "Balinanje! Naučil te bom. Mene je naučil Wilf.", "it": "Le bocce! Te le insegno io. A me le ha insegnate Wilf.", "de": "Bowls! Ich bring's dir bei. Mir hat's Wilf beigebracht."}},
+          {"en": "If I can, I'd learn to play bowls.", "sl": "Če bi lahko, bi se {m:naučil|f:naučila} balinati.", "it": "Se potessi, imparerei a giocare a bocce.", "de": "Wenn ich könnte, würde ich Bowls lernen.", "grammar": "second-conditional", "why": {"en": "Only imagined: if I could, I'd learn. If I can is for what is really possible.", "sl": "Samo predstavljaš si: if I could, I'd learn. If I can je za tisto, kar je res mogoče.", "it": "Solo immaginato: if I could, I'd learn. If I can è per ciò che è davvero possibile.", "de": "Nur vorgestellt: if I could, I'd learn. If I can ist für das, was wirklich möglich ist."}, "reply": {"face": "laugh", "en": "If you can? You can! Grab a bowl, then.", "sl": "If you can? Saj lahko! Kar vzemi kroglo.", "it": "If you can? Puoi! Prendi una boccia, allora.", "de": "If you can? Du kannst! Schnapp dir eine Kugel."}}
+        ] },
+        {"who": "sam", "face": "happy", "en": "Here's your lemonade. Mind the wasps. They love it more than we do.", "sl": "Tu je tvoja limonada. Pazi na ose. Imajo jo raje kot midva.", "it": "Ecco la tua limonata. Attento alle vespe. Piace più a loro che a noi.", "de": "Hier, deine Limonade. Pass auf die Wespen auf. Die mögen sie mehr als wir."}
+      ]
+    },
+    {
+      "id": "measure-b2-ten", "level": "B2",
+      "memory": {"en": "the season I meant to win all ten", "sl": "sezono, ko sem hotel zmagati vseh deset", "it": "la stagione in cui volevo vincerle tutte e dieci", "de": "die Saison, in der ich alle zehn gewinnen wollte"},
+      "lines": [
+        {"who": "tyson", "face": "thinking", "en": "Good afternoon, {learner}. Six games won this season, four to play. I keep count.", "sl": "Dober dan, {learner}. Šest iger dobljenih to sezono, štiri še pred mano. Štejem.", "it": "Buon pomeriggio, {learner}. Sei partite vinte quest'anno, quattro da giocare. Tengo il conto.", "de": "Guten Tag, {learner}. Sechs Spiele gewonnen diese Saison, vier noch zu spielen. Ich zähle mit."},
+        {"who": "tyson", "face": "curious", "en": "If I win the last four, what will I have done by September?", "sl": "Če dobim zadnje štiri, kaj bom naredil do septembra?", "it": "Se vinco le ultime quattro, che cosa avrò fatto entro settembre?", "de": "Wenn ich die letzten vier gewinne, was hab ich dann bis September geschafft?"},
+        { "choices": [
+          {"en": "You'll have won all ten by September.", "sl": "Do septembra boste dobili vseh deset.", "it": "Entro settembre le avrà vinte tutte e dieci.", "de": "Bis September werden Sie alle zehn gewonnen haben.", "ok": true, "reply": {"face": "proud", "en": "Ten. A record. Write it down for me.", "sl": "Deset. Rekord. Zapiši mi ga.", "it": "Dieci. Un record. Scrivilo per me.", "de": "Zehn. Ein Rekord. Schreib's mir auf."}},
+          {"en": "You'll have winned all ten by September.", "sl": "Do septembra boste dobili vseh deset.", "it": "Entro settembre le avrà vinte tutte e dieci.", "de": "Bis September werden Sie alle zehn gewonnen haben.", "grammar": "future-perfect", "why": {"en": "Will have + the participle: will have won. Win, won, won, with no -ed.", "sl": "Will have + deležnik: will have won. Win, won, won, brez -ed.", "it": "Will have + il participio: will have won. Win, won, won, senza -ed.", "de": "Will have + Partizip: will have won. Win, won, won, ohne -ed."}, "reply": {"face": "cross", "en": "Winned? Count again, {learner}. That's not a word.", "sl": "Winned? Še enkrat preštej. Te besede ni.", "it": "Winned? Riconta, {learner}. Non è una parola.", "de": "Winned? Zähl noch mal, {learner}. Das ist kein Wort."}}
+        ] },
+        {"who": "tyson", "face": "worried", "en": "Old Wilf's in form, mind. He beat me twice in May.", "sl": "Stari Wilf je v formi, da veš. Maja me je dvakrat premagal.", "it": "Il vecchio Wilf è in forma, però. A maggio mi ha battuto due volte.", "de": "Der alte Wilf ist in Form, wohlgemerkt. Im Mai hat er mich zweimal geschlagen."},
+        {"who": "tyson", "face": "curious", "en": "Any advice for Saturday?", "sl": "Kak nasvet za soboto?", "it": "Qualche consiglio per sabato?", "de": "Ein Rat für Samstag?"},
+        { "choices": [
+          {"en": "Just do your best, and measure twice.", "sl": "Samo potrudite se po najboljših močeh in dvakrat izmerite.", "it": "Faccia del suo meglio, e misuri due volte.", "de": "Geben Sie einfach Ihr Bestes und messen Sie zweimal.", "ok": true, "reply": {"face": "happy", "en": "Twice. Three times, if Wilf's watching.", "sl": "Dvakrat. Trikrat, če gleda Wilf.", "it": "Due volte. Tre, se Wilf guarda.", "de": "Zweimal. Dreimal, wenn Wilf zuschaut."}},
+          {"en": "Just make your best, and measure twice.", "sl": "Samo potrudite se po najboljših močeh in dvakrat izmerite.", "it": "Faccia del suo meglio, e misuri due volte.", "de": "Geben Sie einfach Ihr Bestes und messen Sie zweimal.", "grammar": "collocations", "why": {"en": "Do goes with your best, your homework, a favour. Make is for what comes to be: make a cake.", "sl": "Do gre z your best, your homework, a favour. Make je za tisto, kar nastane: make a cake.", "it": "Do va con your best, your homework, a favour. Make è per ciò che si crea: make a cake.", "de": "Do steht bei your best, your homework, a favour. Make für das, was entsteht: make a cake."}, "reply": {"face": "laugh", "en": "Make my best? My best what, a pie?", "sl": "Make my best? Moj najboljši kaj, pito?", "it": "Make my best? Il mio migliore cosa, una torta?", "de": "Make my best? Mein bestes was, einen Kuchen?"}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Ruler, notebook, four games. Let's see.", "sl": "Prav. Ravnilo, beležka, štiri igre. Bomo videli.", "it": "Bene. Righello, taccuino, quattro partite. Vedremo.", "de": "Gut. Lineal, Notizbuch, vier Spiele. Mal sehen."}
+      ]
+    },
+    {
+      "id": "measure-b1-wilf", "level": "B1",
+      "memory": {"en": "two centimetres closer to the jack", "sl": "dva centimetra bliže balinčku", "it": "due centimetri più vicino al boccino", "de": "zwei Zentimeter näher am Jack"},
+      "lines": [
+        {"who": "tyson", "en": "Good afternoon, {learner}. Two bowls by the jack. Mine and Old Wilf's.", "sl": "Dober dan, {learner}. Dve krogli ob balinčku. Moja in starega Wilfa.", "it": "Buon pomeriggio, {learner}. Due bocce vicino al boccino. La mia e quella del vecchio Wilf.", "de": "Guten Tag, {learner}. Zwei Kugeln am Jack. Meine und die vom alten Wilf."},
+        {"who": "tyson", "face": "curious", "en": "Wilf whispered something to you just now. What did he tell you?", "sl": "Wilf ti je pravkar nekaj zašepetal. Kaj ti je rekel?", "it": "Wilf ti ha appena sussurrato qualcosa. Che cosa ti ha detto?", "de": "Wilf hat dir gerade was zugeflüstert. Was hat er dir gesagt?"},
+        { "choices": [
+          {"en": "He told me his bowl was closer.", "sl": "Rekel mi je, da je njegova krogla bližje.", "it": "Mi ha detto che la sua boccia era più vicina.", "de": "Er hat mir gesagt, seine Kugel sei näher.", "ok": true, "reply": {"en": "His bowl! We'll see. I've got my ruler.", "sl": "Njegova krogla! Bomo videli. Imam ravnilo.", "it": "La sua boccia! Vedremo. Ho il mio righello.", "de": "Seine Kugel! Wir werden sehen. Ich hab mein Lineal."}},
+          {"en": "He told me my bowl was closer.", "sl": "Rekel mi je, da je moja krogla bližje.", "it": "Mi ha detto che la mia boccia era più vicina.", "de": "Er hat mir gesagt, meine Kugel sei näher.", "grammar": "reported-speech", "why": {"en": "Wilf spoke of his own bowl: »My bowl is closer« becomes his bowl was closer. My would be yours.", "sl": "Wilf je govoril o svoji krogli: »My bowl is closer« postane his bowl was closer. My bi bila tvoja.", "it": "Wilf parlava della sua boccia: »My bowl is closer« diventa his bowl was closer. My sarebbe la tua.", "de": "Wilf sprach von seiner Kugel: »My bowl is closer« wird zu his bowl was closer. My wäre deine."}, "reply": {"face": "laugh", "en": "Your bowl? You're not even playing, {learner}!", "sl": "Tvoja krogla? Saj sploh ne igraš!", "it": "La tua boccia? Ma tu non stai nemmeno giocando!", "de": "Deine Kugel? Du spielst doch gar nicht mit!"}}
+        ] },
+        {"who": "tyson", "face": "proud", "en": "Ruler says… mine's two centimetres closer. Two.", "sl": "Ravnilo pravi … moja je dva centimetra bližje. Dva.", "it": "Il righello dice… la mia è più vicina di due centimetri. Due.", "de": "Das Lineal sagt … meine ist zwei Zentimeter näher. Zwei."},
+        { "choices": [
+          {"en": "So you've won, haven't you?", "sl": "Torej ste zmagali, kajne?", "it": "Quindi ha vinto, vero?", "de": "Dann haben Sie also gewonnen, oder?", "ok": true, "reply": {"face": "happy", "en": "Two centimetres. Won. Write it down.", "sl": "Dva centimetra. Zmaga. Zapiši.", "it": "Due centimetri. Vinto. Scrivilo.", "de": "Zwei Zentimeter. Gewonnen. Schreib's auf."}},
+          {"en": "So you've won, didn't you?", "sl": "Torej ste zmagali, kajne?", "it": "Quindi ha vinto, vero?", "de": "Dann haben Sie also gewonnen, oder?", "grammar": "question-tags", "why": {"en": "Take the helping verb from the sentence: you've won, so haven't you?", "sl": "Vzemi pomožni glagol iz stavka: you've won, torej haven't you?", "it": "Prendi l'ausiliare dalla frase: you've won, quindi haven't you?", "de": "Nimm das Hilfsverb aus dem Satz: you've won, also haven't you?"}, "reply": {"face": "curious", "en": "Didn't I what? Measure? I did, twice.", "sl": "Didn't I kaj? Izmeril? Sem, dvakrat.", "it": "Didn't I cosa? Misurare? L'ho fatto, due volte.", "de": "Didn't I was? Messen? Hab ich, zweimal."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Me one, Wilf nil. Don't tell him I said that.", "sl": "Prav. Jaz ena, Wilf nič. Ne povej mu, da sem to rekel.", "it": "Bene. Io uno, Wilf zero. Non dirgli che l'ho detto.", "de": "Gut. Ich eins, Wilf null. Sag ihm nicht, dass ich das gesagt hab."}
       ]
     }
   ]

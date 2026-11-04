@@ -121,8 +121,8 @@ data class CaseChoice(val case: Case, val number: String, val gender: String? = 
 
 /** The pure parts of the case lens in the app: the word card's row, the colours' marks, a tapped word's place. */
 object CaseLens {
-    /** The lens's languages: the bridge's FORMS_LANGUAGES (its cases are Slovene's). */
-    val LANGUAGES = setOf("sl")
+    /** The lens's languages: Slovene's six cases, German's four (the bridge's case-lens.ts and case-lens-de.ts). */
+    val LANGUAGES = setOf("sl", "de")
 
     /** [CaseRead]'s case key (nom, gen …) as the app's [Case]. */
     fun caseOf(key: String?): Case? = Case.ofKey(key)
@@ -206,7 +206,8 @@ object CaseLens {
         if (row.state == CaseRow.State.GOVERNS) return null
         val word = read.trigger?.word.orEmpty()
         val case = row.case
-        val key = when (row.kind) {
+        val de = L10n.pair.target.code == "de"
+        val key = (if (de) whyDe(row, read) else null) ?: when (row.kind) {
             "preposition" -> "caseLens.whyPreposition"
             "negation" -> "caseLens.whyNegation"
             "quantity" -> if (row.sense == "time") "caseLens.whyHalf" else "caseLens.whyQuantity"
@@ -240,6 +241,28 @@ object CaseLens {
             L10n.text(lang, key, args) + (if (row.kind == "preposition") sense else "") + spoken
         }
         return say(pair.target) to say(pair.base)
+    }
+
+    /**
+     * German's own lines where Slovene's would say something else (data/CaseLens.kt [why]): a preposition fused with the
+     * article (im = in dem), the dative of who has it said in the south (dem Stefan sein Hund), the article or ending that
+     * says the case, a time with no preposition, the genitive of time, a call; null where Slovene's line fits.
+     */
+    private fun whyDe(row: CaseRow, read: CaseRead): String? = when (row.kind) {
+        "fused" -> "caseLens.de.whyFused"
+        "possessor" -> "caseLens.de.whyPossessor"
+        "time" -> "caseLens.de.whyTime"
+        "when" -> "caseLens.de.whyWhen"
+        "form" -> when (row.case) {
+            Case.DAT -> "caseLens.de.whyFormDative"
+            Case.GEN -> "caseLens.de.whyFormGenitive"
+            Case.ACC -> "caseLens.de.whyFormAccusative"
+            Case.NOM -> "caseLens.whyFormNominative"
+            else -> "caseLens.de.whyForm"
+        }
+        // a name in -s before its noun (Stefans Hund), its noun after it; a genitive after its noun (das Haus des Müllers)
+        "attribute" -> if ((read.trigger?.i ?: -1) > read.i) "caseLens.de.whyName" else "caseLens.whyAttribute"
+        else -> null
     }
 
     /** A preposition's sense, said as the school asks it: kam?, kje?, kdaj? … */

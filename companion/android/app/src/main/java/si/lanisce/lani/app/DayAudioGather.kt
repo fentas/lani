@@ -100,6 +100,7 @@ class DayAudioGather(
             ispy(d, on.map { it.scene.id }.toSet()),
             grammarExamples(),
             schoolIntros(),
+            schoolSpeaking(),
         )
         return DayAudio.list(d, parts, companion)
     }
@@ -230,6 +231,29 @@ class DayAudioGather(
                 val slovene = (script.stitched + script.lines).filter { it.slovene }.map { it.text }
                 DayAudio.intro(listOfNotNull(script.explanation?.plain?.takeIf { explains }), slovene, base, voices, "school:${u.id}")
             }
+        }
+    }
+
+    /**
+     * What the teacher asks and the speaking models of the same next units (COURSE.md "Speaking and writing"), a child's
+     * version's too, in her voices: a unit's speaking and writing heard offline as at home.
+     */
+    private fun schoolSpeaking(): List<DayWant> {
+        val s = state ?: return emptyList()
+        val c = course?.takeIf { it.language == target } ?: return emptyList()
+        val next = School.next(s, c) ?: return emptyList()
+        val after = c.playable(c.levelOf(next.id) ?: return emptyList()).map { it.id }.dropWhile { it != next.id }.take(2)
+        val t = teacher
+        val voices = Speaker.voices(t?.speakerVoice ?: Clips.FEMALE, t?.voice, t?.id?.let(profiles::get)).all
+        return after.mapNotNull { c.units[it] }.flatMap { u ->
+            val lines = (u.worksheets.flatMap { it.exercises } + u.test.exercises).flatMap { e ->
+                when (e) {
+                    is si.lanisce.lani.data.Exercise.Speaking -> listOf(e, e.forChild()).distinct().flatMap { x -> listOfNotNull(x.ask, x.say) }
+                    is si.lanisce.lani.data.Exercise.Writing -> listOf(e, e.forChild()).distinct().mapNotNull { it.ask }
+                    else -> emptyList()
+                }
+            }
+            DayAudio.texts(lines.distinct(), voices, "school:${u.id}")
         }
     }
 

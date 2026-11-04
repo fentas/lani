@@ -357,4 +357,20 @@ class StoriesTest {
         val first = t.telling.lines.first()
         assertTrue(first.sl!!.isNotBlank() && first.en!!.isNotBlank() && first.sl != first.en)
     }
+
+    @Test fun `Opa Sepp tells all sixteen at B1 and B2 too - a B2 learner hears B2, an A1 learner never starts above A1`() {
+        val fire = campfire("kaernten", LangPair(Lang.DE, Lang.EN))
+        val his = Stories.of(fire, fire.people.first { it.villager == "sepp" })
+        // readings-kaernten: every story has its B1 and B2 telling, each with a turn and its notes
+        assertTrue(his.all { it.levelsTold == listOf("A1", "A2", "B1", "B2") })
+        assertEquals("B2", Stories.tonight(his, emptyMap(), "B2")!!.level)
+        assertEquals("B1", Stories.tonight(his, emptyMap(), "B1")!!.level)
+        assertEquals("A1", Stories.tonight(his, emptyMap(), "A1")!!.level)
+        // a C1 learner hears the highest there is
+        assertEquals("B2", Stories.tonight(his, emptyMap(), "C1")!!.level)
+        for (s in his) for (lv in listOf("B1", "B2")) {
+            val telling = s.parts.single().levels.getValue(lv)
+            assertTrue("${s.id} $lv", telling.lines.count { it.choices.isNotEmpty() } >= 3 && s.noteOf(0, lv) != null)
+        }
+    }
 }

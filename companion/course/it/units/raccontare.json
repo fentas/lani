@@ -262,6 +262,169 @@
           }
         }
       ]
+    },
+    {
+      "id": "raccontare-4",
+      "title": { "it": "Parla e scrivi", "de": "Sprich und schreib", "sl": "Povej in napiši", "en": "Speak and write" },
+      "exercises": [
+        {
+          "type": "speaking",
+          "grammar": "raccontare",
+          "instruction": {
+            "de": "Dillo ad alta voce · Sag es laut",
+            "sl": "Dillo ad alta voce · Povej na glas",
+            "en": "Dillo ad alta voce · Say it aloud"
+          },
+          "prompt": {
+            "de": "Erzähl es wie in einem Buch, im passato remoto: Nonno Bepi öffnete die Tür und sah einen alten Mann.",
+            "sl": "Povej kot v knjigi, s passato remoto: Nonno Bepi je odprl vrata in zagledal starca.",
+            "en": "Tell it as in a book, in the passato remoto: Nonno Bepi opened the door and saw an old man."
+          },
+          "say": "Nonno Bepi aprì la porta e vide un vecchio.",
+          "accept": [
+            "Aprì la porta e vide un vecchio.",
+            "Nonno Bepi aprì la porta e vide un uomo vecchio.",
+            "Nonno Bepi aprì la porta e vide un anziano."
+          ],
+          "spoken": [
+            "Nonno Bepi ha aperto la porta e ha visto un vecchio.",
+            "Ha aperto la porta e ha visto un vecchio."
+          ],
+          "show": false,
+          "explain": {
+            "de": "**das passato remoto** wie im Buch: aprire → **aprì**, vedere → **vide**\n- im Friaul erzählt man meist im passato prossimo: ha aperto, ha visto\n- C'era una volta …: das Bild im imperfetto",
+            "sl": "**passato remoto** kot v knjigi: aprire → **aprì**, vedere → **vide**\n- v Furlaniji ljudje večinoma pripovedujejo s passato prossimo: ha aperto, ha visto\n- C'era una volta …: slika z imperfetto",
+            "en": "**the passato remoto**, as in a book: aprire → **aprì**, vedere → **vide**\n- in Friuli people mostly tell it in the passato prossimo: ha aperto, ha visto\n- C'era una volta …: the picture in the imperfetto"
+          },
+          "child": {
+            "prompt": {
+              "de": "Fang ein Märchen an: Es war einmal ein kleiner Hund.",
+              "sl": "Začni pravljico: Nekoč je bil majhen kuža.",
+              "en": "Start a fairy tale: Once upon a time there was a little dog."
+            },
+            "say": "C'era una volta un piccolo cane.",
+            "accept": ["C'era una volta un cagnolino.", "C'era una volta un cane piccolo."]
+          }
+        },
+        {
+          "type": "speaking",
+          "grammar": "raccontare",
+          "instruction": {
+            "de": "Rispondi a voce · Antworte laut",
+            "sl": "Rispondi a voce · Odgovori na glas",
+            "en": "Rispondi a voce · Answer aloud"
+          },
+          "prompt": {
+            "de": "Maestra Elena fragt nach dem Bild der Geschichte: Wie war es, als der alte Mann kam? Antworte im imperfetto.",
+            "sl": "Učiteljica Elena vpraša po sliki zgodbe: kakšno je bilo, ko je prišel starec? Odgovori z imperfetto.",
+            "en": "Maestra Elena asks about the story's picture: what was it like when the old man came? Answer in the imperfetto."
+          },
+          "ask": "Che tempo faceva, quando arrivò il vecchio?",
+          "say": "Era sera e nevicava forte.",
+          "accept": ["Nevicava forte e faceva freddo.", "Era una sera d'inverno e nevicava."],
+          "must": [
+            {
+              "label": {
+                "de": "das imperfetto für das Bild (era, nevicava, faceva)",
+                "sl": "imperfetto za sliko (era, nevicava, faceva)",
+                "en": "the imperfetto for the picture (era, nevicava, faceva)"
+              },
+              "any": ["era", "erano", "c era", "c erano", "*ava", "*eva", "*iva", "*avano", "*evano", "*ivano"]
+            }
+          ],
+          "min_words": 3,
+          "explain": {
+            "de": "**das imperfetto malt das Bild**, das passato remoto erzählt, was passiert\n- Era sera e nevicava. Un vecchio bussò alla porta.\n- Moro dormiva sul divano.",
+            "sl": "**imperfetto naslika sliko**, passato remoto pove, kaj se zgodi\n- Era sera e nevicava. Un vecchio bussò alla porta.\n- Moro dormiva sul divano.",
+            "en": "**the imperfetto paints the picture**, the passato remoto tells what happens\n- Era sera e nevicava. Un vecchio bussò alla porta.\n- Moro dormiva sul divano."
+          },
+          "child": {
+            "prompt": {
+              "de": "Elena fragt, was Moro gemacht hat, als du nach Hause gekommen bist. Antworte im imperfetto.",
+              "sl": "Elena vpraša, kaj je počel Moro, ko si {m:prišel|f:prišla} domov. Odgovori z imperfetto.",
+              "en": "Elena asks what Moro was doing when you came home. Answer in the imperfetto."
+            },
+            "ask": "Che cosa faceva Moro, quando sei {m:tornato|f:tornata} a casa?",
+            "say": "Moro dormiva sul divano.",
+            "accept": ["Dormiva sul divano."],
+            "must": [
+              {
+                "label": {
+                  "de": "das imperfetto (dormiva, giocava)",
+                  "sl": "imperfetto (dormiva, giocava)",
+                  "en": "the imperfetto (dormiva, giocava)"
+                },
+                "any": ["*ava", "*eva", "*iva", "era", "c era"]
+              }
+            ],
+            "min_words": 3
+          }
+        },
+        {
+          "type": "writing",
+          "grammar": "raccontare",
+          "instruction": { "de": "Scrivi · Schreib", "sl": "Scrivi · Napiši", "en": "Scrivi · Write" },
+          "prompt": {
+            "de": "Schreib für den Erzählabend am Fogolâr eine kurze Geschichte wie im Buch: das Bild im imperfetto, was passiert im passato remoto.",
+            "sl": "Za večer zgodb ob fogolârju napiši kratko zgodbo kot v knjigi: sliko z imperfetto, dogajanje s passato remoto.",
+            "en": "For the story evening by the fogolâr, write a short tale as in a book: the picture in the imperfetto, what happens in the passato remoto."
+          },
+          "model": "Tanto tempo fa, una sera d'inverno, nevicava forte sul paese. I pastori dormivano nel fienile e le pecore stavano al caldo. All'improvviso il cane abbaiò. Il vecchio pastore uscì e vide una volpe vicino alla porta. La volpe aveva fame e tremava dal freddo. Il pastore le diede un po' di pane. La mattina dopo i pastori trovarono sulla neve una moneta d'oro, e nessuno seppe mai chi l'aveva portata.",
+          "must": [
+            {
+              "label": {
+                "de": "das imperfetto für das Bild (era, nevicava, faceva)",
+                "sl": "imperfetto za sliko (era, nevicava, faceva)",
+                "en": "the imperfetto for the picture (era, nevicava, faceva)"
+              },
+              "any": ["era", "erano", "c era", "c erano", "*ava", "*eva", "*iva", "*avano", "*evano", "*ivano"]
+            },
+            {
+              "label": {
+                "de": "das passato remoto, zweimal (fu, disse, vide, -arono)",
+                "sl": "dvakrat passato remoto (fu, disse, vide, -arono)",
+                "en": "the passato remoto twice (fu, disse, vide, -arono)"
+              },
+              "any": ["fu", "ebbe", "disse", "fece", "vide", "venne", "diede", "prese", "mise", "chiese", "rispose", "rimase", "decise", "seppe", "volle", "scese", "corse", "nacque", "cadde", "crebbe", "scrisse", "conobbe", "furono", "ebbero", "dissero", "fecero", "videro", "vennero", "*sero", "*arono", "*irono", "*ettero"],
+              "n": 2
+            },
+            {
+              "label": {
+                "de": "was plötzlich passiert: all'improvviso, un giorno",
+                "sl": "kar se nenadoma zgodi: all'improvviso, un giorno",
+                "en": "what suddenly happens: all'improvviso, un giorno"
+              },
+              "any": ["all improvviso", "improvvisamente", "d improvviso", "a un tratto", "un giorno", "una sera", "una notte", "una mattina"]
+            }
+          ],
+          "length": { "min": 50, "max": 110 },
+          "explain": {
+            "de": "**das Bild im imperfetto, was passiert im passato remoto**\n- Nevicava forte. All'improvviso il cane abbaiò.\n- Ieri pioveva, così sono rimasto in casa.",
+            "sl": "**slika z imperfetto, dogajanje s passato remoto**\n- Nevicava forte. All'improvviso il cane abbaiò.\n- Ieri pioveva, così sono rimasto in casa.",
+            "en": "**the picture in the imperfetto, what happens in the passato remoto**\n- Nevicava forte. All'improvviso il cane abbaiò.\n- Ieri pioveva, così sono rimasto in casa."
+          },
+          "child": {
+            "prompt": {
+              "de": "Wie war gestern das Wetter, und was hast du gemacht? Sag es zuerst, dann schreib es.",
+              "sl": "Kakšno je bilo včeraj vreme in kaj si {m:počel|f:počela}? Najprej povej, nato napiši.",
+              "en": "What was the weather like yesterday, and what did you do? Say it first, then write it."
+            },
+            "ask": "Che tempo faceva ieri?",
+            "model": "Ieri pioveva, così sono {m:rimasto|f:rimasta} in casa con Moro.",
+            "must": [
+              {
+                "label": {
+                  "de": "das imperfetto für das Wetter (pioveva, c'era il sole)",
+                  "sl": "imperfetto za vreme (pioveva, c'era il sole)",
+                  "en": "the imperfetto for the weather (pioveva, c'era il sole)"
+                },
+                "any": ["*ava", "*eva", "*iva", "era", "c era"]
+              }
+            ],
+            "length": { "min": 3, "max": 15 }
+          }
+        }
+      ]
     }
   ],
   "test": {
@@ -310,6 +473,105 @@
           "de": "**Der Satz selbst sagt es**: eine Jahreszahl, c'era una volta, ieri, stamattina\n- Im Buch: passato remoto\n- Unter Freunden, hier im Norden: passato prossimo oder Präsens",
           "sl": "**Stavek sam pove**: letnica, c'era una volta, ieri, stamattina\n- V knjigi: passato remoto\n- Med prijatelji, tu na severu: passato prossimo ali sedanjik",
           "en": "**The sentence itself says**: a year, c'era una volta, ieri, stamattina\n- In a book: passato remoto\n- Among friends, here in the North: passato prossimo or the present"
+        }
+      },
+      {
+        "type": "speaking",
+        "grammar": "raccontare",
+        "instruction": {
+          "de": "Rispondi a voce · Antworte laut",
+          "sl": "Rispondi a voce · Odgovori na glas",
+          "en": "Rispondi a voce · Answer aloud"
+        },
+        "prompt": {
+          "de": "Maestra Elena fragt, was du als Kind sonntags gemacht hast. Antworte im imperfetto: was immer so war.",
+          "sl": "Učiteljica Elena vpraša, kaj si kot otrok {m:počel|f:počela} ob nedeljah. Odgovori z imperfetto: kar je bilo vedno tako.",
+          "en": "Maestra Elena asks what you did on Sundays as a child. Answer in the imperfetto: what always used to be so."
+        },
+        "ask": "Che cosa facevi la domenica, quando eri {m:bambino|f:bambina}?",
+        "say": "La domenica andavo sempre dai nonni in campagna.",
+        "accept": ["Andavo sempre dai nonni in campagna."],
+        "must": [
+          {
+            "label": {
+              "de": "das imperfetto (andavo, giocavo, c'era)",
+              "sl": "imperfetto (andavo, giocavo, c'era)",
+              "en": "the imperfetto (andavo, giocavo, c'era)"
+            },
+            "any": ["ero", "era", "c era", "c erano", "*avo", "*evo", "*ivo", "*ava", "*eva", "*iva", "*avamo", "*evamo"]
+          }
+        ],
+        "min_words": 4,
+        "child": {
+          "prompt": {
+            "de": "Elena fragt, wie das Wetter heute Morgen war. Antworte im imperfetto.",
+            "sl": "Elena vpraša, kakšno je bilo vreme danes zjutraj. Odgovori z imperfetto.",
+            "en": "Elena asks what the weather was like this morning. Answer in the imperfetto."
+          },
+          "ask": "Che tempo faceva stamattina?",
+          "say": "Stamattina pioveva forte.",
+          "accept": ["Pioveva forte."],
+          "must": [
+            {
+              "label": {
+                "de": "das imperfetto (pioveva, c'era il sole)",
+                "sl": "imperfetto (pioveva, c'era il sole)",
+                "en": "the imperfetto (pioveva, c'era il sole)"
+              },
+              "any": ["*ava", "*eva", "*iva", "era", "c era"]
+            }
+          ],
+          "min_words": 2
+        }
+      },
+      {
+        "type": "writing",
+        "grammar": "raccontare",
+        "instruction": { "de": "Scrivi · Schreib", "sl": "Scrivi · Napiši", "en": "Scrivi · Write" },
+        "prompt": {
+          "de": "Schreib wie im Buch, wie die Linde (il tiglio) auf die Piazza kam: das Bild im imperfetto, was geschah im passato remoto.",
+          "sl": "Napiši kot v knjigi, kako je lipa (il tiglio) prišla na trg: sliko z imperfetto, dogajanje s passato remoto.",
+          "en": "Write, as in a book, how the linden (il tiglio) came to the piazza: the picture in the imperfetto, what happened in the passato remoto."
+        },
+        "model": "Tanti anni fa la piazza del paese era vuota, e d'estate faceva molto caldo. Un giorno venne in paese un vecchio contadino con un piccolo tiglio. Lo piantò in mezzo alla piazza e disse ai bambini: «Un giorno questo albero vi darà ombra.» Il tiglio crebbe, e presto fu l'albero più bello della valle.",
+        "must": [
+          {
+            "label": {
+              "de": "das imperfetto für das Bild (era, nevicava, faceva)",
+              "sl": "imperfetto za sliko (era, nevicava, faceva)",
+              "en": "the imperfetto for the picture (era, nevicava, faceva)"
+            },
+            "any": ["era", "erano", "c era", "c erano", "*ava", "*eva", "*iva", "*avano", "*evano", "*ivano"]
+          },
+          {
+            "label": {
+              "de": "das passato remoto, zweimal (fu, disse, vide, -arono)",
+              "sl": "dvakrat passato remoto (fu, disse, vide, -arono)",
+              "en": "the passato remoto twice (fu, disse, vide, -arono)"
+            },
+            "any": ["fu", "ebbe", "disse", "fece", "vide", "venne", "diede", "prese", "mise", "chiese", "rispose", "rimase", "decise", "seppe", "volle", "scese", "corse", "nacque", "cadde", "crebbe", "scrisse", "conobbe", "furono", "ebbero", "dissero", "fecero", "videro", "vennero", "*sero", "*arono", "*irono", "*ettero"],
+            "n": 2
+          }
+        ],
+        "length": { "min": 40, "max": 80 },
+        "child": {
+          "prompt": {
+            "de": "Erzähl ein ganz kleines Märchen. Sag es zuerst, dann schreib es: Es war einmal …",
+            "sl": "Povej čisto majhno pravljico. Najprej povej, nato napiši: Nekoč je bil …",
+            "en": "Tell a tiny fairy tale. Say it first, then write it: Once upon a time …"
+          },
+          "model": "C'era una volta un piccolo tiglio in piazza.",
+          "must": [
+            {
+              "label": {
+                "de": "C'era una volta … (es war einmal …)",
+                "sl": "C'era una volta … (nekoč je bil …)",
+                "en": "C'era una volta … (once upon a time …)"
+              },
+              "any": ["c era una volta"]
+            }
+          ],
+          "length": { "min": 4, "max": 15 }
         }
       }
     ]

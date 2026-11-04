@@ -82,8 +82,29 @@ object CaseNames {
     }
 }
 
-/** "2. rodilnik · genitive": the case's number and its name in the learner's pair (the string tables' [Case.key]). */
-fun Case.label(): String = "$n. ${bi(key)}"
+/** "2. rodilnik · genitive": the case's number and its name in the learner's pair (the string tables' [Case.key]); German's unnumbered ("Dativ · dative"). */
+fun Case.label(): String = if (si.lanisce.lani.data.CaseSets.current.numbered) "$n. ${bi(key)}" else bi(key)
+
+/**
+ * A trainer label's key in the learner's language: a German village's own where Slovene's says six cases, Tožilnik or
+ * v or na (docs/plans/05-built/case-de.md), else the key itself.
+ */
+fun ck(key: String): String = if (si.lanisce.lani.data.CaseSets.current.language == "de") GERMAN_OWN[key] ?: key else key
+
+private val GERMAN_OWN = mapOf(
+    "cases.tile" to "cases.de.tile",
+    "cases.theCases" to "cases.de.theCases",
+    "cases.practiseAll" to "cases.de.practiseAll",
+    "cases.tip" to "cases.de.tip",
+    "cases.locked" to "cases.de.locked",
+    "cases.lockedShort" to "cases.de.lockedShort",
+    "cases.toUnit" to "cases.de.toUnit",
+    "cases.kind.place.about" to "cases.de.kind.place.about",
+    "cases.kind.decline.about" to "cases.de.kind.decline.about",
+    "cases.kind.which.about" to "cases.de.kind.which.about",
+    "cases.ask.decline" to "cases.de.ask.decline",
+    "cases.ask.which" to "cases.de.ask.which",
+)
 
 /** "osebek · the subject" or "predmet · the object": what decides the case when no word does. */
 fun roleLabel(role: String): String = bi(if (role == "subject") "cases.role.subject" else "cases.role.object")
