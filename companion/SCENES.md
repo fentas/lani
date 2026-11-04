@@ -511,9 +511,36 @@ the singular), the word that asks for the congiuntivo ("after «Bisogna che»"),
 cui, the verb before an infinitive or its a and di, stare before a gerund, what is liked (piace, piacciono: "with «la
 cioccolata»: one or more decides the verb"), the hour after alle, the place after a, in, da, più before di, a word of
 time (ieri, domani, mentre, all'improvviso). Where nothing shows (a verb's ending without a subject, *Tiro forte!*), the
-rule alone. On the curated Italian turns (2026-11-03) 1,034 have a hint, 997 of them a rule or a trigger, and 596 of the
-879 form turns name what decides; `ItalianHintTest` checks that nothing shown or said gives the answer away, and writes
-every form turn's first line to build/reports/hints/it.txt for a reader. A rule not introduced to the learner yet gets no hint of its own, only "🌱 Na vrsto pride
+rule alone. On the curated Italian turns (2026-11-03) 1,123 have a hint, 1,079 of them a rule or a trigger, and 662 of the
+968 form turns name what decides; `ItalianHintTest` checks that nothing shown or said gives the answer away, and writes
+every form turn's first line to build/reports/hints/it.txt for a reader.
+
+**An English turn** (Lakeland; `game/EnglishHints.kt`, since 2026-11-03) has the card from English's own table: every
+page of the English book (67, A1 to B2) has its rule in words in the learner's base (the page's card, the four pages
+without one written for the chip), its 🔊 sentence, models in other words and, where the page asks one, its question
+("Who?", "Where?", "Whose?", "How many?", "How long?"). English has few endings, so what decides the form is mostly a
+word beside it: who does it, before the verb or after it in a question ("who: «the bees»"; "Where ____ the matches?":
+«the matches»; a name of the scene's cast at a sentence's start: «Wilf»), the helper before a verb ("after «can»: the
+base form"; «did», «will», «I'll», «to», «let's»; "after «I've»: the past participle"; "after «is»: the -ing form, going
+on"), the -ing form after the gap ("____ going": "with «going»: a form of be comes before the -ing form"), a feeling, an
+age or a distance English says with be ("with «cold»", "How ____ old"), the verb of its own that asks for do ("with
+«bring»: a verb of its own, so no be"), «got» after have, what there is ("There ____ a lot of lakes": "with «a lot of
+lakes»: one or more decides the verb"), the first sound after a or an, a number or a word of more than one before a
+noun ("after «two hundred»: more than one"; every: the singular), the noun after whose it is ("before «sheep»: whose it
+is"), a no before any, much or many by the noun, never with a second no ("with «never»: one no is enough in writing"),
+the place or the time after in, on, at, going there after a verb of going, since or for by what follows, a word of time
+(yesterday, now, every day), if in either half, than, the verb before an -ing form. Where nothing shows (an irregular
+past with no time word, *Yes, I ____ it!*), the rule alone. On the curated English turns (2026-11-03) 1,010 have a
+hint, 945 of them a rule or a trigger, and 745 of the 845 form turns name what decides; `EnglishHintTest`
+checks that nothing shown or said gives the answer away (in sl, de and it), and writes every form turn's first line to
+build/reports/hints/en.txt.
+
+**A name is who does it** (since 2026-11-03): the chip gets the names of the dialog's people, the scene's and the
+village's (`TurnHints.of`'s cast), so a name is taken for the subject wherever it stands, at a sentence's start too
+("Giulia è stanca.", "Wilf is the winner!", Slovene's "Micka kuha.": who: «Micka»; «Micka in Luka» for two). **On a tie**
+`Forms.turn` takes the word whose wrong choices have a rule: "Il legno è più forte ____ carta." (come, of the
+comparatives' page) rather than "Il ____ è più forte della carta." (gelato, a meaning), so the gap, the hint, the
+turn's mode and its traps are about the rule's word. A rule not introduced to the learner yet gets no hint of its own, only "🌱 Na vrsto pride
 kasneje · You'll learn this later: …" ([Rules not yet](#rules-not-yet-what-the-learner-is-asked-grows-with-the-grammar)).
 
 **Never the answer** (`TurnHints.fair`): no model shows any form of the turn (the right one, a wrong one, or a word of their
