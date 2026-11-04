@@ -117,7 +117,7 @@ const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; corre
 /**
  * A B1 or B2 role-play's canned lines (its brief's level), over its language's A1 ones: a story asked for, a problem
  * weighed, a deal settled, with the level's forms (the imperfetto beside the passato prossimo at B1, the congiuntivo and
- * the unreal past at B2). Neither tu nor Lei, so they fit a child's talk with a friend and a grown-up's at the counter.
+ * the unreal past at B2). B1's say tu, as every B1 talk does; B2's neither tu nor Lei, so they fit Davide and the counter.
  * Machine-written, for QA only.
  */
 const ROLEPLAY_LEVELS: Record<string, Partial<Record<string, Partial<(typeof ROLEPLAY)[string]>>>> = {
