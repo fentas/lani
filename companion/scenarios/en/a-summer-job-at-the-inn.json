@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "a-summer-job-at-the-inn",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "A summer job at the inn", "sl": "Poletno delo v gostilni", "de": "Ein Sommerjob im Gasthaus", "it": "Un lavoro estivo alla locanda" },
+  "emoji": "🍽️",
+  "level": "B1",
+  "setting": {
+    "sl": "Na oknu gostilne Packhorse Inn visi listek: »Iščemo pomoč za poletje«. Gospa Birkett potrebuje pomoč od julija do septembra: za šankom, pri mizah in pri zajtrkih za goste v sobah. Vstopiš in povprašaš o delu.",
+    "de": "Im Fenster des Packhorse Inn hängt ein Zettel: „Aushilfe für den Sommer gesucht“. Mrs Birkett braucht von Juli bis September Hilfe: an der Bar, an den Tischen und beim Frühstück für die Zimmergäste. Du gehst hinein und fragst nach der Stelle.",
+    "it": "Alla finestra del Packhorse Inn c'è un cartello: «Cercasi personale per l'estate». La signora Birkett ha bisogno di aiuto da luglio a settembre: al bancone, ai tavoli e con le colazioni per gli ospiti delle camere. Entri e chiedi del lavoro.",
+    "en": "A card in the window of the Packhorse Inn says 'Summer staff wanted'. Mrs Birkett needs help from July to September: behind the bar, at the tables and with breakfasts for the guests in the rooms. You go in to ask about the job."
+  },
+  "role": "Mrs Birkett, the landlady of the Packhorse Inn, between lunch and dinner. Warm, quick, practical: needs help from July to September (the bar, the tables, breakfasts for the rooms). Asks about experience, weekends and when the learner can start; says the pay. Calls the learner 'love'.",
+  "who": { "en": "The landlady", "sl": "Gostilničarka", "de": "Die Wirtin", "it": "L'ostessa" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "kitchen",
+  "goals": [
+    { "en": "Say you've come about the job", "sl": "Povej, da si {m:prišel|f:prišla} zaradi dela", "de": "Sag, dass du wegen der Stelle kommst", "it": "Di' che sei {m:venuto|f:venuta} per il lavoro" },
+    { "en": "Tell her about your experience", "sl": "Povej ji o svojih izkušnjah", "de": "Erzähl ihr von deiner Erfahrung", "it": "Raccontale della tua esperienza" },
+    { "en": "Say when you can work", "sl": "Povej, kdaj lahko delaš", "de": "Sag, wann du arbeiten kannst", "it": "Di' quando puoi lavorare" },
+    { "en": "Ask about the hours and the pay", "sl": "Vprašaj o delovnem času in plačilu", "de": "Frag nach den Arbeitszeiten und dem Lohn", "it": "Chiedi dell'orario e della paga" },
+    { "en": "Agree on a trial shift", "sl": "Dogovori se za poskusno izmeno", "de": "Vereinbare eine Probeschicht", "it": "Concorda un turno di prova" }
+  ],
+  "opener_sl": "Hello, love! Have you come about the card in the window? Sit down a minute, it's quiet till six.",
+  "opener_en": {
+    "sl": "Pozdravljeni! Ste prišli zaradi listka na oknu? Kar sedite za minutko, do šestih je mirno.",
+    "de": "Hallo! Kommen Sie wegen des Zettels im Fenster? Setzen Sie sich kurz, bis sechs ist es ruhig.",
+    "it": "Salve! È qui per il cartello alla finestra? Si sieda un attimo, fino alle sei è tranquillo.",
+    "en": "Hello, dear! Are you here about the notice in the window? Sit down for a minute, it's quiet until six."
+  },
+  "vocabulary_hints": [
+    { "sl": "Yes, I've come about the summer job.", "en": { "sl": "Ja, {m:prišel|f:prišla} sem zaradi poletnega dela.", "de": "Ja, ich komme wegen des Sommerjobs.", "it": "Sì, sono {m:venuto|f:venuta} per il lavoro estivo.", "en": "Yes, I'm here about the summer job." } },
+    { "sl": "I worked in a café for two years.", "en": { "sl": "Dve leti sem {m:delal|f:delala} v kavarni.", "de": "Ich habe zwei Jahre in einem Café gearbeitet.", "it": "Ho lavorato due anni in un bar.", "en": "I had a job in a café for two years." } },
+    { "sl": "I've never worked behind a bar, but I learn fast.", "en": { "sl": "Za šankom še nisem {m:delal|f:delala}, a se hitro učim.", "de": "Hinter der Bar habe ich noch nie gearbeitet, aber ich lerne schnell.", "it": "Non ho mai lavorato al banco, ma imparo in fretta.", "en": "I haven't worked at a bar before, but I'm a quick learner." } },
+    { "sl": "I can help the guests who don't speak English.", "en": { "sl": "Lahko pomagam gostom, ki ne govorijo angleško.", "de": "Ich kann den Gästen helfen, die kein Englisch sprechen.", "it": "Posso aiutare gli ospiti che non parlano inglese.", "en": "I can help guests who can't speak English." } },
+    { "sl": "I can work weekends, but not on Mondays.", "en": { "sl": "Lahko delam ob koncih tedna, ob ponedeljkih pa ne.", "de": "Am Wochenende kann ich arbeiten, aber montags nicht.", "it": "Posso lavorare nel fine settimana, ma non il lunedì.", "en": "Weekends are fine, but Mondays aren't." } },
+    { "sl": "What would the hours be?", "en": { "sl": "Kakšen bi bil delovni čas?", "de": "Wie wären die Arbeitszeiten?", "it": "Quale sarebbe l'orario?", "en": "What hours would I work?" } },
+    { "sl": "How much is it an hour?", "en": { "sl": "Koliko je plačilo na uro?", "de": "Wie viel bekommt man pro Stunde?", "it": "Quanto si prende all'ora?", "en": "What's the pay per hour?" } },
+    { "sl": "Are meals included?", "en": { "sl": "Je hrana vključena?", "de": "Ist das Essen inklusive?", "it": "I pasti sono compresi?", "en": "Do I get meals?" } },
+    { "sl": "I could start on the first of July.", "en": { "sl": "Lahko bi {m:začel|f:začela} prvega julija.", "de": "Ich könnte am ersten Juli anfangen.", "it": "Potrei cominciare il primo luglio.", "en": "I could begin on 1 July." } },
+    { "sl": "Shall I come in on Saturday for a trial shift?", "en": { "sl": "Naj pridem v soboto na poskusno izmeno?", "de": "Soll ich am Samstag zu einer Probeschicht kommen?", "it": "Vengo sabato per un turno di prova?", "en": "Should I come on Saturday to try a shift?" } }
+  ],
+  "packs": ["at-work", "in-the-pub", "at-the-b-and-b", "food", "numbers-and-time", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

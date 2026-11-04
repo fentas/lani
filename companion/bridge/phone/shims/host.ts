@@ -55,7 +55,7 @@ export type Host = {
   setTimer(id: number, ms: number): void
   clearTimer(id: number): void
   /** Starts a request; its answer comes as __laniLoop.fetched(id), read with [fetchResult] and [fetchBody]. */
-  fetch(id: number, method: string, url: string, headers: string, body: Int8Array | null, timeoutMs: number, redirect: string): void
+  fetch(id: number, method: string, url: string, headers: string, body: Int8Array | null, timeoutMs: number, redirect: string, maxBytes: number): void
   fetchCancel(id: number): void
   /** JSON: {status, statusText, headers: [[name, value]…], url, redirected} or {error}. */
   fetchResult(id: number): string

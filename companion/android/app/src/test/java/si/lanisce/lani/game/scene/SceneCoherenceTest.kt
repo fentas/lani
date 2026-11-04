@@ -209,8 +209,9 @@ class SceneCoherenceTest {
         // bank barn (lakeland-projects-b) 20, Kärnten's fountain, clock and Doppelharpfe (kaernten-projects-b) 16, the Lake
         // District's maypole, packhorse bridge and mill (lakeland-projects-a) 30, Friuli's greasy pole, bridge and mill at three levels
         // (friuli-projects-a) 45, Friuli's fountain, clock and big hay barn at three levels (friuli-projects-b) 24; Friuli's at
-        // B2 (village-b2-friuli) 23; the Lake District's at B1 and B2 (village-b2-lakeland) 50
-        assertEquals("the steps' done lines (every level)", 46 + 46 + 30 + 20 + 16 + 30 + 45 + 24 + 23 + 50, marked)
+        // B2 (village-b2-friuli) 23; the Lake District's at B1 and B2 (village-b2-lakeland) 50; Kärnten's six at B1 and B2 too
+        // (village-b2-kaernten) 46
+        assertEquals("the steps' done lines (every level)", 46 + 46 + 30 + 20 + 16 + 30 + 45 + 24 + 23 + 50 + 46, marked)
     }
 
     @Test fun `the step's scene shows its work from the line that says it's done`() {

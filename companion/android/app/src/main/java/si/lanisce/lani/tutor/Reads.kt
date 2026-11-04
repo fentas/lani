@@ -86,9 +86,9 @@ fun interface ReadSource {
 }
 
 /**
- * The read tools over the paired bridge's GET routes (/state, /game, /packs, /grammar, /lookup), summed up for the
+ * The read tools over the paired bridge's GET routes (/state, /game, /packs, /grammar, /dictionary), summed up for the
  * model as the bridge's tools sum them up; `recent_answers` from what the shadow saw itself (the hosted app keeps the
- * answers log, plan 5). A result is cut at [max] characters.
+ * answers log, plan 5), `chat_history` from the phone's own records ([history]). A result is cut at [max] characters.
  */
 class BridgeReads(
     private val bridge: () -> ShadowBridge?,
@@ -96,6 +96,8 @@ class BridgeReads(
     private val max: Int = 12_000,
     /** The learner's day now (YYYY-MM-DD): a dry-run write's date in [CardOverlay]. */
     private val today: () -> String = { java.time.LocalDate.now().toString() },
+    /** The phone's own records, `chat_history`'s; none: no records here. */
+    private val history: TutorHistory? = null,
 ) : ReadSource {
     override suspend fun read(name: String, input: JsonObject): ReadResult = read(name, input, emptyList())
 
@@ -110,12 +112,17 @@ class BridgeReads(
                 get("/grammar/$id") { it }
             }
             "dictionary_lookup" -> {
-                val w = input.s("word")?.trim()?.takeIf { it.isNotEmpty() } ?: return ReadResult("word: required", true)
+                val w = input.s("word")?.trim()?.takeIf { it.isNotEmpty() }?.take(40) ?: return ReadResult("word: required", true)
                 val q = buildMap { put("w", w); input.s("line")?.let { put("line", it.take(300)) } }
-                get("/lookup", q) { "<untrusted_dictionary_content source=\"Lani's dictionary\">\n$it\n</untrusted_dictionary_content>" }
+                val deep = (input["deep"] as? JsonPrimitive)?.booleanOrNull == true
+                // GET /dictionary: the lexicon, and the language's outside sources when it has nothing or the tutor asks
+                val r = get("/dictionary", if (deep) q + ("deep" to "1") else q) { DictionaryText.of(it, w) }
+                // a node's bridge from before it: its own dictionary alone
+                if (r.isError && r.text.startsWith(NOT_FOUND)) get("/lookup", q) { DictionaryText.lexicon(it) } else r
             }
             "card" -> get("/state") { Summaries.card(it, input, writes, today()) }
             "recent_answers" -> ReadResult(Summaries.recentAnswers(events(), input))
+            "chat_history" -> history?.let { withContext(Dispatchers.IO) { it.read(input) } } ?: ReadResult("chat_history: no records here", true)
             else -> ReadResult("$name: not a read tool", true)
         }
         if (r.text.length > max) r.copy(text = r.text.take(max) + "\n… (cut at $max characters)") else r
@@ -130,12 +137,16 @@ class BridgeReads(
         val (code, body) = b.get(path, query)
         return when (code) {
             in 200..299 -> ReadResult(sum(body))
-            404 -> ReadResult("not found (HTTP 404)", true)
+            404 -> ReadResult("$NOT_FOUND (HTTP 404)", true)
             else -> ReadResult("HTTP $code: ${body.take(200)}", true)
         }
     }
 
     private fun JsonObject.s(k: String) = (this[k] as? JsonPrimitive)?.takeIf { it.isString }?.content
+
+    private companion object {
+        const val NOT_FOUND = "not found"
+    }
 }
 
 /** The read tools' summaries of the bridge's answers: small enough for a phone-sized thread. */

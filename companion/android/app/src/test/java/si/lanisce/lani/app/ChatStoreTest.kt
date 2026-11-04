@@ -24,6 +24,14 @@ class ChatStoreTest {
     /** Writes every file [all] is kept in, as the controller does for what changed. */
     private fun ChatStore.writeAll(all: List<ChatMessage>) = all.map(ChatStore::partOf).toSet().forEach { write(it, all) }
 
+    @Test fun `a reader beside the chat (chat_history) sees what is kept, and lets nothing go`() {
+        val old = msg("old", "2024-01-05T10:00:00Z")
+        val recent = msg("recent", "2026-09-20T10:00:00Z")
+        store().writeAll(listOf(old, recent))
+        assertEquals(listOf("old", "recent"), store().read().map { it.id })
+        assertTrue(File(dir, "2024-01.json").isFile)
+    }
+
     @Test fun `a message is kept in its month's file, by UTC`() {
         // 1 October 00:30 in Ljubljana is still 30 September in UTC
         assertEquals("2026-09", ChatStore.partOf(msg("a", "2026-09-30T22:30:00Z")))

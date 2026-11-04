@@ -2,7 +2,7 @@
   "schema": "lani.project-steps/v0",
   "project": "mestna_ura",
   "language": "de",
-  "review": "Machine-written (Claude) in de with sl, en and it, not reviewed by a native speaker; to check: die Palatschinke, Hau ruck, aufgezogen worden",
+  "review": "Machine-written (Claude) in de with sl, en and it, not reviewed by a native speaker; to check: die Palatschinke, Hau ruck, aufgezogen worden. B1 and B2 tellings: machine-written (Claude), not reviewed by a native speaker.",
   "pack": "projekt-kirchturmuhr",
   "steps": [
     {
@@ -255,6 +255,184 @@
               "it": "Ricontrollo tutto alla lavagna. Sì, torna!"
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "thinking",
+              "de": "Die Uhr soll man vom ganzen Dorf aus sehen. Wie groß müsste sie also sein?",
+              "sl": "Uro naj vidi vsa vas. Kako velika bi torej morala biti?",
+              "en": "The clock should be visible from the whole village. So how big would it have to be?",
+              "it": "L'orologio deve vedersi da tutto il paese. Quanto dovrebbe essere grande, allora?"
+            },
+            {
+              "who": "toni",
+              "de": "Der Turm ist drei Meter breit. Mehr als zwei Meter würde er nicht tragen.",
+              "sl": "Zvonik je širok tri metre. Več kot dveh metrov ne bi nosil.",
+              "en": "The tower's three metres wide. It wouldn't carry more than two metres.",
+              "it": "La torre è larga tre metri. Più di due metri non li reggerebbe."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dann rechnen wir mit zwei Metern für das Zifferblatt, damit es noch Rand gibt.",
+                  "sl": "Potem za številčnico računamo z dvema metroma, da ostane še rob.",
+                  "en": "Then we'll reckon on two metres for the clock face, so there's still a border.",
+                  "it": "Allora calcoliamo due metri per il quadrante, così resta ancora un bordo.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Gut. Zwei Meter, das hält der Turm.",
+                    "sl": "Dobro. Dva metra, to zvonik zdrži.",
+                    "en": "Good. Two metres, the tower will hold that.",
+                    "it": "Bene. Due metri, la torre li regge."
+                  }
+                },
+                {
+                  "de": "Dann tanzen wir mit zwei Metern für das Zifferblatt, damit es noch Rand gibt.",
+                  "sl": "Potem za številčnico plešemo z dvema metroma, da ostane še rob.",
+                  "en": "Then we'll dance with two metres for the clock face, so there's still a border.",
+                  "it": "Allora balliamo con due metri per il quadrante, così resta ancora un bordo.",
+                  "why": {
+                    "sl": "Velikost se izračuna: rechnen. Ples tu ne pomaga.",
+                    "en": "You work out a size: rechnen. Dancing won't help.",
+                    "it": "La misura si calcola: rechnen. Ballare non serve."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Tanzen? Hm. Erst die Uhr, dann das Fest.",
+                    "sl": "Plesati? Hm. Najprej ura, potem veselica.",
+                    "en": "Dance? Hm. First the clock, then the party.",
+                    "it": "Ballare? Mah. Prima l'orologio, poi la festa."
+                  }
+                },
+                {
+                  "de": "Dann rechnen wir mit zwei Metern für das Fenster, damit es noch Rand gibt.",
+                  "sl": "Potem za okno računamo z dvema metroma, da ostane še rob.",
+                  "en": "Then we'll reckon on two metres for the window, so there's still a border.",
+                  "it": "Allora calcoliamo due metri per la finestra, così resta ancora un bordo.",
+                  "why": {
+                    "sl": "Računamo velikost ure: das Zifferblatt. Okno pride pozneje.",
+                    "en": "We're working out the clock's size: das Zifferblatt. The window comes later.",
+                    "it": "Calcoliamo la misura dell'orologio: das Zifferblatt. La finestra viene dopo."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Das Fenster? Das kommt nachher. Zuerst die Uhr.",
+                    "sl": "Okno? To pride potem. Najprej ura.",
+                    "en": "The window? That comes later. First the clock.",
+                    "it": "La finestra? Quella viene dopo. Prima l'orologio."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "laugh",
+              "de": "Früher hat das Dorf auf die Sonne geschaut, wenn es wissen wollte, wie spät es ist. Jetzt wird gerechnet!",
+              "sl": "Nekoč je vas pogledala v sonce, ko je hotela vedeti, koliko je ura. Zdaj se računa!",
+              "en": "In the old days the village looked at the sun when it wanted to know the time. Now there's arithmetic!",
+              "it": "Una volta il paese guardava il sole quando voleva sapere che ore erano. Adesso si fanno i conti!"
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Ich hab alles noch einmal an der Tafel nachgerechnet. Es stimmt!",
+              "sl": "Vse sem še enkrat preračunala na tabli. Drži!",
+              "en": "I've worked it all out again on the blackboard. It's right!",
+              "it": "Ho rifatto tutti i conti alla lavagna. Torna!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "thinking",
+              "de": "Wäre das Zifferblatt zu klein, könnte man die Zeit vom Bach aus nicht ablesen. Wäre es zu groß, trüge es der Turm nicht.",
+              "sl": "Ko bi bila številčnica premajhna, se časa od potoka ne bi dalo odčitati. Ko bi bila prevelika, je zvonik ne bi nosil.",
+              "en": "If the clock face were too small, you couldn't read the time from the stream. If it were too big, the tower wouldn't carry it.",
+              "it": "Se il quadrante fosse troppo piccolo, dal ruscello non si leggerebbe l'ora. Se fosse troppo grande, la torre non lo reggerebbe."
+            },
+            {
+              "who": "toni",
+              "de": "Drei Meter Mauer. Zwei Meter Uhr, nicht mehr. Hab ich ausgerechnet.",
+              "sl": "Trije metri zidu. Dva metra ure, nič več. Izračunal sem.",
+              "en": "Three metres of wall. Two metres of clock, no more. I've worked it out.",
+              "it": "Tre metri di muro. Due metri di orologio, non di più. Ho fatto il conto."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Auch wenn ein größeres Zifferblatt schöner wäre, rechnen wir lieber mit zwei Metern.",
+                  "sl": "Četudi bi bila večja številčnica lepša, raje računamo z dvema metroma.",
+                  "en": "Even if a bigger clock face would be prettier, we'd better reckon on two metres.",
+                  "it": "Anche se un quadrante più grande sarebbe più bello, meglio calcolare due metri.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Hm. Ja. Schön ist, was oben bleibt.",
+                    "sl": "Hm. Ja. Lepo je, kar ostane zgoraj.",
+                    "en": "Hm. Yes. What stays up is what's beautiful.",
+                    "it": "Mah. Sì. Bello è ciò che resta su."
+                  }
+                },
+                {
+                  "de": "Auch wenn ein größeres Zifferblatt schöner wäre, tanzen wir lieber mit zwei Metern.",
+                  "sl": "Četudi bi bila večja številčnica lepša, raje plešemo z dvema metroma.",
+                  "en": "Even if a bigger clock face would be prettier, we'd better dance with two metres.",
+                  "it": "Anche se un quadrante più grande sarebbe più bello, meglio ballare con due metri.",
+                  "why": {
+                    "sl": "Velikost se izračuna: rechnen.",
+                    "en": "You work out a size: rechnen.",
+                    "it": "La misura si calcola: rechnen."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Tanzen? Mit zwei Metern? Hm. Mit wem denn?",
+                    "sl": "Plesati? Z dvema metroma? Hm. S kom pa?",
+                    "en": "Dance? With two metres? Hm. With whom?",
+                    "it": "Ballare? Con due metri? Mah. Con chi?"
+                  }
+                },
+                {
+                  "de": "Auch wenn ein größeres Fenster schöner wäre, rechnen wir lieber mit zwei Metern.",
+                  "sl": "Četudi bi bilo večje okno lepše, raje računamo z dvema metroma.",
+                  "en": "Even if a bigger window would be prettier, we'd better reckon on two metres.",
+                  "it": "Anche se una finestra più grande sarebbe più bella, meglio calcolare due metri.",
+                  "why": {
+                    "sl": "Govorimo o uri: das Zifferblatt.",
+                    "en": "We're talking about the clock: das Zifferblatt.",
+                    "it": "Parliamo dell'orologio: das Zifferblatt."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Das Fenster? Das kommt erst, wenn die Uhr ausgerechnet ist.",
+                    "sl": "Okno? To pride šele, ko bo ura preračunana.",
+                    "en": "The window? That comes once the clock's worked out.",
+                    "it": "La finestra? Quella viene solo quando l'orologio è calcolato."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "laugh",
+              "de": "Mein Großvater hat die Zeit an der Sonne abgelesen und ist trotzdem nie zu spät gekommen. Sagt er jedenfalls.",
+              "sl": "Moj ded je čas bral po soncu in vseeno ni nikoli zamudil. Vsaj tako pravi.",
+              "en": "My grandfather read the time from the sun and still never came late. So he says, anyway.",
+              "it": "Mio nonno leggeva l'ora dal sole e non è mai arrivato in ritardo. Almeno così dice."
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Ich hab alles dreimal an der Tafel nachgerechnet. Zwei Meter, und vom ganzen Dorf aus lesbar.",
+              "sl": "Vse sem trikrat preračunala na tabli. Dva metra, in berljivo iz vse vasi.",
+              "en": "I've worked it all out three times on the blackboard. Two metres, and readable from the whole village.",
+              "it": "Ho rifatto i conti tre volte alla lavagna. Due metri, e leggibile da tutto il paese."
+            }
+          ]
         }
       }
     },
@@ -489,6 +667,186 @@
               "sl": "Čudovito. Kmalu bo ura iz tega očesa gledala na vas.",
               "en": "Wonderful. Soon the clock will look out of that eye over the village.",
               "it": "Meraviglioso. Presto l'orologio guarderà il paese da quell'occhio."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "worried",
+              "de": "Der Turm ist aus Stein und hat nur einen schmalen Schlitz, durch den die Uhr nie passen würde.",
+              "sl": "Zvonik je iz kamna in ima samo ozko režo, skozi katero ura nikoli ne bi šla.",
+              "en": "The tower's stone and has only a narrow slit the clock would never fit through.",
+              "it": "La torre è di pietra e ha solo una feritoia stretta da cui l'orologio non passerebbe mai."
+            },
+            {
+              "who": "toni",
+              "de": "Dann brauchen wir eine Öffnung. Aber was für eine?",
+              "sl": "Potem potrebujemo odprtino. Ampak kakšno?",
+              "en": "Then we need an opening. But what kind?",
+              "it": "Allora ci serve un'apertura. Ma di che tipo?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Ein rundes Fenster, das so groß ist wie das Zifferblatt.",
+                  "sl": "Okroglo okno, ki je tako veliko kot številčnica.",
+                  "en": "A round window as big as the clock face.",
+                  "it": "Una finestra rotonda grande quanto il quadrante.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Gut. Ein Kreis aus Stein, genau zwei Meter.",
+                    "sl": "Dobro. Krog iz kamna, natanko dva metra.",
+                    "en": "Good. A circle of stone, exactly two metres.",
+                    "it": "Bene. Un cerchio di pietra, esattamente due metri."
+                  }
+                },
+                {
+                  "de": "Ein eckiges Fenster, das so groß ist wie das Zifferblatt.",
+                  "sl": "Oglato okno, ki je tako veliko kot številčnica.",
+                  "en": "A square window as big as the clock face.",
+                  "it": "Una finestra quadrata grande quanto il quadrante.",
+                  "why": {
+                    "sl": "Številčnica je okrogla, zato tudi okno: rund. V oglato ne bi pasala.",
+                    "en": "The clock face is round, so the window too: rund. It wouldn't fit a square one.",
+                    "it": "Il quadrante è rotondo, quindi anche la finestra: rund. In una quadrata non entrerebbe."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Eckig? Dann passt die runde Uhr nicht hinein.",
+                    "sl": "Oglato? Potem okrogla ura ne gre noter.",
+                    "en": "Square? Then the round clock won't fit.",
+                    "it": "Quadrata? Allora l'orologio rotondo non ci entra."
+                  }
+                },
+                {
+                  "de": "Ein rundes Nest, das so groß ist wie das Zifferblatt.",
+                  "sl": "Okroglo gnezdo, ki je tako veliko kot številčnica.",
+                  "en": "A round nest as big as the clock face.",
+                  "it": "Un nido rotondo grande quanto il quadrante.",
+                  "why": {
+                    "sl": "Za uro potrebujemo okno: das Fenster. Gnezda delajo lastovke.",
+                    "en": "For the clock we need a window: das Fenster. Swallows make nests.",
+                    "it": "Per l'orologio ci vuole una finestra: das Fenster. I nidi li fanno le rondini."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Ein Nest? Dann zieht die Uhr zu den Schwalben.",
+                    "sl": "Gnezdo? Potem se bo ura preselila k lastovkam.",
+                    "en": "A nest? Then the clock would move in with the swallows.",
+                    "it": "Un nido? Allora l'orologio va a vivere con le rondini."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "surprised",
+              "de": "Schaut nur! Jetzt hat der Kirchturm ein rundes Auge, als würde er uns zuschauen.",
+              "sl": "Poglejte! Zdaj ima zvonik okroglo oko, kot da bi nas gledal.",
+              "en": "Look! Now the church tower has a round eye, as if it were watching us.",
+              "it": "Guardate! Adesso il campanile ha un occhio rotondo, come se ci guardasse.",
+              "done": true
+            },
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Wunderbar. Bald schaut die Uhr aus diesem Auge auf das ganze Dorf.",
+              "sl": "Čudovito. Kmalu bo ura iz tega očesa gledala na vso vas.",
+              "en": "Wonderful. Soon the clock will look out of this eye over the whole village.",
+              "it": "Meraviglioso. Presto l'orologio guarderà da quest'occhio su tutto il paese."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "worried",
+              "de": "Durch den Schlitz, der früher für die Glockenseile gebraucht wurde, passt keine Uhr. Wir müssen den Stein aufbrechen.",
+              "sl": "Skozi režo, ki so jo nekoč potrebovali za zvonove vrvi, ne gre nobena ura. Kamen bomo morali prebiti.",
+              "en": "No clock fits through the slit that used to be needed for the bell ropes. We'll have to break open the stone.",
+              "it": "Dalla feritoia che una volta serviva per le corde delle campane non passa nessun orologio. Dovremo aprire la pietra."
+            },
+            {
+              "who": "toni",
+              "de": "Aufbrechen ja. Aber wer zu viel wegschlägt, hat einen Turm mit Loch und keine Uhr.",
+              "sl": "Prebiti ja. Ampak kdor odbije preveč, ima zvonik z luknjo in nobene ure.",
+              "en": "Break it open, yes. But whoever knocks out too much has a tower with a hole and no clock.",
+              "it": "Aprirla sì. Ma chi ne toglie troppa ha una torre col buco e niente orologio."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Darum soll das Fenster rund sein und genau so groß, wie das Zifferblatt berechnet worden ist.",
+                  "sl": "Zato naj bo okno okroglo in natanko tako veliko, kot je bila izračunana številčnica.",
+                  "en": "That's why the window should be round and exactly as big as the clock face was calculated to be.",
+                  "it": "Per questo la finestra dev'essere rotonda e grande esattamente quanto è stato calcolato il quadrante.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Hm. Ja. Kein Zentimeter mehr.",
+                    "sl": "Hm. Ja. Niti centimetra več.",
+                    "en": "Hm. Yes. Not a centimetre more.",
+                    "it": "Mah. Sì. Neanche un centimetro di più."
+                  }
+                },
+                {
+                  "de": "Darum soll das Fenster eckig sein und genau so groß, wie das Zifferblatt berechnet worden ist.",
+                  "sl": "Zato naj bo okno oglato in natanko tako veliko, kot je bila izračunana številčnica.",
+                  "en": "That's why the window should be square and exactly as big as the clock face was calculated to be.",
+                  "it": "Per questo la finestra dev'essere quadrata e grande esattamente quanto è stato calcolato il quadrante.",
+                  "why": {
+                    "sl": "Številčnica je okrogla, okno mora biti tudi: rund.",
+                    "en": "The clock face is round, so must the window be: rund.",
+                    "it": "Il quadrante è rotondo, la finestra deve esserlo pure: rund."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Eckig? Dann bleiben vier Ecken leer, und die Tauben ziehen ein.",
+                    "sl": "Oglato? Potem ostanejo štirje vogali prazni in vselijo se golobi.",
+                    "en": "Square? Then four corners stay empty and the pigeons move in.",
+                    "it": "Quadrata? Allora quattro angoli restano vuoti e ci vanno a vivere i piccioni."
+                  }
+                },
+                {
+                  "de": "Darum soll das Nest rund sein und genau so groß, wie das Zifferblatt berechnet worden ist.",
+                  "sl": "Zato naj bo gnezdo okroglo in natanko tako veliko, kot je bila izračunana številčnica.",
+                  "en": "That's why the nest should be round and exactly as big as the clock face was calculated to be.",
+                  "it": "Per questo il nido dev'essere rotondo e grande esattamente quanto è stato calcolato il quadrante.",
+                  "why": {
+                    "sl": "V zid naredimo okno: das Fenster. Gnezdo ni odprtina.",
+                    "en": "We're making a window in the wall: das Fenster. A nest isn't an opening.",
+                    "it": "Nel muro facciamo una finestra: das Fenster. Un nido non è un'apertura."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Ein Nest? Hm. Zwei Meter groß? Für welchen Vogel denn?",
+                    "sl": "Gnezdo? Hm. Dva metra veliko? Za katero ptico pa?",
+                    "en": "A nest? Hm. Two metres big? For what bird?",
+                    "it": "Un nido? Mah. Grande due metri? Per quale uccello?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "surprised",
+              "de": "Schaut nur! Der Kirchturm hat ein Auge bekommen. Als Bub hätte ich mich davor gefürchtet.",
+              "sl": "Poglejte! Zvonik je dobil oko. Kot fantič bi se ga bal.",
+              "en": "Look! The church tower's got an eye. As a boy I'd have been scared of it.",
+              "it": "Guardate! Il campanile ha un occhio. Da ragazzo ne avrei avuto paura.",
+              "done": true
+            },
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Wunderbar. Bald schaut die Uhr aus diesem Auge, und keiner im Dorf kann mehr sagen, er habe die Zeit nicht gewusst.",
+              "sl": "Čudovito. Kmalu bo ura gledala iz tega očesa in nihče v vasi ne bo več mogel reči, da ni vedel, koliko je ura.",
+              "en": "Wonderful. Soon the clock will look out of this eye, and nobody in the village can say they didn't know the time.",
+              "it": "Meraviglioso. Presto l'orologio guarderà da quest'occhio, e nessuno in paese potrà più dire di non sapere l'ora."
             }
           ]
         }
@@ -737,6 +1095,196 @@
               "en": "Yes! One wheel turns the next. Bravo, now the clock has a heart.",
               "it": "Sì! Una ruota fa girare l'altra. Bravo, adesso l'orologio ha un cuore.",
               "fx": { "sparks": 1 }
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "thinking",
+              "de": "Ohne Räderwerk würden die Zeiger einfach stehen bleiben.",
+              "sl": "Brez kolesja bi kazalca preprosto obstala.",
+              "en": "Without the clockwork the hands would just stand still.",
+              "it": "Senza ingranaggi le lancette resterebbero semplicemente ferme."
+            },
+            {
+              "who": "toni",
+              "de": "Eisen für die großen Räder, Messing für die kleinen, die sich schneller drehen.",
+              "sl": "Železo za velika kolesa, medenina za mala, ki se vrtijo hitreje.",
+              "en": "Iron for the big wheels, brass for the small ones that turn faster.",
+              "it": "Ferro per le ruote grandi, ottone per quelle piccole che girano più in fretta.",
+              "fx": {
+                "forge": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "de": "Die kleinen Zahnräder sind also aus Messing, weil es nicht rostet.",
+                  "sl": "Mala zobata kolesa so torej iz medenine, ker ne rjavi.",
+                  "en": "So the small gears are brass, because it doesn't rust.",
+                  "it": "Quindi gli ingranaggi piccoli sono d'ottone, perché non arrugginisce.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau. Messing läuft leicht und rostet nicht.",
+                    "sl": "Natanko. Medenina teče lahko in ne rjavi.",
+                    "en": "Exactly. Brass runs smoothly and doesn't rust.",
+                    "it": "Esatto. L'ottone scorre leggero e non arrugginisce."
+                  }
+                },
+                {
+                  "de": "Die kleinen Zahnräder sind also aus Holz, weil es nicht rostet.",
+                  "sl": "Mala zobata kolesa so torej iz lesa, ker ne rjavi.",
+                  "en": "So the small gears are wood, because it doesn't rust.",
+                  "it": "Quindi gli ingranaggi piccoli sono di legno, perché non arrugginisce.",
+                  "why": {
+                    "sl": "Toni je rekel: medenina za mala kolesa, das Messing. Les se v kovačnici ne kuje.",
+                    "en": "Toni said brass for the small wheels: das Messing. Wood isn't forged in a smithy.",
+                    "it": "Toni ha detto ottone per le ruote piccole: das Messing. Il legno in fucina non si forgia."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "de": "Aus Holz? In der Schmiede? Nein, nein.",
+                    "sl": "Iz lesa? V kovačnici? Ne, ne.",
+                    "en": "Wood? In the smithy? No, no.",
+                    "it": "Di legno? In fucina? No, no."
+                  }
+                },
+                {
+                  "de": "Die kleinen Schrauben sind also aus Messing, weil es nicht rostet.",
+                  "sl": "Mali vijaki so torej iz medenine, ker ne rjavi.",
+                  "en": "So the small screws are brass, because it doesn't rust.",
+                  "it": "Quindi le viti piccole sono d'ottone, perché non arrugginisce.",
+                  "why": {
+                    "sl": "Vrtijo se zobata kolesa: das Zahnrad, die Zahnräder. Vijaki samo držijo.",
+                    "en": "It's the gears that turn: das Zahnrad, die Zahnräder. Screws just hold.",
+                    "it": "A girare sono gli ingranaggi: das Zahnrad, die Zahnräder. Le viti tengono e basta."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Schrauben? Die drehen sich nicht, die halten nur.",
+                    "sl": "Vijaki? Ti se ne vrtijo, samo držijo.",
+                    "en": "Screws? They don't turn, they just hold.",
+                    "it": "Viti? Quelle non girano, tengono soltanto."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "mitzi",
+              "face": "surprised",
+              "de": "Wie bitte? So viele Räder für eine Uhr? Und alle drehen sich?",
+              "sl": "Prosim? Toliko koles za eno uro? In vsa se vrtijo?",
+              "en": "Pardon? So many wheels for one clock? And they all turn?",
+              "it": "Come? Tante ruote per un orologio? E girano tutte?"
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Ja! Ein Rad dreht das andere, so wie im Dorf einer dem anderen hilft. Jetzt hat die Uhr ein Herz.",
+              "sl": "Ja! Eno kolo vrti drugo, tako kot v vasi eden pomaga drugemu. Zdaj ima ura srce.",
+              "en": "Yes! One wheel turns the other, the way one person helps another in the village. Now the clock has a heart.",
+              "it": "Sì! Una ruota fa girare l'altra, come in paese uno aiuta l'altro. Adesso l'orologio ha un cuore.",
+              "fx": {
+                "sparks": 1
+              }
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "thinking",
+              "de": "Das Räderwerk ist das Schwierigste. Ein einziges falsch geschmiedetes Rad, und die Uhr geht jeden Tag eine Viertelstunde nach.",
+              "sl": "Kolesje je najtežje. Eno samo narobe skovano kolo in ura vsak dan zaostaja četrt ure.",
+              "en": "The clockwork's the hardest part. One single wrongly forged wheel, and the clock loses a quarter of an hour every day.",
+              "it": "Gli ingranaggi sono la cosa più difficile. Una sola ruota forgiata male, e l'orologio resta indietro di un quarto d'ora ogni giorno."
+            },
+            {
+              "who": "toni",
+              "de": "Die großen Räder aus Eisen, die kleinen aus Messing. Messing hätte ich auch für die großen genommen, wäre es nicht so teuer.",
+              "sl": "Velika kolesa iz železa, mala iz medenine. Medenino bi vzel tudi za velika, ko ne bi bila tako draga.",
+              "en": "The big wheels of iron, the small ones of brass. I'd have used brass for the big ones too, if it weren't so dear.",
+              "it": "Le ruote grandi di ferro, le piccole d'ottone. L'ottone l'avrei preso anche per le grandi, se non costasse così tanto.",
+              "fx": {
+                "forge": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "de": "Zwar ist Messing teurer, aber für die kleinen Zahnräder lohnt es sich, weil sie sich am meisten drehen.",
+                  "sl": "Medenina je sicer dražja, ampak za mala zobata kolesa se splača, ker se največ vrtijo.",
+                  "en": "Brass is dearer, true, but it's worth it for the small gears, because they turn the most.",
+                  "it": "L'ottone costa di più, è vero, ma per gli ingranaggi piccoli conviene, perché sono quelli che girano di più.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Hm. Ja. Du denkst wie ein Uhrmacher.",
+                    "sl": "Hm. Ja. Razmišljaš kot urar.",
+                    "en": "Hm. Yes. You think like a clockmaker.",
+                    "it": "Mah. Sì. Ragioni come un orologiaio."
+                  }
+                },
+                {
+                  "de": "Zwar ist Holz teurer, aber für die kleinen Zahnräder lohnt es sich, weil sie sich am meisten drehen.",
+                  "sl": "Les je sicer dražji, ampak za mala zobata kolesa se splača, ker se največ vrtijo.",
+                  "en": "Wood is dearer, true, but it's worth it for the small gears, because they turn the most.",
+                  "it": "Il legno costa di più, è vero, ma per gli ingranaggi piccoli conviene, perché sono quelli che girano di più.",
+                  "why": {
+                    "sl": "Toni govori o medenini: das Messing. Les ni dražji.",
+                    "en": "Toni's talking about brass: das Messing. Wood isn't dearer.",
+                    "it": "Toni parla dell'ottone: das Messing. Il legno non costa di più."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "de": "Holz teurer als Messing? Wo kaufst du denn ein?",
+                    "sl": "Les dražji od medenine? Kje pa ti nakupuješ?",
+                    "en": "Wood dearer than brass? Where do you do your shopping?",
+                    "it": "Il legno più caro dell'ottone? Ma dove fai la spesa?"
+                  }
+                },
+                {
+                  "de": "Zwar ist Messing teurer, aber für die kleinen Schrauben lohnt es sich, weil sie sich am meisten drehen.",
+                  "sl": "Medenina je sicer dražja, ampak za male vijake se splača, ker se največ vrtijo.",
+                  "en": "Brass is dearer, true, but it's worth it for the small screws, because they turn the most.",
+                  "it": "L'ottone costa di più, è vero, ma per le viti piccole conviene, perché sono quelle che girano di più.",
+                  "why": {
+                    "sl": "V uri se vrtijo zobata kolesa: das Zahnrad. Vijaki se ne.",
+                    "en": "In a clock it's the gears that turn: das Zahnrad. Screws don't.",
+                    "it": "In un orologio girano gli ingranaggi: das Zahnrad. Le viti no."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Schrauben, die sich drehen? Dann fällt die Uhr bald auseinander.",
+                    "sl": "Vijaki, ki se vrtijo? Potem bo ura kmalu razpadla.",
+                    "en": "Screws that turn? Then the clock would soon fall apart.",
+                    "it": "Viti che girano? Allora l'orologio presto va in pezzi."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "mitzi",
+              "face": "surprised",
+              "de": "Wie bitte? Hundert Räder? Im Radio haben sie gesagt, heute hätten Uhren gar keine Räder mehr!",
+              "sl": "Prosim? Sto koles? Po radiu so rekli, da danes ure sploh nimajo več koles!",
+              "en": "Pardon? A hundred wheels? On the radio they said clocks today don't have wheels at all any more!",
+              "it": "Come? Cento ruote? Alla radio hanno detto che oggi gli orologi non hanno più nessuna ruota!"
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Unsere schon. Ein Rad dreht das andere, und keines darf fehlen. Jetzt hat die Uhr ein Herz.",
+              "sl": "Naša jih ima. Eno kolo vrti drugo in nobeno ne sme manjkati. Zdaj ima ura srce.",
+              "en": "Ours does. One wheel turns the other, and none may be missing. Now the clock has a heart.",
+              "it": "Il nostro sì. Una ruota fa girare l'altra, e nessuna può mancare. Adesso l'orologio ha un cuore.",
+              "fx": {
+                "sparks": 1
+              }
             }
           ]
         }
@@ -1030,6 +1578,264 @@
               "it": "Lisce come il vetro. Un lavoro così si vede di rado."
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "thinking",
+              "de": "Die Zeiger müssen leicht sein, damit das Räderwerk sie dreht, aber stark genug für den Wind.",
+              "sl": "Kazalca morata biti lahka, da ju kolesje vrti, ampak dovolj močna za veter.",
+              "en": "The hands have to be light, so the clockwork turns them, but strong enough for the wind.",
+              "it": "Le lancette devono essere leggere, perché gli ingranaggi le girino, ma abbastanza forti per il vento."
+            },
+            {
+              "who": "toni",
+              "face": "curious",
+              "de": "Fichte ist leicht, aber sie bricht. Was würden Sie nehmen?",
+              "sl": "Smreka je lahka, ampak se zlomi. Kaj bi vzeli vi?",
+              "en": "Spruce is light, but it breaks. What would you use?",
+              "it": "L'abete è leggero, ma si spezza. Lei che cosa prenderebbe?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Ich würde Eiche nehmen, weil sie hart ist und lange hält.",
+                  "sl": "{m:Vzel|f:Vzela} bi hrast, ker je trd in dolgo zdrži.",
+                  "en": "I'd use oak, because it's hard and lasts long.",
+                  "it": "Prenderei la quercia, perché è dura e dura a lungo.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Gut. Dann Eiche.",
+                    "sl": "Dobro. Potem hrast.",
+                    "en": "Good. Oak, then.",
+                    "it": "Bene. Allora quercia."
+                  }
+                },
+                {
+                  "de": "Ich würde Stroh nehmen, weil es hart ist und lange hält.",
+                  "sl": "{m:Vzel|f:Vzela} bi slamo, ker je trda in dolgo zdrži.",
+                  "en": "I'd use straw, because it's hard and lasts long.",
+                  "it": "Prenderei la paglia, perché è dura e dura a lungo.",
+                  "why": {
+                    "sl": "Slama ni trda. Trd les je hrast: die Eiche.",
+                    "en": "Straw isn't hard. Hard wood is oak: die Eiche.",
+                    "it": "La paglia non è dura. Il legno duro è la quercia: die Eiche."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Stroh? Hm. Für das Pferd, nicht für die Uhr.",
+                    "sl": "Slama? Hm. Za konja, ne za uro.",
+                    "en": "Straw? Hm. For the horse, not the clock.",
+                    "it": "Paglia? Mah. Per il cavallo, non per l'orologio."
+                  }
+                },
+                {
+                  "de": "Ich wurde Eiche nehmen, weil sie hart ist und lange hält.",
+                  "sl": "{m:Vzel|f:Vzela} bi hrast, ker je trd in dolgo zdrži. (wurde)",
+                  "en": "I'd use oak, because it's hard and lasts long. (wurde)",
+                  "it": "Prenderei la quercia, perché è dura e dura a lungo. (wurde)",
+                  "grammar": "konjunktiv-zwei",
+                  "why": {
+                    "sl": "Za predlog je konjunktiv s preglasom: ich würde nehmen. Wurde je preteklik od werden.",
+                    "en": "A suggestion takes the Konjunktiv, with the umlaut: ich würde nehmen. Wurde is the past of werden.",
+                    "it": "Una proposta vuole il Konjunktiv con l'Umlaut: ich würde nehmen. Wurde è il passato di werden."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Wurde? Hm. Was sind Sie denn geworden?",
+                    "sl": "Wurde? Hm. Kaj pa ste postali?",
+                    "en": "Wurde? Hm. What did you become?",
+                    "it": "Wurde? Mah. Che cosa è diventato?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "de": "Jetzt schnitzen wir, einen kurzen und einen langen. Wisst ihr, welcher was zeigt?",
+              "sl": "Zdaj rezljamo, kratkega in dolgega. Veste, kateri kaže kaj?",
+              "en": "Now we carve, a short one and a long one. Do you know which one shows what?",
+              "it": "Adesso intagliamo, una corta e una lunga. Sapete quale indica che cosa?",
+              "fx": {
+                "dust": 0.8
+              }
+            },
+            {
+              "choices": [
+                {
+                  "de": "Der kurze Zeiger zeigt die Stunden, der lange die Minuten.",
+                  "sl": "Kratki kazalec kaže ure, dolgi minute.",
+                  "en": "The short hand shows the hours, the long one the minutes.",
+                  "it": "La lancetta corta indica le ore, quella lunga i minuti.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Richtig! Und zusammen sagen sie uns, wann die Schule anfängt.",
+                    "sl": "Prav! Skupaj pa nam povesta, kdaj se začne šola.",
+                    "en": "Right! And together they tell us when school starts.",
+                    "it": "Giusto! E insieme ci dicono quando comincia la scuola."
+                  }
+                },
+                {
+                  "de": "Der kurze Finger zeigt die Stunden, der lange die Minuten.",
+                  "sl": "Kratki prst kaže ure, dolgi minute.",
+                  "en": "The short finger shows the hours, the long one the minutes.",
+                  "it": "Il dito corto indica le ore, quello lungo i minuti.",
+                  "why": {
+                    "sl": "Ura ima kazalca: der Zeiger. Prste imajo roke.",
+                    "en": "A clock has hands: der Zeiger. Fingers belong to hands.",
+                    "it": "L'orologio ha le lancette: der Zeiger. Le dita sono delle mani."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Ein Finger? Meine Uhr hat doch keine Hand!",
+                    "sl": "Prst? Moja ura vendar nima roke!",
+                    "en": "A finger? My clock hasn't got a hand!",
+                    "it": "Un dito? Il mio orologio mica ha una mano!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "proud",
+              "de": "Glatt wie Glas. So eine Arbeit sieht man selten, seit es die Fabriken gibt.",
+              "sl": "Gladko kot steklo. Takšno delo se redko vidi, odkar so tovarne.",
+              "en": "Smooth as glass. You seldom see work like that since there've been factories.",
+              "it": "Liscio come il vetro. Un lavoro così si vede di rado, da quando ci sono le fabbriche."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "thinking",
+              "de": "Die Zeiger einer Turmuhr sind größer, als man von unten glaubt. Der lange ist fast so lang wie ich.",
+              "sl": "Kazalca stolpne ure sta večja, kot se zdi od spodaj. Dolgi je skoraj tako dolg kot jaz.",
+              "en": "A tower clock's hands are bigger than you'd think from below. The long one's nearly as tall as I am.",
+              "it": "Le lancette di un orologio da torre sono più grandi di quanto si creda da sotto. Quella lunga è quasi alta come me."
+            },
+            {
+              "who": "toni",
+              "face": "curious",
+              "de": "Fichte wäre leichter. Aber beim ersten Sturm wäre sie gebrochen.",
+              "sl": "Smreka bi bila lažja. Ampak ob prvem viharju bi se zlomila.",
+              "en": "Spruce would be lighter. But it would have broken in the first storm.",
+              "it": "L'abete sarebbe più leggero. Ma alla prima tempesta si sarebbe spezzato."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Eine aus Eiche geschnitzte Hand hält auch dem stärksten Föhn stand.",
+                  "sl": "Kazalec, izrezljan iz hrasta, zdrži tudi najmočnejši fen.",
+                  "en": "A hand carved from oak stands up even to the strongest föhn.",
+                  "it": "Una lancetta intagliata nella quercia regge anche il föhn più forte.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Hm. Ja. Eiche verzeiht viel. Fichte nicht.",
+                    "sl": "Hm. Ja. Hrast veliko odpusti. Smreka ne.",
+                    "en": "Hm. Yes. Oak forgives a lot. Spruce doesn't.",
+                    "it": "Mah. Sì. La quercia perdona molto. L'abete no."
+                  }
+                },
+                {
+                  "de": "Eine aus Stroh geschnitzte Hand hält auch dem stärksten Föhn stand.",
+                  "sl": "Kazalec, izrezljan iz slame, zdrži tudi najmočnejši fen.",
+                  "en": "A hand carved from straw stands up even to the strongest föhn.",
+                  "it": "Una lancetta intagliata nella paglia regge anche il föhn più forte.",
+                  "why": {
+                    "sl": "Iz slame se ne rezlja. Trd les je hrast: die Eiche.",
+                    "en": "You can't carve straw. Hard wood is oak: die Eiche.",
+                    "it": "La paglia non si intaglia. Il legno duro è la quercia: die Eiche."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Geschnitztes Stroh? Hm. Das fliegt davon, bevor man fertig ist.",
+                    "sl": "Izrezljana slama? Hm. Ta odleti, preden si gotov.",
+                    "en": "Carved straw? Hm. That blows away before you're done.",
+                    "it": "Paglia intagliata? Mah. Vola via prima di aver finito."
+                  }
+                },
+                {
+                  "de": "Eine aus Eiche schnitzende Hand hält auch dem stärksten Föhn stand.",
+                  "sl": "Kazalec, ki rezlja iz hrasta, zdrži tudi najmočnejši fen. (schnitzende)",
+                  "en": "A hand carving from oak stands up even to the strongest föhn. (schnitzende)",
+                  "it": "Una lancetta che intaglia nella quercia regge anche il föhn più forte. (schnitzende)",
+                  "grammar": "partizip-adjektiv",
+                  "why": {
+                    "sl": "Kazalec ne rezlja, ampak ga izrezljamo: deležnik na -t, eine aus Eiche geschnitzte Hand.",
+                    "en": "The hand doesn't carve, it gets carved: the past participle, eine aus Eiche geschnitzte Hand.",
+                    "it": "La lancetta non intaglia, viene intagliata: il participio passato, eine aus Eiche geschnitzte Hand."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Eine Hand, die schnitzt? Hm. Dann brauchen wir mich ja nicht mehr.",
+                    "sl": "Kazalec, ki rezlja? Hm. Potem me ne potrebujete več.",
+                    "en": "A hand that carves? Hm. Then you don't need me any more.",
+                    "it": "Una lancetta che intaglia? Mah. Allora non avete più bisogno di me."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "de": "Einer zeigt die Stunden, einer die Minuten. Was würde passieren, wenn wir sie vertauschten?",
+              "sl": "Eden kaže ure, drugi minute. Kaj bi se zgodilo, ko bi ju zamenjali?",
+              "en": "One shows the hours, one the minutes. What would happen if we swapped them?",
+              "it": "Una indica le ore, l'altra i minuti. Che cosa succederebbe se le scambiassimo?",
+              "fx": {
+                "dust": 0.8
+              }
+            },
+            {
+              "choices": [
+                {
+                  "de": "Dann würde der lange Zeiger die Stunden zeigen, und das ganze Dorf käme zur falschen Zeit.",
+                  "sl": "Potem bi dolgi kazalec kazal ure in vsa vas bi prihajala ob napačnem času.",
+                  "en": "Then the long hand would show the hours, and the whole village would turn up at the wrong time.",
+                  "it": "Allora la lancetta lunga indicherebbe le ore, e tutto il paese arriverebbe all'ora sbagliata.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau! Und ich hätte jeden Tag eine leere Klasse.",
+                    "sl": "Natanko! In jaz bi imela vsak dan prazen razred.",
+                    "en": "Exactly! And I'd have an empty classroom every day.",
+                    "it": "Esatto! E io avrei ogni giorno la classe vuota."
+                  }
+                },
+                {
+                  "de": "Dann würde der lange Finger die Stunden zeigen, und das ganze Dorf käme zur falschen Zeit.",
+                  "sl": "Potem bi dolgi prst kazal ure in vsa vas bi prihajala ob napačnem času.",
+                  "en": "Then the long finger would show the hours, and the whole village would turn up at the wrong time.",
+                  "it": "Allora il dito lungo indicherebbe le ore, e tutto il paese arriverebbe all'ora sbagliata.",
+                  "why": {
+                    "sl": "Ura ima kazalca: der Zeiger.",
+                    "en": "A clock has hands: der Zeiger.",
+                    "it": "Un orologio ha le lancette: der Zeiger."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Der lange Finger? Dann zeigt die Uhr ja auf jemanden!",
+                    "sl": "Dolgi prst? Potem bo ura kazala na nekoga!",
+                    "en": "The long finger? Then the clock would be pointing at someone!",
+                    "it": "Il dito lungo? Allora l'orologio indica qualcuno!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sepp",
+              "face": "proud",
+              "de": "Glatt wie Glas. Wie man so sagt: Was lange währt, wird endlich gut.",
+              "sl": "Gladko kot steklo. Kot pravijo: kar dolgo traja, je na koncu dobro.",
+              "en": "Smooth as glass. As they say: good things come to those who wait.",
+              "it": "Liscio come il vetro. Come si dice: ciò che dura a lungo alla fine viene bene."
+            }
+          ]
         }
       }
     },
@@ -1265,6 +2071,204 @@
               "it": "In alto il XII, in basso il VI. Fatto!"
             }
           ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Das Zifferblatt ist weiß gestrichen. Jetzt kommen die Zahlen darauf, die man vom Platz aus lesen soll.",
+              "sl": "Številčnica je pobeljena. Zdaj pridejo nanjo številke, ki naj se berejo s trga.",
+              "en": "The clock face is painted white. Now come the numbers you should be able to read from the square.",
+              "it": "Il quadrante è dipinto di bianco. Adesso ci vanno i numeri che si devono leggere dalla piazza."
+            },
+            {
+              "who": "sepp",
+              "face": "curious",
+              "de": "Auf den alten Uhren hat man die Zahlen ganz anders geschrieben. Weißt du noch, wie?",
+              "sl": "Na starih urah so številke pisali čisto drugače. Še veš, kako?",
+              "en": "On the old clocks they wrote the numbers quite differently. Do you remember how?",
+              "it": "Sui vecchi orologi i numeri si scrivevano in tutt'altro modo. Ti ricordi come?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Mit dem feinen Pinsel malen wir römische Zahlen, wie man sie früher gemalt hat.",
+                  "sl": "S tankim čopičem slikamo rimske številke, kot so jih slikali nekoč.",
+                  "en": "With the fine brush we paint Roman numerals, the way they used to.",
+                  "it": "Col pennello fine dipingiamo numeri romani, come si faceva una volta.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau so. I, II, III, IV … wie zu meiner Zeit.",
+                    "sl": "Natanko tako. I, II, III, IV … kot v mojih časih.",
+                    "en": "Just so. I, II, III, IV … as in my day.",
+                    "it": "Proprio così. I, II, III, IV … come ai miei tempi."
+                  }
+                },
+                {
+                  "de": "Mit dem feinen Besen malen wir römische Zahlen, wie man sie früher gemalt hat.",
+                  "sl": "S tanko metlo slikamo rimske številke, kot so jih slikali nekoč.",
+                  "en": "With the fine broom we paint Roman numerals, the way they used to.",
+                  "it": "Con la scopa fine dipingiamo numeri romani, come si faceva una volta.",
+                  "why": {
+                    "sl": "Slika se s čopičem: der Pinsel. Metla je za pometanje.",
+                    "en": "You paint with a brush: der Pinsel. A broom is for sweeping.",
+                    "it": "Si dipinge col pennello: der Pinsel. La scopa è per spazzare."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Mit dem Besen? Haha, das gibt aber dicke Zahlen!",
+                    "sl": "Z metlo? Haha, to bodo pa debele številke!",
+                    "en": "With the broom? Haha, that'd make fat numbers!",
+                    "it": "Con la scopa? Ahah, vengono dei numeri bei grossi!"
+                  }
+                },
+                {
+                  "de": "Mit dem feinen Pinsel malen wir chinesische Zahlen, wie man sie früher gemalt hat.",
+                  "sl": "S tankim čopičem slikamo kitajske številke, kot so jih slikali nekoč.",
+                  "en": "With the fine brush we paint Chinese numerals, the way they used to.",
+                  "it": "Col pennello fine dipingiamo numeri cinesi, come si faceva una volta.",
+                  "why": {
+                    "sl": "Na starih urah so rimske številke: römisch.",
+                    "en": "Old clocks have Roman numerals: römisch.",
+                    "it": "I vecchi orologi hanno i numeri romani: römisch."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Chinesisch? Die kann ich nicht einmal mit Brille lesen!",
+                    "sl": "Kitajske? Teh ne znam prebrati niti z očali!",
+                    "en": "Chinese? I can't read those even with my glasses!",
+                    "it": "Cinesi? Quelli non li so leggere nemmeno con gli occhiali!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "mitzi",
+              "face": "surprised",
+              "de": "Wie bitte? Zwölf schreibt man XII? Das muss ich gleich der ganzen Straße erzählen!",
+              "sl": "Prosim? Dvanajst se piše XII? To moram takoj povedati vsej ulici!",
+              "en": "Pardon? Twelve is written XII? I must tell the whole street right away!",
+              "it": "Come? Dodici si scrive XII? Lo devo raccontare subito a tutta la strada!"
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Oben die XII, unten die VI. Fertig, und man kann es bis zum Bach lesen!",
+              "sl": "Zgoraj XII, spodaj VI. Gotovo, in to se bere vse do potoka!",
+              "en": "XII at the top, VI at the bottom. Done, and you can read it all the way to the stream!",
+              "it": "In alto il XII, in basso il VI. Fatto, e si legge fino al ruscello!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "happy",
+              "de": "Römische Zahlen, weil die Kirchturmuhren bei uns sie seit Jahrhunderten haben. Arabische wären leichter zu lesen gewesen.",
+              "sl": "Rimske številke, ker jih imajo cerkvene ure pri nas že stoletja. Arabske bi bile lažje berljive.",
+              "en": "Roman numerals, because church clocks here have had them for centuries. Arabic ones would have been easier to read.",
+              "it": "Numeri romani, perché da noi gli orologi dei campanili li hanno da secoli. Quelli arabi sarebbero stati più facili da leggere."
+            },
+            {
+              "who": "sepp",
+              "face": "curious",
+              "de": "Und die Vier? Auf manchen alten Uhren steht IIII statt IV. Weißt du, warum?",
+              "sl": "Pa štirica? Na nekaterih starih urah piše IIII namesto IV. Veš, zakaj?",
+              "en": "And the four? On some old clocks it says IIII instead of IV. Do you know why?",
+              "it": "E il quattro? Su certi orologi vecchi c'è IIII invece di IV. Sai perché?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Man sagt, das sei schöner gegenüber der VIII, aber genau weiß es keiner. Mit dem feinen Pinsel malen wir einfach IV.",
+                  "sl": "Pravijo, da je to lepše nasproti VIII, ampak natanko ne ve nihče. S tankim čopičem kar naslikamo IV.",
+                  "en": "They say it looks nicer opposite the VIII, but nobody knows for sure. With the fine brush we'll just paint IV.",
+                  "it": "Si dice che stia meglio di fronte all'VIII, ma nessuno lo sa di preciso. Col pennello fine dipingiamo semplicemente IV.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Recht hast du. Was man nicht weiß, malt man so, wie man's lernt.",
+                    "sl": "Prav imaš. Česar ne veš, naslikaš tako, kot si se {m:naučil|f:naučila}.",
+                    "en": "You're right. What you don't know, you paint the way you learnt it.",
+                    "it": "Hai ragione. Quel che non si sa, lo si dipinge come lo si è imparato."
+                  }
+                },
+                {
+                  "de": "Man sagt, das sei schöner gegenüber der VIII, aber genau weiß es keiner. Mit dem feinen Besen malen wir einfach IV.",
+                  "sl": "Pravijo, da je to lepše nasproti VIII, ampak natanko ne ve nihče. S tanko metlo kar naslikamo IV.",
+                  "en": "They say it looks nicer opposite the VIII, but nobody knows for sure. With the fine broom we'll just paint IV.",
+                  "it": "Si dice che stia meglio di fronte all'VIII, ma nessuno lo sa di preciso. Con la scopa fine dipingiamo semplicemente IV.",
+                  "why": {
+                    "sl": "Številke se slikajo s čopičem: der Pinsel.",
+                    "en": "Numbers are painted with a brush: der Pinsel.",
+                    "it": "I numeri si dipingono col pennello: der Pinsel."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Ein feiner Besen? So einen hat nicht einmal der Mesner!",
+                    "sl": "Tanka metla? Take nima niti cerkovnik!",
+                    "en": "A fine broom? Not even the sexton has one of those!",
+                    "it": "Una scopa fine? Non ce l'ha nemmeno il sagrestano!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "mitzi",
+              "face": "surprised",
+              "de": "Wie bitte? Vier Striche oder ein I und ein V? Jetzt kenn ich mich gar nicht mehr aus!",
+              "sl": "Prosim? Štiri črte ali I in V? Zdaj se sploh ne znajdem več!",
+              "en": "Pardon? Four strokes or an I and a V? Now I'm completely lost!",
+              "it": "Come? Quattro stanghette o una I e una V? Adesso non ci capisco più niente!"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Römische Zahlen sind gar nicht so schwer, wenn man sie einmal verstanden hat.",
+                  "sl": "Rimske številke sploh niso tako težke, ko jih enkrat razumeš.",
+                  "en": "Roman numerals aren't that hard once you've understood them.",
+                  "it": "I numeri romani non sono così difficili, una volta capiti.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Na gut. Dann lern ich sie, bevor die Uhr fertig ist!",
+                    "sl": "No prav. Potem se jih naučim, preden bo ura gotova!",
+                    "en": "All right. Then I'll learn them before the clock's finished!",
+                    "it": "Va be'. Allora li imparo prima che l'orologio sia finito!"
+                  }
+                },
+                {
+                  "de": "Chinesische Zahlen sind gar nicht so schwer, wenn man sie einmal verstanden hat.",
+                  "sl": "Kitajske številke sploh niso tako težke, ko jih enkrat razumeš.",
+                  "en": "Chinese numerals aren't that hard once you've understood them.",
+                  "it": "I numeri cinesi non sono così difficili, una volta capiti.",
+                  "why": {
+                    "sl": "Na uri so rimske številke: römisch.",
+                    "en": "The clock has Roman numerals: römisch.",
+                    "it": "Sull'orologio ci sono i numeri romani: römisch."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Chinesisch? Wie bitte? Jetzt auch noch das?",
+                    "sl": "Kitajske? Prosim? Zdaj pa še to?",
+                    "en": "Chinese? Pardon? Now that as well?",
+                    "it": "Cinesi? Come? Adesso anche questo?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Oben die XII, unten die VI, und die IV, wie wir sie gelernt haben. Von der Brücke aus kann man sie lesen.",
+              "sl": "Zgoraj XII, spodaj VI in IV, kot smo se jo naučili. Z mostu se dajo prebrati.",
+              "en": "XII at the top, VI at the bottom, and the IV the way we learnt it. You can read them from the bridge.",
+              "it": "In alto il XII, in basso il VI, e il IV come l'abbiamo imparato. Si leggono dal ponte."
+            }
+          ]
         }
       }
     },
@@ -1488,6 +2492,184 @@
               "sl": "Hó-ruk! Hó-ruk! … Uspelo nam je, gor je!",
               "en": "Heave-ho! Heave-ho! … We've done it, it's up!",
               "it": "Oh-issa! Oh-issa! … Fatto, è su!",
+              "done": true
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "de": "Heute ziehen wir die Uhr in den Turm hinauf, und zwar alle zusammen.",
+              "sl": "Danes uro potegnemo gor v zvonik, in to vsi skupaj.",
+              "en": "Today we pull the clock up into the tower, all of us together.",
+              "it": "Oggi tiriamo su l'orologio nel campanile, e tutti insieme."
+            },
+            {
+              "who": "toni",
+              "de": "Sie wiegt so viel wie eine Kuh. Wenn wir sie mit den Händen tragen würden, bräche einer zusammen.",
+              "sl": "Tehta toliko kot krava. Ko bi jo nosili z rokami, bi se kdo zgrudil.",
+              "en": "It weighs as much as a cow. If we carried it by hand, someone would collapse.",
+              "it": "Pesa quanto una mucca. Se la portassimo a mano, qualcuno crollerebbe."
+            },
+            {
+              "choices": [
+                {
+                  "de": "Weil sie so schwer ist, ziehen wir sie mit Seilen hinauf.",
+                  "sl": "Ker je tako težka, jo potegnemo gor z vrvmi.",
+                  "en": "Because it's so heavy, we'll pull it up with ropes.",
+                  "it": "Visto che è così pesante, la tiriamo su con le corde.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Genau. Und alle ziehen mit.",
+                    "sl": "Natanko. In vsi vlečejo zraven.",
+                    "en": "Exactly. And everyone pulls.",
+                    "it": "Esatto. E tirano tutti."
+                  }
+                },
+                {
+                  "de": "Weil sie so leicht ist, ziehen wir sie mit Seilen hinauf.",
+                  "sl": "Ker je tako lahka, jo potegnemo gor z vrvmi.",
+                  "en": "Because it's so light, we'll pull it up with ropes.",
+                  "it": "Visto che è così leggera, la tiriamo su con le corde.",
+                  "why": {
+                    "sl": "Toni je rekel, da tehta kot krava: schwer.",
+                    "en": "Toni said it weighs as much as a cow: schwer.",
+                    "it": "Toni ha detto che pesa come una mucca: schwer."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Leicht? Probier's doch mit einer Hand.",
+                    "sl": "Lahka? Poskusi pa z eno roko.",
+                    "en": "Light? Try it with one hand, then.",
+                    "it": "Leggera? Prova con una mano sola, allora."
+                  }
+                },
+                {
+                  "de": "Weil sie so schwer ist, ziehen wir sie mit Kerzen hinauf.",
+                  "sl": "Ker je tako težka, jo potegnemo gor s svečami.",
+                  "en": "Because it's so heavy, we'll pull it up with candles.",
+                  "it": "Visto che è così pesante, la tiriamo su con le candele.",
+                  "why": {
+                    "sl": "Vleče se z vrvmi: das Seil, die Seile. Sveče ne držijo ničesar.",
+                    "en": "You pull with ropes: das Seil, die Seile. Candles hold nothing.",
+                    "it": "Si tira con le corde: das Seil, die Seile. Le candele non tengono niente."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Kerzen? Die ziehen nichts hinauf. Die brennen höchstens ab.",
+                    "sl": "Sveče? Te ne potegnejo ničesar gor. Kvečjemu dogorijo.",
+                    "en": "Candles? They don't pull anything up. They just burn down.",
+                    "it": "Candele? Quelle non tirano su niente. Al massimo si consumano."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "mitzi",
+              "face": "laugh",
+              "de": "Wie bitte? Ziehen? Ja, ich zieh auch mit, so alt bin ich noch nicht!",
+              "sl": "Prosim? Vleči? Ja, tudi jaz vlečem, tako stara pa še nisem!",
+              "en": "Pardon? Pull? Yes, I'll pull too, I'm not that old yet!",
+              "it": "Come? Tirare? Sì, tiro anch'io, non sono mica così vecchia!"
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Hau ruck! Hau ruck! … Geschafft, sie ist oben, und keiner hat sich wehgetan!",
+              "sl": "Hoj-rup! Hoj-rup! … Uspelo nam je, gor je, in nihče se ni poškodoval!",
+              "en": "Heave-ho! Heave-ho! … Done it, it's up, and nobody got hurt!",
+              "it": "Oh issa! Oh issa! … Fatto, è su, e nessuno si è fatto male!",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "de": "Die Uhr wird heute in den Turm gezogen. In Villach hätte man dafür einen Kran bestellt, bei uns zieht das ganze Dorf.",
+              "sl": "Uro danes potegnemo v zvonik. V Beljaku bi za to naročili žerjav, pri nas vleče vsa vas.",
+              "en": "The clock gets pulled into the tower today. In Villach they'd have ordered a crane for that; here the whole village pulls.",
+              "it": "Oggi l'orologio viene tirato su nel campanile. A Villach avrebbero ordinato una gru, da noi tira tutto il paese."
+            },
+            {
+              "who": "toni",
+              "de": "Zweihundert Kilo. Die Seile hab ich dreimal geprüft. Hält eines nicht, hält das andere.",
+              "sl": "Dvesto kilogramov. Vrvi sem preveril trikrat. Če ena ne drži, drži druga.",
+              "en": "Two hundred kilos. I've checked the ropes three times. If one doesn't hold, the other does.",
+              "it": "Duecento chili. Le corde le ho controllate tre volte. Se una non tiene, tiene l'altra."
+            },
+            {
+              "choices": [
+                {
+                  "de": "So schwer, wie die Uhr ist, sind zwei Seile besser als eins, auch wenn's länger dauert.",
+                  "sl": "Tako težka, kot je ura, sta dve vrvi boljši kot ena, četudi traja dlje.",
+                  "en": "Heavy as the clock is, two ropes are better than one, even if it takes longer.",
+                  "it": "Pesante com'è l'orologio, due corde sono meglio di una, anche se ci vuole di più.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "de": "Hm. Ja. Lieber langsam oben als schnell unten.",
+                    "sl": "Hm. Ja. Raje počasi gor kot hitro dol.",
+                    "en": "Hm. Yes. Better slowly up than quickly down.",
+                    "it": "Mah. Sì. Meglio su piano che giù in fretta."
+                  }
+                },
+                {
+                  "de": "So leicht, wie die Uhr ist, sind zwei Seile besser als eins, auch wenn's länger dauert.",
+                  "sl": "Tako lahka, kot je ura, sta dve vrvi boljši kot ena, četudi traja dlje.",
+                  "en": "Light as the clock is, two ropes are better than one, even if it takes longer.",
+                  "it": "Leggero com'è l'orologio, due corde sono meglio di una, anche se ci vuole di più.",
+                  "why": {
+                    "sl": "Dvesto kilogramov je težko: schwer.",
+                    "en": "Two hundred kilos is heavy: schwer.",
+                    "it": "Duecento chili sono pesanti: schwer."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Leicht? Zweihundert Kilo? Dann trag du sie hinauf.",
+                    "sl": "Lahka? Dvesto kilogramov? Potem jo nesi ti gor.",
+                    "en": "Light? Two hundred kilos? Then you carry it up.",
+                    "it": "Leggero? Duecento chili? Allora portalo su tu."
+                  }
+                },
+                {
+                  "de": "So schwer, wie die Uhr ist, sind zwei Kerzen besser als eine, auch wenn's länger dauert.",
+                  "sl": "Tako težka, kot je ura, sta dve sveči boljši kot ena, četudi traja dlje.",
+                  "en": "Heavy as the clock is, two candles are better than one, even if it takes longer.",
+                  "it": "Pesante com'è l'orologio, due candele sono meglio di una, anche se ci vuole di più.",
+                  "why": {
+                    "sl": "Uro drži vrv: das Seil. Sveča ne drži ničesar.",
+                    "en": "A rope holds the clock: das Seil. A candle holds nothing.",
+                    "it": "L'orologio lo tiene la corda: das Seil. La candela non tiene niente."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Zwei Kerzen? Hm. Für den Pfarrer vielleicht, nicht für die Uhr.",
+                    "sl": "Dve sveči? Hm. Za župnika mogoče, ne za uro.",
+                    "en": "Two candles? Hm. For the priest maybe, not the clock.",
+                    "it": "Due candele? Mah. Per il parroco forse, non per l'orologio."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "mitzi",
+              "face": "laugh",
+              "de": "Wie bitte? Ziehen? Im Radio haben sie gesagt, in meinem Alter soll man nichts Schweres heben. Aber ziehen ist ja nicht heben!",
+              "sl": "Prosim? Vleči? Po radiu so rekli, da pri mojih letih ne smeš dvigati težkega. Ampak vleči ni dvigati!",
+              "en": "Pardon? Pull? On the radio they said at my age you shouldn't lift anything heavy. But pulling isn't lifting!",
+              "it": "Come? Tirare? Alla radio hanno detto che alla mia età non si dovrebbe sollevare niente di pesante. Ma tirare non è sollevare!"
+            },
+            {
+              "who": "eva",
+              "face": "proud",
+              "de": "Hau ruck! … Geschafft, sie ist oben. Ohne euch alle wäre sie heute noch im Gras gelegen.",
+              "sl": "Hoj-rup! … Uspelo nam je, gor je. Brez vas vseh bi še danes ležala v travi.",
+              "en": "Heave-ho! … Done it, it's up. Without all of you it'd still be lying in the grass.",
+              "it": "Oh issa! … Fatto, è su. Senza tutti voi sarebbe ancora nell'erba.",
               "done": true
             }
           ]
@@ -1778,6 +2960,281 @@
               "sl": "Prosim? Aha, ura! Zdaj jo slišim celo brez radia!",
               "en": "Sorry? Oh, the clock! Now I can hear it even without the radio!",
               "it": "Come? Ah, l'orologio! Adesso lo sento perfino senza la radio!"
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "curious",
+              "de": "Die Zeiger stehen auf der Zwölf. Noch eine Minute, dann hört das ganze Dorf, was wir gebaut haben.",
+              "sl": "Kazalca stojita na dvanajstici. Še minuta, potem bo vsa vas slišala, kaj smo zgradili.",
+              "en": "The hands are at twelve. One more minute, then the whole village hears what we've built.",
+              "it": "Le lancette sono sul dodici. Ancora un minuto, e tutto il paese sentirà che cosa abbiamo costruito."
+            },
+            {
+              "who": "toni",
+              "de": "Heute früh hab ich sie aufgezogen. Wenn sie jetzt nicht schlägt, liegt's nicht an mir.",
+              "sl": "Zjutraj sem jo navil. Če zdaj ne bo bila, ni moja krivda.",
+              "en": "I wound it this morning. If it doesn't strike now, it's not my fault.",
+              "it": "Stamattina l'ho caricato. Se adesso non batte, non è colpa mia."
+            },
+            {
+              "who": "sepp",
+              "face": "surprised",
+              "de": "Hört! Zum ersten Mal schlägt sie! Zwölf Schläge, ich hab mitgezählt.",
+              "sl": "Poslušajte! Prvič bije! Dvanajst udarcev, štel sem zraven.",
+              "en": "Listen! It's striking for the first time! Twelve strokes, I counted along.",
+              "it": "Sentite! Batte per la prima volta! Dodici rintocchi, li ho contati.",
+              "fx": {
+                "strike": 1,
+                "bell": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "de": "Jetzt weiß das ganze Dorf, wann Mittag ist, auch wenn die Sonne nicht scheint!",
+                  "sl": "Zdaj vsa vas ve, kdaj je poldne, tudi če sonce ne sije!",
+                  "en": "Now the whole village knows when it's noon, even if the sun isn't shining!",
+                  "it": "Adesso tutto il paese sa quando è mezzogiorno, anche se il sole non splende!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Und wann die Suppe auf dem Tisch steht!",
+                    "sl": "In kdaj je juha na mizi!",
+                    "en": "And when the soup's on the table!",
+                    "it": "E quando la minestra è in tavola!"
+                  }
+                },
+                {
+                  "de": "Jetzt weiß das ganze Dorf, wann Mitternacht ist, auch wenn die Sonne nicht scheint!",
+                  "sl": "Zdaj vsa vas ve, kdaj je polnoč, tudi če sonce ne sije!",
+                  "en": "Now the whole village knows when it's midnight, even if the sun isn't shining!",
+                  "it": "Adesso tutto il paese sa quando è mezzanotte, anche se il sole non splende!",
+                  "why": {
+                    "sl": "Podnevi ob dvanajstih je poldne: der Mittag.",
+                    "en": "Twelve o'clock by day is noon: der Mittag.",
+                    "it": "Le dodici di giorno sono mezzogiorno: der Mittag."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Mitternacht? Jetzt, am hellen Tag?",
+                    "sl": "Polnoč? Zdaj, sredi belega dne?",
+                    "en": "Midnight? Now, in broad daylight?",
+                    "it": "Mezzanotte? Adesso, in pieno giorno?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "curious",
+              "de": "Und was wird sie von heute an tun, jede Stunde, bei Tag und bei Nacht?",
+              "sl": "Kaj pa bo delala od danes naprej, vsako uro, podnevi in ponoči?",
+              "en": "And what will it do from today on, every hour, day and night?",
+              "it": "E che cosa farà da oggi in poi, ogni ora, giorno e notte?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Von heute an wird sie jede Stunde schlagen, damit keiner zu spät kommt.",
+                  "sl": "Od danes naprej bo bila vsako uro, da nihče ne zamudi.",
+                  "en": "From today on it'll strike every hour, so nobody's late.",
+                  "it": "Da oggi in poi batterà ogni ora, così nessuno arriva in ritardo.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Genau. Auch nicht in die Schule!",
+                    "sl": "Natanko. Tudi v šolo ne!",
+                    "en": "Exactly. Not to school either!",
+                    "it": "Esatto. Nemmeno a scuola!"
+                  }
+                },
+                {
+                  "de": "Von heute an wird sie jede Stunde schlafen, damit keiner zu spät kommt.",
+                  "sl": "Od danes naprej bo vsako uro spala, da nihče ne zamudi.",
+                  "en": "From today on it'll sleep every hour, so nobody's late.",
+                  "it": "Da oggi in poi dormirà ogni ora, così nessuno arriva in ritardo.",
+                  "why": {
+                    "sl": "Ura bije: schlagen. Če bi spala, bi vsi zamudili.",
+                    "en": "A clock strikes: schlagen. If it slept, everyone would be late.",
+                    "it": "L'orologio batte: schlagen. Se dormisse, arriverebbero tutti in ritardo."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Schlafen? Dann käme das ganze Dorf zu spät!",
+                    "sl": "Spala? Potem bi vsa vas zamudila!",
+                    "en": "Sleep? Then the whole village would be late!",
+                    "it": "Dormire? Allora tutto il paese arriverebbe in ritardo!"
+                  }
+                },
+                {
+                  "de": "Von heute an wird sie jede Stunde schlägt, damit keiner zu spät kommt.",
+                  "sl": "Od danes naprej bo bila vsako uro, da nihče ne zamudi. (schlägt)",
+                  "en": "From today on it'll strike every hour, so nobody's late. (schlägt)",
+                  "it": "Da oggi in poi batterà ogni ora, così nessuno arriva in ritardo. (schlägt)",
+                  "grammar": "werden-futur",
+                  "why": {
+                    "sl": "Za wird pride nedoločnik: wird … schlagen.",
+                    "en": "After wird comes the infinitive: wird … schlagen.",
+                    "it": "Dopo wird viene l'infinito: wird … schlagen."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Wird … schlägt? Hm, die Uhr ist richtig, der Satz noch nicht.",
+                    "sl": "Wird … schlägt? Hm, ura je točna, stavek pa še ne.",
+                    "en": "Wird … schlägt? Hm, the clock's right, the sentence isn't yet.",
+                    "it": "Wird … schlägt? Mah, l'orologio è giusto, la frase non ancora."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "mitzi",
+              "face": "laugh",
+              "de": "Wie bitte? Ach so, die Uhr! Jetzt hör ich sie sogar ohne Radio!",
+              "sl": "Prosim? Aha, ura! Zdaj jo slišim celo brez radia!",
+              "en": "Pardon? Oh, the clock! Now I can hear it even without the radio!",
+              "it": "Come? Ah, l'orologio! Adesso lo sento perfino senza la radio!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "eva",
+              "face": "curious",
+              "de": "Noch eine Minute. Wenn sie jetzt nicht schlägt, war die ganze Arbeit umsonst, und ich hätte den Kindern zu viel versprochen.",
+              "sl": "Še minuta. Če zdaj ne bo bila, je bilo vse delo zaman in otrokom bi obljubila preveč.",
+              "en": "One more minute. If it doesn't strike now, all the work was for nothing, and I'd have promised the children too much.",
+              "it": "Ancora un minuto. Se adesso non batte, tutto il lavoro è stato inutile, e ai bambini avrei promesso troppo."
+            },
+            {
+              "who": "toni",
+              "de": "Sie ist heute früh aufgezogen worden. Von mir. Sie schlägt.",
+              "sl": "Zjutraj je bila navita. Od mene. Bila bo.",
+              "en": "It was wound this morning. By me. It'll strike.",
+              "it": "È stato caricato stamattina. Da me. Batterà."
+            },
+            {
+              "who": "sepp",
+              "face": "surprised",
+              "de": "Hört! Zwölf Schläge! Als ich ein Bub war, hat man auf so eine Uhr zwanzig Jahre gewartet.",
+              "sl": "Poslušajte! Dvanajst udarcev! Ko sem bil fantič, so na tako uro čakali dvajset let.",
+              "en": "Listen! Twelve strokes! When I was a lad, people waited twenty years for a clock like that.",
+              "it": "Sentite! Dodici rintocchi! Quando ero ragazzo, un orologio così lo si aspettava vent'anni.",
+              "fx": {
+                "strike": 1,
+                "bell": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "de": "Kaum hat sie zu Mittag geschlagen, kommen schon die Leute aus den Häusern.",
+                  "sl": "Komaj je odbila poldne, ljudje že prihajajo iz hiš.",
+                  "en": "It's hardly struck noon, and people are already coming out of their houses.",
+                  "it": "Ha appena battuto mezzogiorno, e la gente esce già dalle case.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "de": "Die wollen sehen, ob die Suppe schon auf dem Tisch steht!",
+                    "sl": "Hočejo videti, ali je juha že na mizi!",
+                    "en": "They want to see if the soup's on the table yet!",
+                    "it": "Vogliono vedere se la minestra è già in tavola!"
+                  }
+                },
+                {
+                  "de": "Kaum hat sie zu Mitternacht geschlagen, kommen schon die Leute aus den Häusern.",
+                  "sl": "Komaj je odbila polnoč, ljudje že prihajajo iz hiš.",
+                  "en": "It's hardly struck midnight, and people are already coming out of their houses.",
+                  "it": "Ha appena battuto mezzanotte, e la gente esce già dalle case.",
+                  "why": {
+                    "sl": "Sredi dneva bije poldne: der Mittag.",
+                    "en": "In the middle of the day it strikes noon: der Mittag.",
+                    "it": "A metà giornata batte mezzogiorno: der Mittag."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "de": "Mitternacht? Bei dem Sonnenschein? Da hast du aber geschlafen!",
+                    "sl": "Polnoč? Ob tem soncu? Potem si pa {m:spal|f:spala}!",
+                    "en": "Midnight? In this sunshine? You must have been asleep!",
+                    "it": "Mezzanotte? Con questo sole? Allora hai dormito!"
+                  }
+                },
+                {
+                  "de": "Kaum hat sie zu Mittag geschlafen, kommen schon die Leute aus den Häusern.",
+                  "sl": "Komaj je opoldne zaspala, ljudje že prihajajo iz hiš.",
+                  "en": "It's hardly slept at noon, and people are already coming out of their houses.",
+                  "it": "Ha appena dormito a mezzogiorno, e la gente esce già dalle case.",
+                  "why": {
+                    "sl": "Ura bije: schlagen, geschlagen. Ura ne spi.",
+                    "en": "A clock strikes: schlagen, geschlagen. A clock doesn't sleep.",
+                    "it": "L'orologio batte: schlagen, geschlagen. L'orologio non dorme."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Geschlafen? Die Uhr? Die hat doch gerade zwölfmal geschlagen!",
+                    "sl": "Spala? Ura? Saj je ravnokar dvanajstkrat bila!",
+                    "en": "Slept? The clock? It's just struck twelve times!",
+                    "it": "Dormito? L'orologio? Ha appena battuto dodici volte!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "eva",
+              "face": "curious",
+              "de": "Und von heute an? Was würde fehlen, wenn sie eines Tages stehen bliebe?",
+              "sl": "Pa od danes naprej? Kaj bi manjkalo, ko bi nekega dne obstala?",
+              "en": "And from today on? What would be missing if it stopped one day?",
+              "it": "E da oggi in poi? Che cosa mancherebbe se un giorno si fermasse?"
+            },
+            {
+              "choices": [
+                {
+                  "de": "Wenn sie nicht mehr schlagen würde, wüsste keiner mehr, wann die Schule anfängt.",
+                  "sl": "Ko ne bi več bila, nihče ne bi več vedel, kdaj se začne šola.",
+                  "en": "If it didn't strike any more, nobody would know when school starts.",
+                  "it": "Se non battesse più, nessuno saprebbe più quando comincia la scuola.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "de": "Und die Kinder hätten eine Ausrede. Darum muss sie schlagen.",
+                    "sl": "In otroci bi imeli izgovor. Zato mora biti.",
+                    "en": "And the children would have an excuse. That's why it has to strike.",
+                    "it": "E i bambini avrebbero una scusa. Per questo deve battere."
+                  }
+                },
+                {
+                  "de": "Wenn sie nicht mehr schlafen würde, wüsste keiner mehr, wann die Schule anfängt.",
+                  "sl": "Ko ne bi več spala, nihče ne bi več vedel, kdaj se začne šola.",
+                  "en": "If it didn't sleep any more, nobody would know when school starts.",
+                  "it": "Se non dormisse più, nessuno saprebbe più quando comincia la scuola.",
+                  "why": {
+                    "sl": "Ura bije: schlagen. Spanje nima s tem nič.",
+                    "en": "A clock strikes: schlagen. Sleep has nothing to do with it.",
+                    "it": "L'orologio batte: schlagen. Il sonno non c'entra."
+                  },
+                  "reply": {
+                    "face": "thinking",
+                    "de": "Nicht mehr schlafen? Die Uhr schläft doch gar nicht.",
+                    "sl": "Ne bi več spala? Ura sploh ne spi.",
+                    "en": "Not sleep any more? The clock doesn't sleep at all.",
+                    "it": "Non dormisse più? L'orologio non dorme affatto."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "mitzi",
+              "face": "laugh",
+              "de": "Wie bitte? Ach, die Uhr! Jetzt hör ich die Zeit sogar ohne mein Radio, und das schon zum ersten Mal!",
+              "sl": "Prosim? Aha, ura! Zdaj slišim čas celo brez svojega radia, in to prvič!",
+              "en": "Pardon? Oh, the clock! Now I can hear the time even without my radio, and for the very first time!",
+              "it": "Come? Ah, l'orologio! Adesso sento l'ora perfino senza la mia radio, e per la prima volta!"
             }
           ]
         }

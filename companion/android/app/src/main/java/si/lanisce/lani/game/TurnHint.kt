@@ -219,7 +219,9 @@ object TurnHints {
             val common = texts.map { Forms.words(it).toSet() }.reduce { a, b -> a intersect b }
             val small: (String) -> Boolean = if (language == "de") GermanHints::small else CaseTriggers::isPreposition
             fun own(t: String) = Forms.words(t).filter { it !in common && it.length >= 3 && !small(it) }.toSet()
-            val r = c.filter { it.ok }.flatMap { own(it.sl) }.toSet()
+            // (English's rules name have, had, don't and can, and its whole sentences share them: a word a wrong choice says too doesn't pick the right one)
+            val shared = if (language == "en") c.filter { !it.ok }.flatMap { own(it.sl) }.toSet() else emptySet()
+            val r = c.filter { it.ok }.flatMap { own(it.sl) }.toSet() - shared
             TurnHint(pages, right = r, forms = r + texts.flatMap { own(it) })
         }
         val sentence = if (form != null && right != null) texts[right] else null

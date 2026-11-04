@@ -1,0 +1,48 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "a-word-with-the-councillor",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "A word with the councillor", "sl": "Pogovor s svetnico", "de": "Ein Gespräch mit der Gemeinderätin", "it": "Un colloquio con la consigliera" },
+  "emoji": "🏛️",
+  "level": "B2",
+  "setting": {
+    "sl": "Vsako poletje pohodniki parkirajo avtomobile na obeh straneh ozke ceste na koncu doline. Prejšnji teden kmetov traktor ni mogel mimo, reševalno vozilo pa je obtičalo za dvajset minut. Greš na uradne ure svetnice v vaški dvorani, da ji razložiš težavo in prosiš za rešitev.",
+    "de": "Jeden Sommer parken Wanderer ihre Autos auf beiden Seiten der schmalen Straße am Talschluss. Letzte Woche kam der Traktor des Bauern nicht durch, und ein Rettungswagen hing zwanzig Minuten fest. Du gehst in die Sprechstunde der Gemeinderätin im Gemeindesaal, um das Problem zu erklären und eine Lösung zu verlangen.",
+    "it": "Ogni estate gli escursionisti parcheggiano le auto sui due lati della stradina stretta in fondo alla valle. La settimana scorsa il trattore del contadino non è riuscito a passare e un'ambulanza è rimasta bloccata venti minuti. Vai al ricevimento della consigliera nella sala del paese per spiegare il problema e chiedere una soluzione.",
+    "en": "Every summer, walkers' cars park along both sides of the narrow lane at the head of the dale. Last week the farmer's tractor couldn't get through, and an ambulance was held up for twenty minutes. You go to the councillor's surgery in the village hall to explain the problem and ask for something to be done."
+  },
+  "role": "Councillor Nicholson, the dale's councillor on the council, at her monthly surgery in the village hall. Courteous, busy, a politician: asks for facts and numbers, raises the budget, what visitors bring the dale and whose job it is (the highways, the landowner); promises only what she can.",
+  "who": { "en": "The councillor", "sl": "Svetnica", "de": "Die Gemeinderätin", "it": "La consigliera" },
+  "voice": "female",
+  "speaker": "teacher",
+  "place": "square",
+  "goals": [
+    { "en": "Introduce yourself and say briefly why you've come", "sl": "Predstavi se in na kratko povej, zakaj si {m:prišel|f:prišla}", "de": "Stell dich vor und sag kurz, warum du gekommen bist", "it": "Presentati e di' in breve perché sei {m:venuto|f:venuta}" },
+    { "en": "Describe the problem and its consequences precisely", "sl": "Natančno opiši težavo in njene posledice", "de": "Beschreib das Problem und seine Folgen genau", "it": "Descrivi con precisione il problema e le sue conseguenze" },
+    { "en": "Propose a solution and argue for it", "sl": "Predlagaj rešitev in jo utemelji", "de": "Schlag eine Lösung vor und begründe sie", "it": "Proponi una soluzione e motivala" },
+    { "en": "Answer her objections", "sl": "Odgovori na njene pomisleke", "de": "Antworte auf ihre Einwände", "it": "Rispondi alle sue obiezioni" },
+    { "en": "Agree on the next step", "sl": "Dogovori se za naslednji korak", "de": "Vereinbare den nächsten Schritt", "it": "Concordate il prossimo passo" }
+  ],
+  "opener_sl": "Come in, take a seat. I've only got about ten minutes before the next person, I'm afraid. Now, what can I do for you?",
+  "opener_en": {
+    "sl": "Naprej, kar sedite. Žal imam do naslednjega le kakih deset minut. Torej, kako vam lahko pomagam?",
+    "de": "Kommen Sie herein, setzen Sie sich. Ich habe leider nur etwa zehn Minuten bis zum Nächsten. Also, was kann ich für Sie tun?",
+    "it": "Entri, si accomodi. Purtroppo ho solo una decina di minuti prima del prossimo. Allora, che cosa posso fare per lei?",
+    "en": "Come in, please sit down. I'm afraid I only have about ten minutes before the next person. So, how can I help you?"
+  },
+  "vocabulary_hints": [
+    { "sl": "I've come about the parking on the lane at the head of the dale.", "en": { "sl": "Prihajam zaradi parkiranja na cesti na koncu doline.", "de": "Ich komme wegen der parkenden Autos am Talschluss.", "it": "Vengo per le auto parcheggiate in fondo alla valle.", "en": "I'm here about the cars parked on the lane at the end of the valley." } },
+    { "sl": "In summer, cars park on both sides and nothing bigger can get through.", "en": { "sl": "Poleti avtomobili parkirajo na obeh straneh in nič večjega ne more mimo.", "de": "Im Sommer parken Autos auf beiden Seiten, und nichts Größeres kommt durch.", "it": "D'estate le auto stanno sui due lati e niente di grosso riesce a passare.", "en": "In summer cars park on both sides and nothing larger can pass." } },
+    { "sl": "Last week an ambulance was held up for twenty minutes.", "en": { "sl": "Prejšnji teden je reševalno vozilo obtičalo za dvajset minut.", "de": "Letzte Woche hing ein Rettungswagen zwanzig Minuten fest.", "it": "La settimana scorsa un'ambulanza è rimasta bloccata venti minuti.", "en": "Last week an ambulance was stuck for twenty minutes." } },
+    { "sl": "It's only a matter of time before something serious happens.", "en": { "sl": "Samo vprašanje časa je, kdaj se bo zgodilo kaj hudega.", "de": "Es ist nur eine Frage der Zeit, bis etwas Schlimmes passiert.", "it": "È solo questione di tempo prima che succeda qualcosa di grave.", "en": "Sooner or later something serious will happen." } },
+    { "sl": "I'd suggest double yellow lines on the narrowest stretch.", "en": { "sl": "Predlagam prepoved parkiranja na najožjem delu.", "de": "Ich schlage ein Halteverbot auf dem engsten Stück vor.", "it": "Proporrei un divieto di sosta nel tratto più stretto.", "en": "I'd propose no parking on the narrowest part (double yellow lines)." } },
+    { "sl": "And a summer bus from Keswick would take cars off the road.", "en": { "sl": "Poletni avtobus iz Keswicka pa bi zmanjšal število avtomobilov.", "de": "Und ein Sommerbus ab Keswick würde Autos von der Straße holen.", "it": "E un autobus estivo da Keswick toglierebbe auto dalla strada.", "en": "And a summer bus from Keswick would mean fewer cars." } },
+    { "sl": "I appreciate money is tight, but this is about safety.", "en": { "sl": "Razumem, da denarja ni veliko, a gre za varnost.", "de": "Ich verstehe, dass das Geld knapp ist, aber es geht um Sicherheit.", "it": "Capisco che i soldi sono pochi, ma qui si tratta di sicurezza.", "en": "I understand money is short, but this is about safety." } },
+    { "sl": "Visitors matter to the dale, but so do the people who live here.", "en": { "sl": "Obiskovalci so za dolino pomembni, a prav tako tisti, ki tu živimo.", "de": "Die Besucher sind wichtig fürs Tal, aber die Leute hier auch.", "it": "I visitatori contano per la valle, ma anche chi ci vive.", "en": "Visitors are important for the valley, but so are the people who live here." } },
+    { "sl": "Who would decide this, and how long does it take?", "en": { "sl": "Kdo o tem odloča in koliko časa to traja?", "de": "Wer entscheidet darüber, und wie lange dauert das?", "it": "Chi decide e quanto tempo ci vuole?", "en": "Who decides on this, and how long does it take?" } },
+    { "sl": "Fifty of us have signed a petition. Shall I send it to you?", "en": { "sl": "Peticijo nas je podpisalo že petdeset. Vam jo pošljem?", "de": "Fünfzig von uns haben unterschrieben. Soll ich Ihnen die Liste schicken?", "it": "In cinquanta abbiamo firmato una petizione. Gliela mando?", "en": "Fifty of us signed a petition. Should I send it to you?" } }
+  ],
+  "packs": ["the-parish-council", "tourists-in-the-lakes", "in-the-village", "getting-about", "on-the-fell", "numbers-and-time"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

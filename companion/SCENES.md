@@ -1597,7 +1597,11 @@ station, the playground, the lookout tower, the fountain, the church clock and t
 timber over the village). A German noun counts as tested without its article, its forms guessed by the stem and its
 plural (German has no dictionary: `testsWord`). The church clock's last step strikes twelve: the square draws a `strike`
 from the step that hangs the clock in the tower, its hands at twelve until it runs, and the step counts twelve for the
-sound. The Lake District's six of lakeland-projects-b have theirs (37), the other seven are lakeland-projects-a's. Friuli's seven of
+sound. Since village-b2-kaernten all 78 of Kärnten's steps have a B1 and a B2 telling too, for a learner aiming higher (a learner
+at B1 meets the B1 one, at B2 or above the B2 one): the same work in other words, with a rule of the level asked (B1: the
+Konjunktiv II, the relative clause, the passive, the past of the modals; B2: the past Konjunktiv, the participle before a noun,
+zwar … aber, indem, the verbs and nouns that go together), never a form an adult in Kärnten says (followups-12: weil with the
+verb second, wegen dem, the Perfekt). The Lake District's six of lakeland-projects-b have theirs (37), the other seven are lakeland-projects-a's. Friuli's seven of
 friuli-projects-a (`mlaj`, `most`, `mlin`, `balinisce`, `kapelica`, `vinograd`, `cebelji_travnik`) have every step (41) at A1, A2 and
 B1, in Italian for a child, German first: the greasy pole's fir chosen and felled and carried in Nel bosco, then soaped, its wheel of
 prizes and its raising In piazza; the bridge and the mill Al ruscello (the bridge's logs Nel bosco); the bocce court In piazza under

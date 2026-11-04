@@ -344,7 +344,6 @@ class Studio(
     /** The Message Batches API of [model]'s credential: null when it has none (OpenAI). */
     private val batchesFor: (String) -> AnthropicBatches?,
     private val nodeTools: () -> Set<String>,
-    private val fran: () -> FranLookup?,
     private val learner: () -> String?,
     private val notebook: suspend () -> NotebookState,
     /** Whether the studio may run: the live tutor on, its credential set and not refused. */
@@ -724,7 +723,7 @@ class Studio(
             report?.let { f -> put("report_problem") { use -> f(use, cell.job.conversationId) } }
         }
         return LiveTools(
-            specs, bridge(), nodeTools(), guide, fran(),
+            specs, bridge(), nodeTools(), guide,
             onReply = { cell.job = cell.job.copy(replied = true) },
             learner = learner, clock = clock, kinds = StudioSpecs::kindOf, local = local,
             onNode = { use, r -> drafted(cell, use, r) },

@@ -25,6 +25,9 @@ const sections = (text: string): string[] =>
     .map(s => s.trim())
     .filter(Boolean)
 
+/** What a Claude Code session reads a language with, Slovene's fran.si aside: Jan's choice (docs/plans/05-built/tutor-reach.md). */
+const SITES: Record<string, string> = { it: 'treccani.it', de: 'duden.de', en: 'dictionary.cambridge.org' }
+
 /**
  * What a learner's channel guide says is correct: what holds in every language, then their language's own part (as the
  * in-app tutor reads them: android tutor/Prompt.kt LanguageParts), its writing rules (this session writes the content
@@ -46,6 +49,6 @@ export function languageParts(projectDir: string, language: string, child: boole
   const check =
     language === 'sl'
       ? []
-      : [`Checking a form in this session: WebFetch reaches fran.si only (Slovene; .claude/settings.json). For ${LANGUAGES[language] ?? language} you have the word packs (list_packs, companion/packs/${language}/, the culture pack's packs/), the grammar book (list_grammar, get_grammar), companion/lexicon/${language}.extra.json and the learner's glosses (<data>/app/lexicon.json). Nothing else is a source: what they don't settle you don't know.`]
+      : [`Checking a form in this session: WebFetch reads ${SITES[language] ?? 'no dictionary of this language'}, one page at a time, as far as this session's settings allow (.claude/settings.json; a page refused isn't a source). You also have the word packs (list_packs, companion/packs/${language}/, the culture pack's packs/), the grammar book (list_grammar, get_grammar), companion/lexicon/${language}.extra.json and the learner's glosses (<data>/app/lexicon.json). Nothing else is a source: what they don't settle you don't know.`]
   return [...general, ...check, ...own.filter(s => !s.startsWith('## A child')), ...(child ? kid : [])]
 }

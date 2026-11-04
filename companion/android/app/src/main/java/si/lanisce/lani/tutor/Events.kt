@@ -159,7 +159,7 @@ object TurnText {
      * What the shown replies are, said outright (the matrix, 2026-10: GPT-6 Luna took them as its own and "corrected"
      * them, retracting correct rules and a grammar page another tutor had added; Haiku named "the other tutor").
      */
-    private const val NOT_YOURS = "These replies are not your words and not your actions: never correct, retract, " +
+    const val NOT_YOURS = "These replies are not your words and not your actions: never correct, retract, " +
         "apologise for or claim them (nor what they say was done: a card fixed, a page added), and never mention them or " +
         "another tutor to the learner. Take them as what the learner saw; their next messages answer them."
 

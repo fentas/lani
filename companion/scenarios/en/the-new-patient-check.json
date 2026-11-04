@@ -1,0 +1,47 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "the-new-patient-check",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "The new patient check", "sl": "Prvi obisk v novi ambulanti", "de": "Der Gesundheitscheck für neue Patienten", "it": "Il controllo per i nuovi pazienti" },
+  "emoji": "📋",
+  "level": "B2",
+  "setting": {
+    "sl": "Pravkar si {m:izbral|f:izbrala} splošno ambulanto v Keswicku. Preden greš k zdravniku, medicinska sestra nove paciente vpraša o zdravju: o boleznih in operacijah, alergijah, zdravilih, zdravju v družini in vsakdanjih navadah. Izmeri ti tudi krvni pritisk.",
+    "de": "Du hast dich gerade bei der Hausarztpraxis in Keswick angemeldet. Bevor du zum Arzt gehst, fragt die Krankenschwester neue Patienten nach ihrer Gesundheit: Krankheiten und Operationen, Allergien, Medikamente, die Gesundheit der Familie und die Gewohnheiten im Alltag. Sie misst auch deinen Blutdruck.",
+    "it": "Ti sei appena {m:iscritto|f:iscritta} all'ambulatorio del medico di base a Keswick. Prima della visita, l'infermiera fa ai nuovi pazienti alcune domande sulla salute: malattie e operazioni, allergie, farmaci, la salute della famiglia e le abitudini di tutti i giorni. Ti misura anche la pressione.",
+    "en": "You have just registered with the GP surgery in Keswick. Before you see a doctor, the practice nurse asks new patients about their health: illnesses and operations, allergies, medicines, the family's health and everyday habits. She takes your blood pressure too."
+  },
+  "role": "Nurse Pattinson, the practice nurse at the surgery in Keswick, doing a new patient check. Calm, methodical, kind: past illnesses and operations, allergies, medicines, family history, smoking, drinking (units a week), exercise. One question at a time; asks for details and checks she has understood.",
+  "who": { "en": "The practice nurse", "sl": "Medicinska sestra", "de": "Die Krankenschwester", "it": "L'infermiera" },
+  "voice": "female",
+  "speaker": "young-woman",
+  "goals": [
+    { "en": "Tell her about illnesses and operations you've had", "sl": "Povej ji o boleznih in operacijah, ki si jih {m:imel|f:imela}", "de": "Erzähl ihr von Krankheiten und Operationen, die du hattest", "it": "Raccontale delle malattie e delle operazioni che hai avuto" },
+    { "en": "Say what you're allergic to and what you take", "sl": "Povej, na kaj si {m:alergičen|f:alergična} in katera zdravila jemlješ", "de": "Sag, wogegen du allergisch bist und was du nimmst", "it": "Di' a che cosa sei {m:allergico|f:allergica} e che farmaci prendi" },
+    { "en": "Answer her questions about your family's health", "sl": "Odgovori na vprašanja o zdravju v družini", "de": "Beantworte ihre Fragen zur Gesundheit deiner Familie", "it": "Rispondi alle domande sulla salute della tua famiglia" },
+    { "en": "Describe your habits honestly", "sl": "Iskreno opiši svoje navade", "de": "Beschreib ehrlich deine Gewohnheiten", "it": "Descrivi con sincerità le tue abitudini" },
+    { "en": "Ask what happens next", "sl": "Vprašaj, kaj sledi", "de": "Frag, wie es weitergeht", "it": "Chiedi che cosa succede dopo" }
+  ],
+  "opener_sl": "Hello, come in and have a seat. As you're new to the practice, I'd like to ask you a few questions about your health first. Is that all right?",
+  "opener_en": {
+    "sl": "Dober dan, naprej in kar sedite. Ker ste pri nas novi, bi vam najprej rada zastavila nekaj vprašanj o zdravju. Je to v redu?",
+    "de": "Hallo, kommen Sie herein und setzen Sie sich. Da Sie neu in der Praxis sind, möchte ich Ihnen zuerst ein paar Fragen zu Ihrer Gesundheit stellen. Passt das?",
+    "it": "Buongiorno, entri e si sieda. Visto che è {m:nuovo|f:nuova} da noi, vorrei prima farle qualche domanda sulla sua salute. Va bene?",
+    "en": "Hello, come in and sit down. Since you're new here, I'd like to ask you some questions about your health first. Is that OK?"
+  },
+  "vocabulary_hints": [
+    { "sl": "I had my appendix out when I was twelve.", "en": { "sl": "Pri dvanajstih so mi odstranili slepič.", "de": "Mit zwölf wurde mir der Blinddarm entfernt.", "it": "A dodici anni mi hanno tolto l'appendice.", "en": "My appendix was removed when I was twelve." } },
+    { "sl": "I've had asthma since I was a child, but it's mild.", "en": { "sl": "Astmo imam že od otroštva, a je blaga.", "de": "Ich habe seit meiner Kindheit Asthma, aber nur leicht.", "it": "Ho l'asma da quando ero {m:piccolo|f:piccola}, ma è leggera.", "en": "I've had mild asthma since childhood." } },
+    { "sl": "I'm allergic to penicillin.", "en": { "sl": "{m:Alergičen|f:Alergična} sem na penicilin.", "de": "Ich bin allergisch gegen Penicillin.", "it": "Sono {m:allergico|f:allergica} alla penicillina.", "en": "I have an allergy to penicillin." } },
+    { "sl": "I use an inhaler now and then, nothing else.", "en": { "sl": "Včasih uporabim inhalator, drugega nič.", "de": "Ab und zu brauche ich einen Inhalator, sonst nichts.", "it": "Ogni tanto uso l'inalatore, nient'altro.", "en": "Sometimes I use an inhaler, nothing more." } },
+    { "sl": "My father has high blood pressure.", "en": { "sl": "Oče ima visok krvni pritisk.", "de": "Mein Vater hat Bluthochdruck.", "it": "Mio padre ha la pressione alta.", "en": "My dad has high blood pressure." } },
+    { "sl": "There's diabetes in my mother's family.", "en": { "sl": "V maminem sorodstvu je sladkorna bolezen.", "de": "In der Familie meiner Mutter gibt es Diabetes.", "it": "Nella famiglia di mia madre c'è il diabete.", "en": "My mother's family has diabetes." } },
+    { "sl": "I don't smoke, and I drink maybe five or six units a week.", "en": { "sl": "Ne kadim, popijem pa morda pet ali šest enot alkohola na teden.", "de": "Ich rauche nicht und trinke vielleicht fünf, sechs Einheiten pro Woche.", "it": "Non fumo e bevo forse cinque o sei unità alcoliche a settimana.", "en": "I don't smoke and have perhaps five or six units of alcohol a week." } },
+    { "sl": "I walk a lot, but I don't do any sport.", "en": { "sl": "Veliko hodim, s športom pa se ne ukvarjam.", "de": "Ich gehe viel zu Fuß, aber Sport mache ich keinen.", "it": "Cammino molto, ma non faccio sport.", "en": "I walk a lot but do no sport." } },
+    { "sl": "Could you explain what that means?", "en": { "sl": "Bi mi lahko razložili, kaj to pomeni?", "de": "Könnten Sie mir erklären, was das bedeutet?", "it": "Potrebbe spiegarmi che cosa vuol dire?", "en": "Can you tell me what that means?" } },
+    { "sl": "Do I need to book an appointment with the doctor now?", "en": { "sl": "Moram zdaj dobiti termin pri zdravniku?", "de": "Muss ich jetzt einen Termin beim Arzt vereinbaren?", "it": "Devo prendere un appuntamento con il medico adesso?", "en": "Should I book to see the doctor now?" } }
+  ],
+  "packs": ["at-the-health-centre", "feeling-poorly", "at-the-doctors", "family", "numbers-and-time", "food"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

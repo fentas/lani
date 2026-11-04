@@ -82,7 +82,7 @@ async function bodyBytes(b: BodyInit): Promise<Uint8Array | null> {
   return new Uint8Array(await new Response(b).arrayBuffer())
 }
 
-/** fetch over the host (OkHttp in the app): the whole answer at once, a signal's timeout as the call's. */
+/** fetch over the host (OkHttp in the app): the whole answer at once, a signal's timeout as the call's; `maxBytes` (ours): a longer answer is an error, the rest unread. */
 export async function fetch(input: string | Request | { href: string }, init: RequestInit = {}): Promise<Response> {
   const req = input instanceof Request ? input : undefined
   const url = req ? req.url : typeof input === 'string' ? input : (input as { href: string }).href
@@ -105,7 +105,7 @@ export async function fetch(input: string | Request | { href: string }, init: Re
     p.reject(signal?.reason ?? new DOMException('This operation was aborted', 'AbortError'))
   }
   signal?.addEventListener('abort', onAbort, { once: true })
-  host().fetch(id, method, r.url, JSON.stringify([...headers]), bytes ? toHost(bytes) : null, (signal as AbortSignal | undefined)?._timeoutMs ?? 0, init.redirect ?? req?.redirect ?? 'follow')
+  host().fetch(id, method, r.url, JSON.stringify([...headers]), bytes ? toHost(bytes) : null, (signal as AbortSignal | undefined)?._timeoutMs ?? 0, init.redirect ?? req?.redirect ?? 'follow', (init as { maxBytes?: number }).maxBytes ?? 0)
   try {
     return await done
   } finally {

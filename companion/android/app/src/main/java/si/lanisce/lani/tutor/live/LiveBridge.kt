@@ -184,9 +184,22 @@ class LiveBridge(private val config: BridgeConfig, base: OkHttpClient = defaultC
     }
 
     /** GET /lookup: the app's dictionary on the node (the word, the sentence it was in); the body as it came. */
-    suspend fun lookup(word: String, line: String?): String {
-        val url = (config.baseUrl.trimEnd('/') + "/lookup").toHttpUrlOrNull()?.newBuilder()
-            ?.addQueryParameter("w", word.take(40))?.apply { line?.let { addQueryParameter("line", it.take(300)) } }?.build()
+    suspend fun lookup(word: String, line: String?): String = word("/lookup", word, line, false)
+
+    /**
+     * `dictionary_lookup` on the node: its dictionary and, when that has nothing or the tutor asks ([deep]), the language's
+     * outside sources (GET /dictionary); a node's bridge from before it answers with its dictionary alone (GET /lookup).
+     */
+    suspend fun dictionary(word: String, line: String?, deep: Boolean): String = try {
+        word("/dictionary", word, line, deep)
+    } catch (e: LiveBridgeError) {
+        if (e.code == 404) lookup(word, line) else throw e
+    }
+
+    private suspend fun word(path: String, word: String, line: String?, deep: Boolean): String {
+        val url = (config.baseUrl.trimEnd('/') + path).toHttpUrlOrNull()?.newBuilder()
+            ?.addQueryParameter("w", word.take(40))?.apply { line?.let { addQueryParameter("line", it.take(300)) } }
+            ?.apply { if (deep) addQueryParameter("deep", "1") }?.build()
             ?: throw LiveBridgeError(0, "bad node address")
         return execute(Request.Builder().url(url).header("Authorization", "Bearer ${config.token}").get().build())
     }

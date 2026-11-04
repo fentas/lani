@@ -2051,7 +2051,7 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
   "kopa:delivery", "kopa:rest", "kopa:winter" (app/QaHooks); the keepers are there whatever their dice then. "show:kopa"
   flies the village's camera to the pile, as a place of the scroll's "Kraji" does.
 
-A culture without a `cycle` keeps its pile as it always was (Kärnten for now). Friuli's carbonaia has its
+A culture without a `cycle` keeps its pile as it always was (all four have one now). Friuli's carbonaia has its
 own since village-b2-friuli (`seed` "carbonaia-friuli", so its piles fall on other days than Primorska's): Carbonaio Pieri's ten stages
 (`taglio` and `catasta` with the village's wood, `copertura`, `accensione`, `fumo-bianco`, `fumo-giallo`, `fumo-azzurro`,
 `raffreddamento`, `scarbonatura`, `sacchi`, which delivers to Fabbro Bruno), the bora and a fox at night, the breakout on a white or
@@ -2059,7 +2059,13 @@ yellow smoke night (25, 18, 15 and 12 s at A1, A2, B1 and B2), every talk and pi
 parts. There is no Friulian record of the stages' days either: they follow the Alpine craft as Primorska's do (the stages as the
 museum of Premana describes them, and the yield, about a fifth of the wood: museo.premana.lc.it, "Carbonèer, jaal e pojàt"), and the
 Friulian mountains' charcoal burning until the 1950s, its black clearings still along the beech woods' paths (turismofvg.it, "Ring of
-the carbonaie and Col Cornier", Piancavallo). The tutor sees
+the carbonaie and Col Cornier", Piancavallo).
+Kärnten's Meiler has its
+own since village-b2-kaernten (`seed` "meiler-kaernten", so its piles fall on other days than Primorska's): Köhler Michl's eleven
+stages (`holz` and `aufschichten` with the village's wood, `zudecken`, `anzuenden`, `weisser-rauch`, `gelber-rauch`, `blauer-rauch`,
+`abkuehlen`, `ausziehen`, `saecke`, `liefern`, which delivers to Schmied Toni), the wind and a fox at night, the breakout on a white
+or yellow smoke night (25 s at A1, 18 at A2, B1 and B2), every talk and piece at A1, A2, B1 and B2, and his own story in six parts.
+There is no Carinthian record of the stages' days: they follow the Alpine craft as Primorska's do. The tutor sees
 where it is in `get_village`'s `spots` (the stage, the day of it, a breakout tonight, the last delivery).
 
 **Primorska's pile** (Trnovski gozd). There is no Slovene record of the stages' days from the Trnovo forest itself; they
