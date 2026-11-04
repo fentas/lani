@@ -178,7 +178,7 @@ class ReachTest {
     private val rpEv = ShadowEvent("e3", "roleplay", at(2026, 10, 29, 12), "/message", "rp-1", "dober dan", handling = Handling.RECORDED)
     private fun turn(vararg r: ShadowReply) = TurnRecord("t", emptyList(), TurnKind.DAY, Task.CHAT, "m", "answer", 0, replies = r.toList())
 
-    @Test fun `the day logs add what the chat hasn't - an answer and its feedback; not the chat's own, not a role-play's`() {
+    @Test fun `the day logs add what the chat hasn't - an answer and its feedback, not the chat's own, not a role-play's`() {
         val log = DayLog(
             day, events = listOf(ev, chatEv, rpEv),
             turns = listOf(turn(ShadowReply("ex_1", "Pravilno: dvoja vrata.", at(2026, 10, 29, 10, 1)), ShadowReply("main", "v klepetu sem rekel", at(2026, 10, 29, 11, 1)), ShadowReply("rp-1", "Dober dan, gospa!", at(2026, 10, 29, 12, 1)))),
