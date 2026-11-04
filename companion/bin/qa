@@ -14717,7 +14717,6 @@ def cases_de_step():
             assert not missing, f"{word} in «{line}»: not on its card: {missing}"
             shot(name)
             back_key()
-        return ""
     finally:
         qa_hook("cases:only:")
         go_home()

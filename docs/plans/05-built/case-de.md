@@ -166,4 +166,16 @@ village get no case row, as before. GET /state says `cases` in a German village 
   `verbs`, `chunks`, `predicates`.
 - The lens's open cases: two NPs that can both be the subject and the object with a name (die Suppe, die Kathi kocht) stay
   "likely"; a relative pronoun der/die/das in a clause with a name; unknown nouns get every gender.
-- QA on the emulator: see below.
+- A Dekliniere after a verb says its rule twice ("gefallen, gehören, schmecken, wehtun + Dativ → **Dativ**"): the rule's
+  name is what decides there. Left as it is.
+
+## QA
+
+`LANI_DEV_DATA=<a make-learner.ts --target de --base sl learner> LANI_CULTURE=kaernten LANI_QA_SETUP_PAIR=de-sl
+companion/bin/qa-slot --no-town --steps cases-de`, on the emulator, a synthetic learner of German explained in Slovene:
+the trainer's screen with its four cases, a "Welcher Fall?" (the noun phrase framed, the case picked by its question, the
+deciding word tapped), a "Wo oder wohin?" with and without its picture, a "Dekliniere!" typed in its nominative (❌, "der
+Blume" shown with the right sentence), the page faelle's "🧩 Fälle üben" and its overview button, and the word cards:
+Traktor after mit (Dativ), im (preposition and article, Dativ), Regen after wegen (Dativ, "geschrieben »des Regens«").
+The run found "mn." in German's other readings (now Sg. and Pl.) and "an + Denk" in the deciding words (now in the
+sentence's order).
