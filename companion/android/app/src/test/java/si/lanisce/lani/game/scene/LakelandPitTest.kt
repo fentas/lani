@@ -26,7 +26,7 @@ class LakelandPitTest {
     private val pairs = listOf(LangPair(Lang.EN, Lang.SL), LangPair(Lang.EN, Lang.DE), LangPair(Lang.EN, Lang.IT))
     private val levels = listOf("A1", "A2", "B1", "B2")
 
-    @Before fun lakeland() = Cultures.use("lakeland")
+    @Before fun lakeland() { Cultures.use("lakeland") }
 
     @After fun back() {
         SpotCycles.qaDay = null

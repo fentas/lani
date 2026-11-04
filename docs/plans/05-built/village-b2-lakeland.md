@@ -103,7 +103,7 @@ its wood as Tone's does.
 ## Voices (nothing spent)
 
 The new English, as voice-build would voice it (lines, the learner's choices, replies): arrivals 16,125 characters, steps 111,710, the
-pit 42,606: 170,441 in all. The voices are the cast's own and Ned's (`grandpa`); nothing new to cast.
+pit 42,595: 170,430 in all. The voices are the cast's own and Ned's (`grandpa`); nothing new to cast.
 
 ## The tools
 
