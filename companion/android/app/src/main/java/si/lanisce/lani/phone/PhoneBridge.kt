@@ -432,7 +432,7 @@ class PhoneBridge(private val config: Config) : Closeable {
         // the loop
         function("setTimer") { a -> setTimer(a[0].long(), a[1].long()) }
         function("clearTimer") { a -> timers.remove(a[0].long())?.cancel(false); Unit }
-        function("fetch") { a -> startFetch(a[0].long(), a[1].str(), a[2].str(), a[3].str(), a[4].bytes(), a[5].long(), a[6].str()) }
+        function("fetch") { a -> startFetch(a[0].long(), a[1].str(), a[2].str(), a[3].str(), a[4].bytes(), a[5].long(), a[6].str(), a[7].long()) }
         function("fetchCancel") { a -> fetches.remove(a[0].long())?.cancel(); Unit }
         function("fetchResult") { a -> fetched[a[0].long()]?.head ?: """{"error":"no answer"}""" }
         function("fetchBody") { a -> fetched.remove(a[0].long())?.body }
@@ -518,7 +518,7 @@ class PhoneBridge(private val config: Config) : Closeable {
 
     // --- fetch over OkHttp ----------------------------------------------------------------------------------------------
 
-    private fun startFetch(id: Long, method: String, url: String, headersJson: String, body: ByteArray?, timeoutMs: Long, redirect: String) {
+    private fun startFetch(id: Long, method: String, url: String, headersJson: String, body: ByteArray?, timeoutMs: Long, redirect: String, maxBytes: Long = 0) {
         val headers = pairsOf(headersJson)
         val contentType = headers.firstOrNull { it.first.equals("content-type", ignoreCase = true) }?.second?.toMediaTypeOrNull()
         val requestBody = body?.toRequestBody(contentType) ?: if (HttpMethod.requiresRequestBody(method)) ByteArray(0).toRequestBody(contentType) else null
@@ -547,7 +547,11 @@ class PhoneBridge(private val config: Config) : Closeable {
                 fetches.remove(id)
                 val result = try {
                     response.use { r ->
-                        val bytes = r.body?.bytes()
+                        // a bound (the outside dictionaries'): a longer answer is an error, and the rest is never read
+                        val bytes = if (maxBytes > 0) r.body?.source()?.let { src ->
+                            if (src.request(maxBytes + 1)) throw IOException("the answer is over $maxBytes bytes")
+                            src.buffer.readByteArray()
+                        } else r.body?.bytes()
                         Fetched(buildJsonObject {
                             put("status", r.code)
                             put("statusText", r.message)
