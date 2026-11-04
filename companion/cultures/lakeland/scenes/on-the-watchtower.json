@@ -158,9 +158,9 @@
         { "choices": [
           { "en": "Oh no! Was anybody hurt?", "sl": "O ne! Je bil kdo poškodovan?", "it": "Oh no! Si è fatto male qualcuno?", "de": "Oh nein! Wurde jemand verletzt?", "ok": true,
             "reply": { "face": "laugh", "en": "No. Only the barn. And my dad's old pipe!", "sl": "Ne. Samo skedenj. Pa očetova stara pipa!", "it": "No. Solo il fienile. E la vecchia pipa di mio padre!", "de": "Nein. Nur die Scheune. Und Vaters alte Pfeife!" } },
-          { "en": "Oh no! Were anybody hurt?", "sl": "O ne! Je bil kdo poškodovan?", "it": "Oh no! Si è fatto male qualcuno?", "de": "Oh nein! Wurde jemand verletzt?", "grammar": "past-simple",
-            "why": { "en": "Anybody is one person: was. Were is for you, we and they.", "sl": "Anybody je ena oseba: was. Were je za you, we in they.", "it": "Anybody è una persona sola: was. Were è per you, we e they.", "de": "Anybody ist eine Person: was. Were ist für you, we und they." },
-            "reply": { "face": "curious", "en": "Were? Nobody, only the barn. And my dad's pipe!", "sl": "Were? Nihče, samo skedenj. Pa očetova pipa!", "it": "Were? Nessuno, solo il fienile. E la pipa di mio padre!", "de": "Were? Keiner, nur die Scheune. Und Vaters Pfeife!" } }
+          { "en": "Oh no! Was anybody hurted?", "sl": "O ne! Je bil kdo poškodovan?", "it": "Oh no! Si è fatto male qualcuno?", "de": "Oh nein! Wurde jemand verletzt?", "grammar": "past-simple",
+            "why": { "en": "Hurt stays hurt in the past, with no -ed: was anybody hurt?", "sl": "Hurt ostane v pretekliku hurt, brez -ed: was anybody hurt?", "it": "Hurt resta hurt al passato, senza -ed: was anybody hurt?", "de": "Hurt bleibt in der Vergangenheit hurt, ohne -ed: was anybody hurt?" },
+            "reply": { "face": "curious", "en": "Hurted? Nobody, only the barn. And my dad's pipe!", "sl": "Hurted? Nihče, samo skedenj. Pa očetova pipa!", "it": "Hurted? Nessuno, solo il fienile. E la pipa di mio padre!", "de": "Hurted? Keiner, nur die Scheune. Und Vaters Pfeife!" } }
         ], "puzzled": { "face": "confused", "en": "Eh? Say that again, {m:lad|f:lass}?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti, {m:ragazzo|f:ragazza}?", "de": "Hm? Sag das noch mal, {m:Junge|f:Mädchen}?" } }
       ]
     },
@@ -320,10 +320,7 @@
             "reply": { "face": "laugh", "en": "Then today's your lucky day! He's got sweets.", "sl": "Potem je danes tvoj srečni dan! Bonbone ima.", "it": "Allora oggi è il tuo giorno fortunato! Ha le caramelle.", "de": "Dann ist heute dein Glückstag! Er hat Bonbons." } },
           { "en": "No, I never have seen one.", "sl": "Ne, še nikoli nisem {m:videl|f:videla} nobenega.", "it": "No, non ne ho mai visto uno.", "de": "Nein, ich habe noch nie einen gesehen.", "grammar": "present-perfect",
             "why": { "en": "Never goes between have and the verb: I have (I've) never seen.", "sl": "Never pride med have in glagol: I have (I've) never seen.", "it": "Never va tra have e il verbo: I have (I've) never seen.", "de": "Never steht zwischen have und dem Verb: I have (I've) never seen." },
-            "reply": { "face": "laugh", "en": "You never… what? You're talking backwards, {learner}!", "sl": "Never … kaj? Govoriš nazaj, {learner}!", "it": "Never… cosa? Parli al contrario, {learner}!", "de": "Never … was? Du redest rückwärts, {learner}!" } },
-          { "en": "No, I haven't never seen one.", "sl": "Ne, še nikoli nisem {m:videl|f:videla} nobenega.", "it": "No, non ne ho mai visto uno.", "de": "Nein, ich habe noch nie einen gesehen.", "grammar": "present-perfect",
-            "why": { "en": "English needs only one no: I have (I've) never seen.", "sl": "V angleščini zadošča ena nikalnica: I have (I've) never seen.", "it": "In inglese basta una negazione: I have (I've) never seen.", "de": "Im Englischen reicht eine Verneinung: I have (I've) never seen." },
-            "reply": { "face": "curious", "en": "Haven't never? So you've seen one, then?", "sl": "Haven't never? Torej si ga že {m:videl|f:videla}?", "it": "Haven't never? Allora l'hai già visto?", "de": "Haven't never? Dann hast du also doch schon einen gesehen?" } }
+            "reply": { "face": "laugh", "en": "You never… what? You're talking backwards, {learner}!", "sl": "Never … kaj? Govoriš nazaj, {learner}!", "it": "Never… cosa? Parli al contrario, {learner}!", "de": "Never … was? Du redest rückwärts, {learner}!" } }
         ], "puzzled": { "face": "confused", "en": "Huh? Say it again!", "sl": "Ha? Povej še enkrat!", "it": "Eh? Ridillo!", "de": "Hä? Sag's noch mal!" } },
         { "who": "harry", "face": "happy", "en": "Look, he's at the gate! Come on, let's go and see what he's got!", "sl": "Glej, pri vratih je! Pridi, greva pogledat, kaj ima!", "it": "Guarda, è al portone! Dai, andiamo a vedere cos'ha!", "de": "Schau, er ist am Tor! Komm, wir schauen, was er dabei hat!", "fx": { "pedlar": 1 } }
       ]
