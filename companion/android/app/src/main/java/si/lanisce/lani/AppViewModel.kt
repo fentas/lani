@@ -526,6 +526,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         fetch = { id, kind -> bridge?.townPart(id, kind) },
         send = { id, kind, body -> bridge?.townWrite(id, kind, body) },
         talk = { id, body -> bridge?.townTalk(id, body) },
+        level = { levelIn(it) },
     )
     /**
      * Questions between towns (plan 2, §3.2, "The host takes part"; ui/towns/TownQuestionScreens): the learner's to linked
