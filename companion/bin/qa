@@ -2918,7 +2918,8 @@ def culture_reading():
     # its "▶️ Začni · Start" at the text's end (the sheet has no tutor bar: low on the screen is fine)
     start = label("reading.start")
     time.sleep(2)
-    c = find(start) or scroll_to(start, 8, bottom=2350)
+    # (a B2 reading's eleven lines with their translations take more than eight swipes)
+    c = find(start) or scroll_to(start, 16, bottom=2350)
     assert c is not None, f"«{title}»: its ▶️ {start}"
     snap("text")
     tap_at(find(start) or c)
