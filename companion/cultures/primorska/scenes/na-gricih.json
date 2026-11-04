@@ -4,7 +4,7 @@
   "title": { "sl": "Na gričih", "en": "On the hills", "de": "Auf den Hügeln", "it": "Sulle colline" },
   "emoji": "🍇",
   "level": "A1",
-  "review": "reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "hills",
   "from": ["project:vinograd"],
   "pack": "na-gricih",
@@ -37,12 +37,12 @@
     },
     {
       "id": "nevihta", "title": { "sl": "Janez sedi na zidu", "en": "Janez is sitting on the wall", "de": "Janez sitzt auf der Mauer", "it": "Janez è seduto sul muro" }, "who": "janez",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "nevihta", "dialogs": ["nevihta-sekunde", "nevihta-zid", "nevihta"],"reward": { "wisdom": 20 }, "marker": "🔔",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "nevihta", "dialogs": ["nevihta-b2-argentina", "nevihta-b1-zvon", "nevihta-sekunde", "nevihta-zid", "nevihta"],"reward": { "wisdom": 20 }, "marker": "🔔",
       "memory": { "sl": "nevihto, ki sva jo gledala z zidu", "en": "the storm we watched from the wall", "de": "den Sturm, den wir von der Mauer aus gesehen haben", "it": "la tempesta che abbiamo guardato dal muro" }
     },
     {
       "id": "traktor", "title": { "sl": "Tine čaka traktor", "en": "Tine is waiting for the tractor", "de": "Tine wartet auf den Traktor", "it": "Tine aspetta il trattore" }, "who": "tine",
-      "when": ["morning"], "chance": 0.5, "dialog": "traktor", "dialogs": ["traktor-zaboji", "traktor-voznik", "traktor"],"reward": { "wood": 15 }, "marker": "🚜",
+      "when": ["morning"], "chance": 0.5, "dialog": "traktor", "dialogs": ["traktor-b2-sivko", "traktor-b1-morje", "traktor-zaboji", "traktor-voznik", "traktor"],"reward": { "wood": 15 }, "marker": "🚜",
       "memory": { "sl": "traktor, ki sva ga gledala na cesti", "en": "the tractor we watched on the road", "de": "den Traktor, den wir auf der Straße beobachtet haben", "it": "il trattore che abbiamo guardato sulla strada" }
     }
   ],
@@ -293,6 +293,572 @@
         ] },
         { "who": "tine", "sl": "Adijo, dedek! Ko bom velik, bom vozil hitreje!", "en": "Bye, grandpa! When I'm big, I'll drive faster!", "de": "Tschüss, Opa! Wenn ich groß bin, fahre ich schneller!", "it": "Ciao, nonno! Quando sarò grande, guiderò più veloce!",
           "fx": { "tractor": 1 } }
+      ]
+    },
+    {
+      "id": "nevihta-b1-zvon",
+      "level": "B1",
+      "memory": {
+        "sl": "zvon, ki je preganjal točo",
+        "en": "the bell that chased away the hail",
+        "de": "die Glocke, die den Hagel vertrieb",
+        "it": "la campana che scacciava la grandine"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Sedi, {learner}. Moj ded je verjel, da zvon prežene točo. Ko so se bližali oblaki, je tekel v zvonik domače vasi.",
+          "en": "Sit down, {learner}. My grandfather believed the bell drove off the hail. When the clouds came near, he ran up the bell tower of his home village.",
+          "de": "Setz dich, {learner}. Mein Großvater glaubte, die Glocke vertreibe den Hagel. Wenn Wolken aufzogen, rannte er in den Glockenturm seines Heimatdorfs.",
+          "it": "Siediti, {learner}. Mio nonno credeva che la campana scacciasse la grandine. Quando arrivavano le nuvole, correva sul campanile del suo paese."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Je tekel v zvonik, da bi pregnal točo?",
+              "en": "He ran up the tower to drive off the hail?",
+              "de": "Er rannte in den Turm, um den Hagel zu vertreiben?",
+              "it": "Correva sul campanile per scacciare la grandine?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ja. In vsakič je rekel, da je zvon zmagal. Tudi ko je toča pobila vse.",
+                "en": "Yes. And every time he said the bell had won. Even when the hail flattened everything.",
+                "de": "Ja. Und jedes Mal sagte er, die Glocke habe gesiegt. Auch wenn der Hagel alles zerschlagen hatte.",
+                "it": "Sì. E ogni volta diceva che aveva vinto la campana. Anche quando la grandine aveva distrutto tutto."
+              }
+            },
+            {
+              "sl": "Je tekel v zvonik, ker bi pregnal točo?",
+              "en": "He ran up the tower because he would drive off the hail?",
+              "de": "Er rannte in den Turm, weil er den Hagel vertreiben würde?",
+              "it": "Correva sul campanile perché avrebbe scacciato la grandine?",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "He ran there for an aim: da bi (so that, to) + the l-form, da bi pregnal. Ker is because, a reason.",
+                "de": "Er rannte mit einem Ziel hin: da bi (damit, um zu) + l-Form, da bi pregnal. Ker ist weil, ein Grund.",
+                "it": "Correva lì con uno scopo: da bi (per, affinché) + la forma in -l, da bi pregnal. Ker è perché, un motivo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ker bi? Ded je tekel, ker je bil trmast. To že.",
+                "en": "Because he would? Grandfather ran because he was stubborn. That much, yes.",
+                "de": "Weil er würde? Großvater rannte, weil er stur war. Das schon.",
+                "it": "Perché avrebbe? Il nonno correva perché era testardo. Questo sì."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "curious",
+          "sl": "Kaj pa ti misliš: je zvon pomagal ali ne?",
+          "en": "And what do you think: did the bell help or not?",
+          "de": "Und was meinst du: Hat die Glocke geholfen oder nicht?",
+          "it": "E tu cosa pensi: la campana serviva o no?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Zdi se mi, da ni pomagal. Ampak ljudem je bilo lažje, ko je zvonilo.",
+              "en": "It seems to me it didn't help. But people felt easier when it rang.",
+              "de": "Mir scheint, sie hat nicht geholfen. Aber den Leuten war leichter, wenn sie läutete.",
+              "it": "Mi sembra che non servisse. Ma la gente si sentiva meglio quando suonava.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Pametno. Zvon ni ustavil toče, ustavil pa je strah.",
+                "en": "Wise. The bell didn't stop the hail, but it stopped the fear.",
+                "de": "Klug. Die Glocke hat den Hagel nicht aufgehalten, aber die Angst.",
+                "it": "Saggio. La campana non fermava la grandine, ma fermava la paura."
+              }
+            },
+            {
+              "sl": "Zdi se me, da ni pomagal. Ampak ljudem je bilo lažje, ko je zvonilo.",
+              "en": "It seems to me (acc.) it didn't help. But people felt easier when it rang.",
+              "de": "Mich scheint, sie hat nicht geholfen. Aber den Leuten war leichter, wenn sie läutete.",
+              "it": "Me sembra che non servisse. Ma la gente si sentiva meglio quando suonava.",
+              "grammar": "custva",
+              "why": {
+                "en": "Zdeti se has whom it seems to in the dative, after se: zdi se mi. Me is the accusative.",
+                "de": "Zdeti se hat den, dem es scheint, im Dativ, nach se: zdi se mi. Me ist der Akkusativ.",
+                "it": "Zdeti se vuole a chi sembra al dativo, dopo se: zdi se mi. Me è l'accusativo."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Zdi se me? To je pa nova beseda, {learner}.",
+                "en": "Seems me? Well, that's a new one, {learner}.",
+                "de": "Scheint mich? Das ist aber ein neues Wort, {learner}.",
+                "it": "Sembra me? Questa sì che è nuova, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Tako je s starimi navadami, {learner}: ne pomagajo vedno, ampak držijo ljudi skupaj.",
+          "en": "That's how it is with old customs, {learner}: they don't always help, but they hold people together.",
+          "de": "So ist es mit alten Bräuchen, {learner}: sie helfen nicht immer, aber sie halten die Leute zusammen.",
+          "it": "Così è con le vecchie usanze, {learner}: non sempre aiutano, ma tengono unita la gente."
+        }
+      ]
+    },
+    {
+      "id": "nevihta-b2-argentina",
+      "level": "B2",
+      "memory": {
+        "sl": "brata v Argentini in zid, na katerem sva sedela",
+        "en": "my brother in Argentina, and the wall we sat on",
+        "de": "meinen Bruder in Argentinien und die Mauer, auf der wir saßen",
+        "it": "mio fratello in Argentina e il muretto su cui sedevamo"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Sedi, {learner}. Ko mi je bilo dvajset let, sem zlagal take zidove. Takrat je moj brat odšel v Argentino.",
+          "en": "Sit down, {learner}. When I was twenty, I built walls like this one. That's when my brother left for Argentina.",
+          "de": "Setz dich, {learner}. Mit zwanzig habe ich solche Mauern geschichtet. Damals ist mein Bruder nach Argentinien gegangen.",
+          "it": "Siediti, {learner}. A vent'anni costruivo muretti come questo. Fu allora che mio fratello partì per l'Argentina."
+        },
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "Pisal mi je, naj pridem za njim. Dolgo sem okleval, potem pa je bilo prepozno.",
+          "en": "He wrote that I should follow him. I hesitated a long time, and then it was too late.",
+          "de": "Er schrieb mir, ich solle ihm nachkommen. Ich habe lange gezögert, und dann war es zu spät.",
+          "it": "Mi scrisse di raggiungerlo. Ho esitato a lungo, e poi era troppo tardi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kaj bi bilo, če bi bili šli za njim? Ste si to kdaj predstavljali?",
+              "en": "What would it have been like if you had followed him? Did you ever picture it?",
+              "de": "Wie wäre es gewesen, wenn Sie ihm nachgegangen wären? Haben Sie sich das je vorgestellt?",
+              "it": "Cosa sarebbe successo se l'avesse raggiunto? Se l'è mai immaginato?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Velikokrat. Imel bi več denarja in manj gora. Gore pa so moje življenje.",
+                "en": "Many times. I'd have had more money and fewer mountains. And the mountains are my life.",
+                "de": "Oft. Ich hätte mehr Geld gehabt und weniger Berge. Und die Berge sind mein Leben.",
+                "it": "Tante volte. Avrei avuto più soldi e meno montagne. E le montagne sono la mia vita."
+              }
+            },
+            {
+              "sl": "Kaj bo, če boste šli za njim? Ste si to kdaj predstavljali?",
+              "en": "What will happen if you follow him? Did you ever picture it?",
+              "de": "Was wird sein, wenn Sie ihm nachgehen? Haben Sie sich das je vorgestellt?",
+              "it": "Cosa succederà se lo raggiunge? Se l'è mai immaginato?",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "The chance is long past: what would have been is the past conditional, kaj bi bilo, če bi bili šli. Boste is the future, as if it were still to come.",
+                "de": "Die Gelegenheit ist längst vorbei: was gewesen wäre, ist der Konditional der Vergangenheit, kaj bi bilo, če bi bili šli. Boste ist das Futur, als käme es noch.",
+                "it": "L'occasione è passata da tempo: ciò che sarebbe stato è il condizionale passato, kaj bi bilo, če bi bili šli. Boste è il futuro, come se dovesse ancora venire."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Zdaj? Pri mojih letih? V Argentino grem samo še v sanjah.",
+                "en": "Now? At my age? I only go to Argentina in my dreams now.",
+                "de": "Jetzt? In meinem Alter? Nach Argentinien fahre ich nur noch im Traum.",
+                "it": "Adesso? Alla mia età? In Argentina ci vado ormai solo in sogno."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "curious",
+          "sl": "Brat je tam obogatel. Včasih se vprašam, ali sem bil neumen, da sem ostal.",
+          "en": "My brother got rich over there. Sometimes I wonder whether I was a fool to stay.",
+          "de": "Mein Bruder ist dort reich geworden. Manchmal frage ich mich, ob ich dumm war zu bleiben.",
+          "it": "Mio fratello laggiù si è arricchito. A volte mi chiedo se sono stato uno sciocco a restare."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda bi imeli več, ampak potem ne bi bili petkrat na Triglavu. In ne bi sedeli z mano na tem zidu.",
+              "en": "Of course you'd have more, but then you wouldn't have been up Triglav five times. And you wouldn't be sitting on this wall with me.",
+              "de": "Natürlich hätten Sie mehr, aber dann wären Sie nicht fünfmal auf dem Triglav gewesen. Und Sie säßen nicht mit mir auf dieser Mauer.",
+              "it": "Certo, avrebbe di più, ma allora non sarebbe salito cinque volte sul Tricorno. E non sarebbe seduto con me su questo muretto.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Petkrat. In šestič grem, če me boš {m:nesel|f:nesla}.",
+                "en": "Five times. And I'll go a sixth time, if you carry me.",
+                "de": "Fünfmal. Und ein sechstes Mal gehe ich, wenn du mich trägst.",
+                "it": "Cinque volte. E la sesta ci vado, se mi porti in spalla."
+              }
+            },
+            {
+              "sl": "Ja, bili ste neumni. Denar je pomembnejši od gora.",
+              "en": "Yes, you were a fool. Money matters more than mountains.",
+              "de": "Ja, Sie waren dumm. Geld ist wichtiger als Berge.",
+              "it": "Sì, è stato uno sciocco. I soldi contano più delle montagne.",
+              "why": {
+                "en": "Janez doubts himself, but his life is the mountains: agreeing he was a fool hurts and misses what he loves. Grant the money, then name what he gained.",
+                "de": "Janez zweifelt an sich, doch sein Leben sind die Berge: ihm zuzustimmen, er sei dumm gewesen, verletzt und übergeht, was er liebt. Gib das Geld zu und nenn, was er gewonnen hat.",
+                "it": "Janez dubita di sé, ma la sua vita sono le montagne: dargli dello sciocco ferisce e ignora ciò che ama. Ammetti i soldi, poi di' cosa ha guadagnato."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Neumen? No, no, tako hudo pa spet ni bilo.",
+                "en": "A fool? Now, now, it wasn't as bad as all that.",
+                "de": "Dumm? Na, na, so schlimm war es nun auch wieder nicht.",
+                "it": "Sciocco? Su, su, non era poi così grave."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Vidiš, {learner}: kamen na kamen, palača. Ostal sem in zložil svoje življenje.",
+          "en": "You see, {learner}: stone on stone, a palace. I stayed, and built my life.",
+          "de": "Siehst du, {learner}: Stein auf Stein, ein Palast. Ich bin geblieben und habe mein Leben aufgeschichtet.",
+          "it": "Vedi, {learner}: pietra su pietra, un palazzo. Sono rimasto, e ho costruito la mia vita."
+        }
+      ]
+    },
+    {
+      "id": "traktor-b1-morje",
+      "level": "B1",
+      "memory": {
+        "sl": "traktor, s katerim bi me {m:peljal|f:peljala} do morja",
+        "en": "the tractor you'd drive me to the sea on",
+        "de": "den Traktor, mit dem du mich ans Meer fahren würdest",
+        "it": "il trattore con cui mi porteresti al mare"
+      },
+      "lines": [
+        {
+          "who": "tine",
+          "face": "worried",
+          "sl": "{learner}! Dedek je rekel, da me bo danes peljal s traktorjem. Ampak ga še ni!",
+          "en": "{learner}! Grandpa said he'd take me on the tractor today. But he's not here yet!",
+          "de": "{learner}! Opa hat gesagt, er nimmt mich heute auf dem Traktor mit. Aber er ist noch nicht da!",
+          "it": "{learner}! Il nonno ha detto che oggi mi porta sul trattore. Ma non c'è ancora!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne skrbi. Dedek bo gotovo kmalu prišel, ker nikoli ne pozabi obljube.",
+              "en": "Don't worry. Grandpa will surely come soon, because he never forgets a promise.",
+              "de": "Keine Sorge. Opa kommt bestimmt bald, weil er nie ein Versprechen vergisst.",
+              "it": "Non preoccuparti. Il nonno arriverà di sicuro presto, perché non dimentica mai una promessa.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res? Dedek nikoli ne pozabi. Samo očala pozabi. In ključe.",
+                "en": "Really? Grandpa never forgets. He only forgets his glasses. And his keys.",
+                "de": "Echt? Opa vergisst nie etwas. Nur seine Brille. Und die Schlüssel.",
+                "it": "Davvero? Il nonno non dimentica mai. Dimentica solo gli occhiali. E le chiavi."
+              }
+            },
+            {
+              "sl": "Ne skrbi. Dedek bo gotovo kmalu prihajal, ker nikoli ne pozabi obljube.",
+              "en": "Don't worry. Grandpa will surely be coming soon, again and again, because he never forgets a promise.",
+              "de": "Keine Sorge. Opa wird bestimmt bald immer wieder kommen, weil er nie ein Versprechen vergisst.",
+              "it": "Non preoccuparti. Il nonno presto continuerà a venire, perché non dimentica mai una promessa.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Kmalu here is one arrival, done: the perfective, bo prišel. Bo prihajal is imperfective, going on or again and again.",
+                "de": "Kmalu ist hier eine Ankunft, erledigt: der vollendete Aspekt, bo prišel. Bo prihajal ist unvollendet, andauernd oder immer wieder.",
+                "it": "Kmalu qui è un arrivo solo, compiuto: il perfettivo, bo prišel. Bo prihajal è imperfettivo, che dura o si ripete."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Prihajal? Ves dan? Jaz pa čakam in čakam …",
+                "en": "Coming and coming? All day? And I'm waiting and waiting …",
+                "de": "Immer wieder kommen? Den ganzen Tag? Und ich warte und warte …",
+                "it": "Continuerà a venire? Tutto il giorno? E io aspetto e aspetto …"
+              }
+            },
+            {
+              "sl": "Ne skrbi. Dedek bo gotovo kmalu prišel, ker nikoli pozabi obljube.",
+              "en": "Don't worry. Grandpa will surely come soon, because he never forgets a promise (no ne).",
+              "de": "Keine Sorge. Opa kommt bestimmt bald, weil er nie ein Versprechen vergisst (ohne ne).",
+              "it": "Non preoccuparti. Il nonno arriverà di sicuro presto, perché mai dimentica una promessa (senza ne).",
+              "grammar": "zanikanje",
+              "why": {
+                "en": "Nikoli doubles the no: the verb keeps its ne, nikoli ne pozabi.",
+                "de": "Nikoli verdoppelt die Verneinung: das Verb behält sein ne, nikoli ne pozabi.",
+                "it": "Nikoli raddoppia la negazione: il verbo tiene il suo ne, nikoli ne pozabi."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Nikoli pozabi? Hi hi, ti govoriš kot jaz!",
+                "en": "Never forgets (no ne)? Hee hee, you talk like me!",
+                "de": "Nie vergisst (ohne ne)? Hihi, du redest wie ich!",
+                "it": "Mai dimentica? Ih ih, parli come me!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Še enkrat! Počasi, kot dedek.",
+            "en": "What? Again! Slowly, like Grandpa.",
+            "de": "Was? Noch mal! Langsam, wie Opa.",
+            "it": "Cosa? Di nuovo! Piano, come il nonno."
+          }
+        },
+        {
+          "who": "tine",
+          "face": "curious",
+          "sl": "{learner}, kaj bi ti {m:naredil|f:naredila}, če bi {m:imel|f:imela} svoj traktor?",
+          "en": "{learner}, what would you do if you had your own tractor?",
+          "de": "{learner}, was würdest du machen, wenn du deinen eigenen Traktor hättest?",
+          "it": "{learner}, cosa faresti se avessi un trattore tutto tuo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "{m:Peljal|f:Peljala} bi te do morja, ki ga vidiva z griča.",
+              "en": "I'd drive you to the sea we can see from the hill.",
+              "de": "Ich würde dich ans Meer fahren, das wir vom Hügel aus sehen.",
+              "it": "Ti porterei fino al mare che vediamo dalla collina.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Do morja! S traktorjem! Ena, dva, tri … sto dni bi se peljala!",
+                "en": "To the sea! On a tractor! One, two, three … we'd be driving for a hundred days!",
+                "de": "Ans Meer! Mit dem Traktor! Eins, zwei, drei … hundert Tage würden wir fahren!",
+                "it": "Al mare! Col trattore! Uno, due, tre … viaggeremmo cento giorni!"
+              }
+            },
+            {
+              "sl": "{m:Peljal|f:Peljala} bi te do morja, ki vidiva z griča.",
+              "en": "I'd drive you to the sea, which we see from the hill (no ga).",
+              "de": "Ich würde dich ans Meer fahren, das wir vom Hügel sehen (ohne ga).",
+              "it": "Ti porterei fino al mare, che vediamo dalla collina (senza ga).",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "Ki never changes: the sea is what you see, so a short ga after ki shows it, ki ga vidiva.",
+                "de": "Ki ändert sich nie: das Meer ist, was ihr seht, also zeigt ein kurzes ga nach ki es an, ki ga vidiva.",
+                "it": "Ki non cambia mai: il mare è ciò che vedete, quindi un ga breve dopo ki lo indica, ki ga vidiva."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ki vidiva … kaj? Kravo? Hi hi!",
+                "en": "Which we see … what? A cow? Hee hee!",
+                "de": "Das wir sehen … was? Eine Kuh? Hihi!",
+                "it": "Che vediamo … cosa? Una mucca? Ih ih!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Še enkrat! Počasi, kot dedek.",
+            "en": "What? Again! Slowly, like Grandpa.",
+            "de": "Was? Noch mal! Langsam, wie Opa.",
+            "it": "Cosa? Di nuovo! Piano, come il nonno."
+          }
+        },
+        {
+          "who": "tine",
+          "face": "happy",
+          "sl": "Slišiš? Traktor! Dedek prihaja! Pridi, {learner}, sedi zraven mene!",
+          "en": "Hear that? The tractor! Grandpa's coming! Come on, {learner}, sit next to me!",
+          "de": "Hörst du? Der Traktor! Opa kommt! Komm, {learner}, setz dich neben mich!",
+          "it": "Senti? Il trattore! Arriva il nonno! Vieni, {learner}, siediti vicino a me!"
+        }
+      ]
+    },
+    {
+      "id": "traktor-b2-sivko",
+      "level": "B2",
+      "memory": {
+        "sl": "lesenega Sivka, ki sva ga našla za zidom",
+        "en": "wooden Sivko, whom we found behind the wall",
+        "de": "den hölzernen Sivko, den wir hinter der Mauer gefunden haben",
+        "it": "Sivko di legno, che abbiamo trovato dietro il muretto"
+      },
+      "lines": [
+        {
+          "who": "tine",
+          "face": "sad",
+          "sl": "{learner} … Včeraj sem v vinogradu izgubil Sivka. Lesenega. Ne pravega.",
+          "en": "{learner} … Yesterday I lost Sivko in the vineyard. The wooden one. Not the real one.",
+          "de": "{learner} … Gestern habe ich im Weinberg Sivko verloren. Den hölzernen. Nicht den echten.",
+          "it": "{learner} … Ieri ho perso Sivko nella vigna. Quello di legno. Non quello vero."
+        },
+        {
+          "who": "tine",
+          "face": "worried",
+          "sl": "Dedek pravi, da bi ga moral pustiti doma. Zdaj je pa sam med trtami …",
+          "en": "Grandpa says I should have left him at home. And now he's all alone among the vines …",
+          "de": "Opa sagt, ich hätte ihn zu Hause lassen sollen. Und jetzt ist er ganz allein zwischen den Reben …",
+          "it": "Il nonno dice che avrei dovuto lasciarlo a casa. E adesso è tutto solo tra le viti …"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tudi jaz bi ga {m:bil vzel|f:bila vzela} s seboj. Konji imajo radi trte.",
+              "en": "I'd have taken him along too. Horses like vines.",
+              "de": "Ich hätte ihn auch mitgenommen. Pferde mögen Reben.",
+              "it": "Anch'io l'avrei portato con me. Ai cavalli piacciono le viti.",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "sl": "Res? Tudi ti? Potem nisem neumen.",
+                "en": "Really? You too? Then I'm not silly.",
+                "de": "Echt? Du auch? Dann bin ich nicht dumm.",
+                "it": "Davvero? Anche tu? Allora non sono stupido."
+              }
+            },
+            {
+              "sl": "Tudi jaz sem ga {m:vzel|f:vzela} s seboj. Konji imajo radi trte.",
+              "en": "I took him along too. Horses like vines.",
+              "de": "Ich habe ihn auch mitgenommen. Pferde mögen Reben.",
+              "it": "Anch'io l'ho portato con me. Ai cavalli piacciono le viti.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "You weren't there: what you would have done is the past conditional, bi ga {m:bil vzel|f:bila vzela}. Sem ga {m:vzel|f:vzela} says you did.",
+                "de": "Du warst nicht dabei: was du getan hättest, ist der Konditional der Vergangenheit, bi ga {m:bil vzel|f:bila vzela}. Sem ga {m:vzel|f:vzela} sagt, du hast es getan.",
+                "it": "Tu non c'eri: ciò che avresti fatto è il condizionale passato, bi ga {m:bil vzel|f:bila vzela}. Sem ga {m:vzel|f:vzela} dice che l'hai fatto."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ti? Ti imaš tudi lesenega konja? Pokaži!",
+                "en": "You? You've got a wooden horse too? Show me!",
+                "de": "Du? Du hast auch ein Holzpferd? Zeig her!",
+                "it": "Tu? Anche tu hai un cavallo di legno? Fammi vedere!"
+              }
+            },
+            {
+              "sl": "Dedek ima prav. Sam si kriv.",
+              "en": "Grandpa's right. It's your own fault.",
+              "de": "Opa hat recht. Du bist selbst schuld.",
+              "it": "Il nonno ha ragione. È colpa tua.",
+              "why": {
+                "en": "Tine is six and sad: comfort him first, the lesson can wait.",
+                "de": "Tine ist sechs und traurig: tröste ihn zuerst, die Lehre kann warten.",
+                "it": "Tine ha sei anni ed è triste: prima consolalo, la lezione può aspettare."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Vem … Ampak to ne pomaga, {learner}.",
+                "en": "I know … But that doesn't help, {learner}.",
+                "de": "Ich weiß … Aber das hilft nicht, {learner}.",
+                "it": "Lo so … Ma così non serve, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Še enkrat! Počasi, kot dedek.",
+            "en": "What? Again! Slowly, like Grandpa.",
+            "de": "Was? Noch mal! Langsam, wie Opa.",
+            "it": "Cosa? Di nuovo! Piano, come il nonno."
+          }
+        },
+        {
+          "who": "tine",
+          "face": "curious",
+          "sl": "Kje je zdaj, kaj misliš? Ga je strah?",
+          "en": "Where is he now, do you think? Is he scared?",
+          "de": "Wo ist er jetzt, was meinst du? Hat er Angst?",
+          "it": "Dov'è adesso, secondo te? Ha paura?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Gotovo stoji za zidom, kjer si se včeraj igral, in čaka, da ga najdeš.",
+              "en": "I'm sure he's standing behind the wall where you played yesterday, waiting for you to find him.",
+              "de": "Bestimmt steht er hinter der Mauer, wo du gestern gespielt hast, und wartet, dass du ihn findest.",
+              "it": "Di sicuro è dietro il muretto dove giocavi ieri, e aspetta che tu lo trovi.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Za zidom! Greva iskat? Ena, dva, tri … zdaj!",
+                "en": "Behind the wall! Shall we go and find him? One, two, three … now!",
+                "de": "Hinter der Mauer! Gehen wir suchen? Eins, zwei, drei … jetzt!",
+                "it": "Dietro il muretto! Andiamo a cercarlo? Uno, due, tre … adesso!"
+              }
+            },
+            {
+              "sl": "Gotovo stoji za zid, kjer si se včeraj igral, in čaka, da ga najdeš.",
+              "en": "I'm sure he's standing to behind the wall where you played yesterday, waiting for you to find him.",
+              "de": "Bestimmt steht er hinter die Mauer, wo du gestern gespielt hast, und wartet, dass du ihn findest.",
+              "it": "Di sicuro sta andando dietro il muretto dove giocavi ieri, e aspetta che tu lo trovi.",
+              "grammar": "predlogi-dva-sklona",
+              "why": {
+                "en": "Stoji says where: za + the instrumental, za zidom. Za zid, the accusative, is where to.",
+                "de": "Stoji sagt wo: za + Instrumental, za zidom. Za zid, der Akkusativ, ist wohin.",
+                "it": "Stoji dice dove: za + lo strumentale, za zidom. Za zid, l'accusativo, è verso dove."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Za zid? Kam pa je šel? Saj ne zna hoditi, lesen je!",
+                "en": "Behind the wall, going where? He can't walk, he's wooden!",
+                "de": "Hinter die Mauer? Wohin ist er gegangen? Er kann doch nicht laufen, er ist aus Holz!",
+                "it": "Dietro il muretto, andando dove? Non sa camminare, è di legno!"
+              }
+            },
+            {
+              "sl": "Lesen konj ne čuti ničesar. Ne skrbi zanj.",
+              "en": "A wooden horse doesn't feel anything. Don't worry about him.",
+              "de": "Ein Holzpferd fühlt nichts. Mach dir keine Sorgen um ihn.",
+              "it": "Un cavallo di legno non sente niente. Non preoccuparti per lui.",
+              "why": {
+                "en": "Tine imagines Sivko alive and afraid: play along and comfort him, don't break the game.",
+                "de": "Tine stellt sich Sivko lebendig und ängstlich vor: spiel mit und tröste ihn, statt das Spiel zu zerstören.",
+                "it": "Tine immagina Sivko vivo e spaventato: sta' al gioco e consolalo, non rompere l'incanto."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Ne čuti? Sivko čuti vse. Tudi zdaj!",
+                "en": "Doesn't feel? Sivko feels everything. Even now!",
+                "de": "Fühlt nichts? Sivko fühlt alles. Auch jetzt!",
+                "it": "Non sente? Sivko sente tutto. Anche adesso!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Še enkrat! Počasi, kot dedek.",
+            "en": "What? Again! Slowly, like Grandpa.",
+            "de": "Was? Noch mal! Langsam, wie Opa.",
+            "it": "Cosa? Di nuovo! Piano, come il nonno."
+          }
+        },
+        {
+          "who": "tine",
+          "face": "laugh",
+          "sl": "{learner}! Tukaj je, za zidom! Sivko, nikoli več te ne pustim samega!",
+          "en": "{learner}! Here he is, behind the wall! Sivko, I'll never leave you alone again!",
+          "de": "{learner}! Hier ist er, hinter der Mauer! Sivko, ich lasse dich nie wieder allein!",
+          "it": "{learner}! Eccolo, dietro il muretto! Sivko, non ti lascerò mai più solo!"
+        }
       ]
     }
   ]

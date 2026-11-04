@@ -29,6 +29,8 @@ export type FormReading = { lemma: string; pos: string; case: CaseKey; number: N
 export type CaseKind =
   | 'preposition' | 'negation' | 'quantity' | 'number' | 'verb' | 'predicate' | 'copula' | 'predicative' | 'subject' | 'object'
   | 'address' | 'attribute' | 'time' | 'when' | 'phrase' | 'fused' | 'form' | 'unresolved'
+  // German's (case-lens-de.ts): the dative of who has it, said in the south (dem Stefan sein Hund)
+  | 'possessor'
 
 /** A case and number the sentence leaves possible ([gender]: an adjective's, a pronoun's), and what it would be ([as]). */
 export type CaseOption = { case: CaseKey; number: NumberKey; gender?: GenderKey; as?: CaseKind }

@@ -4,7 +4,7 @@
   "title": { "sl": "V hiši", "en": "In the living room", "de": "In der Stube", "it": "In soggiorno" },
   "emoji": "🏡",
   "level": "A2",
-  "review": "sl, en, de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker; checked against Fran 2026-10-30: ob šest is spoken, accepted",
+  "review": "sl, en, de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker; checked against Fran 2026-10-30: ob šest is spoken, accepted",
   "art": "livingroom",
   "from": ["house"],
   "household": ["janez"],
@@ -33,13 +33,13 @@
   ],
   "happenings": [
     { "id": "pec", "title": { "sl": "Janez kuri peč", "en": "Janez is firing up the stove", "de": "Janez heizt den Ofen ein", "it": "Janez accende la stufa" }, "who": "janez",
-      "when": ["dawn", "morning"], "months": [10, 11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "pec", "dialogs": ["pec-polena", "pec-casopis", "pec"], "reward": { "wood": 15 }, "marker": "🔥",
+      "when": ["dawn", "morning"], "months": [10, 11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "pec", "dialogs": ["pec-b2-dimnikar", "pec-b1-sneg", "pec-polena", "pec-casopis", "pec"], "reward": { "wood": 15 }, "marker": "🔥",
       "memory": { "sl": "jutro, ko sva zakurila peč", "en": "the morning we fired up the stove", "de": "den Morgen, an dem wir den Ofen angeheizt haben", "it": "la mattina in cui abbiamo acceso la stufa" } },
     { "id": "muri", "title": { "sl": "Zala se igra z Murijem", "en": "Zala is playing with Muri", "de": "Zala spielt mit Muri", "it": "Zala gioca con Muri" }, "who": "zala",
       "when": ["afternoon"], "chance": 0.5, "dialog": "muri", "dialogs": ["muri-skrivalnice", "muri-klobasa", "muri"], "reward": { "wood": 15 }, "marker": "🐕",
       "memory": { "sl": "Murija, ki je lovil svoj rep", "en": "Muri chasing his own tail", "de": "Muri, der seinem eigenen Schwanz nachjagte", "it": "Muri che si rincorreva la coda" } },
     { "id": "fotografija", "title": { "sl": "Janez gleda staro fotografijo", "en": "Janez is looking at an old photo", "de": "Janez betrachtet ein altes Foto", "it": "Janez guarda una vecchia fotografia" }, "who": "janez",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "fotografija", "dialogs": ["fotografija-triglav", "fotografija"], "reward": { "wisdom": 25 }, "marker": "🖼️", "needs": { "level": 3 },
+      "when": ["afternoon"], "chance": 0.4, "dialog": "fotografija", "dialogs": ["fotografija-b2-krn", "fotografija-b1-gozdar", "fotografija-triglav", "fotografija"], "reward": { "wisdom": 25 }, "marker": "🖼️", "needs": { "level": 3 },
       "memory": { "sl": "dan, ko sem ti pokazal Ano", "en": "the day I showed you Ana", "de": "den Tag, an dem ich dir Ana gezeigt habe", "it": "il giorno in cui ti ho mostrato Ana" } },
     { "id": "skrivalnice", "title": { "sl": "Zala bi se igrala skrivalnice", "en": "Zala wants to play hide-and-seek", "de": "Zala möchte Verstecken spielen", "it": "Zala vuole giocare a nascondino" }, "who": "zala",
       "when": ["morning", "evening"], "chance": 0.5, "dialog": "skrivalnice", "dialogs": ["skrivalnice-vrata", "skrivalnice"], "reward": { "wood": 15 }, "marker": "🙈",
@@ -366,6 +366,573 @@
             "reply": { "face": "laugh", "sl": "Tvoj kita? Hi hi, moja kita ni fant!", "en": "Tvoj kita? Hee hee, my braid isn't a boy!", "de": "Tvoj kita? Hihi, mein Zopf ist doch kein Junge!", "it": "Tvoj kita? Ih ih, la mia treccia non è un maschio!" } }
         ] },
         { "who": "zala", "sl": "Še enkrat! Jutri se skrijem bolje.", "en": "Once more! Tomorrow I'll hide better.", "de": "Noch einmal! Morgen verstecke ich mich besser.", "it": "Ancora! Domani mi nascondo meglio." }
+      ]
+    },
+    {
+      "id": "pec-b1-sneg",
+      "level": "B1",
+      "memory": {
+        "sl": "zime na Trnovski planoti, o katerih sem ti pripovedoval",
+        "en": "the winters on the Trnovo plateau I told you about",
+        "de": "die Winter auf der Hochebene von Trnovo, von denen ich dir erzählt habe",
+        "it": "gli inverni sull'altopiano di Trnovo di cui ti ho raccontato"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}. Peč se kadi, ker so drva mokra. Sinoči jih nisem prinesel pod streho.",
+          "en": "Good morning, {learner}. The stove is smoking because the wood is wet. Last night I didn't bring it in under the roof.",
+          "de": "Guten Morgen, {learner}. Der Ofen raucht, weil das Holz nass ist. Gestern Abend habe ich es nicht unters Dach gebracht.",
+          "it": "Buongiorno, {learner}. La stufa fa fumo perché la legna è bagnata. Ieri sera non l'ho portata al coperto."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vas ne zebe? Takoj prinesem suha drva iz drvarnice.",
+              "en": "Aren't you cold? I'll bring dry wood from the woodshed right away.",
+              "de": "Frieren Sie nicht? Ich hole gleich trockenes Holz aus dem Holzschuppen.",
+              "it": "Non ha freddo? Porto subito legna asciutta dalla legnaia.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "{m:Priden|f:Pridna}. Suha drva so pol ognja, je govoril moj oče.",
+                "en": "Good for you. Dry wood is half the fire, my father used to say.",
+                "de": "Brav. Trockenes Holz ist das halbe Feuer, hat mein Vater immer gesagt.",
+                "it": "{m:Bravo|f:Brava}. La legna asciutta è mezzo fuoco, diceva mio padre."
+              }
+            },
+            {
+              "sl": "Vam ne zebe? Takoj prinesem suha drva iz drvarnice.",
+              "en": "Aren't you cold? I'll bring dry wood from the woodshed right away.",
+              "de": "Frieren Sie nicht? Ich hole gleich trockenes Holz aus dem Holzschuppen.",
+              "it": "Non ha freddo? Porto subito legna asciutta dalla legnaia.",
+              "grammar": "custva",
+              "why": {
+                "en": "Zebsti has whom it bites in the accusative: vas zebe (like boli me). The dative goes with mrzlo je: mrzlo vam je.",
+                "de": "Zebsti hat den, den es friert, im Akkusativ: vas zebe (wie boli me). Der Dativ gehört zu mrzlo je: mrzlo vam je.",
+                "it": "Zebsti vuole chi ha freddo all'accusativo: vas zebe (come boli me). Il dativo va con mrzlo je: mrzlo vam je."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Dim mi je šel v ušesa. Še enkrat?",
+                "en": "Hm? The smoke got into my ears. Once more?",
+                "de": "Hm? Mir ist der Rauch in die Ohren gezogen. Noch einmal?",
+                "it": "Mm? Il fumo mi è entrato nelle orecchie. Ancora una volta?"
+              }
+            },
+            {
+              "sl": "Vas ne zebe? Takoj prinesem suha drva v drvarnico.",
+              "en": "Aren't you cold? I'll bring dry wood into the woodshed right away.",
+              "de": "Frieren Sie nicht? Ich bringe gleich trockenes Holz in den Holzschuppen.",
+              "it": "Non ha freddo? Porto subito legna asciutta nella legnaia.",
+              "grammar": "rodilnik-predlogi",
+              "why": {
+                "en": "Out of a place is iz + the genitive: iz drvarnice. V drvarnico takes the wood in there.",
+                "de": "Aus einem Ort heraus ist iz + Genitiv: iz drvarnice. V drvarnico bringt das Holz dort hinein.",
+                "it": "Da un luogo è iz + il genitivo: iz drvarnice. V drvarnico porta la legna là dentro."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "V drvarnico? Tam jih je že dovolj, {learner}!",
+                "en": "Into the woodshed? There's enough in there already, {learner}!",
+                "de": "In den Holzschuppen? Da drin ist schon genug, {learner}!",
+                "it": "Nella legnaia? Lì ce n'è già abbastanza, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Na Trnovski planoti, kjer sem odraščal, je sneg pozimi segal do streh. Ves mesec nismo šli iz hiše.",
+          "en": "On the Trnovo plateau, where I grew up, the snow came up to the roofs in winter. For a whole month we didn't leave the house.",
+          "de": "Auf der Hochebene von Trnovo, wo ich aufgewachsen bin, reichte der Schnee im Winter bis an die Dächer. Einen ganzen Monat gingen wir nicht aus dem Haus.",
+          "it": "Sull'altopiano di Trnovo, dove sono cresciuto, d'inverno la neve arrivava ai tetti. Per un mese intero non uscivamo di casa."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ves mesec? Ste se kdaj dolgočasili?",
+              "en": "A whole month? Did you ever get bored?",
+              "de": "Einen ganzen Monat? Haben Sie sich je gelangweilt?",
+              "it": "Un mese intero? Si è mai annoiato?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Nikoli. Oče je pripovedoval, mama je predla, mi pa smo poslušali.",
+                "en": "Never. Father told stories, Mother spun, and we listened.",
+                "de": "Nie. Vater erzählte, Mutter spann, und wir hörten zu.",
+                "it": "Mai. Il papà raccontava, la mamma filava e noi ascoltavamo."
+              }
+            },
+            {
+              "sl": "Ves mesec? Ste se nekoč dolgočasili?",
+              "en": "A whole month? Did you get bored once upon a time?",
+              "de": "Einen ganzen Monat? Haben Sie sich es war einmal gelangweilt?",
+              "it": "Un mese intero? Si è annoiato c'era una volta?",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "In a question, kdaj is ever: ste se kdaj dolgočasili? Nekoč is once, long ago, as fairy tales begin.",
+                "de": "In einer Frage ist kdaj je: ste se kdaj dolgočasili? Nekoč ist einst, vor langer Zeit, wie Märchen anfangen.",
+                "it": "In una domanda kdaj è mai (ever): ste se kdaj dolgočasili? Nekoč è una volta, tanto tempo fa, come iniziano le fiabe."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Nekoč? Tako se začnejo pravljice, {learner}.",
+                "en": "Once upon a time? That's how fairy tales begin, {learner}.",
+                "de": "Es war einmal? So fangen Märchen an, {learner}.",
+                "it": "C'era una volta? Così cominciano le fiabe, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Tako sem se naučil vseh zgodb, ki jih zdaj pripovedujem tebi.",
+          "en": "That's how I learned all the stories I tell you now.",
+          "de": "So habe ich all die Geschichten gelernt, die ich jetzt dir erzähle.",
+          "it": "Così ho imparato tutte le storie che adesso racconto a te."
+        }
+      ]
+    },
+    {
+      "id": "pec-b2-dimnikar",
+      "level": "B2",
+      "memory": {
+        "sl": "dimnikarja, ki je hotel podreti mojo peč",
+        "en": "the chimney sweep who wanted to pull down my stove",
+        "de": "den Schornsteinfeger, der meinen Ofen abreißen wollte",
+        "it": "lo spazzacamino che voleva demolire la mia stufa"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "cross",
+          "sl": "Dobro jutro, {learner}. Včeraj je bil tu dimnikar. Rekel je, da je dimnik razpokan in da bi moral peč podreti.",
+          "en": "Good morning, {learner}. The chimney sweep was here yesterday. He said the chimney is cracked and I ought to pull the stove down.",
+          "de": "Guten Morgen, {learner}. Gestern war der Schornsteinfeger da. Er hat gesagt, der Schornstein ist gerissen und ich sollte den Ofen abreißen.",
+          "it": "Buongiorno, {learner}. Ieri è venuto lo spazzacamino. Ha detto che il camino è crepato e che dovrei demolire la stufa."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ali je res treba podreti vso peč?",
+              "en": "Does the whole stove really have to be pulled down?",
+              "de": "Muss man wirklich den ganzen Ofen abreißen?",
+              "it": "Bisogna davvero demolire tutta la stufa?",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Tako pravi. Ampak ob taki peči sem odraščal, na planoti. Stara ljubezen ne zarjavi.",
+                "en": "So he says. But I grew up by a stove like this, on the plateau. Old love doesn't rust.",
+                "de": "Sagt er. Aber an so einem Ofen bin ich aufgewachsen, auf der Hochebene. Alte Liebe rostet nicht.",
+                "it": "Così dice. Ma io sono cresciuto accanto a una stufa così, sull'altopiano. Il primo amore non si scorda mai."
+              }
+            },
+            {
+              "sl": "Ali je res treba podreti vsa peč?",
+              "en": "Does the whole stove really have to be pulled down?",
+              "de": "Muss man wirklich den ganzen Ofen abreißen?",
+              "it": "Bisogna davvero demolire tutta la stufa?",
+              "grammar": "brezosebno",
+              "why": {
+                "en": "Treba je has no subject: what is to be done is its object, in the accusative: treba je podreti vso peč.",
+                "de": "Treba je hat kein Subjekt: was getan werden muss, ist sein Objekt, im Akkusativ: treba je podreti vso peč.",
+                "it": "Treba je non ha soggetto: ciò che va fatto è il suo oggetto, all'accusativo: treba je podreti vso peč."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Vsa peč … in? Kaj je z njo? Povej počasi.",
+                "en": "The whole stove … and? What about it? Say it slowly.",
+                "de": "Der ganze Ofen … und? Was ist mit ihm? Sag es langsam.",
+                "it": "Tutta la stufa … e? Cosa le succede? Dillo piano."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Če bi bil trideset let mlajši, bi ga bil nagnal iz hiše. Tako pa sem mu skuhal kavo in obljubil, da bom premislil.",
+          "en": "If I'd been thirty years younger, I'd have chased him out of the house. As it was, I made him coffee and promised I'd think it over.",
+          "de": "Wäre ich dreißig Jahre jünger gewesen, hätte ich ihn aus dem Haus gejagt. So aber habe ich ihm Kaffee gekocht und versprochen, es mir zu überlegen.",
+          "it": "Se avessi avuto trent'anni di meno, l'avrei cacciato di casa. Invece gli ho fatto un caffè e ho promesso di pensarci."
+        },
+        {
+          "who": "janez",
+          "face": "curious",
+          "sl": "Kaj bi pa ti {m:naredil|f:naredila} na mojem mestu?",
+          "en": "And what would you do in my place?",
+          "de": "Und was würdest du an meiner Stelle tun?",
+          "it": "E tu cosa faresti al posto mio?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda vam je peč draga, ampak z razpokanim dimnikom ni šale. Dimnik bi {m:dal|f:dala} popraviti, peč pa {m:obdržal|f:obdržala}.",
+              "en": "Of course the stove is dear to you, but a cracked chimney is no joke. I'd have the chimney repaired and keep the stove.",
+              "de": "Natürlich hängen Sie an dem Ofen, aber mit einem gerissenen Schornstein ist nicht zu spaßen. Ich würde den Schornstein reparieren lassen und den Ofen behalten.",
+              "it": "Certo che la stufa Le è cara, ma con un camino crepato non si scherza. Farei riparare il camino e terrei la stufa.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pametno govoriš. Tako bova s pečjo zdržala še nekaj zim.",
+                "en": "That's sensible talk. That way the stove and I will last a few more winters.",
+                "de": "Vernünftig gesprochen. So halten der Ofen und ich noch ein paar Winter durch.",
+                "it": "Parli con giudizio. Così io e la stufa reggiamo ancora qualche inverno."
+              }
+            },
+            {
+              "sl": "Takoj bi jo {m:podrl|f:podrla}. Stare stvari so samo za na smetišče.",
+              "en": "I'd pull it down at once. Old things are only fit for the dump.",
+              "de": "Ich würde ihn sofort abreißen. Alte Sachen gehören nur auf den Müll.",
+              "it": "La demolirei subito. Le cose vecchie sono buone solo per la discarica.",
+              "why": {
+                "en": "Janez is torn: the stove reminds him of his childhood, and the chimney is cracked. Grant him the feeling and find a way, don't call what he loves junk.",
+                "de": "Janez ist hin- und hergerissen: der Ofen erinnert ihn an seine Kindheit, und der Schornstein ist gerissen. Lass ihm das Gefühl und finde einen Weg, statt zu sagen, was er liebt, sei Müll.",
+                "it": "Janez è combattuto: la stufa gli ricorda l'infanzia, e il camino è crepato. Rispetta il suo sentimento e trova una via, non chiamare spazzatura ciò che ama."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Na smetišče? Hm. Tudi jaz sem star, {learner}.",
+                "en": "The dump? Hm. I'm old too, {learner}.",
+                "de": "Auf den Müll? Hm. Ich bin auch alt, {learner}.",
+                "it": "In discarica? Mm. Anch'io sono vecchio, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "laugh",
+          "sl": "Dimnikarju bom vseeno skuhal še eno kavo. Dimnikar prinese srečo, pravijo.",
+          "en": "I'll make the chimney sweep another coffee all the same. A chimney sweep brings luck, they say.",
+          "de": "Dem Schornsteinfeger koche ich trotzdem noch einen Kaffee. Ein Schornsteinfeger bringt Glück, sagt man.",
+          "it": "Allo spazzacamino farò comunque un altro caffè. Lo spazzacamino porta fortuna, dicono."
+        }
+      ]
+    },
+    {
+      "id": "fotografija-b1-gozdar",
+      "level": "B1",
+      "memory": {
+        "sl": "fotografijo, na kateri sem bil mlad gozdar",
+        "en": "the photo where I was a young forester",
+        "de": "das Foto, auf dem ich ein junger Förster war",
+        "it": "la foto in cui ero un giovane guardaboschi"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "{learner}, pridi bliže. Na tej fotografiji sem jaz, mlad gozdar na Trnovski planoti. Za mano je koča.",
+          "en": "{learner}, come closer. That's me in this photo, a young forester on the Trnovo plateau. Behind me is a hut.",
+          "de": "{learner}, komm näher. Auf diesem Foto bin ich, ein junger Förster auf der Hochebene von Trnovo. Hinter mir ist eine Hütte.",
+          "it": "{learner}, avvicinati. In questa foto ci sono io, giovane guardaboschi sull'altopiano di Trnovo. Dietro di me c'è una baita."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Je to koča, v kateri ste živeli?",
+              "en": "Is that the hut you lived in?",
+              "de": "Ist das die Hütte, in der Sie gewohnt haben?",
+              "it": "È la baita in cui viveva?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ja. Tam sem prespal več noči kot doma.",
+                "en": "Yes. I slept more nights there than at home.",
+                "de": "Ja. Dort habe ich mehr Nächte geschlafen als zu Hause.",
+                "it": "Sì. Lì ho dormito più notti che a casa."
+              }
+            },
+            {
+              "sl": "Je to koča, v ki ste živeli?",
+              "en": "Is that the hut in which you lived?",
+              "de": "Ist das die Hütte, in die Sie gewohnt haben?",
+              "it": "È la baita in che viveva?",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "Ki never follows a preposition: after v the relative pronoun is kateri, in the preposition's case, v kateri.",
+                "de": "Ki steht nie nach einer Präposition: nach v ist das Relativpronomen kateri, im Fall der Präposition, v kateri.",
+                "it": "Ki non segue mai una preposizione: dopo v il pronome relativo è kateri, nel caso della preposizione, v kateri."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "V … kaj? Počasi, stara ušesa ne tečejo.",
+                "en": "In … what? Slowly, old ears don't run.",
+                "de": "In … was? Langsam, alte Ohren rennen nicht.",
+                "it": "In … cosa? Piano, le orecchie vecchie non corrono."
+              }
+            },
+            {
+              "sl": "Je to koča, v katero ste živeli?",
+              "en": "Is that the hut into which you lived?",
+              "de": "Ist das die Hütte, in die Sie gewohnt haben?",
+              "it": "È la baita dentro cui entrava a vivere?",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "Kateri takes the preposition's case, and v for where is the locative: v kateri. V katero is where to.",
+                "de": "Kateri nimmt den Fall der Präposition, und v für wo ist der Lokativ: v kateri. V katero ist wohin.",
+                "it": "Kateri prende il caso della preposizione, e v per dove (stato) è il locativo: v kateri. V katero è moto a luogo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "V katero? Tja nisem hodil, tam sem bil doma!",
+                "en": "Into which? I didn't go in there, I lived there!",
+                "de": "In die? Da bin ich nicht hineingegangen, da war ich zu Hause!",
+                "it": "Dentro cui? Non ci andavo, ci abitavo!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Stari gozdar, ki me je učil, je rekel, da v gozdu ne bom zdržal niti ene zime. Zdržal sem jih štirideset.",
+          "en": "The old forester who taught me said I wouldn't last a single winter in the forest. I lasted forty.",
+          "de": "Der alte Förster, der mich angelernt hat, sagte, ich würde im Wald keinen einzigen Winter durchhalten. Ich habe vierzig durchgehalten.",
+          "it": "Il vecchio guardaboschi che mi ha insegnato diceva che nel bosco non avrei resistito nemmeno un inverno. Ne ho resistiti quaranta."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kaj bi rekel, če bi vas videl danes?",
+              "en": "What would he say if he saw you today?",
+              "de": "Was würde er sagen, wenn er Sie heute sähe?",
+              "it": "Cosa direbbe se La vedesse oggi?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Rekel bi: »Janez, ti stara trma!« In imel bi prav.",
+                "en": "He'd say: »Janez, you stubborn old mule!« And he'd be right.",
+                "de": "Er würde sagen: »Janez, du alter Sturkopf!« Und er hätte recht.",
+                "it": "Direbbe: »Janez, vecchio testardo!« E avrebbe ragione."
+              }
+            },
+            {
+              "sl": "Kaj bo rekel, če vas bo videl danes?",
+              "en": "What will he say if he sees you today?",
+              "de": "Was wird er sagen, wenn er Sie heute sieht?",
+              "it": "Cosa dirà se La vede oggi?",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "He won't come by today: what is only imagined takes če bi … bi, kaj bi rekel, če bi vas videl. Če bo is for what will really happen.",
+                "de": "Er kommt heute nicht vorbei: was nur gedacht ist, steht mit če bi … bi, kaj bi rekel, če bi vas videl. Če bo ist für das, was wirklich geschieht.",
+                "it": "Oggi non passerà: ciò che è solo immaginato vuole če bi … bi, kaj bi rekel, če bi vas videl. Če bo è per ciò che succederà davvero."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Danes? Ta je že dvajset let v nebesih, {learner}.",
+                "en": "Today? He's been in heaven for twenty years, {learner}.",
+                "de": "Heute? Der ist schon seit zwanzig Jahren im Himmel, {learner}.",
+                "it": "Oggi? Quello è in paradiso da vent'anni, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Vidiš, {learner}: kdor vztraja, pride daleč. Tudi na Triglav, petkrat.",
+          "en": "You see, {learner}: whoever keeps going gets far. Even up Triglav, five times.",
+          "de": "Siehst du, {learner}: Wer durchhält, kommt weit. Sogar auf den Triglav, fünfmal.",
+          "it": "Vedi, {learner}: chi persevera arriva lontano. Anche sul Tricorno, cinque volte."
+        }
+      ]
+    },
+    {
+      "id": "fotografija-b2-krn",
+      "level": "B2",
+      "memory": {
+        "sl": "Ano na Krnu in najino obljubo",
+        "en": "Ana on Krn, and our promise",
+        "de": "Ana auf dem Krn und unser Versprechen",
+        "it": "Ana sul Krn e la nostra promessa"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "To je Ana, na Krnu. Na Triglav je nisem nikoli peljal. Vedno sem rekel: drugo leto.",
+          "en": "This is Ana, on Krn. I never took her up Triglav. I always said: next year.",
+          "de": "Das ist Ana, auf dem Krn. Auf den Triglav habe ich sie nie mitgenommen. Ich habe immer gesagt: nächstes Jahr.",
+          "it": "Questa è Ana, sul Krn. Sul Tricorno non l'ho mai portata. Dicevo sempre: l'anno prossimo."
+        },
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "Potem je zbolela, in drugega leta ni bilo več.",
+          "en": "Then she fell ill, and there was no next year any more.",
+          "de": "Dann wurde sie krank, und ein nächstes Jahr gab es nicht mehr.",
+          "it": "Poi si è ammalata, e l'anno prossimo non c'è stato più."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Gotovo bi bila rada šla z vami. Ampak tudi Krn je lepa gora.",
+              "en": "She would surely have liked to go with you. But Krn is a beautiful mountain too.",
+              "de": "Sie wäre bestimmt gern mitgegangen. Aber der Krn ist auch ein schöner Berg.",
+              "it": "Sarebbe venuta volentieri con Lei, di sicuro. Ma anche il Krn è una bella montagna.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Morda. Na Krnu se je smejala ves dan, to vem.",
+                "en": "Maybe. On Krn she laughed all day, that I know.",
+                "de": "Vielleicht. Auf dem Krn hat sie den ganzen Tag gelacht, das weiß ich.",
+                "it": "Forse. Sul Krn ha riso tutto il giorno, questo lo so."
+              }
+            },
+            {
+              "sl": "Gotovo je rada šla z vami. Ampak tudi Krn je lepa gora.",
+              "en": "She surely liked going with you. But Krn is a beautiful mountain too.",
+              "de": "Sie ist bestimmt gern mitgegangen. Aber der Krn ist auch ein schöner Berg.",
+              "it": "Di sicuro veniva volentieri con Lei. Ma anche il Krn è una bella montagna.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "She never went up Triglav: what she would have liked is the past conditional, bi bila rada šla. Je rada šla says she went.",
+                "de": "Sie war nie auf dem Triglav: was ihr gefallen hätte, ist der Konditional der Vergangenheit, bi bila rada šla. Je rada šla sagt, dass sie ging.",
+                "it": "Sul Tricorno non è mai salita: ciò che le sarebbe piaciuto è il condizionale passato, bi bila rada šla. Je rada šla dice che ci è andata."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Z mano? Na Triglav? Saj ti pravim, da nikoli.",
+                "en": "With me? Up Triglav? I'm telling you, never.",
+                "de": "Mit mir? Auf den Triglav? Ich sag dir doch, nie.",
+                "it": "Con me? Sul Tricorno? Ti dico che non c'è mai andata."
+              }
+            },
+            {
+              "sl": "Gotovo bi bil rad šel z vami. Ampak tudi Krn je lepa gora.",
+              "en": "He would surely have liked to go with you. But Krn is a beautiful mountain too.",
+              "de": "Er wäre bestimmt gern mitgegangen. Aber der Krn ist auch ein schöner Berg.",
+              "it": "Sarebbe venuto volentieri con Lei, di sicuro. Ma anche il Krn è una bella montagna.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "It's Ana, a woman: in the past conditional both bil and the l-form agree with her, bi bila rada šla.",
+                "de": "Es geht um Ana, eine Frau: im Konditional der Vergangenheit richten sich bil und die l-Form nach ihr, bi bila rada šla.",
+                "it": "Si parla di Ana, una donna: nel condizionale passato sia bil sia la forma in -l concordano con lei, bi bila rada šla."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "On? Kdo pa? Saj govoriva o Ani, {learner}.",
+                "en": "He? Who? We're talking about Ana, {learner}.",
+                "de": "Er? Wer denn? Wir reden doch von Ana, {learner}.",
+                "it": "Lui? Chi? Stiamo parlando di Ana, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Ljudje pravijo: kar lahko storiš danes, ne odlašaj na jutri. Jaz sem to razumel prepozno.",
+          "en": "People say: what you can do today, don't put off till tomorrow. I understood that too late.",
+          "de": "Man sagt: Was du heute kannst besorgen, das verschiebe nicht auf morgen. Ich habe das zu spät verstanden.",
+          "it": "Si dice: non rimandare a domani quello che puoi fare oggi. Io l'ho capito troppo tardi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem pa ne odlašajva. Poleti greva skupaj na Krn, za Ano.",
+              "en": "Then let's not put it off. In summer we'll go up Krn together, for Ana.",
+              "de": "Dann verschieben wir es nicht. Im Sommer gehen wir zwei zusammen auf den Krn, für Ana.",
+              "it": "Allora non rimandiamo. D'estate andiamo insieme sul Krn, per Ana.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Za Ano … Hvala, {learner}. To bi ji bilo všeč.",
+                "en": "For Ana … Thank you, {learner}. She would have liked that.",
+                "de": "Für Ana … Danke, {learner}. Das hätte ihr gefallen.",
+                "it": "Per Ana … Grazie, {learner}. Le sarebbe piaciuto."
+              }
+            },
+            {
+              "sl": "Saj je vseeno. Triglav je tako ali tako samo kup kamenja.",
+              "en": "It doesn't matter anyway. Triglav is just a heap of stones.",
+              "de": "Ist doch egal. Der Triglav ist sowieso nur ein Haufen Steine.",
+              "it": "Tanto non importa. Il Tricorno è solo un mucchio di sassi.",
+              "why": {
+                "en": "Janez regrets a promise he kept putting off, and Triglav is dear to him: belittling it misses his point. Take up what he says, don't put it off.",
+                "de": "Janez bereut ein Versprechen, das er immer aufgeschoben hat, und der Triglav ist ihm teuer: ihn kleinzureden verfehlt seinen Punkt. Nimm auf, was er sagt: nicht aufschieben.",
+                "it": "Janez rimpiange una promessa sempre rimandata, e il Tricorno gli è caro: sminuirlo non coglie il punto. Raccogli ciò che dice: non rimandare."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Kup kamenja? Triglav? Tega pa ne slišim rad, {learner}.",
+                "en": "A heap of stones? Triglav? I don't like hearing that, {learner}.",
+                "de": "Ein Haufen Steine? Der Triglav? Das höre ich gar nicht gern, {learner}.",
+                "it": "Un mucchio di sassi? Il Tricorno? Questo non mi piace sentirlo, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Ampak hodiva počasi. Ana je vedno rekla, da hodim prehitro.",
+          "en": "But let's walk slowly. Ana always said I walk too fast.",
+          "de": "Aber wir gehen langsam. Ana hat immer gesagt, ich gehe zu schnell.",
+          "it": "Ma camminiamo piano. Ana diceva sempre che vado troppo veloce."
+        }
       ]
     }
   ]

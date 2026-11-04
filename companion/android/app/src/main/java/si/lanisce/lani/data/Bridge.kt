@@ -66,7 +66,8 @@ class Bridge(private val config: BridgeConfig) {
         /** Another language's forms cards too (forms=2: an older app is sent none, the bridge's reviews.ts). */
         const val STATE = "/state?forms=2"
         const val MODULES = "/modules"
-        const val PACKS = "/packs"
+        /** The packs, as this app orders them by the learner's level (an older app gets fewer: [PackSession.VERSION]). */
+        val PACKS = "/packs?packs=${PackSession.VERSION}"
         const val GRAMMAR = "/grammar"
         const val CARDS = "/cards"
         const val CASES = "/cases"

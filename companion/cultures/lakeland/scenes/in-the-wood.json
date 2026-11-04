@@ -5,7 +5,7 @@
   "title": { "en": "In the wood", "sl": "V gozdu", "it": "Nel bosco", "de": "Im Wald" },
   "emoji": "🌳",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "forest",
   "from": ["forest"],
   "pack": "in-the-wood",
@@ -54,7 +54,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "ewe",
-      "dialogs": ["ewe-mist", "ewe"],
+      "dialogs": ["ewe-b2-ivy", "ewe-b1-poppy", "ewe-mist", "ewe"],
       "reward": { "wood": 20 },
       "marker": "🐑",
       "memory": {
@@ -76,7 +76,7 @@
       "when": ["dawn"],
       "chance": 0.6,
       "dialog": "highseat",
-      "dialogs": ["highseat-larch", "highseat-owl", "highseat"],
+      "dialogs": ["highseat-b2-stags", "highseat-b1-deer", "highseat-larch", "highseat-owl", "highseat"],
       "reward": { "wisdom": 20 },
       "marker": "🦌",
       "memory": {
@@ -2195,6 +2195,77 @@
             "de": "Hä? Sag das noch mal, Kumpel."
           }
         }
+      ]
+    },
+    {
+      "id": "ewe-b2-ivy", "level": "B2",
+      "memory": {"en": "Bramble and the ivy behind the larch", "sl": "Bramble in bršljan za macesnom", "it": "Bramble e l'edera dietro il larice", "de": "Bramble und den Efeu hinter der Lärche"},
+      "lines": [
+        {"who": "jack", "face": "worried", "en": "Now then, {learner}. Bramble's missing again. She was by the wall at nine, and now she's gone.", "sl": "Živjo, {learner}. Bramble je spet izginila. Ob devetih je bila pri zidu, zdaj je ni več.", "it": "Ehi, {learner}. Bramble è sparita di nuovo. Alle nove era vicino al muro, e adesso non c'è più.", "de": "Na, {learner}. Bramble ist wieder weg. Um neun war sie an der Mauer, und jetzt ist sie verschwunden."},
+        {"who": "jack", "face": "curious", "en": "Where do you reckon she went?", "sl": "Kaj misliš, kam je šla?", "it": "Dove pensi che sia andata?", "de": "Wo ist sie wohl hin?"},
+        { "choices": [
+          {"en": "She must have squeezed through the gap in the wall.", "sl": "Gotovo se je splazila skozi luknjo v zidu.", "it": "Dev'essere passata dal buco nel muro.", "de": "Sie muss sich durch die Lücke in der Mauer gezwängt haben.", "ok": true, "reply": {"en": "The gap! I've been meaning to mend that for weeks.", "sl": "Luknja! Že tedne jo nameravam zakrpati.", "it": "Il buco! Sono settimane che voglio ripararlo.", "de": "Die Lücke! Die will ich schon seit Wochen flicken."}},
+          {"en": "She must squeezed through the gap in the wall.", "sl": "Gotovo se je splazila skozi luknjo v zidu.", "it": "Dev'essere passata dal buco nel muro.", "de": "Sie muss sich durch die Lücke in der Mauer gezwängt haben.", "grammar": "past-modals", "why": {"en": "Sure about the past: must have + the participle, she must have squeezed.", "sl": "Prepričan o preteklosti: must have + deležnik, she must have squeezed.", "it": "Sicuro sul passato: must have + il participio, she must have squeezed.", "de": "Sicher über die Vergangenheit: must have + Partizip, she must have squeezed."}, "reply": {"face": "laugh", "en": "Must squeezed? Mate, you've dropped a word.", "sl": "Must squeezed? Prijatelj, izgubil si besedo.", "it": "Must squeezed? Amico, hai perso una parola.", "de": "Must squeezed? Kumpel, da ist dir ein Wort runtergefallen."}}
+        ] },
+        {"who": "jack", "face": "thinking", "en": "Last time she'd been eating ivy for an hour when I found her. Greedy thing.", "sl": "Zadnjič je že eno uro jedla bršljan, ko sem jo našel. Požrešnica.", "it": "L'ultima volta mangiava edera da un'ora quando l'ho trovata. Golosa.", "de": "Letztes Mal hatte sie schon eine Stunde Efeu gefressen, als ich sie fand. Verfressenes Ding."},
+        { "choices": [
+          {"en": "So she was full by the time you got there.", "sl": "Torej je bila sita, ko si prišel tja.", "it": "Quindi era sazia quando sei arrivato.", "de": "Sie war also satt, als du ankamst.", "ok": true, "reply": {"face": "laugh", "en": "Full as an egg, and not one bit sorry.", "sl": "Sita kot boben in niti malo ji ni bilo žal.", "it": "Piena come un uovo, e per niente pentita.", "de": "Satt wie ein Ei, und kein bisschen reumütig."}},
+          {"en": "So she only started eating when you arrived.", "sl": "Torej je začela jesti šele, ko si prišel.", "it": "Quindi ha cominciato a mangiare solo quando sei arrivato.", "de": "Sie hat also erst angefangen zu fressen, als du kamst.", "grammar": "narrative-tenses", "why": {"en": "She'd been eating for an hour when he found her: the eating came first, a whole hour of it.", "sl": "She'd been eating for an hour when he found her: najprej je jedla, celo uro.", "it": "She'd been eating for an hour when he found her: prima ha mangiato, per un'ora intera.", "de": "She'd been eating for an hour when he found her: Zuerst kam das Fressen, eine ganze Stunde lang."}, "reply": {"face": "surprised", "en": "When I arrived? She'd had an hour's start, mate!", "sl": "Ko sem prišel? Imela je eno uro prednosti!", "it": "Quando sono arrivato? Aveva un'ora di vantaggio, amico!", "de": "Als ich kam? Sie hatte eine Stunde Vorsprung, Kumpel!"}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Come on. Behind the larch, I bet. Bramble!", "sl": "Pridi. Za macesnom je, stavim. Bramble!", "it": "Dai. Dietro il larice, scommetto. Bramble!", "de": "Komm. Hinter der Lärche, wette ich. Bramble!"}
+      ]
+    },
+    {
+      "id": "ewe-b1-poppy", "level": "B1",
+      "memory": {"en": "what Poppy saw by the beck", "sl": "kaj je Poppy videla ob potoku", "it": "quello che Poppy ha visto vicino al torrente", "de": "was Poppy am Bach gesehen hat"},
+      "lines": [
+        {"who": "jack", "face": "worried", "en": "Now then, {learner}. One of my ewes is lost in the wood. Bramble. Have you seen her?", "sl": "Živjo, {learner}. Ena od mojih ovac se je izgubila v gozdu. Bramble. Si jo {m:videl|f:videla}?", "it": "Ehi, {learner}. Una delle mie pecore si è persa nel bosco. Bramble. L'hai vista?", "de": "Na, {learner}. Eins meiner Mutterschafe hat sich im Wald verlaufen. Bramble. Hast du sie gesehen?"},
+        {"who": "jack", "face": "curious", "en": "Poppy came past you earlier. Did she tell you anything?", "sl": "Poppy je prej šla mimo tebe. Ti je kaj povedala?", "it": "Poppy ti è passata vicino prima. Ti ha detto qualcosa?", "de": "Poppy ist vorhin an dir vorbeigekommen. Hat sie dir was erzählt?"},
+        { "choices": [
+          {"en": "She told me she'd seen a sheep by the beck.", "sl": "Povedala mi je, da je ob potoku videla ovco.", "it": "Mi ha detto che aveva visto una pecora vicino al torrente.", "de": "Sie hat mir erzählt, sie habe am Bach ein Schaf gesehen.", "ok": true, "reply": {"face": "happy", "en": "By the beck! Bramble loves the water.", "sl": "Ob potoku! Bramble ima rada vodo.", "it": "Vicino al torrente! A Bramble piace l'acqua.", "de": "Am Bach! Bramble liebt das Wasser."}},
+          {"en": "She told me I'd seen a sheep by the beck.", "sl": "Povedala mi je, da sem ob potoku {m:videl|f:videla} ovco.", "it": "Mi ha detto che avevo visto una pecora vicino al torrente.", "de": "Sie hat mir erzählt, ich habe am Bach ein Schaf gesehen.", "grammar": "reported-speech", "why": {"en": "Poppy spoke of herself: »I saw a sheep« becomes she'd seen. I would be you.", "sl": "Poppy je govorila o sebi: »I saw a sheep« postane she'd seen. I bi bil ti.", "it": "Poppy parlava di sé: »I saw a sheep« diventa she'd seen. I saresti tu.", "de": "Poppy sprach von sich: »I saw a sheep« wird zu she'd seen. I wärst du."}, "reply": {"face": "surprised", "en": "You'd seen it? Then why didn't you say, mate?", "sl": "You'd seen it? Zakaj pa nisi rekel, prijatelj?", "it": "You'd seen it? E perché non l'hai detto, amico?", "de": "You'd seen it? Warum hast du dann nichts gesagt, Kumpel?"}}
+        ] },
+        {"who": "jack", "face": "thinking", "en": "It's not like her, mind. Bramble never wanders off.", "sl": "To ji sicer ni podobno. Bramble nikoli ne zatava.", "it": "Però non è da lei. Bramble non si allontana mai.", "de": "Das passt aber nicht zu ihr. Bramble läuft nie weg."},
+        { "choices": [
+          {"en": "She's never been lost this long, has she?", "sl": "Nikoli še ni bila tako dolgo izgubljena, kajne?", "it": "Non si è mai persa così a lungo, vero?", "de": "So lange war sie noch nie verschwunden, oder?", "ok": true, "reply": {"en": "Never. She's a homebird, Bramble.", "sl": "Nikoli. Bramble je domačinka.", "it": "Mai. Bramble è una che sta a casa.", "de": "Nie. Bramble ist ein Stubenhocker."}},
+          {"en": "She's never been lost this long, hasn't she?", "sl": "Nikoli še ni bila tako dolgo izgubljena, kajne?", "it": "Non si è mai persa così a lungo, vero?", "de": "So lange war sie noch nie verschwunden, oder?", "grammar": "question-tags", "why": {"en": "Never makes the sentence a no, so the tag says yes: has she?", "sl": "Never naredi stavek nikalen, zato je vprašanje trdilno: has she?", "it": "Never rende la frase negativa, quindi la coda è positiva: has she?", "de": "Never macht den Satz verneint, also ist die Frage bejaht: has she?"}, "reply": {"face": "confused", "en": "Hasn't she? Now you've got me muddled, mate.", "sl": "Hasn't she? Zdaj si me pa {m:zmedel|f:zmedla}.", "it": "Hasn't she? Adesso mi hai confuso, amico.", "de": "Hasn't she? Jetzt hast du mich durcheinandergebracht, Kumpel."}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "There! Down by the beck, under the larch. Come on, Bramble, home.", "sl": "Glej! Tam doli ob potoku, pod macesnom. Daj, Bramble, domov.", "it": "Eccola! Giù al torrente, sotto il larice. Dai, Bramble, a casa.", "de": "Da! Unten am Bach, unter der Lärche. Komm, Bramble, heim."}
+      ]
+    },
+    {
+      "id": "highseat-b2-stags", "level": "B2",
+      "memory": {"en": "the two stags that never saw us", "sl": "dva jelena, ki naju nista nikoli opazila", "it": "i due cervi che non ci hanno mai visto", "de": "die zwei Hirsche, die uns nie gesehen haben"},
+      "lines": [
+        {"who": "wilf", "en": "Good morning, {m:son|f:lass}. Shh! See those two stags? Neither of them has seen us yet.", "sl": "Dobro jutro. Pst! Vidiš tista dva jelena? Nobeden naju še ni opazil.", "it": "Buongiorno, {m:figliolo|f:ragazza}. Shh! Vedi quei due cervi? Nessuno dei due ci ha ancora visti.", "de": "Guten Morgen, {m:Junge|f:Mädchen}. Pst! Siehst du die zwei Hirsche? Keiner von beiden hat uns bisher gesehen."},
+        { "choices": [
+          {"en": "So we're still hidden from both of them.", "sl": "Torej sva še skrita pred obema.", "it": "Quindi siamo ancora nascosti a tutti e due.", "de": "Wir sind also noch vor beiden versteckt.", "ok": true, "reply": {"en": "Hidden. Breathe slowly.", "sl": "Skrita. Diha počasi.", "it": "Nascosti. Respira piano.", "de": "Versteckt. Atme langsam."}},
+          {"en": "So one of them has spotted us.", "sl": "Torej naju je eden od njiju opazil.", "it": "Quindi uno dei due ci ha visti.", "de": "Einer von ihnen hat uns also entdeckt.", "grammar": "quantifiers", "why": {"en": "Neither of them has seen us: not one and not the other. They don't know we're here.", "sl": "Neither of them has seen us: ne eden ne drugi. Ne vesta, da sva tu.", "it": "Neither of them has seen us: né l'uno né l'altro. Non sanno che siamo qui.", "de": "Neither of them has seen us: keiner von beiden. Sie wissen nicht, dass wir hier sind."}, "reply": {"face": "surprised", "en": "Spotted us? Then he'd be off like the wind, {m:son|f:lass}.", "sl": "Opazil? Potem bi že zbežal kot veter.", "it": "Visti? Allora sarebbe già scappato come il vento, {m:figliolo|f:ragazza}.", "de": "Entdeckt? Dann wäre er weg wie der Wind, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "en": "Your legs must be tired after that ladder. There's room on the step.", "sl": "Noge so gotovo utrujene od tiste lestve. Na stopnici je prostor.", "it": "Le gambe saranno stanche dopo quella scala. C'è posto sul gradino.", "de": "Deine Beine sind bestimmt müde nach der Leiter. Auf der Stufe ist Platz."},
+        { "choices": [
+          {"en": "Thanks. I'll take a seat on the step.", "sl": "Hvala. Bom kar {m:sedel|f:sedla} na stopnico.", "it": "Grazie. Mi siedo sul gradino.", "de": "Danke. Ich setz mich auf die Stufe.", "ok": true, "reply": {"en": "Quietly, mind. The step creaks.", "sl": "Tiho, pazi. Stopnica škripa.", "it": "Piano, eh. Il gradino scricchiola.", "de": "Leise, wohlgemerkt. Die Stufe knarrt."}},
+          {"en": "Thanks. I'll make a seat on the step.", "sl": "Hvala. Bom kar {m:sedel|f:sedla} na stopnico.", "it": "Grazie. Mi siedo sul gradino.", "de": "Danke. Ich setz mich auf die Stufe.", "grammar": "collocations", "why": {"en": "You take a seat: you sit down. Make a seat would mean building one.", "sl": "Take a seat: sedeš. Make a seat bi pomenilo, da ga izdelaš.", "it": "Take a seat: ti siedi. Make a seat vorrebbe dire costruirne uno.", "de": "Take a seat: Man setzt sich. Make a seat hieße, einen zu bauen."}, "reply": {"face": "laugh", "en": "Make one? There's no time for carpentry, {m:son|f:lass}!", "sl": "Narediti? Za mizarjenje ni časa!", "it": "Costruirlo? Non c'è tempo per fare il falegname, {m:figliolo|f:ragazza}!", "de": "Einen bauen? Für Tischlerei ist keine Zeit, {m:Junge|f:Mädchen}!"}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "There they go, into the trees. Eighty years, and it never gets old.", "sl": "Tam gresta, med drevesa. Osemdeset let, pa se nikoli ne naveliča.", "it": "Eccoli, tra gli alberi. Ottant'anni, e non stanca mai.", "de": "Da gehen sie, zwischen die Bäume. Achtzig Jahre, und es wird nie alt."}
+      ]
+    },
+    {
+      "id": "highseat-b1-deer", "level": "B1",
+      "memory": {"en": "the red deer at dawn and the stag with twelve points", "sl": "jelenjad ob zori in jelena z dvanajstimi parožki", "it": "i cervi all'alba e il cervo a dodici punte", "de": "das Rotwild im Morgengrauen und den Zwölfender"},
+      "lines": [
+        {"who": "wilf", "en": "Good morning, {m:son|f:lass}. Come up the ladder, slowly. Shh! Red deer.", "sl": "Dobro jutro. Pridi gor po lestvi, počasi. Pst! Jelenjad.", "it": "Buongiorno, {m:figliolo|f:ragazza}. Sali la scala, piano. Shh! Cervi.", "de": "Guten Morgen, {m:Junge|f:Mädchen}. Komm die Leiter hoch, langsam. Pst! Rotwild."},
+        {"who": "wilf", "face": "curious", "en": "Can you see them? Over by the far trees.", "sl": "Jih vidiš? Tam pri oddaljenih drevesih.", "it": "Li vedi? Laggiù vicino agli alberi lontani.", "de": "Siehst du sie? Drüben bei den hinteren Bäumen."},
+        { "choices": [
+          {"en": "They're too far away to see clearly.", "sl": "Predaleč so, da bi jih jasno {m:videl|f:videla}.", "it": "Sono troppo lontani per vederli bene.", "de": "Sie sind zu weit weg, um sie deutlich zu sehen.", "ok": true, "reply": {"en": "Here, take my glasses. Old, but good.", "sl": "Na, vzemi moj daljnogled. Star, ampak dober.", "it": "Tieni, prendi il mio binocolo. Vecchio, ma buono.", "de": "Hier, nimm mein Fernglas. Alt, aber gut."}},
+          {"en": "They're too far away for see clearly.", "sl": "Predaleč so, da bi jih jasno {m:videl|f:videla}.", "it": "Sono troppo lontani per vederli bene.", "de": "Sie sind zu weit weg, um sie deutlich zu sehen.", "grammar": "too-enough", "why": {"en": "Too + the adjective + to + the base form: too far to see. For goes with a person or -ing.", "sl": "Too + pridevnik + to + osnovna oblika: too far to see. For gre z osebo ali -ing.", "it": "Too + aggettivo + to + la forma base: too far to see. For va con una persona o con -ing.", "de": "Too + Adjektiv + to + Grundform: too far to see. For steht bei einer Person oder -ing."}, "reply": {"face": "curious", "en": "For see? Gently, {m:son|f:lass}. Try it again.", "sl": "For see? Nežno. Poskusi še enkrat.", "it": "For see? Piano, {m:figliolo|f:ragazza}. Riprova.", "de": "For see? Sachte, {m:Junge|f:Mädchen}. Versuch's noch mal."}}
+        ] },
+        {"who": "wilf", "face": "curious", "en": "They'll come closer when the sun's up. Shall we wait?", "sl": "Ko bo sonce vzšlo, bodo prišli bliže. Počakava?", "it": "Quando sorge il sole si avvicineranno. Aspettiamo?", "de": "Wenn die Sonne aufgeht, kommen sie näher. Warten wir?"},
+        { "choices": [
+          {"en": "Yes, let's stay. I don't want to miss them.", "sl": "Ja, ostaniva. Nočem jih zamuditi.", "it": "Sì, restiamo. Non voglio perderli.", "de": "Ja, bleiben wir. Ich will sie nicht verpassen.", "ok": true, "reply": {"face": "happy", "en": "Then sit still. If we're quiet, they'll come.", "sl": "Potem sedi pri miru. Če bova tiho, bodo prišli.", "it": "Allora sta' {m:fermo|f:ferma}. Se stiamo zitti, verranno.", "de": "Dann sitz still. Wenn wir leise sind, kommen sie."}},
+          {"en": "Yes, let's stay. I don't want missing them.", "sl": "Ja, ostaniva. Nočem jih zamuditi.", "it": "Sì, restiamo. Non voglio perderli.", "de": "Ja, bleiben wir. Ich will sie nicht verpassen.", "grammar": "verb-patterns", "why": {"en": "Want takes to + the base form: don't want to miss. -ing goes after enjoy, mind, avoid.", "sl": "Want zahteva to + osnovno obliko: don't want to miss. -ing gre za enjoy, mind, avoid.", "it": "Want vuole to + la forma base: don't want to miss. -ing va dopo enjoy, mind, avoid.", "de": "Want nimmt to + Grundform: don't want to miss. -ing steht nach enjoy, mind, avoid."}, "reply": {"face": "curious", "en": "Want missing? Slow and steady, {m:son|f:lass}.", "sl": "Want missing? Počasi in vztrajno.", "it": "Want missing? Piano e con calma, {m:figliolo|f:ragazza}.", "de": "Want missing? Langsam und stetig, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "Look! A stag. Twelve points. I've waited a long time for that one.", "sl": "Glej! Jelen. Dvanajsterak. Na tega sem dolgo čakal.", "it": "Guarda! Un cervo. Dodici punte. L'ho aspettato a lungo.", "de": "Schau! Ein Hirsch. Ein Zwölfender. Auf den hab ich lange gewartet."}
       ]
     }
   ]

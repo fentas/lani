@@ -9,6 +9,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
 import type { Log } from './config'
+import { validateCaseTriggersDe, type CaseTriggersDe } from './case-triggers-de'
 import { schemaField } from './schema'
 
 export const CASE_TRIGGERS_SCHEMA = 'lani.case-triggers/v0'
@@ -276,26 +277,48 @@ export function validateCaseTriggers(input: unknown, pages?: Set<string>): { ok:
 /** Where a language's table is: companion/grammar/<language>/data/case-triggers.json (data, not a page of the book). */
 export const caseTriggersPath = (grammarRoot: string, language: string) => join(grammarRoot, language, 'data', 'case-triggers.json')
 
-/** A language's trigger table, read again when it changes; null without one, or when it doesn't validate (said once). */
+/**
+ * A language's trigger table, read again when it changes; null without one, or when it doesn't validate (said once).
+ * Slovene's is [current]'s; German's, a table of its own shape (case-triggers-de.ts), is [currentDe]'s.
+ */
 export class CaseTriggersFile {
   private mtime = -1
   private table: CaseTriggers | null = null
+  private de: CaseTriggersDe | null = null
 
   constructor(private readonly path: string, private readonly log?: Log) {}
 
-  current(): CaseTriggers | null {
+  private read() {
     const mtime = existsSync(this.path) ? statSync(this.path).mtimeMs : 0
-    if (mtime === this.mtime) return this.table
+    if (mtime === this.mtime) return
     this.mtime = mtime
     this.table = null
-    if (!mtime) return null
+    this.de = null
+    if (!mtime) return
     try {
-      const v = validateCaseTriggers(JSON.parse(readFileSync(this.path, 'utf8')))
+      const raw = JSON.parse(readFileSync(this.path, 'utf8'))
+      if (raw?.language === 'de') {
+        const v = validateCaseTriggersDe(raw)
+        if (v.ok) this.de = v.table
+        else this.log?.(`case triggers ${this.path} left out: ${v.errors}`)
+        return
+      }
+      const v = validateCaseTriggers(raw)
       if (v.ok) this.table = v.table
       else this.log?.(`case triggers ${this.path} left out: ${v.errors}`)
     } catch (e) {
       this.log?.(`case triggers ${this.path} unreadable: ${(e as Error).message}`)
     }
+  }
+
+  current(): CaseTriggers | null {
+    this.read()
     return this.table
+  }
+
+  /** German's table (language "de"); null for another language's file. */
+  currentDe(): CaseTriggersDe | null {
+    this.read()
+    return this.de
   }
 }

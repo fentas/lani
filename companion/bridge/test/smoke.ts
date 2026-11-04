@@ -37,12 +37,14 @@ import counting from './smoke/counting'
 import formsCards from './smoke/forms-cards'
 import formsOther from './smoke/forms-other'
 import caseTrainer from './smoke/case-trainer'
+import caseDe from './smoke/case-de'
 import sentences from './smoke/sentences'
 import meanings from './smoke/meanings'
 import rhythm from './smoke/rhythm'
 import scenarios from './smoke/scenarios'
 import scenes from './smoke/scenes'
 import variants from './smoke/variants'
+import dialogLevels from './smoke/dialog-levels'
 import dialogWords from './smoke/dialog-words'
 import stories from './smoke/stories'
 import readings from './smoke/readings'
@@ -64,6 +66,7 @@ import drama3 from './smoke/drama3'
 import stt from './smoke/stt'
 import languages from './smoke/languages'
 import level from './smoke/level'
+import placement from './smoke/placement'
 import tutorLive from './smoke/tutor-live'
 import tutorStudio from './smoke/tutor-studio'
 import pairing from './smoke/pairing'
@@ -74,7 +77,7 @@ import setup from './smoke/setup'
 
 // pairing runs last: it fills the bridge's limit on wrong pairing codes. towns starts two more bridges of its own, service
 // its bridge services and their shims (docs/plans/04-bridge-service.md); setup a bridge configured by lani.env alone. level raises the learner to A2 (and their
-// Italian): it runs late, after the checks that read the level. tutorLive (the app's own tutor: features/tutor.ts) records a
+// Italian), placement then to B1: they run late, after the checks that read the level. tutorLive (the app's own tutor: features/tutor.ts) records a
 // session and fixes a card in the learner's data, so it comes after them too.
-for (const section of [core, tutor, phone, chat, chatImages, modules, grammar, cards, course, prints, drills, practice, ispy, events, changes, reviews, outbox, releases, dev, lease, game, aim, packs, lexicon, wordRequests, forms, caseLens, counting, formsCards, formsOther, caseTrainer, sentences, meanings, rhythm, scenarios, scenes, variants, dialogWords, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, tutorLanguages, pairs, family, myVoice, offlineVoice, voice, courseSpeech, drama3, stt, towns, languages, service, level, tutorLive, tutorStudio, pairing, rename, setup, leaseNone]) await section()
+for (const section of [core, tutor, phone, chat, chatImages, modules, grammar, cards, course, prints, drills, practice, ispy, events, changes, reviews, outbox, releases, dev, lease, game, aim, packs, lexicon, wordRequests, forms, caseLens, counting, formsCards, formsOther, caseTrainer, caseDe, sentences, meanings, rhythm, scenarios, scenes, variants, dialogLevels, dialogWords, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, tutorLanguages, pairs, family, myVoice, offlineVoice, voice, courseSpeech, drama3, stt, towns, languages, service, level, placement, tutorLive, tutorStudio, pairing, rename, setup, leaseNone]) await section()
 await done()

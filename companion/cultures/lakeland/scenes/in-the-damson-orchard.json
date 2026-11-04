@@ -5,7 +5,7 @@
   "title": { "en": "In the damson orchard", "sl": "V slivovem sadovnjaku", "it": "Nel frutteto di susine", "de": "Im Pflaumengarten" },
   "emoji": "🟣",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "hills",
   "from": ["project:vinograd"],
   "pack": "in-the-damson-orchard",
@@ -81,7 +81,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "view",
-      "dialogs": ["view-storm", "view-bay", "view"],
+      "dialogs": ["view-b2-scafell", "view-b1-winter", "view-storm", "view-bay", "view"],
       "reward": { "wisdom": 20 },
       "marker": "🏞️",
       "memory": {
@@ -103,7 +103,7 @@
       "when": ["morning"],
       "chance": 0.45,
       "dialog": "tractor",
-      "dialogs": ["tractor-whose", "tractor"],
+      "dialogs": ["tractor-b2-engine", "tractor-b1-alfie", "tractor-whose", "tractor"],
       "reward": { "wood": 15 },
       "marker": "🚜",
       "memory": {
@@ -1831,6 +1831,79 @@
             "de": "Hä? Versteh ich nicht."
           }
         }
+      ]
+    },
+    {
+      "id": "view-b2-scafell", "level": "B2",
+      "memory": {"en": "the best view, found last, right at home", "sl": "najlepši razgled, ki sem ga našel zadnjega, kar doma", "it": "la vista più bella, trovata per ultima, proprio a casa", "de": "die schönste Aussicht, zuletzt gefunden, direkt daheim"},
+      "lines": [
+        {"who": "wilf", "en": "Sit on the wall with me, {m:son|f:lass}. I'd climbed Scafell Pike twenty times before I ever sat on this wall.", "sl": "Sedi z mano na zid. Na Scafell Pike sem se povzpel dvajsetkrat, preden sem sploh sedel na ta zid.", "it": "Siediti sul muretto con me, {m:figliolo|f:ragazza}. Ero salito sullo Scafell Pike venti volte prima di sedermi su questo muretto.", "de": "Setz dich mit mir auf die Mauer, {m:Junge|f:Mädchen}. Ich war zwanzigmal auf dem Scafell Pike, bevor ich je auf dieser Mauer saß."},
+        { "choices": [
+          {"en": "So you found the best view last, right at home.", "sl": "Torej si najlepši razgled našel zadnjega, kar doma.", "it": "Quindi hai trovato la vista più bella per ultima, proprio a casa.", "de": "Du hast die schönste Aussicht also zuletzt gefunden, direkt daheim.", "ok": true, "reply": {"face": "happy", "en": "Right at home. The best things usually are.", "sl": "Kar doma. Najlepše stvari so ponavadi tam.", "it": "Proprio a casa. Le cose più belle di solito lo sono.", "de": "Direkt daheim. Die besten Dinge sind meistens da."}},
+          {"en": "So you sat here first, then climbed Scafell.", "sl": "Torej si najprej sedel tukaj, potem pa šel na Scafell.", "it": "Quindi ti sei seduto qui prima, e poi sei salito sullo Scafell.", "de": "Du hast also zuerst hier gesessen und bist dann auf den Scafell.", "grammar": "narrative-tenses", "why": {"en": "I'd climbed … before I sat: the twenty climbs came first, the wall last.", "sl": "I'd climbed … before I sat: najprej dvajset vzponov, zid nazadnje.", "it": "I'd climbed … before I sat: prima le venti salite, il muretto per ultimo.", "de": "I'd climbed … before I sat: Erst kamen die zwanzig Aufstiege, die Mauer zuletzt."}, "reply": {"face": "surprised", "en": "First? Twenty climbs first, {m:son|f:lass}, then the wall!", "sl": "Najprej? Najprej dvajset vzponov, potem zid!", "it": "Prima? Prima venti salite, {m:figliolo|f:ragazza}, poi il muretto!", "de": "Zuerst? Erst zwanzig Aufstiege, {m:Junge|f:Mädchen}, dann die Mauer!"}}
+        ] },
+        {"who": "wilf", "face": "thinking", "en": "Bess knew it before me. She always lay down right here, by the third tree.", "sl": "Bess je to vedela pred mano. Vedno se je ulegla prav tukaj, ob tretjem drevesu.", "it": "Bess lo sapeva prima di me. Si sdraiava sempre proprio qui, vicino al terzo albero.", "de": "Bess wusste es vor mir. Sie hat sich immer genau hier hingelegt, beim dritten Baum."},
+        {"who": "wilf", "face": "curious", "en": "My legs say: sit down, Wilf. What do you say?", "sl": "Noge mi pravijo: sedi, Wilf. Kaj praviš ti?", "it": "Le gambe mi dicono: siediti, Wilf. Tu che dici?", "de": "Meine Beine sagen: Setz dich, Wilf. Was sagst du?"},
+        { "choices": [
+          {"en": "Let's have a rest on the wall, then.", "sl": "Potem pa si odpočijva na zidu.", "it": "Allora riposiamoci sul muretto.", "de": "Dann machen wir eine Pause auf der Mauer.", "ok": true, "reply": {"face": "happy", "en": "A rest. The best kind of work there is.", "sl": "Počitek. Najboljša vrsta dela.", "it": "Un riposo. Il miglior lavoro che ci sia.", "de": "Eine Pause. Die beste Arbeit, die es gibt."}},
+          {"en": "Let's do a rest on the wall, then.", "sl": "Potem pa si odpočijva na zidu.", "it": "Allora riposiamoci sul muretto.", "de": "Dann machen wir eine Pause auf der Mauer.", "grammar": "collocations", "why": {"en": "In English you have a rest, or take a break. Do goes with work and jobs.", "sl": "V angleščini have a rest ali take a break. Do gre z delom in opravili.", "it": "In inglese si dice have a rest, o take a break. Do va con il lavoro e le faccende.", "de": "Im Englischen have a rest oder take a break. Do steht bei Arbeit und Erledigungen."}, "reply": {"face": "curious", "en": "Do a rest? Resting isn't a job, {m:son|f:lass}.", "sl": "Do a rest? Počitek ni opravilo.", "it": "Do a rest? Riposare non è un lavoro, {m:figliolo|f:ragazza}.", "de": "Do a rest? Ausruhen ist keine Arbeit, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "Look at that. The lake, the fells, the damsons. Sixty years, and it still gets me.", "sl": "Poglej to. Jezero, hribi, slive. Šestdeset let, pa me še vedno gane.", "it": "Guarda. Il lago, i monti, le susine. Sessant'anni, e mi commuove ancora.", "de": "Schau dir das an. Der See, die Berge, die Pflaumen. Sechzig Jahre, und es rührt mich immer noch."}
+      ]
+    },
+    {
+      "id": "view-b1-winter", "level": "B1",
+      "memory": {"en": "the hard winter and the young trees by the top wall", "sl": "hudo zimo in mlada drevesa ob zgornjem zidu", "it": "l'inverno duro e gli alberi giovani vicino al muro in alto", "de": "den harten Winter und die jungen Bäume an der oberen Mauer"},
+      "lines": [
+        {"who": "wilf", "en": "Sit on the wall with me, {m:son|f:lass}. When I was a boy, this whole hillside was damsons.", "sl": "Sedi z mano na zid. Ko sem bil fant, je bilo vse to pobočje polno sliv.", "it": "Siediti sul muretto con me, {m:figliolo|f:ragazza}. Quand'ero ragazzo, tutto questo pendio era pieno di susini.", "de": "Setz dich mit mir auf die Mauer, {m:Junge|f:Mädchen}. Als ich ein Junge war, war der ganze Hang voller Pflaumenbäume."},
+        {"who": "wilf", "face": "thinking", "en": "Then one hard winter killed half the trees. If we'd covered the young ones, they'd have lived.", "sl": "Potem je ena huda zima uničila pol dreves. Če bi mlada pokrili, bi preživela.", "it": "Poi un inverno duro ha ucciso metà degli alberi. Se avessimo coperto quelli giovani, sarebbero sopravvissuti.", "de": "Dann hat ein harter Winter die Hälfte der Bäume umgebracht. Hätten wir die jungen abgedeckt, hätten sie überlebt."},
+        {"who": "wilf", "face": "curious", "en": "What would you have done?", "sl": "Kaj bi {m:storil|f:storila} ti?", "it": "Tu cosa avresti fatto?", "de": "Was hättest du gemacht?"},
+        { "choices": [
+          {"en": "I would have planted new ones the next spring.", "sl": "Naslednjo pomlad bi {m:posadil|f:posadila} nova drevesa.", "it": "La primavera dopo ne avrei piantati di nuovi.", "de": "Ich hätte im Frühling darauf neue gepflanzt.", "ok": true, "reply": {"face": "happy", "en": "We did, in the end. Those are them, by the top wall.", "sl": "Na koncu smo jih res. Tam so, ob zgornjem zidu.", "it": "Alla fine l'abbiamo fatto. Sono quelli là, vicino al muro in alto.", "de": "Haben wir am Ende auch. Das sind die da, an der oberen Mauer."}},
+          {"en": "I had planted new ones the next spring.", "sl": "Naslednjo pomlad bi {m:posadil|f:posadila} nova drevesa.", "it": "La primavera dopo ne avrei piantati di nuovi.", "de": "Ich hätte im Frühling darauf neue gepflanzt.", "grammar": "third-conditional", "why": {"en": "For what didn't happen: would have + the participle, I would have planted. Had planted says you really did.", "sl": "Za tisto, kar se ni zgodilo: would have + deležnik, I would have planted. Had planted pove, da si res.", "it": "Per ciò che non è successo: would have + il participio, I would have planted. Had planted dice che l'hai fatto davvero.", "de": "Für das, was nicht passiert ist: would have + Partizip, I would have planted. Had planted sagt, du hast es wirklich getan."}, "reply": {"face": "surprised", "en": "You had? Then where were you, {m:son|f:lass}? I never saw you!", "sl": "You had? Kje si pa {m:bil|f:bila}? Nikoli te nisem videl!", "it": "You had? E dov'eri, {m:figliolo|f:ragazza}? Non ti ho mai visto!", "de": "You had? Wo warst du denn, {m:Junge|f:Mädchen}? Ich hab dich nie gesehen!"}}
+        ] },
+        {"who": "wilf", "en": "Next September the whole village will be picking up here again.", "sl": "Prihodnji september bo vsa vas spet obirala tu gori.", "it": "Il prossimo settembre tutto il villaggio raccoglierà di nuovo quassù.", "de": "Nächsten September pflückt das ganze Dorf wieder hier oben."},
+        { "choices": [
+          {"en": "Will you be sitting on this wall again, telling us what to do?", "sl": "Boš spet sedel na tem zidu in nam govoril, kaj naj delamo?", "it": "Sarai di nuovo seduto su questo muretto a dirci cosa fare?", "de": "Sitzt du dann wieder auf dieser Mauer und sagst uns, was wir tun sollen?", "ok": true, "reply": {"face": "laugh", "en": "Ha! Somebody has to. Slow and steady, mind.", "sl": "Ha! Nekdo mora. Počasi in vztrajno, ne pozabi.", "it": "Ah! Qualcuno deve pur farlo. Piano e con costanza, eh.", "de": "Ha! Einer muss es ja. Langsam und stetig, wohlgemerkt."}},
+          {"en": "Will you sitting on this wall again, telling us what to do?", "sl": "Boš spet sedel na tem zidu in nam govoril, kaj naj delamo?", "it": "Sarai di nuovo seduto su questo muretto a dirci cosa fare?", "de": "Sitzt du dann wieder auf dieser Mauer und sagst uns, was wir tun sollen?", "grammar": "future-continuous", "why": {"en": "Will + be + -ing: will you be sitting? The be can't go.", "sl": "Will + be + -ing: will you be sitting? Be ne sme izpasti.", "it": "Will + be + -ing: will you be sitting? Il be non può mancare.", "de": "Will + be + -ing: will you be sitting? Das be darf nicht fehlen."}, "reply": {"face": "curious", "en": "Will you sitting? Gently, {m:son|f:lass}. A word's gone missing.", "sl": "Will you sitting? Počasi. Ena beseda se je izgubila.", "it": "Will you sitting? Piano, {m:figliolo|f:ragazza}. Si è persa una parola.", "de": "Will you sitting? Sachte, {m:Junge|f:Mädchen}. Da fehlt ein Wort."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "Listen. The bell. One step at a time, and we'll get there.", "sl": "Poslušaj. Zvon. Korak za korakom, pa bomo prišli do cilja.", "it": "Ascolta. La campana. Un passo alla volta, e ci arriveremo.", "de": "Hör mal. Die Glocke. Eins nach dem anderen, dann kommen wir hin."}
+      ]
+    },
+    {
+      "id": "tractor-b2-engine", "level": "B2",
+      "memory": {"en": "the old tractor's cough before the picking", "sl": "kašelj starega traktorja pred obiranjem", "it": "la tosse del vecchio trattore prima della raccolta", "de": "den Husten des alten Traktors vor dem Pflücken"},
+      "lines": [
+        {"who": "tyson", "face": "worried", "en": "Morning, {m:lad|f:lass}. Hear that cough in the engine? She's sixty years old, this tractor.", "sl": "Jutro. Slišiš, kako motor kašlja? Ta traktor je star šestdeset let.", "it": "Buongiorno, {m:ragazzo|f:ragazza}. Senti come tossisce il motore? Ha sessant'anni, questo trattore.", "de": "Morgen, {m:Junge|f:Mädchen}. Hörst du, wie der Motor hustet? Sechzig Jahre alt ist der Traktor."},
+        {"who": "tyson", "face": "curious", "en": "I can't mend engines. What would you do?", "sl": "Motorjev ne znam popravljati. Kaj bi {m:naredil|f:naredila} ti?", "it": "Io i motori non li so riparare. Tu cosa faresti?", "de": "Motoren kann ich nicht reparieren. Was würdest du tun?"},
+        { "choices": [
+          {"en": "I'd have the engine looked at before the picking.", "sl": "Pred obiranjem bi {m:dal|f:dala} motor pregledati.", "it": "Farei controllare il motore prima della raccolta.", "de": "Ich würde den Motor vor dem Pflücken anschauen lassen.", "ok": true, "reply": {"en": "Aye. The garage in Keswick. I'll ring them today.", "sl": "Ja. Delavnica v Keswicku. Danes jih pokličem.", "it": "Sì. L'officina di Keswick. Li chiamo oggi.", "de": "Ja. Die Werkstatt in Keswick. Ich ruf sie heute an."}},
+          {"en": "I'd have looked at the engine before the picking.", "sl": "Pred obiranjem bi {m:dal|f:dala} motor pregledati.", "it": "Farei controllare il motore prima della raccolta.", "de": "Ich würde den Motor vor dem Pflücken anschauen lassen.", "grammar": "have-it-done", "why": {"en": "Have + the engine + the participle: someone looks at it for you. I'd have looked at it is about the past, and you yourself.", "sl": "Have + motor + deležnik: nekdo ga pregleda namesto tebe. I'd have looked at it govori o preteklosti in o tebi.", "it": "Have + il motore + il participio: qualcuno lo guarda per te. I'd have looked at it parla del passato, e di te.", "de": "Have + der Motor + Partizip: Jemand schaut ihn für dich an. I'd have looked at it handelt von der Vergangenheit und von dir selbst."}, "reply": {"face": "confused", "en": "You'd have looked? When, last year? You weren't here, {m:lad|f:lass}.", "sl": "You'd have looked? Kdaj, lani? Saj te ni bilo tu.", "it": "You'd have looked? Quando, l'anno scorso? Non c'eri, {m:ragazzo|f:ragazza}.", "de": "You'd have looked? Wann, letztes Jahr? Da warst du nicht hier, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "face": "thinking", "en": "The picking's on Saturday. Six crates, and only my old tractor to carry them.", "sl": "Obiranje je v soboto. Šest zabojev in samo moj stari traktor, da jih odpelje.", "it": "La raccolta è sabato. Sei cassette, e solo il mio vecchio trattore per portarle.", "de": "Gepflückt wird am Samstag. Sechs Kisten, und nur mein alter Traktor, um sie zu fahren."},
+        {"who": "tyson", "face": "curious", "en": "If she breaks down on the day, what then?", "sl": "Če se tisti dan pokvari, kaj potem?", "it": "E se si rompe quel giorno, che si fa?", "de": "Wenn er an dem Tag streikt, was dann?"},
+        { "choices": [
+          {"en": "We'll come up with something. Sam's got a cart.", "sl": "Nekaj si bomo že izmislili. Sam ima voz.", "it": "Ci inventeremo qualcosa. Sam ha un carro.", "de": "Uns fällt schon was ein. Sam hat einen Wagen.", "ok": true, "reply": {"face": "happy", "en": "Sam's cart. Two plans. Better than one.", "sl": "Samov voz. Dva načrta. Bolje kot eden.", "it": "Il carro di Sam. Due piani. Meglio di uno.", "de": "Sams Wagen. Zwei Pläne. Besser als einer."}},
+          {"en": "We'll come up something. Sam's got a cart.", "sl": "Nekaj si bomo že izmislili. Sam ima voz.", "it": "Ci inventeremo qualcosa. Sam ha un carro.", "de": "Uns fällt schon was ein. Sam hat einen Wagen.", "grammar": "phrasal-verbs-more", "why": {"en": "Come up with + an idea: come up with something. The with stays.", "sl": "Come up with + zamisel: come up with something. With ostane.", "it": "Come up with + un'idea: come up with something. Il with resta.", "de": "Come up with + eine Idee: come up with something. Das with bleibt."}, "reply": {"face": "confused", "en": "Come up something? Up the hill, you mean?", "sl": "Come up something? Na hrib, misliš?", "it": "Come up something? Su per la collina, vuoi dire?", "de": "Come up something? Den Hügel hinauf, meinst du?"}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Ring the garage, ask Sam, pick on Saturday. Three jobs. Done.", "sl": "Prav. Pokliči delavnico, vprašaj Sama, v soboto obiraj. Tri opravila. Opravljeno.", "it": "Bene. Chiamare l'officina, chiedere a Sam, raccogliere sabato. Tre lavori. Fatto.", "de": "Gut. Werkstatt anrufen, Sam fragen, Samstag pflücken. Drei Aufgaben. Erledigt."}
+      ]
+    },
+    {
+      "id": "tractor-b1-alfie", "level": "B1",
+      "memory": {"en": "six crates and one small driver", "sl": "šest zabojev in en majhen voznik", "it": "sei cassette e un piccolo autista", "de": "sechs Kisten und ein kleiner Fahrer"},
+      "lines": [
+        {"who": "tyson", "face": "happy", "en": "Morning, {m:lad|f:lass}. Here comes my old red tractor. Alfie wants to drive it on his own today.", "sl": "Jutro. Tu je moj stari rdeči traktor. Alfie ga hoče danes voziti čisto sam.", "it": "Buongiorno, {m:ragazzo|f:ragazza}. Ecco il mio vecchio trattore rosso. Alfie oggi vuole guidarlo da solo.", "de": "Morgen, {m:Junge|f:Mädchen}. Da kommt mein alter roter Traktor. Alfie will ihn heute allein fahren."},
+        { "choices": [
+          {"en": "By himself? He's only six!", "sl": "Čisto sam? Saj ima šele šest let!", "it": "Da solo? Ha solo sei anni!", "de": "Ganz allein? Er ist doch erst sechs!", "ok": true, "reply": {"face": "laugh", "en": "Only six, aye. He can steer while I hold the wheel.", "sl": "Šele šest, ja. Lahko krmari, jaz pa držim volan.", "it": "Solo sei, sì. Può sterzare mentre io tengo il volante.", "de": "Erst sechs, ja. Er darf lenken, während ich das Lenkrad halte."}},
+          {"en": "By him? He's only six!", "sl": "Čisto sam? Saj ima šele šest let!", "it": "Da solo? Ha solo sei anni!", "de": "Ganz allein? Er ist doch erst sechs!", "grammar": "reflexive-pronouns", "why": {"en": "Alone is by himself. By him means next to him.", "sl": "Sam je by himself. By him pomeni zraven njega.", "it": "Da solo si dice by himself. By him vuol dire accanto a lui.", "de": "Allein heißt by himself. By him heißt neben ihm."}, "reply": {"face": "confused", "en": "By him? Next to Alfie? There's only room for one.", "sl": "By him? Zraven Alfieja? Prostora je samo za enega.", "it": "By him? Accanto ad Alfie? C'è posto solo per uno.", "de": "By him? Neben Alfie? Da ist nur Platz für einen."}}
+        ] },
+        {"who": "tyson", "face": "curious", "en": "Six crates of damsons today. Is there room on the trailer for a seventh?", "sl": "Danes šest zabojev sliv. Je na prikolici prostor še za sedmega?", "it": "Oggi sei cassette di susine. C'è posto sul rimorchio per una settima?", "de": "Heute sechs Kisten Pflaumen. Ist auf dem Anhänger noch Platz für eine siebte?"},
+        { "choices": [
+          {"en": "No, there isn't enough room for seven.", "sl": "Ne, za sedem ni dovolj prostora.", "it": "No, non c'è abbastanza posto per sette.", "de": "Nein, für sieben ist nicht genug Platz.", "ok": true, "reply": {"en": "Six it is, then. Right. Counting's done.", "sl": "Torej šest. Prav. Štetje je končano.", "it": "Sei, allora. Bene. Conti fatti.", "de": "Also sechs. Gut. Gezählt ist."}},
+          {"en": "No, there isn't enough of room for seven.", "sl": "Ne, za sedem ni dovolj prostora.", "it": "No, non c'è abbastanza posto per sette.", "de": "Nein, für sieben ist nicht genug Platz.", "grammar": "too-enough", "why": {"en": "Enough comes straight before a noun: enough room. Enough of goes before the or a pronoun: enough of them.", "sl": "Enough stoji tik pred samostalnikom: enough room. Enough of gre pred the ali zaimek: enough of them.", "it": "Enough va subito prima del nome: enough room. Enough of va prima di the o di un pronome: enough of them.", "de": "Enough steht direkt vor dem Nomen: enough room. Enough of steht vor the oder einem Pronomen: enough of them."}, "reply": {"face": "curious", "en": "Enough of room? Say it plain, {m:lad|f:lass}.", "sl": "Enough of room? Povej preprosto.", "it": "Enough of room? Dillo semplice, {m:ragazzo|f:ragazza}.", "de": "Enough of room? Sag's einfach, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Six crates, one tractor, one small driver. Off we go.", "sl": "Prav. Šest zabojev, en traktor, en majhen voznik. Gremo.", "it": "Bene. Sei cassette, un trattore, un piccolo autista. Si parte.", "de": "Gut. Sechs Kisten, ein Traktor, ein kleiner Fahrer. Los geht's."}
       ]
     }
   ]

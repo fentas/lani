@@ -89,14 +89,19 @@ class ContentController(
     /** The village's treasure hunt (set by the view model): the level it brought counts before the node has it. */
     var treasure: () -> si.lanisce.lani.game.TreasureHunt? = { null }
 
+    /** The placement test's result the learner took in the village's language (set by the view model): its level counts before the node has it. */
+    var placed: () -> si.lanisce.lani.game.Placed? = { null }
+
     /**
      * The learner's level in [language] ("sl" → "A2"; A1 before the node said), as the app goes by it: the node's
-     * ([Dashboard.levelIn]), or, in the village's own language, the level the treasure just brought while the node doesn't
-     * have it yet ([si.lanisce.lani.game.Treasure.level]): the new rules, stories and readings don't wait for it.
+     * ([Dashboard.levelIn]), or, in the village's own language, the level the treasure just brought or the placement test
+     * raised it to while the node doesn't have it yet ([si.lanisce.lani.game.Treasure.level],
+     * [si.lanisce.lani.game.LevelPlacement.level]): the new rules, stories and readings don't wait for it.
      */
     fun levelIn(language: String): String {
         val node = dashboard?.levelIn(language) ?: "A1"
-        return if (language == si.lanisce.lani.l10n.L10n.ownPair.target.code) si.lanisce.lani.game.Treasure.level(node, treasure()) else node
+        if (language != si.lanisce.lani.l10n.L10n.ownPair.target.code) return node
+        return si.lanisce.lani.game.Treasure.level(si.lanisce.lani.game.LevelPlacement.level(node, placed()), treasure())
     }
 
     /** The review deck of [language]: the home language's dashboard for null, else that language's (when loaded). */
