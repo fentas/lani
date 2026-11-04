@@ -12766,6 +12766,13 @@ def first_cards():
         to_top()
         time.sleep(2 * slow())
         assert find(pace) is None, "skipped, it never comes again"
+        # the question over, the system's about notifications comes as for anyone
+        for _ in range(6):
+            if (c := next((c for t, c in nodes() if t == "Allow"), None)) is not None:
+                tap_at(c)
+                break
+            time.sleep(1)
+        go_home()
 
         if (ROOT / "companion/course/sl/course.json").exists():
             for _ in range(3):
