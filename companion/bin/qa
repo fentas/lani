@@ -17388,7 +17388,7 @@ def shadow_on():
     assert wait_for("Shadow mode", 8), "the panel's settings"
 
     # the mock's address (a QA build's setting), the key, shadow mode on
-    assert scroll_to("The mock (10.0.2.2:8771)", 4) and tap("The mock (10.0.2.2:8771)", 3), "the mock's base URL"
+    assert scroll_to("The mock (10.0.2.2:8771)", 10) and tap("The mock (10.0.2.2:8771)", 3), "the mock's base URL"  # below the providers' cards
     if SHADOW_MOCK != "http://10.0.2.2:8771":
         # the mock of this run's slot (qa-slot's second: LANI_TUTOR_MOCK_PORT), typed over the button's and used
         type_into("http://10.0.2.2:8771", SHADOW_MOCK)
@@ -17623,7 +17623,7 @@ def tutor_reach():
         assert tap("Napiši…", 4), "the chat's field"
         time.sleep(slow())
         adb("shell", "input", "text", "Kaj%sje%szlatoperka%s[mock:reach]")  # adb types ASCII only
-        time.sleep(0.5)
+        assert wait_for("[mock:reach]", 10 * slow()), "the whole message in the field (the keyboard types behind adb, more so on a busy machine)"
         assert tap("Pošlji · Send", 4), "send"
         assert wait_for(DEV_TUTOR, 20), "the real tutor's reply in the chat"
         end = time.time() + 30 * slow()
