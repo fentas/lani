@@ -476,6 +476,10 @@ sealed interface Exercise {
         val adj: String? = null,
         val possessive: Boolean = false,
         override val grammar: String? = null,
+        /** A German item's framed noun phrase (from … to); empty: the word alone. */
+        val phrase: List<Int> = emptyList(),
+        /** The language the task is in (its typed answer graded so): "sl", "de". */
+        val lang: String = "sl",
     ) : Exercise
 }
 

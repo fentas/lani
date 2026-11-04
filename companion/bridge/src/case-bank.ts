@@ -13,6 +13,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync,
 import { join } from 'node:path'
 import { z } from 'zod'
 import { CASE_IDS, CASE_KEYS, type CaseKey } from './case-triggers'
+import { caseItemDe, validateBankDe, type CaseCheckDe } from './case-bank-de'
 import { adjectiveForms, formsOf, type FormsContext, type LemmaForms } from './forms'
 import { normalizeForm } from './lexicon'
 
@@ -33,8 +34,8 @@ export const NUMBERS = ['sg', 'du', 'pl'] as const
 export const LEVELS = ['A1', 'A2', 'B1', 'B2'] as const
 const LEVEL_RANK: Record<string, number> = { A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 }
 
-/** The languages whose bank the bridge serves (the trainer is the cases', Slovene's). */
-export const CASES_LANGUAGES: ReadonlySet<string> = new Set(['sl'])
+/** The languages whose bank the bridge serves: Slovene's six cases, German's four (case-bank-de.ts). */
+export const CASES_LANGUAGES: ReadonlySet<string> = new Set(['sl', 'de'])
 
 // --- a sentence's words ----------------------------------------------------------------------------------------------
 
@@ -211,6 +212,8 @@ export type CaseCheck = {
   pages: Map<string, string>
   /** The scenes' ids (a place item's picture). */
   scenes: Set<string>
+  /** German's checks (its forms by the trigger table, the packs' nouns): a German bank's. */
+  de?: CaseCheckDe
 }
 
 /** What the dictionary says of [lemma] as a noun (its entry) and as an adjective (its nominative and its cases). */
@@ -398,6 +401,8 @@ export function checkRest(bank: Pick<CaseBank, 'rules' | 'frames' | 'adjectives'
 
 /** The bank validated: its format, then the checks; [ok] when both are clean. */
 export function validateBank(input: unknown, c?: CaseCheck): { ok: true; bank: CaseBank; judged: number; unjudged: string[] } | { ok: false; errors: string } {
+  // German's bank has its own format and checks (case-bank-de.ts); its served shape is the same as Slovene's
+  if ((input as { language?: unknown } | null)?.language === 'de') return validateBankDe(input, c?.de) as unknown as ReturnType<typeof validateBank>
   const v = bankSpec.safeParse(input)
   if (!v.success) return { ok: false, errors: z.prettifyError(v.error) }
   if (!c) return { ok: true, bank: v.data, judged: 0, unjudged: [] }
@@ -508,9 +513,9 @@ export class CaseStore {
     return readdirSync(dir).filter(f => f.endsWith('.json')).sort().flatMap(f => {
       const path = join(dir, f)
       try {
-        const v = caseItem.safeParse(JSON.parse(readFileSync(path, 'utf8')))
+        const v = (this.language === 'de' ? caseItemDe : caseItem).safeParse(JSON.parse(readFileSync(path, 'utf8')))
         if (!v.success) throw new Error(z.prettifyError(v.error))
-        return [{ ...v.data, source: 'tutor' as const, published_at: statSync(path).mtimeMs }]
+        return [{ ...(v.data as CaseItem), source: 'tutor' as const, published_at: statSync(path).mtimeMs }]
       } catch (e) {
         const key = `${path}:${statSync(path).mtimeMs}`
         if (!this.warned.has(key)) this.log(`skipping case item ${path}: ${(e as Error).message}`)

@@ -6,6 +6,9 @@ import { existsSync, mkdtempSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { bankCounts, validateBank, type CaseCheck } from '../src/case-bank'
+import { germanPackNouns } from '../src/case-bank-de'
+import { validateCaseTriggersDe } from '../src/case-triggers-de'
+import { GermanForms } from '../src/german-forms'
 import { FormsBook, LineIndex } from '../src/forms'
 import { validateGrammar } from '../src/grammar'
 import { Lexicon } from '../src/lexicon'
@@ -25,7 +28,17 @@ export function caseCheck(language: string, root = companion): CaseCheck {
   }
   const scenesDir = join(root, 'scenes')
   const scenes = new Set(existsSync(scenesDir) ? readdirSync(scenesDir).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5)) : [])
-  return { forms: { dict, book: new FormsBook({ dir: lexiconDir, language }), pages: new Set(pages.keys()), lines: new LineIndex([]), language }, pages, scenes }
+  // German's: its forms by the trigger table, the packs' nouns (gender, plural), the Kärnten village's scenes
+  let de: CaseCheck['de']
+  if (language === 'de') {
+    const t = validateCaseTriggersDe(JSON.parse(readFileSync(join(root, 'grammar/de/data/case-triggers.json'), 'utf8')))
+    if (!t.ok) throw new Error(`grammar/de/data/case-triggers.json: ${t.errors}`)
+    const js = (d: string) => (existsSync(d) ? readdirSync(d).filter(f => f.endsWith('.json')).sort().map(f => JSON.parse(readFileSync(join(d, f), 'utf8'))) : [])
+    const village = join(root, 'cultures/kaernten/scenes')
+    const deScenes = new Set([...scenes, ...(existsSync(village) ? readdirSync(village).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5)) : [])])
+    de = { forms: new GermanForms(t.table), dict, nouns: germanPackNouns([...js(join(root, 'cultures/kaernten/packs')), ...js(join(root, 'packs/de'))]), pages, scenes: deScenes }
+  }
+  return { forms: { dict, book: new FormsBook({ dir: lexiconDir, language }), pages: new Set(pages.keys()), lines: new LineIndex([]), language }, pages, scenes, ...(de ? { de } : {}) }
 }
 
 if (import.meta.main) {

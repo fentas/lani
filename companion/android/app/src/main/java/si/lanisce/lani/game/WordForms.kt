@@ -126,8 +126,12 @@ object WordForms {
      * when its answer is sure (one standard form, or a hand-checked table).
      */
     fun askable(slot: FormSlot, lemma: LemmaForms): Boolean {
-        if (slot.key in NOT_ASKED || slot.forms.isEmpty()) return false
-        if (slot.lines.any { gapIn(it.sl, it.form) != null }) return true
+        if (slot.forms.isEmpty()) return false
+        // Italian's, German's, English's: their own (OtherForms); every form Wiktionary gives a slot is right
+        if (OtherForms.of(lemma) != null)
+            return OtherForms.asked(slot, lemma) && (slot.lines.any { gapIn(it.said, it.form) != null } || OtherForms.frame(lemma, slot.key) != null)
+        if (slot.key in NOT_ASKED) return false
+        if (slot.lines.any { gapIn(it.said, it.form) != null }) return true
         return frame(slot.key, lemma.gender) != null && (slot.forms.size == 1 || lemma.table == "checked")
     }
 
@@ -154,11 +158,11 @@ object WordForms {
      */
     fun forCard(
         card: ReviewCard, entries: List<LemmaForms>?, record: FormsRecord?, locks: (FormSlot) -> List<String>, base: String,
-        force: Boolean = false, random: Random = Random.Default,
+        force: Boolean = false, random: Random = Random.Default, language: String = "sl",
     ): FormQuestion? {
-        if (entries.isNullOrEmpty() || WordFormsWire.lemmaOf(card) == null) return null
+        if (entries.isNullOrEmpty() || WordFormsWire.lemmaOf(card, language) == null) return null
         if (!force && !due(card, record)) return null
-        val lemma = WordFormsWire.entryFor(entries, card.back) ?: return null
+        val lemma = WordFormsWire.entryFor(entries, card.back, WordFormsWire.posOf(card, language)) ?: return null
         val open = { s: FormSlot -> locks(s).isEmpty() }
         val slot = pick(lemma, record, open) ?: return null
         return question(lemma, slot, record, ReviewPlanner.meaning(card.back), base, open, random)
@@ -176,26 +180,30 @@ object WordForms {
     ): FormQuestion? {
         if (!askable(slot, lemma)) return null
         val asked = record?.asked.orEmpty().filter { it.key == slot.key }
-        val lines = slot.lines.filter { gapIn(it.sl, it.form) != null }
+        val other = OtherForms.of(lemma) != null
+        val lines = slot.lines.filter { gapIn(it.said, it.form) != null }
         val line = lines.takeIf { it.isNotEmpty() }?.let { it[asked.size % it.size] }
         val answers = (slot.forms + slot.also + listOfNotNull(line?.form)).map { it.trim() }.filter { it.isNotEmpty() }
         val gap: FormGap = if (line != null) {
-            val (start, end) = gapIn(line.sl, line.form)!!
-            FormGap(line.sl.substring(0, start), line.sl.substring(start, end), line.sl.substring(end) + " (${lemma.lemma})")
+            val said = line.said
+            val (start, end) = gapIn(said, line.form)!!
+            FormGap(said.substring(0, start), said.substring(start, end), said.substring(end) + " (${lemma.lemma})")
         } else {
-            val f = frame(slot.key, lemma.gender) ?: return null
+            val f = (if (other) OtherForms.frame(lemma, slot.key) else frame(slot.key, lemma.gender)) ?: return null
             val word = slot.forms.first()
             val text = f.replace("{s}", sz(word)).replace("{k}", kh(word))
             val at = text.indexOf(GAP)
-            FormGap(text.substring(0, at), word, text.substring(at + GAP.length) + " (${cue(slot.key, lemma.lemma)})")
+            FormGap(text.substring(0, at), word, text.substring(at + GAP.length) + " (${if (other) lemma.lemma else cue(slot.key, lemma.lemma)})")
         }
         val atStart = gap.before.isBlank()
-        val shown = if (atStart) capitalized(gap.word) else gap.word.lowercase()
+        // German's nouns keep their capital (Häuser), as a line writes a form
+        val keepCase = other && (lemma.language == "de" && lemma.pos == "noun" || line != null)
+        val shown = if (atStart) capitalized(gap.word) else if (keepCase) gap.word else gap.word.lowercase()
         val q = gap.copy(word = shown)
         val accept = (listOf(shown) + answers).distinctBy { norm(it) }
         val typed = asked.any { it.right } && asked.lastOrNull()?.right != false
         val options = if (typed) emptyList() else options(lemma, slot, accept, open).map { if (atStart) capitalized(it) else it }.shuffled(random)
-        val label = label(slot.key)
+        val label = if (other) OtherForms.label(lemma.language!!, slot.key) else label(slot.key)
         val instruction = listOfNotNull(
             "✍️ ${bi("wordForms.fillForm")}",
             "${lemma.lemma} — $meaning",
@@ -216,17 +224,21 @@ object WordForms {
         val right = accept.map(::norm).toSet()
         // a noun's same case in another number would fit the sentence too ("Vidim hiše": the plural): never an option
         val sameCase = caseOf(slot.key)
+        val other = OtherForms.of(lemma) != null
+        val groupOf = { k: String -> if (other) OtherForms.group(k) else group(k) }
         val others = lemma.slots.filter { it.key != slot.key && (sameCase == null || caseOf(it.key) != sameCase) }
-            .sortedWith(compareBy({ if (group(it.key) == group(slot.key)) 0 else 1 }, { if (open(it)) 0 else 1 }))
+            .sortedWith(compareBy({ if (groupOf(it.key) == groupOf(slot.key)) 0 else 1 }, { if (open(it)) 0 else 1 }))
+        // German's nouns keep their capital; the others are written small, as in a sentence
+        val written: (String) -> String = if (other && lemma.language == "de" && lemma.pos == "noun") { f -> f } else { f -> f.lowercase() }
         val picked = mutableListOf<String>()
         for (s in others) for (f in s.forms) {
             if (picked.size >= 3) break
             val n = norm(f)
             if (n.isEmpty() || n in right || picked.any { norm(it) == n }) continue
-            picked += f.lowercase()
+            picked += written(f)
         }
         if (picked.size < 2) return emptyList()
-        return (picked + accept.first().lowercase())
+        return (picked + written(accept.first()))
     }
 
     /** What a form's alternatives are grouped by: a verb's tense ("pres", "past"), a noun's number ("sg"), an adjective's degree. */
@@ -374,7 +386,7 @@ object WordForms {
     // --- the table on the word's card ----------------------------------------------------------------------------
 
     /** A cell: the form with its pronoun or mark ("jaz sedem", "♀ lepa"), or locked by the pages in [locks]. */
-    data class Cell(val key: String, val text: String, val locks: List<String> = emptyList()) {
+    data class Cell(val key: String, val text: String, val locks: List<String> = emptyList(), val label: String? = null) {
         val open: Boolean get() = locks.isEmpty()
     }
 
@@ -384,12 +396,16 @@ object WordForms {
      */
     data class Section(val title: String, val columns: List<String>, val rows: List<Pair<String, List<Cell?>>>)
 
+    /** A section's one column without a head (English's forms, a row each: "past · walked"). */
+    const val ONE = "one"
+
     /**
      * A word's forms as its card shows them ([locks] of each slot: [locks]): a verb's present, negative and future by
      * person (singular, plural, dual), its past by gender, its imperative; a noun's six cases by number; an adjective's
      * genders and comparative. Locked cells keep their pages ("🔒" on the card, with the page that opens them).
      */
     fun table(lemma: LemmaForms, locks: (FormSlot) -> List<String>): List<Section> {
+        if (OtherForms.of(lemma) != null) return OtherForms.table(lemma, locks)
         fun cell(key: String, text: (String) -> String): Cell? {
             val s = lemma.slot(key) ?: return null
             return Cell(key, text(s.forms.joinToString(" / ")), locks(s))
@@ -434,7 +450,7 @@ object WordForms {
         val out = LinkedHashMap<String, MutableList<String>>()
         for (s in sections) for ((_, cells) in s.rows) for (c in cells) {
             val page = c?.locks?.firstOrNull() ?: continue
-            val what = lockLabel(c.key)
+            val what = c.label ?: lockLabel(c.key)
             val list = out.getOrPut(page) { mutableListOf() }
             if (what !in list) list += what
         }

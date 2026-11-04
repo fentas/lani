@@ -4,7 +4,7 @@
   "title": { "sl": "V šotoru", "en": "In the tent", "de": "Im Zelt", "it": "Nella tenda" },
   "emoji": "⛺",
   "level": "A1",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "tent",
   "from": ["tent"],
   "pack": "v-sotoru",
@@ -36,13 +36,13 @@
       "when": ["evening", "night"], "chance": 0.4, "dialog": "zgodba", "dialogs": ["zgodba-medved", "zgodba"],"reward": { "wisdom": 20 }, "marker": "📖", "act": { "zala": { "pose": "lie" } },
       "memory": { "sl": "zgodbo o Zlatorogu, ki si mi jo povedal v šotoru", "en": "the story of Zlatorog you told me in the tent", "de": "die Geschichte von Zlatorog, die du mir im Zelt erzählt hast", "it": "la storia di Zlatorog che mi hai raccontato nella tenda" } },
     { "id": "odeja", "title": { "sl": "Babica prinese odejo", "en": "Grandma brings a blanket", "de": "Oma bringt eine Decke", "it": "La nonna porta una coperta" }, "who": "babica",
-      "when": ["evening", "night"], "chance": 0.4, "dialog": "odeja", "dialogs": ["odeja-caj", "odeja"],"reward": { "food": 15 }, "marker": "🛌",
+      "when": ["evening", "night"], "chance": 0.4, "dialog": "odeja", "dialogs": ["odeja-b2-statve", "odeja-b1-volna", "odeja-caj", "odeja"],"reward": { "food": 15 }, "marker": "🛌",
       "memory": { "sl": "odejo, ki sem ti jo prinesla, ko te je zeblo", "en": "the blanket I brought you when you were cold", "de": "die Decke, die ich dir gebracht habe, als dir kalt war", "it": "la coperta che ti ho portato quando avevi freddo" } },
     { "id": "kapa", "title": { "sl": "Nejc išče kapo", "en": "Nejc is looking for his hat", "de": "Nejc sucht seine Mütze", "it": "Nejc cerca il suo berretto" }, "who": "nejc",
       "when": ["afternoon"], "chance": 0.4, "dialog": "kapa", "dialogs": ["kapa-skupaj", "kapa"],"reward": { "food": 15 }, "marker": "🧢",
       "memory": { "sl": "mojo kapo, ki si jo {m:našel|f:našla} na blazini", "en": "my hat, which you found on the pillow", "de": "meine Mütze, die du auf dem Kissen gefunden hast", "it": "il mio berretto, che hai trovato sul cuscino" } },
     { "id": "dez", "title": { "sl": "Luka se skrije pred dežjem", "en": "Luka shelters from the rain", "de": "Luka sucht Schutz vor dem Regen", "it": "Luka si ripara dalla pioggia" }, "who": "luka",
-      "when": ["morning", "afternoon"], "chance": 0.3, "dialog": "dez", "dialogs": ["dez-svetilka", "dez-cakava", "dez"],"reward": { "wood": 15 }, "marker": "🌧️",
+      "when": ["morning", "afternoon"], "chance": 0.3, "dialog": "dez", "dialogs": ["dez-b2-ljubljana", "dez-b1-koca", "dez-svetilka", "dez-cakava", "dez"],"reward": { "wood": 15 }, "marker": "🌧️",
       "memory": { "sl": "dež, ko sva skupaj čakala v šotoru", "en": "the rain, when we two waited in the tent together", "de": "den Regen, als wir zwei zusammen im Zelt gewartet haben", "it": "la pioggia, quando noi due abbiamo aspettato insieme nella tenda" } }
   ],
   "dialogs": [
@@ -456,6 +456,573 @@
             "reply": { "face": "laugh", "sl": "Ostanite? Samo jaz sem tukaj, ovce so zunaj!", "en": "Ostanite (you all)? It's only me here, the sheep are outside!", "de": "Ostanite (ihr alle)? Nur ich bin hier, die Schafe sind draußen!", "it": "Ostanite (voi)? Ci sono solo io qui, le pecore sono fuori!" } }
         ] },
         { "who": "luka", "sl": "Poslušaj dež na šotoru. Lepo je, kajne?", "en": "Listen to the rain on the tent. It's nice, isn't it?", "de": "Hör den Regen auf dem Zelt. Schön, oder?", "it": "Ascolta la pioggia sulla tenda. È bello, vero?" }
+      ]
+    },
+    {
+      "id": "odeja-b1-volna",
+      "level": "B1",
+      "memory": {
+        "sl": "odejo iz volne naših ovac",
+        "en": "the blanket from our sheep's wool",
+        "de": "die Decke aus der Wolle unserer Schafe",
+        "it": "la coperta di lana delle nostre pecore"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "worried",
+          "sl": "{learner}? Ne spiš? Prinesla sem ti odejo, ker pravijo, da bo ponoči pihala burja.",
+          "en": "{learner}? Not asleep? I've brought you a blanket, because they say the burja will blow tonight.",
+          "de": "{learner}? Du schläfst nicht? Ich habe dir eine Decke gebracht, weil es heißt, heute Nacht kommt die Bora.",
+          "it": "{learner}? Non dormi? Ti ho portato una coperta, perché dicono che stanotte soffierà la bora."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Hvala, babica. Bo pihala vso noč?",
+              "en": "Thank you, Grandma. Will it blow all night?",
+              "de": "Danke, Oma. Weht sie die ganze Nacht?",
+              "it": "Grazie, nonna. Soffierà tutta la notte?",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "sl": "Vso noč, pravi radio. Zato pa dve odeji, ne ene.",
+                "en": "All night, the radio says. That's why two blankets, not one.",
+                "de": "Die ganze Nacht, sagt das Radio. Darum zwei Decken, nicht eine.",
+                "it": "Tutta la notte, dice la radio. Per questo due coperte, non una."
+              }
+            },
+            {
+              "sl": "Hvala, babica. Bo pihala vsa noč?",
+              "en": "Thank you, Grandma. Will the whole night blow?",
+              "de": "Danke, Oma. Weht die ganze Nacht?",
+              "it": "Grazie, nonna. Soffierà tutta la notte (lei)?",
+              "grammar": "cas-izrazi",
+              "why": {
+                "en": "How long takes the accusative, with no preposition: vso noč, ves dan. Vsa noč makes the night the one that blows.",
+                "de": "Wie lange steht im Akkusativ, ohne Präposition: vso noč, ves dan. Vsa noč macht die Nacht zu dem, was weht.",
+                "it": "Per quanto tempo vuole l'accusativo, senza preposizione: vso noč, ves dan. Vsa noč fa soffiare la notte stessa."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Noč bo pihala? Ne, ne, burja bo pihala, noč bo pa spala!",
+                "en": "The night will blow? No, no, the burja will blow, and the night will sleep!",
+                "de": "Die Nacht weht? Nein, nein, die Bora weht, und die Nacht schläft!",
+                "it": "La notte soffierà? No, no, soffierà la bora, e la notte dormirà!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "proud",
+          "sl": "Ta je iz volne naših ovac. Mama jo je tkala vso zimo, ko sem bila majhna.",
+          "en": "This one is from our sheep's wool. Mother wove it all winter, when I was little.",
+          "de": "Die hier ist aus der Wolle unserer Schafe. Mutter hat sie den ganzen Winter gewebt, als ich klein war.",
+          "it": "Questa è di lana delle nostre pecore. La mamma l'ha tessuta per tutto l'inverno, quando ero piccola."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ste ji pomagali, ko je tkala?",
+              "en": "Did you help her when she was weaving?",
+              "de": "Haben Sie ihr geholfen, als sie gewebt hat?",
+              "it": "La aiutava quando tesseva?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Pomagala? Jaz sem ji samo volno zapletla. Potem me je poslala ven, k snegu.",
+                "en": "Helped? I only tangled her wool. Then she sent me out, into the snow.",
+                "de": "Geholfen? Ich habe ihr nur die Wolle verheddert. Dann hat sie mich rausgeschickt, in den Schnee.",
+                "it": "Aiutata? Io le ho solo ingarbugliato la lana. Poi mi ha mandata fuori, nella neve."
+              }
+            },
+            {
+              "sl": "Ste ji pomagali, kdaj je tkala?",
+              "en": "Did you help her, when did she weave?",
+              "de": "Haben Sie ihr geholfen, wann hat sie gewebt?",
+              "it": "La aiutava, quando tesseva?",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "When as a joining word is ko: ko je tkala. Kdaj asks when, in a question.",
+                "de": "Wenn, als als Bindewort ist ko: ko je tkala. Kdaj fragt wann, in einer Frage.",
+                "it": "Quando come congiunzione è ko: ko je tkala. Kdaj chiede quando, in una domanda."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kdaj? Pozimi, saj sem povedala. Ušesa so mi že stara.",
+                "en": "When? In winter, I told you. My ears are old now.",
+                "de": "Wann? Im Winter, hab ich doch gesagt. Meine Ohren sind schon alt.",
+                "it": "Quando? D'inverno, l'ho detto. Le orecchie sono ormai vecchie."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Zdaj pa spi. Ta odeja je grela že tri rodove, bo pa še tebe.",
+          "en": "Now off to sleep. This blanket has warmed three generations, it'll warm you too.",
+          "de": "Jetzt schlaf. Diese Decke hat schon drei Generationen gewärmt, dich wärmt sie auch.",
+          "it": "Adesso dormi. Questa coperta ha scaldato già tre generazioni, scalderà anche te."
+        }
+      ]
+    },
+    {
+      "id": "odeja-b2-statve",
+      "level": "B2",
+      "memory": {
+        "sl": "noč, ko sem ti povedala o maminih statvah",
+        "en": "the night I told you about Mother's loom",
+        "de": "die Nacht, als ich dir von Mutters Webstuhl erzählt habe",
+        "it": "la notte in cui ti ho raccontato del telaio della mamma"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "thinking",
+          "sl": "{learner}, veš, mama me je hotela naučiti tkati. Jaz pa sem rajši tekala za ovcami.",
+          "en": "{learner}, you know, Mother wanted to teach me to weave. But I'd rather run after the sheep.",
+          "de": "{learner}, weißt du, Mutter wollte mir das Weben beibringen. Ich aber lief lieber den Schafen hinterher.",
+          "it": "{learner}, sai, la mamma voleva insegnarmi a tessere. Ma io preferivo correre dietro alle pecore."
+        },
+        {
+          "who": "babica",
+          "face": "sad",
+          "sl": "Danes bi dala vse, da bi znala. Če bi jo bila takrat poslušala, bi zdaj Zali tkala odeje sama.",
+          "en": "Today I'd give anything to know how. If I had listened to her back then, I'd be weaving blankets for Zala myself now.",
+          "de": "Heute gäbe ich alles, um es zu können. Hätte ich damals auf sie gehört, würde ich Zala jetzt selbst Decken weben.",
+          "it": "Oggi darei qualunque cosa per saperlo fare. Se allora l'avessi ascoltata, adesso tesserei io le coperte per Zala."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pri desetih letih so ovce pač bolj zabavne kot statve.",
+              "en": "At ten, sheep are simply more fun than a loom.",
+              "de": "Mit zehn sind Schafe eben lustiger als ein Webstuhl.",
+              "it": "A dieci anni le pecore sono semplicemente più divertenti di un telaio.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Res je. Ovce so tekale, jaz za njimi. Lepo je bilo.",
+                "en": "Ha! True. The sheep ran, and I ran after them. It was lovely.",
+                "de": "Ha! Stimmt. Die Schafe liefen, ich hinterher. Schön war's.",
+                "it": "Ah! È vero. Le pecore correvano, e io dietro. Era bello."
+              }
+            },
+            {
+              "sl": "Škoda, da ste se naučili tkati tako pozno.",
+              "en": "A pity you learned to weave so late.",
+              "de": "Schade, dass Sie das Weben so spät gelernt haben.",
+              "it": "Peccato che abbia imparato a tessere così tardi.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Če bi jo bila poslušala, bi tkala is the past conditional: she didn't listen, and can't weave today.",
+                "de": "Če bi jo bila poslušala, bi tkala ist der Konditional der Vergangenheit: sie hat nicht zugehört und kann heute nicht weben.",
+                "it": "Če bi jo bila poslušala, bi tkala è il condizionale passato: non l'ha ascoltata, e oggi non sa tessere."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Naučila? Jaz? Ne znam niti ene vrste, {learner}.",
+                "en": "Learned? Me? I can't do a single row, {learner}.",
+                "de": "Gelernt? Ich? Ich kann keine einzige Reihe, {learner}.",
+                "it": "Imparato? Io? Non so fare nemmeno una riga, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "worried",
+          "sl": "Ampak zdaj je prepozno. Prsti so stari, oči slabe, in kdo bi me še učil?",
+          "en": "But now it's too late. My fingers are old, my eyes are poor, and who would still teach me?",
+          "de": "Aber jetzt ist es zu spät. Die Finger sind alt, die Augen schlecht, und wer würde mich noch lehren?",
+          "it": "Ma ormai è troppo tardi. Le dita sono vecchie, gli occhi deboli, e chi mi insegnerebbe ancora?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Nikar ne skrbite. V Gorici imajo tečaj tkanja. Gremo skupaj, vi, Zala in jaz.",
+              "en": "Don't you worry. They have a weaving course in Gorizia. We'll all go together, you, Zala and me.",
+              "de": "Machen Sie sich bloß keine Sorgen. In Gorizia gibt es einen Webkurs. Wir gehen zusammen, Sie, Zala und ich.",
+              "it": "Non si preoccupi affatto. A Gorizia c'è un corso di tessitura. Andiamo insieme, Lei, Zala e io.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tečaj? Pri mojih letih? … Zakaj pa ne! Zala bo tkala, jaz bom pa zapletala volno.",
+                "en": "A course? At my age? … Why not! Zala will weave, and I'll tangle the wool.",
+                "de": "Ein Kurs? In meinem Alter? … Warum nicht! Zala webt, und ich verheddere die Wolle.",
+                "it": "Un corso? Alla mia età? … Perché no! Zala tesserà, e io ingarbuglierò la lana."
+              }
+            },
+            {
+              "sl": "Nikar ne poskrbite. V Gorici imajo tečaj tkanja. Gremo skupaj, vi, Zala in jaz.",
+              "en": "Don't you see to it. They have a weaving course in Gorizia. We'll all go together, you, Zala and me.",
+              "de": "Kümmern Sie sich bloß nicht darum. In Gorizia gibt es einen Webkurs. Wir gehen zusammen, Sie, Zala und ich.",
+              "it": "Non se ne occupi affatto. A Gorizia c'è un corso di tessitura. Andiamo insieme, Lei, Zala e io.",
+              "grammar": "ukazi",
+              "why": {
+                "en": "Don't takes the imperfective: nikar ne skrbite. Ne poskrbite tells her not to see to something, a mishap to avoid.",
+                "de": "Nicht verlangt den unvollendeten Aspekt: nikar ne skrbite. Ne poskrbite sagt ihr, sich um etwas nicht zu kümmern, als wäre es ein Missgeschick.",
+                "it": "Il non vuole l'imperfettivo: nikar ne skrbite. Ne poskrbite le dice di non occuparsi di qualcosa, come un incidente da evitare."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ne poskrbim? Kdo bo pa potem skrbel za vse vas?",
+                "en": "Not see to it? Then who'll look after the lot of you?",
+                "de": "Mich nicht kümmern? Wer kümmert sich dann um euch alle?",
+                "it": "Non occuparmene? E chi si prenderà cura di tutti voi?"
+              }
+            },
+            {
+              "sl": "Res je prepozno. Raje kupite odejo v trgovini.",
+              "en": "It really is too late. Better buy a blanket in a shop.",
+              "de": "Es ist wirklich zu spät. Kaufen Sie lieber eine Decke im Laden.",
+              "it": "È davvero troppo tardi. Meglio comprare una coperta in negozio.",
+              "why": {
+                "en": "Micka is sad because she missed something, not asking for a blanket: grant that it's late, then give her a way, not a shop.",
+                "de": "Micka ist traurig, weil sie etwas verpasst hat, sie will keine Decke: gib zu, dass es spät ist, und zeig ihr einen Weg, keinen Laden.",
+                "it": "Micka è triste perché ha perso qualcosa, non chiede una coperta: ammetti che è tardi, poi indicale una via, non un negozio."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "V trgovini? Tam pa ni mamine volne, {learner}.",
+                "en": "In a shop? They haven't got Mother's wool there, {learner}.",
+                "de": "Im Laden? Da gibt es Mutters Wolle nicht, {learner}.",
+                "it": "In negozio? Lì non c'è la lana della mamma, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo la parola."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Zdaj pa spi, {learner}. Jutri mi povej, kdaj gremo v Gorico.",
+          "en": "Now off to sleep, {learner}. Tomorrow tell me when we're going to Gorizia.",
+          "de": "Jetzt schlaf, {learner}. Morgen sagst du mir, wann wir nach Gorizia fahren.",
+          "it": "Adesso dormi, {learner}. Domani dimmi quando andiamo a Gorizia."
+        }
+      ]
+    },
+    {
+      "id": "dez-b1-koca",
+      "level": "B1",
+      "memory": {
+        "sl": "kočo na planoti, o kateri sem ti pravil",
+        "en": "the hut on the plateau I told you about",
+        "de": "die Hütte auf der Hochebene, von der ich dir erzählt habe",
+        "it": "la baita sull'altopiano di cui ti ho parlato"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "worried",
+          "sl": "Ej, {learner}! Lahko počakam pri tebi? Moker sem do kože. Ko bi le imel svojo kočo na planoti …",
+          "en": "Hey, {learner}! Can I wait at yours? I'm soaked to the skin. If only I had my own hut on the plateau …",
+          "de": "Hey, {learner}! Kann ich bei dir warten? Ich bin nass bis auf die Haut. Wenn ich nur meine eigene Hütte auf der Hochebene hätte …",
+          "it": "Ehi, {learner}! Posso aspettare da te? Sono bagnato fradicio. Se solo avessi una baita mia sull'altopiano …"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kočo? Kaj bi pa delal v njej, če bi jo imel?",
+              "en": "A hut? And what would you do in it, if you had one?",
+              "de": "Eine Hütte? Und was würdest du darin machen, wenn du eine hättest?",
+              "it": "Una baita? E cosa ci faresti, se l'avessi?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pozimi bi rezljal žlice, poleti pa bi pasel ovce čisto pod oblaki!",
+                "en": "In winter I'd carve spoons, and in summer I'd graze the sheep right under the clouds!",
+                "de": "Im Winter würde ich Löffel schnitzen, und im Sommer würde ich die Schafe direkt unter den Wolken hüten!",
+                "it": "D'inverno intaglierei cucchiai, e d'estate pascolerei le pecore proprio sotto le nuvole!"
+              }
+            },
+            {
+              "sl": "Kočo? Kaj bi pa delal v njej, če bi ga imel?",
+              "en": "A hut? And what would you do in it, if you had him?",
+              "de": "Eine Hütte? Und was würdest du darin machen, wenn du ihn hättest?",
+              "it": "Una baita? E cosa ci faresti, se avessi lui?",
+              "grammar": "spol-samostalnikov",
+              "why": {
+                "en": "Koča is feminine: če bi jo imel. Ga is for a masculine noun.",
+                "de": "Koča ist weiblich: če bi jo imel. Ga ist für ein männliches Nomen.",
+                "it": "Koča è femminile: če bi jo imel. Ga è per un nome maschile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ga? Koga, ovna? Ej, ovna že imam!",
+                "en": "Him? Who, a ram? Hey, I've already got a ram!",
+                "de": "Ihn? Wen, einen Widder? Hey, einen Widder hab ich schon!",
+                "it": "Lui? Chi, un montone? Ehi, il montone ce l'ho già!"
+              }
+            },
+            {
+              "sl": "Kočo? Kaj bi pa delal v njej, če jo boš imel?",
+              "en": "A hut? And what would you do in it, if you'll have one?",
+              "de": "Eine Hütte? Und was würdest du darin machen, wenn du eine haben wirst?",
+              "it": "Una baita? E cosa ci faresti, se l'avrai?",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "The hut is only a dream: kaj bi delal is the conditional, and so is its condition, če bi jo imel. Boš is the future.",
+                "de": "Die Hütte ist nur ein Traum: kaj bi delal ist der Konditional, und auch die Bedingung, če bi jo imel. Boš ist das Futur.",
+                "it": "La baita è solo un sogno: kaj bi delal è il condizionale, e così la condizione, če bi jo imel. Boš è il futuro."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Boš? Ej, bom, bom … enkrat. Ko bom bogat!",
+                "en": "Will? Hey, I will, I will … one day. When I'm rich!",
+                "de": "Wirst? Hey, ja, ja … irgendwann. Wenn ich reich bin!",
+                "it": "L'avrai? Ehi, sì, sì … un giorno. Quando sarò ricco!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Dež je preglasen!",
+            "en": "Hey, what? The rain's too loud!",
+            "de": "Hey, was? Der Regen ist zu laut!",
+            "it": "Ehi, cosa? La pioggia fa troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Mama pravi, da sem nor, ker hočem živeti sam v gorah. Kaj praviš ti?",
+          "en": "Mum says I'm mad, because I want to live alone in the mountains. What do you say?",
+          "de": "Mama sagt, ich bin verrückt, weil ich allein in den Bergen leben will. Was meinst du?",
+          "it": "La mamma dice che sono matto, perché voglio vivere da solo in montagna. Tu che dici?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Nisi nor. Povej mami, da boš ob nedeljah prihajal domov na kosilo.",
+              "en": "You're not mad. Tell your mum you'll come home for lunch on Sundays.",
+              "de": "Du bist nicht verrückt. Sag deiner Mama, dass du sonntags zum Mittagessen heimkommst.",
+              "it": "Non sei matto. Di' alla mamma che la domenica tornerai a casa per pranzo.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Na kosilo! Ej, to jo bo prepričalo. Za njeno polento bi prišel tudi s Triglava.",
+                "en": "For lunch! Hey, that'll convince her. For her polenta I'd come down even from Triglav.",
+                "de": "Zum Mittagessen! Hey, das wird sie überzeugen. Für ihre Polenta käme ich sogar vom Triglav.",
+                "it": "Per pranzo! Ehi, questo la convincerà. Per la sua polenta scenderei anche dal Tricorno."
+              }
+            },
+            {
+              "sl": "Nisi nor. Povej mami, da boš ob nedeljah prišel domov na kosilo.",
+              "en": "You're not mad. Tell your mum you'll come home for lunch on Sundays (once).",
+              "de": "Du bist nicht verrückt. Sag deiner Mama, dass du sonntags (einmal) zum Mittagessen heimkommst.",
+              "it": "Non sei matto. Di' alla mamma che la domenica tornerai (una volta) a casa per pranzo.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Ob nedeljah is again and again: the imperfective, boš prihajal. Prišel is coming once, done.",
+                "de": "Ob nedeljah ist immer wieder: der unvollendete Aspekt, boš prihajal. Prišel ist einmal kommen, erledigt.",
+                "it": "Ob nedeljah è ancora e ancora: l'imperfettivo, boš prihajal. Prišel è venire una volta, e basta."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Enkrat? Mama bo hotela vsako nedeljo, ej!",
+                "en": "Once? Mum will want every Sunday, hey!",
+                "de": "Einmal? Mama will jeden Sonntag, hey!",
+                "it": "Una volta? La mamma vorrà ogni domenica, ehi!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Dež je preglasen!",
+            "en": "Hey, what? The rain's too loud!",
+            "de": "Hey, was? Der Regen ist zu laut!",
+            "it": "Ehi, cosa? La pioggia fa troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Dež je nehal. Hvala, {learner}! Ko bo koča gotova, boš {m:moj prvi gost|f:moja prva gostja}.",
+          "en": "The rain's stopped. Thanks, {learner}! When the hut is finished, you'll be my first guest.",
+          "de": "Der Regen hat aufgehört. Danke, {learner}! Wenn die Hütte fertig ist, bist du mein erster Gast.",
+          "it": "Ha smesso di piovere. Grazie, {learner}! Quando la baita sarà pronta, sarai {m:il mio primo ospite|f:la mia prima ospite}."
+        }
+      ]
+    },
+    {
+      "id": "dez-b2-ljubljana",
+      "level": "B2",
+      "memory": {
+        "sl": "dan, ko si mi {m:rekel|f:rekla}, da nisem nič zamudil",
+        "en": "the day you told me I hadn't missed out on anything",
+        "de": "den Tag, als du mir gesagt hast, dass ich nichts verpasst habe",
+        "it": "il giorno in cui mi hai detto che non mi sono perso niente"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Ej, {learner}, dež mi da čas za misli. Oče pravi, da bi bil moral iti študirat v Ljubljano, ne pa pasti ovce.",
+          "en": "Hey, {learner}, the rain gives me time to think. Dad says I should have gone to study in Ljubljana, not graze sheep.",
+          "de": "Hey, {learner}, der Regen gibt mir Zeit zum Nachdenken. Papa sagt, ich hätte zum Studieren nach Ljubljana gehen sollen, statt Schafe zu hüten.",
+          "it": "Ehi, {learner}, la pioggia mi dà il tempo di pensare. Papà dice che sarei dovuto andare a studiare a Lubiana, invece di pascolare le pecore."
+        },
+        {
+          "who": "luka",
+          "face": "sad",
+          "sl": "Pravi, da bi zdaj že imel službo, avto in dekle v mestu. Jaz pa imam dež, ovce in tebe.",
+          "en": "He says I'd have a job by now, a car and a girlfriend in town. And I've got rain, sheep and you.",
+          "de": "Er sagt, ich hätte jetzt schon einen Job, ein Auto und eine Freundin in der Stadt. Und ich habe Regen, Schafe und dich.",
+          "it": "Dice che adesso avrei già un lavoro, una macchina e una ragazza in città. E io ho la pioggia, le pecore e te."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tvoj oče misli, da si zamudil priložnost. Ti pa tega ne misliš, kajne?",
+              "en": "Your dad thinks you missed a chance. But you don't think so, do you?",
+              "de": "Dein Vater meint, du hast eine Chance verpasst. Du aber nicht, oder?",
+              "it": "Tuo padre pensa che tu abbia perso un'occasione. Tu però non lo pensi, vero?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ne. Bolje vrabec v roki kot golob na strehi. Ovce so moj vrabec.",
+                "en": "No. A bird in the hand is worth two in the bush. The sheep are my bird in the hand.",
+                "de": "Nein. Lieber den Spatz in der Hand als die Taube auf dem Dach. Die Schafe sind mein Spatz.",
+                "it": "No. Meglio un uovo oggi che una gallina domani. Le pecore sono il mio uovo."
+              }
+            },
+            {
+              "sl": "Torej si bil v Ljubljani, pa si se vrnil?",
+              "en": "So you were in Ljubljana, and came back?",
+              "de": "Du warst also in Ljubljana und bist zurückgekommen?",
+              "it": "Quindi sei stato a Lubiana, e sei tornato?",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Bi bil moral iti is the past conditional: he should have gone, his father says, and didn't.",
+                "de": "Bi bil moral iti ist der Konditional der Vergangenheit: er hätte gehen sollen, sagt sein Vater, und ging nicht.",
+                "it": "Bi bil moral iti è il condizionale passato: sarebbe dovuto andare, dice il padre, e non è andato."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "V Ljubljani? Jaz? Enkrat, na izletu, pa sem se izgubil!",
+                "en": "In Ljubljana? Me? Once, on a school trip, and I got lost!",
+                "de": "In Ljubljana? Ich? Einmal, auf einem Ausflug, und ich habe mich verlaufen!",
+                "it": "A Lubiana? Io? Una volta, in gita, e mi sono perso!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Dež je preglasen!",
+            "en": "Hey, what? The rain's too loud!",
+            "de": "Hey, was? Der Regen ist zu laut!",
+            "it": "Ehi, cosa? La pioggia fa troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "curious",
+          "sl": "Ampak včasih se vprašam: kaj, če ima prav? Kaj bi ti {m:naredil|f:naredila} pri mojih letih?",
+          "en": "But sometimes I wonder: what if he's right? What would you do at my age?",
+          "de": "Aber manchmal frage ich mich: Was, wenn er recht hat? Was würdest du in meinem Alter tun?",
+          "it": "Però a volte mi chiedo: e se avesse ragione? Tu cosa faresti alla mia età?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jaz bi {m:ostal|f:ostala} pri ovcah. Kdor dela, kar ima rad, ni nič zamudil.",
+              "en": "I'd stay with the sheep. Whoever does what they love has missed out on nothing.",
+              "de": "Ich würde bei den Schafen bleiben. Wer tut, was er liebt, hat nichts verpasst.",
+              "it": "Io resterei con le pecore. Chi fa quello che ama non si è perso niente.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Ej, to si pa lepo {m:povedal|f:povedala}. To bom rekel očetu, ko bo spet začel.",
+                "en": "Hey, that's nicely put. I'll tell Dad that, next time he starts.",
+                "de": "Hey, das hast du schön gesagt. Das sage ich Papa, wenn er wieder anfängt.",
+                "it": "Ehi, detto bene. Lo dirò a papà, la prossima volta che comincia."
+              }
+            },
+            {
+              "sl": "Jaz bi {m:ostal|f:ostala} pri ovcah. Ki dela, kar ima rad, ni nič zamudil.",
+              "en": "I'd stay with the sheep. Who does what they love has missed out on nothing.",
+              "de": "Ich würde bei den Schafen bleiben. Der tut, was er liebt, hat nichts verpasst.",
+              "it": "Io resterei con le pecore. Che fa quello che ama non si è perso niente.",
+              "grammar": "oziralni-kateri",
+              "why": {
+                "en": "With no noun before it, whoever is the relative pronoun kdor: kdor dela, kar ima rad. Ki needs a noun to refer to.",
+                "de": "Ohne Nomen davor ist wer das Relativpronomen kdor: kdor dela, kar ima rad. Ki braucht ein Nomen, auf das es sich bezieht.",
+                "it": "Senza un nome davanti, chi è il pronome relativo kdor: kdor dela, kar ima rad. Ki ha bisogno di un nome a cui riferirsi."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ki … kdo? Ej, govoriš kot megla: nič se ne vidi!",
+                "en": "Who … who? Hey, you talk like the fog: you can't see a thing!",
+                "de": "Der … wer? Hey, du redest wie der Nebel: man sieht nichts!",
+                "it": "Che … chi? Ehi, parli come la nebbia: non si vede niente!"
+              }
+            },
+            {
+              "sl": "Jaz bi takoj {m:šel|f:šla} v Ljubljano. Ovce so dolgočasne.",
+              "en": "I'd go to Ljubljana at once. Sheep are boring.",
+              "de": "Ich würde sofort nach Ljubljana gehen. Schafe sind langweilig.",
+              "it": "Io andrei subito a Lubiana. Le pecore sono noiose.",
+              "why": {
+                "en": "Luka loves his sheep and the mountains; he asks your view hoping to be understood. Calling the sheep boring misses that.",
+                "de": "Luka liebt seine Schafe und die Berge; er fragt nach deiner Meinung und hofft, verstanden zu werden. Schafe langweilig zu nennen verfehlt das.",
+                "it": "Luka ama le sue pecore e le montagne; ti chiede cosa ne pensi sperando di essere capito. Chiamare noiose le pecore non lo coglie."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Dolgočasne? Bela je vsak dan na drugem koncu sveta, ej!",
+                "en": "Boring? Bela's at the other end of the world every day, hey!",
+                "de": "Langweilig? Bela ist jeden Tag am anderen Ende der Welt, hey!",
+                "it": "Noiose? Bela ogni giorno è dall'altra parte del mondo, ehi!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Dež je preglasen!",
+            "en": "Hey, what? The rain's too loud!",
+            "de": "Hey, was? Der Regen ist zu laut!",
+            "it": "Ehi, cosa? La pioggia fa troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Dež je nehal. Grem k ovcam, preden se Bela spet izgubi. Hvala, {learner}!",
+          "en": "The rain's stopped. I'm off to the sheep before Bela gets lost again. Thanks, {learner}!",
+          "de": "Der Regen hat aufgehört. Ich geh zu den Schafen, bevor Bela sich wieder verläuft. Danke, {learner}!",
+          "it": "Ha smesso di piovere. Vado dalle pecore prima che Bela si perda di nuovo. Grazie, {learner}!"
+        }
       ]
     }
   ]

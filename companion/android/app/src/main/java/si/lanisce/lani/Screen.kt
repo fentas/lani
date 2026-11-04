@@ -86,6 +86,11 @@ sealed interface Screen {
     data class CourseUnit(val id: String) : Screen
     /** Unit [id]'s guided introduction (ui/school/IntroScreen): steps with a quick question each, resumable. */
     data class UnitIntro(val id: String) : Screen
+    /**
+     * "🧭 Uvrstitveni test · Placement test" (ui/school/PlacementScreen, game/LevelPlacement): what it is, its probes, and
+     * where the learner starts.
+     */
+    data object Placement : Screen
     /** A sheet of unit [unit]: a worksheet, its test or homework ([kind], [sheet]); [run] tells one run from the next. */
     data class Sheet(val unit: String, val kind: si.lanisce.lani.app.SheetKind, val sheet: String, val run: Int = 0) : Screen
     /**
@@ -119,7 +124,8 @@ sealed interface Screen {
 /** An exercise run: leaving it now would lose the answers so far. */
 val Screen.inRun: Boolean
     get() = this is Screen.Review || this is Screen.Player || this is Screen.Challenge || this is Screen.PackLearn || this is Screen.VisitRequest ||
-        this is Screen.GrammarPractice || this is Screen.UpgradeWords || this is Screen.Sheet || this is Screen.NumbersRun || this is Screen.CasesRun
+        this is Screen.GrammarPractice || this is Screen.UpgradeWords || this is Screen.Sheet || this is Screen.NumbersRun || this is Screen.CasesRun ||
+        this is Screen.Placement
 
 /** What a village challenge answers to. */
 sealed interface ChallengeOrigin {

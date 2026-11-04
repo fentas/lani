@@ -61,6 +61,7 @@ import { grammarDir, GrammarStore } from './grammar'
 import { setting } from './env'
 import { addressed, bearer, json, loadToken, router, type Role, type Route } from './http'
 import { FormsBook } from './forms'
+import { Paradigms } from './paradigms'
 import { caseTriggersPath, CaseTriggersFile } from './case-triggers'
 import { Learner } from './learner'
 import { languageParts } from './tutor-languages'
@@ -331,6 +332,8 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     dictionary: {
       dict: new Lexicon({ dir: lexiconDir, language, base: learnerLangs(dataDir, language).base, tutorFile: join(appDir, 'lexicon.json'), log }),
       book: new FormsBook({ dir: lexiconDir, language, log }),
+      // Italian's, German's and English's forms: the content's words by slot (lexicon/<language>.paradigms.json)
+      paradigms: new Paradigms({ dir: lexiconDir, language, log }),
       language,
       triggers: new CaseTriggersFile(caseTriggersPath(env.LANI_GRAMMAR_DIR ?? join(projectDir, 'companion/grammar'), language), log),
     },

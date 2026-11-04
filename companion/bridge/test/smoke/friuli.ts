@@ -144,6 +144,17 @@ export default async function friuli() {
     // what is Slovene's alone stays out of an Italian village: a word's forms by slot, counting and forms cards
     const forms = await (await fetch(`${base}/forms?w=mangiare&w=casa`, { headers: auth })).json()
     check('friuli: GET /forms answers no table for an Italian word (the slots, pages and tables are Slovene\'s): the word card shows none', forms.language === 'it' && forms.words.length === 2 && forms.words.every((w: any) => Array.isArray(w.entries) && w.entries.length === 0) && forms.attribution === null, forms)
+    // an app that reads Italian's own tables asks with v=2 (paradigms.ts): an older one (Teo's tablet) gets none, as above
+    const forms2 = await (await fetch(`${base}/forms?w=mangiare&w=casa&w=andare&v=2`, { headers: auth })).json()
+    const [mangiare2, casa2, andare2] = forms2.words.map((w: any) => w.entries[0])
+    const at2 = (e: any, k: string) => e?.slots.find((s: any) => s.key === k)
+    check(
+      "friuli: GET /forms with v=2 answers Italian's tables: mangiare's present on presente-regolare, its participle with avere, casa's plural on plurale, andare's vado on verbi-irregolari and andato on passato-prossimo with essere; Wiktionary's attribution",
+      forms2.language === 'it' && mangiare2?.language === 'it' && at2(mangiare2, 'pres.1sg')?.forms[0] === 'mangio' && at2(mangiare2, 'pres.1sg').page === 'presente-regolare' && mangiare2.aux?.[0] === 'avere' && at2(mangiare2, 'pp')?.forms[0] === 'mangiato' &&
+        at2(casa2, 'pl')?.forms[0] === 'case' && at2(casa2, 'pl').page === 'plurale' && casa2.gender === 'f' && at2(andare2, 'pres.1sg')?.page === 'verbi-irregolari' && at2(andare2, 'pp')?.page === 'passato-prossimo' && andare2.aux?.[0] === 'essere' &&
+        forms2.attribution === 'Wiktionary (CC BY-SA 4.0) via kaikki.org',
+      forms2,
+    )
     const features = (await (await fetch(`${base}/state`, { headers: auth })).json()).features
     check("friuli: GET /state's features say no counting cards and no forms cards (Slovene's), the rest as for Jan", Array.isArray(features) && !features.includes('counting') && !features.includes('forms-cards') && features.includes('dialog-words') && features.includes('explanations'), features)
     const rosaName = await lookup('w=Rosa')

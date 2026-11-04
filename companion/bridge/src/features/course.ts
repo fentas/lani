@@ -41,8 +41,10 @@ text also comes to you as an answer, for your feedback (see answer).
 /** A sheet's best try in the village state (GameState.course: units[…].sheets[id], units[…].test). */
 type Try = { right?: number; almost?: number; of?: number; day?: string; tries?: number }
 /** A unit's place in the village state, by "<language>/<unit id>" (companion/COURSE.md, "The learner's progress"). */
-type UnitProgress = { started?: string; intro?: number; introDone?: boolean; sheets?: Record<string, Try>; test?: Try; done?: string | null; testedOut?: boolean }
-type CourseProgress = { classroom?: string | null; opened?: Record<string, string>; units?: Record<string, UnitProgress> }
+type UnitProgress = { started?: string; intro?: number; introDone?: boolean; sheets?: Record<string, Try>; test?: Try; done?: string | null; testedOut?: boolean; placed?: boolean }
+/** The placement test's result the learner took (the app's Placed: game/School.kt; companion/COURSE.md "The placement test"). */
+type Placed = { day?: string; from?: string; level?: string; start?: string | null; part?: number; parts?: number; units?: number; right?: number; almost?: number; of?: number; child?: boolean }
+type CourseProgress = { classroom?: string | null; opened?: Record<string, string>; units?: Record<string, UnitProgress>; placements?: Record<string, Placed> }
 
 const count = (v: unknown) => (Number.isInteger(v) && (v as number) > 0 ? (v as number) : 0)
 /** A try as "right/of" ("6/8, 1 almost"). */
@@ -119,7 +121,12 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
     const opened = obj<Record<string, string>>(p.opened) ?? {}
     const units = obj<Record<string, UnitProgress>>(p.units) ?? {}
     const school = (Array.isArray(state.buildings) ? state.buildings : []).find((b: any) => b?.type === 'SCHOOL') as { level?: number } | undefined
-    const head = { language: own, classroom: typeof p.classroom === 'string' ? p.classroom : null, school: school ? count(school.level) || 1 : null }
+    // the placement test the learner took in this language: when, where the school went on, the units it marked
+    const placed = obj<Placed>(obj<Record<string, Placed>>(p.placements)?.[own])
+    const placement = placed && typeof placed.day === 'string'
+      ? { placement: { day: placed.day, from: placed.from, level: placed.level, start: placed.start ? (count(placed.parts) > 1 ? `${placed.start} ${count(placed.part)}/${count(placed.parts)}` : placed.start) : null, units_marked: count(placed.units), ...(placed.child ? { child: true } : {}) } }
+      : {}
+    const head = { language: own, classroom: typeof p.classroom === 'string' ? p.classroom : null, school: school ? count(school.level) || 1 : null, ...placement }
     const topics = topicsLookedUp(state.sheet, own, localDate(new Date()), grammar.all())
     const looked = topics.length ? { looked_up: topics.map(t => ({ ...t, ...(c ? { units: c.units.filter(u => u.grammar.includes(t.page)).map(u => u.id) } : {}) })) } : {}
     if (!c) return { ...head, course: null, note: `no course in this village's language yet (companion/course/${own}/course.json)`, ...looked }
@@ -141,6 +148,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
           title: textIn(u.title, 'en'),
           done,
           ...(at.testedOut ? { tested_out: true } : {}),
+          ...(at.placed ? { placed: true } : {}),
           ...(at.started ? { started: at.started } : {}),
           intro: `${Math.min(count(at.intro), u.intro.steps.length)}/${u.intro.steps.length}`,
           intro_done: !!at.introDone,
@@ -226,7 +234,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
       {
         name: 'get_course',
         description:
-          `The school's course in this village's language and where Jan is in it: the classroom (the day the class began, with Zaselek; null: not yet, or a village whose school stood first), the school's level (null: not built), and per level (${LEVELS.slice(0, 4).join(', ')} …) whether it is open and its units done; per unit its intro (steps done/of, intro_done), its worksheets done/of and the best try of each sheet (right/of, almost), the test (pass mark, best try, tries), the day it was done (tested_out: passed without the worksheets) and your homework ids; next: the first unit to do. Planned units are listed, not playable yet. looked_up (left out when none): the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first (page, title, n answers given with one of its cards open, the last day, units: the course's units that teach it): work potential, suggest the unit or homework on it.`,
+          `The school's course in this village's language and where Jan is in it: the classroom (the day the class began, with Zaselek; null: not yet, or a village whose school stood first), the school's level (null: not built), and per level (${LEVELS.slice(0, 4).join(', ')} …) whether it is open and its units done; per unit its intro (steps done/of, intro_done), its worksheets done/of and the best try of each sheet (right/of, almost), the test (pass mark, best try, tries), the day it was done (tested_out: passed without the worksheets; placed: marked done by the placement test) and your homework ids; next: the first unit to do. placement (left out when none): the placement test the learner took (its day, the level before and the one it set, where the school went on, the units it marked). Planned units are listed, not playable yet. looked_up (left out when none): the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first (page, title, n answers given with one of its cards open, the last day, units: the course's units that teach it): work potential, suggest the unit or homework on it.`,
         inputSchema: { type: 'object', properties: {} },
         handle: () => ok(JSON.stringify(whereNow(store.served()), null, 2)),
       },

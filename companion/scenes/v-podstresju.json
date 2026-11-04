@@ -4,7 +4,7 @@
   "title": { "sl": "V podstrešju", "en": "In the attic", "de": "Auf dem Dachboden", "it": "In soffitta" },
   "emoji": "🛏️",
   "level": "A2",
-  "review": "sl, en, de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker; checked against Fran 2026-10-30: pote, ob osem (spoken); to check: Ura je sedmih",
+  "review": "sl, en, de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not native-reviewed; checked against Fran 2026-10-30: pote, ob osem (spoken); to check: Ura je sedmih",
   "art": "attic",
   "from": ["house"],
   "household": ["vida", "nejc"],
@@ -34,10 +34,10 @@
       "when": ["dawn", "morning"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "vstani", "dialogs": ["vstani-umij", "vstani-ribnik", "vstani"], "reward": { "food": 15 }, "marker": "⏰", "act": { "nejc": { "to": "in-bed" } },
       "memory": { "sl": "jutro, ko si me {m:zbudil|f:zbudila} za šolo", "en": "the morning you woke me up for school", "de": "den Morgen, an dem du mich für die Schule geweckt hast", "it": "la mattina in cui mi hai svegliato per la scuola" } },
     { "id": "zibelka", "title": { "sl": "Vida pospravlja podstrešje", "en": "Vida is tidying the attic", "de": "Vida räumt den Dachboden auf", "it": "Vida mette in ordine la soffitta" }, "who": "vida",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "zibelka", "dialogs": ["zibelka-kapica", "zibelka"], "reward": { "wisdom": 20 }, "marker": "👶",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "zibelka", "dialogs": ["zibelka-b2-wagner", "zibelka-b1-pismo", "zibelka-kapica", "zibelka"], "reward": { "wisdom": 20 }, "marker": "👶",
       "memory": { "sl": "staro zibelko, ki sva jo {m:pokrila|f:pokrili} z odejo", "en": "the old cradle we covered with the blanket", "de": "die alte Wiege, die wir mit der Decke zugedeckt haben", "it": "la vecchia culla che abbiamo coperto con la coperta" } },
     { "id": "burja", "title": { "sl": "Nejc ne more spati", "en": "Nejc can't sleep", "de": "Nejc kann nicht schlafen", "it": "Nejc non riesce a dormire" }, "who": "nejc",
-      "when": ["night"], "chance": 0.5, "dialog": "burja", "dialogs": ["burja-zgodba", "burja-okno", "burja"], "reward": { "wood": 15 }, "marker": "🌬️", "needs": { "level": 2 }, "act": { "nejc": { "to": "in-bed" } },
+      "when": ["night"], "chance": 0.5, "dialog": "burja", "dialogs": ["burja-b2-skodelica", "burja-b1-zmaj", "burja-zgodba", "burja-okno", "burja"], "reward": { "wood": 15 }, "marker": "🌬️", "needs": { "level": 2 }, "act": { "nejc": { "to": "in-bed" } },
       "memory": { "sl": "noč, ko je burja tulila na strehi", "en": "the night the burja howled on the roof", "de": "die Nacht, in der die Bora auf dem Dach heulte", "it": "la notte in cui la bora ululava sul tetto" } }
   ],
   "dialogs": [
@@ -288,6 +288,573 @@
         ] },
         { "who": "nejc", "sl": "Burja je že tišja. Lahko noč, {learner}.", "en": "The burja's quieter already. Good night, {learner}.", "de": "Die Bora ist schon leiser. Gute Nacht, {learner}.", "it": "La bora è già più calma. Buona notte, {learner}.",
           "sky": { "wind": 0.4 } }
+      ]
+    },
+    {
+      "id": "zibelka-b1-pismo",
+      "level": "B1",
+      "memory": {
+        "sl": "babičino pismo iz skrinje",
+        "en": "Grandma's letter from the chest",
+        "de": "Omas Brief aus der Truhe",
+        "it": "la lettera della nonna nella cassapanca"
+      },
+      "lines": [
+        {
+          "who": "vida",
+          "face": "happy",
+          "sl": "{learner}, v skrinji sem našla babičino pismo. Piše, da je zibelko naredil njen oče, iz češnjevega lesa.",
+          "en": "{learner}, I found Grandma's letter in the chest. She writes that her father made the cradle, from cherry wood.",
+          "de": "{learner}, in der Truhe habe ich Omas Brief gefunden. Sie schreibt, ihr Vater habe die Wiege gemacht, aus Kirschholz.",
+          "it": "{learner}, nella cassapanca ho trovato una lettera della nonna. Scrive che la culla l'ha fatta suo padre, in legno di ciliegio."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ali piše tudi, kdaj jo je naredil?",
+              "en": "Does she also write when he made it?",
+              "de": "Schreibt sie auch, wann er sie gemacht hat?",
+              "it": "Scrive anche quando l'ha fatta?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ja! Leta 1921, za svojo prvo hčerko. Za mojo babico.",
+                "en": "Yes! In 1921, for his first daughter. For my grandma.",
+                "de": "Ja! 1921, für seine erste Tochter. Für meine Oma.",
+                "it": "Sì! Nel 1921, per la sua prima figlia. Per mia nonna."
+              }
+            },
+            {
+              "sl": "Ali piše tudi, kdaj je jo naredil?",
+              "en": "Does she also write when he made it?",
+              "de": "Schreibt sie auch, wann er sie gemacht hat?",
+              "it": "Scrive anche quando l'ha fatta?",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words keep one order: whom (jo) comes before je: kdaj jo je naredil.",
+                "de": "Die kurzen Wörter haben eine feste Reihenfolge: wen (jo) kommt vor je: kdaj jo je naredil.",
+                "it": "Le paroline hanno un ordine fisso: chi (jo) viene prima di je: kdaj jo je naredil."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Bitte, počasi. Besede so se vam zmešale kot perilo.",
+                "en": "Hm? Bitte, slowly. Your words got muddled like the laundry.",
+                "de": "Hm? Bitte, langsam. Ihre Wörter sind durcheinander wie die Wäsche.",
+                "it": "Mm? Bitte, piano. Le parole Le si sono mescolate come il bucato."
+              }
+            },
+            {
+              "sl": "Ali piše tudi, kdaj jo dela?",
+              "en": "Does she also write when he's making it?",
+              "de": "Schreibt sie auch, wann er sie macht?",
+              "it": "Scrive anche quando la sta facendo?",
+              "grammar": "pretekli-cas",
+              "why": {
+                "en": "The cradle was made long ago: the past, kdaj jo je naredil. Dela is now.",
+                "de": "Die Wiege wurde vor langer Zeit gemacht: die Vergangenheit, kdaj jo je naredil. Dela ist jetzt.",
+                "it": "La culla è stata fatta tanto tempo fa: il passato, kdaj jo je naredil. Dela è adesso."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Dela? Ta mož že dolgo počiva, {learner}.",
+                "en": "Making it? That man has been at rest a long time, {learner}.",
+                "de": "Macht? Der Mann ruht schon lange, {learner}.",
+                "it": "La sta facendo? Quell'uomo riposa da tanto, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Bitte, še enkrat.",
+            "en": "Sorry? Bitte, once more.",
+            "de": "Wie bitte? Bitte, noch einmal.",
+            "it": "Come, scusi? Bitte, ancora una volta."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "worried",
+          "sl": "Ampak zibelka je razpokana. Nejc pravi, naj jo vržem v ogenj, ker je stara. Kaj pa vi mislite?",
+          "en": "But the cradle is cracked. Nejc says I should throw it on the fire, because it's old. What do you think?",
+          "de": "Aber die Wiege ist gesprungen. Nejc sagt, ich soll sie ins Feuer werfen, weil sie alt ist. Was meinen Sie?",
+          "it": "Ma la culla è crepata. Nejc dice di buttarla nel fuoco, perché è vecchia. Lei cosa ne pensa?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jaz bi jo {m:dal|f:dala} popraviti, ker je spomin na vašo družino.",
+              "en": "I'd have it repaired, because it's a keepsake of your family.",
+              "de": "Ich würde sie reparieren lassen, weil sie eine Erinnerung an Ihre Familie ist.",
+              "it": "Io la farei riparare, perché è un ricordo della Sua famiglia.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav pravite. Ko bo Nejc imel otroke, bo vesel, da je nismo vrgli v ogenj.",
+                "en": "You're right. When Nejc has children, he'll be glad we didn't throw it on the fire.",
+                "de": "Recht haben Sie. Wenn Nejc Kinder hat, wird er froh sein, dass wir sie nicht ins Feuer geworfen haben.",
+                "it": "Ha ragione. Quando Nejc avrà dei figli, sarà contento che non l'abbiamo buttata nel fuoco."
+              }
+            },
+            {
+              "sl": "Jaz jo bom {m:dal|f:dala} popraviti, ker je spomin na vašo družino.",
+              "en": "I'll have it repaired, because it's a keepsake of your family.",
+              "de": "Ich werde sie reparieren lassen, weil sie eine Erinnerung an Ihre Familie ist.",
+              "it": "La farò riparare io, perché è un ricordo della Sua famiglia.",
+              "grammar": "pogojnik",
+              "why": {
+                "en": "Vida asks for your view: what you would do is the conditional, jaz bi jo {m:dal|f:dala} popraviti. Bom is the future, a plan of your own.",
+                "de": "Vida fragt nach deiner Meinung: was du tun würdest, ist der Konditional, jaz bi jo {m:dal|f:dala} popraviti. Bom ist das Futur, ein eigener Plan.",
+                "it": "Vida chiede la tua opinione: ciò che faresti è il condizionale, jaz bi jo {m:dal|f:dala} popraviti. Bom è il futuro, un tuo progetto."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Vi? Saj ni vaša, {learner}! Ampak hvala, danke.",
+                "en": "You? But it isn't yours, {learner}! Thank you all the same, danke.",
+                "de": "Sie? Sie gehört doch nicht Ihnen, {learner}! Aber danke.",
+                "it": "Lei? Ma non è Sua, {learner}! Però grazie, danke."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Bitte, še enkrat.",
+            "en": "Sorry? Bitte, once more.",
+            "de": "Wie bitte? Bitte, noch einmal.",
+            "it": "Come, scusi? Bitte, ancora una volta."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "laugh",
+          "sl": "Nejcu pa ne bom povedala, da ste mi vi svetovali. Bitte, naj ostane med nama!",
+          "en": "But I won't tell Nejc it was your advice. Bitte, let's keep it between us!",
+          "de": "Aber Nejc sage ich nicht, dass Sie mir das geraten haben. Bitte, das bleibt unter uns!",
+          "it": "Ma a Nejc non dirò che me l'ha consigliato Lei. Bitte, che resti tra noi!"
+        }
+      ]
+    },
+    {
+      "id": "zibelka-b2-wagner",
+      "level": "B2",
+      "memory": {
+        "sl": "pismo gospodu Wagnerju, ki sem mu ga končno napisala",
+        "en": "the letter to Mr Wagner that I finally wrote him",
+        "de": "den Brief an Herrn Wagner, den ich ihm endlich geschrieben habe",
+        "it": "la lettera al signor Wagner che finalmente gli ho scritto"
+      },
+      "lines": [
+        {
+          "who": "vida",
+          "face": "thinking",
+          "sl": "{learner}, v skrinji so stara pisma. To je od gospoda Wagnerja iz Bavarske. Dvajset let je vsako poletje prišel na joto.",
+          "en": "{learner}, there are old letters in the chest. This one is from Mr Wagner from Bavaria. For twenty years he came for jota every summer.",
+          "de": "{learner}, in der Truhe sind alte Briefe. Der hier ist von Herrn Wagner aus Bayern. Zwanzig Jahre lang kam er jeden Sommer zur Jota.",
+          "it": "{learner}, nella cassapanca ci sono vecchie lettere. Questa è del signor Wagner, dalla Baviera. Per vent'anni è venuto ogni estate per la jota."
+        },
+        {
+          "who": "vida",
+          "face": "worried",
+          "sl": "Lani ga prvič ni bilo. Moral bi bil priti julija, kot vedno. Ampak ni prišel in ni pisal.",
+          "en": "Last year, for the first time, he wasn't there. He should have come in July, as always. But he didn't come and didn't write.",
+          "de": "Letztes Jahr kam er zum ersten Mal nicht. Er hätte im Juli kommen sollen, wie immer. Aber er kam nicht und schrieb nicht.",
+          "it": "L'anno scorso, per la prima volta, non c'era. Sarebbe dovuto venire a luglio, come sempre. Ma non è venuto e non ha scritto."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Morda vam je pisal v Trnovo, ker ne ve, da ste se preselili.",
+              "en": "Maybe he wrote to you in Trnovo, because he doesn't know you've moved.",
+              "de": "Vielleicht hat er Ihnen nach Trnovo geschrieben, weil er nicht weiß, dass Sie umgezogen sind.",
+              "it": "Forse Le ha scritto a Trnovo, perché non sa che si è trasferita.",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "sl": "V Trnovo! Seveda … Saj ni vedel, da sem odšla. Kako nisem pomislila na to?",
+                "en": "To Trnovo! Of course … He didn't know I'd left. How didn't I think of that?",
+                "de": "Nach Trnovo! Natürlich … Er wusste ja nicht, dass ich weg bin. Wie konnte ich nicht daran denken?",
+                "it": "A Trnovo! Certo … Non sapeva che me ne ero andata. Come ho fatto a non pensarci?"
+              }
+            },
+            {
+              "sl": "Saj je prišel, julija, kot vedno.",
+              "en": "But he did come, in July, as always.",
+              "de": "Er ist doch gekommen, im Juli, wie immer.",
+              "it": "Ma è venuto, a luglio, come sempre.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Moral bi bil priti is the past conditional: he should have come, and didn't.",
+                "de": "Moral bi bil priti ist der Konditional der Vergangenheit: er hätte kommen sollen, und kam nicht.",
+                "it": "Moral bi bil priti è il condizionale passato: sarebbe dovuto venire, e non è venuto."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Prišel? Ne, ne. Julija je bila njegova miza prazna.",
+                "en": "Came? No, no. In July his table stood empty.",
+                "de": "Gekommen? Nein, nein. Im Juli blieb sein Tisch leer.",
+                "it": "Venuto? No, no. A luglio il suo tavolo è rimasto vuoto."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Bitte, še enkrat.",
+            "en": "Sorry? Bitte, once more.",
+            "de": "Wie bitte? Bitte, noch einmal.",
+            "it": "Come, scusi? Bitte, ancora una volta."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "worried",
+          "sl": "Bi mu pisala jaz? Ampak kaj, če me je pozabil? Ali pa je umrl, in bom pisala v prazno …",
+          "en": "Should I write to him? But what if he's forgotten me? Or he's died, and I'll be writing to no one …",
+          "de": "Soll ich ihm schreiben? Aber was, wenn er mich vergessen hat? Oder er ist gestorben, und ich schreibe ins Leere …",
+          "it": "Gli scrivo io? Ma se mi ha dimenticata? O se è morto, e scrivo al vuoto …"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda vas je strah, ampak pišite mu čim prej. Bolje pismo v prazno kot vprašanje za vse življenje.",
+              "en": "Of course you're afraid, but write to him as soon as you can. Better a letter to no one than a question for life.",
+              "de": "Natürlich haben Sie Angst, aber schreiben Sie ihm so bald wie möglich. Besser ein Brief ins Leere als eine Frage fürs ganze Leben.",
+              "it": "Certo che ha paura, ma gli scriva il prima possibile. Meglio una lettera al vuoto che una domanda per tutta la vita.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav imate. Danes zvečer, ko gostje odidejo. V nemščini, bitte, s slovarjem!",
+                "en": "You're right. Tonight, when the guests have gone. In German, bitte, with a dictionary!",
+                "de": "Recht haben Sie. Heute Abend, wenn die Gäste weg sind. Auf Deutsch, bitte, mit dem Wörterbuch!",
+                "it": "Ha ragione. Stasera, quando gli ospiti se ne vanno. In tedesco, bitte, col dizionario!"
+              }
+            },
+            {
+              "sl": "Seveda vas je strah, ampak pišite mu kot prej. Bolje pismo v prazno kot vprašanje za vse življenje.",
+              "en": "Of course you're afraid, but write to him as before. Better a letter to no one than a question for life.",
+              "de": "Natürlich haben Sie Angst, aber schreiben Sie ihm wie früher. Besser ein Brief ins Leere als eine Frage fürs ganze Leben.",
+              "it": "Certo che ha paura, ma gli scriva come prima. Meglio una lettera al vuoto che una domanda per tutta la vita.",
+              "grammar": "stopnjevanje",
+              "why": {
+                "en": "Čim + the comparative is as … as possible: čim prej, as soon as you can. Kot prej is as before.",
+                "de": "Čim + Komparativ ist so … wie möglich: čim prej, so bald wie möglich. Kot prej ist wie früher.",
+                "it": "Čim + il comparativo è il più … possibile: čim prej, il prima possibile. Kot prej è come prima."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kot prej? Prej nisem pisala nikoli, {learner}.",
+                "en": "As before? I never wrote before, {learner}.",
+                "de": "Wie früher? Früher habe ich nie geschrieben, {learner}.",
+                "it": "Come prima? Prima non ho mai scritto, {learner}."
+              }
+            },
+            {
+              "sl": "Ne pišite. Če vas je pozabil, si ne zasluži pisma.",
+              "en": "Don't write. If he's forgotten you, he doesn't deserve a letter.",
+              "de": "Schreiben Sie nicht. Wenn er Sie vergessen hat, verdient er keinen Brief.",
+              "it": "Non scriva. Se L'ha dimenticata, non si merita una lettera.",
+              "why": {
+                "en": "Vida fears writing for nothing, yet she misses him and blames herself for not thinking of Trnovo: give her courage, not a reason to stay silent.",
+                "de": "Vida fürchtet, umsonst zu schreiben, doch sie vermisst ihn und macht sich Vorwürfe wegen Trnovo: mach ihr Mut, statt ihr einen Grund zum Schweigen zu geben.",
+                "it": "Vida teme di scrivere per niente, ma lui le manca e si rimprovera per Trnovo: dalle coraggio, non un motivo per tacere."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Ne pisati? Joj, tako trdega srca pa nimam, {learner}.",
+                "en": "Not write? Oh, I haven't got such a hard heart, {learner}.",
+                "de": "Nicht schreiben? Ach, so ein hartes Herz habe ich nicht, {learner}.",
+                "it": "Non scrivere? Oddio, non ho un cuore così duro, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Bitte, še enkrat.",
+            "en": "Sorry? Bitte, once more.",
+            "de": "Wie bitte? Bitte, noch einmal.",
+            "it": "Come, scusi? Bitte, ancora una volta."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "happy",
+          "sl": "In če pride, mu skuham najboljšo joto, kar jih je kdaj jedel.",
+          "en": "And if he comes, I'll cook him the best jota he's ever eaten.",
+          "de": "Und wenn er kommt, koche ich ihm die beste Jota, die er je gegessen hat.",
+          "it": "E se viene, gli cucino la jota più buona che abbia mai mangiato."
+        }
+      ]
+    },
+    {
+      "id": "burja-b1-zmaj",
+      "level": "B1",
+      "memory": {
+        "sl": "noč, ko si mi {m:razložil|f:razložila} burjo",
+        "en": "the night you explained the burja to me",
+        "de": "die Nacht, als du mir die Bora erklärt hast",
+        "it": "la notte in cui mi hai spiegato la bora"
+      },
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "worried",
+          "sl": "{learner}? Ne spim. Mama pravi, da je burja v Vipavi nekoč odnesla cel kozolec. Je to res?",
+          "en": "{learner}? I'm not asleep. Mum says the burja once carried off a whole hayrack in the Vipava valley. Is that true?",
+          "de": "{learner}? Ich schlafe nicht. Mama sagt, die Bora hat im Vipavatal mal eine ganze Harpfe weggetragen. Stimmt das?",
+          "it": "{learner}? Non dormo. La mamma dice che una volta in Valle del Vipacco la bora si è portata via un'intera rastrelliera. È vero?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Res je. Ampak tudi če bi pihala še bolj, bi naša streha zdržala.",
+              "en": "It's true. But even if it blew harder, our roof would hold.",
+              "de": "Das stimmt. Aber selbst wenn sie noch stärker wehen würde, würde unser Dach halten.",
+              "it": "È vero. Ma anche se soffiasse ancora più forte, il nostro tetto reggerebbe.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res? Potem lahko spim. Ampak samo, če ostaneš še malo.",
+                "en": "Really? Then I can sleep. But only if you stay a bit longer.",
+                "de": "Echt? Dann kann ich schlafen. Aber nur, wenn du noch ein bisschen bleibst.",
+                "it": "Davvero? Allora posso dormire. Ma solo se resti ancora un po'."
+              }
+            },
+            {
+              "sl": "Res je. Ampak tudi če bi pihala še bolj, bo naša streha zdržala.",
+              "en": "It's true. But even if it were to blow harder, our roof will hold.",
+              "de": "Das stimmt. Aber selbst wenn sie noch stärker wehen würde, wird unser Dach halten.",
+              "it": "È vero. Ma anche se soffiasse ancora più forte, il nostro tetto reggerà.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "An imagined condition (če bi) takes the conditional in its other half too: bi naša streha zdržala. Bo is the future.",
+                "de": "Eine gedachte Bedingung (če bi) verlangt auch in der anderen Hälfte den Konditional: bi naša streha zdržala. Bo ist das Futur.",
+                "it": "Una condizione immaginata (če bi) vuole il condizionale anche nell'altra metà: bi naša streha zdržala. Bo è il futuro."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bo? Saj je burja že zdaj tukaj, {learner}!",
+                "en": "Will? But the burja's already here, {learner}!",
+                "de": "Wird? Die Bora ist doch schon da, {learner}!",
+                "it": "Reggerà? Ma la bora è già qui, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Burja je preglasna, ne slišim te!",
+            "en": "What? The burja's too loud, I can't hear you!",
+            "de": "Was? Die Bora ist zu laut, ich höre dich nicht!",
+            "it": "Cosa? La bora è troppo forte, non ti sento!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "curious",
+          "sl": "{learner}, zakaj burja ponoči tako tuli? Ali tudi ona ne more spati?",
+          "en": "{learner}, why does the burja howl so at night? Can't it sleep either?",
+          "de": "{learner}, warum heult die Bora nachts so? Kann sie auch nicht schlafen?",
+          "it": "{learner}, perché la bora ulula così di notte? Non riesce a dormire neanche lei?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Burja piha s hribov v dolino, kar pomeni, da bo jutri lepo vreme.",
+              "en": "The burja blows from the hills down into the valley, which means the weather will be fine tomorrow.",
+              "de": "Die Bora weht von den Bergen ins Tal, was heißt, dass morgen schönes Wetter ist.",
+              "it": "La bora soffia dalle colline giù nella valle, il che vuol dire che domani sarà bel tempo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Lepo? Potem gremo jutri spuščat zmaja! Burja ga bo nesla do Nanosa!",
+                "en": "Fine? Then tomorrow we'll go fly a kite! The burja will carry it all the way to Nanos!",
+                "de": "Schön? Dann lassen wir morgen einen Drachen steigen! Die Bora trägt ihn bis zum Nanos!",
+                "it": "Bello? Allora domani andiamo a far volare l'aquilone! La bora lo porterà fino al Nanos!"
+              }
+            },
+            {
+              "sl": "Burja piha s hribov v dolino, ki pomeni, da bo jutri lepo vreme.",
+              "en": "The burja blows from the hills down into the valley, who means the weather will be fine tomorrow.",
+              "de": "Die Bora weht von den Bergen ins Tal, der heißt, dass morgen schönes Wetter ist.",
+              "it": "La bora soffia dalle colline giù nella valle, la quale vuol dire che domani sarà bel tempo.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "For a whole sentence the relative pronoun is kar: …, kar pomeni. Ki refers to one noun before it.",
+                "de": "Für einen ganzen Satz ist das Relativpronomen kar: …, kar pomeni. Ki bezieht sich auf ein Nomen davor.",
+                "it": "Per una frase intera il pronome relativo è kar: …, kar pomeni. Ki si riferisce a un nome prima."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ki … kaj? Ne razumem, {learner}. Mislim, da sem že zaspan.",
+                "en": "Which … what? I don't get it, {learner}. I think I'm sleepy now.",
+                "de": "Der … was? Versteh ich nicht, {learner}. Ich glaube, ich bin schon müde.",
+                "it": "Che … cosa? Non capisco, {learner}. Credo di avere già sonno."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Burja je preglasna, ne slišim te!",
+            "en": "What? The burja's too loud, I can't hear you!",
+            "de": "Was? Die Bora ist zu laut, ich höre dich nicht!",
+            "it": "Cosa? La bora è troppo forte, non ti sento!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "shy",
+          "sl": "Dobro … Ampak luč pusti prižgano. Samo malo. Lahko noč, {learner}.",
+          "en": "All right … But leave the light on. Just for a bit. Good night, {learner}.",
+          "de": "Gut … Aber lass das Licht an. Nur ein bisschen. Gute Nacht, {learner}.",
+          "it": "Va bene … Ma lascia la luce accesa. Solo un po'. Buonanotte, {learner}."
+        }
+      ]
+    },
+    {
+      "id": "burja-b2-skodelica",
+      "level": "B2",
+      "memory": {
+        "sl": "maslo na glavi in mamino skodelico",
+        "en": "the butter on my head, and Mum's cup",
+        "de": "die Butter auf dem Kopf und Mamas Tasse",
+        "it": "il burro in testa e la tazza della mamma"
+      },
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "sad",
+          "sl": "{learner}? Ne morem spati. Pa ni kriva burja …",
+          "en": "{learner}? I can't sleep. And it's not the burja's fault …",
+          "de": "{learner}? Ich kann nicht schlafen. Und die Bora ist nicht schuld …",
+          "it": "{learner}? Non riesco a dormire. E non è colpa della bora …"
+        },
+        {
+          "who": "nejc",
+          "face": "shy",
+          "sl": "Popoldne sem razbil mamino najljubšo skodelico. Koščke sem skril pod omaro.",
+          "en": "This afternoon I broke Mum's favourite cup. I hid the pieces under the wardrobe.",
+          "de": "Heute Nachmittag habe ich Mamas Lieblingstasse zerbrochen. Die Scherben habe ich unter dem Schrank versteckt.",
+          "it": "Oggi pomeriggio ho rotto la tazza preferita della mamma. I cocci li ho nascosti sotto l'armadio."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Aha. Zato pa ne spiš: imaš maslo na glavi.",
+              "en": "Aha. So that's why you can't sleep: you've got butter on your head (a guilty conscience).",
+              "de": "Aha. Darum schläfst du nicht: du hast Butter auf dem Kopf (ein schlechtes Gewissen).",
+              "it": "Ah. Ecco perché non dormi: hai il burro in testa (la coscienza sporca).",
+              "ok": true,
+              "reply": {
+                "face": "confused",
+                "sl": "Maslo? Na glavi? … Aha, tisto, ko te nekaj grize v trebuhu?",
+                "en": "Butter? On my head? … Oh, that thing when something gnaws at your tummy?",
+                "de": "Butter? Auf dem Kopf? … Ach, das, wenn es einen im Bauch zwickt?",
+                "it": "Burro? In testa? … Ah, quella cosa quando ti rode qualcosa nella pancia?"
+              }
+            },
+            {
+              "sl": "Aha. Zato pa ne spiš: imaš sir na glavi.",
+              "en": "Aha. So that's why you can't sleep: you've got cheese on your head.",
+              "de": "Aha. Darum schläfst du nicht: du hast Käse auf dem Kopf.",
+              "it": "Ah. Ecco perché non dormi: hai il formaggio in testa.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "An idiom keeps its words: imeti maslo na glavi (butter) is a guilty conscience. Cheese is just cheese.",
+                "de": "Eine Redewendung behält ihre Wörter: imeti maslo na glavi (Butter) ist ein schlechtes Gewissen. Käse ist nur Käse.",
+                "it": "Un modo di dire tiene le sue parole: imeti maslo na glavi (burro) è avere la coscienza sporca. Il formaggio è solo formaggio."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Sir? Na glavi? Ha ha, kot pica!",
+                "en": "Cheese? On my head? Ha ha, like a pizza!",
+                "de": "Käse? Auf dem Kopf? Ha ha, wie eine Pizza!",
+                "it": "Formaggio? In testa? Ah ah, come una pizza!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Burja je preglasna, ne slišim te!",
+            "en": "What? The burja's too loud, I can't hear you!",
+            "de": "Was? Die Bora ist zu laut, ich höre dich nicht!",
+            "it": "Cosa? La bora è troppo forte, non ti sento!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "worried",
+          "sl": "Kaj naj naredim? Mama bo jezna. Zelo jezna.",
+          "en": "What should I do? Mum will be cross. Very cross.",
+          "de": "Was soll ich machen? Mama wird böse. Sehr böse.",
+          "it": "Cosa faccio? La mamma si arrabbierà. Tantissimo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Malo bo jezna, seveda. Ampak če bi ji bil povedal takoj, bi zdaj že spal. Povej ji zjutraj.",
+              "en": "She'll be a bit cross, of course. But if you'd told her straight away, you'd be asleep by now. Tell her in the morning.",
+              "de": "Ein bisschen böse wird sie, klar. Aber hättest du es ihr gleich gesagt, würdest du jetzt schon schlafen. Sag es ihr morgen früh.",
+              "it": "Un po' si arrabbierà, certo. Ma se gliel'avessi detto subito, adesso dormiresti già. Diglielo domattina.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Zjutraj? Prav … Ampak ti greš z mano, ja?",
+                "en": "In the morning? All right … But you're coming with me, yes?",
+                "de": "Morgen früh? Na gut … Aber du kommst mit, ja?",
+                "it": "Domattina? Va bene … Ma tu vieni con me, sì?"
+              }
+            },
+            {
+              "sl": "Malo bo jezna, seveda. Ampak če si ji povedal takoj, zdaj že spiš. Povej ji zjutraj.",
+              "en": "She'll be a bit cross, of course. But if you told her straight away, you're asleep by now. Tell her in the morning.",
+              "de": "Ein bisschen böse wird sie, klar. Aber wenn du es ihr gleich gesagt hast, schläfst du jetzt schon. Sag es ihr morgen früh.",
+              "it": "Un po' si arrabbierà, certo. Ma se gliel'hai detto subito, adesso dormi già. Diglielo domattina.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Nejc didn't tell her: what would have been is the past conditional, če bi ji bil povedal …, bi zdaj že spal.",
+                "de": "Nejc hat es ihr nicht gesagt: was gewesen wäre, ist der Konditional der Vergangenheit, če bi ji bil povedal …, bi zdaj že spal.",
+                "it": "Nejc non gliel'ha detto: ciò che sarebbe stato è il condizionale passato, če bi ji bil povedal …, bi zdaj že spal."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Saj ji nisem! Zato pa ne spim, {learner}.",
+                "en": "But I didn't tell her! That's why I can't sleep, {learner}.",
+                "de": "Hab ich doch nicht! Darum schlafe ich ja nicht, {learner}.",
+                "it": "Ma non gliel'ho detto! Per questo non dormo, {learner}."
+              }
+            },
+            {
+              "sl": "Pusti koščke pod omaro. Mama jih ne bo nikoli našla.",
+              "en": "Leave the pieces under the wardrobe. Mum will never find them.",
+              "de": "Lass die Scherben unter dem Schrank. Mama findet sie nie.",
+              "it": "Lascia i cocci sotto l'armadio. La mamma non li troverà mai.",
+              "why": {
+                "en": "Nejc can't sleep because he hid it: hiding it longer won't let him sleep. Grant that she'll be cross, then help him own up.",
+                "de": "Nejc kann nicht schlafen, weil er es versteckt hat: länger verstecken hilft ihm nicht beim Schlafen. Gib zu, dass sie böse wird, und hilf ihm, es zu beichten.",
+                "it": "Nejc non dorme perché l'ha nascosto: nasconderlo ancora non lo farà dormire. Ammetti che si arrabbierà, poi aiutalo a confessare."
+              },
+              "reply": {
+                "face": "worried",
+                "sl": "Nikoli? Mama najde vse. Tudi moje nogavice!",
+                "en": "Never? Mum finds everything. Even my socks!",
+                "de": "Nie? Mama findet alles. Sogar meine Socken!",
+                "it": "Mai? La mamma trova tutto. Anche i miei calzini!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Burja je preglasna, ne slišim te!",
+            "en": "What? The burja's too loud, I can't hear you!",
+            "de": "Was? Die Bora ist zu laut, ich höre dich nicht!",
+            "it": "Cosa? La bora è troppo forte, non ti sento!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "happy",
+          "sl": "Uf. Zdaj mi je lažje. Burja je še vedno glasna, ampak mene ne skrbi več. Lahko noč, {learner}.",
+          "en": "Phew. I feel better now. The burja's still loud, but I'm not worried any more. Good night, {learner}.",
+          "de": "Puh. Jetzt ist mir leichter. Die Bora ist immer noch laut, aber ich mache mir keine Sorgen mehr. Gute Nacht, {learner}.",
+          "it": "Uff. Adesso sto meglio. La bora è ancora forte, ma io non mi preoccupo più. Buonanotte, {learner}."
+        }
       ]
     }
   ]

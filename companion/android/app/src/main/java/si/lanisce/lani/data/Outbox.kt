@@ -362,6 +362,16 @@ object Writes {
         return entry("/level", bi("outbox.level"), body, id, now).copy(fallbackPath = fallback.path, fallbackBody = fallback.body)
     }
 
+    /**
+     * The placement test's result ([PlacementReport]: taken or kept): `POST /placement` for the bridge to persist; for a
+     * node from before it (404), a `session_end` with the report for the tutor to persist instead ([OutboxEntry.fallbackPath]),
+     * the same id.
+     */
+    fun placement(body: JsonObject, text: String, data: JsonObject, language: String? = null, id: String = Outbox.newId(), now: Long = System.currentTimeMillis()): OutboxEntry {
+        val fallback = message("session_end", "main", text, if (language == null) data else JsonObject(data + ("language" to JsonPrimitive(language))), id, now)
+        return entry("/placement", bi("outbox.placement"), body, id, now).copy(fallbackPath = fallback.path, fallbackBody = fallback.body)
+    }
+
     fun message(kind: String, conversationId: String, text: String, data: JsonObject?, id: String = Outbox.newId(), now: Long = System.currentTimeMillis()) =
         entry("/message", if (kind == "chat") bi("outbox.message") else bi("outbox.exercise"), buildJsonObject {
             put("kind", kind)

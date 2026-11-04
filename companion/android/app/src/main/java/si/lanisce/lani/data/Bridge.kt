@@ -63,7 +63,8 @@ class Bridge(private val config: BridgeConfig) {
 
     /** The paths Home's reading asks (AppViewModel.reload): each read again only once its areas moved ([fresh]). */
     companion object {
-        const val STATE = "/state"
+        /** Another language's forms cards too (forms=2: an older app is sent none, the bridge's reviews.ts). */
+        const val STATE = "/state?forms=2"
         const val MODULES = "/modules"
         /** The packs, as this app orders them by the learner's level (an older app gets fewer: [PackSession.VERSION]). */
         val PACKS = "/packs?packs=${PackSession.VERSION}"
@@ -83,7 +84,7 @@ class Bridge(private val config: BridgeConfig) {
         /** The scenes as far as this app draws them. */
         val SCENES = "/scenes?arts=${si.lanisce.lani.game.scene.SceneArt.VERSION}"
         /** Another language's deck. */
-        fun deck(language: String) = "$STATE?language=$language"
+        fun deck(language: String) = "$STATE&language=$language"
         /** The people as they are at [time] of day. */
         fun villagersAt(time: TimeOfDay = TimeOfDay.now()) = "/villagers?time=${time.name.lowercase()}"
     }
@@ -354,6 +355,7 @@ class Bridge(private val config: BridgeConfig) {
             put("words", buildJsonArray { words.forEach { (w, id) -> add(buildJsonObject { put("word", w); id?.let { put("item_id", it) } }) } })
             put("introduced", buildJsonArray { introduced.sorted().take(200).forEach { add(JsonPrimitive(it)) } })
             if (asked) put("asked", true)
+            put("v", FormsCard.VERSION)
         }
         val (code, text) = exchange(request("/forms-cards").post(body.toString().toRequestBody(Http.jsonType)).build())
         return@off when (code) {
