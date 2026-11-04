@@ -19,8 +19,9 @@ import java.io.File
 /**
  * Every wrong choice of every scene (Jan's in companion/scenes, the culture packs' own; every dialog, the happenings'
  * variants too), of every talk with someone at a spot of the landscape (the culture packs' world.json `spots`: the
- * charcoal burner by his kopa; the test pack's too) and of every evening story (the culture packs' stories/, each telling
- * at each level and chapter) has the person's reaction to it (companion/SCENES.md, "Reactions and more than one right
+ * charcoal burner by his kopa; the test pack's too), of every day of a spot's cycle (world.json `spots.<id>.cycle`: its
+ * meeting, greetings, stages, nights and breakout, each by level) and of every evening story (the culture packs' stories/,
+ * each telling at each level and chapter) has the person's reaction to it (companion/SCENES.md, "Reactions and more than one right
  * answer"): in every language its choice has, never saying the right form, with no weather; and a turn with two right
  * choices gives each its own reply, with the same cues. A counting dialog (companion/SCENES.md, "Numbers") is checked as
  * the app says it, at every number it can have up to 30 and round the hundreds.
@@ -62,6 +63,55 @@ class DialogReactionsTest {
     }
 
     /**
+     * The turns of a cycle whose reaction repeats the learner's own wrong sentence back ("Als waren Sie?", "Enough thick?"):
+     * a word moved in a wrong word order counts here as what sets the right choice apart, so saying it trips the check below,
+     * though the wrong choice holds it too and nothing is given away. Written before the cycles were held to this test and
+     * voiced, so they aren't reworded (docs/plans/05-built/cleanup-code.md, "Cycles"): the check stays as it is for every other
+     * turn. A new one fails, and so does one listed here that no longer trips it.
+     */
+    private val cycleEchoes = setOf(
+        "kaernten/kopa/cycle/stages[3].talks[0].levels.B2/1/1", "kaernten/kopa/cycle/stages[4].talks[1].levels.B1/1/1", "kaernten/kopa/cycle/stages[7].talks[1].levels.A2/1/1",
+        "kaernten/kopa/cycle/stages[9].talks[0].levels.B1/1/1", "kaernten/kopa/cycle/stages[9].talks[1].levels.B2/1/1", "kaernten/kopa/cycle/rest.talks[1].levels.B2/1/1",
+        "lakeland/kopa/cycle/stages[1].talks[0].levels.A2/1/1", "lakeland/kopa/cycle/stages[2].talks[0].levels.B2/1/1", "lakeland/kopa/cycle/stages[4].talks[2].levels.A2/1/1",
+        "lakeland/kopa/cycle/stages[5].talks[2].levels.A1/1/1", "lakeland/kopa/cycle/stages[7].talks[0].levels.A2/1/1", "lakeland/kopa/cycle/stages[7].talks[1].levels.B2/1/1",
+        "lakeland/kopa/cycle/stages[8].talks[0].levels.B2/1/1", "lakeland/kopa/cycle/stages[9].talks[0].levels.A2/1/1", "lakeland/kopa/cycle/winter.talks[0].levels.B2/1/1",
+        "primorska/kopa/cycle/stages[3].talks[0].levels.B2/2/1", "primorska/kopa/cycle/stages[3].talks[1].levels.B2/1/1",
+    )
+
+    /** Every `lines` under [e] in a cycle, with where it is: a level's talk ("stages[0].talks[1].levels.B2"), whatever the part. */
+    private fun linesIn(e: JsonElement?, at: String): List<Pair<String, JsonElement>> = when (e) {
+        is JsonObject -> e.flatMap { (k, v) -> if (k == "lines") listOf(at to v) else linesIn(v, if (at.isEmpty()) k else "$at.$k") }
+        is JsonArray -> e.flatMapIndexed { i, v -> linesIn(v, "$at[$i]") }
+        else -> emptyList()
+    }
+
+    /**
+     * The days of the culture packs' spots and the test pack's (world.json `spots.<id>.cycle`), each spot's as a scene of its
+     * own: its dialogs every talk of the cycle by level, wherever in it (companion/VILLAGERS.md, "The pile over the days"),
+     * the keeper the person of each, in the woods as his meeting is. [Keepers.cycleLines] says them one after another, so
+     * each is held to the rules alone.
+     */
+    private val cycles: List<JsonObject> by lazy {
+        (File(companion, "cultures").listFiles().orEmpty().toList() + File(companion, "android/app/src/test/resources/cultures-test").listFiles().orEmpty().toList())
+            .filter { File(it, "world.json").isFile }.sortedBy { it.path }.flatMap { dir ->
+                val world = json.parseToJsonElement(File(dir, "world.json").readText()).jsonObject
+                val lang = json.parseToJsonElement(File(dir, "culture.json").readText()).jsonObject.str("language") ?: "sl"
+                world["spots"].obj().orEmpty().mapNotNull { (spot, v) ->
+                    val cycle = v.obj()?.get("cycle").obj() ?: return@mapNotNull null
+                    val who = v.obj()?.get("keeper").obj()?.getValue("id") ?: return@mapNotNull null
+                    val talks = linesIn(cycle, "")
+                    JsonObject(
+                        mapOf(
+                            "id" to JsonPrimitive("${dir.name}/$spot/cycle"), "language" to JsonPrimitive(lang), "art" to JsonPrimitive("forest"),
+                            "dialogs" to JsonArray(talks.map { (at, lines) -> JsonObject(mapOf("id" to JsonPrimitive(at), "lines" to lines)) }),
+                            "happenings" to JsonArray(talks.map { (at, _) -> JsonObject(mapOf("dialog" to JsonPrimitive(at), "who" to who)) }),
+                        ),
+                    )
+                }
+            }
+    }
+
+    /**
      * The evening stories of the culture packs (their stories/), each as a scene of its own: its dialogs the tellings (a
      * level, or a chapter's level: "2/A1"), the teller the person of each, told by the campfire (its effects).
      */
@@ -83,7 +133,7 @@ class DialogReactionsTest {
         }
     }
     private val sceneFiles by lazy { files.map { json.parseToJsonElement(it.readText()).jsonObject } }
-    private val scenes by lazy { sceneFiles + talks + stories }
+    private val scenes by lazy { sceneFiles + talks + cycles + stories }
     private fun JsonObject.str(k: String) = (this[k] as? JsonPrimitive)?.takeIf { it.isString }?.content
     private fun JsonObject.list(k: String) = (this[k] as? JsonArray).orEmpty().mapNotNull { it.obj() }
     private val JsonObject.ok get() = (this["ok"] as? JsonPrimitive)?.booleanOrNull == true
@@ -167,6 +217,9 @@ class DialogReactionsTest {
         assertEquals(31 + 39 + 15 + 23 + 8 /* kaernten-projects-a */ + 8 /* kaernten-projects-b */ + 8 /* lakeland-projects-a */, files.size)
         // and the talks of the charcoal burner at every culture's pile, and the test pack's
         assertEquals(setOf("primorska/kopa", "friuli/kopa", "kaernten/kopa", "lakeland/kopa", "tinyland/kopa"), talks.map { it.str("id") }.toSet())
+        // and the cycle of every culture's pile, by what it holds: a talk at each of the levels, the turns among them
+        assertEquals(setOf("primorska", "friuli", "kaernten", "lakeland"), cycles.map { it.str("id")!!.substringBefore('/') }.toSet() - "tinyland")
+        assertTrue(cycles.joinToString { "${it.str("id")}: ${it.list("dialogs").size} talks, ${turns(it).size} turns" }, cycles.all { it.list("dialogs").size >= 100 && turns(it).isNotEmpty() })
         // and the evening stories of every culture, each with its tellings (new ones are held to the same)
         assertEquals(setOf("primorska", "friuli", "kaernten", "lakeland"), stories.map { it.str("id")!!.substringBefore('/') }.toSet())
         assertTrue("${stories.size} stories", stories.size >= 24 && stories.all { it.list("dialogs").isNotEmpty() })
@@ -211,7 +264,11 @@ class DialogReactionsTest {
                 }
             }
         } }.distinct()
-        assertTrue(told.joinToString("\n"), told.isEmpty())
+        // where a line of the list above is from: "<turn>/<choice>", a translation's with its language after it
+        fun turnOf(t: String) = t.substringBefore(" says ").replace(Regex("\\.(sl|en|de|it)$"), "")
+        val (echoed, others) = told.partition { turnOf(it) in cycleEchoes }
+        assertTrue(others.joinToString("\n"), others.isEmpty())
+        assertEquals("the cycles' echoes", cycleEchoes, echoed.map(::turnOf).toSet())
     }
 
     @Test fun `a reaction passes - no weather, one short line, only its art's effects`() {
@@ -275,9 +332,9 @@ class DialogReactionsTest {
                 else for (n in listOf(c.min, c.min + 1, c.max, 2, 3, 5, 21, 101, 102).filter { it in c.min..c.max }.distinct()) play("${s.id}/${d.id}#$n", Counts.render(d, n, s.language), partner)
             }
         }
-        // the talks at the spots and the stories by the fire, as the app plays them: read in the pair, at each level, the
-        // teller answering
-        for (t in talks + stories) {
+        // the talks at the spots, their cycles' and the stories by the fire, as the app plays them: read in the pair, at each
+        // level, the teller answering
+        for (t in talks + cycles + stories) {
             val who = (t["happenings"] as JsonArray).first().obj()!!.str("who")!!
             for (d in inPair(t)["dialogs"] as JsonArray) play("${t.str("id")}/${d.obj()!!.str("id")}", json.decodeFromJsonElement(Dialog.serializer(), d), who)
         }
