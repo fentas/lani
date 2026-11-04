@@ -365,7 +365,7 @@ export default async function stories() {
   const lz = ls.stories.find((s: any) => s.id === 'zlatorog')
   check(
     'list_stories: the collection in order, its levels and chapters, what the learner has heard, their level',
-    ls.learner_level && ls.all_heard === false && ls.stories.length === janIds.length && JSON.stringify(lz.levels) === '["A1","A2","B1"]' && lz.heard.told === 1 && lz.heard.level === 'A2' &&
+    ls.learner_level && ls.all_heard === false && ls.stories.length === janIds.length && JSON.stringify(lz.levels) === '["A1","A2","B1","B2"]' && lz.heard.told === 1 && lz.heard.level === 'A2' &&
       ls.stories.find((s: any) => s.id === 'martin-krpan').heard.chapter === 2 && ls.stories.find((s: any) => s.id === 'martin-krpan').chapters === 4,
     ls,
   )

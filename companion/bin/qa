@@ -2918,7 +2918,7 @@ def culture_reading():
     assert wait_for(label("readings.title"), 15), "the reading corner"
     time.sleep(1.5)
     snap("corner")
-    c = scroll_to(title, 8)
+    c = scroll_to(title, 12, bottom=2350)  # the corner has no tutor bar, and a harder reading is its last row, low on the screen
     assert c is not None, f"the reading «{title}» in the corner"
     tap_at(c)
     # its "▶️ Začni · Start" at the text's end (the sheet has no tutor bar: low on the screen is fine)
