@@ -376,6 +376,22 @@ export function storyScene(scenes: ResolvedScene[], teller: string): ResolvedSce
   return scenes.find(s => s.happenings.some(h => h.stories && s.people.find(p => p.id === h.who)?.villager === teller))
 }
 
+/**
+ * [s] with its levels up to one above [learner]'s, for every app: a retelling climbs a level each time (the app's
+ * Stories.levelFor, 0.2.698's too, takes the highest a story has up to that), and an A1 learner never meets B1 or B2, a
+ * child at A1 no B2 legend on the fourth round. A talk stops at the same place (talkLevelOffered). A story that starts
+ * above that keeps its easiest. A level the bridge doesn't know counts as A1.
+ */
+export function storyUpTo<T extends { levels?: Partial<Record<Level, unknown>>; chapters?: { levels: Partial<Record<Level, unknown>> }[] }>(s: T, learner: string): T {
+  const top = Math.max(0, LEVELS.indexOf(learner as Level)) + 1
+  const keep = <L extends Partial<Record<Level, unknown>>>(l: L): L => {
+    const have = LEVELS.filter(k => l[k] !== undefined)
+    const fit = have.filter(k => LEVELS.indexOf(k) <= top)
+    return Object.fromEntries((fit.length ? fit : have.slice(0, 1)).map(k => [k, l[k]])) as L
+  }
+  return { ...s, ...(s.levels ? { levels: keep(s.levels) } : {}), ...(s.chapters ? { chapters: s.chapters.map(c => ({ ...c, levels: keep(c.levels) })) } : {}) }
+}
+
 export class StoryStore {
   private warned = new Set<string>()
   private curatedDirs: { dir: string; culture?: string }[]
@@ -438,6 +454,11 @@ export class StoryStore {
   resolved(): ResolvedStory[] {
     const packs = this.refs().packs ?? []
     return this.all().map(s => resolveStory(s, packs))
+  }
+
+  /** The stories as a learner at [level] gets them: told up to a level above theirs (storyUpTo). */
+  offered(level: string): ResolvedStory[] {
+    return this.resolved().map(s => storyUpTo(s, level))
   }
 
   isCurated(id: string): boolean {

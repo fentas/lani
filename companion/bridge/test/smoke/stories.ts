@@ -8,7 +8,7 @@ import { cultureStories } from '../../src/cultures'
 import { normalizeText } from '../../src/family'
 import { ownVoicesIn } from '../../src/profiles'
 import { PackStore, packsDirs } from '../../src/packs'
-import { chaptersOf, curatedPictureErrors, LEVELS, levelsOf, paragraphsOf, STORIES_LOW, storiesLeft, validateStory, VIGNETTES, type Story } from '../../src/stories'
+import { chaptersOf, curatedPictureErrors, LEVELS, levelsOf, paragraphsOf, STORIES_LOW, storiesLeft, storyUpTo, validateStory, VIGNETTES, type Story } from '../../src/stories'
 import { VillagerStore } from '../../src/villagers'
 import type { ResolvedScene } from '../../src/scenes'
 import { clipKey, corpus, PRIORITY_LABELS } from '../../src/voice'
@@ -357,6 +357,11 @@ export default async function stories() {
   const list = await (await fetch(`${base}/stories`, { headers: auth })).json()
   check('GET /stories serves the collection', list.length === janIds.length && list[2].id === 'martin-krpan' && list[2].chapters.length === 4)
   check('stories need the app token', (await fetch(`${base}/stories`)).status === 401)
+  // a retelling climbs a level each time: served up to a level above the learner's, for every app (storyUpTo)
+  const told = { levels: { A1: 1, A2: 2, B1: 3, B2: 4 } }
+  const keys = (x: { levels?: object }) => Object.keys(x.levels ?? {}).join(' ')
+  check('stories: a learner at A1 gets A1 and A2, never B1 or B2; at A2 up to B1; at B1 up to B2', keys(storyUpTo(told, 'A1')) === 'A1 A2' && keys(storyUpTo(told, 'A2')) === 'A1 A2 B1' && keys(storyUpTo(told, 'B1')) === 'A1 A2 B1 B2')
+  check('stories: … a story that starts higher keeps its easiest; each chapter is held back the same way; an unknown level counts as A1', keys(storyUpTo({ levels: { B1: 1, B2: 2 } }, 'A1')) === 'B1' && keys(storyUpTo({ chapters: [told] }, 'A1').chapters![0]) === 'A1 A2' && keys(storyUpTo(told, '')) === 'A1 A2')
 
   // --- the tutor: list, publish, remove -------------------------------------------------------------------
   const game = await (await fetch(`${base}/game`, { headers: auth })).json()

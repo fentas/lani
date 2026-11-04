@@ -238,7 +238,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
         areas: ['content'],
         addressed: true,
         handle: ({ url }) => {
-          const told = stories.resolved()
+          const told = stories.offered(learnerLevel(cfg.dataDir))
           const offered = talkable()
           return json(forApp(scenes.resolved(), artsOf(url)).map(s => attachStories(talksOffered(forHost(s), offered), told)))
         },
@@ -249,7 +249,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
         addressed: true,
         handle: ({ url, params: [id] }) => {
           const s = forApp([scenes.resolve(id)].filter(x => x !== undefined), artsOf(url))[0]
-          return s ? json(attachStories(talksOffered(forHost(s), talkable()), stories.resolved())) : json({ error: 'not found' }, 404)
+          return s ? json(attachStories(talksOffered(forHost(s), talkable()), stories.offered(learnerLevel(cfg.dataDir)))) : json({ error: 'not found' }, 404)
         },
       },
     ],

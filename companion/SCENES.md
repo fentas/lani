@@ -2617,7 +2617,7 @@ its book holds):
    after its retelling again);
 3. at the learner's level in the scene's language (`Dashboard.levelIn`: the home language's level, a visit language's
    own): the highest level the story has up to it, else its easiest (A1 → A1, A2 → A2, higher → the highest there is),
-   a level up for each time it was told before: once all are heard, they are retold a level up.
+   a level up for each time it was told before: once all are heard, they are retold a level up. The bridge serves a story's levels up to one above the learner's, for every app (`storyUpTo`, as a talk's), so an A1 learner's retellings stop at A2: never B1 or B2, a child's neither.
 
 **Never out of stories.** When fewer than three stories the learner hasn't heard to their end are left at their level
 (`storiesLeft`: those with a telling at it), the bridge asks the tutor for another, once a day at most
