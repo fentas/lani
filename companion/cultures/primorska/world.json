@@ -1236,6 +1236,41 @@
                       ] },
                       { "who": "oglar", "sl": "Zvečer kopo nahranim: na vrh dam drobna drva, da se ne udre.", "en": "In the evening I feed the pile: I put small wood on top so it doesn't cave in.", "de": "Abends füttere ich den Meiler: oben lege ich kleines Holz nach, damit er nicht einsackt.", "it": "La sera do da mangiare alla carbonaia: metto legna minuta in cima perché non sprofondi." }
                     ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "oglar", "sl": "Kopa se poti. Iz lesa gre voda, zato je dim bel in gost kot megla.", "en": "The pile is sweating. Water is going out of the wood, so the smoke is white and thick as fog.", "de": "Der Meiler schwitzt. Aus dem Holz geht Wasser, darum ist der Rauch weiß und dicht wie Nebel.", "it": "La carbonaia suda. Dalla legna esce acqua, perciò il fumo è bianco e denso come nebbia." },
+                      { "who": "oglar", "face": "proud", "sl": "Z drogom delam luknje v zemljo, ki jim oglarji pravimo dimnice. Danes so zgoraj, pod vrhom.", "en": "With a rod I make holes in the earth, which we burners call dimnice. Today they're at the top, under the crown.", "de": "Mit einer Stange mache ich Löcher in die Erde, die wir Köhler dimnice nennen. Heute sind sie oben, unter der Kuppe.", "it": "Con un'asta faccio nella terra dei buchi che noi carbonai chiamiamo dimnice. Oggi sono in alto, sotto la cima." },
+                      { "choices": [
+                        { "sl": "Zakaj delate dimnice, če kopa ne sme dobiti preveč zraka?", "en": "Why do you make dimnice, if the pile mustn't get too much air?", "de": "Warum machen Sie dimnice, wenn der Meiler nicht zu viel Luft bekommen darf?", "it": "Perché fa le dimnice, se la carbonaia non deve prendere troppa aria?", "ok": true,
+                          "reply": { "sl": "Ker mora vsaj malo dihati. Kjer je dimnica, tam tli.", "en": "Because it has to breathe at least a little. Where there's a dimnica, it smoulders.", "de": "Weil er wenigstens ein wenig atmen muss. Wo eine dimnica ist, dort glimmt er.", "it": "Perché deve respirare almeno un po'. Dove c'è una dimnica, lì cova." } },
+                        { "sl": "Zakaj delate dimnice, če mora ogenj priti ven?", "en": "Why do you make dimnice, if the fire has to come out?", "de": "Warum machen Sie dimnice, wenn das Feuer hinausmuss?", "it": "Perché fa le dimnice, se il fuoco deve uscire?",
+                          "why": { "en": "The holes let the smoke out and a little air in; the fire has to stay inside, under the earth.", "de": "Die Löcher lassen den Rauch hinaus und ein wenig Luft herein; das Feuer muss drinnen bleiben, unter der Erde.", "it": "I buchi fanno uscire il fumo ed entrare un po' d'aria; il fuoco deve restare dentro, sotto la terra." },
+                          "reply": { "face": "surprised", "sl": "Ogenj? Ne! Samo dim gre ven. Ogenj ostane notri.", "en": "The fire? No! Only the smoke gets out. The fire stays inside.", "de": "Das Feuer? Nein! Nur der Rauch geht hinaus. Das Feuer bleibt drinnen.", "it": "Il fuoco? No! Esce solo il fumo. Il fuoco resta dentro." } }
+                      ] },
+                      { "who": "oglar", "sl": "Zvečer kopo nahranim: na vrh dam drobna drva, da se ne udre.", "en": "In the evening I feed the pile: I put small wood on top, so it doesn't cave in.", "de": "Am Abend füttere ich den Meiler: Oben gebe ich kleines Holz drauf, damit er nicht einbricht.", "it": "La sera nutro la carbonaia: in cima metto legna minuta, perché non sprofondi." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "oglar", "sl": "Kopa se poti. Iz lesa gre voda, in dokler je ne bo zmanjkalo, bo dim bel in gost.", "en": "The pile is sweating. Water is going out of the wood, and until it's gone the smoke will be white and thick.", "de": "Der Meiler schwitzt. Aus dem Holz geht Wasser, und bis es weg ist, bleibt der Rauch weiß und dicht.", "it": "La carbonaia suda. Dalla legna esce acqua, e finché non sarà finita il fumo resterà bianco e denso." },
+                      { "who": "oglar", "face": "proud", "sl": "Dimnice delam z drogom, za dlan ali dve narazen. Danes so zgoraj, pod vrhom, in vsak dan bodo nižje.", "en": "I make the dimnice with a rod, a hand or two apart. Today they're at the top, under the crown, and every day they'll be lower.", "de": "Die dimnice mache ich mit einer Stange, eine oder zwei Handbreit auseinander. Heute sind sie oben, unter der Kuppe, und jeden Tag werden sie tiefer sein.", "it": "Le dimnice le faccio con un'asta, a una o due mani di distanza. Oggi sono in alto, sotto la cima, e ogni giorno saranno più in basso." },
+                      { "choices": [
+                        { "sl": "Če bi jih naredili preveč, bi kopa dobila preveč zraka, kajne?", "en": "If you made too many, the pile would get too much air, wouldn't it?", "de": "Wenn Sie zu viele machten, bekäme der Meiler zu viel Luft, nicht wahr?", "it": "Se ne facesse troppe, la carbonaia prenderebbe troppa aria, vero?", "ok": true,
+                          "reply": { "face": "proud", "sl": "Tako je. Dihati mora, teči pa ne.", "en": "That's it. It has to breathe, not run.", "de": "So ist es. Atmen soll er, nicht rennen.", "it": "Proprio così. Deve respirare, non correre." } },
+                        { "sl": "Če bi jih naredili preveč, bo kopa dobila preveč zraka, kajne?", "en": "If you made too many, the pile will get too much air, won't it? (bi and bo mixed)", "de": "Wenn Sie zu viele machten, wird der Meiler zu viel Luft bekommen, nicht wahr? (bi und bo vermischt)", "it": "Se ne facesse troppe, la carbonaia prenderà troppa aria, vero? (bi e bo mescolati)", "grammar": "pogojnik-ce-bi",
+                          "why": { "en": "Both halves of something only imagined take bi: če bi naredili, bi dobila.", "de": "Beide Hälften von etwas nur Gedachtem nehmen bi: če bi naredili, bi dobila.", "it": "Le due metà di ciò che è solo immaginato vogliono bi: če bi naredili, bi dobila." },
+                          "reply": { "face": "confused", "sl": "Bi ali bo? Odloči se, kopa ne čaka.", "en": "Bi or bo? Make up your mind, the pile won't wait.", "de": "Bi oder bo? Entscheide dich, der Meiler wartet nicht.", "it": "Bi o bo? Deciditi, la carbonaia non aspetta." } }
+                      ] },
+                      { "who": "oglar", "face": "curious", "sl": "Vidiš, kako gost je dim. Kaj ti pove, da je še bel?", "en": "You see how thick the smoke is. What does it tell you that it's still white?", "de": "Du siehst, wie dicht der Rauch ist. Was sagt es dir, dass er noch weiß ist?", "it": "Vedi quanto è denso il fumo. Che cosa ti dice il fatto che sia ancora bianco?" },
+                      { "choices": [
+                        { "sl": "Da se les še suši in da oglja še dolgo ne bo.", "en": "That the wood is still drying and there won't be charcoal for a long time.", "de": "Dass das Holz noch trocknet und es noch lange keine Kohle gibt.", "it": "Che la legna sta ancora seccando e che il carbone ci vorrà ancora molto.", "ok": true,
+                          "reply": { "face": "happy", "sl": "Prav. Bel dim je samo voda, ki odhaja.", "en": "Right. White smoke is only water leaving.", "de": "Richtig. Weißer Rauch ist nur Wasser, das geht.", "it": "Giusto. Il fumo bianco è solo acqua che se ne va." } },
+                        { "sl": "Da je oglje že gotovo in da lahko začnete razkopavati.", "en": "That the charcoal is already done and you can start raking it open.", "de": "Dass die Kohle schon fertig ist und Sie mit dem Öffnen beginnen können.", "it": "Che il carbone è già pronto e che può cominciare ad aprire.",
+                          "why": { "en": "White is the first colour: the wood is still giving off water. The smoke turns yellow and then blue before it's done.", "de": "Weiß ist die erste Farbe: Das Holz gibt noch Wasser ab. Der Rauch wird erst gelb und dann blau, bevor sie fertig ist.", "it": "Il bianco è il primo colore: la legna perde ancora acqua. Il fumo diventa giallo e poi azzurro prima che sia pronto." },
+                          "reply": { "face": "laugh", "sl": "Gotovo? Če bi jo zdaj odprl, bi našel moker les.", "en": "Done? If I opened it now, I'd find wet wood.", "de": "Fertig? Wenn ich ihn jetzt öffnete, fände ich nasses Holz.", "it": "Pronto? Se la aprissi ora, troverei legna bagnata." } }
+                      ] }
+                    ]
                   }
                 }
               },
@@ -1267,6 +1302,34 @@
                           "reply": { "face": "laugh", "sl": "Jaz? Jaz ne upihnem niti sveče.", "en": "Me? I don't even blow out a candle.", "de": "Ich? Ich puste nicht mal eine Kerze aus.", "it": "Io? Io non spengo nemmeno una candela." } }
                       ] },
                       { "who": "oglar", "sl": "Vsak večer kopo nahranim. Na vrh dam drobna drva.", "en": "Every evening I feed the pile. I put small wood on top.", "de": "Jeden Abend füttere ich den Meiler. Oben lege ich kleines Holz nach.", "it": "Ogni sera do da mangiare alla carbonaia. Metto legna minuta in cima." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "oglar", "sl": "Danes je kopa mirna in dim se lepo dviga.", "en": "Today the pile is calm and the smoke rises nicely.", "de": "Heute ist der Meiler ruhig, und der Rauch steigt schön auf.", "it": "Oggi la carbonaia è tranquilla e il fumo sale bene." },
+                      { "who": "oglar", "face": "worried", "sl": "Če gre dim postrani, to pomeni, da piha veter. Takrat moram še bolj paziti.", "en": "If the smoke goes sideways, that means the wind is blowing. Then I have to watch even harder.", "de": "Wenn der Rauch zur Seite zieht, heißt das, dass Wind geht. Dann muss ich noch besser aufpassen.", "it": "Se il fumo va di lato, vuol dire che tira vento. Allora devo stare ancora più attento." },
+                      { "choices": [
+                        { "sl": "Kaj naredite, kadar začne pihati veter?", "en": "What do you do when the wind starts to blow?", "de": "Was tun Sie, wenn der Wind zu wehen beginnt?", "it": "Che cosa fa quando comincia a tirare vento?", "ok": true,
+                          "reply": { "sl": "Na tisto stran dam več zemlje. In ne spim.", "en": "I put more earth on that side. And I don't sleep.", "de": "Auf diese Seite gebe ich mehr Erde. Und ich schlafe nicht.", "it": "Su quel lato metto più terra. E non dormo." } },
+                        { "sl": "Kaj naredite, kadar začnete pihati veter?", "en": "What do you do when you start to blow the wind?", "de": "Was tun Sie, wenn Sie den Wind zu blasen beginnen?", "it": "Che cosa fa quando comincia lei a soffiare il vento?",
+                          "why": { "en": "The wind does the blowing: začne, it starts. Začnete would mean you, Miha, start blowing.", "de": "Der Wind bläst: začne, er beginnt. Začnete hieße, dass Sie, Miha, zu blasen beginnen.", "it": "È il vento che soffia: začne, comincia. Začnete vorrebbe dire che comincia lei, Miha, a soffiare." },
+                          "reply": { "face": "laugh", "sl": "Jaz? Jaz ne upihnem niti sveče.", "en": "Me? I couldn't blow out a candle.", "de": "Ich? Ich blase nicht einmal eine Kerze aus.", "it": "Io? Io non spengo nemmeno una candela." } }
+                      ] },
+                      { "who": "oglar", "sl": "Vsak večer kopo nahranim z drobnimi drvi, da se ne udre.", "en": "Every evening I feed the pile with small wood, so it doesn't cave in.", "de": "Jeden Abend füttere ich den Meiler mit kleinem Holz, damit er nicht einbricht.", "it": "Ogni sera nutro la carbonaia con legna minuta, perché non sprofondi." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "oglar", "sl": "Danes je kopa mirna. Dim se dviga naravnost, kot bi ga kdo vlekel za vrvico.", "en": "Today the pile is calm. The smoke rises straight up, as if someone were pulling it on a string.", "de": "Heute ist der Meiler ruhig. Der Rauch steigt gerade auf, als zöge ihn jemand an einer Schnur.", "it": "Oggi la carbonaia è tranquilla. Il fumo sale dritto, come se qualcuno lo tirasse con uno spago." },
+                      { "who": "oglar", "face": "worried", "sl": "Dim je moj vremenar. Če gre postrani, mi pove, s katere strani piha, in tam kopa kmalu dobi preveč zraka.", "en": "The smoke is my weatherman. If it goes sideways, it tells me which side the wind's on, and that's where the pile soon gets too much air.", "de": "Der Rauch ist mein Wetterfrosch. Zieht er zur Seite, sagt er mir, von welcher Seite der Wind kommt, und dort bekommt der Meiler bald zu viel Luft.", "it": "Il fumo è il mio meteorologo. Se va di lato mi dice da che parte tira il vento, e lì la carbonaia prende presto troppa aria." },
+                      { "choices": [
+                        { "sl": "Torej vam dim pokaže, na kateri strani je treba dodati zemljo.", "en": "So the smoke shows you on which side earth has to be added.", "de": "Der Rauch zeigt Ihnen also, auf welcher Seite Erde dazukommen muss.", "it": "Quindi il fumo le mostra su quale lato bisogna aggiungere terra.", "ok": true,
+                          "reply": { "face": "proud", "sl": "Tako je. Na tisto stran, s katere piha. In potem ne spim.", "en": "That's it. On the side the wind comes from. And then I don't sleep.", "de": "So ist es. Auf die Seite, von der er bläst. Und dann schlafe ich nicht.", "it": "Proprio così. Sul lato da cui tira. E poi non dormo." } },
+                        { "sl": "Torej vam dim pokaže, koliko drv bo treba za naslednjo kopo.", "en": "So the smoke shows you how much wood will be needed for the next pile.", "de": "Der Rauch zeigt Ihnen also, wie viel Holz für den nächsten Meiler nötig ist.", "it": "Quindi il fumo le mostra quanta legna servirà per la prossima carbonaia.",
+                          "why": { "en": "He's talking about the wind: smoke going sideways shows where it's blowing from, not how much wood he needs.", "de": "Er spricht vom Wind: Seitlicher Rauch zeigt, woher er bläst, nicht wie viel Holz er braucht.", "it": "Parla del vento: il fumo che va di lato mostra da dove tira, non quanta legna serve." },
+                          "reply": { "face": "confused", "sl": "Drv? O vetru govorim, ne o drveh.", "en": "Wood? I'm talking about the wind, not wood.", "de": "Holz? Ich rede vom Wind, nicht vom Holz.", "it": "La legna? Parlo del vento, non della legna." } }
+                      ] },
+                      { "who": "oglar", "sl": "Vsak večer kopo nahranim. Kar notri pogori, se seda, in če vrha ne bi dopolnil, bi se udrl.", "en": "Every evening I feed the pile. What burns away inside settles, and if I didn't top up the crown, it would cave in.", "de": "Jeden Abend füttere ich den Meiler. Was drinnen wegbrennt, sackt ab, und füllte ich die Kuppe nicht nach, bräche sie ein.", "it": "Ogni sera nutro la carbonaia. Quello che brucia dentro si assesta, e se non riempissi la cima, sprofonderebbe." }
                     ]
                   }
                 }
@@ -1301,6 +1364,34 @@
                       ] },
                       { "who": "oglar", "face": "happy", "sl": "Sedi. Skupaj bova poslušala.", "en": "Sit down. We'll listen together.", "de": "Setz dich. Wir horchen zusammen.", "it": "Siediti. Ascolteremo insieme." }
                     ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "oglar", "sl": "Ponoči je v gozdu tako tiho, da slišiš, kako kopa šumi.", "en": "At night it's so quiet in the woods that you can hear the pile rustling.", "de": "Nachts ist es im Wald so still, dass man den Meiler rauschen hört.", "it": "Di notte nel bosco c'è un tale silenzio che si sente frusciare la carbonaia." },
+                      { "who": "oglar", "sl": "Če zaslišim pok, takoj vstanem, ker pok pomeni, da se je nekaj udrlo.", "en": "If I hear a bang, I get up at once, because a bang means something has caved in.", "de": "Wenn ich einen Knall höre, stehe ich sofort auf, weil ein Knall bedeutet, dass etwas eingebrochen ist.", "it": "Se sento un botto mi alzo subito, perché un botto vuol dire che qualcosa è sprofondato." },
+                      { "choices": [
+                        { "sl": "Ali vas ni strah, ko ste ponoči čisto sami?", "en": "Aren't you afraid, when you're all alone at night?", "de": "Haben Sie keine Angst, wenn Sie nachts ganz allein sind?", "it": "Non ha paura, quando di notte è tutto solo?", "ok": true,
+                          "reply": { "sl": "Strah ne. Spoštovanje pa. Ogenj ni igrača.", "en": "Afraid, no. Respect, yes. Fire is no toy.", "de": "Angst nicht. Aber Respekt. Feuer ist kein Spielzeug.", "it": "Paura no. Rispetto sì. Il fuoco non è un giocattolo." } },
+                        { "sl": "Ali te ni strah, ko si ponoči čisto sam?", "en": "Aren't you afraid, when you're all alone at night? (ti)", "de": "Hast du keine Angst, wenn du nachts ganz allein bist? (ti)", "it": "Non hai paura, quando di notte sei tutto solo? (ti)", "grammar": "ti-vi",
+                          "why": { "en": "You say vi to Miha: vas, ste, sami.", "de": "Zu Miha sagst du vi: vas, ste, sami.", "it": "A Miha dai del vi: vas, ste, sami." },
+                          "reply": { "sl": "Tikaš me, sredi noči? No, prav. Ponoči smo vsi enaki.", "en": "You say ti to me, in the middle of the night? Well, all right. At night we're all the same.", "de": "Du duzt mich, mitten in der Nacht? Na gut. Nachts sind wir alle gleich.", "it": "Mi dai del tu, in piena notte? Va bene. Di notte siamo tutti uguali." } }
+                      ] },
+                      { "who": "oglar", "face": "happy", "sl": "Sedi. Skupaj bova poslušala.", "en": "Sit down. We'll listen together.", "de": "Setz dich. Wir horchen zusammen.", "it": "Siediti. Ascolteremo insieme." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "oglar", "sl": "Ponoči je v gozdu tako tiho, da slišiš, kako kopa šumi, in včasih se mi zdi, da diha.", "en": "At night it's so quiet in the woods that you can hear the pile rustling, and sometimes it seems to me that it's breathing.", "de": "Nachts ist es im Wald so still, dass man den Meiler rauschen hört, und manchmal scheint mir, er atmet.", "it": "Di notte nel bosco c'è un tale silenzio che si sente frusciare la carbonaia, e a volte mi sembra che respiri." },
+                      { "who": "oglar", "sl": "Ko zaslišim pok, sem v trenutku pokonci. Pok pomeni, da se je nekaj udrlo, in tam bo kopa kmalu dobila zrak.", "en": "When I hear a bang, I'm on my feet in a moment. A bang means something has caved in, and that's where the pile will soon get air.", "de": "Wenn ich einen Knall höre, bin ich im Nu auf den Beinen. Ein Knall heißt, dass etwas eingebrochen ist, und dort bekommt der Meiler bald Luft.", "it": "Quando sento un botto sono in piedi in un attimo. Un botto vuol dire che qualcosa è sprofondato, e lì la carbonaia prenderà presto aria." },
+                      { "choices": [
+                        { "sl": "Torej vas pok ne prestraši, ampak vam pove, kje vas kopa potrebuje.", "en": "So a bang doesn't scare you, it tells you where the pile needs you.", "de": "Ein Knall erschreckt Sie also nicht, er sagt Ihnen, wo der Meiler Sie braucht.", "it": "Quindi un botto non la spaventa, ma le dice dove la carbonaia ha bisogno di lei.", "ok": true,
+                          "reply": { "face": "proud", "sl": "Tako je. Strah ne, spoštovanje pa. Ogenj ni igrača.", "en": "That's it. Fear, no; respect, yes. Fire is no toy.", "de": "So ist es. Angst nicht, aber Respekt. Feuer ist kein Spielzeug.", "it": "Proprio così. Paura no, rispetto sì. Il fuoco non è un giocattolo." } },
+                        { "sl": "Torej vas pok prestraši, zato ostanete v koči, dokler ni spet tiho.", "en": "So a bang scares you, and you stay in the hut until it's quiet again.", "de": "Ein Knall erschreckt Sie also, und Sie bleiben in der Hütte, bis es wieder still ist.", "it": "Quindi un botto la spaventa, e resta nella capanna finché non torna il silenzio.",
+                          "why": { "en": "He said he's on his feet at once: a bang is the pile calling him, not something to hide from.", "de": "Er hat gesagt, er ist sofort auf den Beinen: Ein Knall ruft ihn, er versteckt sich nicht davor.", "it": "Ha detto che è subito in piedi: un botto lo chiama, non è una cosa da cui nascondersi." },
+                          "reply": { "face": "surprised", "sl": "V koči? Takrat sem prvi pri kopi.", "en": "In the hut? That's when I'm the first at the pile.", "de": "In der Hütte? Da bin ich als Erster beim Meiler.", "it": "Nella capanna? In quel momento sono il primo alla carbonaia." } }
+                      ] },
+                      { "who": "oglar", "face": "happy", "sl": "Sedi. Skupaj bova poslušala, ti gozd, jaz kopo.", "en": "Sit down. We'll listen together, you to the woods, I to the pile.", "de": "Setz dich. Wir horchen zusammen, du auf den Wald, ich auf den Meiler.", "it": "Siediti. Ascolteremo insieme, tu il bosco, io la carbonaia." }
+                    ]
                   }
                 }
               },
@@ -1332,6 +1423,34 @@
                           "reply": { "face": "confused", "sl": "Nasuli? Kdo je nasul? Saj še nisem.", "en": "Nasuli? Who heaped it? I haven't yet.", "de": "Nasuli? Wer hat aufgeschüttet? Ich noch nicht.", "it": "Nasuli? Chi l'ha messa? Io non ancora." } }
                       ] },
                       { "who": "oglar", "face": "happy", "sl": "Pridi pod streho koče, da ne boš {m:moker|f:mokra}.", "en": "Come under the hut's roof, so you don't get wet.", "de": "Komm unters Dach der Hütte, damit du nicht nass wirst.", "it": "Vieni sotto il tetto della capanna, così non ti bagni." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "oglar", "sl": "Danes dežuje. Malo dežja kopi ne škodi, ker zemlja ostane vlažna.", "en": "Today it's raining. A little rain doesn't harm the pile, because the earth stays damp.", "de": "Heute regnet es. Ein wenig Regen schadet dem Meiler nicht, weil die Erde feucht bleibt.", "it": "Oggi piove. Un po' di pioggia non fa male alla carbonaia, perché la terra resta umida." },
+                      { "who": "oglar", "face": "worried", "sl": "Nevihta pa je slaba, ker voda izpere zemljo in kopa dobi zrak.", "en": "But a storm is bad, because the water washes the earth away and the pile gets air.", "de": "Ein Gewitter aber ist schlecht, weil das Wasser die Erde wegspült und der Meiler Luft bekommt.", "it": "Il temporale invece è brutto, perché l'acqua dilava la terra e la carbonaia prende aria." },
+                      { "choices": [
+                        { "sl": "Kaj morate narediti, če nevihta izpere zemljo?", "en": "What do you have to do if a storm washes the earth away?", "de": "Was müssen Sie tun, wenn ein Gewitter die Erde wegspült?", "it": "Che cosa deve fare se un temporale dilava la terra?", "ok": true,
+                          "reply": { "sl": "Zemljo moram spet nasuti. Z lopato, v dežju. Lepo ni, a mora biti.", "en": "I have to heap the earth on again. With a shovel, in the rain. It isn't nice, but it has to be done.", "de": "Ich muss die Erde wieder aufschütten. Mit der Schaufel, im Regen. Schön ist es nicht, aber es muss sein.", "it": "Devo rimettere la terra. Con la pala, sotto la pioggia. Non è bello, ma va fatto." } },
+                        { "sl": "Kaj morate narediti, če nevihta izpere zemlja?", "en": "What do you have to do if a storm washes the earth away? (the wrong case)", "de": "Was müssen Sie tun, wenn ein Gewitter die Erde wegspült? (der falsche Fall)", "it": "Che cosa deve fare se un temporale dilava la terra? (il caso sbagliato)", "grammar": "tozilnik",
+                          "why": { "en": "The storm does it and the earth gets washed away, so the earth is in the accusative: zemljo.", "de": "Das Gewitter tut es, die Erde wird weggespült, darum steht sie im Akkusativ: zemljo.", "it": "È il temporale che agisce e la terra viene dilavata, perciò sta all'accusativo: zemljo." },
+                          "reply": { "face": "confused", "sl": "Zemlja? Saj zemlja nič ne izpere. Nevihta jo.", "en": "The earth? The earth doesn't wash anything away. The storm does.", "de": "Die Erde? Die Erde spült doch nichts weg. Das Gewitter tut es.", "it": "La terra? La terra non dilava niente. È il temporale." } }
+                      ] },
+                      { "who": "oglar", "face": "happy", "sl": "Pridi pod streho koče, da ne boš {m:moker|f:mokra}.", "en": "Come under the roof of the hut, so you don't get wet.", "de": "Komm unter das Dach der Hütte, damit du nicht nass wirst.", "it": "Vieni sotto il tetto della capanna, così non ti bagni." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "oglar", "sl": "Danes dežuje. Malo dežja kopi še koristi, ker zemlja ostane vlažna in se ne usuje.", "en": "Today it's raining. A little rain even does the pile good, because the earth stays damp and doesn't slide off.", "de": "Heute regnet es. Ein wenig Regen tut dem Meiler sogar gut, weil die Erde feucht bleibt und nicht abrutscht.", "it": "Oggi piove. Un po' di pioggia fa perfino bene alla carbonaia, perché la terra resta umida e non scivola via." },
+                      { "who": "oglar", "face": "worried", "sl": "Če bi prišla nevihta, bi bilo drugače. Voda bi izprala zemljo, kopa pa bi dobila zrak.", "en": "If a storm came, it would be different. The water would wash the earth away, and the pile would get air.", "de": "Käme ein Gewitter, wäre es anders. Das Wasser spülte die Erde weg, und der Meiler bekäme Luft.", "it": "Se arrivasse un temporale, sarebbe diverso. L'acqua dilaverebbe la terra e la carbonaia prenderebbe aria." },
+                      { "choices": [
+                        { "sl": "Torej dež sam po sebi ni nevaren, nevarna je samo voda, ki odnaša zemljo.", "en": "So the rain itself isn't dangerous, only water that carries the earth away is.", "de": "Der Regen selbst ist also nicht gefährlich, nur Wasser, das die Erde wegträgt.", "it": "Quindi la pioggia in sé non è pericolosa, lo è solo l'acqua che porta via la terra.", "ok": true,
+                          "reply": { "face": "proud", "sl": "Tako. In takrat grem z lopato ven, pa naj lije, kot hoče.", "en": "Just so. And then I go out with the shovel, let it pour as it likes.", "de": "So ist es. Und dann gehe ich mit der Schaufel hinaus, mag es gießen, wie es will.", "it": "Proprio. E allora esco con la pala, venga giù come vuole." } },
+                        { "sl": "Torej je vsak dež nevaren, ker kopa od njega ugasne.", "en": "So all rain is dangerous, because it puts the pile out.", "de": "Jeder Regen ist also gefährlich, weil der Meiler davon ausgeht.", "it": "Quindi ogni pioggia è pericolosa, perché la carbonaia si spegne.",
+                          "why": { "en": "A little rain even helps; the danger is earth washed away, because then the pile gets air.", "de": "Ein wenig Regen hilft sogar; gefährlich ist weggespülte Erde, weil der Meiler dann Luft bekommt.", "it": "Un po' di pioggia aiuta perfino; il pericolo è la terra dilavata, perché allora la carbonaia prende aria." },
+                          "reply": { "face": "laugh", "sl": "Ugasne? Kopa je bolj trmasta od dežja.", "en": "Goes out? The pile is more stubborn than the rain.", "de": "Geht aus? Der Meiler ist sturer als der Regen.", "it": "Si spegne? La carbonaia è più testarda della pioggia." } }
+                      ] },
+                      { "who": "oglar", "face": "happy", "sl": "Pridi pod streho koče, da ne boš {m:moker|f:mokra}. Od tam se tudi vidi vse, kar je treba.", "en": "Come under the roof of the hut, so you don't get wet. You can see all you need from there too.", "de": "Komm unter das Dach der Hütte, damit du nicht nass wirst. Von dort sieht man auch alles, was nötig ist.", "it": "Vieni sotto il tetto della capanna, così non ti bagni. Da lì si vede anche tutto quello che serve." }
                     ]
                   }
                 }
@@ -1398,6 +1517,34 @@
                       ] },
                       { "who": "oglar", "sl": "Kopa se seda. Glej, manjša je kot prej.", "en": "The pile is settling. Look, it's smaller than before.", "de": "Der Meiler setzt sich. Schau, er ist kleiner als vorher.", "it": "La carbonaia si assesta. Guarda, è più piccola di prima." }
                     ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "oglar", "face": "curious", "sl": "Dim je porumenel. Smrdi malo po kisu, kajne?", "en": "The smoke has turned yellow. It stinks a bit of vinegar, doesn't it?", "de": "Der Rauch ist gelb geworden. Er riecht ein wenig nach Essig, nicht wahr?", "it": "Il fumo è ingiallito. Puzza un po' d'aceto, vero?" },
+                      { "who": "oglar", "sl": "Zdaj se les res kuha, zato delam luknje vsak dan nižje.", "en": "Now the wood is really cooking, so I make the holes lower every day.", "de": "Jetzt kocht das Holz wirklich, darum mache ich die Löcher jeden Tag tiefer.", "it": "Ora la legna cuoce davvero, perciò faccio i buchi ogni giorno più in basso." },
+                      { "choices": [
+                        { "sl": "Kje bodo luknje jutri, če so danes na sredini?", "en": "Where will the holes be tomorrow, if they're in the middle today?", "de": "Wo werden die Löcher morgen sein, wenn sie heute in der Mitte sind?", "it": "Dove saranno i buchi domani, se oggi sono a metà?", "ok": true,
+                          "reply": { "sl": "Še malo nižje. Za dlan.", "en": "A bit lower still. By a hand.", "de": "Noch ein wenig tiefer. Um eine Handbreit.", "it": "Ancora un po' più in basso. Di una mano." } },
+                        { "sl": "Kje so bile luknje jutri, če so danes na sredini?", "en": "Where were the holes tomorrow, if they're in the middle today?", "de": "Wo waren die Löcher morgen, wenn sie heute in der Mitte sind?", "it": "Dov'erano i buchi domani, se oggi sono a metà?",
+                          "why": { "en": "Jutri is still to come, so the verb is in the future: bodo.", "de": "Jutri kommt erst, darum steht das Verb in der Zukunft: bodo.", "it": "Jutri deve ancora venire, perciò il verbo sta al futuro: bodo." },
+                          "reply": { "face": "confused", "sl": "Včeraj ali jutri? Odloči se.", "en": "Yesterday or tomorrow? Make up your mind.", "de": "Gestern oder morgen? Entscheide dich.", "it": "Ieri o domani? Deciditi." } }
+                      ] },
+                      { "who": "oglar", "sl": "Kopa se seda. Glej, manjša je kot prvi dan.", "en": "The pile is settling. Look, it's smaller than on the first day.", "de": "Der Meiler sackt ab. Schau, er ist kleiner als am ersten Tag.", "it": "La carbonaia si assesta. Guarda, è più piccola del primo giorno." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "oglar", "face": "curious", "sl": "Dim je porumenel. Smrdi po kisu, kajne? Iz lesa zdaj ne gre več samo voda.", "en": "The smoke has turned yellow. It stinks of vinegar, doesn't it? Now it isn't only water going out of the wood.", "de": "Der Rauch ist gelb geworden. Er riecht nach Essig, nicht wahr? Aus dem Holz geht jetzt nicht mehr nur Wasser.", "it": "Il fumo è ingiallito. Puzza d'aceto, vero? Dalla legna ora non esce più solo acqua." },
+                      { "who": "oglar", "sl": "Dimnice delam vsak dan nižje, ker ogenj hodi navzdol, dim pa mora iti za njim.", "en": "I make the dimnice lower every day, because the fire is moving down and the smoke has to follow it.", "de": "Die dimnice mache ich jeden Tag tiefer, weil das Feuer nach unten wandert und der Rauch ihm folgen muss.", "it": "Le dimnice le faccio ogni giorno più in basso, perché il fuoco scende e il fumo deve seguirlo." },
+                      { "choices": [
+                        { "sl": "Če bi dimnice ostale zgoraj, bi spodaj ostal surov les.", "en": "If the dimnice stayed at the top, raw wood would be left at the bottom.", "de": "Blieben die dimnice oben, bliebe unten rohes Holz.", "it": "Se le dimnice restassero in alto, sotto resterebbe legna cruda.", "ok": true,
+                          "reply": { "face": "proud", "sl": "Tako je. Dobil bi oglje na vrhu in les spodaj.", "en": "That's it. I'd get charcoal at the top and wood at the bottom.", "de": "So ist es. Ich bekäme oben Kohle und unten Holz.", "it": "Proprio così. Avrei carbone in cima e legna sotto." } },
+                        { "sl": "Če bi dimnice ostale zgoraj, bi spodaj vse zgorelo v pepel.", "en": "If the dimnice stayed at the top, everything at the bottom would burn to ash.", "de": "Blieben die dimnice oben, verbrennte unten alles zu Asche.", "it": "Se le dimnice restassero in alto, sotto brucerebbe tutto in cenere.",
+                          "why": { "en": "Without holes below, the fire gets no air down there: the wood at the bottom stays raw.", "de": "Ohne Löcher unten bekommt das Feuer dort keine Luft: Das Holz unten bleibt roh.", "it": "Senza buchi in basso il fuoco laggiù non prende aria: la legna sotto resta cruda." },
+                          "reply": { "face": "thinking", "sl": "V pepel? Ne, tja sploh ne bi prišel ogenj.", "en": "To ash? No, the fire wouldn't get down there at all.", "de": "Zu Asche? Nein, dorthin käme das Feuer gar nicht.", "it": "In cenere? No, là il fuoco non arriverebbe nemmeno." } }
+                      ] },
+                      { "who": "oglar", "sl": "Kopa se seda, kot se sedajo stari ljudje. Glej, manjša je kot prvi dan, in še manjša bo.", "en": "The pile is settling, the way old people do. Look, it's smaller than on the first day, and it'll be smaller yet.", "de": "Der Meiler sackt ab, wie alte Leute sich setzen. Schau, er ist kleiner als am ersten Tag und wird noch kleiner.", "it": "La carbonaia si assesta, come fanno i vecchi. Guarda, è più piccola del primo giorno, e lo sarà ancora di più." }
+                    ]
                   }
                 }
               },
@@ -1429,6 +1576,34 @@
                       ] },
                       { "who": "oglar", "sl": "Še nekaj dni. Potem bo dim moder.", "en": "A few more days. Then the smoke will be blue.", "de": "Noch ein paar Tage. Dann wird der Rauch blau.", "it": "Ancora qualche giorno. Poi il fumo sarà blu." }
                     ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "oglar", "face": "happy", "sl": "Danes je bil lep dan in kopa je pridna.", "en": "Today was a fine day and the pile is behaving.", "de": "Heute war ein schöner Tag, und der Meiler ist brav.", "it": "Oggi è stata una bella giornata e la carbonaia fa la brava." },
+                      { "who": "oglar", "sl": "Zjutraj sem jo nahranil, popoldne pa sem naredil nove luknje.", "en": "In the morning I fed it, and in the afternoon I made new holes.", "de": "Am Morgen habe ich ihn gefüttert, am Nachmittag habe ich neue Löcher gemacht.", "it": "Al mattino l'ho nutrita, e il pomeriggio ho fatto buchi nuovi." },
+                      { "choices": [
+                        { "sl": "Kaj ste ji dali za hrano?", "en": "What did you give it to eat?", "de": "Was haben Sie ihm zu fressen gegeben?", "it": "Che cosa le ha dato da mangiare?", "ok": true,
+                          "reply": { "sl": "Drobna drva in koščke oglja. Lačna je kot volk.", "en": "Small wood and bits of charcoal. It's as hungry as a wolf.", "de": "Kleines Holz und Kohlestückchen. Er ist hungrig wie ein Wolf.", "it": "Legna minuta e pezzetti di carbone. Ha una fame da lupi." } },
+                        { "sl": "Kaj ste ga dali za hrano?", "en": "What did you give him to eat? (the wrong pronoun)", "de": "Was haben Sie ihn zu fressen gegeben? (das falsche Pronomen)", "it": "Che cosa lo ha dato da mangiare? (il pronome sbagliato)", "grammar": "osebni-zaimki",
+                          "why": { "en": "Kopa is feminine and you give something to it: dative ji.", "de": "Kopa ist weiblich, und man gibt ihr etwas: Dativ ji.", "it": "Kopa è femminile e le si dà qualcosa: dativo ji." },
+                          "reply": { "face": "confused", "sl": "Ga? Komu? Kopa je ona.", "en": "Him? To whom? The pile is a she.", "de": "Ihn? Wem? Kopa ist weiblich.", "it": "Lo? A chi? Kopa è femminile." } }
+                      ] },
+                      { "who": "oglar", "sl": "Še nekaj dni, potem bo dim moder.", "en": "A few more days, then the smoke will be blue.", "de": "Noch ein paar Tage, dann wird der Rauch blau.", "it": "Ancora qualche giorno, poi il fumo sarà azzurro." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "oglar", "face": "happy", "sl": "Danes je bil lep dan. Kopa je pridna, kot bi vedela, da jo gledam.", "en": "Today was a fine day. The pile is behaving, as if it knew I was watching it.", "de": "Heute war ein schöner Tag. Der Meiler ist brav, als wüsste er, dass ich ihn anschaue.", "it": "Oggi è stata una bella giornata. La carbonaia fa la brava, come se sapesse che la guardo." },
+                      { "who": "oglar", "sl": "Zjutraj sem jo nahranil, popoldne naredil nove dimnice, zvečer pa bom samo sedel. Tudi to je delo.", "en": "In the morning I fed it, in the afternoon I made new dimnice, and in the evening I'll just sit. That's work too.", "de": "Am Morgen habe ich ihn gefüttert, am Nachmittag neue dimnice gemacht, und am Abend werde ich nur sitzen. Auch das ist Arbeit.", "it": "Al mattino l'ho nutrita, il pomeriggio ho fatto nuove dimnice, e la sera starò solo seduto. Anche questo è lavoro." },
+                      { "choices": [
+                        { "sl": "Kaj pa bi se zgodilo, če je ne bi hranili?", "en": "And what would happen if you didn't feed it?", "de": "Und was geschähe, wenn Sie ihn nicht fütterten?", "it": "E che cosa succederebbe se non la nutrisse?", "ok": true,
+                          "reply": { "face": "thinking", "sl": "Vrh bi se udrl, skozi razpoko pa bi prišel zrak. Lačna kopa je nevarna kopa.", "en": "The crown would cave in, and air would come through the crack. A hungry pile is a dangerous pile.", "de": "Die Kuppe bräche ein, und durch den Riss käme Luft. Ein hungriger Meiler ist ein gefährlicher Meiler.", "it": "La cima sprofonderebbe, e dalla crepa entrerebbe aria. Una carbonaia affamata è una carbonaia pericolosa." } },
+                        { "sl": "Kaj pa bi se zgodilo, če je ne hranili?", "en": "And what would happen if you didn't feed it? (no bi)", "de": "Und was geschähe, wenn Sie ihn nicht fütterten? (ohne bi)", "it": "E che cosa succederebbe se non la nutrisse? (senza bi)", "grammar": "pogojnik-ce-bi",
+                          "why": { "en": "The form in -li needs its bi: če je ne bi hranili.", "de": "Die Form auf -li braucht ihr bi: če je ne bi hranili.", "it": "La forma in -li vuole il suo bi: če je ne bi hranili." },
+                          "reply": { "face": "confused", "sl": "Če je ne kaj? Še enkrat, počasi.", "en": "If you don't what? Once more, slowly.", "de": "Wenn du ihn nicht was? Noch einmal, langsam.", "it": "Se non cosa? Ancora una volta, piano." } }
+                      ] },
+                      { "who": "oglar", "sl": "Še nekaj dni. Ko bo dim moder, si bova lahko oddahnila.", "en": "A few more days. When the smoke is blue, we'll be able to breathe out.", "de": "Noch ein paar Tage. Wenn der Rauch blau ist, können wir aufatmen.", "it": "Ancora qualche giorno. Quando il fumo sarà azzurro, potremo tirare il fiato." }
+                    ]
                   }
                 }
               },
@@ -1459,6 +1634,32 @@
                           "reply": { "face": "confused", "sl": "Vsak noč? Noč je ona, ne on.", "en": "Vsak noč? Night is a she, not a he.", "de": "Vsak noč? Die Nacht ist eine Sie, kein Er.", "it": "Vsak noč? La notte è lei, non lui." } }
                       ] },
                       { "who": "oglar", "face": "laugh", "sl": "Ko sem bil mlad, sem ponoči pel, da nisem zaspal.", "en": "When I was young, I sang at night so I wouldn't fall asleep.", "de": "Als ich jung war, habe ich nachts gesungen, um nicht einzuschlafen.", "it": "Quando ero giovane, di notte cantavo per non addormentarmi." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "oglar", "face": "happy", "sl": "Ponoči je kopa najlepša. Vidiš, kje so luknje? Že na sredini.", "en": "At night the pile is at its loveliest. Do you see where the holes are? Already in the middle.", "de": "Nachts ist der Meiler am schönsten. Siehst du, wo die Löcher sind? Schon in der Mitte.", "it": "Di notte la carbonaia è bellissima. Vedi dove sono i buchi? Già a metà." },
+                      { "choices": [
+                        { "sl": "Ali ste stražili vsako noč, odkar kopa tli?", "en": "Have you kept watch every night since the pile began to smoulder?", "de": "Haben Sie jede Nacht Wache gehalten, seit der Meiler glimmt?", "it": "Ha fatto la guardia ogni notte da quando la carbonaia cova?", "ok": true,
+                          "reply": { "sl": "Vsako. Dva tedna. Potem spim tri dni.", "en": "Every one. Two weeks. Then I sleep for three days.", "de": "Jede. Zwei Wochen. Dann schlafe ich drei Tage.", "it": "Ogni notte. Due settimane. Poi dormo tre giorni." } },
+                        { "sl": "Ali ste stražili vsak noč, odkar kopa tli?", "en": "Have you kept watch every night since the pile began to smoulder? (the wrong gender)", "de": "Haben Sie jede Nacht Wache gehalten, seit der Meiler glimmt? (das falsche Geschlecht)", "it": "Ha fatto la guardia ogni notte da quando la carbonaia cova? (il genere sbagliato)", "grammar": "spol-samostalnikov",
+                          "why": { "en": "Noč is feminine: vsako noč.", "de": "Noč ist weiblich: vsako noč.", "it": "Noč è femminile: vsako noč." },
+                          "reply": { "face": "confused", "sl": "Vsak noč? Noč je ona, ne on.", "en": "Vsak noč? Night is a she, not a he.", "de": "Vsak noč? Noč ist weiblich, nicht männlich.", "it": "Vsak noč? Noč è femminile, non maschile." } }
+                      ] },
+                      { "who": "oglar", "face": "laugh", "sl": "Ko sem bil mlad, sem ponoči pel, da ne bi zaspal. Lisice so bežale.", "en": "When I was young I sang at night, so I wouldn't fall asleep. The foxes ran away.", "de": "Als ich jung war, habe ich nachts gesungen, um nicht einzuschlafen. Die Füchse sind davongelaufen.", "it": "Da giovane di notte cantavo per non addormentarmi. Le volpi scappavano." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "oglar", "face": "happy", "sl": "Ponoči je kopa najlepša. Dimnice so že na sredini, in kdor zna gledati, vidi, kako daleč je prišel ogenj.", "en": "At night the pile is at its loveliest. The dimnice are already in the middle, and whoever knows how to look can see how far the fire has come.", "de": "Nachts ist der Meiler am schönsten. Die dimnice sind schon in der Mitte, und wer zu schauen versteht, sieht, wie weit das Feuer gekommen ist.", "it": "Di notte la carbonaia è bellissima. Le dimnice sono già a metà, e chi sa guardare vede fin dove è arrivato il fuoco." },
+                      { "choices": [
+                        { "sl": "Kako pa ostanete budni toliko noči zapored?", "en": "And how do you stay awake so many nights in a row?", "de": "Und wie bleiben Sie so viele Nächte hintereinander wach?", "it": "E come fa a restare sveglio tante notti di fila?", "ok": true,
+                          "reply": { "sl": "Z navado. In s pesmijo: ko sem bil mlad, sem ponoči pel, da ne bi zaspal.", "en": "By habit. And with song: when I was young I sang at night, so I wouldn't fall asleep.", "de": "Aus Gewohnheit. Und mit Gesang: Als ich jung war, habe ich nachts gesungen, um nicht einzuschlafen.", "it": "Con l'abitudine. E col canto: da giovane di notte cantavo per non addormentarmi." } },
+                        { "sl": "Kako pa ostanete budni toliko noč zapored?", "en": "And how do you stay awake so many nights in a row? (the wrong ending)", "de": "Und wie bleiben Sie so viele Nächte hintereinander wach? (die falsche Endung)", "it": "E come fa a restare sveglio tante notti di fila? (la desinenza sbagliata)", "grammar": "rodilnik-kolicina",
+                          "why": { "en": "After toliko a thing you count stands in the genitive plural, and of noč that's noči.", "de": "Nach toliko steht etwas Zählbares im Genitiv Plural, und der heißt bei noč noči.", "it": "Dopo toliko ciò che si conta sta al genitivo plurale, e di noč è noči." },
+                          "reply": { "face": "laugh", "sl": "Toliko noč? Noč je ena, pa še ta je dolga.", "en": "So much night? There's one night, and that's long enough.", "de": "So viel Nacht? Nacht ist eine, und die ist schon lang.", "it": "Tanta notte? La notte è una, ed è già lunga." } }
+                      ] },
+                      { "who": "oglar", "face": "laugh", "sl": "Lisice so mislile, da nekdo nekoga kolje. Oče pa je rekel, da kopa posluša, in meni se ni nobena udrla med pesmijo.", "en": "The foxes thought someone was killing someone. But my father said the pile listens, and none has ever caved in on me during a song.", "de": "Die Füchse dachten, jemand schlachte jemanden. Aber mein Vater sagte, der Meiler hört zu, und mir ist noch keiner beim Singen eingebrochen.", "it": "Le volpi pensavano che qualcuno stesse sgozzando qualcuno. Ma mio padre diceva che la carbonaia ascolta, e a me nessuna è mai sprofondata durante una canzone." }
                     ]
                   }
                 }
@@ -1492,6 +1693,34 @@
                           "reply": { "face": "laugh", "sl": "Pred vetra? Hm, veter ne čaka na slovnico.", "en": "Pred vetra? Hm, the wind doesn't wait for grammar.", "de": "Pred vetra? Hm, der Wind wartet nicht auf Grammatik.", "it": "Pred vetra? Mm, il vento non aspetta la grammatica." } }
                       ] },
                       { "who": "oglar", "face": "thinking", "sl": "Moj ded je rekel: veter je oglarjev najhujši sosed.", "en": "My grandfather used to say: the wind is the charcoal burner's worst neighbour.", "de": "Mein Großvater sagte: der Wind ist der schlimmste Nachbar des Köhlers.", "it": "Mio nonno diceva: il vento è il peggior vicino del carbonaio." }
+                    ]
+                  },
+                  "B1": {
+                    "lines": [
+                      { "who": "oglar", "face": "worried", "sl": "Danes piha burja. Takšen veter je za kopo najhujši.", "en": "Today the bora is blowing. A wind like that is the worst for the pile.", "de": "Heute weht die Bora. So ein Wind ist für den Meiler das Schlimmste.", "it": "Oggi soffia la bora. Un vento così è il peggio per la carbonaia." },
+                      { "who": "oglar", "sl": "Na eni strani kopa gori prehitro, na drugi pa sploh ne.", "en": "On one side the pile burns too fast, and on the other not at all.", "de": "Auf der einen Seite brennt der Meiler zu schnell, auf der anderen gar nicht.", "it": "Da un lato la carbonaia brucia troppo in fretta, dall'altro per niente." },
+                      { "choices": [
+                        { "sl": "Ali lahko kopo kako zaščitite pred vetrom?", "en": "Can you protect the pile from the wind somehow?", "de": "Können Sie den Meiler irgendwie vor dem Wind schützen?", "it": "Può proteggere in qualche modo la carbonaia dal vento?", "ok": true,
+                          "reply": { "sl": "Lahko. Postavim steno iz vej, na vetrovno stran. Pomagaj mi.", "en": "I can. I put up a wall of branches, on the windward side. Help me.", "de": "Ja. Ich stelle eine Wand aus Ästen auf, auf der Windseite. Hilf mir.", "it": "Sì. Tiro su una parete di rami, sul lato del vento. Aiutami." } },
+                        { "sl": "Ali lahko kopo kako zaščitite pred veter?", "en": "Can you protect the pile from the wind somehow? (the wrong case)", "de": "Können Sie den Meiler irgendwie vor dem Wind schützen? (der falsche Fall)", "it": "Può proteggere in qualche modo la carbonaia dal vento? (il caso sbagliato)", "grammar": "predlogi-dva-sklona",
+                          "why": { "en": "Zaščititi pred takes the instrumental: pred vetrom. Pred veter says where something is moving to.", "de": "Zaščititi pred verlangt den Instrumental: pred vetrom. Pred veter sagt, wohin sich etwas bewegt.", "it": "Zaščititi pred vuole lo strumentale: pred vetrom. Pred veter dice verso dove si muove una cosa." },
+                          "reply": { "face": "confused", "sl": "Pred veter? Veter ne čaka na slovnico.", "en": "Pred veter? The wind doesn't wait for grammar.", "de": "Pred veter? Der Wind wartet nicht auf die Grammatik.", "it": "Pred veter? Il vento non aspetta la grammatica." } }
+                      ] },
+                      { "who": "oglar", "face": "thinking", "sl": "Moj ded je rekel, da je veter oglarjev najhujši sosed.", "en": "My grandfather said the wind is a burner's worst neighbour.", "de": "Mein Großvater sagte, der Wind sei der schlimmste Nachbar des Köhlers.", "it": "Mio nonno diceva che il vento è il peggior vicino del carbonaio." }
+                    ]
+                  },
+                  "B2": {
+                    "lines": [
+                      { "who": "oglar", "face": "worried", "sl": "Danes piha burja. Takšen veter je za kopo najhujši, ker ne piha enakomerno, ampak v sunkih.", "en": "Today the bora is blowing. A wind like that is the worst for the pile, because it doesn't blow evenly, but in gusts.", "de": "Heute weht die Bora. So ein Wind ist für den Meiler das Schlimmste, weil er nicht gleichmäßig weht, sondern in Stößen.", "it": "Oggi soffia la bora. Un vento così è il peggio per la carbonaia, perché non soffia regolare ma a raffiche." },
+                      { "who": "oglar", "sl": "Na strani, s katere piha, kopa gori prehitro, na drugi pa sploh ne. Če je ne bi zavaroval, bi se pokvarila vsa.", "en": "On the side the wind comes from, the pile burns too fast, and on the other not at all. If I didn't protect it, the whole pile would be spoilt.", "de": "Auf der Seite, von der er bläst, brennt der Meiler zu schnell, auf der anderen gar nicht. Schützte ich ihn nicht, verdürbe der ganze.", "it": "Dal lato da cui tira la carbonaia brucia troppo in fretta, dall'altro per niente. Se non la proteggessi, si rovinerebbe tutta." },
+                      { "choices": [
+                        { "sl": "Bi pomagalo, če bi na tisto stran postavili steno iz vej?", "en": "Would it help if we put up a wall of branches on that side?", "de": "Würde es helfen, wenn wir auf dieser Seite eine Wand aus Ästen aufstellten?", "it": "Servirebbe se su quel lato tirassimo su una parete di rami?", "ok": true,
+                          "reply": { "face": "happy", "sl": "Bi. Pomagaj mi, preden zmanjka dneva.", "en": "It would. Help me, before the daylight runs out.", "de": "Ja. Hilf mir, bevor es dunkel wird.", "it": "Sì. Aiutami, prima che finisca la luce." } },
+                        { "sl": "Bi pomagalo, če bi na drugo stran postavili steno iz vej?", "en": "Would it help if we put up a wall of branches on the other side?", "de": "Würde es helfen, wenn wir auf der anderen Seite eine Wand aus Ästen aufstellten?", "it": "Servirebbe se sull'altro lato tirassimo su una parete di rami?",
+                          "why": { "en": "The wall has to stop the wind, so it goes on the side the wind comes from.", "de": "Die Wand soll den Wind aufhalten, also kommt sie auf die Seite, von der er bläst.", "it": "La parete deve fermare il vento, perciò va sul lato da cui tira." },
+                          "reply": { "face": "confused", "sl": "Na drugo? Tam vetra sploh ni.", "en": "On the other? There's no wind there at all.", "de": "Auf die andere? Dort ist gar kein Wind.", "it": "Sull'altro? Lì di vento non ce n'è." } }
+                      ] },
+                      { "who": "oglar", "face": "thinking", "sl": "Moj ded je rekel, da je veter oglarjev najhujši sosed: ne moreš se mu izogniti in ne moreš se z njim skregati.", "en": "My grandfather said the wind is a burner's worst neighbour: you can't avoid him and you can't quarrel with him.", "de": "Mein Großvater sagte, der Wind sei der schlimmste Nachbar des Köhlers: Man kann ihm nicht ausweichen und sich nicht mit ihm streiten.", "it": "Mio nonno diceva che il vento è il peggior vicino del carbonaio: non puoi evitarlo e non puoi litigarci." }
                     ]
                   }
                 }
