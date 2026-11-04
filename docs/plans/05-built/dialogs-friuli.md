@@ -216,7 +216,7 @@ sheep bells, fog out).
 A tap on any word of these lines opens its card. `companion/lexicon/tools/it_cov_70_dialogs_friuli.txt` (60 before the merge
 with the queue) is a table of its own, run through `it_cov_build.py` from the file before supplement-it as its header says
 (`git show 45924165:companion/lexicon/it.extra.json > base.json; python3 -I companion/lexicon/tools/it_cov_build.py . base.json --write --prompts`):
-196 new entries with their meanings in en, de and sl (written by hand, for a child), and the forms of 170 older ones the
+197 new entries with their meanings in en, de and sl (written by hand, for a child), and the forms of 170 older ones the
 lines use. Nothing lost (every entry, meaning and form of before is there). `lexicon-build --coverage --lang it --all`, with no
 Wiktionary as a phone has it: 99.8 % of tokens and 97.8 % of words, as before the variants (131,953 tokens now, 111,387
 before). Unknown on purpose: the wrong forms offered (anderei, beverei, averei, venirei, sterebbe, serverebbero, ognuni, qualcune),
@@ -237,8 +237,8 @@ of tokens and 98.4 % of words (351 files).
 ## Voices
 
 No ElevenLabs call. A voice build of the new texts in Italian (the lines, the choices with both forms of a gender pair, the
-replies), as Teo's app asks for them ({learner} = Teo): **110,769 characters**, 1,528 texts: the learner's choices 29,701
-(520), Bepi 14,078, Rosa 11,338, Franco 11,267, Davide 8,926, Elena 8,147, Bruno 7,827, Marisa 6,688, Nives 4,777, Aldo
+replies), as Teo's app asks for them ({learner} = Teo): **110,503 characters**, 1,530 texts (after the fixes below; the
+per-person figures that follow are from before them, within a few hundred): the learner's choices 29,850, Bepi 14,078, Rosa 11,338, Franco 11,267, Davide 8,926, Elena 8,147, Bruno 7,827, Marisa 6,688, Nives 4,777, Aldo
 4,039, Matteo 3,981. No new voice: everyone speaks with the voice the cast gives them. That is more than a month's
 credits (MEMORY: ask Jan before spending); the app says them with the local voices until then.
 
@@ -253,6 +253,10 @@ in the scene and the happening's own dialog plays. Screenshots in `$LANI_QA_DIAL
 
 ## Checks
 
+- **After the merge with the queue** (practice-en 8a08c83f0, packs-it at 85917a636 = main, which holds hint-chip-it): `check-culture
+  friuli` ok; `bun test/prompt-clashes.ts` no new clash; `tutor-export --check` 140 files; tsc clean; the 11 merged TypeScript test
+  files parse; the smoke on ports 10610–10628 passed (4,022 checks before packs-it's last move; the run on the tip is in the report).
+  The Android scene tests and the emulator QA below ran before the merges and weren't run again.
 - `bun test/check-culture.ts friuli`: ok (the levels, `levelPageErrors`, the reactions, faces and cast).
 - The smoke (`LANI_SMOKE_PORT=10610`, Friuli 10612, town 10614, drama3 10628) on the final content: 3,723 checks, all passed.
 - `bunx tsc --noEmit -p .`: clean. `bun src/cli/tutor-export.ts --check`: 140 files match.
