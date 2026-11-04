@@ -1558,7 +1558,8 @@ before and that the wheel's paddles move under `wheel` 1 at stage 5 and stand st
 else another of the project's helpers who is (a child for a child), else anyone else of the village of their age, else the
 leader. So a step never waits for its helpers (they needn't live here: GAME.md), and its texts name only its leader
 ([VILLAGERS.md](VILLAGERS.md#who-a-text-may-name)); a helper's lines say nothing of who says them (no first person that
-agrees with the speaker: the bridge checks "Prinesel sem", "sem utrujena", "sam"). A choice's reply is said by the one the
+agrees with the speaker, in any language a line is read in, a reply's too: the bridge checks "Prinesel sem", "sem utrujena",
+"sono stanca", "als Bub", "when I was a lad"). A choice's reply is said by the one the
 turn names (`to`, cast as their lines are), else whoever spoke last before the turn (`Projects.repliers`).
 
 **As this learner meets it**: at their level in the village's language (the highest the step has up to theirs, else its

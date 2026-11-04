@@ -769,6 +769,9 @@ changes until the learner takes its result**, and taking it only adds.
   `get_course` shows the units `placed` and the test's `placement`.
 - **Prints:** none; the test is the app's only (its exercises are the units' own tests, which print with their units).
 
+A child's test reads each exercise's instruction and question as it comes up (`PromptSpeech`, by "🔊 Beri razlago"), never an option or
+the answer. A level the test raised that the node doesn't show by the next day can go again: "📨 Pošlji znova" in the test's intro.
+
 ### What the school shows
 
 Jan, 2026-10-27, as A2 (14 units) and B1 (16) were outlined: "no need to show it all directly". The school's screen

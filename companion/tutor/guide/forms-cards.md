@@ -20,5 +20,5 @@ forms_tense_future, forms_tense_imperative, forms_tense_negative, forms_adjectiv
 kind that keeps coming back: point Jan to the unit or the grammar page that teaches it (get_course lists the units by
 page: tozilnik, mestnik, mnozina, dvojina, sedanjik, pretekli-cas, prihodnjik, velelnik, spol for the adjective's
 gender), its intro again or a worksheet; a module with lani-studio if it persists. A form on a card that looks wrong
-is the dictionary's: the lani-fix skill (card.py show), fixed in the dictionary, then the card deleted so a new one is
-made.
+is the dictionary's: the lani-fix skill (card.py show), fixed in the dictionary. A card shows a slot's forms in today's
+order by itself (GET /state: the deck isn't written), so it's deleted, to be made again, only for a form it lacks.

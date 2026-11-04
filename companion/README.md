@@ -3968,6 +3968,13 @@ language has its own slots (`LANG_KEYS` in `bridge/src/paradigms.ts`), each on a
   says `forms-cards-v2` in their villages. An older app is sent none of their cards: `GET /state` leaves the review items
   that are another language's forms cards out unless the app asks with `forms=2` (`withoutOtherFormsCards`).
 
+**Which form a slot shows.** A slot with more than one form shows its first, the others right too: the hand-checked table's order,
+else the regular check's forms (below), else what `lexicon/sl.forms-order.json` names, made from Sloleks 3.0 by
+`lexicon/tools/sl-forms-order.ts` (*aktualizirate* before *aktualiziraste*, *mesecu* before *mescu*; 1,132 slots), never the alphabet. The same
+file lists the nouns Sloleks has no dual or plural of (*grozdje*): their tables ask neither. A forms card keeps its slots from the day it
+was made, so GET /state serves each Slovene card as a new one would be (`cardInOrder`): only what's read changes, the deck and its
+history stay as they are.
+
 **The forms book.** `lexicon/sl.forms.json` is written by hand (machine-written, not reviewed by a native speaker:
 `"reviewed": false`, `"machine_written": true`):
 
@@ -4444,7 +4451,8 @@ the parts in turn again. A unit's intro done tells the bridge at once (the app a
 day's new cards of words that had none yet) and says "📋 Nove oblike v tabelah: delati, hiša. · New forms in your
 tables: …" after the pages' news. A request whose pages ask nothing new writes nothing. `card.py show` tells how the app
 asks a card (its slots, what was tested, the fresh part, the joined future); a form that looks wrong is the
-dictionary's: fixed there, then the card deleted so a new one is made.
+dictionary's: fixed there. A card shows a slot's forms in today's order by itself (below), so it's deleted, to be made again, only for a
+form it lacks.
 
 ## Family
 
