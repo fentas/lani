@@ -31,13 +31,30 @@ object DialogVariants {
      * at least [GAP] days ago and it isn't the one heard last (never the same twice in a row); else none, and the happening
      * rests today. A happening with one dialog plays it every time. [dice] (a visit: the host's record is the host's):
      * the day's dice picks among the playable ones instead.
+     *
+     * By level (companion/SCENES.md, "Dialogs by level"): [rank] says each one's ([DialogLevels.rankOf]; the scenes come
+     * trimmed to the learner's level, so the highest is their own). Those of the highest rank are asked first, a new one
+     * or a review as above, then the next rank down, and so on: a lower level's dialog plays only on a day the learner's
+     * own level has none to play. All of one rank (every happening before levels): as it always was.
      */
-    fun pick(all: List<String>, playable: Collection<String>, heard: DialogsHeard?, today: LocalDate, dice: Float? = null): String? {
+    fun pick(
+        all: List<String>, playable: Collection<String>, heard: DialogsHeard?, today: LocalDate, dice: Float? = null,
+        rank: (String) -> Int = { 0 },
+    ): String? {
         val can = all.filter { it in playable }
         if (can.isEmpty()) return null
         if (all.size == 1) return can.single()
-        if (dice != null) return can[(dice * can.size).toInt().coerceIn(0, can.lastIndex)]
+        val tiers = can.groupBy(rank).toSortedMap(compareByDescending { it }).values.toList()
+        if (dice != null) {
+            val top = tiers.first()
+            return top[(dice * top.size).toInt().coerceIn(0, top.lastIndex)]
+        }
         val h = heard ?: DialogsHeard()
+        return tiers.firstNotNullOfOrNull { pickIn(it, h, today) }
+    }
+
+    /** Of [can] (one rank's, in order), the first not heard yet, else the review due ([pick]); null: none of them today. */
+    private fun pickIn(can: List<String>, h: DialogsHeard, today: LocalDate): String? {
         can.firstOrNull { it !in h.heard }?.let { return it }
         return can.asSequence()
             .filter { it != h.last }
