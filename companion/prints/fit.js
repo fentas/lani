@@ -91,8 +91,9 @@
     // the room left becomes ruled lines to write in, where there is enough of it
     for (const n of unit.querySelectorAll('.notes')) if (n.getBoundingClientRect().height < 13 * rectMM) n.classList.add('empty')
     // fewer lines left than a writing task takes (html.ts notes): its label says to go on on the back, where it has the room
-    // for a label; only the label changes, so what was chosen stands
-    const ruled = [...unit.querySelectorAll('.notes[data-need]')]
+    // for a label; only the label changes, so what was chosen stands. Only the lines on the task's own page count: a page
+    // before it is no use to it
+    const ruled = [...unit.querySelectorAll('.notes[data-need]')].filter(n => n.closest('.sheet').querySelector('.wr'))
     const last = ruled.filter(n => n.getBoundingClientRect().height >= 5 * rectMM).pop()
     if (last && ruled.reduce((sum, n) => sum + (n.classList.contains('empty') ? 0 : Math.floor(n.getBoundingClientRect().height / (6.6 * rectMM))), 0) < Number(last.dataset.need)) {
       last.classList.remove('empty')
