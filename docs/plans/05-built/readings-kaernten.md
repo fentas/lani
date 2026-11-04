@@ -134,7 +134,7 @@ app (Teo is in Friuli, Jan in Primorska). No format or validator changed.
 ### Every German word of them glossed (`companion/lexicon/de.extra.json`)
 
 The new tellings, notes and readings used about 870 word forms that neither the supplement nor a pack knew. 650 new
-entries and 138 extended ones now mean each in English (`gloss`), Slovene and Italian (`meanings`): the verbs with the
+entries and 139 extended ones now mean each in English (`gloss`), Slovene and Italian (`meanings`): the verbs with the
 forms the lines use (Konjunktiv I and II: wachse, erwache, säße, läge; the participles of the B2 passives), the nouns with
 their plurals, genitives and datives, the B2 words (Belagerung, Volksetymologie, Überlieferung, Ursprungsbezeichnung,
 Dendrochronologie), places and names (Weitensfeld, Virunum, Görz, Carcassonne, Kropej, Keršič), the Austrian words
@@ -184,11 +184,29 @@ row). What changes is what a B1/B2 learner hears and finds there.
 
 ## Checks
 
-See the report (the queue's numbers: the smoke, the Android suite, QA) and the commits below.
+On this branch merged with main (ada0d6380):
 
 - Bridge: `bunx tsc --noEmit -p .` clean; `bun test/check-culture.ts kaernten`: ok; `bun test/learner-content.ts`: 0 texts
-  naming Jan, 0 malformed placeholders, 0 turns the same for one gender; `tutor-export --check`: 140 files match;
-  `bun build --no-bundle` on the changed smoke files.
+  naming Jan, 0 malformed placeholders, 0 turns the same for one gender; `tutor-export --check`: 140 files match; the whole
+  smoke, 3,825 checks, all passed (`LANI_SMOKE_PORT=10880`, `LANI_SMOKE_DRAMA3_PORT=10898`). `validateExtra`: 0 errors.
+- Android: the full unit suite through lani-slot.sh, 4,125 tests in 522 classes: 1 failure, `SceneCoherenceTest` (»no line
+  tells the learner to look at what isn't there«: two of the new lines said »schau«). Those lines and two more like them
+  were rewritten (e52dc71e0), then SceneCoherenceTest, DialogReactionsTest, StoriesTest, NotebookTest and
+  MentionsContentTest run again: see the report. Before the merge the story and reading tests alone (StoriesTest,
+  NotebookTest, DialogReactionsTest, ReadingsTest, KaerntenCultureTest, CuratedPicturesTest): 54 tests, 0 failures.
+- Python (bin/qa changed): `-s tests` 253, `-s companion/tests` 179 (11 skipped): OK.
+- QA through `qa-slot` (slot 1) on a synthetic learner of German from English at B1 (Ana, Sepp, Stanko and Mitzi added and
+  met): `story-faces` played tonight's story, Der Lindwurm, to its end at B1 (»Das haben viele getan. Aber der Herzog
+  wollte sein Land nicht aufgeben.«, »Da ließ der Herzog verkünden …«), Opa Sepp's portrait in the header, his faces
+  curious, happy, worried, thinking, surprised, proud; `culture-reading` read Die Kärntner Biene (B2) to its end, its five
+  questions right, »5 von 5 richtig · 5 of 5 right«; the crash check ok. The first run of culture-reading stopped: its eight
+  swipes didn't reach »Starten« under a B2 reading of about ten screens; bin/qa now swipes up to twenty. The second run
+  used the APK built before the last merge (`--no-build`: only content changed for it). Shots in the scratchpad's
+  `ux-readings-kaernten/` (story-open, story-line-1 to 3, story-end, reading-corner, reading-text, reading-q1 to q5,
+  reading-done).
+
+Three lines are shared with the other cultures' readings branches and will meet at the merge: `NotebookTest`'s two
+counts and the smoke's notebook count (148 + 32 here: the sum of what each branch adds), and bin/qa's swipes.
 
 ## Voices
 
@@ -208,4 +226,5 @@ choices: about 72,300 characters of German), the five readings read aloud (about
 b2cd994f8 readings; b4c27676b Lindwurm, Dobratsch; 641e47ff3 Wörthersee; 873124960 König Matthias; 7927c992c, 2696878e8
 Riesen, Maultasch; 42b50964d Kasermandl, Perchtl; dd7a93229 tausend Statuen, Hemma; bd2d4476e Fürstenstein, Bergmandl;
 998eed1b6 Kufenstechen, Brot und Milch; 92cf91aac Nikolo und Krampus, Dorf im See; 3ceb9cf56, 1e859780e tests; 3eff488c5
-the supplement; d42f04a9c make-learner; 630a3784b merge of main.
+the supplement; d42f04a9c make-learner; 0ea486c5a the smoke's count and QA's swipes; e52dc71e0 the lines that pointed at nothing;
+630a3784b, ada0d6380 merges of main.
