@@ -87,11 +87,15 @@ Carnia, the Val Resia, Udine and Venice are the pack's own A2 history.
 ## How it was checked
 
 - **Bridge:** `bun test/check-culture.ts friuli` ok (arrivals, the spot and its cycle: `spotErrors`), `bun test/check-steps.ts friuli`
-  ok (13 files, 78 steps, 312 dialogs, 1,875 lines), `bun test/prompt-clashes.ts` the baseline (339), tsc and the smoke with ports
-  10940–10959 (LANI_SMOKE_DRAMA3_PORT=10958; see the report for the run).
+  ok (13 files, 78 steps, 312 dialogs, 1,875 lines), `bun test/prompt-clashes.ts` the baseline (339), tsc, `tutor-export --check`, and
+  the smoke with ports 10940–10959 (LANI_SMOKE_DRAMA3_PORT=10958): all checks passed on the merged tree, 3,719 of them, its culture
+  warnings the baseline's (Primorska's and smoke-en's). The first run logged "culture friuli has problems" for four B2 turns: the pairs
+  bridge reads a copy of the cultures with no lexicon beside it, so a step's word is matched by its stem alone, and appendiamo, alziamo,
+  girerà and scaviamo didn't pass. Those turns say appenderlo, alzarlo, gira and scavare now, so the steps validate either way.
 - **Lexicon:** the words a tap met nothing for go into the new table `it_cov_70_village_b2_friuli.txt` (one lemma a line;
-  `it_cov_build.py` from 45924165's file, `--prompts`: the same clashes as before). `lexicon-build --coverage --lang it --all`: the
-  words no entry knows 116 → 112, the only new ones the wrong forms offered on purpose (pulessimo, metterebbi, lavorendo).
+  `it_cov_build.py` from 45924165's file, `--prompts`: the same clashes as before), written alongside each batch. `lexicon-build
+  --coverage --lang it --all`, before and after: 99.8 % of tokens both, 97.8 % → 98.1 % of the different words, the words no entry knows
+  116 → 112, the only new ones the wrong forms offered on purpose (pulessimo, metterebbi, lavorendo).
 - **Android:** `FriuliProjectStepsTest` and `FriuliProjectStepsContentTest` hold four levels now (312 dialogs; a B2 telling tests a rule
   of B2; a C1 learner reads B2's). New `FriuliKopaCycleTest`: every stage's, the rest's and the winter's talks played to their end at
   four levels in it·de, it·sl, it·en with a wrong choice each, the meeting, the race's seconds by level saved and lost, the lost pile's
@@ -107,8 +111,11 @@ LANI_QA_FB_PLAYS=vodnjak_na_trgu:2:B2:b2stone LANI_QA_MEET=bruno LANI_QA_MEET_LE
 LANI_QA_FRIULI_SHOTS=<shots> LANI_QA_PARITY_SHOTS=<shots> companion/bin/qa-slot --no-town --steps friuli-projects-b,parity-small
 ```
 
-The fountain's second step at B2 from its landmark through the sheet, a wrong choice and its reaction, to its end card and line;
-Fabbro Bruno's B2 introduction to its first turn's reaction.
+Green on a phone-sized emulator (slot 2, a crash check after): the fountain's second step at B2 from its landmark through the sheet, a
+wrong choice and its reaction, to its end card and line; Fabbro Bruno's B2 introduction to its first turn's reaction (screenshots read:
+«Una pecora nera? Hm. Ce n'è sempre una.», «Della quale? Ti sembro una signora? Hm.», the `del`/`della` difference marked). Pieri's
+cycle wasn't played on the emulator: the brief asked for a step and an arrival, and `FriuliKopaCycleTest` plays it in the JVM.
+A tablet wasn't run: no screen changed.
 
 ## Older apps
 
@@ -132,5 +139,6 @@ What a voice build would take for the new lines (his or the villagers' lines and
 
 ## Commits
 
-19a9cb032 (arrivals), 10cfe9d9c, 0327772d8, 4c3bea7cc, 9f3c3917d, 0b24300d5 (steps and their tests), cbd45bda7 (the cycle),
-8d124bb45 (its tests), 63c33a1d2 (QA), and this doc's.
+19a9cb032 (arrivals), 10cfe9d9c, 0327772d8, 4c3bea7cc, 9f3c3917d, 0b24300d5 (steps and their tests), cbd45bda7, abc654721 (the
+cycle), 8d124bb45, 0d5232dc3 (its tests), 02015100b (four turns without a dictionary), 63c33a1d2 (QA), aff1c8c9a and this one (docs);
+main merged at d9732d635.
