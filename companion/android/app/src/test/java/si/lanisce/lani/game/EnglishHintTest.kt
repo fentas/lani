@@ -296,6 +296,16 @@ class EnglishHintTest {
         }
     }
 
+    @Test fun `what the cast adds on the curated English turns`() {
+        val changed = curatedTurns().mapNotNull { (_, line) ->
+            val h = TurnHints.of(line, "en", cast, page) ?: return@mapNotNull null
+            val before = TurnHints.of(line, "en", page)?.trigger
+            if (h.trigger != before) "${line.choices.firstOrNull { it.ok }?.sl} | ${before?.word} → ${h.trigger?.word}" else null
+        }
+        File("build/reports/hints").apply { mkdirs() }.resolve("en-cast.txt").writeText(changed.sorted().joinToString("\n") + "\n")
+        println("English: the cast changes what decides at ${changed.size} turns")
+    }
+
     @Test fun `over the curated English turns the 🔊 says something short, the English marked`() {
         var hints = 0
         var spoken = 0
