@@ -409,6 +409,152 @@
               "de": "Gut. Das alte Gras ist geschnitten, und die Wiese ist bereit für die Samen."
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "aldo",
+              "face": "thinking",
+              "it": "Piano, piano, {learner}. Le api sentono tutto: se oggi accendessimo un motore, non le rivedremmo per una settimana.",
+              "sl": "Počasi, počasi, {learner}. Čebele slišijo vse: če bi danes prižgali motor, jih teden dni ne bi videli.",
+              "en": "Easy, easy, {learner}. Bees hear everything: if we started an engine today, we wouldn't see them again for a week.",
+              "de": "Langsam, langsam, {learner}. Bienen hören alles: Würden wir heute einen Motor anwerfen, sähen wir sie eine Woche lang nicht wieder."
+            },
+            {
+              "who": "rosa",
+              "face": "curious",
+              "it": "Allora come va tagliata, tutta quest'erba vecchia?",
+              "sl": "Kako pa je potem treba pokositi vso to staro travo?",
+              "en": "Then how's all this old grass to be cut?",
+              "de": "Wie soll dann all das alte Gras geschnitten werden?"
+            },
+            {
+              "to": "aldo",
+              "choices": [
+                {
+                  "it": "Con la falce, come si faceva una volta.",
+                  "sl": "S koso, kot so delali nekoč.",
+                  "en": "With the scythe, the way it used to be done.",
+                  "de": "Mit der Sense, wie man es früher machte.",
+                  "tap": "scythe",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, senza rumore. Ma la uso io: tu resti lontano.",
+                    "sl": "Ja, brez hrupa. Ampak uporabljam jo jaz: ti ostani stran.",
+                    "en": "Yes, without a sound. But I'm the one using it: you stay well back.",
+                    "de": "Ja, ohne Lärm. Aber die benutze ich: Du bleibst weit weg."
+                  }
+                },
+                {
+                  "it": "Con il cavolo, come si faceva una volta.",
+                  "sl": "Z zeljem, kot so delali nekoč.",
+                  "en": "With the cabbage, the way it used to be done.",
+                  "de": "Mit dem Kohl, wie man es früher machte.",
+                  "tap": "cabbage",
+                  "why": {
+                    "sl": "Staro travo pokosiš s koso: la falce. Zelje ne reže ničesar.",
+                    "en": "Old grass is mown with a scythe: la falce. A cabbage cuts nothing.",
+                    "de": "Altes Gras mäht man mit der Sense: la falce. Ein Kohl schneidet nichts."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con il cavolo? Non ho mai visto un'erba così paziente!",
+                    "sl": "Z zeljem? Tako potrpežljive trave še nisem videl!",
+                    "en": "With the cabbage? I've never seen such patient grass!",
+                    "de": "Mit dem Kohl? So geduldiges Gras habe ich noch nie gesehen!"
+                  }
+                },
+                {
+                  "it": "Con il carro, come si faceva una volta.",
+                  "sl": "Z vozom, kot so delali nekoč.",
+                  "en": "With the cart, the way it used to be done.",
+                  "de": "Mit dem Wagen, wie man es früher machte.",
+                  "tap": "cart",
+                  "why": {
+                    "sl": "Voz travo pozneje odpelje; pokosi se jo s koso: la falce.",
+                    "en": "The cart takes the grass away later; it's cut with the scythe: la falce.",
+                    "de": "Der Wagen bringt das Gras später weg; gemäht wird es mit der Sense: la falce."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con il carro? Quello la porta via dopo, piano.",
+                    "sl": "Z vozom? Ta jo odpelje pozneje, počasi.",
+                    "en": "With the cart? That takes it away afterwards, slowly.",
+                    "de": "Mit dem Wagen? Der bringt es danach weg, langsam."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "aldo",
+              "face": "happy",
+              "it": "Dopo, se vuoi, ti aiuto io con il rastrello.",
+              "sl": "Potem ti, če hočeš, pomagam z grabljami.",
+              "en": "Afterwards, if you like, I'll help you with the rake.",
+              "de": "Danach helfe ich dir, wenn du willst, mit dem Rechen."
+            },
+            {
+              "who": "giulia",
+              "face": "curious",
+              "it": "Cosa ti ha detto? Da qui non si sente niente!",
+              "sl": "Kaj ti je rekel? Od tu se nič ne sliši!",
+              "en": "What did he say to you? You can't hear a thing from here!",
+              "de": "Was hat er dir gesagt? Von hier hört man nichts!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ha detto che mi avrebbe aiutato con il rastrello.",
+                  "sl": "Rekel je, da mi bo pomagal z grabljami.",
+                  "en": "He said he'd help me with the rake.",
+                  "de": "Er hat gesagt, er würde mir mit dem Rechen helfen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Che bello! Allora veniamo anche noi.",
+                    "sl": "Kako lepo! Potem pridemo tudi mi.",
+                    "en": "How lovely! Then we're coming too.",
+                    "de": "Wie schön! Dann kommen wir auch."
+                  }
+                },
+                {
+                  "it": "Ha detto che mi avrà aiutato con il rastrello.",
+                  "sl": "Rekel je, da mi bo pomagal z grabljami.",
+                  "en": "He said he'd help me with the rake.",
+                  "de": "Er hat gesagt, er würde mir mit dem Rechen helfen.",
+                  "grammar": "discorso-indiretto-passato",
+                  "why": {
+                    "sl": "V poročanem govoru v preteklosti dobi tisto, kar šele pride, pretekli pogojnik: mi avrebbe aiutato.",
+                    "en": "In reported speech in the past, what's still to come takes the past conditional: mi avrebbe aiutato.",
+                    "de": "In der wiedergegebenen Rede in der Vergangenheit steht das, was noch kommt, im Conditionale passato: mi avrebbe aiutato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Avrà aiutato? Quando, ieri? Non capisco niente!",
+                    "sl": "Avrà aiutato? Kdaj, včeraj? Nič ne razumem!",
+                    "en": "Avrà aiutato? When, yesterday? I don't understand a thing!",
+                    "de": "Avrà aiutato? Wann, gestern? Ich verstehe gar nichts!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "aldo",
+              "face": "proud",
+              "it": "Bene. L'erba vecchia è tagliata, e il prato è pronto per i semi.",
+              "sl": "Dobro. Stara trava je pokošena in travnik je pripravljen za semena.",
+              "en": "Good. The old grass is cut, and the meadow's ready for the seeds.",
+              "de": "Gut. Das alte Gras ist gemäht, und die Wiese ist bereit für die Samen."
+            }
+          ]
         }
       }
     },
@@ -811,6 +957,133 @@
               "de": "Alles gesät. Und wenn sie gewachsen sind, hörst du hier nur noch Bienen."
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "aldo",
+              "face": "thinking",
+              "it": "Le api cercano fiori per tutta l'estate, {learner}. Se seminassimo una cosa sola, a luglio avrebbero fame.",
+              "sl": "Čebele iščejo cvetove vse poletje, {learner}. Če bi posejali eno samo stvar, bi bile julija lačne.",
+              "en": "Bees look for flowers all summer, {learner}. If we sowed just one thing, they'd be hungry by July.",
+              "de": "Bienen suchen den ganzen Sommer über Blüten, {learner}. Säten wir nur eine Sache, hätten sie im Juli Hunger."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Allora seminiamo trifoglio e girasoli: prima i piccoli, poi i grandi.",
+                  "sl": "Potem posejmo deteljo in sončnice: najprej majhne, potem velike.",
+                  "en": "Then let's sow clover and sunflowers: first the small ones, then the big ones.",
+                  "de": "Dann säen wir Klee und Sonnenblumen: erst die kleinen, dann die großen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Proprio così: piccoli e grandi, per tutta l'estate.",
+                    "sl": "Prav tako: majhni in veliki, za vse poletje.",
+                    "en": "Exactly: small and big, for the whole summer.",
+                    "de": "Genau: klein und groß, für den ganzen Sommer."
+                  }
+                },
+                {
+                  "it": "Allora seminiamo trifoglio e gelati: prima i piccoli, poi i grandi.",
+                  "sl": "Potem posejmo deteljo in sladolede: najprej majhne, potem velike.",
+                  "en": "Then let's sow clover and ice creams: first the small ones, then the big ones.",
+                  "de": "Dann säen wir Klee und Eis: erst die kleinen, dann die großen.",
+                  "why": {
+                    "sl": "Veliki cvetovi so sončnice: i girasoli. Sladoled ne raste.",
+                    "en": "The big flowers are sunflowers: i girasoli. Ice cream doesn't grow.",
+                    "de": "Die großen Blumen sind Sonnenblumen: i girasoli. Eis wächst nicht."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Gelati? Piano, si sciolgono prima di nascere!",
+                    "sl": "Sladoledi? Počasi, stopijo se, preden vzklijejo!",
+                    "en": "Ice creams? Easy, they'd melt before they sprouted!",
+                    "de": "Eis? Langsam, das schmilzt, bevor es keimt!"
+                  }
+                },
+                {
+                  "it": "Allora seminiamo tartufi e girasoli: prima i piccoli, poi i grandi.",
+                  "sl": "Potem posejmo tartufe in sončnice: najprej majhne, potem velike.",
+                  "en": "Then let's sow truffles and sunflowers: first the small ones, then the big ones.",
+                  "de": "Dann säen wir Trüffel und Sonnenblumen: erst die kleinen, dann die großen.",
+                  "why": {
+                    "sl": "Majhni cvetovi, ki jih imajo čebele rade, so detelja: il trifoglio. Tartufi rastejo pod zemljo.",
+                    "en": "The small flowers bees love are clover: il trifoglio. Truffles grow underground.",
+                    "de": "Die kleinen Blüten, die Bienen lieben, sind Klee: il trifoglio. Trüffel wachsen unter der Erde."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Tartufi? Le api non saprebbero che farsene!",
+                    "sl": "Tartufi? Čebele ne bi vedele, kaj z njimi!",
+                    "en": "Truffles? The bees wouldn't know what to do with them!",
+                    "de": "Trüffel? Die Bienen wüssten nichts damit anzufangen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tommaso",
+              "face": "curious",
+              "it": "E dopo il lavoro possiamo andare a giocare?",
+              "sl": "Pa lahko po delu gremo na igro?",
+              "en": "And after the work, can we go and play?",
+              "de": "Und nach der Arbeit dürfen wir spielen gehen?"
+            },
+            {
+              "to": "aldo",
+              "choices": [
+                {
+                  "it": "Finita la semina, andremo a giocare.",
+                  "sl": "Ko bo setev končana, gremo na igro.",
+                  "en": "Once the sowing's done, we'll go and play.",
+                  "de": "Ist das Säen vorbei, gehen wir spielen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto. Ma senza correre sui semi, piano!",
+                    "sl": "Prav. Ampak ne tekajte po semenih, počasi!",
+                    "en": "Right. But no running on the seeds, gently!",
+                    "de": "Richtig. Aber nicht auf den Samen herumrennen, langsam!"
+                  }
+                },
+                {
+                  "it": "Finito la semina, andremo a giocare.",
+                  "sl": "Ko bo setev končana, gremo na igro.",
+                  "en": "Once the sowing's done, we'll go and play.",
+                  "de": "Ist das Säen vorbei, gehen wir spielen.",
+                  "grammar": "participio-assoluto",
+                  "why": {
+                    "sl": "Samostojni deležnik se ujema s svojim samostalnikom: la semina, torej finita.",
+                    "en": "The participle on its own agrees with its noun: la semina, so finita.",
+                    "de": "Das Partizip allein richtet sich nach seinem Nomen: la semina, also finita."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Finito? Piano, ripeti: le api sentono tutto.",
+                    "sl": "Finito? Počasi, ponovi: čebele slišijo vse.",
+                    "en": "Finito? Gently, say it again: the bees hear everything.",
+                    "de": "Finito? Langsam, sag es noch mal: Die Bienen hören alles."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "aldo",
+              "face": "proud",
+              "it": "Tutto seminato. E quando saranno cresciuti, qui non sentirai altro che api.",
+              "sl": "Vse je posejano. In ko zrastejo, tu ne boš {m:slišal|f:slišala} drugega kot čebele.",
+              "en": "All sown. And when they've grown, you'll hear nothing here but bees.",
+              "de": "Alles gesät. Und wenn sie gewachsen sind, hörst du hier nichts als Bienen."
+            }
+          ]
         }
       }
     },
@@ -1204,6 +1477,115 @@
               "de": "Geschafft, drei neue Bienenstöcke aus Holz. Jetzt fehlen nur noch die Farben."
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "rosa",
+              "face": "surprised",
+              "it": "Che belle queste casette di legno, tutte uguali! Come si chiamano, quelle per le api?",
+              "sl": "Kako lepe so te lesene hišice, vse enake! Kako se jim reče, tistim za čebele?",
+              "en": "What lovely little wooden houses, all the same! What are they called, the ones for bees?",
+              "de": "Wie schön diese Holzhäuschen sind, alle gleich! Wie heißen die für die Bienen?"
+            },
+            {
+              "to": "aldo",
+              "choices": [
+                {
+                  "it": "Si chiamano arnie.",
+                  "sl": "Rečejo se jim panji.",
+                  "en": "They're called hives.",
+                  "de": "Die heißen Bienenstöcke.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Arnie, sì. Ognuna l'ho fatta con le mie mani, in tre sere.",
+                    "sl": "Panji, ja. Vsakega sem naredil z lastnimi rokami, v treh večerih.",
+                    "en": "Hives, yes. I made each one with my own hands, in three evenings.",
+                    "de": "Bienenstöcke, ja. Jeden habe ich mit eigenen Händen gebaut, in drei Abenden."
+                  }
+                },
+                {
+                  "it": "Si chiamano armadi.",
+                  "sl": "Rečejo se jim omare.",
+                  "en": "They're called wardrobes.",
+                  "de": "Die heißen Schränke.",
+                  "why": {
+                    "sl": "Lesena hišica za čebele je panj: l'arnia. Un armadio je omara.",
+                    "en": "A bee's wooden house is a hive: l'arnia. Un armadio is a wardrobe.",
+                    "de": "Ein Holzhaus für Bienen ist ein Bienenstock: l'arnia. Un armadio ist ein Schrank."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Armadi? Per i vestiti delle api?",
+                    "sl": "Omare? Za oblekce čebel?",
+                    "en": "Wardrobes? For the bees' clothes?",
+                    "de": "Schränke? Für die Kleider der Bienen?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "aldo",
+              "face": "curious",
+              "it": "Ho scelto un legno spesso: fuori può nevicare quanto vuole. Che cosa vuol dire, secondo te?",
+              "sl": "Izbral sem debel les: zunaj lahko sneži, kolikor hoče. Kaj to pomeni, kaj misliš?",
+              "en": "I chose thick wood: it can snow outside as much as it likes. What does that mean, do you think?",
+              "de": "Ich habe dickes Holz gewählt: Draußen kann es schneien, so viel es will. Was heißt das, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Che le api staranno al caldo, benché fuori nevichi.",
+                  "sl": "Da bodo čebele na toplem, čeprav zunaj sneži.",
+                  "en": "That the bees will stay warm, even though it's snowing outside.",
+                  "de": "Dass die Bienen es warm haben, obwohl es draußen schneit.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Proprio così. Legno spesso, api contente.",
+                    "sl": "Prav tako. Debel les, zadovoljne čebele.",
+                    "en": "Exactly. Thick wood, happy bees.",
+                    "de": "Genau. Dickes Holz, zufriedene Bienen."
+                  }
+                },
+                {
+                  "it": "Che le api staranno al caldo, benché fuori nevicherà.",
+                  "sl": "Da bodo čebele na toplem, čeprav zunaj sneži.",
+                  "en": "That the bees will stay warm, even though it's snowing outside.",
+                  "de": "Dass die Bienen es warm haben, obwohl es draußen schneit.",
+                  "grammar": "congiunzioni-congiuntivo",
+                  "why": {
+                    "sl": "Benché zahteva konjunktiv: benché nevichi.",
+                    "en": "Benché takes the subjunctive: benché nevichi.",
+                    "de": "Benché verlangt den Congiuntivo: benché nevichi."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Nevicherà? Quando? Piano, non capisco.",
+                    "sl": "Nevicherà? Kdaj? Počasi, ne razumem.",
+                    "en": "Nevicherà? When? Gently, I don't follow.",
+                    "de": "Nevicherà? Wann? Langsam, ich verstehe nicht."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "aldo",
+              "face": "proud",
+              "it": "Ecco fatto, tre arnie nuove di legno. Adesso mancano solo i colori.",
+              "sl": "Narejeno, trije novi leseni panji. Zdaj manjkajo samo še barve.",
+              "en": "Done, three new wooden hives. Now only the colours are missing.",
+              "de": "Fertig, drei neue Bienenstöcke aus Holz. Jetzt fehlen nur noch die Farben."
+            }
+          ]
         }
       }
     },
@@ -1556,6 +1938,122 @@
               "sl": "Tako: modra, rumena, bela. Veliko barv in niti ene jezne čebele.",
               "en": "There: blue, yellow, white. Lots of colours, and not one cross bee.",
               "de": "Da: Blau, Gelb, Weiß. Viele Farben, und keine einzige böse Biene."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "aldo",
+              "face": "thinking",
+              "it": "Il colore aiuta, {learner}: un'ape che sbagliasse casa verrebbe cacciata dalle altre.",
+              "sl": "Barva pomaga, {learner}: čebelo, ki bi zgrešila dom, bi druge pregnale.",
+              "en": "Colour helps, {learner}: a bee that got the wrong house would be chased out by the others.",
+              "de": "Farbe hilft, {learner}: Eine Biene, die sich im Haus irrte, würde von den anderen verjagt."
+            },
+            {
+              "who": "tommaso",
+              "face": "worried",
+              "it": "Uffa! Siamo solo in due, e ci sono dieci lati da dipingere!",
+              "sl": "Uf! Sama sva, pa je treba pobarvati deset stranic!",
+              "en": "Ugh! There are only two of us, and there are ten sides to paint!",
+              "de": "Uff! Wir sind nur zu zweit, und es gibt zehn Seiten zu streichen!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Se fossimo stati in tre, avremmo già finito!",
+                  "sl": "Ko bi bili trije, bi že končali!",
+                  "en": "If there'd been three of us, we'd have finished already!",
+                  "de": "Wären wir zu dritt gewesen, wären wir schon fertig!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "it": "E invece siamo in due. Tu da quella parte, io da questa!",
+                    "sl": "Pa sva samo dva. Ti s tiste strani, jaz s te!",
+                    "en": "Well, there are two of us. You from that side, me from this one!",
+                    "de": "Sind wir aber nicht. Du von der Seite, ich von dieser!"
+                  }
+                },
+                {
+                  "it": "Se avessimo stati in tre, avremmo già finito!",
+                  "sl": "Ko bi bili trije, bi že končali!",
+                  "en": "If there'd been three of us, we'd have finished already!",
+                  "de": "Wären wir zu dritt gewesen, wären wir schon fertig!",
+                  "grammar": "congiuntivo-trapassato",
+                  "why": {
+                    "sl": "Essere tvori preteklik z essere: se fossimo stati.",
+                    "en": "Essere forms its past with essere: se fossimo stati.",
+                    "de": "Essere bildet die Vergangenheit mit essere: se fossimo stati."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Avessimo stati? Che cosa? Non ho capito.",
+                    "sl": "Avessimo stati? Kaj? Nisem razumel.",
+                    "en": "Avessimo stati? What? I didn't get that.",
+                    "de": "Avessimo stati? Was? Hab ich nicht verstanden."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "giulia",
+              "face": "surprised",
+              "it": "Oh no! Il blu è finito sulla mano, non sull'arnia! Era troppo grosso, quello. E adesso?",
+              "sl": "O ne! Modra je pristala na roki, ne na panju! Tisti je bil predebel. Kaj pa zdaj?",
+              "en": "Oh no! The blue's ended up on my hand, not on the hive! That one was too big. What now?",
+              "de": "Oh nein! Das Blau ist auf der Hand gelandet, nicht auf dem Bienenstock! Der war zu dick. Und jetzt?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Usa un pennello più piccolo, e la mano lavala dopo.",
+                  "sl": "Vzemi manjši čopič, roko pa umij pozneje.",
+                  "en": "Use a smaller brush, and wash your hand afterwards.",
+                  "de": "Nimm einen kleineren Pinsel, und wasch die Hand danach.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Hai ragione! Prima l'arnia, poi le mani.",
+                    "sl": "Prav imaš! Najprej panj, potem roke.",
+                    "en": "You're right! First the hive, then the hands.",
+                    "de": "Du hast recht! Erst der Bienenstock, dann die Hände."
+                  }
+                },
+                {
+                  "it": "Usa un pettine più piccolo, e la mano lavala dopo.",
+                  "sl": "Vzemi manjši glavnik, roko pa umij pozneje.",
+                  "en": "Use a smaller comb, and wash your hand afterwards.",
+                  "de": "Nimm einen kleineren Kamm, und wasch die Hand danach.",
+                  "why": {
+                    "sl": "Barvaš s čopičem: il pennello. Glavnik je za lase.",
+                    "en": "You paint with a brush: il pennello. A comb is for hair.",
+                    "de": "Man malt mit einem Pinsel: il pennello. Ein Kamm ist für die Haare."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un pettine? Per pettinare le api?",
+                    "sl": "Glavnik? Da počešemo čebele?",
+                    "en": "A comb? To comb the bees?",
+                    "de": "Einen Kamm? Um die Bienen zu kämmen?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "aldo",
+              "face": "proud",
+              "it": "Ecco: blu, giallo, bianco. Tanti colori, e nemmeno un'ape arrabbiata.",
+              "sl": "Tako: modra, rumena, bela. Toliko barv, pa niti ena jezna čebela.",
+              "en": "There: blue, yellow, white. So many colours, and not one angry bee.",
+              "de": "So: Blau, Gelb, Weiß. So viele Farben, und keine einzige wütende Biene."
             }
           ]
         }
@@ -1967,6 +2465,135 @@
               "sl": "Tako, po zaslugi sosedov. Če bi jo moj dedek videl, bi bil zadovoljen.",
               "en": "There we are, thanks to the neighbours. If my grandad saw it, he'd be pleased.",
               "de": "Geschafft, dank den Nachbarn. Wenn mein Opa es sähe, wäre er zufrieden."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "aldo",
+              "face": "thinking",
+              "it": "Mio nonno ne costruì una uguale, in fondo a questo prato. Poi una grande nevicata la portò via.",
+              "sl": "Moj ded je zgradil enako, na koncu tega travnika. Potem jo je odnesel velik sneg.",
+              "en": "My grandfather built one just like it, at the end of this meadow. Then a great snowfall carried it away.",
+              "de": "Mein Großvater baute genau so eines, am Ende dieser Wiese. Dann trug es ein großer Schneefall davon."
+            },
+            {
+              "choices": [
+                {
+                  "it": "E da allora non venne più ricostruita?",
+                  "sl": "In od takrat je niso več postavili?",
+                  "en": "And from then on it was never rebuilt?",
+                  "de": "Und seitdem wurde es nie wieder aufgebaut?",
+                  "ok": true,
+                  "reply": {
+                    "face": "thinking",
+                    "it": "No. Mio nonno era già vecchio. Perciò oggi la costruiamo noi.",
+                    "sl": "Ne. Moj ded je bil že star. Zato jo danes gradimo mi.",
+                    "en": "No. My grandfather was already old. So today we're building it.",
+                    "de": "Nein. Mein Großvater war schon alt. Deshalb bauen wir es heute."
+                  }
+                },
+                {
+                  "it": "E da allora non venne più ricostruito?",
+                  "sl": "In od takrat je niso več postavili?",
+                  "en": "And from then on it was never rebuilt?",
+                  "de": "Und seitdem wurde es nie wieder aufgebaut?",
+                  "grammar": "passivo-venire-andare",
+                  "why": {
+                    "sl": "V trpniku se deležnik ujema: la casetta, torej venne ricostruita.",
+                    "en": "In the passive the participle agrees: la casetta, so venne ricostruita.",
+                    "de": "Im Passiv richtet sich das Partizip: la casetta, also venne ricostruita."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Ricostruito chi? Piano, non ho sentito bene.",
+                    "sl": "Ricostruito kdo? Počasi, nisem dobro slišal.",
+                    "en": "Ricostruito who? Gently, I didn't hear properly.",
+                    "de": "Ricostruito wer? Langsam, ich habe nicht gut gehört."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "rosa",
+              "face": "curious",
+              "it": "Un tetto, le pareti di legno, e dentro le arnie in fila. Sai come si chiama, e dov'è?",
+              "sl": "Streha, lesene stene in v njej panji v vrsti. Veš, kako se reče temu in kje je?",
+              "en": "A roof, wooden walls, and inside the hives in a row. Do you know what it's called, and where it is?",
+              "de": "Ein Dach, Holzwände und drinnen die Bienenstöcke in einer Reihe. Weißt du, wie das heißt und wo es ist?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È l'apiario, laggiù in fondo al prato.",
+                  "sl": "To je čebelnjak, tam spodaj na koncu travnika.",
+                  "en": "It's the apiary, down there at the end of the meadow.",
+                  "de": "Das ist das Bienenhaus, da hinten am Ende der Wiese.",
+                  "tap": "beehouse",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto! Piccolo, ma ci stanno tutte.",
+                    "sl": "Prav! Majhen, ampak vsi gredo noter.",
+                    "en": "Right! Small, but they all fit in.",
+                    "de": "Richtig! Klein, aber alle passen hinein."
+                  }
+                },
+                {
+                  "it": "È lo smielatore, laggiù in fondo al prato.",
+                  "sl": "To je točilo, tam spodaj na koncu travnika.",
+                  "en": "It's the extractor, down there at the end of the meadow.",
+                  "de": "Das ist die Honigschleuder, da hinten am Ende der Wiese.",
+                  "tap": "extractor",
+                  "why": {
+                    "sl": "Hišica za panje je čebelnjak: l'apiario. Točilo je za med.",
+                    "en": "The little house for the hives is the apiary: l'apiario. The extractor is for honey.",
+                    "de": "Das Häuschen für die Bienenstöcke ist das Bienenhaus: l'apiario. Die Schleuder ist für den Honig."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Lo smielatore? Quello serve per il miele!",
+                    "sl": "Točilo? To je za med!",
+                    "en": "The extractor? That's for the honey!",
+                    "de": "Die Schleuder? Die ist für den Honig!"
+                  }
+                },
+                {
+                  "it": "È la panca, laggiù in fondo al prato.",
+                  "sl": "To je klop, tam spodaj na koncu travnika.",
+                  "en": "It's the bench, down there at the end of the meadow.",
+                  "de": "Das ist die Bank, da hinten am Ende der Wiese.",
+                  "tap": "bench",
+                  "why": {
+                    "sl": "Panji stojijo v čebelnjaku, l'apiario, ne na klopi.",
+                    "en": "The hives stand in the apiary, l'apiario, not on a bench.",
+                    "de": "Die Stöcke stehen im Bienenhaus, l'apiario, nicht auf einer Bank."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La panca? Troppo piccola per tante arnie!",
+                    "sl": "Klop? Premajhna za toliko panjev!",
+                    "en": "The bench? Too small for so many hives!",
+                    "de": "Die Bank? Zu klein für so viele Stöcke!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "aldo",
+              "face": "proud",
+              "it": "Ecco fatto, grazie ai vicini. Se mio nonno la vedesse, sarebbe contento.",
+              "sl": "Narejeno, po zaslugi sosedov. Ko bi ga videl moj ded, bi bil vesel.",
+              "en": "Done, thanks to the neighbours. If my grandfather saw it, he'd be pleased.",
+              "de": "Fertig, dank der Nachbarn. Wenn mein Großvater es sähe, wäre er froh."
             }
           ]
         }
@@ -2402,6 +3029,149 @@
               "sl": "Prvi med s travnika, {learner}. Nekaj ti povem: res sem ponosen.",
               "en": "The first honey from the meadow, {learner}. I'll tell you something: I'm really proud.",
               "de": "Der erste Honig von der Wiese, {learner}. Ich sage dir was: Ich bin richtig stolz."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "aldo",
+              "face": "happy",
+              "it": "Piano, piano: un po' di fumo, e apriamo il primo favo del prato.",
+              "sl": "Počasi, počasi: malo dima, pa odpremo prvo satje s travnika.",
+              "en": "Easy, easy: a little smoke, and we open the meadow's first comb.",
+              "de": "Langsam, langsam: ein bisschen Rauch, und wir öffnen die erste Wabe der Wiese.",
+              "fx": {
+                "smoke": 1
+              }
+            },
+            {
+              "who": "tommaso",
+              "face": "curious",
+              "it": "Da dove viene questa cosa dorata? Indica tu, io non vedo bene!",
+              "sl": "Od kod je ta zlata stvar? Pokaži ti, jaz ne vidim dobro!",
+              "en": "Where's this golden stuff coming from? You point, I can't see well!",
+              "de": "Woher kommt das goldene Zeug? Zeig du, ich sehe nicht gut!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Eccolo, il miele del prato!",
+                  "sl": "Tu je, med s travnika!",
+                  "en": "Here it is, the meadow's honey!",
+                  "de": "Da ist er, der Honig von der Wiese!",
+                  "tap": "honey",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Evviva! Viene da quello che abbiamo seminato!",
+                    "sl": "Živijo! Prihaja od tistega, kar smo posejali!",
+                    "en": "Hooray! It comes from what we sowed!",
+                    "de": "Hurra! Er kommt von dem, was wir gesät haben!"
+                  }
+                },
+                {
+                  "it": "Eccola, la cera del prato!",
+                  "sl": "Tu je, vosek s travnika!",
+                  "en": "Here it is, the meadow's wax!",
+                  "de": "Da ist es, das Wachs von der Wiese!",
+                  "tap": "wax",
+                  "why": {
+                    "sl": "Zlato in sladko je med: il miele. Vosek je za sveče.",
+                    "en": "Golden and sweet is honey: il miele. Wax is for candles.",
+                    "de": "Golden und süß ist Honig: il miele. Wachs ist für Kerzen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La cera? Ottima per le candele, ma non si mangia!",
+                    "sl": "Vosek? Odličen za sveče, ampak ne je se ga!",
+                    "en": "Wax? Great for candles, but you can't eat it!",
+                    "de": "Wachs? Prima für Kerzen, aber essen kann man es nicht!"
+                  }
+                },
+                {
+                  "it": "Eccoli, i fiori del prato!",
+                  "sl": "Tu so, rože s travnika!",
+                  "en": "Here they are, the meadow's flowers!",
+                  "de": "Da sind sie, die Blumen von der Wiese!",
+                  "tap": "flowers",
+                  "why": {
+                    "sl": "Rože so čebelam dale cvetni sok; zlata stvar je med: il miele.",
+                    "en": "The flowers gave the bees their nectar; the golden stuff is honey: il miele.",
+                    "de": "Die Blumen gaben den Bienen den Nektar; das Goldene ist Honig: il miele."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "I fiori? Quelli non si spalmano sul pane!",
+                    "sl": "Rože? Teh ne mažeš na kruh!",
+                    "en": "The flowers? You don't spread those on bread!",
+                    "de": "Die Blumen? Die streicht man nicht aufs Brot!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "aldo",
+              "face": "proud",
+              "it": "Le api l'hanno portato goccia dopo goccia. Chi l'avrebbe detto, solo qualche mese fa?",
+              "sl": "Čebele so ga prinesle kapljico za kapljico. Kdo bi si mislil, še pred nekaj meseci?",
+              "en": "The bees brought it drop by drop. Who'd have said so, only a few months ago?",
+              "de": "Die Bienen haben ihn Tropfen für Tropfen gebracht. Wer hätte das vor ein paar Monaten gedacht?",
+              "fx": {
+                "honey": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "Se me l'avessero detto a primavera, non ci avrei creduto!",
+                  "sl": "Ko bi mi to rekli spomladi, ne bi {m:verjel|f:verjela}!",
+                  "en": "If they'd told me in spring, I wouldn't have believed it!",
+                  "de": "Hätte man mir das im Frühling gesagt, hätte ich es nicht geglaubt!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Nemmeno io. Adesso ti do un cucchiaino: piano, è il primo!",
+                    "sl": "Jaz tudi ne. Zdaj ti dam žličko: počasi, prvi je!",
+                    "en": "Nor would I. Now I'll give you a teaspoonful: gently, it's the first!",
+                    "de": "Ich auch nicht. Jetzt gebe ich dir ein Löffelchen: langsam, es ist der erste!"
+                  }
+                },
+                {
+                  "it": "Se me l'avessero detto a primavera, non ci sarei creduto!",
+                  "sl": "Ko bi mi to rekli spomladi, ne bi {m:verjel|f:verjela}!",
+                  "en": "If they'd told me in spring, I wouldn't have believed it!",
+                  "de": "Hätte man mir das im Frühling gesagt, hätte ich es nicht geglaubt!",
+                  "grammar": "periodo-ipotetico-irrealta",
+                  "why": {
+                    "sl": "Credere tvori preteklik z avere: non ci avrei creduto.",
+                    "en": "Credere forms its past with avere: non ci avrei creduto.",
+                    "de": "Credere bildet die Vergangenheit mit avere: non ci avrei creduto."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sarei creduto? Piano, non ti ho capito.",
+                    "sl": "Sarei creduto? Počasi, nisem te razumel.",
+                    "en": "Sarei creduto? Gently, I didn't understand you.",
+                    "de": "Sarei creduto? Langsam, ich habe dich nicht verstanden."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "aldo",
+              "face": "proud",
+              "it": "Il primo miele del prato, {learner}. Ti dico una cosa: sono proprio orgoglioso.",
+              "sl": "Prvi med s travnika, {learner}. Nekaj ti povem: res sem ponosen.",
+              "en": "The meadow's first honey, {learner}. I'll tell you something: I'm really proud.",
+              "de": "Der erste Honig von der Wiese, {learner}. Ich sag dir was: Ich bin richtig stolz."
             }
           ]
         }

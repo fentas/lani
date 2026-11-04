@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "il-treno-soppresso",
+  "language": "it",
+  "title": { "it": "Il treno soppresso", "de": "Der Zug fällt aus", "sl": "Odpovedani vlak", "en": "The cancelled train" },
+  "emoji": "🚆",
+  "level": "B2",
+  "setting": {
+    "de": "Bahnhof Udine, 8.10 Uhr. Dein Regionalzug nach Triest fällt aus, und um zehn hast du dort einen Termin, den du nicht verpassen darfst. Am Schalter sitzt eine Mitarbeiterin, die heute schon viele verärgerte Fahrgäste hatte.",
+    "sl": "Železniška postaja v Vidmu, ura je 8.10. Tvoj regionalni vlak za Trst je odpovedan, ob desetih pa imaš tam sestanek, ki ga ne smeš zamuditi. Za okencem sedi uslužbenka, ki je danes slišala že veliko jeznih potnikov.",
+    "en": "Udine station, 8.10. Your regional train to Trieste has been cancelled, and at ten you have an appointment there you can't miss. Behind the counter sits a clerk who has already had plenty of angry passengers today."
+  },
+  "role": "Signora Tonon, the clerk at the ticket office in Udine station. Polite, tired, by the book; warms to a calm, clear account. Offers the next train (too late), a replacement bus, or a refund form; mentions the bus only when asked twice. Says Lei. Asks nothing personal.",
+  "who": { "it": "L'impiegata della biglietteria", "de": "Die Mitarbeiterin am Schalter", "sl": "Uslužbenka na blagajni", "en": "The ticket office clerk" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "square",
+  "goals": [
+    { "it": "Spiega che cosa ti è successo", "de": "Erklär, was dir passiert ist", "sl": "Pojasni, kaj se ti je zgodilo", "en": "Explain what has happened to you" },
+    { "it": "Di' perché devi arrivare entro le dieci", "de": "Sag, warum du bis zehn Uhr ankommen musst", "sl": "Povej, zakaj moraš priti do desetih", "en": "Say why you must be there by ten" },
+    { "it": "Chiedi quali alternative ci sono", "de": "Frag, welche Möglichkeiten es gibt", "sl": "Vprašaj, kakšne možnosti so", "en": "Ask what the alternatives are" },
+    { "it": "Protesta con garbo per il rimborso", "de": "Beschwer dich höflich wegen der Erstattung", "sl": "Vljudno se pritoži zaradi vračila", "en": "Complain politely about the refund" },
+    { "it": "Decidi e ringrazia", "de": "Entscheide dich und bedank dich", "sl": "Odloči se in se zahvali", "en": "Decide and thank her" }
+  ],
+  "opener_sl": "Buongiorno. Se è per il regionale delle otto e venti, mi dispiace: è stato soppresso. Mi dica.",
+  "opener_en": {
+    "de": "Guten Morgen. Wenn es um den Regionalzug um acht Uhr zwanzig geht: Tut mir leid, der fällt aus. Bitte?",
+    "sl": "Dober dan. Če gre za regionalni vlak ob osmih dvajset, mi je žal: odpovedan je. Izvolite?",
+    "en": "Good morning. If it's about the eight-twenty regional train, I'm sorry: it's been cancelled. How can I help?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Avrei un appuntamento a Trieste alle dieci.", "en": { "de": "Ich hätte um zehn einen Termin in Triest.", "sl": "Ob desetih imam sestanek v Trstu.", "en": "I have an appointment in Trieste at ten." } },
+    { "sl": "È importante che io arrivi entro le dieci.", "en": { "de": "Es ist wichtig, dass ich bis zehn ankomme.", "sl": "Pomembno je, da pridem do desetih.", "en": "It's important that I get there by ten." } },
+    { "sl": "Che alternative ci sono?", "en": { "de": "Welche Möglichkeiten gibt es?", "sl": "Kakšne možnosti so?", "en": "What alternatives are there?" } },
+    { "sl": "C'è un autobus sostitutivo?", "en": { "de": "Gibt es einen Ersatzbus?", "sl": "Ali vozi nadomestni avtobus?", "en": "Is there a replacement bus?" } },
+    { "sl": "Se l'avessi saputo prima, avrei preso la corriera.", "en": { "de": "Hätte ich das früher gewusst, hätte ich den Bus genommen.", "sl": "Če bi to {m:vedel|f:vedela} prej, bi {m:šel|f:šla} z avtobusom.", "en": "If I'd known earlier, I'd have taken the bus." } },
+    { "sl": "Capisco che non sia colpa sua, però…", "en": { "de": "Ich verstehe, dass es nicht Ihre Schuld ist, aber …", "sl": "Razumem, da to ni vaša krivda, ampak …", "en": "I understand it isn't your fault, but…" } },
+    { "sl": "Vorrei che mi venisse rimborsato il biglietto.", "en": { "de": "Ich möchte, dass mir die Fahrkarte erstattet wird.", "sl": "Želim, da mi povrnete denar za vozovnico.", "en": "I'd like the ticket to be refunded." } },
+    { "sl": "Allora prendo l'autobus, sperando che non ci sia traffico.", "en": { "de": "Dann nehme ich den Bus und hoffe, dass kein Stau ist.", "sl": "Potem grem z avtobusom in upam, da ne bo gneče.", "en": "Then I'll take the bus, hoping there's no traffic." } },
+    { "sl": "La ringrazio della pazienza.", "en": { "de": "Danke für Ihre Geduld.", "sl": "Hvala za potrpežljivost.", "en": "Thank you for your patience." } }
+  ],
+  "packs": ["numeri-e-ore", "in-paese", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

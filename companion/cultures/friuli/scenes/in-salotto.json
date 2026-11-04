@@ -10,7 +10,7 @@
   },
   "emoji": "🔥",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "livingroom",
   "from": [
     "house"
@@ -227,6 +227,8 @@
       "chance": 0.4,
       "dialog": "foto",
       "dialogs": [
+        "foto-b2-canin",
+        "foto-b1-ponte",
         "foto-occhiali",
         "foto"
       ],
@@ -289,6 +291,8 @@
       "chance": 0.4,
       "dialog": "mandi",
       "dialogs": [
+        "mandi-b2-lingue",
+        "mandi-b1-parole",
         "mandi-merenda",
         "mandi"
       ],
@@ -1848,6 +1852,517 @@
           "sl": "Potem pa greva. Mandi, fogolâr! Vrneva se pozneje.",
           "en": "Let's go, then. Mandi, fogolâr! We'll be back later.",
           "de": "Dann gehen wir. Mandi, Fogolâr! Wir kommen später wieder."
+        }
+      ]
+    },
+    {
+      "id": "mandi-b1-parole",
+      "level": "B1",
+      "memory": {
+        "it": "le parole friulane che hai insegnato a Moro",
+        "sl": "furlanske besede, ki si jih {m:učil|f:učila} Mora",
+        "en": "the Friulian words you taught Moro",
+        "de": "die friaulischen Wörter, die du Moro beigebracht hast"
+      },
+      "lines": [
+        {
+          "who": "bepi",
+          "it": "Ciao, {m:piccolo|f:piccola}. Ieri ti ho insegnato una parola friulana. Ti ricordi ancora quella parola?",
+          "sl": "Živjo, {m:mali|f:mala}. Včeraj sem te naučil eno furlansko besedo. Se še spomniš tiste besede?",
+          "en": "Hi, little one. Yesterday I taught you a Friulian word. Do you still remember that word?",
+          "de": "Hallo, {m:Kleiner|f:Kleine}. Gestern hab ich dir ein friaulisches Wort beigebracht. Weißt du das Wort noch?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, nonno, me la ricordo: mandi!",
+              "sl": "Ja, dedek, spomnim se je: mandi!",
+              "en": "Yes, Grandpa, I remember it: mandi!",
+              "de": "Ja, Opa, ich weiß es noch: mandi!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "{m:Bravo|f:Brava}! Hai una memoria da elefante.",
+                "sl": "{m:Priden|f:Pridna}! Spomin imaš kot slon.",
+                "en": "Well done! You've got a memory like an elephant.",
+                "de": "Gut gemacht! Du hast ein Gedächtnis wie ein Elefant."
+              }
+            },
+            {
+              "it": "Sì, nonno, mi la ricordo: mandi!",
+              "sl": "Ja, dedek, spomnim se je: mandi!",
+              "en": "Yes, Grandpa, I remember it: mandi!",
+              "de": "Ja, Opa, ich weiß es noch: mandi!",
+              "grammar": "pronomi-combinati",
+              "why": {
+                "sl": "Pred la postane mi me: me la ricordo.",
+                "en": "Before la, mi becomes me: me la ricordo.",
+                "de": "Vor la wird mi zu me: me la ricordo."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Mi la…? Moro, hai sentito? Anche tu dici così quando abbai!",
+                "sl": "Mi la …? Moro, si slišal? Tudi ti tako rečeš, ko laješ!",
+                "en": "Mi la…? Moro, did you hear? You say that too when you bark!",
+                "de": "Mi la …? Moro, hast du gehört? So sagst du auch, wenn du bellst!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "thinking",
+          "it": "Quando ero bambino, a casa si parlava solo friulano. L'italiano l'ho imparato a scuola, come te adesso.",
+          "sl": "Ko sem bil otrok, se je doma govorilo samo furlansko. Italijanščine sem se naučil v šoli, kot ti zdaj.",
+          "en": "When I was a boy, at home we only spoke Friulian. I learnt Italian at school, like you now.",
+          "de": "Als ich ein Kind war, sprach man zu Hause nur Friaulisch. Italienisch hab ich in der Schule gelernt, so wie du jetzt."
+        },
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Secondo te, si impara meglio una lingua con i giochi o con i libri?",
+          "sl": "Kaj misliš, se jezika bolje naučiš z igrami ali s knjigami?",
+          "en": "Do you think you learn a language better with games or with books?",
+          "de": "Was meinst du, lernt man eine Sprache besser mit Spielen oder mit Büchern?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Giocando! Giocando con Tommaso ho imparato tante parole nuove.",
+              "sl": "Z igro! Ko sem se {m:igral|f:igrala} s Tommasom, sem se {m:naučil|f:naučila} veliko novih besed.",
+              "en": "By playing! Playing with Tommaso I've learnt lots of new words.",
+              "de": "Beim Spielen! Beim Spielen mit Tommaso hab ich viele neue Wörter gelernt.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Lo dice anche il proverbio: sbagliando s'impara, e giocando ancora di più!",
+                "sl": "Tudi pregovor pravi: na napakah se učimo, z igro pa še bolj!",
+                "en": "The proverb says so too: we learn from mistakes, and from playing even more!",
+                "de": "Das sagt auch das Sprichwort: Aus Fehlern lernt man, und beim Spielen noch mehr!"
+              }
+            },
+            {
+              "it": "Giocando! Giocato con Tommaso ho imparato tante parole nuove.",
+              "sl": "Z igro! Ko sem se {m:igral|f:igrala} s Tommasom, sem se {m:naučil|f:naučila} veliko novih besed.",
+              "en": "By playing! Playing with Tommaso I've learnt lots of new words.",
+              "de": "Beim Spielen! Beim Spielen mit Tommaso hab ich viele neue Wörter gelernt.",
+              "grammar": "gerundio",
+              "why": {
+                "sl": "Ko delaš nekaj medtem, je gerundij na -ando: giocando. Giocato je deležnik.",
+                "en": "Doing something meanwhile is the gerund in -ando: giocando. Giocato is the participle.",
+                "de": "Was du dabei tust, ist das Gerundium auf -ando: giocando. Giocato ist das Partizip."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Giocato? Hai già giocato? E chi ha vinto, tu o Tommaso?",
+                "sl": "Giocato? Si se že {m:igral|f:igrala}? Kdo je pa zmagal, ti ali Tommaso?",
+                "en": "Giocato? You've already played? And who won, you or Tommaso?",
+                "de": "Giocato? Hast du schon gespielt? Und wer hat gewonnen, du oder Tommaso?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Allora domani giochiamo a carte, e ti insegno a contare in friulano. Mandi, {learner}!",
+          "sl": "Potem jutri igrava karte, pa te naučim šteti po furlansko. Mandi, {learner}!",
+          "en": "Then tomorrow we'll play cards, and I'll teach you to count in Friulian. Mandi, {learner}!",
+          "de": "Dann spielen wir morgen Karten, und ich bring dir das Zählen auf Friaulisch bei. Mandi, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "mandi-b2-lingue",
+      "level": "B2",
+      "memory": {
+        "it": "le tre lingue del nostro confine",
+        "sl": "trije jeziki naše meje",
+        "en": "the three languages of our border",
+        "de": "die drei Sprachen unserer Grenze"
+      },
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "thinking",
+          "it": "Sai, {m:piccolo|f:piccola}, qui da noi una volta si parlavano tre lingue: il friulano a casa, l'italiano a scuola e lo sloveno al mercato di Gorizia.",
+          "sl": "Veš, {m:mali|f:mala}, pri nas so nekoč govorili tri jezike: furlanščino doma, italijanščino v šoli in slovenščino na tržnici v Gorici.",
+          "en": "You know, little one, round here we used to speak three languages: Friulian at home, Italian at school and Slovene at the Gorizia market.",
+          "de": "Weißt du, {m:Kleiner|f:Kleine}, hier bei uns sprach man früher drei Sprachen: Friaulisch zu Hause, Italienisch in der Schule und Slowenisch auf dem Markt in Görz."
+        },
+        {
+          "who": "bepi",
+          "it": "Mio nonno, pur non essendo mai andato a scuola, contrattava il prezzo delle mucche in tutte e tre.",
+          "sl": "Moj dedek je barantal za ceno krav v vseh treh, čeprav ni nikoli hodil v šolo.",
+          "en": "My grandfather, though he'd never gone to school, haggled over the price of cows in all three.",
+          "de": "Mein Großvater feilschte in allen dreien um den Preis der Kühe, obwohl er nie zur Schule gegangen war."
+        },
+        {
+          "choices": [
+            {
+              "it": "Incredibile! Benché non fosse mai andato a scuola, parlava tre lingue?",
+              "sl": "Neverjetno! Čeprav ni nikoli hodil v šolo, je govoril tri jezike?",
+              "en": "Amazing! Even though he'd never been to school, he spoke three languages?",
+              "de": "Unglaublich! Obwohl er nie zur Schule gegangen war, sprach er drei Sprachen?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Tre, e con le mani anche una quarta! Al mercato si parla con tutto.",
+                "sl": "Tri, z rokami pa še četrtega! Na tržnici se govori z vsem.",
+                "en": "Three, and with his hands a fourth! At the market you talk with everything.",
+                "de": "Drei, und mit den Händen noch eine vierte! Auf dem Markt redet man mit allem."
+              }
+            },
+            {
+              "it": "Incredibile! Perché non fosse mai andato a scuola, parlava tre lingue?",
+              "sl": "Neverjetno! Čeprav ni nikoli hodil v šolo, je govoril tri jezike?",
+              "en": "Amazing! Even though he'd never been to school, he spoke three languages?",
+              "de": "Unglaublich! Obwohl er nie zur Schule gegangen war, sprach er drei Sprachen?",
+              "grammar": "congiunzioni-congiuntivo",
+              "why": {
+                "sl": "Perché pove razlog ali namen; za čeprav rečeš benché.",
+                "en": "Perché gives a reason or a purpose; for even though, say benché.",
+                "de": "Perché nennt einen Grund oder Zweck; für obwohl sagst du benché."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Perché? No, no: parlava tre lingue nonostante la scuola, non per colpa sua!",
+                "sl": "Zato? Ne, ne: tri jezike je govoril kljub temu, ne zaradi tega!",
+                "en": "Because? No, no: he spoke three languages in spite of it, not because of it!",
+                "de": "Weil? Nein, nein: Er sprach drei Sprachen trotzdem, nicht deswegen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Oggi i giovani parlano quasi solo italiano. Se nessuno avesse continuato a parlare friulano, adesso non avresti mai sentito «mandi». Che ne pensi?",
+          "sl": "Danes mladi govorijo skoraj samo italijansko. Če ne bi nihče več govoril furlansko, zdaj ne bi nikoli {m:slišal|f:slišala} »mandi«. Kaj misliš o tem?",
+          "en": "Today young people speak almost only Italian. If nobody had kept speaking Friulian, you'd never have heard «mandi». What do you think?",
+          "de": "Heute sprechen die Jungen fast nur Italienisch. Hätte niemand weiter Friaulisch gesprochen, hättest du nie «mandi» gehört. Was meinst du dazu?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora dobbiamo continuare noi! Io lo dico già a tutti, anche a Moro.",
+              "sl": "Potem pa moramo nadaljevati mi! Jaz že vsem rečem, tudi Moru.",
+              "en": "Then we have to keep it going! I already say it to everyone, even Moro.",
+              "de": "Dann müssen wir weitermachen! Ich sag es schon zu allen, sogar zu Moro.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "E Moro risponde scodinzolando: in friulano, si capisce!",
+                "sl": "Moro pa odgovori z mahanjem z repom: po furlansko, seveda!",
+                "en": "And Moro answers by wagging his tail: in Friulian, of course!",
+                "de": "Und Moro antwortet mit Schwanzwedeln: auf Friaulisch, versteht sich!"
+              }
+            },
+            {
+              "it": "Meglio così: una lingua in meno da imparare!",
+              "sl": "Še bolje: en jezik manj za učenje!",
+              "en": "All the better: one less language to learn!",
+              "de": "Umso besser: eine Sprache weniger zum Lernen!",
+              "why": {
+                "sl": "Nonno je vesel, da friulanščina še živi: brez nje ne bi bilo »mandi«, ki ga imaš rad.",
+                "en": "Nonno is glad Friulian still lives: without it there'd be no «mandi», which you like.",
+                "de": "Der Opa freut sich, dass Friaulisch noch lebt: Ohne es gäbe es kein «mandi», das du magst."
+              },
+              "reply": {
+                "face": "sad",
+                "it": "Una in meno? Eh, così le lingue muoiono, {m:piccolo|f:piccola}: una parola alla volta.",
+                "sl": "Enega manj? Eh, tako jeziki umirajo, {m:mali|f:mala}: beseda za besedo.",
+                "en": "One less? Eh, that's how languages die, little one: one word at a time.",
+                "de": "Eine weniger? Tja, so sterben Sprachen, {m:Kleiner|f:Kleine}: ein Wort nach dem anderen."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Mio nonno diceva che una lingua vive finché qualcuno la usa per scherzare. Tu sai già fare una battuta in italiano?",
+          "sl": "Moj dedek je rekel, da jezik živi, dokler se kdo v njem šali. Se že znaš pošaliti v italijanščini?",
+          "en": "My grandfather said a language lives as long as someone jokes in it. Can you already make a joke in Italian?",
+          "de": "Mein Großvater sagte, eine Sprache lebt, solange jemand in ihr Witze macht. Kannst du schon einen Witz auf Italienisch?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Provo a raccontarne una: perché Moro non gioca a carte? Perché ha paura dei fiori!",
+              "sl": "Bom {m:poskusil|f:poskusila} povedati eno: zakaj Moro ne igra kart? Ker se boji križev!",
+              "en": "I'll try telling one: why doesn't Moro play cards? Because he's scared of the clubs!",
+              "de": "Ich versuch mal einen: Warum spielt Moro nicht Karten? Weil er Angst vor den Kreuzen hat!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah, ah! Dei fiori! Questa la racconto stasera sotto il tiglio.",
+                "sl": "Ha, ha! Križev! To bom nocoj povedal pod lipo.",
+                "en": "Ha, ha! Of the clubs! I'll tell that one under the linden tonight.",
+                "de": "Ha, ha! Vor den Kreuzen! Den erzähl ich heute Abend unter der Linde."
+              }
+            },
+            {
+              "it": "Provo di raccontarne una: perché Moro non gioca a carte? Perché ha paura dei fiori!",
+              "sl": "Bom {m:poskusil|f:poskusila} povedati eno: zakaj Moro ne igra kart? Ker se boji križev!",
+              "en": "I'll try telling one: why doesn't Moro play cards? Because he's scared of the clubs!",
+              "de": "Ich versuch mal einen: Warum spielt Moro nicht Karten? Weil er Angst vor den Kreuzen hat!",
+              "grammar": "infinito-preposizioni",
+              "why": {
+                "sl": "Provare gre z a: provo a raccontare.",
+                "en": "Provare takes a: provo a raccontare.",
+                "de": "Provare steht mit a: provo a raccontare."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Provo di…? Di che cosa? Va bene, sentiamo questa battuta!",
+                "sl": "Provo di …? Česa? No, prav, poslušajmo to šalo!",
+                "en": "Provo di…? Of what? All right, let's hear this joke!",
+                "de": "Provo di …? Wovon? Na gut, lass den Witz hören!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Hai visto? Una battuta, e la lingua è viva. Mandi, {learner}, e grazie!",
+          "sl": "Vidiš? Ena šala, in jezik je živ. Mandi, {learner}, in hvala!",
+          "en": "See? One joke, and the language is alive. Mandi, {learner}, and thank you!",
+          "de": "Siehst du? Ein Witz, und die Sprache lebt. Mandi, {learner}, und danke!"
+        }
+      ]
+    },
+    {
+      "id": "foto-b1-ponte",
+      "level": "B1",
+      "memory": {
+        "it": "la foto del ponte di legno",
+        "sl": "fotografijo lesenega mostu",
+        "en": "the photo of the wooden bridge",
+        "de": "das Foto von der Holzbrücke"
+      },
+      "lines": [
+        {
+          "who": "bepi",
+          "it": "Guarda questa foto, {m:piccolo|f:piccola}. È il ponte di legno su cui passavo da bambino per andare a scuola.",
+          "sl": "Poglej to fotografijo, {m:mali|f:mala}. To je lesen most, čez katerega sem kot otrok hodil v šolo.",
+          "en": "Look at this photo, little one. It's the wooden bridge I crossed as a boy to go to school.",
+          "de": "Schau dir dieses Foto an, {m:Kleiner|f:Kleine}. Das ist die Holzbrücke, über die ich als Kind zur Schule ging."
+        },
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "E quella è la casa in cui sono nato. Chi pensi che sia il bambino davanti alla porta?",
+          "sl": "In to je hiša, v kateri sem se rodil. Kdo misliš, da je deček pred vrati?",
+          "en": "And that's the house I was born in. Who do you think the boy at the door is?",
+          "de": "Und das ist das Haus, in dem ich geboren bin. Wer, glaubst du, ist der Junge vor der Tür?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sei tu, nonno! Hai le stesse orecchie grandi!",
+              "sl": "Ti si, dedek! Imaš enaka velika ušesa!",
+              "en": "It's you, Grandpa! You've got the same big ears!",
+              "de": "Das bist du, Opa! Du hast dieselben großen Ohren!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah, ah! Le orecchie non cambiano mai. Il resto sì, purtroppo.",
+                "sl": "Ha, ha! Ušesa se nikoli ne spremenijo. Vse drugo pa žal ja.",
+                "en": "Ha, ha! Ears never change. Everything else does, sadly.",
+                "de": "Ha, ha! Ohren ändern sich nie. Alles andere leider schon."
+              }
+            },
+            {
+              "it": "È Moro, nonno! Ha le stesse orecchie grandi!",
+              "sl": "To je Moro, dedek! Ima enaka velika ušesa!",
+              "en": "It's Moro, Grandpa! He's got the same big ears!",
+              "de": "Das ist Moro, Opa! Er hat dieselben großen Ohren!",
+              "why": {
+                "sl": "Nonno vpraša, kdo je deček (il bambino): Moro je pes.",
+                "en": "Nonno asks who the boy (il bambino) is: Moro is a dog.",
+                "de": "Der Opa fragt, wer der Junge (il bambino) ist: Moro ist ein Hund."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Moro? Settant'anni fa? No, Moro non era ancora nato, e poi non ha i pantaloni!",
+                "sl": "Moro? Pred sedemdesetimi leti? Ne, Moro se še ni rodil, pa še hlač nima!",
+                "en": "Moro? Seventy years ago? No, Moro wasn't born yet, and he doesn't wear trousers!",
+                "de": "Moro? Vor siebzig Jahren? Nein, Moro war noch nicht geboren, und er trägt keine Hose!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "thinking",
+          "it": "Il ponte di legno non c'è più. Una grande piena lo portò via, tanti anni fa.",
+          "sl": "Lesenega mostu ni več. Pred mnogimi leti ga je odnesla velika povodenj.",
+          "en": "The wooden bridge isn't there any more. A big flood carried it away, many years ago.",
+          "de": "Die Holzbrücke gibt es nicht mehr. Ein großes Hochwasser hat sie vor vielen Jahren mitgerissen."
+        },
+        {
+          "choices": [
+            {
+              "it": "Quindi il ponte di legno è stato portato via dall'acqua?",
+              "sl": "Torej je lesen most odnesla voda?",
+              "en": "So the wooden bridge was carried away by the water?",
+              "de": "Die Holzbrücke wurde also vom Wasser mitgerissen?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "it": "Proprio così. Per anni si passò al guado, finché il paese non ha costruito quello di pietra.",
+                "sl": "Prav tako. Leta in leta so hodili čez brod, dokler vas ni zgradila kamnitega.",
+                "en": "Exactly. For years people crossed at the ford, until the village built the stone one.",
+                "de": "Genau. Jahrelang ging man durch die Furt, bis das Dorf die Steinbrücke gebaut hat."
+              }
+            },
+            {
+              "it": "Quindi il ponte di legno è stata portata via dall'acqua?",
+              "sl": "Torej je lesen most odnesla voda?",
+              "en": "So the wooden bridge was carried away by the water?",
+              "de": "Die Holzbrücke wurde also vom Wasser mitgerissen?",
+              "grammar": "passivo",
+              "why": {
+                "sl": "Il ponte je moškega spola: è stato portato via.",
+                "en": "Il ponte is masculine: è stato portato via.",
+                "de": "Il ponte ist männlich: è stato portato via."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Portata? Mmm, questo ponte non è mica una signora!",
+                "sl": "Portata? Hm, ta most pa ni nobena gospa!",
+                "en": "Portata? Hmm, this bridge is no lady!",
+                "de": "Portata? Hm, diese Brücke ist doch keine Dame!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Un giorno ti porto sul ponte e ti faccio vedere dove si pescava. Chi va piano va sano e va lontano!",
+          "sl": "Nekoč te peljem na most in ti pokažem, kje smo lovili ribe. Kdor počasi hodi, daleč pride!",
+          "en": "One day I'll take you to the bridge and show you where we used to fish. Slow and steady goes far!",
+          "de": "Eines Tages nehm ich dich mit zur Brücke und zeig dir, wo man früher gefischt hat. Wer langsam geht, kommt weit!"
+        }
+      ]
+    },
+    {
+      "id": "foto-b2-canin",
+      "level": "B2",
+      "memory": {
+        "it": "la foto del Monte Canin",
+        "sl": "fotografijo Kanina",
+        "en": "the photo of Monte Canin",
+        "de": "das Foto vom Monte Canin"
+      },
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "proud",
+          "it": "E in quest'altra foto ci sono io, in cima al Monte Canin, a vent'anni. Arrivato in vetta, mi sembrava di toccare il cielo.",
+          "sl": "Na tej drugi fotografiji sem jaz, na vrhu Kanina, pri dvajsetih. Ko sem prišel na vrh, se mi je zdelo, da se dotikam neba.",
+          "en": "And in this other photo that's me, on top of Monte Canin, at twenty. Once I'd reached the summit, I felt I could touch the sky.",
+          "de": "Und auf diesem anderen Foto bin ich, oben auf dem Monte Canin, mit zwanzig. Oben angekommen, dachte ich, ich könnte den Himmel berühren."
+        },
+        {
+          "who": "bepi",
+          "face": "thinking",
+          "it": "Partimmo alle quattro di notte, con il pane e il formaggio nello zaino. Se non fossimo partiti così presto, il temporale ci avrebbe presi a metà strada.",
+          "sl": "Odšli smo ob štirih ponoči, s kruhom in sirom v nahrbtniku. Če ne bi bili odšli tako zgodaj, bi nas nevihta ujela na pol poti.",
+          "en": "We set off at four in the morning, with bread and cheese in our rucksacks. If we hadn't left so early, the storm would have caught us halfway.",
+          "de": "Wir brachen um vier Uhr nachts auf, mit Brot und Käse im Rucksack. Wären wir nicht so früh losgegangen, hätte uns das Gewitter auf halbem Weg erwischt."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora è stato proprio un bene che partiste di notte!",
+              "sl": "Potem je bilo res dobro, da ste odšli ponoči!",
+              "en": "Then it's a really good thing you left at night!",
+              "de": "Dann war es ja richtig gut, dass ihr nachts losgegangen seid!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Proprio così. In montagna chi si alza presto torna a casa asciutto.",
+                "sl": "Prav tako. V gorah, kdor zgodaj vstane, se vrne suh domov.",
+                "en": "Exactly. In the mountains, whoever gets up early comes home dry.",
+                "de": "Genau. In den Bergen kommt, wer früh aufsteht, trocken nach Hause."
+              }
+            },
+            {
+              "it": "Allora il temporale vi ha presi a metà strada?",
+              "sl": "Potem vas je nevihta ujela na pol poti?",
+              "en": "So the storm caught you halfway?",
+              "de": "Dann hat euch das Gewitter auf halbem Weg erwischt?",
+              "why": {
+                "sl": "Nonno pravi, kaj bi se bilo zgodilo: odšli so zgodaj, zato jih nevihta ni ujela.",
+                "en": "Nonno says what would have happened: they left early, so the storm didn't catch them.",
+                "de": "Der Opa sagt, was passiert wäre: Sie sind früh los, also hat das Gewitter sie nicht erwischt."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Presi? No, no! Quando è arrivato, eravamo già nel rifugio a mangiare.",
+                "sl": "Ujela? Ne, ne! Ko je prišla, smo že jedli v koči.",
+                "en": "Caught? No, no! When it came, we were already eating in the hut.",
+                "de": "Erwischt? Nein, nein! Als es kam, saßen wir schon in der Hütte beim Essen."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Oggi le mie gambe non ci arriverebbero più. Ma se tu salissi sul Canin, che cosa vorresti vedere da lassù?",
+          "sl": "Danes moje noge ne bi prišle več gor. Ampak če bi ti {m:šel|f:šla} na Kanin, kaj bi {m:hotel|f:hotela} videti od zgoraj?",
+          "en": "Today my legs wouldn't get up there any more. But if you climbed the Canin, what would you want to see from up there?",
+          "de": "Heute kämen meine Beine nicht mehr hinauf. Aber wenn du auf den Canin steigen würdest, was würdest du von oben sehen wollen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Se ci arrivassi, vorrei vedere il mare e il nostro paese, piccolo piccolo.",
+              "sl": "Če bi {m:prišel|f:prišla} gor, {m:bi rad videl|f:bi rada videla} morje in našo vas, čisto majhno.",
+              "en": "If I got up there, I'd want to see the sea and our village, tiny tiny.",
+              "de": "Wenn ich hinaufkäme, würde ich gern das Meer und unser Dorf sehen, ganz klein.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Il mare si vede, nelle giornate di bora. Il paese, invece, ce l'hai sempre nel cuore.",
+                "sl": "Morje se vidi, ko piha burja. Vas pa imaš vedno v srcu.",
+                "en": "You can see the sea, on bora days. The village, though, you always carry in your heart.",
+                "de": "Das Meer sieht man an Bora-Tagen. Das Dorf hast du dagegen immer im Herzen."
+              }
+            },
+            {
+              "it": "Se ci arriverei, vorrei vedere il mare e il nostro paese, piccolo piccolo.",
+              "sl": "Če bi {m:prišel|f:prišla} gor, {m:bi rad videl|f:bi rada videla} morje in našo vas, čisto majhno.",
+              "en": "If I got up there, I'd want to see the sea and our village, tiny tiny.",
+              "de": "Wenn ich hinaufkäme, würde ich gern das Meer und unser Dorf sehen, ganz klein.",
+              "grammar": "congiuntivo-imperfetto",
+              "why": {
+                "sl": "Za se ne pride pogojnik: se ci arrivassi.",
+                "en": "Se never takes the conditional: se ci arrivassi.",
+                "de": "Nach se kommt kein Konditional: se ci arrivassi."
+              },
+              "reply": {
+                "face": "thinking",
+                "it": "Se ci arriverei…? Mmm, in montagna l'aria è sottile, ma non così tanto!",
+                "sl": "Se ci arriverei …? Hm, v gorah je zrak redek, ampak ne tako zelo!",
+                "en": "Se ci arriverei…? Hmm, the air is thin in the mountains, but not that thin!",
+                "de": "Se ci arriverei …? Hm, in den Bergen ist die Luft dünn, aber so dünn auch wieder nicht!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Un giorno ci andrai, ne sono sicuro. E quando tornerai, mi racconterai tutto qui, davanti a questa foto.",
+          "sl": "Nekoč boš {m:šel|f:šla} gor, prepričan sem. In ko se vrneš, mi boš vse {m:povedal|f:povedala} tukaj, pred to fotografijo.",
+          "en": "One day you'll go up there, I'm sure of it. And when you come back, you'll tell me everything here, in front of this photo.",
+          "de": "Eines Tages gehst du hinauf, da bin ich sicher. Und wenn du zurückkommst, erzählst du mir alles hier, vor diesem Foto."
         }
       ]
     }

@@ -317,9 +317,14 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
 - Jan's curated Slovene modules, role-plays and scenes aren't served either: another language's go in
   `companion/modules/it/` (English's in `companion/modules/en/`), `companion/scenarios/it/` and `companion/scenes/it/` (the tutor writes more for the learner
   with `publish_module`, `publish_scenario`, `publish_scene`). Teo's Italian role-plays are in `companion/scenarios/it/`
-  (nine, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday lunch at Nonna
-  Rosa's, the playground, a phone call to the nonna, Tommaso's party); a scenario in another language than the
-  village's is never served (docs/plans/05-built/scenarios-it.md). The Carinthian village has eight for a grown-up in
+  (nine at A1 and A2, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday
+  lunch at Nonna Rosa's, the playground, a phone call to the nonna, Tommaso's party; six at B1, for a child: the
+  broken kite at the toy shop, swapping stickers with Tommaso, the broken swing told to the mayor, a twisted ankle at
+  the paediatrician's, advice for Lorenzo, what happened with the cat up the linden; six at B2, for an older learner
+  and nothing a child mayn't hear: the cancelled train at Udine, the landslide argued with the mayor, Fabbro Bruno's
+  gate negotiated, a job interview in Cividale, the family doctor, advice for Pastore Davide); a scenario in another
+  language than the village's is never served (docs/plans/05-built/scenarios-it.md, talks-it.md). A curated talk is
+  offered at most a level above the learner's (an A1 learner meets A1 and A2, never B1 or B2). The Carinthian village has eight for a grown-up in
   German (`companion/scenarios/de/`: the baker, the farmers' market, the doctor, the Gasthaus, Villach station, the
   Kirchtag, the neighbour at the fence, a call to the council), the Lake District eight in English
   (`companion/scenarios/en/`: the farm shop, the pub, the GP, the bus stop in Keswick, the B&B, asking the way on the
@@ -328,7 +333,17 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   `at-the-b-and-b`, `asking-the-way`, `at-the-fete`, `weather-and-garden`); a scene of theirs leads into them after a
   dialog (Kathi's Gasthaus, Stefan's Most, the Kirchtag; Mrs Birkett's inn, the fête, Shepherd Jack on the fell), and a
   child's scene never into a grown-up's role-play. Jan's six read in German and Italian too
-  (docs/plans/05-built/scenarios-de-en.md).
+  (docs/plans/05-built/scenarios-de-en.md). Jan's village has twelve more for a grown-up at B1 and B2
+  (`companion/scenarios/`: a complaint at the shop, wine for a party with Vinar Marko, a call to the surgery that goes
+  wrong, the night of the bora, advice for the neighbour, a job at a tourist farm; the mayor's office hours, a job
+  interview, a new doctor's history, a stone house to rent, reporting a car accident, Marko at a crossroads;
+  docs/plans/05-built/talks-sl.md). The Carinthian village has twelve more at B1 and B2 (`companion/scenarios/de/`: a
+  rain jacket taken back to the shop, Most for a big birthday with Mostbauer Stefan, a call to the doctor's practice
+  that goes wrong, the hailstorm night told to the fire brigade, advice for Tante Mitzi and her hearing aid, summer help
+  at Kathi's Gasthaus; the mayor and the village shop that closes, a job interview at a hotel on the Faaker See, a new
+  family doctor's history, a second-hand car, a ski accident told to the Alpine police, Florian between a job and an
+  Almhütte; docs/plans/05-built/talks-de.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
+  A1 and A2 talks, never B1 or B2. The list goes by level, easiest first.
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
 - A learner of German plays the same way in `kaernten` (`--target de --culture kaernten`), with the German packs of
@@ -1108,7 +1123,7 @@ event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land
 | `POST` | `/placement` | `{from, level, applied, start?: {level, part, parts} \| null, units, probes: [{level, part, parts, right, almost, of, passed}], child?, duration_minutes?, language?, client_id}`: the placement test's result ([COURSE.md](COURSE.md#the-placement-test)), the learner having taken it (`applied`: `units` marked done in the school) or kept their place → persisted via `update-db.py` as a session `/lani-app-placement` (its items as grammar), the report's `level` only when taken above the learner's level (`current_level`, `level_since`; never lowered) with a milestone; Claude gets a `placement` summary (already persisted; where the school goes on). Once per `client_id`. An older bridge answers 404: the app sends it as a `session_end` with the report for the tutor to persist |
 | `GET` | `/readings`, `/readings/:id` | the reading corner's readings (see [GAME.md](GAME.md#the-reading-corner)): the village's culture pack's (`companion/cultures/<culture>/readings/`, read per request) with `source: curated` and `culture`, then the tutor's (`<data>/app/readings/`, `publish_reading`) with `source: tutor`, `machine_written` and `published_at` |
 | `POST` | `/readings/done` | `{kind: reading\|story\|aloud, id, title?, level?, exercises, correct, duration_minutes, questions?: [{type?, right}], looks?, aloud?: {words, right, misread, skipped, wpm?, recognizer: node\|phone, misses?: [{word, heard?}]}, language?, client_id}` → reading practice persisted via `update-db.py` (no LLM): `skill_scores.reading` (a reading's questions, a story's turns, a reading aloud's sentences; a story's "🎯 Preveri se" in the story notebook reports as a reading, `id` `book:<story>`, its questions the telling's turns), and `speaking` too for a reading aloud (`command_used` `/lani-app-reading`, `/lani-app-story`, `/lani-app-read-aloud`); Claude gets a `reading_done` summary, with `looks` (how often the text, hidden while its questions were asked, was shown again: [GAME.md](GAME.md#read-first-then-answer)) as "looked back at the text 3 times while answering" |
-| `GET` | `/state[?language=it]` | all 6 learner databases + computed fields (no LLM involved), the home language's or, with `language`, that language's; always with `language` (whose they are) and `languages: [{code, name, level, words, due, source: home\|visits}]`, the home one first (see [docs/DB_SCRIPTS.md](../docs/DB_SCRIPTS.md#languages)), and `features`: what this bridge takes that an older one doesn't (`"dialog-words"`: POST /reviews' `dialog`); an older bridge has none, and the app sends it only what it takes |
+| `GET` | `/state[?language=it][&forms=2]` | all 6 learner databases + computed fields (no LLM involved), the home language's or, with `language`, that language's (without `forms=2`, an older app's ask, none of the review items that are Italian's, German's or English's forms cards: [Other languages](#other-languages-italian-german-english)); always with `language` (whose they are) and `languages: [{code, name, level, words, due, source: home\|visits}]`, the home one first (see [docs/DB_SCRIPTS.md](../docs/DB_SCRIPTS.md#languages)), and `features`: what this bridge takes that an older one doesn't (`"dialog-words"`: POST /reviews' `dialog`); an older bridge has none, and the app sends it only what it takes |
 | `GET` | `/changes` | `{version, day, areas}`: the version of everything the app reads (`bridge/src/changes.ts`), and of each area of it: `learner` (the databases and the bridge's other records of the learner, e.g. the answers' log), `village` (`app/game.json`), `towns` (`app/towns.json`, `app/town-*`), `family` (`app/family`, `app/audio`), `content` (the tutor's stores in `app/`, on a node the project's content under `companion/`, which a merge on main changes under a running bridge, and who the learner is: the profile's learner, preferences and home language by value) and `friends` (no files: what the towns' friendships take of the village and the learner, by value: the village's last feast and the learner's level in each linked town's language; [nav-perf-2.md](../docs/plans/05-built/nav-perf-2.md)). Each a digest of this run of the bridge, the day and its files (the learner's data directory without its history, clips, releases, backups, chat photos and the bridge's own bookkeeping). Not the events (the app handles each as it comes) nor the voice store (each clip made says so: `voice_updated`). Each GET the app reads again on a Back says the versions of the areas it depends on as they were before its answer was made (`lani-areas: learner=…, content=…`). Home coming back reads nothing when the version didn't move; when it did, only the reads whose areas moved, while the day, the time of day, the pair, the learner and the culture are those of the last reading and the last whole one is under an hour old; else everything. What no version says (the towns' reads, which ask the linked towns; the voice store's clips and voices) is read again every ten minutes, moved or not ([docs/plans/05-built/nav-perf.md](../docs/plans/05-built/nav-perf.md), [changes-areas.md](../docs/plans/05-built/changes-areas.md), [nav-perf-2.md](../docs/plans/05-built/nav-perf-2.md)); an older bridge answers `404` (or no areas), and the app reads everything as before |
 | `GET` | `/modules`, `/modules/:id[?version=N]` | published modules |
 | `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned` (words the learner has, from this pack or another), `own` (those learned in this pack itself), `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`). `?packs=` is the packs version the app reads (`PackSession.VERSION`, 1: it orders the packs by the learner's level and folds those far above it): an app that doesn't say (an older one) gets only the curated packs up to a level above the learner's `current_level`, and every tutor's, festival's, project's and started pack (`packsForApp`; see [Nove besede](#nove-besede--new-words)) |
@@ -1116,20 +1131,20 @@ event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land
 | `GET` | `/grammar` | the grammar book of the village's language: the curated pages (`companion/grammar/<language>/`, `LANI_GRAMMAR_DIR` for another root) with what the tutor added to them (`extended`), then the tutor's own pages (`<data>/app/grammar/`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's (see [Grammar book](#grammar-book)) |
 | `GET` | `/cards` | the cheat sheet's cards no grammar page fits: the curated ones (`companion/cards/<language>/`, `LANI_CARDS_DIR` for another root), then the tutor's (`<data>/app/cards/`, `publish_card`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's; `GET /cards/<id>` one (see [Cheat sheet](#cheat-sheet)) |
 | `GET` | `/grammar/:id` | one page |
-| `GET` | `/course` | the school's course of the village's language (see [The school's course](#the-schools-course)): `{schema: "lani.course/v0", language, levels: [{level, units: [{id, title, planned, grammar}]}], units: [<lani.unit/v0> + homework: [<lani.worksheet/v0> + source: "tutor", published_at]], machine_written, review?}`; `404` `{error: "no course"}` when the language has none |
+| `GET` | `/course` | the school's course of the village's language (see [The school's course](#the-schools-course)): `{schema: "lani.course/v0", language, levels: [{level, units: [{id, title, planned, grammar}]}], units: [<lani.unit/v0> + homework: [<lani.worksheet/v0> + source: "tutor", published_at]], machine_written, review?}`; `404` `{error: "no course"}` when the language has none. `?types=2`: speaking and writing too; without it (an older app) the units without them, a sheet of only them left out |
 | `GET` | `/course/sheet/:unit` | a unit's printed sheet, a page to print ([COURSE.md](COURSE.md#in-the-app)): `text/html`, the generator's own (`companion/prints/build.ts`) with its CSS, fonts and `fit.js` inlined, for the learner's base language, name and gender (`?base=en\|de\|it`, `?learner=`, `?gender=m\|f\|both` say otherwise; `400` for another); headers `x-lani-print-name` (`01-biti`) and `x-lani-print-units`; `404` for a planned or unknown unit. Kept until the course, the grammar book, the packs, the dictionary or the print's own files change |
 | `GET` | `/course/booklet/:level` | the level's booklet the same way: the cover, the contents with page numbers, every unit (`lani-sl-A1-en`); `404` for a level without units |
 | `GET` | `/drills` | the car's audio drills of the village's language (`companion/drills/<language>/`, `LANI_DRILLS_DIR` for another root), each with `source: "curated"` (see [The drills](#the-drills)); an older bridge answers 404 and the app plays its own copy |
 | `GET` | `/drills/:id` | one drill |
 | `POST` | `/packs/:id/learn` | `{results: [{word_id, quality 0-5}], duration_minutes, language?}` → new vocabulary SR items via `update-db.py` (known words skipped), in the home language's data or `language`'s, Claude gets a `words_learned` summary. A pack session and a festival's run in the village both post here |
 | `GET` | `/lookup?w=…&line=…&en=…&base=…&language=…` | what a word tapped in a dialog means, in the learner's base language (or `base`); `language`: another town's, on a visit: `{word, entries: [{lemma, pos, gloss, gloss_lang, gloss_via?, gloss_en?, fallback?, grammar, gender, source, item_id, known, example, emoji, aspect?, partner?, here?}], attribution}` (see [Word lookup](#word-lookup), and [Word forms](#word-forms) for a verb's partner) |
-| `GET` | `/forms?w=…&w=…` | a word's forms (1-40 words): `{language, words: [{word, entries: [{lemma, pos, gloss, gender, aspect?, partner?, table: wiktionary\|checked, slots: [{key, forms, also?, grammar, page, needs?, lines?}]}]}], attribution}`; an older bridge answers 404 (see [Word forms](#word-forms)) |
+| `GET` | `/forms?w=…&w=…&v=2` | a word's forms (1-40 words): `{language, words: [{word, entries: [{lemma, pos, gloss, gender, aspect?, partner?, language?, aux?, table: wiktionary\|checked, slots: [{key, forms, also?, grammar, page, needs?, lines?}]}]}], attribution}`; `v=2`: Italian's, German's and English's tables too (without it their villages answer none, for an older app); an older bridge answers 404 (see [Word forms](#word-forms)) |
 | `POST` | `/words` | `{sl, en, pos?, item_id?, example_sl?, example_en?, from?, language?, client_id}` → `{item_id, added}`: a vocabulary SR item, without a session, the home language's or `language`'s (see [Word lookup](#word-lookup)) |
 | `POST` | `/counting` | `{words: [{word, item_id?}], client_id?}` (1–40) → `{added, skipped, made_today, per_day}`: counting cards of the learner's learned nouns, from the dictionary's forms, at most `LANI_COUNTING_PER_DAY` (3) a day (see [Counting cards](#counting-cards)); `400` without words or in a village that isn't Slovene |
 | `POST` | `/forms-cards` | `{words: [{word, item_id?}], introduced: [page ids], asked?, client_id?}` (0–40 words) → `{added, skipped, resurfaced, made_today, per_day, resurface_per_day}`: forms cards of the learner's learned words from the dictionary's forms, at most `LANI_FORMS_PER_DAY` (2) a day, one at once with `asked`; the cards the `introduced` pages ask more of come back within days, at most `LANI_FORMS_RESURFACE_PER_DAY` (3) a day (see [Forms cards](#forms-cards)); `400` in a village that isn't Slovene |
 | `GET` | `/forms-cards?w=…&w=…` | each word's tables as its forms card would have them, to read (1–10 words): `{language, words: [{word, tables: [{lemma, pos, gender?, gloss, emoji?, table, slots, tested: []}]}], attribution}`; nothing is written, no card made: the app's overview, "📋 Vse oblike" (see [Forms cards](#forms-cards)); an older bridge answers 404 |
 | `GET` | `/words` | `{from: [scene, roleplay, villager, chat, reading, search]}`: the origins `POST /words` takes (an older bridge: 404) |
-| `GET` | `/scenarios` | role-play scenarios of the village's language (curated `companion/scenarios/`, another language's `companion/scenarios/<language>/`, + tutor `<data>/app/scenarios/`) with `source`, `language` and `audience`; their title, goals and `who` in the learner's pair ("Al mercato · Auf dem Markt"), the setting and the meanings in the base; never one marked `audience: "adult"` to a child |
+| `GET` | `/scenarios` | role-play scenarios of the village's language (curated `companion/scenarios/`, another language's `companion/scenarios/<language>/`, + tutor `<data>/app/scenarios/`) with `source`, `language` and `audience`; their title, goals and `who` in the learner's pair ("Al mercato · Auf dem Markt"), the setting and the meanings in the base; never one marked `audience: "adult"` to a child, never a curated one more than a level above the learner's (an A1 learner A1 and A2, a B1 learner to B2) |
 | `GET` | `/scenarios/:id` | one scenario, served so (404 for one the learner isn't offered) |
 | `GET` | `/scenes` | village scenes (curated `companion/scenes/` + tutor `<data>/app/scenes/`, a tutor scene replacing a curated one with its id) with `source`, every object resolved from its pack word (`sl`, `en`, `emoji`, `gender`, `plural`, `example_sl`, `example_en`) |
 | `GET` | `/scenes/:id` | one scene, resolved |
@@ -2155,8 +2170,8 @@ One idea: show a sentence and I pick what case this is?"): short sessions on the
 task at a time with feedback at once, towards what decides a case more than its endings. Its rules are
 `app/.../data/CaseTrainer.kt` (pure), the shared look `data/CaseLook.kt` (each case's id, number, question words and
 colour: the contract with the case lens), the bank `data/CaseBank.kt`, the screens `ui/cases/`, the rest
-`app/CasesController.kt`; the bridge's `bridge/src/case-bank.ts` and `features/cases.ts`. Slovene only, as the forms
-book. Why it is built so: docs/plans/05-built/case-trainer.md.
+`app/CasesController.kt`; the bridge's `bridge/src/case-bank.ts` and `features/cases.ts`. Slovene's and German's
+("German's case trainer" below). Why it is built so: docs/plans/05-built/case-trainer.md.
 
 **Where it opens.** Home's tile "🧩 Skloni" once it is open (its line: the tutor's assignment, what comes back, the
 weakest case), Home's "Danes · Today" idea (the tutor's assignment or items due again right after the tutor's modules, a
@@ -2273,12 +2288,41 @@ both: `data/CaseLook.kt` on the app's `game.Case`, `ui/cases/CaseColors.kt`.
 QA: `companion/bin/qa --steps cases` (on a synthetic learner: LANI_DEV_DATA). Tests: `CaseTrainerTest`; the smoke's
 `case-trainer`.
 
+### German's case trainer
+
+"🧩 Fälle · Cases" in a German village (docs/plans/05-built/case-de.md): the same trainer on German's four cases in the
+course's order (Nominativ, Akkusativ, Dativ, Genitiv; `data/CaseLook.kt` `CaseSets.DE`), its bank
+`companion/cases/de/bank.json` (format `bridge/src/case-bank-de.ts`: the sentence under `de`, its meaning under `sl`,
+`en`, `it`; `phrase`, the noun phrase framed; the noun's `gender`). "Welcher Fall?" frames the noun phrase; "Warum?"
+asks the deciding word; "Wo oder wohin?" asks the two-way prepositions (in der Hütte, in die Hütte), wo, wohin or woher,
+zu, bei or nach; "Dekliniere!" types the phrase with the frame's determiner (`det`) and an adjective ("Heute helfe ich ___
+(mein Opa)" → meinem Opa), the forms by German's rules (`data/GermanForms.kt`, the bridge's `german-forms.ts`, held
+together by `bridge/test/fixtures/german-forms.json`), graded in German, the n-Deklination's bare form right and
+labelled; the storm in four cases. The learner's nouns come from GET /cases's `learner_nouns` (their cards that are a
+pack's nouns, gender and plural). Its pages (`CaseLook.PAGES_DE`), units (`CaseTrainer.CASE_UNITS_DE`, each with its
+focus) and labels (`cases.de.*` where Slovene's say six cases or Tožilnik) are its own. Check the bank with
+`cd companion/bridge && bun test/check-cases.ts de`.
+
 ## The school's course
 
 The school teaches the language level by level (A1, A2, B1, B2): each level an ordered list of units, each unit a guided
 introduction with a quick question after each step, two to four worksheets and a test. The format, the school's own
-exercise types (`gaptext`, `table`, `transform`, `sort`) and how to write a unit are in [COURSE.md](COURSE.md); how it
-fits the game (the class from the hamlet on, the school, the gates) in [GAME.md](GAME.md#the-school).
+exercise types (`gaptext`, `table`, `transform`, `sort`, and `speaking` and `writing`) and how to write a unit are in
+[COURSE.md](COURSE.md); how it fits the game (the class from the hamlet on, the school, the gates) in
+[GAME.md](GAME.md#the-school).
+
+**Speaking and writing in a unit** ([COURSE.md](COURSE.md#speaking-and-writing), docs/plans/05-built/lesson-production.md).
+A speaking item (`ui/school/ProductionExercises.kt` `SpeakingEx`) plays as a module's speak exercise with the teacher's
+question in her bubble and voice; its takes are graded by the item (`data/Production.kt`: a form people say right aloud,
+the grading table's nonstandard too, a recognizer's *u vasi* the standard, an open answer by what it must use). A writing
+item (`WritingEx`) shows what the text must use (ticked as it is met on a worksheet, a list in the test), checks it at
+once by its rules on "Preveri · Check", then the checks, a model text and the tutor's feedback, which comes as the reply
+to an `answer` (conversation `exw…`), under the text and into the chat, offline from the outbox: nothing waits for it.
+A child says a writing item first. In a test a speaking item rated by the learner (no microphone) doesn't count. The app
+asks `GET /course?types=2`; an older app gets the units without them (`heldBack`). The printed sheet has "Povej in
+napiši · Speak and write". Tests: `ProductionTest`, `SheetCountTest`; the smoke's `production` (the rules' fixture
+`bridge/test/fixtures/production-rules.json`, the refusals, what an older app gets, the print, the voice, every item of
+the course).
 
 **Served** (`bridge/src/course.ts`, `GET /course`): the outline `companion/course/<language>/course.json` and its units
 `companion/course/<language>/units/<id>.json` (`LANI_COURSE_DIR` for another root), read per request like the grammar
@@ -3538,7 +3582,18 @@ them (the JSONL of https://kaikki.org/dictionary/Slovene/):
 companion/bin/lexicon-build --from kaikki.org-dictionary-Slovene.jsonl --lang sl
 companion/bin/lexicon-build --coverage     # how much of the curated content the lexicon knows, what it misses,
                                            # and the words it knows only as a form of another word
+python3 -I companion/lexicon/tools/common_words.py --lang it --pos verb,adj,adv
+                                           # the lemmas the course and the village use most that no pack teaches
 ```
+
+A word counts as learned only as a pack's card (GAME.md, "Words learned"), so `common_words.py` keeps the packs and
+the content apart: it counts every word of a language's course (an `accept` list by its standard answer only), scenes,
+packs, scenarios, modules, grammar pages, drills and culture content, takes its lemma from the supplement (and
+`sl.json` for Slovene), and lists the lemmas whose word is no pack's, nor inside a pack's expression where it stands
+(dobro jutro). `--packs DIR` counts a branch's packs not merged yet, `--where LEMMA` says where a count comes from. Each
+language's 24 commonest it found (2026-11-03) are an A1 pack of their own: `besede-za-vsak-dan` (Babica Micka),
+`parole-di-ogni-giorno` (Giulia), `woerter-fuer-jeden-tag` (Oma Resi), `everyday-words` (Granny Maggie)
+(docs/plans/05-built/common-words.md).
 
 It keeps each lemma with up to 3 short glosses and a noun's gender, and every inflected form with its lemma and
 grammar. The grammar is written to be read: readings that differ only in their cases or only in their person,
@@ -3850,12 +3905,57 @@ adjective; `lep` is an adjective, nice, and a noun, glue):
   minutes, or until the tutor publishes something with lines in it.
 - No entries: a word the dictionary doesn't know, or whose Wiktionary entry has no table (krožnik, šotor). `400`
   without `w`, with more than 40, one longer than 80 characters, or `language` other than the village's.
-- **Slovene only.** The slots, the grammar book's pages they count on and the app's tables and form questions are
-  Slovene's (its cases, the dual, the l-form): a village in another language answers no entries for any word
-  (`FORMS_LANGUAGES` in forms.ts), so the word card shows no table and the review asks no form. Italian's dictionary has
-  the forms (its present, future, imperative and the rest), but the app has no table of them yet. Counting cards and
-  forms cards are Slovene's too: their routes answer `400` for another language, and `GET /state`'s `features` leave
-  out `counting` and `forms-cards` for a village that doesn't speak Slovene (the app checks the language as well).
+- **Other languages** (below): Italian, German and English have slots of their own, served to an app that asks with
+  `v=2`. Without it (an older app: Teo's tablet, 0.2.698) a village in another language answers no entries, as before,
+  so an older app never shows an Italian form with Slovene's pronouns. Counting cards are Slovene's: their route answers
+  `400` for another language, and `GET /state`'s `features` leave out `counting` and `forms-cards` for a village that
+  doesn't speak Slovene (the app checks the language as well).
+
+#### Other languages: Italian, German, English
+
+Since forms-tap (2026-11-03; [docs/plans/05-built/forms-tap.md](../docs/plans/05-built/forms-tap.md)) a word of an
+Italian, German or English village has its forms on a tap, in its review and on a forms card, as Slovene's have. Each
+language has its own slots (`LANG_KEYS` in `bridge/src/paradigms.ts`), each on a page of its own grammar book
+(`pageOfIn`):
+
+| | slots (`key`) | pages |
+|---|---|---|
+| it, verb | present (`pres.1sg` … `pres.3pl`), past participle (`pp`, with the entry's `aux`: avere, essere), imperfect (`impf.*`), future (`fut.*`), conditional (`cond.*`), present and imperfect subjunctive (`subj.*`, `subji.*`), passato remoto (`rem.*`), imperative (`imp.2sg`, `imp.1pl`, `imp.2pl`), gerund (`ger`) | presente-regolare (a present its ending's rule makes: parlo, cerchi, finisco), else verbi-irregolari, essere-avere, modali; passato-prossimo, an irregular participle participi-irregolari; imperfetto, futuro, condizionale, congiuntivo, congiuntivo-imperfetto, passato-remoto, imperativo, stare-gerundio |
+| it, noun / adjective | `sg`, `pl`; `adj.m.sg`, `adj.f.sg`, `adj.m.pl`, `adj.f.pl`, `cmp` (migliore), `sup` (bellissimo) | articoli-genere, plurale; aggettivi-accordo, comparativi, superlativi |
+| de, verb | present (`pres.*`), preterite (`pret.*`), Partizip II (`pp`, with haben or sein), Konjunktiv II (`konj2.*`: sein, haben, werden, the modals, wissen), imperative (`imp.2sg`, `imp.2pl`) | praesens (a changed vowel's du and er: vokalwechsel), sein-haben, modalverben, werden-futur; praeteritum (sein's, haben's, the modals': praeteritum-kurz); partizip-zwei; konjunktiv-zwei; imperativ |
+| de, noun / adjective | the four cases by number (`nom.sg` … `acc.pl`); `cmp`, `sup` (am schönsten) | artikel-genus, genitiv, dativ, akkusativ (a plural's needing plural; a weak masculine's den Jungen, dem Herrn: n-deklination); steigerung |
+| en | `pres.3sg` (goes; be's `pres.1sg` am, `pres.2sg` are), `past` (be's `past.1sg` was, `past.2sg` were), `pp`, `ing`; a noun's `sg`, `pl`; `cmp`, `sup` | present-simple, to-be, to-have, past-simple, was-were, present-perfect, present-continuous; articles, plurals; comparatives |
+
+- **The forms** are `lexicon/<language>.paradigms.json`, Wiktionary's tables of the words the content uses (not the whole
+  language: the APK has them, as the node does, with or without a downloaded dictionary), made by
+  `companion/bin/forms-build --lang it --from kaikki.org-dictionary-Italian.jsonl.gz` (English Wiktionary via kaikki.org;
+  `--extract-date`). It reads an entry's first table only (essere's later ones are another variety's: sò, sarebbi),
+  leaves out old, rare and joking forms, keeps Italian's and German's regional and colloquial ones as `also` (accepted,
+  never shown: Jungs, dem Hause), keeps only another country's spelling as accepted in English (its nonstandard forms
+  stay the course's `nonstandard` grading, or a learner's mistake: gooder, goed), drops Italian's stress marks inside a
+  word and on a one-syllable form (và → va; è, dà, può kept), and leaves out a verb or adjective beside a noun of one
+  spelling when the content says none of its forms. 2026-10-30's extract: it 3,721 entries (61,021 forms, 1.7 MB), de
+  3,898 (39,851, 1.1 MB), en 5,110 (13,258, 0.8 MB). CC BY-SA 4.0 (NOTICE.md); every answer carries the attribution, and
+  the word card shows it under the table. `Paradigms` reads the file (each entry checked on its own, read again when it
+  changes).
+- **Lines**: as Slovene's, the content's sentences where the form stands as that word: English's have before a
+  participle (has eaten: the perfect's, never a passive), be before -ing (not a gerund: "I like walking"), no
+  determiner before a form that is a word itself (the left hand); Italian's che before a subjunctive (else not the
+  subjunctive's); a present and an imperative told apart by the translation. Each line keeps its Slovene too
+  (`sl`) for a learner who reads Slovene, its text in `text`.
+- **The app** (`game/OtherForms.kt`): the word card's table (a tense by person, singular and plural, with its pronouns;
+  Italian's passato prossimo "ho mangiato", "sono andato/a"; German's Perfekt "ich bin gefahren"; German's four cases in
+  the school's order with their article, "dem Haus", "den Häusern"; English's forms a row each, "past · went"), "📖
+  Wiktionary (CC BY-SA 4.0) via kaikki.org" under it; a review's form question in a real line or a frame of its language
+  ("Io ____.", "Penso che io ____.", "Lui è ____.", "mit den ____", "Yesterday I ____."). Never asked: the word's own
+  form, a form the same as the word (cut, cut), a German case the same as its nominative (dem Haus: the article is the
+  case) or a plural's case the same as its nominative plural, Italian's passato remoto (its page teaches it to recognise:
+  read in the table, a forms card's cell given). A card's front gives its word and what it is: "la casa",
+  "der Wald" a noun, "to run" a verb (`WordFormsWire.lemmaOf`, `posOf`). For a child (Teo) the terms say what they mean
+  too: "presente · Präsens (jetzt)", "imperfetto · Imperfekt (wie es früher war)" (`wordForms.kid.*`).
+- **Forms cards** for the three as well (below, "Forms cards"): `POST` and `GET /forms-cards` with `v: 2`; `GET /state`
+  says `forms-cards-v2` in their villages. An older app is sent none of their cards: `GET /state` leaves the review items
+  that are another language's forms cards out unless the app asks with `forms=2` (`withoutOtherFormsCards`).
 
 **The forms book.** `lexicon/sl.forms.json` is written by hand (machine-written, not reviewed by a native speaker:
 `"reviewed": false`, `"machine_written": true`):
@@ -4174,6 +4274,17 @@ too (`game/ItalianHints.kt`; docs/plans/05-built/hint-chip-it.md): every page's 
 of it (the noun an article goes with, who does it, who is spoken to, the participle that picks essere or avere, the
 word that asks for the congiuntivo …), from word lists, without the bridge.
 
+**German's lens** (docs/plans/05-built/case-de.md): a German village's word shows its case the same way, read by
+`bridge/src/case-lens-de.ts` from German's own trigger table (`companion/grammar/de/data/case-triggers.json`, made by
+`case-triggers.py` beside it; schema `bridge/src/case-triggers-de.ts`: every determiner's forms, the adjective endings,
+the prepositions by case, the contractions, the verbs, adjectives and nouns with a dative, a genitive or a fixed
+preposition, the n-Deklination) and its forms (`bridge/src/german-forms.ts`). It reads the noun phrase (the article,
+the adjectives' endings, the noun) and lets the sentence decide; a form people say is read as what it is (wegen dem
+Regen: a dative, written des Regens; dem Stefan sein Hund: a dative, written Stefans Hund). Its own lines are
+`caseLens.de.*`. GET /lookup gives it only to an app that sends `lens=2` (an older app knows Slovene's six cases only);
+the colours (POST /case-lens) the same as Slovene's. Four cases, German's questions (wer? was? · wen? was? · wem? ·
+wessen?), Slovene's colours for the same case, unnumbered.
+
 ### Forms cards
 
 "📋 Oblike · Forms": one of Jan's words with its table in a review card of its own, so all the forms of a word are
@@ -4264,7 +4375,9 @@ an A2 page's name (genitive, dative, instrumental) reaches an A1 learner's patte
 
 **Which words, how many** (`app/.../FormsCardController.kt`; the bridge's `bridge/src/forms-cards.ts`,
 `features/forms-cards.ts`). **`POST /forms-cards`** `{words: [{word, item_id?}] (0–40), introduced: [page ids], asked?}`
-(the bridge says `forms-cards` in GET /state's `features`; Slovene only):
+(the bridge says `forms-cards` in GET /state's `features` for Slovene, `forms-cards-v2` for Italian, German and English,
+whose cards it makes for an app that sends `v: 2`; their tables are paradigms.ts', a word's own form or a form the same as it
+`given`: shown, never a gap; [Other languages](#other-languages-italian-german-english)):
 
 - **Of their own accord**: after each reload the app names its learned one-word vocabulary cards whose forms the phone
   has (GET /forms) and that have no forms card, the core verbs first (biti, imeti, iti, delati, hoteti, moči, vedeti …),
@@ -5208,6 +5321,7 @@ companion/bin/qa --steps school-seats            # the school's scene at 10: the
 companion/bin/qa --no-town --steps friuli-school  # the Friuli village's school for a synthetic Teo (LANI_DEV_DATA: make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo): Maestra Elena preparing the next lessons while some are planned (else A1 done in one line), the school's card's "🚪 Entra" into A scuola, the room during the roll call (no «Vedo, vedo»), the roll call, phone and tablet
 companion/bin/qa --no-town --steps friuli-school-unit  # the same learner, a run of its own: an Italian unit end to end ($LANI_QA_IT_UNIT, ciao by default; an A2 one after the school with A1 done: intro, summary, a worksheet, the test passed), kept done, its sheet printed
 companion/bin/qa --no-town --steps friuli-watchtower  # the same learner: the village a Trg (QA's hook hearths:trg), the watchtower at level 2, its card's "🚪 Entra" into Sulla torre, closer up, on the tablet, «Vedo, vedo» (the horn), Davide's lookout in the evening (docs/plans/05-built/places-it-buildings.md)
+companion/bin/qa-slot --steps school-production  # a unit's speaking and writing ($LANI_QA_UNIT, pogojnik-polno): the teacher's question, the self-rating without a microphone, the writing's checks ticked, checked right, the model; the test's speaking item rated, not counted (docs/plans/05-built/lesson-production.md)
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
 LANI_DEV_DATA=<a synthetic learner> companion/bin/qa-slot --steps choices-order   # a choice's options in the day's order (a unit by the options' texts, a right answer not on top is right), the unit's print against its key
 companion/bin/qa --no-town --steps school-reveal  # a level a bit at a time (QA's hook school:reveal; a synthetic learner: LANI_DEV_DATA): A1 done one line, A2's current and next two, the rest folded and listed, B1 closed

@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
+import si.lanisce.lani.data.WordFormsWire
 import si.lanisce.lani.game.WordForms
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inTarget
@@ -33,7 +34,9 @@ import si.lanisce.lani.l10n.inTarget
  * shows for a word without any, or from an older bridge.
  */
 @Composable
-fun WordFormsTable(vm: AppViewModel, lemma: String, pos: String?, gloss: List<String>) {
+fun WordFormsTable(vm: AppViewModel, word: String, pos: String?, gloss: List<String>) {
+    // a pack word's article or "to" aside: GET /forms knows "Haus", not "das Haus"
+    val lemma = remember(word) { WordFormsWire.bareOf(word, vm.grammar.language) }
     LaunchedEffect(lemma) { vm.forms.want(listOf(lemma)) }
     val entry = vm.forms.entryOf(lemma, pos, gloss) ?: return
     if (entry.slots.size < 2) return
@@ -60,6 +63,10 @@ fun WordFormsTable(vm: AppViewModel, lemma: String, pos: String?, gloss: List<St
         }
         if (locked.isNotEmpty()) Text(bi("wordForms.lockedNote"), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (entry.table == "checked") Text("🤖 ${bi("words.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        // Italian's, German's and English's tables are Wiktionary's (CC BY-SA 4.0), whatever the lookup above came from
+        if (entry.language != null) vm.forms.attributionOf(lemma)?.let {
+            Text("📖 $it", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
     }
 }
 
@@ -68,7 +75,8 @@ fun WordFormsTable(vm: AppViewModel, lemma: String, pos: String?, gloss: List<St
 private fun Section(s: WordForms.Section) {
     val columns = s.columns.indices.filter { c -> s.rows.any { (_, cells) -> cells.getOrNull(c)?.open == true } }
     val anyOpen = s.rows.any { (_, cells) -> cells.any { it?.open == true } }
-    Text(
+    // a section without a title of its own (English's forms, a row each): the card's "📚" heads it
+    if (s.title.isNotBlank()) Text(
         s.title + if (anyOpen) "" else " 🔒",
         style = MaterialTheme.typography.labelLarge,
         color = MaterialTheme.colorScheme.primary,
@@ -82,15 +90,16 @@ private fun Section(s: WordForms.Section) {
         return
     }
     val labelled = s.rows.any { it.first.isNotBlank() }
-    Row(Modifier.fillMaxWidth()) {
+    if (columns.any { NUMBERS[s.columns[it]] != null }) Row(Modifier.fillMaxWidth()) {
         if (labelled) Text("", Modifier.width(LABEL))
         for (c in columns) {
             val code = s.columns[c]
+            val head = NUMBERS[code]
             Text(
-                inTarget(NUMBERS.getValue(code)),
+                head?.let { inTarget(it) }.orEmpty(),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.weight(1f).semantics { contentDescription = bi(NUMBERS.getValue(code)) },
+                modifier = Modifier.weight(1f).then(if (head != null) Modifier.semantics { contentDescription = bi(head) } else Modifier),
             )
         }
     }

@@ -150,6 +150,9 @@ object Lines {
         is Exercise.Dictation -> LISTEN
         is Exercise.Speak -> listOf(G("Povej na glas!", "Povejte na glas!", "Say it out loud!", it = "Dillo ad alta voce!", de = "Sag es laut!"))
         is Exercise.Free -> listOf(G("Napiši mi nekaj.", "Napišite mi nekaj.", "Write me something.", it = "Scrivimi qualcosa.", de = "Schreib mir etwas."))
+        // a unit's speaking item: the teacher asks it herself (its ask), so a short lead-in; its writing item as Free's
+        is Exercise.Speaking -> listOf(G("Povej na glas!", "Povejte na glas!", "Say it out loud!", it = "Dillo ad alta voce!", de = "Sag es laut!"))
+        is Exercise.Writing -> listOf(G("Napiši mi nekaj.", "Napišite mi nekaj.", "Write me something.", it = "Scrivimi qualcosa.", de = "Schreib mir etwas."))
         is Exercise.Scenario -> listOf(G("Kaj bi {m:rekel|f:rekla}?", "Kaj bi rekli?", "What would you say?", it = "Che cosa diresti?", de = "Was würdest du sagen?"))
         is Exercise.Multi -> listOf(G("Poišči vse prave.", "Poiščite vse prave.", "Find all the right ones.", it = "Trova tutte quelle giuste.", de = "Finde alle richtigen."))
         is Exercise.Unsupported -> listOf(G("Tole je nekaj novega.", "This is something new.", it = "Questa è una cosa nuova.", de = "Das ist etwas Neues."))

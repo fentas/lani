@@ -639,7 +639,13 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         viewModelScope.launch { snapshotFlow { langPair }.distinctUntilChanged().drop(1).collect { notify.renamed() } }
         // (kept once it is known: the pairing's flag, the hosted profile, or the town's own row read; not the false of a
         // start before the towns came, which would tell the background check a child's phone is an adult's: PhoneChild)
-        viewModelScope.launch { snapshotFlow { child.takeIf { childKnown } }.distinctUntilChanged().collect { c -> c?.let { notify.child(it) } } }
+        viewModelScope.launch {
+            snapshotFlow { child.takeIf { childKnown } }.distinctUntilChanged().collect { c ->
+                c?.let { notify.child(it) }
+                // a word's forms say what their grammar terms mean in a child's words too (game/OtherForms)
+                c?.let { si.lanisce.lani.game.OtherForms.child = it }
+            }
+        }
         // the learner opening the chat runs the shadow tutor's digest (plan 5, "Events to turns")
         viewModelScope.launch {
             snapshotFlow { chat.isOpen }.distinctUntilChanged().collect { if (it) { if (live.settings.on) live.onChatOpened() else shadow.onChatOpened() } }
@@ -1800,7 +1806,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         launchSafely {
             val b = bridge ?: return@launchSafely
             val d = content.dashboard ?: return@launchSafely
-            val words = d.pool.filter { si.lanisce.lani.data.WordFormsWire.lemmaOf(it) != null }
+            val words = d.pool.filter { si.lanisce.lani.data.WordFormsWire.lemmaOf(it, grammar.language) != null }
             forms.reload(b, words)
             val ask = forms.questions()
             val cards = words.filter { ask(it) != null }.take(5)
@@ -1846,7 +1852,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         val pool = d?.pool.orEmpty()
         val home = target.code == grammar.language
         if (home) {
-            kotlinx.coroutines.withTimeoutOrNull(20_000) { forms.reload(b, pool.filter { si.lanisce.lani.data.WordFormsWire.lemmaOf(it) != null }) }
+            kotlinx.coroutines.withTimeoutOrNull(20_000) { forms.reload(b, pool.filter { si.lanisce.lani.data.WordFormsWire.lemmaOf(it, grammar.language) != null }) }
             kotlinx.coroutines.withTimeoutOrNull(20_000) { content.loadModuleExercises() }
         }
         val seed = System.currentTimeMillis()
@@ -2167,6 +2173,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun qaCases(what: String) {
         val today = java.time.LocalDate.now()
         when {
+            // German's case pages (docs/plans/05-built/case-de.md) in a German village
+            what == "ready" && caseTrainer.language == "de" -> grammar.meet(listOf("faelle", "akkusativ", "dativ", "genitiv", "plural", "praepositionen-akkusativ", "praepositionen-dativ", "praepositionen-genitiv", "wechselpraepositionen", "pronomen-dativ", "verben-praepositionen", "adjektiv-der", "relativsatz", "uhrzeit")).forEach(grammar::announced)
             what == "ready" -> grammar.meet(listOf("skloni", "imenovalnik", "tozilnik", "kam-tozilnik", "mestnik", "kje-mestnik-orodnik", "rodilnik-nikalnica", "rodilnik", "rodilnik-predlogi", "rodilnik-kolicina", "dajalnik", "orodnik", "mnozina", "dvojina", "pridevniki-ujemanje", "stevila-samostalniki")).forEach(grammar::announced) // met before: no news in the first feedback
             what == "start" -> return startCases()
             what == "storm" -> return startStorm()

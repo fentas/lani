@@ -18,11 +18,15 @@ import { normalizeForm, wordSlug, type WordGender } from './lexicon'
 export const FORMS_TYPE = 'forms'
 
 /** A slot of a card: its forms (all right, the first shown), the forms also accepted, the page it counts on. */
-export type CardSlot = { key: string; forms: string[]; also?: string[]; page: string; needs?: string[]; composed?: true }
+export type CardSlot = { key: string; forms: string[]; also?: string[]; page: string; needs?: string[]; composed?: true; given?: true }
 
 /** What a forms card keeps of its word (the item's `forms`): what the app asks it from, offline. */
 export type FormsCardData = {
   v: 1
+  /** Another language's card (Italian, German, English: paradigms.ts' slots); none: Slovene's. */
+  language?: string
+  /** A verb's auxiliary in the compound past (avere, essere; haben, sein). */
+  aux?: string[]
   lemma: string
   pos: 'noun' | 'verb' | 'adj'
   gender?: WordGender
@@ -47,8 +51,8 @@ export type NoCard = { why: string }
 
 export const isCard = (c: FormsCardData | NoCard): c is FormsCardData => 'slots' in c
 
-/** The lemma's own slot (the card's head, shown as given, never tested). */
-export const OWN_KEYS = new Set(['nom.sg', 'adj.m.sg'])
+/** The lemma's own slot (the card's head, shown as given, never tested); Italian's and English's noun's singular too. */
+export const OWN_KEYS = new Set(['nom.sg', 'adj.m.sg', 'sg'])
 
 /** At least this many slots besides the lemma's own, and this many different forms in all, make a card. */
 export const MIN_SLOTS = 4
@@ -59,6 +63,13 @@ export const MIN_TESTED_ASKED = 1
 
 /** The everyday verbs that get their cards first, in this order. */
 export const CORE = ['biti', 'imeti', 'iti', 'delati', 'hoteti', 'moči', 'vedeti', 'videti', 'reči', 'dati', 'priti', 'govoriti', 'piti', 'jesti', 'spati', 'živeti']
+/** Italian's, German's and English's everyday verbs, first in their villages. */
+export const CORE_IN: Record<string, string[]> = {
+  sl: CORE,
+  it: ['essere', 'avere', 'andare', 'fare', 'stare', 'venire', 'volere', 'potere', 'dovere', 'sapere', 'dire', 'dare', 'mangiare', 'bere', 'dormire', 'parlare'],
+  de: ['sein', 'haben', 'werden', 'gehen', 'kommen', 'machen', 'können', 'müssen', 'wollen', 'sehen', 'essen', 'trinken', 'fahren', 'sprechen', 'wissen', 'geben'],
+  en: ['be', 'have', 'go', 'do', 'come', 'see', 'get', 'make', 'take', 'say', 'eat', 'drink', 'give', 'know', 'run', 'write'],
+}
 
 /** What the card needs besides the word's dictionary entry. */
 export type CardContext = {
@@ -133,6 +144,7 @@ export function formsCardOf(e: LemmaForms, k: CardContext): FormsCardData | NoCa
   if (e.pos !== 'noun' && e.pos !== 'verb' && e.pos !== 'adj') return { why: `not a noun, verb or adjective (${e.pos})` }
   const language = k.language ?? 'sl'
   const norm = (s: string) => normalizeForm(s, language)
+  if (e.language && e.language !== 'sl') return otherCardOf(e, norm)
   const inBook = (pg: SlotPage | null) => !!pg && k.pages.has(pg.page) && pg.needs.every(n => k.pages.has(n))
   let slots: CardSlot[] = []
   if (e.pos === 'noun') slots = e.slots.map(cardSlot)
@@ -175,14 +187,47 @@ export function formsCardOf(e: LemmaForms, k: CardContext): FormsCardData | NoCa
   }
 }
 
-/** The keys of [slots] tested: each one's page and the pages it needs are introduced; never the lemma's own. */
+/**
+ * Italian's, German's or English's card (paradigms.ts): the entry's slots as they are, a form the same as the word's own
+ * given (shown, never a gap: English's cut, cut; German's dem Haus and a plural's case the same as its nominative, where
+ * the article says the case; Italian's passato remoto, to recognise), the word written as it is (Haus), its language and auxiliary kept.
+ */
+function otherCardOf(e: LemmaForms, norm: (s: string) => string): FormsCardData | NoCard {
+  const own = norm(e.lemma)
+  const nomPl = new Set((e.slots.find(s => s.key === 'nom.pl')?.forms ?? []).map(norm))
+  const slots: CardSlot[] = e.slots.filter(s => s.forms.length).map(s => {
+    const same = s.forms.every(f => norm(f) === own) || (e.language === 'de' && e.pos === 'noun' && s.key.endsWith('.pl') && s.key !== 'nom.pl' && s.forms.every(f => nomPl.has(norm(f))))
+      // Italian's passato remoto is to recognise (its page says so): read in the table, never a gap
+      || (e.language === 'it' && s.key.startsWith('rem.'))
+    return { ...cardSlot(s), ...(same && !OWN_KEYS.has(s.key) ? { given: true as const } : {}) }
+  })
+  // the given cells count: they are the table's too (a German noun's four cases), only never a gap
+  const others = slots.filter(s => !OWN_KEYS.has(s.key))
+  if (others.length < MIN_SLOTS) return { why: `too few forms in the dictionary (${others.length} besides the word itself)` }
+  const distinct = new Set(slots.flatMap(s => s.forms.map(norm)))
+  if (distinct.size < MIN_DISTINCT) return { why: 'too few different forms in the dictionary to choose among' }
+  return {
+    v: 1,
+    language: e.language,
+    ...(e.aux?.length ? { aux: e.aux } : {}),
+    lemma: e.lemma,
+    pos: e.pos,
+    ...(e.pos === 'noun' && e.gender ? { gender: e.gender } : {}),
+    gloss: e.gloss,
+    table: e.table,
+    slots,
+    tested: [],
+  }
+}
+
+/** The keys of [slots] tested: each one's page and the pages it needs are introduced; never the lemma's own, nor a given one. */
 export function testedOf(slots: CardSlot[], introduced: Set<string>): string[] {
-  return slots.filter(s => !OWN_KEYS.has(s.key) && introduced.has(s.page) && (s.needs ?? []).every(n => introduced.has(n))).map(s => s.key)
+  return slots.filter(s => !OWN_KEYS.has(s.key) && !s.given && introduced.has(s.page) && (s.needs ?? []).every(n => introduced.has(n))).map(s => s.key)
 }
 
 /** How useful a word's card is first: the core verbs by their place, then by how often the content says its forms ([uses]). */
 export function usefulness(lemma: string, uses: number): number {
-  const i = CORE.indexOf(lemma)
+  const i = Object.values(CORE_IN).map(c => c.indexOf(lemma)).find(x => x >= 0) ?? -1
   return i >= 0 ? 1e9 - i : uses
 }
 
@@ -291,6 +336,8 @@ export const FORMS_KINDS = [
   'verb_person_1sg', 'verb_person_2sg', 'verb_person_3sg', 'verb_person_1pl', 'verb_person_2pl', 'verb_person_3pl',
   'tense_past', 'tense_future', 'tense_imperative', 'tense_negative',
   'adjective_gender',
+  // Italian's, German's and English's tenses and moods (paradigms.ts)
+  'tense_imperfect', 'tense_conditional', 'tense_subjunctive', 'tense_remote_past', 'tense_preterite', 'tense_participle', 'tense_gerund', 'adjective_comparison',
 ] as const
 export type FormsKind = (typeof FORMS_KINDS)[number]
 
@@ -320,6 +367,35 @@ export const FORMS_PATTERNS: Record<FormsKind, { id: string; description: string
   tense_imperative: { id: 'forms_tense_imperative', description: 'Forms: the imperative (velelnik: delaj, delajte)' },
   tense_negative: { id: 'forms_tense_negative', description: 'Forms: the negative present (nisem, nimam)' },
   adjective_gender: { id: 'forms_adjective_gender', description: "Forms: the adjective agrees with its noun's gender (dober, dobra, dobro)" },
+  tense_imperfect: { id: 'forms_tense_imperfect', description: 'Forms: the imperfect (imperfetto: mangiavo, era)' },
+  tense_conditional: { id: 'forms_tense_conditional', description: 'Forms: the conditional (condizionale: mangerei, vorrei)' },
+  tense_subjunctive: { id: 'forms_tense_subjunctive', description: 'Forms: the subjunctive (congiuntivo: che io mangi, che sia; Konjunktiv II: wäre, hätte)' },
+  tense_remote_past: { id: 'forms_tense_remote_past', description: 'Forms: the passato remoto (andò, fu, disse)' },
+  tense_preterite: { id: 'forms_tense_preterite', description: 'Forms: the preterite (Präteritum: ging, war; the simple past)' },
+  tense_participle: { id: 'forms_tense_participle', description: 'Forms: the past participle (mangiato, gegangen, gone)' },
+  tense_gerund: { id: 'forms_tense_gerund', description: 'Forms: the gerund or -ing form (mangiando, going)' },
+  adjective_comparison: { id: 'forms_adjective_comparison', description: 'Forms: the comparative and superlative (besser, am besten; better, best; migliore)' },
+}
+
+/** The descriptions of the kinds Italian's, German's and English's cards share with Slovene's, in their own words. */
+export const FORMS_PATTERNS_IN: Record<string, Partial<Record<FormsKind, string>>> = {
+  it: {
+    verb_person_1sg: "Forms: the present's ending for io", verb_person_2sg: "Forms: the present's ending for tu", verb_person_3sg: "Forms: the present's ending for lui, lei",
+    verb_person_1pl: "Forms: the present's ending for noi", verb_person_2pl: "Forms: the present's ending for voi", verb_person_3pl: "Forms: the present's ending for loro",
+    tense_future: 'Forms: the future (futuro: mangerò, sarò)', tense_imperative: 'Forms: the imperative (imperativo: mangia, andiamo)',
+    number_plural: 'Forms: the plural (plurale: la casa, le case)', adjective_gender: "Forms: the adjective agrees with its noun's gender and number (bello, bella, belli, belle)",
+  },
+  de: {
+    verb_person_1sg: "Forms: the present's ending for ich", verb_person_2sg: "Forms: the present's ending for du", verb_person_3sg: "Forms: the present's ending for er, sie, es",
+    verb_person_1pl: "Forms: the present's ending for wir", verb_person_2pl: "Forms: the present's ending for ihr", verb_person_3pl: "Forms: the present's ending for sie",
+    tense_imperative: 'Forms: the imperative (Imperativ: komm, kommt)', number_plural: 'Forms: the plural (Plural: das Haus, die Häuser)',
+    case_genitive: 'Forms: the genitive (Genitiv, 2. Fall: des Hauses)', case_dative: 'Forms: the dative (Dativ, 3. Fall: dem Haus, den Häusern)',
+    case_accusative: 'Forms: the accusative (Akkusativ, 4. Fall: den Jungen)', case_nominative: 'Forms: the nominative (Nominativ, 1. Fall)',
+  },
+  en: {
+    verb_person_3sg: "Forms: the present's -s for he, she, it (goes, has)", tense_past: 'Forms: the past simple (went, walked)', number_plural: 'Forms: the plural (children, sheep)',
+    verb_person_1sg: 'Forms: be for I (am)', verb_person_2sg: 'Forms: be for you, we, they (are, were)',
+  },
 }
 
 const KINDS = new Set<string>(FORMS_KINDS)
@@ -360,14 +436,17 @@ export function formsRuns(raw: unknown): FormsRun[] {
   })
 }
 
-/** The update-db.py `errors` of the wrong cells: each a mistake of its kind, with what was said and what was right. */
-export function formsErrors(runs: FormsRun[]) {
+/**
+ * The update-db.py `errors` of the wrong cells: each a mistake of its kind, with what was said and what was right; a
+ * kind's description in the village's [language]'s words where it has its own (Italian's io, German's ich).
+ */
+export function formsErrors(runs: FormsRun[], language = 'sl') {
   return runs.flatMap(r =>
     r.cells.filter(c => !c.right && c.kind).map(c => ({
       pattern_id: FORMS_PATTERNS[c.kind!].id,
       category: 'grammar',
       subcategory: 'forms',
-      description: FORMS_PATTERNS[c.kind!].description,
+      description: FORMS_PATTERNS_IN[language]?.[c.kind!] ?? FORMS_PATTERNS[c.kind!].description,
       severity: 'moderate',
       your_answer: c.answer ?? '',
       correct_answer: c.expected ?? '',

@@ -34,7 +34,7 @@ import java.io.File
 
 /**
  * Friuli's village projects' steps as short scenes (companion/cultures/friuli/project-steps; docs/plans/05-built/friuli-projects-a.md and -b.md),
- * as the app reads them, in Teo's pair (Italian from German) and in another's: every step at A1, A2 and B1, each dialog short and said
+ * as the app reads them, in Teo's pair (Italian from German) and in another's: every step at A1, A2, B1 and B2, each dialog short and said
  * by the project's people, in a scene of the village, its reactions as a scene's are, played to its end with every wrong choice first,
  * the "not yet" gating leaving a fresh learner something to answer, every word a step declares tested at each level; and a village in
  * the middle of a project, or past a step, goes on from where it is (synthetic villages, never a learner's data).
@@ -43,7 +43,7 @@ class FriuliProjectStepsContentTest {
     private val root = listOf(File("../.."), File(".."), File("companion")).first { File(it, "cultures").isDirectory }
     private val pair = L10n.pair
     private val pages = Grammar.bundled("it").associateBy { it.id }
-    private val levels = listOf("A1", "A2", "B1")
+    private val levels = listOf("A1", "A2", "B1", "B2")
     private val learners = listOf(Learner.of("Teo"), Learner.of("Ana", "female"))
 
     @After fun back() {
@@ -84,8 +84,8 @@ class FriuliProjectStepsContentTest {
         MyWord("vocab_${packId}_${o.getValue("id").jsonPrimitive.content}", plain, o["de"]?.jsonPrimitive?.contentOrNull.orEmpty(), forms[plain].orEmpty() + plain + listOfNotNull(plural))
     }
 
-    /** What every step here is: at A1, A2 and B1, 1-3 of its project's words, in its project's pack; the pack named as Friuli's are. */
-    @Test fun `every step of these projects is a short scene at A1, A2 and B1, with the project's words`() {
+    /** What every step here is: at A1, A2, B1 and B2, 1-3 of its project's words, in its project's pack; the pack named as Friuli's are. */
+    @Test fun `every step of these projects is a short scene at A1, A2, B1 and B2, with the project's words`() {
         val projects = friuli()
         assertEquals("all thirteen", 13, projects.size)
         assertEquals("every step (41 of friuli-projects-a, 37 of friuli-projects-b)", 41 + 37, projects.sumOf { p -> p.steps.count { it.play != null } })
@@ -269,8 +269,10 @@ class FriuliProjectStepsContentTest {
         val p = friuli().first { it.id == "mestna_ura" }
         val a = Projects.dialog(p, 1, "A1", "it")!!
         val b = Projects.dialog(p, 1, "B1", "it")!!
+        val b2 = Projects.dialog(p, 1, "B2", "it")!!
         assertFalse("A1 and B1 tell it differently", a.lines == b.lines)
-        assertEquals("a B2 learner meets B1's", b.lines, Projects.dialog(p, 1, "B2", "it")!!.lines)
+        assertFalse("B1 and B2 tell it differently", b.lines == b2.lines)
+        assertEquals("a C1 learner meets B2's", b2.lines, Projects.dialog(p, 1, "C1", "it")!!.lines)
         val play = Projects.play(p, 1)!!
         val square = scenes.getValue(play.scene!!)
         assertNull("no square in a young village", Projects.sceneOf(play, listOf(square), GameState(age = Age.TABOR), "it"))

@@ -196,11 +196,12 @@ private fun agreesText(word: String): String = bi("caseLens.agrees", "word" to w
 @Composable
 fun CaseLegend(modifier: Modifier = Modifier) {
     FlowRow(modifier, horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        for (c in Case.entries) {
+        val set = si.lanisce.lani.data.CaseSets.current
+        for (c in set.cases) {
             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.semantics(mergeDescendants = true) { }) {
                 Box(Modifier.width(14.dp).size(width = 14.dp, height = 3.dp).background(c.color()))
                 Spacer(Modifier.width(4.dp))
-                Text("${c.n}. ${inTarget(c.key)}", style = MaterialTheme.typography.labelSmall, color = c.color(), fontWeight = FontWeight.SemiBold)
+                Text(if (set.numbered) "${c.n}. ${inTarget(c.key)}" else inTarget(c.key), style = MaterialTheme.typography.labelSmall, color = c.color(), fontWeight = FontWeight.SemiBold)
             }
         }
         Text("⋯ ${bi("caseLens.legendUnsure")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

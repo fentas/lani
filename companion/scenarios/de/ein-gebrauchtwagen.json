@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "ein-gebrauchtwagen",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Ein Gebrauchtwagen", "sl": "Rabljen avto", "en": "A second-hand car", "it": "Un'auto usata" },
+  "emoji": "🚗",
+  "level": "B2",
+  "setting": {
+    "sl": "V Beljaku si {m:našel|f:našla} oglas: rabljena škoda octavia karavan, letnik 2015, 168.000 kilometrov, 8.900 evrov, tehnični pregled (v Avstriji: das Pickerl) velja do marca. Prodajalec je zasebnik. Avto si dobro ogledaš in se pogajaš za ceno.",
+    "en": "In Villach you found an ad: a second-hand Škoda Octavia estate, 2015, 168,000 kilometres, 8,900 euros, its inspection sticker (in Austria, the Pickerl) valid until March. The seller is a private person. You look the car over carefully and haggle over the price.",
+    "it": "A Villaco hai trovato un annuncio: una Škoda Octavia station wagon usata del 2015, 168.000 chilometri, 8.900 euro, la revisione (in Austria il Pickerl) valida fino a marzo. Il venditore è un privato. Guardi bene la macchina e tratti sul prezzo."
+  },
+  "role": "Herr Gasser, a private seller in Villach, showing his 2015 Škoda Octavia estate (8,900 euros). Friendly and proud of it, but a seller: plays down each fault (worn winter tyres, a dent, a clutch that bites late), comes down in small steps, prefers cash and a written contract. Says Sie.",
+  "who": { "de": "Der Verkäufer", "sl": "Prodajalec", "en": "The seller", "it": "Il venditore" },
+  "voice": "male",
+  "place": "square",
+  "goals": [
+    { "de": "Stell genaue Fragen zum Auto", "sl": "Postavi natančna vprašanja o avtu", "en": "Ask precise questions about the car", "it": "Fai domande precise sulla macchina" },
+    { "de": "Sprich die Mängel an, die du findest", "sl": "Omeni pomanjkljivosti, ki jih najdeš", "en": "Point out the faults you find", "it": "Fai notare i difetti che trovi" },
+    { "de": "Mach ein Angebot und begründe es", "sl": "Daj ponudbo in jo utemelji", "en": "Make an offer and give your reasons", "it": "Fai un'offerta e motivala" },
+    { "de": "Verhandle Schritt für Schritt bis zu einer Einigung", "sl": "Pogajaj se korak za korakom do dogovora", "en": "Negotiate step by step to an agreement", "it": "Tratta passo dopo passo fino a un accordo" },
+    { "de": "Fass den Handel zusammen: Preis, Reifen, Vertrag", "sl": "Povzemi dogovor: cena, gume, pogodba", "en": "Sum up the deal: the price, the tyres, the contract", "it": "Riassumi l'accordo: prezzo, gomme, contratto" }
+  ],
+  "opener_sl": "Grüß Gott! Sie kommen wegen dem Škoda, oder? Da steht er. Gepflegt, Nichtraucherauto, immer in der Garage gestanden. Schauen Sie ihn sich ruhig an.",
+  "opener_en": {
+    "sl": "Dober dan! Prišli ste zaradi škode, kajne? Tam stoji. Lepo vzdrževan, v njem se ni kadilo, vedno je stal v garaži. Kar dobro si ga oglejte.",
+    "en": "Good morning! You've come about the Škoda, haven't you? There it is. Well looked after, a non-smoker's car, always kept in the garage. Take a good look at it.",
+    "it": "Buongiorno! È {m:venuto|f:venuta} per la Škoda, vero? Eccola. Tenuta bene, mai fumato dentro, sempre in garage. La guardi pure con calma."
+  },
+  "vocabulary_hints": [
+    { "sl": "Wie viele Kilometer hat er genau?", "en": { "sl": "Koliko kilometrov ima točno?", "en": "Exactly how many kilometres has it done?", "it": "Quanti chilometri ha esattamente?" } },
+    { "sl": "Bis wann hat er noch Pickerl?", "en": { "sl": "Do kdaj velja tehnični pregled?", "en": "How long is its inspection sticker valid?", "it": "Fino a quando vale la revisione?" } },
+    { "sl": "Kann ich das Serviceheft und den Typenschein sehen?", "en": { "sl": "Lahko vidim servisno knjižico in dokumente avta?", "en": "Can I see the service book and the car's papers (Typenschein)?", "it": "Posso vedere il libretto dei tagliandi e i documenti dell'auto?" } },
+    { "sl": "Darf ich eine Probefahrt machen?", "en": { "sl": "Lahko naredim testno vožnjo?", "en": "May I take it for a test drive?", "it": "Posso fare un giro di prova?" } },
+    { "sl": "Die Winterreifen sind ziemlich abgefahren.", "en": { "sl": "Zimske gume so precej obrabljene.", "en": "The winter tyres are pretty worn.", "it": "Le gomme invernali sono piuttosto consumate." } },
+    { "sl": "Die Kupplung greift ziemlich spät.", "en": { "sl": "Sklopka prime precej pozno.", "en": "The clutch bites rather late.", "it": "La frizione attacca molto alta." } },
+    { "sl": "Wegen der Delle und der Reifen müsste der Preis runter.", "en": { "sl": "Zaradi udrtine in gum bi morala cena dol.", "en": "Because of the dent and the tyres, the price ought to come down.", "it": "Per l'ammaccatura e le gomme il prezzo dovrebbe scendere." } },
+    { "sl": "Ich könnte Ihnen 7.500 Euro bieten.", "en": { "sl": "Lahko vam ponudim 7.500 evrov.", "en": "I could offer you 7,500 euros.", "it": "Potrei offrirle 7.500 euro." } },
+    { "sl": "Treffen wir uns in der Mitte?", "en": { "sl": "Se srečava na pol poti?", "en": "Shall we meet in the middle?", "it": "Ci veniamo incontro a metà strada?" } },
+    { "sl": "Wenn die Sommerreifen dabei sind, nehme ich ihn.", "en": { "sl": "Če dobim zraven še letne gume, ga vzamem.", "en": "If the summer tyres are included, I'll take it.", "it": "Se ci sono anche le gomme estive, la prendo." } },
+    { "sl": "Machen wir einen schriftlichen Kaufvertrag.", "en": { "sl": "Napišiva kupoprodajno pogodbo.", "en": "Let's put the sale in a written contract.", "it": "Facciamo un contratto di vendita scritto." } }
+  ],
+  "packs": ["zahlen-und-uhrzeit", "in-der-werkstatt", "im-dorf", "mit-dem-auto", "geld-und-bank"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

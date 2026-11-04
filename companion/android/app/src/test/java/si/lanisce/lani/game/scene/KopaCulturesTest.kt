@@ -54,7 +54,8 @@ class KopaCulturesTest {
                 assertEquals("♨️", TownSpots.info("kopa").emoji)
                 val a1 = Keepers.lore(spot, "A1", Cultures.current.language, p)!!
                 val a2 = Keepers.lore(spot, "B2", Cultures.current.language, p)!!
-                assertEquals(if (c.id == "primorska") "B2" else "A2", a2.level) // the highest its card has, up to the learner's
+                // a B2 learner reads the highest level told (Friuli's to B2 since village-b2-friuli)
+                assertEquals(if ("B2" in spot.story) "B2" else "A2", a2.level)
                 assertNotEquals(a1.said, a2.said)
                 for (l in listOf(a1, a2)) {
                     assertTrue("${c.id} ${l.level}: ${l.said}", c.smith in l.said && c.smith in l.meant)

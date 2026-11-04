@@ -461,6 +461,142 @@
               }
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "Mandi, {learner}! Un palo storto non regge niente: gli alberi vanno scelti con calma.",
+              "sl": "Mandi, {learner}! Kriv steber ne drži ničesar: drevesa je treba izbrati v miru.",
+              "en": "Mandi, {learner}! A crooked post holds up nothing: trees have to be chosen calmly.",
+              "de": "Mandi, {learner}! Ein krummer Pfahl trägt nichts: Bäume muss man in Ruhe auswählen."
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "Da quale albero si fanno i pali che durano cent'anni?",
+              "sl": "Iz katerega drevesa so stebri, ki zdržijo sto let?",
+              "en": "Which tree are the posts that last a hundred years made from?",
+              "de": "Aus welchem Baum macht man Pfähle, die hundert Jahre halten?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Dalla quercia, il legno della quale non marcisce.",
+                  "sl": "Iz hrasta, katerega les ne gnije.",
+                  "en": "From the oak, whose wood doesn't rot.",
+                  "de": "Aus der Eiche, deren Holz nicht fault.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Dura e dritta: otto così, e siamo a posto.",
+                    "sl": "Prav. Trd in raven: osem takih, pa smo opravili.",
+                    "en": "Right. Hard and straight: eight like that, and we're set.",
+                    "de": "Richtig. Hart und gerade: acht solche, und wir sind fertig."
+                  }
+                },
+                {
+                  "it": "Dalla quercia, il legno del quale non marcisce.",
+                  "sl": "Iz hrasta, katerega les ne gnije.",
+                  "en": "From the oak, whose wood doesn't rot.",
+                  "de": "Aus der Eiche, deren Holz nicht fault.",
+                  "grammar": "relativi-il-quale",
+                  "why": {
+                    "sl": "Il quale se ujema: la quercia, torej il legno della quale.",
+                    "en": "Il quale agrees: la quercia, so il legno della quale.",
+                    "de": "Il quale richtet sich: la quercia, also il legno della quale."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Del quale? Forse lo diresti in un altro modo.",
+                    "sl": "Del quale? Morda bi {m:rekel|f:rekela} drugače.",
+                    "en": "Del quale? Maybe you'd say it another way.",
+                    "de": "Del quale? Vielleicht würdest du es anders sagen."
+                  }
+                },
+                {
+                  "it": "Dalla zucca, il legno della quale non marcisce.",
+                  "sl": "Iz buče, katere les ne gnije.",
+                  "en": "From the pumpkin, whose wood doesn't rot.",
+                  "de": "Aus dem Kürbis, dessen Holz nicht fault.",
+                  "why": {
+                    "sl": "Stebri, ki zdržijo, so iz hrasta: la quercia. Buča ni drevo.",
+                    "en": "Posts that last come from oak: la quercia. A pumpkin isn't a tree.",
+                    "de": "Pfähle, die halten, sind aus Eiche: la quercia. Ein Kürbis ist kein Baum."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La zucca? Un albero? Questa la devo vedere!",
+                    "sl": "Buča? Drevo? To moram videti!",
+                    "en": "The pumpkin? A tree? That I have to see!",
+                    "de": "Der Kürbis? Ein Baum? Das muss ich sehen!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "thinking",
+              "it": "Se avessimo solo l'ascia, ci vorrebbe tutta la settimana. Che cosa useresti?",
+              "sl": "Ko bi imeli samo sekiro, bi trajalo ves teden. Kaj bi {m:uporabil|f:uporabila}?",
+              "en": "If we only had the axe, it'd take all week. What would you use?",
+              "de": "Hätten wir nur die Axt, bräuchten wir die ganze Woche. Was würdest du nehmen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Userei la sega, in due.",
+                  "sl": "{m:Uporabil|f:Uporabila} bi žago, v dvoje.",
+                  "en": "I'd use the saw, two of us.",
+                  "de": "Ich würde die Säge nehmen, zu zweit.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, in due si fa presto.",
+                    "sl": "Ja, v dvoje gre hitro.",
+                    "en": "Yes, with two it's quick.",
+                    "de": "Ja, zu zweit geht es schnell."
+                  }
+                },
+                {
+                  "it": "Userei la forchetta, in due.",
+                  "sl": "{m:Uporabil|f:Uporabila} bi vilice, v dvoje.",
+                  "en": "I'd use the fork, two of us.",
+                  "de": "Ich würde die Gabel nehmen, zu zweit.",
+                  "why": {
+                    "sl": "Drevo se podre z žago: la sega. Vilice so za jesti.",
+                    "en": "A tree is felled with a saw: la sega. A fork is for eating.",
+                    "de": "Einen Baum fällt man mit der Säge: la sega. Eine Gabel ist zum Essen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La forchetta? Buon appetito, albero!",
+                    "sl": "Vilice? Dober tek, drevo!",
+                    "en": "The fork? Enjoy your meal, tree!",
+                    "de": "Die Gabel? Guten Appetit, Baum!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "it": "State tutti lontani. Ecco, è a terra! Una su otto: ne mancano sette.",
+              "sl": "Vsi stran. Tako, na tleh je! Eden od osmih: manjka jih še sedem.",
+              "en": "Everyone stand back. There, it's down! One of eight: seven to go.",
+              "de": "Alle weit weg. So, er liegt! Einer von acht: Es fehlen noch sieben.",
+              "fx": {
+                "birds": 1,
+                "fell-oak": 1
+              }
+            }
+          ]
         }
       },
       "fx_stays": true
@@ -912,6 +1048,147 @@
               "done": true
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "Un fienile dura cent'anni, se i piedi restano asciutti.",
+              "sl": "Senik zdrži sto let, če mu noge ostanejo suhe.",
+              "en": "A barn lasts a hundred years, if its feet stay dry.",
+              "de": "Eine Scheune hält hundert Jahre, wenn ihre Füße trocken bleiben."
+            },
+            {
+              "who": "matteo",
+              "it": "Ecco perché non si è cominciato dai pali.",
+              "sl": "Zato se ni začelo s stebri.",
+              "en": "That's why we didn't start with the posts.",
+              "de": "Deshalb hat man nicht mit den Pfählen angefangen."
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "{learner}, per il mio quaderno: che cosa si mette sotto ogni palo?",
+              "sl": "{learner}, za moj zvezek: kaj se da pod vsak steber?",
+              "en": "{learner}, for my notebook: what goes under each post?",
+              "de": "{learner}, für mein Heft: Was kommt unter jeden Pfahl?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sotto ogni palo viene messa una base di pietra.",
+                  "sl": "Pod vsak steber pride kamnit podstavek.",
+                  "en": "A stone base is put under each post.",
+                  "de": "Unter jeden Pfahl wird ein Steinsockel gelegt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Esatto. Otto, e tutte in piano.",
+                    "sl": "Natanko. Osem, in vsi v ravnini.",
+                    "en": "Exactly. Eight, and all level.",
+                    "de": "Genau. Acht, und alle waagerecht."
+                  }
+                },
+                {
+                  "it": "Sotto ogni palo viene messo una base di pietra.",
+                  "sl": "Pod vsak steber pride kamnit podstavek.",
+                  "en": "A stone base is put under each post.",
+                  "de": "Unter jeden Pfahl wird ein Steinsockel gelegt.",
+                  "grammar": "passivo-venire-andare",
+                  "why": {
+                    "sl": "V trpniku se deležnik ujema: una base, torej viene messa.",
+                    "en": "In the passive the participle agrees: una base, so viene messa.",
+                    "de": "Im Passiv richtet sich das Partizip: una base, also viene messa."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Messo? Una base è una lei. Non ti seguo.",
+                    "sl": "Messo? Base je ženskega spola. Ne sledim ti.",
+                    "en": "Messo? Base is a she. I don't follow you.",
+                    "de": "Messo? Base ist weiblich. Ich komme nicht mit."
+                  }
+                },
+                {
+                  "it": "Sotto ogni palo viene messa una scatola di biscotti.",
+                  "sl": "Pod vsak steber pride škatla piškotov.",
+                  "en": "A box of biscuits is put under each post.",
+                  "de": "Unter jeden Pfahl wird eine Schachtel Kekse gelegt.",
+                  "why": {
+                    "sl": "Pod vsak steber pride kamnit podstavek: una base di pietra.",
+                    "en": "Under each post goes a stone base: una base di pietra.",
+                    "de": "Unter jeden Pfahl kommt ein Steinsockel: una base di pietra."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di biscotti? Ne avanza qualcuno?",
+                    "sl": "Piškotov? Je kakšen ostal?",
+                    "en": "Biscuits? Are there any left over?",
+                    "de": "Kekse? Ist noch einer übrig?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "Perché proprio la pietra? Il legno non andrebbe bene?",
+              "sl": "Zakaj pa ravno kamen? Les ne bi bil dober?",
+              "en": "Why stone, of all things? Wouldn't wood do?",
+              "de": "Warum ausgerechnet Stein? Würde Holz nicht gehen?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Il legno, a contatto con la terra, marcirebbe; la pietra no.",
+                  "sl": "Les bi v stiku z zemljo zgnil, kamen pa ne.",
+                  "en": "Wood in contact with the earth would rot; stone wouldn't.",
+                  "de": "Holz würde mit der Erde in Berührung faulen, Stein nicht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Così i piedi restano asciutti.",
+                    "sl": "Prav. Tako noge ostanejo suhe.",
+                    "en": "Right. That way the feet stay dry.",
+                    "de": "Richtig. So bleiben die Füße trocken."
+                  }
+                },
+                {
+                  "it": "Il legno, a contatto con la terra, marcirebbe; il burro no.",
+                  "sl": "Les bi v stiku z zemljo zgnil, maslo pa ne.",
+                  "en": "Wood in contact with the earth would rot; butter wouldn't.",
+                  "de": "Holz würde mit der Erde in Berührung faulen, Butter nicht.",
+                  "why": {
+                    "sl": "Pod stebri ostane suh kamen: la pietra.",
+                    "en": "What stays dry under the posts is stone: la pietra.",
+                    "de": "Was unter den Pfählen trocken bleibt, ist Stein: la pietra."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il burro? Asciutto? Questa è nuova!",
+                    "sl": "Maslo? Suho? To je pa novo!",
+                    "en": "Butter? Dry? That's a new one!",
+                    "de": "Butter? Trocken? Das ist neu!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "it": "Otto basi a posto. Se avessimo avuto fretta, fra dieci anni saremmo da capo.",
+              "sl": "Osem podstavkov na mestu. Ko bi hiteli, bi bili čez deset let spet na začetku.",
+              "en": "Eight bases in place. If we'd been in a hurry, in ten years we'd be back to square one.",
+              "de": "Acht Sockel an ihrem Platz. Hätten wir uns beeilt, stünden wir in zehn Jahren wieder am Anfang.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -1323,6 +1600,139 @@
               "sl": "Dobro. Eden stoji, ostane jih sedem. Če bomo tako nadaljevali, bodo nocoj štirje.",
               "en": "Good. One's up, seven left. If we go on like this, it'll be four by tonight.",
               "de": "Gut. Einer steht, sieben bleiben. Wenn wir so weitermachen, sind es heute Abend vier."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "Ogni palo pesa quanto tre uomini. Da soli non ce la faremmo mai.",
+              "sl": "Vsak steber tehta kot trije možje. Sami tega ne bi nikoli zmogli.",
+              "en": "Each post weighs as much as three men. On our own we'd never manage.",
+              "de": "Jeder Pfahl wiegt so viel wie drei Männer. Allein würden wir das nie schaffen."
+            },
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Per fortuna è venuto tutto il paese! Che cosa alziamo, {learner}, e quanti?",
+              "sl": "Na srečo je prišla vsa vas! Kaj dvigujemo, {learner}, in koliko?",
+              "en": "Luckily the whole village has come! What are we raising, {learner}, and how many?",
+              "de": "Zum Glück ist das ganze Dorf gekommen! Was stellen wir auf, {learner}, und wie viele?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Alziamo otto pali, uno per ogni base.",
+                  "sl": "Dvignemo osem stebrov, enega za vsak podstavek.",
+                  "en": "We're raising eight posts, one for each base.",
+                  "de": "Wir stellen acht Pfähle auf, einen für jeden Sockel.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Otto, e ognuno con la sua base!",
+                    "sl": "Osem, in vsak s svojim podstavkom!",
+                    "en": "Eight, and each with its base!",
+                    "de": "Acht, und jeder mit seinem Sockel!"
+                  }
+                },
+                {
+                  "it": "Alziamo otto gelati, uno per ogni base.",
+                  "sl": "Dvignemo osem sladoledov, enega za vsak podstavek.",
+                  "en": "We're raising eight ice creams, one for each base.",
+                  "de": "Wir stellen acht Eis auf, eins für jeden Sockel.",
+                  "why": {
+                    "sl": "Na vsak podstavek pride steber: il palo.",
+                    "en": "On each base stands a post: il palo.",
+                    "de": "Auf jedem Sockel steht ein Pfahl: il palo."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Otto gelati? Fino al tetto? Mmm!",
+                    "sl": "Osem sladoledov? Do strehe? Mmm!",
+                    "en": "Eight ice creams? Up to the roof? Mmm!",
+                    "de": "Acht Eis? Bis zum Dach? Mmm!"
+                  }
+                },
+                {
+                  "it": "Alziamo due pali, uno per ogni base.",
+                  "sl": "Dvignemo dva stebra, enega za vsak podstavek.",
+                  "en": "We're raising two posts, one for each base.",
+                  "de": "Wir stellen zwei Pfähle auf, einen für jeden Sockel.",
+                  "why": {
+                    "sl": "Osem podstavkov, osem stebrov: otto.",
+                    "en": "Eight bases, eight posts: otto.",
+                    "de": "Acht Sockel, acht Pfähle: otto."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Due? E le altre sei basi, le guardiamo?",
+                    "sl": "Dva? Pa ostalih šest podstavkov, jih bomo gledali?",
+                    "en": "Two? And the other six bases, do we just look at them?",
+                    "de": "Zwei? Und die anderen sechs Sockel schauen wir an?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "Il primo sta in piedi. Ma se il vento si fosse alzato mentre lo tiravamo su?",
+              "sl": "Prvi stoji. Kaj pa, če bi se dvignil veter, medtem ko smo ga postavljali?",
+              "en": "The first one's standing. But what if the wind had got up while we were raising it?",
+              "de": "Der erste steht. Aber wenn der Wind aufgekommen wäre, während wir ihn hochzogen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Se il vento si fosse alzato, l'avremmo legato con le corde.",
+                  "sl": "Ko bi se dvignil veter, bi ga privezali z vrvmi.",
+                  "en": "If the wind had got up, we'd have tied it with the ropes.",
+                  "de": "Wäre der Wind aufgekommen, hätten wir ihn mit den Seilen festgebunden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Le corde erano già pronte: ne ho contate otto.",
+                    "sl": "Prav. Vrvi so bile že pripravljene: preštel sem jih osem.",
+                    "en": "Right. The ropes were ready: I'd counted eight.",
+                    "de": "Richtig. Die Seile lagen schon bereit: Ich hatte acht gezählt."
+                  }
+                },
+                {
+                  "it": "Se il vento si avesse alzato, l'avremmo legato con le corde.",
+                  "sl": "Ko bi se dvignil veter, bi ga privezali z vrvmi.",
+                  "en": "If the wind had got up, we'd have tied it with the ropes.",
+                  "de": "Wäre der Wind aufgekommen, hätten wir ihn mit den Seilen festgebunden.",
+                  "grammar": "congiuntivo-trapassato",
+                  "why": {
+                    "sl": "Alzarsi je povratni glagol in tvori preteklik z essere: si fosse alzato.",
+                    "en": "Alzarsi is reflexive and forms its past with essere: si fosse alzato.",
+                    "de": "Alzarsi ist reflexiv und bildet die Vergangenheit mit essere: si fosse alzato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Si avesse? Forse lo diresti in un altro modo.",
+                    "sl": "Si avesse? Morda bi {m:rekel|f:rekela} drugače.",
+                    "en": "Si avesse? Maybe you'd say it another way.",
+                    "de": "Si avesse? Vielleicht würdest du es anders sagen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "it": "Bene. Uno è su, ne restano sette. Se continuiamo così, stasera saranno quattro.",
+              "sl": "Dobro. Eden stoji, ostane jih sedem. Če gremo tako naprej, bodo nocoj štirje.",
+              "en": "Good. One's up, seven left. If we keep on like this, there'll be four by tonight.",
+              "de": "Gut. Einer steht, sieben bleiben. Wenn es so weitergeht, sind es heute Abend vier."
             }
           ]
         }
@@ -1737,6 +2147,140 @@
               "sl": "Tako. Trami so gor in ogrodje se ne premika.",
               "en": "There we are. The beams are up, and the frame doesn't move.",
               "de": "Fertig. Die Balken sind oben, und das Gerüst wackelt nicht.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "Un telaio regge il tetto solo se ogni pezzo è ben fissato.",
+              "sl": "Ogrodje drži streho samo, če je vsak kos dobro pritrjen.",
+              "en": "A frame holds up the roof only if every piece is well fixed.",
+              "de": "Ein Gerüst trägt das Dach nur, wenn jedes Teil gut befestigt ist."
+            },
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "E come si fa a tenerli insieme, questi pali?",
+              "sl": "Kako pa se te stebre drži skupaj?",
+              "en": "And how do you hold these posts together?",
+              "de": "Und wie hält man diese Pfähle zusammen?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Fissate le travi lunghe tra un palo e l'altro, non si muove più niente.",
+                  "sl": "Ko so dolgi tramovi pritrjeni med stebre, se nič več ne premakne.",
+                  "en": "Once the long beams are fixed between the posts, nothing moves any more.",
+                  "de": "Sind die langen Balken zwischen den Pfählen befestigt, bewegt sich nichts mehr.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Ecco come si fa!",
+                    "sl": "Tako se to naredi!",
+                    "en": "That's how it's done!",
+                    "de": "So macht man das!"
+                  }
+                },
+                {
+                  "it": "Fissato le travi lunghe tra un palo e l'altro, non si muove più niente.",
+                  "sl": "Ko so dolgi tramovi pritrjeni med stebre, se nič več ne premakne.",
+                  "en": "Once the long beams are fixed between the posts, nothing moves any more.",
+                  "de": "Sind die langen Balken zwischen den Pfählen befestigt, bewegt sich nichts mehr.",
+                  "grammar": "participio-assoluto",
+                  "why": {
+                    "sl": "Samostojni deležnik se ujema: le travi, torej fissate.",
+                    "en": "The participle on its own agrees: le travi, so fissate.",
+                    "de": "Das Partizip allein richtet sich: le travi, also fissate."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Fissato? Non ti seguo.",
+                    "sl": "Fissato? Ne sledim ti.",
+                    "en": "Fissato? I don't follow you.",
+                    "de": "Fissato? Ich komme nicht mit."
+                  }
+                },
+                {
+                  "it": "Fissate le sciarpe corte tra un palo e l'altro, non si muove più niente.",
+                  "sl": "Ko so kratki šali pritrjeni med stebre, se nič več ne premakne.",
+                  "en": "Once the short scarves are fixed between the posts, nothing moves any more.",
+                  "de": "Sind die kurzen Schals zwischen den Pfählen befestigt, bewegt sich nichts mehr.",
+                  "why": {
+                    "sl": "Med stebre pridejo dolgi tramovi: le travi lunghe.",
+                    "en": "Between the posts go long beams: le travi lunghe.",
+                    "de": "Zwischen die Pfähle kommen lange Balken: le travi lunghe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Delle sciarpe? Hanno freddo, i pali?",
+                    "sl": "Šali? Ali stebre zebe?",
+                    "en": "Scarves? Are the posts cold?",
+                    "de": "Schals? Frieren die Pfähle?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "E perché non basta appoggiarle? Che cosa ci vorrebbe?",
+              "sl": "Zakaj pa ni dovolj, da jih samo naslonimo? Kaj bi bilo treba?",
+              "en": "And why isn't it enough to rest them there? What would we need?",
+              "de": "Und warum reicht es nicht, sie aufzulegen? Was bräuchte man?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ci vorrebbero dei chiodi, se no il vento le muove.",
+                  "sl": "Potrebni bi bili žeblji, sicer jih veter premakne.",
+                  "en": "We'd need nails, or else the wind moves them.",
+                  "de": "Man bräuchte Nägel, sonst bewegt sie der Wind.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "{m:Bravo|f:Brava}. Ne ho contati quaranta.",
+                    "sl": "Odlično. Preštel sem jih štirideset.",
+                    "en": "Well done. I've counted forty.",
+                    "de": "Gut gemacht. Ich habe vierzig gezählt."
+                  }
+                },
+                {
+                  "it": "Ci vorrebbero dei biscotti, se no il vento le muove.",
+                  "sl": "Potrebni bi bili piškoti, sicer jih veter premakne.",
+                  "en": "We'd need biscuits, or else the wind moves them.",
+                  "de": "Man bräuchte Kekse, sonst bewegt sie der Wind.",
+                  "why": {
+                    "sl": "Tramove pritrdimo z žeblji: i chiodi.",
+                    "en": "The beams are fixed with nails: i chiodi.",
+                    "de": "Die Balken befestigt man mit Nägeln: i chiodi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dei biscotti? Per il vento, o per noi?",
+                    "sl": "Piškoti? Za veter ali za nas?",
+                    "en": "Biscuits? For the wind, or for us?",
+                    "de": "Kekse? Für den Wind oder für uns?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "it": "Ecco fatto. Le travi sono su, e il telaio non si muove.",
+              "sl": "Narejeno. Tramovi so gori in ogrodje se ne premakne.",
+              "en": "Done. The beams are up, and the frame doesn't move.",
+              "de": "Fertig. Die Balken sind oben, und das Gerüst bewegt sich nicht.",
               "done": true
             }
           ]
@@ -2156,6 +2700,148 @@
               "done": true
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "Ho fatto i conti: se non ci fermiamo, finiremo prima di sera.",
+              "sl": "Preračunal sem: če se ne ustavimo, bomo končali pred večerom.",
+              "en": "I've done the sums: if we don't stop, we'll finish before evening.",
+              "de": "Ich habe gerechnet: Wenn wir nicht anhalten, sind wir vor dem Abend fertig."
+            },
+            {
+              "who": "bruno",
+              "face": "thinking",
+              "it": "Hm. Il cielo, però, non promette niente di buono.",
+              "sl": "Hm. Nebo pa ne obeta nič dobrega.",
+              "en": "Hm. The sky, though, doesn't promise anything good.",
+              "de": "Hm. Der Himmel verspricht aber nichts Gutes."
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "{learner}, che cosa va fatto prima che piova?",
+              "sl": "{learner}, kaj je treba narediti, preden začne deževati?",
+              "en": "{learner}, what has to be done before it rains?",
+              "de": "{learner}, was muss erledigt sein, bevor es regnet?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Va finito il tetto, prima che arrivi il temporale.",
+                  "sl": "Streho je treba dokončati, preden pride nevihta.",
+                  "en": "The roof has to be finished before the storm comes.",
+                  "de": "Das Dach muss fertig werden, bevor das Gewitter kommt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. E lo sarà. Ho contato le ore.",
+                    "sl": "Ja. In bo. Preštel sem ure.",
+                    "en": "Yes. And it will be. I've counted the hours.",
+                    "de": "Ja. Und das wird es. Ich habe die Stunden gezählt."
+                  }
+                },
+                {
+                  "it": "Va finita il tetto, prima che arrivi il temporale.",
+                  "sl": "Streho je treba dokončati, preden pride nevihta.",
+                  "en": "The roof has to be finished before the storm comes.",
+                  "de": "Das Dach muss fertig werden, bevor das Gewitter kommt.",
+                  "grammar": "passivo-venire-andare",
+                  "why": {
+                    "sl": "Pri andare se deležnik ujema: il tetto, torej va finito.",
+                    "en": "With andare the participle agrees: il tetto, so va finito.",
+                    "de": "Bei andare richtet sich das Partizip: il tetto, also va finito."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Finita? Forse lo diresti in un altro modo.",
+                    "sl": "Finita? Morda bi {m:rekel|f:rekela} drugače.",
+                    "en": "Finita? Maybe you'd say it another way.",
+                    "de": "Finita? Vielleicht würdest du es anders sagen."
+                  }
+                },
+                {
+                  "it": "Va finito il pane, prima che arrivi il temporale.",
+                  "sl": "Kruh je treba dokončati, preden pride nevihta.",
+                  "en": "The bread has to be finished before the storm comes.",
+                  "de": "Das Brot muss fertig werden, bevor das Gewitter kommt.",
+                  "why": {
+                    "sl": "Pred dežjem mora biti gotova streha: il tetto.",
+                    "en": "Before the rain, the roof must be done: il tetto.",
+                    "de": "Vor dem Regen muss das Dach fertig sein: il tetto."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il pane? Buona idea, ma viene dopo.",
+                    "sl": "Kruh? Dobra zamisel, ampak pride pozneje.",
+                    "en": "The bread? Good idea, but that comes later.",
+                    "de": "Das Brot? Gute Idee, aber das kommt später."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Hm. Con che cosa lo chiudiamo, senza spendere troppo?",
+              "sl": "Hm. S čim jo zapremo, ne da bi preveč zapravili?",
+              "en": "Hm. What do we close it with, without spending too much?",
+              "de": "Hm. Womit decken wir es, ohne zu viel auszugeben?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Con le tavole che abbiamo già: legno nostro, e poca spesa.",
+                  "sl": "Z deskami, ki jih že imamo: naš les in malo stroškov.",
+                  "en": "With the boards we've already got: our own wood, and little cost.",
+                  "de": "Mit den Brettern, die wir schon haben: unser Holz und wenig Kosten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Così mi piace.",
+                    "sl": "Prav. Tako mi je všeč.",
+                    "en": "Right. That's how I like it.",
+                    "de": "Richtig. So gefällt es mir."
+                  }
+                },
+                {
+                  "it": "Con le coperte che abbiamo già: legno nostro, e poca spesa.",
+                  "sl": "Z odejami, ki jih že imamo: naš les in malo stroškov.",
+                  "en": "With the blankets we've already got: our own wood, and little cost.",
+                  "de": "Mit den Decken, die wir schon haben: unser Holz und wenig Kosten.",
+                  "why": {
+                    "sl": "Streha je iz desk: le tavole. Odeje so za posteljo.",
+                    "en": "The roof is made of boards: le tavole. Blankets are for the bed.",
+                    "de": "Das Dach ist aus Brettern: le tavole. Decken sind fürs Bett."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le coperte? Così il fieno dorme bene!",
+                    "sl": "Odeje? Da bo seno dobro spalo!",
+                    "en": "Blankets? So the hay sleeps well!",
+                    "de": "Decken? Damit das Heu gut schläft!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "it": "Ecco il tetto. Come avevo detto: prima di sera, e nemmeno una goccia dentro.",
+              "sl": "Tu je streha. Kot sem rekel: pred večerom in niti kapljice notri.",
+              "en": "There's the roof. As I said: before evening, and not a drop inside.",
+              "de": "Da ist das Dach. Wie ich gesagt habe: vor dem Abend, und kein Tropfen drin.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -2562,6 +3248,140 @@
               "sl": "Poln do tramov. Če ne bi tako dobro šteli, ne bi bilo prostora.",
               "en": "Full to the beams. If we hadn't counted so well, there wouldn't have been room.",
               "de": "Bis zu den Balken voll. Hätten wir nicht so gut gezählt, wäre kein Platz gewesen.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "Ho portato il primo carico prima che il sole fosse alto. Un anno fa, qui c'era solo un prato.",
+              "sl": "Prvi tovor sem pripeljal, preden je bilo sonce visoko. Pred letom dni je bil tu samo travnik.",
+              "en": "I brought the first load before the sun was high. A year ago, there was only a meadow here.",
+              "de": "Ich habe die erste Ladung gebracht, bevor die Sonne hoch stand. Vor einem Jahr war hier nur eine Wiese."
+            },
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Chi l'avrebbe detto? E come si fa a portare tutto questo lassù?",
+              "sl": "Kdo bi si mislil? Kako pa vse to spraviš tja gor?",
+              "en": "Who'd have thought it? And how do you get all this up there?",
+              "de": "Wer hätte das gedacht? Und wie bringt man das alles da hinauf?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Il fieno si solleva con il forcone, una forcata alla volta.",
+                  "sl": "Seno se dviga z vilami, eno naložitev za drugo.",
+                  "en": "You lift the hay with the pitchfork, one forkful at a time.",
+                  "de": "Das Heu hebt man mit der Heugabel, eine Gabel voll nach der anderen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto! E chi non è stanco canta una villotta.",
+                    "sl": "Prav! In kdor ni utrujen, zapoje villotto.",
+                    "en": "Right! And whoever isn't tired sings a villotta.",
+                    "de": "Richtig! Und wer nicht müde ist, singt eine Villotta."
+                  }
+                },
+                {
+                  "it": "Il burro si solleva con il cucchiaino, una forcata alla volta.",
+                  "sl": "Maslo se dviga z žličko, eno naložitev za drugo.",
+                  "en": "You lift the butter with the teaspoon, one forkful at a time.",
+                  "de": "Die Butter hebt man mit dem Teelöffel, eine Gabel voll nach der anderen.",
+                  "why": {
+                    "sl": "Na senik se nese seno z vilami: il fieno, il forcone.",
+                    "en": "Up into the barn goes hay, with the pitchfork: il fieno, il forcone.",
+                    "de": "In die Scheune kommt Heu, mit der Heugabel: il fieno, il forcone."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il burro? Forse a colazione!",
+                    "sl": "Maslo? Morda za zajtrk!",
+                    "en": "Butter? At breakfast, maybe!",
+                    "de": "Butter? Vielleicht zum Frühstück!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "curious",
+              "it": "Hai già detto ai vicini com'è il grande fienile?",
+              "sl": "Si sosedom že {m:povedal|f:povedala}, kakšen je veliki senik?",
+              "en": "Have you told the neighbours yet what the big barn's like?",
+              "de": "Hast du den Nachbarn schon gesagt, wie die große Scheune ist?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sì, gli ho detto che era pieno e che non ci sarebbe stato posto per altro.",
+                  "sl": "Ja, {m:povedal|f:povedala} sem jim, da je poln in da ne bo več prostora za nič drugega.",
+                  "en": "Yes, I told them it was full and there'd be no room for anything else.",
+                  "de": "Ja, ich habe ihnen gesagt, sie sei voll und es gäbe keinen Platz für anderes.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Bene. E le scorte sono al sicuro.",
+                    "sl": "Dobro. In zaloge so na varnem.",
+                    "en": "Good. And the stores are safe.",
+                    "de": "Gut. Und die Vorräte sind sicher."
+                  }
+                },
+                {
+                  "it": "Sì, gli ho detto che era pieno e che non ci sarà stato posto per altro.",
+                  "sl": "Ja, {m:povedal|f:povedala} sem jim, da je poln in da ne bo več prostora za nič drugega.",
+                  "en": "Yes, I told them it was full and there'd be no room for anything else.",
+                  "de": "Ja, ich habe ihnen gesagt, sie sei voll und es gäbe keinen Platz für anderes.",
+                  "grammar": "discorso-indiretto-passato",
+                  "why": {
+                    "sl": "V poročanem govoru v preteklosti dobi tisto, kar šele pride, pretekli pogojnik: non ci sarebbe stato.",
+                    "en": "In reported speech in the past, what's still to come takes the past conditional: non ci sarebbe stato.",
+                    "de": "In der wiedergegebenen Rede in der Vergangenheit steht das, was noch kommt, im Conditionale passato: non ci sarebbe stato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sarà stato? Forse lo diresti in un altro modo.",
+                    "sl": "Sarà stato? Morda bi {m:rekel|f:rekela} drugače.",
+                    "en": "Sarà stato? Maybe you'd say it another way.",
+                    "de": "Sarà stato? Vielleicht würdest du es anders sagen."
+                  }
+                },
+                {
+                  "it": "Sì, gli ho detto che era rosso e che non ci sarebbe stato posto per altro.",
+                  "sl": "Ja, {m:povedal|f:povedala} sem jim, da je rdeč in da ne bo več prostora za nič drugega.",
+                  "en": "Yes, I told them it was red and there'd be no room for anything else.",
+                  "de": "Ja, ich habe ihnen gesagt, sie sei rot und es gäbe keinen Platz für anderes.",
+                  "why": {
+                    "sl": "Senik je poln sena: pieno. Barva tu ni pomembna.",
+                    "en": "The barn is full of hay: pieno. Its colour doesn't matter here.",
+                    "de": "Die Scheune ist voller Heu: pieno. Die Farbe spielt hier keine Rolle."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Rosso? E chi l'ha dipinto?",
+                    "sl": "Rdeč? Kdo ga je pa pobarval?",
+                    "en": "Red? And who painted it?",
+                    "de": "Rot? Und wer hat sie angemalt?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "it": "Pieno fino alle travi. Se non avessimo contato così bene, non ci sarebbe stato posto.",
+              "sl": "Poln do tramov. Ko ne bi tako dobro šteli, ne bi bilo prostora.",
+              "en": "Full to the beams. If we hadn't counted so well, there'd have been no room.",
+              "de": "Voll bis zu den Balken. Hätten wir nicht so gut gezählt, wäre kein Platz gewesen.",
               "done": true
             }
           ]

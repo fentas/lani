@@ -241,7 +241,7 @@ class GermanB1cContentTest {
         for (id in ids) {
             val u = course.units.getValue(id)
             assertEquals("$id: its level", "B1", u.level)
-            assertEquals("$id: three sheets", 3, u.worksheets.size)
+            assertEquals("$id: three sheets (and one of speaking and writing)", 3, u.worksheets.count { s -> s.exercises.any { it !is Exercise.Speaking && it !is Exercise.Writing } })
             assertTrue("$id: five steps or more", u.intro!!.steps.size >= 5)
             assertTrue("$id: a quick question a step", u.intro!!.steps.all { it.ask != null })
         }

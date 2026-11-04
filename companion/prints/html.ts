@@ -14,6 +14,7 @@ export const SL = {
   watch: 'Pazi',
   words: 'Besede',
   check: 'Preveri se',
+  produce: 'Povej in napiši',
   answers: 'Rešitve',
   notes: 'Zapiski',
   unit: 'Enota',
@@ -33,6 +34,7 @@ const IT_HEADS: Heads = {
   watch: 'Attenzione',
   words: 'Parole',
   check: 'Mettiti alla prova',
+  produce: 'Parla e scrivi',
   answers: 'Soluzioni',
   notes: 'Appunti',
   unit: 'Unità',
@@ -52,6 +54,7 @@ const DE_HEADS: Heads = {
   watch: 'Achtung',
   words: 'Wörter',
   check: 'Teste dich',
+  produce: 'Sprich und schreib',
   answers: 'Lösungen',
   notes: 'Notizen',
   unit: 'Lektion',
@@ -71,6 +74,7 @@ const EN_HEADS: Heads = {
   watch: 'Watch out',
   words: 'Words',
   check: 'Check yourself',
+  produce: 'Speak and write',
   answers: 'Answers',
   notes: 'Notes',
   unit: 'Unit',
@@ -94,12 +98,15 @@ const EN = {
   watch: 'Watch out',
   words: 'Words',
   check: 'Check yourself',
+  produce: 'Speak and write',
   answers: 'Answers',
   notes: 'Notes',
   unit: 'Unit',
   contents: 'Contents',
   continued: 'continued',
   machine: 'machine-written, to be checked by a native speaker',
+  /** A writing task's length: "25–80 words", "at least 25 words". */
+  length: (min?: number, max?: number) => (min && max ? `${min}–${max} words` : max ? `up to ${max} words` : `at least ${min} words`),
   sheets: 'Reference sheets',
   units: (n: number) => `${n} unit${n === 1 ? '' : 's'}`,
   from: 'from the grammar book',
@@ -118,12 +125,14 @@ const DE: Base = {
   watch: 'Achtung',
   words: 'Wörter',
   check: 'Teste dich',
+  produce: 'Sprich und schreib',
   answers: 'Lösungen',
   notes: 'Notizen',
   unit: 'Lektion',
   contents: 'Inhalt',
   continued: 'Fortsetzung',
   machine: 'maschinell geschrieben, von Muttersprachlern zu prüfen',
+  length: (min?: number, max?: number) => (min && max ? `${min}–${max} Wörter` : max ? `bis zu ${max} Wörter` : `mindestens ${min} Wörter`),
   sheets: 'Lernblätter',
   units: (n: number) => `${n} Lektion${n === 1 ? '' : 'en'}`,
   from: 'aus der Grammatik',
@@ -142,12 +151,14 @@ const IT: Base = {
   watch: 'Attenzione',
   words: 'Parole',
   check: 'Mettiti alla prova',
+  produce: 'Parla e scrivi',
   answers: 'Soluzioni',
   notes: 'Appunti',
   unit: 'Unità',
   contents: 'Indice',
   continued: 'continua',
   machine: 'scritto a macchina, da far controllare a un madrelingua',
+  length: (min?: number, max?: number) => (min && max ? `${min}–${max} parole` : max ? `fino a ${max} parole` : `almeno ${min} parole`),
   sheets: 'Schede di riferimento',
   units: (n: number) => `${n} unità`,
   from: 'dalla grammatica',
@@ -167,12 +178,14 @@ const SLB: Base = {
   watch: 'Pazi',
   words: 'Besede',
   check: 'Preveri se',
+  produce: 'Povej in napiši',
   answers: 'Rešitve',
   notes: 'Zapiski',
   unit: 'Enota',
   contents: 'Vsebina',
   continued: 'nadaljevanje',
   machine: 'strojno napisano, preveri z naravnim govorcem',
+  length: (min?: number, max?: number) => (min && max ? `${min}–${max} besed` : max ? `največ ${max} besed` : `vsaj ${min} besed`),
   sheets: 'Učni listi',
   units: (n: number) => (n === 1 ? '1 enota' : n === 2 ? '2 enoti' : n <= 4 ? `${n} enote` : `${n} enot`),
   from: 'iz slovnice',
@@ -304,13 +317,31 @@ function check({ s, b, T }: Ctx, max: number): string {
   return `<section class="sec check">${h2('check', T.check, b.check)}<ol class="ck">${items}</ol></section>`
 }
 
-const answers = ({ s, b, T }: Ctx, max: number) =>
-  s.check.length
-    ? `<div class="answers" aria-label="${esc(b.answers)}"><span class="a-t">${esc(T.answers)} · ${esc(b.answers)}:</span> ${s.check
-        .slice(0, max)
-        .map((x, i) => `<span class="a"><b>${i + 1}</b> ${md(x.a)}</span>`)
-        .join(' ')}</div>`
-    : ''
+/**
+ * Speak and write (COURSE.md, "Speaking and writing"): what to say aloud (»what the teacher asks«), what to write and what it
+ * must use (☐ to tick), how long; the ruled lines after it are the room to write in.
+ */
+function produce({ s, b, T }: Ctx): string {
+  if (!s.say.length && !s.write.length) return ''
+  const ask = (a?: string) => (a ? ` <span class="ask">»${md(a)}«</span>` : '')
+  const says = s.say.map(x => `<li class="sy"><span class="ic">🗣️</span><span class="t">${md(x.task)}${ask(x.ask)}</span></li>`)
+  const writes = s.write.map(x => {
+    const len = x.min || x.max ? ` <span class="len">(${esc(b.length(x.min, x.max))})</span>` : ''
+    const must = x.must.length ? `<ul class="must">${x.must.map(m => `<li><span class="box"></span>${md(m)}</li>`).join('')}</ul>` : ''
+    return `<li class="wr"><span class="ic">✍️</span><span class="t">${md(x.task)}${ask(x.ask)}${len}${must}</span></li>`
+  })
+  return `<section class="sec produce">${h2('produce', T.produce, b.produce)}<ul class="pr">${[...says, ...writes].join('')}</ul></section>`
+}
+
+/** The check's answers, then the models of speak and write (the writing's left out first to fit: d2). */
+function answers({ s, b, T }: Ctx, max: number): string {
+  const items = [
+    ...s.check.slice(0, max).map((x, i) => `<span class="a"><b>${i + 1}</b> ${md(x.a)}</span>`),
+    ...s.say.map(x => `<span class="a"><b>🗣️</b> ${md(x.a)}</span>`),
+    ...s.write.map(x => `<span class="a opt"><b>✍️</b> ${md(x.a)}</span>`),
+  ]
+  return items.length ? `<div class="answers" aria-label="${esc(b.answers)}"><span class="a-t">${esc(T.answers)} · ${esc(b.answers)}:</span> ${items.join(' ')}</div>` : ''
+}
 
 const notes = ({ b, T }: Ctx) => `<div class="notes"><span class="n-t">${esc(T.notes)} · ${esc(b.notes)}</span></div>`
 
@@ -324,8 +355,8 @@ function footer({ s, b, level, language, T }: Ctx): string {
 export function unitHtml(s: Sheet, base: string, level: string, language: string, titles: Map<string, { sl: string; tr: string }>): string {
   const b = BASES[base] ?? EN
   const c: Ctx = { s, b, level, language, T: headsOf(language) }
-  const one = `<div class="layout one"><div class="sheet"><div class="body">${header(c)}<div class="top">${rule(c)}${tables(c, titles)}</div><div class="duo"><div class="col">${examples(c)}${check(c, 5)}${notes(c)}</div><div class="col">${watch(c)}${words(c)}${notes(c)}</div></div>${answers(c, 5)}</div>${footer(c)}</div></div>`
-  const two = `<div class="layout two" hidden><div class="sheet"><div class="body">${header(c)}<div class="top">${rule(c)}${tables(c, titles)}</div>${examples(c, true)}${notes(c)}</div>${footer(c)}</div><div class="sheet"><div class="body">${header(c, true)}${watch(c, true)}${words(c, true)}${check(c, 10)}${notes(c)}${answers(c, 10)}</div>${footer(c)}</div></div>`
+  const one = `<div class="layout one"><div class="sheet"><div class="body">${header(c)}<div class="top">${rule(c)}${tables(c, titles)}</div><div class="duo"><div class="col">${examples(c)}${check(c, 5)}${notes(c)}</div><div class="col">${watch(c)}${words(c)}${produce(c)}${notes(c)}</div></div>${answers(c, 5)}</div>${footer(c)}</div></div>`
+  const two = `<div class="layout two" hidden><div class="sheet"><div class="body">${header(c)}<div class="top">${rule(c)}${tables(c, titles)}</div>${examples(c, true)}${notes(c)}</div>${footer(c)}</div><div class="sheet"><div class="body">${header(c, true)}${watch(c, true)}${words(c, true)}${check(c, 10)}${produce(c)}${notes(c)}${answers(c, 10)}</div>${footer(c)}</div></div>`
   return `<section class="unit" data-unit="${esc(s.id)}" data-n="${s.n}">${one}${two}</section>`
 }
 

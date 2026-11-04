@@ -13,6 +13,7 @@ import { z } from 'zod'
 import type { Log } from './config'
 import { englishWords, enScore, glossCoverage, normalizeForm, PREPOSITIONS, wordsOf, type Aspect, type Lexicon, type Partner, type WordGender } from './lexicon'
 import { checkNoun } from './noun-paradigm'
+import { isParadigmLanguage, otherFormsOf, type Paradigms } from './paradigms'
 
 // --- slots -------------------------------------------------------------------------------------------------------
 
@@ -374,7 +375,7 @@ export function partnerOf(book: FormsBook, dict: Lexicon, lemma: string): { aspe
 // --- the content's lines -------------------------------------------------------------------------------------------
 
 /** A line of the content: in the village's language ([text]), its translations, where it is from, and its words. */
-export type ContentLine = { text: string; en: string; de?: string; it?: string; from: string; tokens: string[] }
+export type ContentLine = { text: string; en: string; de?: string; it?: string; sl?: string; from: string; tokens: string[] }
 
 /** A text of the content in the village's [language] and its translations, as the sources give them. */
 type Said = Partial<Record<string, unknown>>
@@ -424,7 +425,9 @@ export function contentLines(s: LineSources): ContentLine[] {
     seen.add(k)
     const de = lang !== 'de' ? said('de') : undefined
     const it = lang !== 'it' ? said('it') : undefined
-    out.push({ text, en, ...(de ? { de } : {}), ...(it ? { it } : {}), from, tokens: words.map(w => normalizeForm(w, lang)) })
+    // another language's line in Slovene too, for a learner who reads Slovene (Italian from Slovene)
+    const sl = lang !== 'sl' ? said('sl') : undefined
+    out.push({ text, en, ...(de ? { de } : {}), ...(it ? { it } : {}), ...(sl ? { sl } : {}), from, tokens: words.map(w => normalizeForm(w, lang)) })
   }
   const dialogLines = (lines: LineLike[], from: string) => {
     for (const l of lines) {
@@ -510,6 +513,10 @@ export type LemmaForms = {
   partner?: Partner
   table: 'wiktionary' | 'checked'
   slots: Slot[]
+  /** Another language's table (paradigms.ts): its language, whose slots it has; Slovene's has none. */
+  language?: string
+  /** A verb's auxiliary in the compound past (Italian avere, essere; German haben, sein): paradigms.ts. */
+  aux?: string[]
 }
 
 /** At most this many lines a slot gets. */
@@ -533,6 +540,8 @@ export type FormsContext = {
   pages: Set<string>
   lines: LineIndex
   language: string
+  /** Italian's, German's and English's forms (paradigms.ts): their words' forms come from it, not from [dict]. */
+  paradigms?: Paradigms
 }
 
 /** One word's paradigm: its slots' forms, the forms also accepted, and each form's slots and whether it reads otherwise too. */
@@ -739,6 +748,7 @@ export function adjectiveForms(c: FormsContext, lemma: string): Map<string, stri
  * pages they count on and the content's lines for each; none when the dictionary and the forms book don't know it.
  */
 export function formsOf(c: FormsContext, word: string): LemmaForms[] {
+  if (isParadigmLanguage(c.language)) return c.paradigms ? otherFormsOf({ paradigms: c.paradigms, pages: c.pages, lines: c.lines, language: c.language }, word) : []
   const lemmas = c.dict.lemmasOf(word).filter(l => (FORM_POS as readonly string[]).includes(l.pos))
   // a word the forms book has a table of, and Wiktionary hasn't
   for (const pos of c.book.tablePos(word)) {

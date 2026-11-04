@@ -463,7 +463,7 @@ export function teacherVoice(cast: CastMember[], speakerOf: (v: CastMember) => s
 export type CourseText = { text: string; source: string; lang?: string }
 
 export type CourseInput = {
-  units: (Pick<Unit, 'id' | 'language' | 'title' | 'goal' | 'grammar' | 'intro'> & { words?: string[] })[]
+  units: (Pick<Unit, 'id' | 'language' | 'title' | 'goal' | 'grammar' | 'intro'> & { words?: string[] } & Partial<Pick<Unit, 'worksheets' | 'test'>>)[]
   /** The grammar book's pages: a unit's first page's rule is its summary. */
   pages?: Pick<GrammarPage, 'id' | 'rule'>[]
   /** The learners' base languages: each explanation in each, and the runs read without it. */
@@ -501,6 +501,12 @@ export function courseTexts(c: CourseInput, language: string): { lines: CourseTe
       // the intro's own summary (a child's first lesson), else the page's rule, as the app reads it
       const say = summarySay(intro.summary ?? page?.rule, u.goal, base)
       if (say !== undefined) read(summary(`${u.id}/summary`, say, base, intro, language, title, isSlovene, u.words ?? []))
+    }
+    // speaking and writing (production.ts): what the teacher asks and the model said, hers too, a child's version's as well
+    for (const e of [...(u.worksheets ?? []).flatMap(w => w.exercises), ...(u.test?.exercises ?? [])]) {
+      if (e.type !== 'speaking' && e.type !== 'writing') continue
+      const said = e.type === 'speaking' ? [e.ask, e.say, e.child?.ask, e.child?.say] : [e.ask, e.child?.ask]
+      for (const t of said) if (t) lines.push({ text: t, source })
     }
   }
   return { lines, explanations }

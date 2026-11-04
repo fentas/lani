@@ -262,6 +262,170 @@
           }
         }
       ]
+    },
+    {
+      "id": "periodo-ipotetico-4",
+      "title": { "it": "Parla e scrivi", "de": "Sprich und schreib", "sl": "Povej in napiši", "en": "Speak and write" },
+      "exercises": [
+        {
+          "type": "speaking",
+          "grammar": "periodo-ipotetico",
+          "instruction": {
+            "de": "Dillo ad alta voce · Sag es laut",
+            "sl": "Dillo ad alta voce · Povej na glas",
+            "en": "Dillo ad alta voce · Say it aloud"
+          },
+          "prompt": {
+            "de": "Davide fragt, ob du morgen mit den Schafen auf die Weide kommst. Du hast aber keine Zeit. Sag: Wenn ich Zeit hätte, würde ich mitkommen.",
+            "sl": "Davide te vpraša, ali greš jutri z njim in ovcami na pašo. Nimaš pa časa. Povej: Če bi {m:imel|f:imela} čas, bi {m:šel|f:šla} s tabo.",
+            "en": "Davide asks if you're coming to the pasture with the sheep tomorrow. But you have no time. Say: If I had time, I'd come with you."
+          },
+          "say": "Se avessi tempo, verrei con te.",
+          "accept": [
+            "Verrei con te, se avessi tempo.",
+            "Se avessi tempo, verrei anch'io.",
+            "Se avessi tempo, ti accompagnerei.",
+            "Ti accompagnerei, se avessi tempo.",
+            "Se avessi tempo, verrei volentieri con te."
+          ],
+          "show": false,
+          "explain": {
+            "de": "**nur vorgestellt**: se + fossi, avessi …, dann das condizionale\n- Se avessi tempo, verrei con te.\n- Se fossi un uccello, volerei.",
+            "sl": "**samo predstava**: se + fossi, avessi …, nato condizionale\n- Se avessi tempo, verrei con te.\n- Se fossi un uccello, volerei.",
+            "en": "**only imagined**: se + fossi, avessi …, then the condizionale\n- Se avessi tempo, verrei con te.\n- Se fossi un uccello, volerei."
+          },
+          "child": {
+            "prompt": {
+              "de": "Stell dir vor, du bist ein Vogel. Sag: Wenn ich ein Vogel wäre, würde ich fliegen.",
+              "sl": "Predstavljaj si, da si ptica. Povej: Če bi {m:bil|f:bila} ptica, bi {m:letel|f:letela}.",
+              "en": "Imagine you're a bird. Say: If I were a bird, I'd fly."
+            },
+            "say": "Se fossi un uccello, volerei.",
+            "accept": ["Volerei, se fossi un uccello.", "Se io fossi un uccello, volerei."]
+          }
+        },
+        {
+          "type": "speaking",
+          "grammar": "periodo-ipotetico",
+          "instruction": {
+            "de": "Rispondi a voce · Antworte laut",
+            "sl": "Rispondi a voce · Odgovori na glas",
+            "en": "Rispondi a voce · Answer aloud"
+          },
+          "prompt": {
+            "de": "Maestra Elena fragt, was du im Dorf ändern würdest, wenn du könntest. Antworte mit dem condizionale.",
+            "sl": "Učiteljica Elena vpraša, kaj bi v vasi {m:spremenil|f:spremenila}, če bi lahko. Odgovori s condizionale.",
+            "en": "Maestra Elena asks what you would change in the village if you could. Answer with the condizionale."
+          },
+          "ask": "Che cosa cambieresti in paese, se potessi?",
+          "say": "Se potessi, costruirei un parco giochi vicino alla scuola.",
+          "accept": ["Costruirei un parco giochi vicino alla scuola."],
+          "must": [
+            {
+              "label": {
+                "de": "das condizionale (farei, costruirei)",
+                "sl": "condizionale (farei, costruirei)",
+                "en": "the condizionale (farei, costruirei)"
+              },
+              "any": ["*rei", "*resti", "*rebbe", "*remmo", "*rebbero"]
+            }
+          ],
+          "min_words": 4,
+          "explain": {
+            "de": "**das condizionale** für das Ausgedachte: costruire → **costruirei**, chiamare → **chiamerei**\n- Costruirei un parco giochi.\n- Lo chiamerei Fido.",
+            "sl": "**condizionale** za zamišljeno: costruire → **costruirei**, chiamare → **chiamerei**\n- Costruirei un parco giochi.\n- Lo chiamerei Fido.",
+            "en": "**the condizionale** for what is imagined: costruire → **costruirei**, chiamare → **chiamerei**\n- Costruirei un parco giochi.\n- Lo chiamerei Fido."
+          },
+          "child": {
+            "prompt": {
+              "de": "Elena fragt: Wenn du einen Hund hättest, wie würdest du ihn nennen? Antworte mit chiamerei.",
+              "sl": "Elena vpraša: Če bi {m:imel|f:imela} psa, kako bi mu bilo ime? Odgovori s chiamerei.",
+              "en": "Elena asks: If you had a dog, what would you call it? Answer with chiamerei."
+            },
+            "ask": "Se avessi un cane, come lo chiameresti?",
+            "say": "Lo chiamerei Fido.",
+            "accept": ["Se avessi un cane, lo chiamerei Fido."],
+            "must": [
+              {
+                "label": {
+                  "de": "chiamerei … (ich würde ihn … nennen)",
+                  "sl": "chiamerei … (imenoval bi ga …)",
+                  "en": "chiamerei … (I'd call it …)"
+                },
+                "any": ["*rei"]
+              }
+            ],
+            "min_words": 3
+          }
+        },
+        {
+          "type": "writing",
+          "grammar": "periodo-ipotetico",
+          "instruction": { "de": "Scrivi · Schreib", "sl": "Scrivi · Napiši", "en": "Scrivi · Write" },
+          "prompt": {
+            "de": "Zia Nives fragt, was du machen würdest, wenn du ein ganzes Jahr im Dorf leben würdest. Schreib ihr ein paar Sätze.",
+            "sl": "Teta Nives vpraša, kaj bi {m:počel|f:počela}, če bi celo leto {m:živel|f:živela} v vasi. Napiši ji nekaj stavkov.",
+            "en": "Zia Nives asks what you would do if you lived in the village for a whole year. Write her a few sentences."
+          },
+          "ask": "Che cosa faresti, se vivessi un anno in paese?",
+          "model": "Cara Zia Nives, se vivessi un anno in paese, mi alzerei presto ogni mattina. Aiuterei Davide con le pecore e imparerei a fare il frico con Nonna Rosa. Se avessi tempo, andrei anche al mare a Grado. La sera ascolterei le storie di Nonno Bepi sotto il tiglio. Sarei {m:contentissimo|f:contentissima}!",
+          "must": [
+            {
+              "label": {
+                "de": "se + congiuntivo imperfetto (se fossi, se avessi, se vivessi)",
+                "sl": "se + congiuntivo imperfetto (se fossi, se avessi, se vivessi)",
+                "en": "se + the congiuntivo imperfetto (se fossi, se avessi, se vivessi)"
+              },
+              "any": ["se *ssi", "se *sse", "se *ssimo", "se *ssero", "se non *ssi", "se non *sse", "se non *ssimo", "se ci fosse", "se io *ssi", "se tu *ssi"]
+            },
+            {
+              "label": {
+                "de": "das condizionale, zweimal (andrei, sarei)",
+                "sl": "dvakrat condizionale (andrei, sarei)",
+                "en": "the condizionale twice (andrei, sarei)"
+              },
+              "any": ["*rei", "*resti", "*rebbe", "*remmo", "*rebbero"],
+              "n": 2
+            }
+          ],
+          "avoid": [
+            {
+              "any": ["se *rei", "se *resti", "se *rebbe", "se *remmo", "se *rebbero", "se non *rei", "se non *rebbe", "se io *rei"],
+              "explain": {
+                "de": "**Nach se nie das condizionale**: se fossi, se avessi …; sarei, avrei stehen in der anderen Hälfte",
+                "sl": "**Za se nikoli condizionale**: se fossi, se avessi …; sarei, avrei sta v drugi polovici",
+                "en": "**Never the condizionale after se**: se fossi, se avessi …; sarei, avrei go in the other half"
+              }
+            }
+          ],
+          "length": { "min": 25, "max": 60 },
+          "explain": {
+            "de": "**se + congiuntivo imperfetto, dann das condizionale**\n- Se vivessi in paese, mi alzerei presto.\n- Se nevicasse, farei un pupazzo di neve.",
+            "sl": "**se + congiuntivo imperfetto, nato condizionale**\n- Se vivessi in paese, mi alzerei presto.\n- Se nevicasse, farei un pupazzo di neve.",
+            "en": "**se + the congiuntivo imperfetto, then the condizionale**\n- Se vivessi in paese, mi alzerei presto.\n- Se nevicasse, farei un pupazzo di neve."
+          },
+          "child": {
+            "prompt": {
+              "de": "Was würdest du machen, wenn es heute schneien würde? Sag es zuerst, dann schreib es.",
+              "sl": "Kaj bi {m:počel|f:počela}, če bi danes snežilo? Najprej povej, nato napiši.",
+              "en": "What would you do if it snowed today? Say it first, then write it."
+            },
+            "ask": "Che cosa faresti, se nevicasse?",
+            "model": "Se nevicasse, farei un pupazzo di neve con Tommaso.",
+            "must": [
+              {
+                "label": {
+                  "de": "das condizionale (farei, giocherei)",
+                  "sl": "condizionale (farei, giocherei)",
+                  "en": "the condizionale (farei, giocherei)"
+                },
+                "any": ["*rei", "*remmo"]
+              }
+            ],
+            "length": { "min": 3, "max": 12 }
+          }
+        }
+      ]
     }
   ],
   "test": {
@@ -312,6 +476,116 @@
           { "label": { "de": "può succedere · kann passieren", "sl": "può succedere · se lahko zgodi", "en": "può succedere · can happen" }, "words": ["Se piove, leggo un libro.", "Se vieni, giochiamo."] },
           { "label": { "de": "lo immagino · nur ausgedacht", "sl": "lo immagino · samo predstava", "en": "lo immagino · only imagined" }, "words": ["Se fossi un re, avrei un castello.", "Se avessi le ali, volerei."] }
         ]
+      },
+      {
+        "type": "speaking",
+        "grammar": "periodo-ipotetico",
+        "instruction": {
+          "de": "Rispondi a voce · Antworte laut",
+          "sl": "Rispondi a voce · Odgovori na glas",
+          "en": "Rispondi a voce · Answer aloud"
+        },
+        "prompt": {
+          "de": "Maestra Elena fragt, was du kaufen würdest, wenn du viel Geld hättest. Antworte mit dem condizionale.",
+          "sl": "Učiteljica Elena vpraša, kaj bi {m:kupil|f:kupila}, če bi {m:imel|f:imela} veliko denarja. Odgovori s condizionale.",
+          "en": "Maestra Elena asks what you would buy if you had a lot of money. Answer with the condizionale."
+        },
+        "ask": "Che cosa compreresti, se avessi tanti soldi?",
+        "say": "Se avessi tanti soldi, comprerei una casa vicino al mare.",
+        "accept": ["Comprerei una casa vicino al mare."],
+        "must": [
+          {
+            "label": {
+              "de": "das condizionale (farei, costruirei)",
+              "sl": "condizionale (farei, costruirei)",
+              "en": "the condizionale (farei, costruirei)"
+            },
+            "any": ["*rei", "*resti", "*rebbe", "*remmo", "*rebbero"]
+          }
+        ],
+        "min_words": 4,
+        "child": {
+          "prompt": {
+            "de": "Elena fragt: Wenn du ein Bär wärst, was würdest du essen? Antworte mit mangerei.",
+            "sl": "Elena vpraša: Če bi {m:bil|f:bila} medved, kaj bi {m:jedel|f:jedla}? Odgovori z mangerei.",
+            "en": "Elena asks: If you were a bear, what would you eat? Answer with mangerei."
+          },
+          "ask": "Se fossi un orso, che cosa mangeresti?",
+          "say": "Mangerei tanto miele.",
+          "accept": ["Se fossi un orso, mangerei tanto miele."],
+          "must": [
+            {
+              "label": {
+                "de": "mangerei … (ich würde … essen)",
+                "sl": "mangerei … (jedel bi …)",
+                "en": "mangerei … (I'd eat …)"
+              },
+              "any": ["*rei"]
+            }
+          ],
+          "min_words": 3
+        }
+      },
+      {
+        "type": "writing",
+        "grammar": "periodo-ipotetico",
+        "instruction": { "de": "Scrivi · Schreib", "sl": "Scrivi · Napiši", "en": "Scrivi · Write" },
+        "prompt": {
+          "de": "Es regnet, und das Fest auf der Piazza fällt aus. Schreib Tommaso ein paar Sätze: Was würdet ihr machen, wenn es nicht regnen würde?",
+          "sl": "Dežuje in praznik na trgu odpade. Napiši Tommasu nekaj stavkov: kaj bi počeli, če ne bi deževalo?",
+          "en": "It's raining, and the festa in the piazza is off. Write Tommaso a few sentences: what would you all do if it weren't raining?"
+        },
+        "model": "Caro Tommaso, che peccato! Se non piovesse, andremmo alla festa in piazza. Balleremmo tutta la sera e mangeremmo il frico di Nonna Rosa. Se domani c'è il sole, giochiamo a calcio?",
+        "must": [
+          {
+            "label": {
+              "de": "se + congiuntivo imperfetto (se fossi, se avessi, se vivessi)",
+              "sl": "se + congiuntivo imperfetto (se fossi, se avessi, se vivessi)",
+              "en": "se + the congiuntivo imperfetto (se fossi, se avessi, se vivessi)"
+            },
+            "any": ["se *ssi", "se *sse", "se *ssimo", "se *ssero", "se non *ssi", "se non *sse", "se non *ssimo", "se ci fosse", "se io *ssi", "se tu *ssi"]
+          },
+          {
+            "label": {
+              "de": "das condizionale, zweimal (andrei, sarei)",
+              "sl": "dvakrat condizionale (andrei, sarei)",
+              "en": "the condizionale twice (andrei, sarei)"
+            },
+            "any": ["*rei", "*resti", "*rebbe", "*remmo", "*rebbero"],
+            "n": 2
+          }
+        ],
+        "avoid": [
+          {
+            "any": ["se *rei", "se *resti", "se *rebbe", "se *remmo", "se *rebbero", "se non *rei", "se non *rebbe", "se io *rei"],
+            "explain": {
+              "de": "**Nach se nie das condizionale**: se fossi, se avessi …; sarei, avrei stehen in der anderen Hälfte",
+              "sl": "**Za se nikoli condizionale**: se fossi, se avessi …; sarei, avrei sta v drugi polovici",
+              "en": "**Never the condizionale after se**: se fossi, se avessi …; sarei, avrei go in the other half"
+            }
+          }
+        ],
+        "length": { "min": 20, "max": 50 },
+        "child": {
+          "prompt": {
+            "de": "Was würdest du machen, wenn es heute nicht regnen würde? Sag es zuerst, dann schreib es.",
+            "sl": "Kaj bi {m:počel|f:počela}, če danes ne bi deževalo? Najprej povej, nato napiši.",
+            "en": "What would you do if it weren't raining today? Say it first, then write it."
+          },
+          "ask": "Che cosa faresti, se non piovesse?",
+          "model": "Se non piovesse, giocherei fuori con Moro.",
+          "must": [
+            {
+              "label": {
+                "de": "das condizionale (farei, giocherei)",
+                "sl": "condizionale (farei, giocherei)",
+                "en": "the condizionale (farei, giocherei)"
+              },
+              "any": ["*rei", "*remmo"]
+            }
+          ],
+          "length": { "min": 3, "max": 12 }
+        }
       }
     ]
   },

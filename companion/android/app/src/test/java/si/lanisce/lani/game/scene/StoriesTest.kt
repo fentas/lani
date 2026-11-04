@@ -319,6 +319,15 @@ class StoriesTest {
             his.map { it.id },
         )
         assertTrue(his.all { it.language == "en" && "A1" in it.levelsTold && "A2" in it.levelsTold })
+        // readings-lakeland: told at B1 and B2 too, so a learner at B1 or B2 hears tonight's at their level, a story
+        // without them at the highest below it, and a learner at A2 never above A2 the first time
+        assertTrue(his.all { "B1" in it.levelsTold && "B2" in it.levelsTold })
+        assertEquals("B2", Stories.tonight(his, emptyMap(), "B2")!!.level)
+        assertEquals("B1", Stories.tonight(his, emptyMap(), "B1")!!.level)
+        assertEquals("A2", Stories.tonight(his, emptyMap(), "A2")!!.level)
+        // above B2 the B2 telling, and a retelling for a learner at B1 a level up, at B2
+        assertEquals("B2", Stories.levelFor(his.first(), "C1"))
+        assertEquals("B2", Stories.levelFor(his.first(), "B1", up = 1))
         // the ten older ones heard, the six newer ones come in their order: the Lambton Worm first
         val ten = his.take(10).associate { it.id to StoryHeard(told = 1, level = "A1") }
         assertEquals("the-lambton-worm", Stories.tonight(his, ten, "A1")!!.story.id)
@@ -356,5 +365,21 @@ class StoriesTest {
         assertTrue(t.story.words.size >= 5 && t.story.words.all { it.sl.isNotBlank() && it.en.isNotBlank() && it.sl != it.en })
         val first = t.telling.lines.first()
         assertTrue(first.sl!!.isNotBlank() && first.en!!.isNotBlank() && first.sl != first.en)
+    }
+
+    @Test fun `Opa Sepp tells all sixteen at B1 and B2 too - a B2 learner hears B2, an A1 learner never starts above A1`() {
+        val fire = campfire("kaernten", LangPair(Lang.DE, Lang.EN))
+        val his = Stories.of(fire, fire.people.first { it.villager == "sepp" })
+        // readings-kaernten: every story has its B1 and B2 telling, each with a turn and its notes
+        assertTrue(his.all { it.levelsTold == listOf("A1", "A2", "B1", "B2") })
+        assertEquals("B2", Stories.tonight(his, emptyMap(), "B2")!!.level)
+        assertEquals("B1", Stories.tonight(his, emptyMap(), "B1")!!.level)
+        assertEquals("A1", Stories.tonight(his, emptyMap(), "A1")!!.level)
+        // a C1 learner hears the highest there is
+        assertEquals("B2", Stories.tonight(his, emptyMap(), "C1")!!.level)
+        for (s in his) for (lv in listOf("B1", "B2")) {
+            val telling = s.parts.single().levels.getValue(lv)
+            assertTrue("${s.id} $lv", telling.lines.count { it.choices.isNotEmpty() } >= 3 && s.noteOf(0, lv) != null)
+        }
     }
 }
