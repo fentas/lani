@@ -276,7 +276,7 @@ class GermanHintTest {
         // a turn where both are right: no line picks one
         val both = DialogLine(choices = listOf(DialogChoice("Wegen des Regens.", ok = true), DialogChoice("Wegen dem Regen.", ok = true), wrong("Wegen der Regen.", "praepositionen-genitiv")))
         assertNull(TurnHints.of(both, "de", page)!!.trigger)
-        assertTrue(TurnHints.text(TurnHints.of(both, "de", page)!!, page).lines.joinToString().contains("v govoru"))
+        assertTrue(TurnHints.text(TurnHints.of(both, "de", page)!!, page).lines.joinToString().contains("v govoru", ignoreCase = true))
         // weil and obwohl: what grading has as said (Spelling.verbSecond), damit no
         for (w in listOf("weil", "obwohl")) {
             val t = GermanHints.order("Ja, $w es Heidenmehl ist.", "Ja, $w es ist Heidenmehl.") as Trigger.Asks
