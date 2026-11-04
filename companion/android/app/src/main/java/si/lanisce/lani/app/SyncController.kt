@@ -55,6 +55,9 @@ class SyncController(
     /** The writes to [path] waiting in the outbox (offline), oldest first. */
     suspend fun queued(path: String): List<OutboxEntry> = withContext(Dispatchers.IO) { outbox.entries().filter { it.path == path } }
 
+    /** [make]'s entry in the background unless one for [path] is queued still; a failure goes to the snackbar. */
+    fun submitUnlessQueued(path: String, make: () -> OutboxEntry): Job = scope.launchSafely(notices::fail) { if (queued(path).isEmpty()) submit(make()) }
+
     /** [submit] in the background; a failure goes to the snackbar. */
     fun submitLater(e: OutboxEntry): Job = scope.launchSafely(notices::fail) { submit(e) }
 

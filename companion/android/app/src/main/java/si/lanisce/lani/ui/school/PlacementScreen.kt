@@ -90,6 +90,10 @@ private fun PlacementIntro(vm: AppViewModel) {
                 if (begun) "✅ ${bi("placement.howKept")}" else null,
                 last?.let { "🧭 ${bi("placement.last", "day" to it.day, "level" to (it.start ?: it.level))}" },
             )) Text(line, style = MaterialTheme.typography.bodyLarge)
+            if (p.waiting) {
+                Text("⏳ ${bi("treasure.tutorWaits")}", style = MaterialTheme.typography.bodyLarge)
+                TextButton(onClick = p::sendAgain, modifier = Modifier.heightIn(min = 48.dp)) { Text("📨 ${bi("treasure.sendAgain")}") }
+            }
             Spacer(Modifier.height(4.dp))
             BigButton("▶️ ${bi("placement.begin")}", onClick = { if (!p.begin()) vm.leavePlacement() }, color = TriglavRed)
             TextButton(onClick = vm::leavePlacement, modifier = Modifier.heightIn(min = 48.dp).align(Alignment.CenterHorizontally)) { Text(bi("school.later")) }
@@ -126,6 +130,8 @@ private fun PlacementProbe(vm: AppViewModel) {
             source = { i -> probe.items.getOrNull(i)?.let { ExerciseSource.course(vm.placement.language, it.unit, "test", it.index) } },
             rules = exercises.map { null },
             practice = false, help = false,
+            language = p.language,
+            readOut = p.version == LevelPlacement.Version.CHILD && vm.introVoice.auto,
         ) { outs ->
             val items = outs.map { o -> if (o.sheet.isNotEmpty()) o.sheet.map { it.paid } else listOf(o.paid) }
             val seconds = ((ScreenClock.app.now() - started) / 1000).toInt()

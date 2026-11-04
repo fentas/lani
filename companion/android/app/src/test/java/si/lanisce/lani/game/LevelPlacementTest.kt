@@ -309,4 +309,12 @@ class LevelPlacementTest {
         LevelPlacement.result(t, s)
         assertEquals(village(c, c.playable("A1").take(3).map { it.id }), s)
     }
+
+    @Test fun `a raised level can be sent again from the day after, while the node doesn't have it`() {
+        val p = Placed(day = "2026-11-01", from = "A1", level = "A2")
+        assertFalse(LevelPlacement.waiting(p, java.time.LocalDate.parse("2026-11-01")))
+        assertTrue(LevelPlacement.waiting(p, java.time.LocalDate.parse("2026-11-02")))
+        assertFalse(LevelPlacement.waiting(p.copy(confirmed = true), java.time.LocalDate.parse("2026-11-02")))
+        assertFalse(LevelPlacement.waiting(null, java.time.LocalDate.parse("2026-11-02")))
+    }
 }

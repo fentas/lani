@@ -81,4 +81,24 @@ class PlacementReportTest {
         assertNull((keptData["report"] as JsonObject)["level"])
         assertTrue(kept.contains("their level stays B2") && kept.contains("kept their place"))
     }
+
+    @Test fun `a level sent again says what was taken, with one probe, and raises it for an older node`() {
+        val p = si.lanisce.lani.game.Placed(day = "2026-11-01", from = "A1", level = "A2", start = "A2", part = 2, parts = 3, units = 14, right = 9, almost = 1, of = 12, minutes = 7, child = true)
+        val body = PlacementReport.again(p)
+        assertEquals("A1", body["from"]?.jsonPrimitive?.content)
+        assertEquals("A2", body["level"]?.jsonPrimitive?.content)
+        assertEquals(true, body["applied"]?.jsonPrimitive?.boolean)
+        assertEquals(14, body["units"]?.jsonPrimitive?.int)
+        assertEquals(true, body["child"]?.jsonPrimitive?.boolean)
+        val probe = PlacementReport.probes(body).single()
+        assertEquals(listOf("A2", "2", "3", "9", "1", "12", "true"), listOf("level", "part", "parts", "right", "almost", "of", "passed").map { probe[it]?.jsonPrimitive?.content })
+        val (text, data) = PlacementReport.againSessionEnd(p, "Italian", body)
+        assertTrue(text, "current_level to A2" in text)
+        assertEquals("A2", data["report"]?.jsonObject?.get("level")?.jsonPrimitive?.content)
+        // past the course's last part: no start, and still a probe the node takes
+        val past = PlacementReport.again(p.copy(start = null, part = 0, parts = 0, of = 0, minutes = 0))
+        assertEquals(null, past["start"])
+        assertEquals(listOf("A2", "1", "1", "1"), PlacementReport.probes(past).single().let { q -> listOf("level", "part", "parts", "of").map { q[it]?.jsonPrimitive?.content } })
+        assertEquals(1, past["duration_minutes"]?.jsonPrimitive?.int)
+    }
 }

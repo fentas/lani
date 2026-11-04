@@ -130,13 +130,19 @@ object School {
     /**
      * What the Build sheet says on the school's card while none stands (GAME.md "The school"): "Pouk že poteka pod lipo;
      * šola ga preseli pod streho in po A1 odpre A2 · Class is already on under the linden; the school brings it indoors
-     * and, after A1, opens A2" (by the fire before the linden, and "opens A2" once A1 is done). Null without a [course],
-     * before the class begins, or with a school standing.
+     * and, after A1, opens A2" (by the fire before the linden, and "opens A2" once A1 is done; only that it brings it indoors
+     * when A2 is open already: the placement test opened it). Null without a [course], before the class begins, or with a
+     * school standing.
      */
     fun buildNote(s: GameState, course: Course?): String? {
         if (course == null || !open(s) || schoolBuilding(s) != null) return null
         val at = if (place(s) == Place.LINDEN) "linden" else "fire"
-        return bi("school.buildNote", "place" to at, "a1" to if (levelDone(s, course, LEVELS.first())) "done" else "todo")
+        val a2 = when {
+            isOpen(s, course, LEVELS[1]) -> "open"
+            levelDone(s, course, LEVELS.first()) -> "done"
+            else -> "todo"
+        }
+        return bi("school.buildNote", "place" to at, "a1" to a2)
     }
 
     // --- the levels -------------------------------------------------------------------------------------------------

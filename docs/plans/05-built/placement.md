@@ -194,14 +194,15 @@ with `startAt`'s four levels). Characters for the teacher's voice: Učiteljica M
 ## What's left
 
 - **A native check** of the strings above.
-- **"📨 Pošlji znova"** for a level the node doesn't show after days (the treasure has one); the outbox retries meanwhile.
-- **A child's spoken version.** The child's test is by tap, each exercise's 🔊 there; a version that reads every prompt
-  aloud as it comes up (as the intro's "Beri razlago" does) would suit a child who doesn't read yet.
+- **"📨 Pošlji znova"** for a level the node doesn't show: built ([cleanup-code.md](cleanup-code.md), "Placement"), in the test's
+  intro, from the day after, as the treasure has it.
+- **A child's spoken version:** built, same doc: each prompt read as it comes up, by the setting "🔊 Beri razlago".
 - **A second probe of a part that passes narrowly** (between 60 and 80 %) would place more surely at the cost of a minute;
   not done: the learner sees the result before taking it, and any unit can be done again.
-- **The setup's speech** doesn't read the new "🧭 Nekaj že znaš?" choice aloud (its chips are TalkBack's).
-- **The Build sheet's note** under the school's card ("… šola ga preseli pod streho in odpre A2") still says the school
-  opens A2 for a placed learner whose A2 the test opened already; the note's wording is native-checked, so left as it is.
+- **The setup's speech** doesn't read the "🧭 Nekaj že znaš?" choice aloud: first-minutes takes the choice out of the setup, so
+  nothing was done here.
+- **The Build sheet's note:** done (cleanup-code.md): for a learner whose A2 is open it says only that the school brings the
+  class indoors, its first half as the native check left it.
 
 ## Also on this branch: the curated modules from the learner's level (55ade858)
 

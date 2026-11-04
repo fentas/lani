@@ -10,6 +10,7 @@ import kotlinx.serialization.json.putJsonObject
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.game.Introduction
 import si.lanisce.lani.game.LevelPlacement
+import si.lanisce.lani.game.Placed
 
 /**
  * The placement test's result for the node (companion/COURSE.md "The placement test"; game/LevelPlacement):
@@ -92,6 +93,49 @@ object PlacementReport {
         val level = if (raise) "Persist it as the report says, with update-db.py: its \"level\" sets current_level to ${r.level}." else "Persist it as the report says, with update-db.py (their level stays $from)."
         val text = "$notes $level " + if (applied) "Then welcome them at their level in one short reply; get_course shows the unit they start with." else "Don't press the test on them."
         return text to data
+    }
+
+    /**
+     * [p], a result taken, as `POST /placement` says it again ("📨 Pošlji znova · Send again", once the test is gone): the
+     * level it raised, what it marked, and its items as one probe (the node refuses a report with none), passed at the part
+     * it started at.
+     */
+    fun again(p: Placed): JsonObject = buildJsonObject {
+        put("from", Introduction.LEVELS[Introduction.rank(p.from) ?: 0])
+        put("level", p.level)
+        put("applied", true)
+        p.start?.let { s -> putJsonObject("start") { put("level", s); put("part", p.part.coerceAtLeast(1)); put("parts", p.parts.coerceAtLeast(1)) } }
+        put("units", p.units.coerceIn(0, 500))
+        putJsonArray("probes") {
+            add(buildJsonObject {
+                put("level", p.start ?: p.level)
+                put("part", p.part.coerceAtLeast(1))
+                put("parts", p.parts.coerceAtLeast(1))
+                put("right", p.right.coerceIn(0, 100))
+                put("almost", p.almost.coerceIn(0, 100))
+                put("of", p.of.coerceIn(1, 100))
+                put("passed", true)
+            })
+        }
+        if (p.child) put("child", true)
+        put("duration_minutes", p.minutes.coerceIn(1, 240))
+    }
+
+    /** [again] as a `session_end` for a node from before the placement test ([sessionEnd]'s: its "level" raises it). */
+    fun againSessionEnd(p: Placed, language: String, body: JsonObject): Pair<String, JsonObject> {
+        val notes = "The placement test in the app, sent again: on ${p.day} they took its result, ${p.level}, and their profile doesn't show it yet."
+        val data = buildJsonObject {
+            put("placement", body)
+            putJsonObject("report") {
+                put("level", p.level)
+                put("command_used", "/lani-app-placement")
+                putJsonArray("skills_practiced") { add("grammar") }
+                put("duration_minutes", p.minutes.coerceIn(1, 240))
+                putJsonArray("milestones") { add("Placed at ${p.level} in $language: the placement test") }
+                put("session_notes", notes)
+            }
+        }
+        return "$notes Persist it as the report says, with update-db.py: its \"level\" sets current_level to ${p.level}. No reply needed." to data
     }
 
     /** For the tests: the probes' JSON objects. */

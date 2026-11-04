@@ -355,6 +355,12 @@ object LevelPlacement {
         return if ((Introduction.rank(placed.level) ?: 0) > (Introduction.rank(node) ?: 0)) placed.level else node
     }
 
+    /**
+     * The level [placed] raised still waits for the node, from the day after it was taken: "📨 Pošlji znova · Send again" (the
+     * treasure's, on the same terms: the outbox keeps the first until the node answers, so not the day it went).
+     */
+    fun waiting(placed: Placed?, today: LocalDate): Boolean = placed != null && !placed.confirmed && placed.day < today.toString()
+
     /** The node shows [node] for [language]: a placement's level it has (or passed) is confirmed, the node's goes again. */
     fun confirm(s: GameState, language: String, node: String): GameState {
         val c = s.course ?: return s

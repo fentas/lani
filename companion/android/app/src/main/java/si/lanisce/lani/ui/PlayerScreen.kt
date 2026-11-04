@@ -255,10 +255,21 @@ fun ExerciseRun(
     pages: List<String> = emptyList(),
     practice: Boolean = true,
     help: Boolean = true,
+    /** Each exercise says what it asks as it comes up, not over a screen reader ([si.lanisce.lani.game.PromptSpeech]). */
+    readOut: Boolean = false,
     onComplete: (List<Outcome>) -> Unit,
 ) {
     var index by remember { mutableIntStateOf(0) }
     var outcome by remember { mutableStateOf<Outcome?>(null) }
+    if (readOut) {
+        LaunchedEffect(index, outcome == null) {
+            val e = exercises.getOrNull(index)
+            if (e != null && outcome == null && !vm.introVoice.screenReader) {
+                vm.hintVoice.play(si.lanisce.lani.game.PromptSpeech.of(e) { vm.speaker.looksIn(it, language) }, needsBase = false)
+            }
+        }
+        DisposableEffect(Unit) { onDispose { vm.hintVoice.stop() } }
+    }
     var stopped by remember { mutableStateOf(false) }
     /** The text shown again over the question ([text]). */
     var peeking by remember { mutableStateOf(false) }
@@ -1312,6 +1323,8 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
                     Text("💡 ${bi("playerScreen.hint")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 hintText(o.hint)?.let { Markdown(ExplainFormat.format(it), block = explained) }
+                // what a text lacks, here: the checks list runs under this panel
+                o.checks?.let { si.lanisce.lani.ui.school.UnmetChecks(it) }
                 if (o.verdict != Verdict.CORRECT && o.correct != null) {
                     // a typed answer near the right one: what was typed set against it under it, as a worksheet's item
                     // has it (struck through, the right letters green: AnswerDiffText), the right one plain above

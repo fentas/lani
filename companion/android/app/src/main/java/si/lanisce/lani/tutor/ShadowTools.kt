@@ -144,11 +144,12 @@ class ShadowTools(
  * learner's base: a word's gender, its ending, its class.
  */
 object ReplyCheck {
+    // letters by \p{L}, not \b and \w: those are ASCII on the JVM, so *ženskega* would never match, and (?U) isn't Android's
     private val CLAIM = Regex(
-        """\b(femin\w*|mascul\w*|neuter|ends? (in|with)|endings?|is an? (noun|verb|adjective|adverb)|""" +
-            """maskulin\w*|neutrum|endet auf|endung\w*|ist ein(e|) (substantiv|verb|adjektiv|adverb)|""" +
-            """femminil\w*|maschil\w*|neutro|finisce in|termina in|desinenz\w*|è un (sostantivo|verbo|aggettivo|avverbio)|""" +
-            """ženskega spola|moškega spola|srednjega spola|končnic\w*|konča (se )?na|je (samostalnik|glagol|pridevnik|prislov))\b""",
+        """(?<!\p{L})(femin\p{L}*|mascul\p{L}*|neuter|ends? (in|with)|endings?|is an? (noun|verb|adjective|adverb)|""" +
+            """maskulin\p{L}*|neutrum|endet auf|endung\p{L}*|ist ein(e|) (substantiv|verb|adjektiv|adverb)|""" +
+            """femminil\p{L}*|maschil\p{L}*|neutro|finisce in|termina in|desinenz\p{L}*|[èÈ] un (sostantivo|verbo|aggettivo|avverbio)|""" +
+            """[žŽ]enskega spola|moškega spola|srednjega spola|končnic\p{L}*|konča (se )?na|je (samostalnik|glagol|pridevnik|prislov))(?!\p{L})""",
         RegexOption.IGNORE_CASE,
     )
 

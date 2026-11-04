@@ -173,6 +173,22 @@ class PlacementController(
         sync.submitLater(Writes.placement(body, text, data, id = id))
     }
 
+    /** The level the last test raised still waits for the node ([LevelPlacement.waiting]). */
+    val waiting: Boolean get() = LevelPlacement.waiting(last(), LocalDate.now())
+
+    /**
+     * "📨 Pošlji znova · Send again": the level of the last test for the node, if it isn't queued still (the outbox tries
+     * that one by itself, and a second would count the test twice).
+     */
+    fun sendAgain() {
+        val p = last()?.takeIf { !it.confirmed } ?: return
+        sync.submitUnlessQueued("/placement") {
+            val body = PlacementReport.again(p)
+            val (text, data) = PlacementReport.againSessionEnd(p, NAMES[language] ?: language, body)
+            Writes.placement(body, text, data)
+        }
+    }
+
     /** Leaves the test: forgotten (a result shown and not taken was kept: [keep] first). */
     fun close() {
         if (result != null && !decided) keep()

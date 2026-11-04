@@ -161,6 +161,12 @@ class SchoolTest {
             "Pouk že poteka pod lipo; šola ga preseli pod streho in odpre A2. · Class is already on under the linden; the school brings it indoors and opens A2.",
             School.buildNote(done(classroom(), "biti", "spol", "extra"), course),
         )
+        // A2 open already (the placement test opened it): nothing about A2, only what the school still brings
+        val placed = classroom().let { it.copy(course = it.course!!.copy(opened = it.course!!.opened + ("${course.language}/A2" to "2026-11-01"))) }
+        assertEquals(
+            "Pouk že poteka pod lipo; šola ga preseli pod streho. · Class is already on under the linden; the school brings it indoors.",
+            School.buildNote(placed, course),
+        )
         // nothing to say before the class begins, once a school stands (a damaged one too: it's built), without a course
         assertNull(School.buildNote(village(age = Age.TABOR), course))
         assertNull(School.buildNote(village(linden, school), course))
