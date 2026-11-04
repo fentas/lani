@@ -123,7 +123,14 @@ which need nothing in their place. A voice build would take the 2,267. Memories 
 
 ## Checks
 
-See the branch's report to the lead for each check's result.
+On this branch, before the lead's rebase (main not merged, as the coordinator asked):
+
+- `bunx tsc --noEmit -p .`: clean. `bun test/prompt-clashes.ts`: exit 0, no new clash. `bun run tutor-export --check`: 140 files match.
+- `bun test/check-culture.ts`: primorska, friuli, kaernten, lakeland ok. `bun test/check-steps.ts`: all four ok.
+- The smoke (ports 11200–11219): all checks passed.
+- `:app:testDebugUnitTest`: 4,314 tests, none failed, 2 skipped. New: `SaidChoicesTest`, and a case in `GradingNonstandardTest`.
+- Python: `companion/tests` and `tests` OK; `case-triggers.py --check` matches.
+- No emulator QA: nothing here changes a screen, and a second right choice is a format the app already plays.
 
 ## What's left
 
