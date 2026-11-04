@@ -9714,7 +9714,7 @@ TALK_DEBRIEF = {"de": "Du hast höflich gegrüßt", "en": "You greeted politely"
 def village_talk(village: str):
     """A free talk in the village's language, on a synthetic learner of it (LANI_DEV_DATA: make-learner.ts --target
     <language> --base <base>; LANI_CULTURE=<village>, LANI_QA_SETUP_PAIR=<language>-<base>, LANI_QA_LEARNER), the app in
-    their pair. Home's "🗣️" talk card into the role-plays: the village's own the dev bridge serves, in its language, none
+    their pair. Home's talk tile into the role-plays: the village's own the dev bridge serves, in its language, none
     of another village's; one ($LANI_QA_TALK, else VILLAGE_TALKS' "talk"): its intro (the setting in the base, the goals in
     the pair), Start, the opener in the village's language; a line typed and sent, the canned tutor's answer in that
     language (test/dev-bridge.ts), never another; a hint, the scenario's own phrase; a second line (the correction in the
@@ -9782,9 +9782,10 @@ def village_talk(village: str):
 
     offered = [s for s in api("/scenarios") if isinstance(s, dict)]
     go_home()
-    card = scroll_to(f"🗣️ {lab('common.talk')}", 8)
+    # Home's tile: its label in the target alone, the base on a line of its own (not the "🗣️ … · …" card it once was)
+    card = scroll_to(msg(pair[0], "homeScreen.talk"), 8, exact=True)
     if card is None:
-        return f"no \"🗣️ {lab('common.talk')}\" on Home"
+        return f"no \"{msg(pair[0], 'homeScreen.talk')}\" tile on Home"
     tap_at(card)
     taps += 1
     assert wait_for(msg(pair[1], "talkScreen.tutorPlaysOtherPerson"), 10) or wait_for(msg(pair[0], "talkScreen.tutorPlaysOtherPerson"), 3), "the talk's list"
