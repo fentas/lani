@@ -249,10 +249,11 @@ export function checkItemsDe(items: CaseItemDe[], rules: Record<string, CaseRule
         for (let i = from + (dets.length && !fused ? 1 : 0); i < it.word; i++) {
           const a = at(i)
           if (!a || /^\p{Lu}/u.test(a)) continue
-          const adj = c.dict?.grammarReadings(norm(a)).find(r => r.pos === 'adj')
-          if (!adj) continue
-          const want = c.forms.adjectiveForm(adj.lemma, det, key, g, n)
-          if (norm(a) !== norm(want) && !it.spoken) p(`"${a}" isn't ${adj.lemma} after ${det ?? 'no determiner'} in ${key}.${n === 'pl' ? 'pl' : g} (${want})`)
+          // a word may read as two adjectives (nächsten: nächst, and nah's superlative): one of them has to fit
+          const adjs = (c.dict?.grammarReadings(norm(a)) ?? []).filter(r => r.pos === 'adj')
+          if (!adjs.length) continue
+          const wants = adjs.map(r => c.forms.adjectiveForm(r.lemma, det, key, g, n))
+          if (!wants.some(w => norm(a) === norm(w)) && !it.spoken) p(`"${a}" isn't ${adjs[0].lemma} after ${det ?? 'no determiner'} in ${key}.${n === 'pl' ? 'pl' : g} (${wants[0]})`)
         }
         const noun = nounOf(c, it.lemma, g)
         const slot = c.forms.noun(it.lemma, g, noun.plural, key, n)
