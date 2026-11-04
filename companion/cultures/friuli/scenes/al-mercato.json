@@ -10,7 +10,7 @@
   },
   "emoji": "🧺",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "market",
   "from": [
     "market"
@@ -199,6 +199,8 @@
       "chance": 0.5,
       "dialog": "osteria",
       "dialogs": [
+        "osteria-b2-sagra",
+        "osteria-b1-messaggio",
         "osteria-asparagi",
         "osteria-frico",
         "osteria"
@@ -230,6 +232,8 @@
       "chance": 0.45,
       "dialog": "carro",
       "dialogs": [
+        "carro-b2-grandine",
+        "carro-b1-succo",
         "carro-vendemmia",
         "carro-bottiglie",
         "carro"
@@ -2364,6 +2368,513 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "osteria-b2-sagra",
+      "level": "B2",
+      "memory": {
+        "it": "la sagra in cui il frico è finito alle otto",
+        "sl": "vaški praznik, ko je frica zmanjkalo ob osmih",
+        "en": "the sagra when the frico ran out at eight",
+        "de": "das Fest, bei dem der Frico um acht aus war"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "face": "worried",
+          "it": "{learner}, sai che l'anno scorso alla sagra il frico è finito alle otto?",
+          "sl": "{learner}, veš, da je lani na vaškem prazniku frica zmanjkalo že ob osmih?",
+          "en": "{learner}, did you know that at last year's sagra the frico ran out at eight?",
+          "de": "{learner}, weißt du, dass beim Fest letztes Jahr der Frico schon um acht aus war?"
+        },
+        {
+          "who": "marisa",
+          "face": "thinking",
+          "it": "Se avessi saputo che sarebbe venuto tutto il paese, avrei comprato il doppio del formaggio. E poi ero sola ai fornelli.",
+          "sl": "Če bi bila vedela, da bo prišla vsa vas, bi bila kupila dvakrat več sira. Pa še sama sem bila pri štedilniku.",
+          "en": "If I'd known the whole village would come, I'd have bought twice the cheese. And I was alone at the stove.",
+          "de": "Hätte ich gewusst, dass das ganze Dorf kommt, hätte ich doppelt so viel Käse gekauft. Und ich stand allein am Herd."
+        },
+        {
+          "choices": [
+            {
+              "it": "Avresti dovuto chiamarmi! Ti avrei aiutata volentieri.",
+              "sl": "Morala bi me poklicati! Z veseljem bi ti {m:pomagal|f:pomagala}.",
+              "en": "You should have called me! I'd gladly have helped you.",
+              "de": "Du hättest mich rufen sollen! Ich hätte dir gern geholfen.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Hai ragione. Quest'anno chiamo te per {m:primo|f:prima}!",
+                "sl": "Prav imaš. Letos pokličem najprej tebe!",
+                "en": "You're right. This year I'll call you first!",
+                "de": "Stimmt. Dieses Jahr rufe ich zuerst dich!"
+              }
+            },
+            {
+              "it": "Avrai dovuto chiamarmi! Ti avrei aiutata volentieri.",
+              "sl": "Najbrž si me morala poklicati! Z veseljem bi ti {m:pomagal|f:pomagala}.",
+              "en": "You must have had to call me! I'd gladly have helped you.",
+              "de": "Du wirst mich wohl gerufen haben müssen! Ich hätte dir gern geholfen.",
+              "grammar": "condizionale-passato",
+              "why": {
+                "sl": "Avresti dovuto (pogojnik preteklega časa) pove, kar bi bilo prav, pa se ni zgodilo. Avrai dovuto je futuro anteriore: ugibanje.",
+                "en": "Avresti dovuto, the past conditional, says what would have been right and didn't happen. Avrai dovuto is the futuro anteriore: a guess.",
+                "de": "Avresti dovuto, der Konditional der Vergangenheit, sagt, was richtig gewesen wäre und nicht passiert ist. Avrai dovuto ist das futuro anteriore: eine Vermutung."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Avrò dovuto? Cioè, forse ti ho chiamato e non me lo ricordo?",
+                "sl": "Avrò dovuto? Se pravi, da sem te morda poklicala in se ne spomnim?",
+                "en": "Avrò dovuto? You mean maybe I did call you and don't remember?",
+                "de": "Avrò dovuto? Du meinst, vielleicht hab ich dich gerufen und weiß es nicht mehr?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "E tu? L'anno scorso perché non sei {m:venuto|f:venuta} alla sagra?",
+          "sl": "Pa ti? Zakaj lani nisi {m:prišel|f:prišla} na vaški praznik?",
+          "en": "And you? Why didn't you come to the sagra last year?",
+          "de": "Und du? Warum bist du letztes Jahr nicht zum Fest gekommen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Se non avessi avuto la febbre, sarei {m:venuto|f:venuta} di sicuro!",
+              "sl": "Če ne bi {m:imel|f:imela} vročine, bi gotovo {m:prišel|f:prišla}!",
+              "en": "If I hadn't had a temperature, I'd have come for sure!",
+              "de": "Wenn ich kein Fieber gehabt hätte, wäre ich sicher gekommen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Allora quest'anno niente febbre, eh? Ti tengo da parte un frico caldo.",
+                "sl": "Letos pa brez vročine, ja? Prihranila ti bom topel frico.",
+                "en": "Then no temperature this year, eh? I'll keep a hot frico for you.",
+                "de": "Dann dieses Jahr kein Fieber, ja? Ich heb dir einen warmen Frico auf."
+              }
+            },
+            {
+              "it": "Se non avrei avuto la febbre, sarei {m:venuto|f:venuta} di sicuro!",
+              "sl": "Če ne bi {m:imel|f:imela} vročine, bi gotovo {m:prišel|f:prišla}!",
+              "en": "If I wouldn't have had a temperature, I'd have come for sure!",
+              "de": "Wenn ich kein Fieber gehabt haben würde, wäre ich sicher gekommen!",
+              "grammar": "periodo-ipotetico-irrealta",
+              "why": {
+                "sl": "Za se nikoli pogojnik: se non avessi avuto (congiuntivo trapassato), sarei {m:venuto|f:venuta} v drugi polovici.",
+                "en": "After se, never the conditional: se non avessi avuto, and sarei {m:venuto|f:venuta} in the other half.",
+                "de": "Nach se nie der Konditional: se non avessi avuto, und sarei {m:venuto|f:venuta} in der anderen Hälfte."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Se non avrei? Mmm, ripetilo con calma.",
+                "sl": "Se non avrei? Hm, ponovi v miru.",
+                "en": "Se non avrei? Hmm, say it again calmly.",
+                "de": "Se non avrei? Hm, sag es nochmal in Ruhe."
+              }
+            },
+            {
+              "it": "Se non avessi avuto la febbre, avrei venuto di sicuro!",
+              "sl": "Če ne bi {m:imel|f:imela} vročine, bi gotovo {m:prišel|f:prišla}!",
+              "en": "If I hadn't had a temperature, I'd have come for sure!",
+              "de": "Wenn ich kein Fieber gehabt hätte, hätte ich sicher gekommen!",
+              "grammar": "periodo-ipotetico-irrealta",
+              "why": {
+                "sl": "Venire tvori sestavljene čase z essere: sono {m:venuto|f:venuta}, zato sarei {m:venuto|f:venuta}.",
+                "en": "Venire takes essere in its compound tenses: sono {m:venuto|f:venuta}, so sarei {m:venuto|f:venuta}.",
+                "de": "Venire bildet die zusammengesetzten Zeiten mit essere: sono {m:venuto|f:venuta}, also sarei {m:venuto|f:venuta}."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Avrei venuto? Non ti seguo, {learner}!",
+                "sl": "Avrei venuto? Ne sledim ti, {learner}!",
+                "en": "Avrei venuto? I can't follow you, {learner}!",
+                "de": "Avrei venuto? Ich komm nicht mit, {learner}!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Quest'anno compro trenta chili di Montasio. Così il frico basta per tutto il paese!",
+          "sl": "Letos kupim trideset kil montasia. Tako bo frica dovolj za vso vas!",
+          "en": "This year I'm buying thirty kilos of Montasio. That way there'll be frico for the whole village!",
+          "de": "Dieses Jahr kaufe ich dreißig Kilo Montasio. So reicht der Frico fürs ganze Dorf!"
+        }
+      ]
+    },
+    {
+      "id": "osteria-b1-messaggio",
+      "level": "B1",
+      "memory": {
+        "it": "il messaggio della nonna Rosa che mi hai portato",
+        "sl": "sporočilo babice Rose, ki si mi ga {m:prinesel|f:prinesla}",
+        "en": "Nonna Rosa's message you brought me",
+        "de": "die Nachricht von Nonna Rosa, die du mir gebracht hast"
+      },
+      "lines": [
+        {
+          "who": "marisa",
+          "face": "curious",
+          "it": "Ciao, {learner}! La nonna Rosa ti ha detto qualcosa per me?",
+          "sl": "Živjo, {learner}! Ti je babica Rosa kaj naročila zame?",
+          "en": "Hi, {learner}! Did Nonna Rosa give you a message for me?",
+          "de": "Hallo, {learner}! Hat dir Nonna Rosa etwas für mich gesagt?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì! Ha detto di passare da lei dopo pranzo.",
+              "sl": "Ja! Rekla je, naj se po kosilu oglasiš pri njej.",
+              "en": "Yes! She said to come by hers after lunch.",
+              "de": "Ja! Sie hat gesagt, du sollst nach dem Mittagessen bei ihr vorbeischauen.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Perfetto, così mi dà il formaggio per il frico.",
+                "sl": "Odlično, tako mi bo dala sir za frico.",
+                "en": "Perfect, then she'll give me the cheese for the frico.",
+                "de": "Super, dann gibt sie mir den Käse für den Frico."
+              }
+            },
+            {
+              "it": "Sì! Ha detto passare da lei dopo pranzo.",
+              "sl": "Ja! Rekla je, naj se po kosilu oglasiš pri njej.",
+              "en": "Yes! She said come by hers after lunch.",
+              "de": "Ja! Sie hat gesagt, nach dem Mittagessen bei ihr vorbeischauen.",
+              "grammar": "discorso-indiretto",
+              "why": {
+                "sl": "Prošnjo poveš naprej z di in nedoločnikom: ha detto di passare.",
+                "en": "A request is passed on with di and the infinitive: ha detto di passare.",
+                "de": "Eine Bitte gibst du mit di und der Grundform weiter: ha detto di passare."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Ha detto … passare? Passare cosa, il sale?",
+                "sl": "Ha detto … passare? Kaj naj podam, sol?",
+                "en": "Ha detto … passare? Pass what, the salt?",
+                "de": "Ha detto … passare? Was soll ich reichen, das Salz?"
+              }
+            },
+            {
+              "it": "Sì! Ha detto di passare da me dopo pranzo.",
+              "sl": "Ja! Rekla je, naj se po kosilu oglasiš pri meni.",
+              "en": "Yes! She said to come by mine after lunch.",
+              "de": "Ja! Sie hat gesagt, du sollst nach dem Mittagessen bei mir vorbeischauen.",
+              "grammar": "discorso-indiretto",
+              "why": {
+                "sl": "Rosa je rekla »passa da me« (k meni): naprej poveš da lei (k njej). Da me bi bil ti.",
+                "en": "Rosa said »passa da me« (to mine): passed on, it's da lei (to hers). Da me would be you.",
+                "de": "Rosa hat »passa da me« (zu mir) gesagt: weitergesagt heißt es da lei (zu ihr). Da me wärst du."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Da te? Allora vengo a casa tua a mangiare il frico!",
+                "sl": "K tebi? Potem pridem k tebi domov jest frico!",
+                "en": "To yours? Then I'll come to your house to eat frico!",
+                "de": "Zu dir? Dann komme ich zu dir nach Hause Frico essen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "thinking",
+          "it": "Senti, se tu avessi un'osteria, che cosa cucineresti ai bambini?",
+          "sl": "Poslušaj, če bi ti {m:imel|f:imela} gostilno, kaj bi {m:kuhal|f:kuhala} otrokom?",
+          "en": "Listen, if you had an osteria, what would you cook for the children?",
+          "de": "Hör mal, wenn du eine Osteria hättest, was würdest du den Kindern kochen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Se avessi un'osteria, farei la pizza ogni giorno!",
+              "sl": "Če bi {m:imel|f:imela} gostilno, bi vsak dan {m:delal|f:delala} pico!",
+              "en": "If I had an osteria, I'd make pizza every day!",
+              "de": "Wenn ich eine Osteria hätte, würde ich jeden Tag Pizza machen!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ogni giorno? Allora i bambini non andrebbero più a casa!",
+                "sl": "Vsak dan? Potem otroci ne bi nikoli več šli domov!",
+                "en": "Every day? Then the children would never go home!",
+                "de": "Jeden Tag? Dann würden die Kinder nie mehr nach Hause gehen!"
+              }
+            },
+            {
+              "it": "Se avrei un'osteria, farei la pizza ogni giorno!",
+              "sl": "Če bi {m:imel|f:imela} gostilno, bi vsak dan {m:delal|f:delala} pico!",
+              "en": "If I would have an osteria, I'd make pizza every day!",
+              "de": "Wenn ich eine Osteria haben würde, würde ich jeden Tag Pizza machen!",
+              "grammar": "periodo-ipotetico",
+              "why": {
+                "sl": "Za se nikoli pogojnik: se avessi (congiuntivo), farei v drugi polovici.",
+                "en": "After se, never the conditional: se avessi, and farei in the other half.",
+                "de": "Nach se nie der Konditional: se avessi, und farei in der anderen Hälfte."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Se avrei? Mmm, la nonna Rosa direbbe che non suona bene.",
+                "sl": "Se avrei? Hm, babica Rosa bi rekla, da to ne zveni prav.",
+                "en": "Se avrei? Hmm, Nonna Rosa would say that doesn't sound right.",
+                "de": "Se avrei? Hm, Nonna Rosa würde sagen, das klingt nicht richtig."
+              }
+            }
+          ]
+        },
+        {
+          "who": "marisa",
+          "face": "happy",
+          "it": "Bella idea! Ma prima, il frico. Ci vediamo dopo pranzo, {learner}!",
+          "sl": "Lepa ideja! Ampak najprej frico. Se vidimo po kosilu, {learner}!",
+          "en": "Nice idea! But first, the frico. See you after lunch, {learner}!",
+          "de": "Schöne Idee! Aber zuerst der Frico. Wir sehen uns nach dem Mittagessen, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "carro-b2-grandine",
+      "level": "B2",
+      "months": [
+        9,
+        10,
+        11
+      ],
+      "memory": {
+        "it": "la vendemmia finita appena prima della grandine",
+        "sl": "trgatev, končano tik pred točo",
+        "en": "the harvest finished just before the hail",
+        "de": "die Weinlese, die gerade noch vor dem Hagel fertig war"
+      },
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "worried",
+          "it": "{learner}, hai visto che grandinata ieri sera? Per fortuna l'uva era già stata raccolta.",
+          "sl": "{learner}, si {m:videl|f:videla}, kakšna toča je padala sinoči? Na srečo je bilo grozdje že pobrano.",
+          "en": "{learner}, did you see that hailstorm last night? Luckily the grapes had already been picked.",
+          "de": "{learner}, hast du den Hagel gestern Abend gesehen? Zum Glück waren die Trauben schon gelesen."
+        },
+        {
+          "who": "matteo",
+          "face": "thinking",
+          "it": "Se avessimo aspettato un'altra settimana, avremmo perso tutto.",
+          "sl": "Če bi počakali še en teden, bi izgubili vse.",
+          "en": "If we'd waited another week, we'd have lost everything.",
+          "de": "Hätten wir noch eine Woche gewartet, hätten wir alles verloren."
+        },
+        {
+          "choices": [
+            {
+              "it": "Quindi avete vendemmiato appena in tempo!",
+              "sl": "Torej ste trgali ravno pravi čas!",
+              "en": "So you picked just in time!",
+              "de": "Dann habt ihr gerade noch rechtzeitig gelesen!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Proprio così. Mio nonno diceva sempre: l'uva non aspetta nessuno.",
+                "sl": "Točno tako. Moj ded je vedno rekel: grozdje ne čaka nikogar.",
+                "en": "Exactly. My grandad always said: the grapes wait for no one.",
+                "de": "Genau. Mein Opa hat immer gesagt: Die Trauben warten auf niemanden."
+              }
+            },
+            {
+              "it": "Quindi avete perso tutta l'uva!",
+              "sl": "Torej ste izgubili vse grozdje!",
+              "en": "So you lost all the grapes!",
+              "de": "Dann habt ihr alle Trauben verloren!",
+              "grammar": "periodo-ipotetico-irrealta",
+              "why": {
+                "sl": "Avremmo perso pove, kar bi se zgodilo, pa se ni: grozdje je bilo že pobrano.",
+                "en": "Avremmo perso says what would have happened and didn't: the grapes were already in.",
+                "de": "Avremmo perso sagt, was passiert wäre, aber nicht passiert ist: Die Trauben waren schon gelesen."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Perso? Ma no, guarda il carro: è pieno di cassette!",
+                "sl": "Izgubili? Kje pa, poglej voz: poln je zabojčkov!",
+                "en": "Lost? Not at all, look at the cart: it's full of crates!",
+                "de": "Verloren? Aber nein, schau auf den Wagen: Er ist voller Kisten!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Il nonno diceva che una volta si vendemmiava tutti insieme, cantando come se fosse festa.",
+          "sl": "Ded je pravil, da so nekoč trgali vsi skupaj in peli, kot da bi bil praznik.",
+          "en": "Grandad said that people once picked all together, singing as if it were a holiday.",
+          "de": "Opa hat gesagt, dass früher alle zusammen gelesen und gesungen haben, als ob Feiertag wäre."
+        },
+        {
+          "choices": [
+            {
+              "it": "E tu lavori sempre come se fosse festa!",
+              "sl": "Ti pa vedno delaš, kot da bi bil praznik!",
+              "en": "And you always work as if it were a holiday!",
+              "de": "Und du arbeitest immer, als ob Feiertag wäre!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah ah, è vero! Cantando si fa meno fatica.",
+                "sl": "Ha ha, res je! Ob petju je delo lažje.",
+                "en": "Ha ha, it's true! Work's easier when you sing.",
+                "de": "Haha, stimmt! Mit Singen geht die Arbeit leichter."
+              }
+            },
+            {
+              "it": "E tu lavori sempre come se sia festa!",
+              "sl": "Ti pa vedno delaš, kot da bi bil praznik!",
+              "en": "And you always work as if it be a holiday!",
+              "de": "Und du arbeitest immer, als ob Feiertag sei!",
+              "grammar": "congiunzioni-congiuntivo",
+              "why": {
+                "sl": "Come se zahteva congiuntivo imperfetto ali trapassato: come se fosse.",
+                "en": "Come se always takes the imperfetto or the trapassato: come se fosse.",
+                "de": "Come se will immer imperfetto oder trapassato: come se fosse."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Come se sia? Mmm, me lo ridici?",
+                "sl": "Come se sia? Hm, mi poveš še enkrat?",
+                "en": "Come se sia? Hmm, can you say that again?",
+                "de": "Come se sia? Hm, sagst du das nochmal?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Torna domenica, {learner}: facciamo la festa della vendemmia con tutto il paese!",
+          "sl": "Pridi v nedeljo, {learner}: s celo vasjo bomo praznovali trgatev!",
+          "en": "Come back on Sunday, {learner}: we're having the harvest party with the whole village!",
+          "de": "Komm am Sonntag wieder, {learner}: Wir feiern das Weinlesefest mit dem ganzen Dorf!"
+        }
+      ]
+    },
+    {
+      "id": "carro-b1-succo",
+      "level": "B1",
+      "memory": {
+        "it": "il succo d'uva della vigna vicino al campanile",
+        "sl": "grozdni sok iz vinograda pri zvoniku",
+        "en": "the grape juice from the vineyard by the bell tower",
+        "de": "den Traubensaft aus dem Weinberg beim Kirchturm"
+      },
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Ciao, {learner}! Ti piace il succo d'uva che ho portato oggi?",
+          "sl": "Živjo, {learner}! Ti je všeč grozdni sok, ki sem ga danes prinesel?",
+          "en": "Hi, {learner}! Do you like the grape juice I brought today?",
+          "de": "Hallo, {learner}! Schmeckt dir der Traubensaft, den ich heute mitgebracht habe?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, tantissimo! Me ne dai ancora un bicchiere?",
+              "sl": "Ja, zelo! Mi daš še en kozarec?",
+              "en": "Yes, loads! Will you give me another glass?",
+              "de": "Ja, total! Gibst du mir noch ein Glas?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Certo! È fatto con l'uva della mia vigna.",
+                "sl": "Seveda! Narejen je iz grozdja iz mojega vinograda.",
+                "en": "Of course! It's made from the grapes of my vineyard.",
+                "de": "Klar! Er ist aus den Trauben von meinem Weinberg."
+              }
+            },
+            {
+              "it": "Sì, tantissimo! Mi ne dai ancora un bicchiere?",
+              "sl": "Ja, zelo! Mi daš še en kozarec?",
+              "en": "Yes, loads! Will you give me another glass?",
+              "de": "Ja, total! Gibst du mir noch ein Glas?",
+              "grammar": "pronomi-combinati",
+              "why": {
+                "sl": "Pred ne postane mi me: me ne dai.",
+                "en": "Before ne, mi becomes me: me ne dai.",
+                "de": "Vor ne wird mi zu me: me ne dai."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Mi ne …? Ma il succo lo vuoi o no?",
+                "sl": "Mi ne …? Ja, hočeš sok ali ne?",
+                "en": "Mi ne …? So do you want juice or not?",
+                "de": "Mi ne …? Ja, willst du Saft oder nicht?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "proud",
+          "it": "Sai da quale vigna viene? Da quella vicino al campanile.",
+          "sl": "Veš, iz katerega vinograda je? Iz tistega pri zvoniku.",
+          "en": "Do you know which vineyard it comes from? The one by the bell tower.",
+          "de": "Weißt du, aus welchem Weinberg er kommt? Aus dem beim Kirchturm."
+        },
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "E tu? Qual è il posto del paese in cui ti piace giocare di più?",
+          "sl": "Pa ti? Kje v vasi se najraje igraš?",
+          "en": "And you? What's the place in the village where you most like to play?",
+          "de": "Und du? Wo im Dorf spielst du am liebsten?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Il prato in cui giochiamo a calcio, dietro la scuola!",
+              "sl": "Travnik, na katerem igramo nogomet, za šolo!",
+              "en": "The meadow where we play football, behind the school!",
+              "de": "Die Wiese, auf der wir Fußball spielen, hinter der Schule!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah, quel prato! Da bambino ci rompevo sempre i pantaloni.",
+                "sl": "Aha, tisti travnik! Kot otrok sem si tam vedno strgal hlače.",
+                "en": "Ah, that meadow! As a boy I always tore my trousers there.",
+                "de": "Ah, die Wiese! Als Kind hab ich mir dort immer die Hose zerrissen."
+              }
+            },
+            {
+              "it": "Il prato in che giochiamo a calcio, dietro la scuola!",
+              "sl": "Travnik, na katerem igramo nogomet, za šolo!",
+              "en": "The meadow in what we play football, behind the school!",
+              "de": "Die Wiese, auf was wir Fußball spielen, hinter der Schule!",
+              "grammar": "relativi-cui",
+              "why": {
+                "sl": "Za predlogom je cui: in cui, da cui, con cui. Che nikoli ne stoji za predlogom.",
+                "en": "After a preposition, cui: in cui, da cui, con cui. Che never follows a preposition.",
+                "de": "Nach einer Präposition steht cui: in cui, da cui, con cui. Che steht nie nach einer Präposition."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "In che? In che cosa giocate, in una scatola?",
+                "sl": "In che? V čem se igrate, v škatli?",
+                "en": "In che? In what do you play, a box?",
+                "de": "In che? Worin spielt ihr, in einer Schachtel?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Allora bevi il tuo succo e corri al prato, {learner}! Ciao!",
+          "sl": "Potem pa popij sok in teci na travnik, {learner}! Adijo!",
+          "en": "Then drink your juice and run off to the meadow, {learner}! Bye!",
+          "de": "Dann trink deinen Saft und lauf zur Wiese, {learner}! Tschüss!"
         }
       ]
     }
