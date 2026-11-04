@@ -198,8 +198,10 @@ before it explains (*Dann hätten wir vielleicht zu wenig Heu.*).
 ## What's left
 
 - **Three tests fail on this base, none by this branch.** See "Tests".
-- **Pages with no curated form turn** (uhrzeit, zahlen, ordinalzahlen, als-ob, indirekte-rede, steigerung's forms) have their
-  rule, sentence and models and no looks to speak of: nothing to read them against yet. A tutor's turn there gets the rule.
+- **Eight pages have no curated turn at all** (adjektiv-der, imperativ, ordinalzahlen, possessiv, praepositionen-akkusativ,
+  praeteritum-kurz, uhrzeit, zahlen), and six only turns of no one word (als-ob, indirekte-rede, konnektoren, oesterreichisch,
+  satzbau, wortstellung). They have their rule, sentence and models; what their looks find has met no sentence of the village,
+  so it is less proven than the rest. A tutor's turn there gets the rule at the least.
 - **A pronoun's gender** is named only when a sentence of its own names the noun (*Ein Fuchs! Er ist rot.*); the line before
   a turn isn't in the chip's reach, so *Ja, sie riecht so gut!* says the rule alone.
 - **`als` against `wie`** after a comparative names nothing: people say *größer wie* (grading's `nonstandard`), and a line
@@ -208,7 +210,30 @@ before it explains (*Dann hätten wir vielleicht zu wenig Heu.*).
 
 ## Tests
 
-@@TESTS_SECTION@@
+On this branch at 538ac50ee (the app's code last changed at b091482c0; only QA's step after it), ports 11080–11099, LANI_SMOKE_DRAMA3_PORT 11098:
+- Bridge (untouched, run anyway): `bunx tsc --noEmit -p .` clean; the smoke 4,198 checks, all passed; `tutor-export --check` 140
+  files match.
+- Python: `python3 -m unittest discover -s tests` 253 OK, `-s companion/tests` 185 OK (11 skipped).
+- App: the full unit suite through lani-slot.sh: @@FULL@@. Among them: `GermanHintTest` 18, `TurnHintTest` 18 and
+  `ItalianHintTest` 14 and `HintSpeechTest` 11 unchanged and passing, `L10nTablesTest` 6.
+- **Three tests fail, and they fail on the base too.** Run alone on a clean checkout of 6bdf652af, a throwaway worktree, the same
+  three fail with the same messages, so none comes from this branch (which changes no file of cultures/, grammar/ or grading/):
+  - `EnglishHintTest`, "over the curated English turns …": 1,370 of 1,548 hints say more than the link, 88.5 % against its 90 %.
+    Its last pass was at 1,642 turns and 1,018 hints; the merge of village-b2-lakeland (6bdf652af, after that run) brought 2,490
+    turns and 1,548 hints. German's fix for the same symptom ("The small words") would likely help English too; left for its owner.
+  - `SceneCoherenceTest`, "no line tells the learner to look at what isn't there": Lakeland's new -b1- and -b2- variants
+    (*at-the-bank-barn/stores-b1-mice*, *by-the-beck/sheep-b2-heaf* …) say look with nothing cued or reviewed in looks.json.
+  - `LearnerContentTest`, "said to Jan …": compared 215 of 431, under its half: its fixture's digests no longer match the content.
+- Emulator QA, `companion/bin/qa-slot --slot 2 --no-town --apk <the tree's debug APK> --steps hint-de` (slot 2: no port in
+  8790–8799), a synthetic learner (make-learner.ts --target de --base sl, LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-sl,
+  LANI_QA_PAIR=de-sl): ok, no crash. At the two turns of Jakob's trout by the stream the card comes into view with its line in
+  Slovene: "ob «Forelle»: odloči njegov spol" and the rule with *der* and *die* side by side; "«Die Forelle» je na prvem mestu:
+  glagol pride takoj za tem" at the turn of word order. The first line needs German's trigger table, so it shows the table is
+  read in the APK. Shots: the session's scratchpad, de/ux-hint-chip-de/hint-de-1.png and -2.png (the run's all in
+  companion/qa-shots/20261104-194743-slot2). The runs before it failed, each for a reason now in the step's docstring: a project's
+  scene isn't in a new village (the Doppelharpfe); the card out of sight (the fix above; before: 20261104-190052-slot2, 12-hint-de-1.png,
+  the chip selected and no card); an A1 learner's dative turn is an echo, with no card (the alp). No QA ran in en or it bases:
+  those are `GermanHintTest`'s, in sl, en and it.
 
 No line anyone hears was added or changed in the voice store (the new strings are the card's and the 🔊's, said by the
 phone's voice, the German by the app's live voice): a voice build needs 0 characters.
