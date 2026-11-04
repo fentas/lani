@@ -31,9 +31,16 @@ import si.lanisce.lani.l10n.L10n
 import java.io.File
 import java.time.LocalDate
 
-/** A lemma's forms as the phone keeps them: what GET /forms said ([entries]; none: no forms), and when ([at], ms). */
+/**
+ * A lemma's forms as the phone keeps them: what GET /forms said ([entries]; none: no forms), when ([at], ms), the
+ * [attribution] its tables carry, and the forms version it was asked with ([v], [WordFormsWire.VERSION]: one kept before
+ * Italian's, German's and English's tables, 0, is asked again).
+ */
 @Serializable
-data class CachedForms(val lemma: String, val at: Long, val entries: List<LemmaForms> = emptyList())
+data class CachedForms(val lemma: String, val at: Long, val entries: List<LemmaForms> = emptyList(), val attribution: String? = null, val v: Int = 0) {
+    /** Asked with this app's version, or Slovene's tables (which stayed as they were): an empty answer from before is asked again. */
+    val current: Boolean get() = v >= WordFormsWire.VERSION || (entries.isNotEmpty() && entries.all { it.language == null })
+}
 
 /**
  * A word's forms (companion/GAME.md, "A word's forms"): the bridge's (GET /forms) for the learner's words, cached on the
@@ -71,7 +78,10 @@ class FormsController(
     }
 
     /** The cached entries of [lemma]; null when the phone hasn't asked yet. */
-    fun entriesOf(lemma: String): List<LemmaForms>? = cache[WordFormsWire.key(lemma)]?.entries
+    fun entriesOf(lemma: String): List<LemmaForms>? = cache[WordFormsWire.key(lemma)]?.takeIf { it.current }?.entries
+
+    /** What the tables of [lemma] carry as their source (Wiktionary's attribution); null when none. */
+    fun attributionOf(lemma: String): String? = cache[WordFormsWire.key(lemma)]?.takeIf { it.current }?.attribution
 
     /** The entry of [lemma] a word card's entry of part of speech [pos] meaning [gloss] is about. */
     fun entryOf(lemma: String, pos: String?, gloss: List<String>): LemmaForms? {
@@ -86,11 +96,12 @@ class FormsController(
      */
     suspend fun reload(b: Bridge, cards: List<ReviewCard>) {
         val now = System.currentTimeMillis()
+        val lang = language
         // over the learner's whole deck: off the main thread (docs/plans/05-built/home-return.md: every Back to Home)
         val known = cache
         val wanted = withContext(Dispatchers.Default) {
-            cards.mapNotNull(WordFormsWire::lemmaOf).distinctBy(WordFormsWire::key)
-                .filter { (known[WordFormsWire.key(it)]?.at ?: 0L) < now - STALE_MS }
+            cards.mapNotNull { WordFormsWire.lemmaOf(it, lang) }.distinctBy(WordFormsWire::key)
+                .filter { k -> known[WordFormsWire.key(k)].let { it == null || !it.current || it.at < now - STALE_MS } }
                 .take(MAX_PER_RELOAD)
         }
         fetch(b, wanted)
@@ -99,7 +110,7 @@ class FormsController(
     /** The forms of [lemmas] now, when the phone doesn't have them yet (a word card opening on one of them). */
     fun want(lemmas: List<String>) {
         val b = bridge() ?: return
-        val missing = lemmas.distinctBy(WordFormsWire::key).filter { WordFormsWire.key(it) !in cache && WordFormsWire.key(it) !in asking }
+        val missing = lemmas.distinctBy(WordFormsWire::key).filter { cache[WordFormsWire.key(it)]?.current != true && WordFormsWire.key(it) !in asking }
         if (missing.isEmpty()) return
         asking += missing.map(WordFormsWire::key)
         scope.launch {
@@ -130,7 +141,7 @@ class FormsController(
                 return
             }
             val now = System.currentTimeMillis()
-            for (w in answer.words) got[WordFormsWire.key(w.word)] = CachedForms(w.word, now, w.entries)
+            for (w in answer.words) got[WordFormsWire.key(w.word)] = CachedForms(w.word, now, w.entries, answer.attribution, WordFormsWire.VERSION)
         }
         if (got.isEmpty()) return
         cache = cache + got
@@ -161,7 +172,8 @@ class FormsController(
         val locks = grammar.formLocks()
         val base = L10n.pair.base.code
         val force = QaHooks.forms
-        return { card -> WordForms.forCard(card, WordFormsWire.lemmaOf(card)?.let(::entriesOf), record(card.id), locks, base, force) }
+        val lang = language
+        return { card -> WordForms.forCard(card, WordFormsWire.lemmaOf(card, lang)?.let(::entriesOf), record(card.id), locks, base, force, language = lang) }
     }
 
     /**
@@ -173,9 +185,10 @@ class FormsController(
         val locks = grammar.formLocks()
         val base = L10n.pair.base.code
         val open = { s: si.lanisce.lani.data.FormSlot -> locks(s).isEmpty() }
+        val lang = language
         return cards.mapNotNull { card ->
-            val entries = WordFormsWire.lemmaOf(card)?.let(::entriesOf)?.takeIf { it.isNotEmpty() } ?: return@mapNotNull null
-            val lemma = WordFormsWire.entryFor(entries, card.back) ?: return@mapNotNull null
+            val entries = WordFormsWire.lemmaOf(card, lang)?.let(::entriesOf)?.takeIf { it.isNotEmpty() } ?: return@mapNotNull null
+            val lemma = WordFormsWire.entryFor(entries, card.back, WordFormsWire.posOf(card, lang)) ?: return@mapNotNull null
             val slot = WordForms.pick(lemma, record(card.id), open) ?: return@mapNotNull null
             WordForms.question(lemma, slot, null, ReviewPlanner.meaning(card.back), base, open)?.let { card.id to it }
         }.toMap()
@@ -200,7 +213,7 @@ class FormsController(
      */
     fun practised(practised: List<Triple<String, String, Boolean>>, cards: List<ReviewCard>): Int {
         if (practised.isEmpty()) return 0
-        val byLemma = cards.filter { it.kind == "vocabulary" }.mapNotNull { c -> WordFormsWire.lemmaOf(c)?.let { WordFormsWire.key(it) to c } }.toMap()
+        val byLemma = cards.filter { it.kind == "vocabulary" }.mapNotNull { c -> WordFormsWire.lemmaOf(c, language)?.let { WordFormsWire.key(it) to c } }.toMap()
         val day = LocalDate.now().toString()
         var kept = 0
         for ((lemma, key, right) in practised) {

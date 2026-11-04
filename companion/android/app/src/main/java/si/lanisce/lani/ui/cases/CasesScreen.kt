@@ -104,8 +104,8 @@ fun CasesScreen(vm: AppViewModel, focus: String?) {
                     if (due > 0) Text("🔁 ${bi("cases.dueAgain", "n" to due)}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
                 }
             }
-            item { SectionTitle("🎨 ${bi("cases.theCases")}") }
-            items(Case.entries, key = { it.id }) { k -> CaseRow(vm, k) }
+            item { SectionTitle("🎨 ${bi(ck("cases.theCases"))}") }
+            items(si.lanisce.lani.data.CaseSets.current.cases, key = { it.id }) { k -> CaseRow(vm, k) }
             item { SectionTitle("🔑 ${bi("cases.whatDecides")}") }
             item { RuleRows(vm) }
             item { SectionTitle("🎛️ ${bi("cases.kinds")}") }
@@ -113,7 +113,7 @@ fun CasesScreen(vm: AppViewModel, focus: String?) {
         }
         item {
             Column(Modifier.padding(horizontal = 20.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Markdown("💡 ${bi("cases.tip")}")
+                Markdown("💡 ${bi(ck("cases.tip"))}")
                 Text("🤖 ${bi("cases.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
@@ -132,13 +132,14 @@ private fun SectionTitle(text: String) {
 /** Closed: why (nothing introduced to ask yet), and the one tap there: the school's first case unit, else the grammar book. */
 @Composable
 private fun Locked(vm: AppViewModel) {
-    val unit = vm.school.unit("tozilnik")
+    // the school's first unit on the cases: Slovene's Tožilnik, German's Akkusativ
+    val unit = vm.school.unit(if (si.lanisce.lani.data.CaseSets.current.language == "de") "akkusativ" else "tozilnik")
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant), modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Text("🔒", style = MaterialTheme.typography.displaySmall, modifier = Modifier.clearAndSetSemantics {})
-            Text(bi(if (vm.caseTrainer.available) "cases.locked" else "cases.notHere"), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
+            Text(bi(if (vm.caseTrainer.available) ck("cases.locked") else "cases.notHere"), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
             if (vm.caseTrainer.available) {
-                if (unit != null) BigButton("🏫 ${bi("cases.toUnit")}", onClick = { vm.openUnit(unit.id) }, color = XpGold)
+                if (unit != null) BigButton("🏫 ${bi(ck("cases.toUnit"))}", onClick = { vm.openUnit(unit.id) }, color = XpGold)
                 else BigButton("📖 ${bi("cases.toBook")}", onClick = { vm.openGrammarBook() }, color = XpGold)
             }
         }
@@ -232,7 +233,7 @@ private fun Kinds() {
                 Spacer(Modifier.width(10.dp))
                 Column {
                     Text(bi(k.title), style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
-                    Text(bi(k.about), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(bi(ck(k.about)), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         }
@@ -253,7 +254,7 @@ fun CasesRunScreen(vm: AppViewModel, at: Screen.CasesRun) {
             // the storm against the clock: a right pick flashes and the next phrase comes (ExerciseRun's timed run)
             timeLimitSeconds = if (at.storm) CaseTrainer.STORM_SECONDS else null, fast = at.storm, endless = at.storm,
             source = { i -> at.planned.getOrNull(i)?.let { p -> ExerciseSource.cases(p.task.kind.wire, p.task.key, i, tutor = vm.caseTrainer.bank?.items?.firstOrNull { it.id == p.task.key }?.source == "tutor") } },
-            pages = listOf("skloni"),
+            pages = listOf(if (si.lanisce.lani.data.CaseSets.current.language == "de") "faelle" else "skloni"),
             // a form typed wrong counts on its page with both sentences, as a dialog's turn records one
             slips = { i, o ->
                 val ex = exercises.getOrNull(i)
@@ -313,7 +314,7 @@ private fun StormEnd(vm: AppViewModel, d: CasesDone, stage: si.lanisce.lani.ui.s
 private fun ByCase(d: CasesDone) {
     val by = d.tasks.zip(d.verdicts).groupBy({ it.first.case }, { it.second })
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-        for (k in Case.entries) {
+        for (k in si.lanisce.lani.data.CaseSets.current.cases) {
             val vs = by[k] ?: continue
             val c = k.color()
             Card(colors = CardDefaults.cardColors(containerColor = c.copy(alpha = 0.16f)), shape = RoundedCornerShape(12.dp)) {

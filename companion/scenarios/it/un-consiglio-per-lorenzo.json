@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "un-consiglio-per-lorenzo",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Un consiglio per Lorenzo", "de": "Ein Rat für Lorenzo", "sl": "Nasvet za Lorenza", "en": "Advice for Lorenzo" },
+  "emoji": "🖍️",
+  "level": "B1",
+  "setting": {
+    "de": "Am Bach hinter der Mühle. Lorenzo sitzt allein auf einem Stein und ist traurig: Er hat aus Versehen Giulias neuen Buntstift zerbrochen und traut sich nicht, es ihr zu sagen. Sein Opa Franco arbeitet nebenan in der Mühle.",
+    "sl": "Ob potoku za mlinom. Lorenzo sedi sam na kamnu in je žalosten: po nesreči je zlomil Giulijino novo barvico in si ji tega ne upa povedati. Njegov dedek Franco dela zraven v mlinu.",
+    "en": "By the stream behind the mill. Lorenzo is sitting alone on a stone, sad: he broke Giulia's new coloured pencil by accident and doesn't dare tell her. His grandfather Franco is working in the mill next door."
+  },
+  "role": "Lorenzo, six, the smallest of the village children, Mugnaio Franco's grandson. Sad and shy: broke Giulia's new pencil by accident, fears she'll be cross. Asks {learner} what to do, cheers up with good advice and decides to tell her. Says tu. One or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "Il più piccolo del villaggio", "de": "Der Kleinste im Dorf", "sl": "Najmlajši v vasi", "en": "The village's youngest" },
+  "voice": "male",
+  "speaker": "boy",
+  "place": "field",
+  "goals": [
+    { "it": "Chiedi a Lorenzo che cosa c'è", "de": "Frag Lorenzo, was los ist", "sl": "Vprašaj Lorenza, kaj je narobe", "en": "Ask Lorenzo what's wrong" },
+    { "it": "Consolalo", "de": "Tröste ihn", "sl": "Potolaži ga", "en": "Comfort him" },
+    { "it": "Dagli un consiglio", "de": "Gib ihm einen Rat", "sl": "Daj mu nasvet", "en": "Give him some advice" },
+    { "it": "Proponi di andare insieme da Giulia", "de": "Schlag vor, zusammen zu Giulia zu gehen", "sl": "Predlagaj, da gresta skupaj h Giulii", "en": "Offer to go to Giulia together" }
+  ],
+  "opener_sl": "Ciao… Ho combinato un guaio. Ho rotto la matita colorata nuova di Giulia.",
+  "opener_en": {
+    "de": "Hallo … Ich hab was angestellt. Ich habe Giulias neuen Buntstift kaputt gemacht.",
+    "sl": "Živjo … Nekaj sem ušpičil. Zlomil sem Giulijino novo barvico.",
+    "en": "Hi… I've done something silly. I broke Giulia's new coloured pencil."
+  },
+  "vocabulary_hints": [
+    { "sl": "Che cosa c'è, Lorenzo?", "en": { "de": "Was ist los, Lorenzo?", "sl": "Kaj je narobe, Lorenzo?", "en": "What's wrong, Lorenzo?" } },
+    { "sl": "Non piangere, non è grave.", "en": { "de": "Wein nicht, das ist nicht schlimm.", "sl": "Ne jokaj, saj ni hudo.", "en": "Don't cry, it's not serious." } },
+    { "sl": "L'hai fatto apposta?", "en": { "de": "Hast du das mit Absicht gemacht?", "sl": "Si to naredil namenoma?", "en": "Did you do it on purpose?" } },
+    { "sl": "Dovresti dirglielo subito.", "en": { "de": "Du solltest es ihr gleich sagen.", "sl": "Moral bi ji takoj povedati.", "en": "You should tell her straight away." } },
+    { "sl": "Perché non le chiedi scusa?", "en": { "de": "Warum entschuldigst du dich nicht bei ihr?", "sl": "Zakaj se ji ne opravičiš?", "en": "Why don't you say sorry to her?" } },
+    { "sl": "Al posto tuo, le regalerei una delle mie matite.", "en": { "de": "An deiner Stelle würde ich ihr einen von meinen Stiften schenken.", "sl": "Na tvojem mestu bi ji {m:podaril|f:podarila} eno svojih barvic.", "en": "If I were you, I'd give her one of my pencils." } },
+    { "sl": "Se vuoi, vengo con te.", "en": { "de": "Wenn du willst, komme ich mit.", "sl": "Če hočeš, grem s tabo.", "en": "If you like, I'll come with you." } },
+    { "sl": "Vedrai, Giulia non si arrabbierà.", "en": { "de": "Du wirst sehen, Giulia wird nicht böse.", "sl": "Boš videl, Giulia se ne bo jezila.", "en": "You'll see, Giulia won't be cross." } }
+  ],
+  "packs": ["a-scuola", "famiglia", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

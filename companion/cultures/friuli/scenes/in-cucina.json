@@ -5,7 +5,7 @@
   "title": { "it": "In cucina", "sl": "V kuhinji", "en": "In the kitchen", "de": "In der Küche" },
   "emoji": "🍲",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, not reviewed by a native speaker",
   "art": "kitchen",
   "from": ["hut", "house"],
   "pack": "in-cucina",
@@ -45,7 +45,7 @@
   "happenings": [
     {
       "id": "polenta", "title": { "it": "Nonna Rosa fa la polenta", "sl": "Babica Rosa kuha polento", "en": "Nonna Rosa is making polenta", "de": "Nonna Rosa kocht Polenta" }, "who": "rosa",
-      "when": ["evening"], "chance": 0.5, "dialog": "polenta", "dialogs": ["polenta-frico", "polenta"], "reward": { "food": 20 }, "marker": "🍲",
+      "when": ["evening"], "chance": 0.5, "dialog": "polenta", "dialogs": ["polenta-b2-cucchiaio", "polenta-b1-segreto", "polenta-frico", "polenta"], "reward": { "food": 20 }, "marker": "🍲",
       "memory": { "it": "la polenta che abbiamo girato insieme", "sl": "polento, ki sva jo skupaj {m:mešala|f:mešali}", "en": "the polenta we stirred together", "de": "die Polenta, die wir zusammen gerührt haben" }
     },
     {
@@ -55,7 +55,7 @@
     },
     {
       "id": "radio", "title": { "it": "Zia Nives ascolta la radio", "sl": "Teta Nives posluša radio", "en": "Zia Nives is listening to the radio", "de": "Zia Nives hört Radio" }, "who": "nives",
-      "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "radio", "dialogs": ["radio-partita", "radio"], "reward": { "wood": 15 }, "marker": "📻",
+      "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "radio", "dialogs": ["radio-b2-meteo", "radio-b1-cane", "radio-partita", "radio"], "reward": { "wood": 15 }, "marker": "📻",
       "memory": { "it": "le notizie che mi hai detto quando non sentivo", "sl": "novice, ki si mi jih {m:povedal|f:povedala}, ko nisem slišala", "en": "the news you told me when I couldn't hear", "de": "die Nachrichten, die du mir gesagt hast, als ich nichts gehört habe" }
     }
   ],
@@ -247,6 +247,106 @@
             "reply": { "face": "confused", "it": "Due a due? No, no! Ha segnato l'Udinese!", "sl": "Dve proti dve? Ne, ne! Zabil je Udinese!", "en": "Two-two? No, no! Udinese scored!", "de": "Zwei zu zwei? Nein, nein! Udinese hat getroffen!" } }
         ] },
         { "who": "nives", "it": "Che bella giornata! Grazie per la compagnia, {learner}.", "sl": "Kako lep dan! Hvala za družbo, {learner}.", "en": "What a lovely day! Thanks for the company, {learner}.", "de": "Was für ein schöner Tag! Danke für die Gesellschaft, {learner}." }
+      ]
+    },
+    {
+      "id": "polenta-b1-segreto",
+      "level": "B1",
+      "memory": { "it": "il segreto della polenta che ti ho insegnato", "sl": "skrivnost polente, ki sem te je naučila", "en": "the polenta secret I taught you", "de": "das Polenta-Geheimnis, das ich dir beigebracht habe" },
+      "lines": [
+        { "who": "rosa", "face": "curious", "it": "Tesoro, sai perché la polenta si gira sempre dalla stessa parte?", "sl": "Srček, veš, zakaj se polenta vedno meša v isto smer?", "en": "Sweetheart, do you know why polenta is always stirred the same way round?", "de": "Schatz, weißt du, warum man Polenta immer in dieselbe Richtung rührt?" },
+        { "who": "rosa", "it": "L'ho imparato da mia mamma: se cambi direzione, la polenta fa i grumi.", "sl": "Naučila me je mama: če zamenjaš smer, se v polenti naredijo grudice.", "en": "My mum taught me: if you change direction, the polenta goes lumpy.", "de": "Das hat mir meine Mama beigebracht: Wenn du die Richtung wechselst, wird die Polenta klumpig." },
+        { "choices": [
+          { "it": "Allora me lo insegni anche tu, nonna?", "sl": "Me boš potem tega naučila tudi ti, babica?", "en": "Then will you teach it to me too, Nonna?", "de": "Bringst du es mir dann auch bei, Oma?", "ok": true,
+            "reply": { "face": "happy", "it": "Certo! Te lo insegno stasera, così un giorno la fai tu.", "sl": "Seveda! Naučim te nocoj, da jo boš nekoč {m:kuhal|f:kuhala} ti.", "en": "Of course! I'll teach you tonight, so one day you'll make it.", "de": "Klar! Ich bring es dir heute Abend bei, dann machst du sie eines Tages selbst." } },
+          { "it": "Allora mi lo insegni anche tu, nonna?", "sl": "Me boš potem tega naučila tudi ti, babica?", "en": "Then will you teach it to me too, Nonna?", "de": "Bringst du es mir dann auch bei, Oma?",
+            "grammar": "pronomi-combinati", "why": { "sl": "Pred lo postane mi me: me lo (meni to).", "en": "Before lo, mi becomes me: me lo.", "de": "Vor lo wird mi zu me: me lo." },
+            "reply": { "face": "confused", "it": "Mi lo? Tesoro, così in cucina non parla nessuno!", "sl": "Mi lo? Srček, tako pa v kuhinji nihče ne govori!", "en": "Mi lo? Sweetheart, nobody talks like that in my kitchen!", "de": "Mi lo? Schatz, so redet bei mir in der Küche keiner!" } }
+        ] },
+        { "who": "rosa", "face": "thinking", "it": "Da piccola la giravo per un'ora intera. E tu, se fossi {m:un cuoco|f:una cuoca}, che cosa cucineresti?", "sl": "Ko sem bila majhna, sem jo mešala celo uro. Pa ti, če bi {m:bil kuhar|f:bila kuharica}, kaj bi {m:kuhal|f:kuhala}?", "en": "As a girl I stirred it for a whole hour. And you, if you were a cook, what would you cook?", "de": "Als Kind hab ich sie eine ganze Stunde gerührt. Und du, wenn du {m:Koch|f:Köchin} wärst, was würdest du kochen?" },
+        { "choices": [
+          { "it": "Se fossi {m:un cuoco|f:una cuoca}, farei il frico per tutto il paese!", "sl": "Če bi {m:bil kuhar|f:bila kuharica}, bi {m:kuhal|f:kuhala} frico za vso vas!", "en": "If I were a cook, I'd make frico for the whole village!", "de": "Wenn ich {m:Koch|f:Köchin} wäre, würde ich Frico fürs ganze Dorf machen!", "ok": true,
+            "reply": { "face": "laugh", "it": "Per tutto il paese? Allora ci vogliono cento chili di formaggio!", "sl": "Za vso vas? Potem bo treba sto kil sira!", "en": "For the whole village? Then we'll need a hundred kilos of cheese!", "de": "Fürs ganze Dorf? Dann brauchen wir hundert Kilo Käse!" } },
+          { "it": "Se fossi {m:un cuoco|f:una cuoca}, faccio il frico per tutto il paese!", "sl": "Če bi {m:bil kuhar|f:bila kuharica}, bi {m:kuhal|f:kuhala} frico za vso vas!", "en": "If I were a cook, I'd make frico for the whole village!", "de": "Wenn ich {m:Koch|f:Köchin} wäre, würde ich Frico fürs ganze Dorf machen!",
+            "grammar": "condizionale", "why": { "sl": "Kar si samo predstavljaš, gre v pogojnik: se fossi …, farei.", "en": "What you only imagine takes the conditional: se fossi …, farei.", "de": "Was du dir nur vorstellst, steht im Konditional: se fossi …, farei." },
+            "reply": { "face": "surprised", "it": "Lo fai adesso? Ma il frico l'ho già fatto io, tesoro!", "sl": "Zdaj ga delaš? Saj sem frico že jaz naredila, srček!", "en": "You're making it now? But I've already made the frico, sweetheart!", "de": "Du machst ihn jetzt? Aber den Frico hab ich doch schon gemacht, Schatz!" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "{m:Bravo cuoco|f:Brava cuoca}! Adesso assaggia: è la polenta più buona del Friuli.", "sl": "{m:Priden kuhar|f:Pridna kuharica}! Zdaj pa poskusi: to je najboljša polenta v Furlaniji.", "en": "What a cook! Now taste it: it's the best polenta in Friuli.", "de": "{m:Toller Koch|f:Tolle Köchin}! Jetzt koste mal: Das ist die beste Polenta in Friaul." }
+      ]
+    },
+    {
+      "id": "polenta-b2-cucchiaio",
+      "level": "B2",
+      "memory": { "it": "il cucchiaio di legno di mia mamma", "sl": "lesena žlica moje mame", "en": "my mother's wooden spoon", "de": "der Holzlöffel meiner Mama" },
+      "lines": [
+        { "who": "rosa", "face": "thinking", "it": "Vedi questo cucchiaio di legno? Era di mia mamma, a Cividale. Ha girato più polente di tutto il paese messo insieme.", "sl": "Vidiš to leseno žlico? Bila je od moje mame, v Čedadu. Premešala je več polent kot vsa vas skupaj.", "en": "See this wooden spoon? It was my mum's, in Cividale. It has stirred more polenta than the whole village put together.", "de": "Siehst du diesen Holzlöffel? Er gehörte meiner Mama, in Cividale. Er hat mehr Polenta gerührt als das ganze Dorf zusammen." },
+        { "who": "rosa", "it": "Se lei non mi avesse insegnato a cucinare da piccola, oggi non saprei fare né la polenta né la gubana.", "sl": "Če me ne bi bila naučila kuhati, ko sem bila majhna, danes ne bi znala narediti ne polente ne gubane.", "en": "If she hadn't taught me to cook as a girl, today I couldn't make polenta or gubana.", "de": "Hätte sie mir als Kind nicht das Kochen beigebracht, könnte ich heute weder Polenta noch Gubana machen." },
+        { "choices": [
+          { "it": "Allora dobbiamo dire grazie a lei per ogni polenta!", "sl": "Potem se ji moramo zahvaliti za vsako polento!", "en": "Then we have to thank her for every polenta!", "de": "Dann müssen wir ihr für jede Polenta danken!", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così. E un giorno, quando cucinerai tu, qualcuno dirà grazie a me.", "sl": "Prav tako. In nekoč, ko boš {m:kuhal|f:kuhala} ti, se bo nekdo zahvalil meni.", "en": "Exactly. And one day, when you cook, someone will thank me.", "de": "Genau. Und eines Tages, wenn du kochst, sagt jemand mir danke." } },
+          { "it": "Allora la gubana non la sai fare, nonna?", "sl": "Potem pa gubane ne znaš narediti, babica?", "en": "So you can't make gubana, Nonna?", "de": "Dann kannst du keine Gubana machen, Oma?",
+            "why": { "sl": "Rosa ugiba, kaj bi bilo brez mame. Mama jo je naučila, zato gubano zna.", "en": "Rosa imagines what would be without her mum. Her mum did teach her, so she can make gubana.", "de": "Rosa stellt sich vor, wie es ohne ihre Mama wäre. Die Mama hat es ihr beigebracht, also kann sie Gubana." },
+            "reply": { "face": "laugh", "it": "Io? La faccio ogni domenica, tesoro! Hai mai assaggiato la mia gubana?", "sl": "Jaz? Vsako nedeljo jo spečem, srček! Si že kdaj {m:poskusil|f:poskusila} mojo gubano?", "en": "Me? I make it every Sunday, sweetheart! Haven't you ever tasted my gubana?", "de": "Ich? Die back ich jeden Sonntag, Schatz! Hast du meine Gubana noch nie probiert?" } }
+        ] },
+        { "who": "rosa", "face": "curious", "it": "Dimmi la verità: tu sai già fare qualcosa in cucina, oppure finora hai solo mangiato?", "sl": "Povej po pravici: znaš že kaj narediti v kuhinji, ali si doslej samo {m:jedel|f:jedla}?", "en": "Tell me the truth: can you already make something in the kitchen, or have you only eaten so far?", "de": "Sag die Wahrheit: Kannst du schon etwas in der Küche, oder hast du bisher nur gegessen?" },
+        { "choices": [
+          { "it": "Finora ho solo mangiato. Ma se me l'avessi chiesto prima, avrei imparato volentieri!", "sl": "Doslej sem samo {m:jedel|f:jedla}. Ampak če bi me prej vprašala, bi se z veseljem {m:učil|f:učila}!", "en": "So far I've only eaten. But if you'd asked me sooner, I'd gladly have learnt!", "de": "Bisher hab ich nur gegessen. Aber wenn du mich früher gefragt hättest, hätte ich gern gelernt!", "ok": true,
+            "reply": { "face": "laugh", "it": "Allora te lo chiedo adesso: domani alle otto, qui, con il grembiule!", "sl": "Potem te vprašam zdaj: jutri ob osmih, tukaj, s predpasnikom!", "en": "Then I'm asking you now: tomorrow at eight, here, with an apron!", "de": "Dann frag ich dich jetzt: morgen um acht, hier, mit Schürze!" } },
+          { "it": "Finora ho solo mangiato. Ma se me l'avresti chiesto prima, avrei imparato volentieri!", "sl": "Doslej sem samo {m:jedel|f:jedla}. Ampak če bi me prej vprašala, bi se z veseljem {m:učil|f:učila}!", "en": "So far I've only eaten. But if you'd asked me sooner, I'd gladly have learnt!", "de": "Bisher hab ich nur gegessen. Aber wenn du mich früher gefragt hättest, hätte ich gern gelernt!",
+            "grammar": "periodo-ipotetico-irrealta", "why": { "sl": "Za se nikoli pogojnik: se me l'avessi chiesto, nato avrei imparato.", "en": "After se, never the conditional: se me l'avessi chiesto, then avrei imparato.", "de": "Nach se nie der Konditional: se me l'avessi chiesto, dann avrei imparato." },
+            "reply": { "face": "confused", "it": "Se me l'avresti…? Tesoro, mi si annoda la lingua solo a sentirlo!", "sl": "Se me l'avresti …? Srček, že ko to slišim, se mi zaplete jezik!", "en": "Se me l'avresti…? Sweetheart, my tongue ties itself in knots just hearing it!", "de": "Se me l'avresti …? Schatz, da verknotet sich mir die Zunge schon beim Zuhören!" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Chi impara tardi impara meglio, diceva mia mamma. E adesso a tavola, che si fredda!", "sl": "Kdor se pozno uči, se bolje nauči, je rekla moja mama. Zdaj pa k mizi, da se ne shladi!", "en": "Who learns late learns better, my mum used to say. Now to the table, before it gets cold!", "de": "Wer spät lernt, lernt besser, sagte meine Mama. Und jetzt an den Tisch, sonst wird's kalt!" }
+      ]
+    },
+    {
+      "id": "radio-b1-cane",
+      "level": "B1",
+      "memory": { "it": "il cane che abbiamo sentito alla radio", "sl": "pes, o katerem sva {m:slišala|f:slišali} po radiu", "en": "the dog we heard about on the radio", "de": "der Hund, von dem wir im Radio gehört haben" },
+      "lines": [
+        { "who": "nives", "face": "worried", "it": "{learner}, vieni! Alla radio un signore parla di un cane, ma la radio gracchia e non capisco.", "sl": "{learner}, pridi! Po radiu neki gospod govori o psu, ampak radio hrešči in ne razumem.", "en": "{learner}, come here! A man on the radio is talking about a dog, but the radio crackles and I can't understand.", "de": "{learner}, komm! Im Radio redet ein Mann von einem Hund, aber das Radio krächzt und ich verstehe nichts." },
+        { "who": "nives", "face": "curious", "it": "Tu hai le orecchie giovani. Che cosa dice?", "sl": "Ti imaš mlada ušesa. Kaj pravi?", "en": "You've got young ears. What's he saying?", "de": "Du hast junge Ohren. Was sagt er?" },
+        { "choices": [
+          { "it": "Dice che ha perso il suo cane. Si chiama Fido.", "sl": "Pravi, da je izgubil svojega psa. Ime mu je Fido.", "en": "He says he's lost his dog. It's called Fido.", "de": "Er sagt, er hat seinen Hund verloren. Er heißt Fido.", "ok": true,
+            "reply": { "face": "worried", "it": "Povero signore! E com'è questo Fido?", "sl": "Ubogi gospod! Pa kakšen je ta Fido?", "en": "Poor man! And what's this Fido like?", "de": "Der arme Mann! Und wie sieht dieser Fido aus?" } },
+          { "it": "Dice che ho perso il mio cane. Si chiama Fido.", "sl": "Pravi, da je izgubil svojega psa. Ime mu je Fido.", "en": "He says he's lost his dog. It's called Fido.", "de": "Er sagt, er hat seinen Hund verloren. Er heißt Fido.",
+            "grammar": "discorso-indiretto", "why": { "sl": "Ko poveš naprej, se oseba spremeni: »ho perso il mio« postane ha perso il suo.", "en": "Telling it on, the person changes: «ho perso il mio» becomes ha perso il suo.", "de": "Wenn du es weitersagst, ändert sich die Person: «ho perso il mio» wird zu ha perso il suo." },
+            "reply": { "face": "surprised", "it": "Tu hai perso il cane? Oh, {m:povero|f:povera} te! Non lo sapevo!", "sl": "Ti si {m:izgubil|f:izgubila} psa? Oh, {m:revček|f:revica}! Tega nisem vedela!", "en": "You've lost your dog? Oh, you poor thing! I didn't know!", "de": "Du hast deinen Hund verloren? Oh, {m:du Armer|f:du Arme}! Das wusste ich nicht!" } }
+        ] },
+        { "who": "nives", "face": "curious", "it": "E adesso? Il signore fa una domanda, vero?", "sl": "Pa zdaj? Gospod nekaj sprašuje, ne?", "en": "And now? The man's asking a question, isn't he?", "de": "Und jetzt? Der Mann stellt eine Frage, oder?" },
+        { "choices": [
+          { "it": "Sì, chiede se qualcuno ha visto un cane bianco con le orecchie nere.", "sl": "Ja, sprašuje, ali je kdo videl belega psa s črnimi ušesi.", "en": "Yes, he's asking if anyone has seen a white dog with black ears.", "de": "Ja, er fragt, ob jemand einen weißen Hund mit schwarzen Ohren gesehen hat.", "ok": true,
+            "reply": { "face": "surprised", "it": "Bianco con le orecchie nere… Ma io l'ho visto stamattina, davanti all'osteria!", "sl": "Bel s črnimi ušesi … Saj sem ga zjutraj videla, pred gostilno!", "en": "White with black ears… But I saw it this morning, in front of the osteria!", "de": "Weiß mit schwarzen Ohren … Den hab ich heute früh gesehen, vor der Osteria!" } },
+          { "it": "Sì, chiede che qualcuno ha visto un cane bianco con le orecchie nere.", "sl": "Ja, sprašuje, ali je kdo videl belega psa s črnimi ušesi.", "en": "Yes, he's asking if anyone has seen a white dog with black ears.", "de": "Ja, er fragt, ob jemand einen weißen Hund mit schwarzen Ohren gesehen hat.",
+            "grammar": "discorso-indiretto", "why": { "sl": "Vprašanje z da ali ne poveš naprej s se: chiede se (sprašuje, ali).", "en": "A yes-or-no question is told on with se: chiede se (asks whether).", "de": "Eine Ja-Nein-Frage gibst du mit se weiter: chiede se (fragt, ob)." },
+            "reply": { "face": "confused", "it": "Chiede che…? Che cosa chiede? Non ho capito niente!", "sl": "Sprašuje, da …? Kaj sprašuje? Nič nisem razumela!", "en": "Asks that…? Asks what? I didn't understand a thing!", "de": "Fragt, dass …? Was fragt er denn? Ich hab nichts verstanden!" } }
+        ] },
+        { "who": "nives", "face": "happy", "it": "Andiamo subito a dirlo all'osteria! Così il signore ritrova il suo Fido.", "sl": "Pojdiva takoj povedat v gostilno! Tako bo gospod spet našel svojega Fida.", "en": "Let's go and tell them at the osteria right away! Then the man will find his Fido again.", "de": "Gehen wir gleich in die Osteria und sagen es! Dann findet der Mann seinen Fido wieder." }
+      ]
+    },
+    {
+      "id": "radio-b2-meteo",
+      "level": "B2",
+      "memory": { "it": "il meteo che sbagliava sempre", "sl": "vremensko napoved, ki se je vedno zmotila", "en": "the forecast that was always wrong", "de": "der Wetterbericht, der immer falsch lag" },
+      "lines": [
+        { "who": "nives", "face": "cross", "it": "Quel meteo! Ieri ha detto che oggi sarebbe piovuto tutto il giorno, e invece che sole!", "sl": "Ta vremenska napoved! Včeraj je rekla, da bo danes ves dan deževalo, pa kakšno sonce je!", "en": "That forecast! Yesterday it said it would rain all day today, and instead, what sunshine!", "de": "Dieser Wetterbericht! Gestern hieß es, heute würde es den ganzen Tag regnen, und stattdessen so viel Sonne!" },
+        { "who": "nives", "face": "thinking", "it": "Se gli avessi creduto, avrei lasciato i panni in casa. Invece li ho stesi, e adesso sono già asciutti.", "sl": "Če bi mu bila verjela, bi pustila perilo v hiši. Tako pa sem ga obesila in je že suho.", "en": "If I'd believed it, I'd have left the washing indoors. Instead I hung it out, and now it's already dry.", "de": "Hätte ich ihm geglaubt, hätte ich die Wäsche drinnen gelassen. Stattdessen hab ich sie aufgehängt, und jetzt ist sie schon trocken." },
+        { "choices": [
+          { "it": "Meno male che non ci hai creduto, zia!", "sl": "Še dobro, da nisi verjela, teta!", "en": "Good thing you didn't believe it, Zia!", "de": "Gut, dass du es nicht geglaubt hast, Tante!", "ok": true,
+            "reply": { "face": "laugh", "it": "Eh, dopo settantacinque anni so guardare il cielo da sola!", "sl": "Eh, po petinsedemdesetih letih znam sama brati nebo!", "en": "Eh, after seventy-five years I can read the sky myself!", "de": "Tja, nach fünfundsiebzig Jahren kann ich selbst den Himmel lesen!" } },
+          { "it": "Peccato, zia: adesso i panni sono tutti bagnati.", "sl": "Škoda, teta: zdaj je perilo čisto mokro.", "en": "Too bad, Zia: now the washing is all wet.", "de": "Schade, Tante: Jetzt ist die Wäsche ganz nass.",
+            "why": { "sl": "Teta pravi, da je perilo že suho: ni deževalo.", "en": "Zia says the washing is already dry: it didn't rain.", "de": "Die Tante sagt, die Wäsche ist schon trocken: Es hat nicht geregnet." },
+            "reply": { "face": "confused", "it": "Bagnati? Ma no, sono asciutti come il fieno d'agosto!", "sl": "Mokro? Kje pa, suho je kot seno avgusta!", "en": "Wet? Oh no, it's as dry as August hay!", "de": "Nass? Ach was, die ist trocken wie Heu im August!" } }
+        ] },
+        { "who": "nives", "face": "curious", "it": "E mia sorella Rosa? Che cosa ti ha detto stamattina, prima di andare al mercato?", "sl": "Pa moja sestra Rosa? Kaj ti je rekla zjutraj, preden je šla na tržnico?", "en": "And my sister Rosa? What did she tell you this morning, before she went to the market?", "de": "Und meine Schwester Rosa? Was hat sie dir heute früh gesagt, bevor sie auf den Markt gegangen ist?" },
+        { "choices": [
+          { "it": "Ha detto che sarebbe tornata per pranzo e che avrebbe portato il pesce.", "sl": "Rekla je, da se bo vrnila za kosilo in da bo prinesla ribo.", "en": "She said she'd be back for lunch and would bring fish.", "de": "Sie hat gesagt, sie würde zum Mittagessen zurück sein und Fisch mitbringen.", "ok": true,
+            "reply": { "face": "happy", "it": "Il pesce! Allora è venerdì. Vedi che anche senza radio so che giorno è?", "sl": "Riba! Potem je petek. Vidiš, da tudi brez radia vem, kateri dan je?", "en": "Fish! Then it's Friday. See, even without the radio I know what day it is?", "de": "Fisch! Dann ist Freitag. Siehst du, auch ohne Radio weiß ich, welcher Tag ist?" } },
+          { "it": "Ha detto che tornerebbe per pranzo e che porterebbe il pesce.", "sl": "Rekla je, da se bo vrnila za kosilo in da bo prinesla ribo.", "en": "She said she'd be back for lunch and would bring fish.", "de": "Sie hat gesagt, sie würde zum Mittagessen zurück sein und Fisch mitbringen.",
+            "grammar": "discorso-indiretto-passato", "why": { "sl": "Prihodnost, povedana iz preteklosti, je pretekli pogojnik: sarebbe tornata, avrebbe portato.", "en": "A future told from the past takes the past conditional: sarebbe tornata, avrebbe portato.", "de": "Eine Zukunft, aus der Vergangenheit erzählt, steht im Konditional der Vergangenheit: sarebbe tornata, avrebbe portato." },
+            "reply": { "face": "curious", "it": "Tornerebbe… se? Se che cosa? Mia sorella mette sempre un «se» in tutto!", "sl": "Bi se vrnila … če? Če kaj? Moja sestra ima vedno kakšen »če«!", "en": "Would come back… if? If what? My sister always has an «if»!", "de": "Würde zurückkommen … wenn? Wenn was? Meine Schwester hat immer ein «wenn»!" } }
+        ] },
+        { "who": "nives", "face": "happy", "it": "Brava Rosa. E {m:bravo|f:brava} tu, che riferisci tutto come {m:un giornalista|f:una giornalista} della radio!", "sl": "Pridna Rosa. In {m:priden|f:pridna} ti, ki vse poveš naprej kot {m:novinar|f:novinarka} na radiu!", "en": "Good old Rosa. And good for you, passing it all on like a radio reporter!", "de": "Brave Rosa. Und du gibst alles weiter wie {m:ein Radioreporter|f:eine Radioreporterin}!" }
       ]
     }
   ]

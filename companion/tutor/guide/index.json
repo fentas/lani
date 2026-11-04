@@ -4,7 +4,7 @@
       "id": "events",
       "title": "Inbound events",
       "summary": "Every event kind (chat, answer, session_end, review_done, …), its JSON and how to answer it. Fetch first in every thread.",
-      "chars": 6044,
+      "chars": 6543,
       "source": "bridge feature chat"
     },
     {
@@ -74,14 +74,14 @@
       "id": "school",
       "title": "The school",
       "summary": "For a session_end with data.course (a school sheet or test), a unit done, or homework (publish_worksheet).",
-      "chars": 1394,
+      "chars": 1945,
       "source": "bridge feature course"
     },
     {
       "id": "counting",
       "title": "Counting cards and numbers",
       "summary": "For a review_done with counting cards, a session_end with data.numbers, or mistakes counting_* and numbers_*.",
-      "chars": 3721,
+      "chars": 5002,
       "source": "bridge feature counting"
     },
     {
@@ -137,7 +137,7 @@
       "id": "scenes",
       "title": "Scenes and dialogs",
       "summary": "For dialog_variants_heard and words_to_weave, writing scenes or dialog variants, and the learner placeholders.",
-      "chars": 5832,
+      "chars": 6139,
       "source": "bridge feature scenes"
     },
     {
@@ -221,7 +221,7 @@
       "id": "studio",
       "title": "Studio: writing content",
       "summary": "Before writing or fixing app content (modules, packs, scenes, stories, readings, villagers, grammar pages, homework).",
-      "chars": 33282,
+      "chars": 33676,
       "source": "skill lani-studio"
     }
   ]

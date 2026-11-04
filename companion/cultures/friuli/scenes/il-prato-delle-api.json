@@ -5,7 +5,7 @@
   "title": { "it": "Il prato delle api", "sl": "Čebelji travnik", "en": "The bee meadow", "de": "Die Bienenwiese" },
   "emoji": "🌼",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, unreviewed",
   "art": "apiary",
   "from": ["project:cebelji_travnik"],
   "pack": "il-prato-delle-api",
@@ -40,7 +40,7 @@
       "months": [3, 4, 5, 6, 7, 8, 9, 10],
       "chance": 0.5,
       "dialog": "fiori",
-      "dialogs": ["fiori-primavera", "fiori-estate", "fiori-autunno", "fiori"],
+      "dialogs": ["fiori-b2-camomilla", "fiori-b1-corona", "fiori-primavera", "fiori-estate", "fiori-autunno", "fiori"],
       "reward": { "food": 15},
       "marker": "🌼",
       "memory": { "it": "i fiori del prato delle api", "sl": "rože na čebeljem travniku", "en": "the flowers of the bee meadow", "de": "die Blumen der Bienenwiese" }
@@ -53,7 +53,7 @@
       "months": [4, 5, 6, 7, 8, 9],
       "chance": 0.5,
       "dialog": "polline",
-      "dialogs": ["polline-zampe", "polline-frutta", "polline"],
+      "dialogs": ["polline-b2-jansa", "polline-b1-ciliegie", "polline-zampe", "polline-frutta", "polline"],
       "reward": { "food": 20},
       "marker": "🌸",
       "memory": { "it": "le api sui fiori del prato", "sl": "čebele na cvetovih travnika", "en": "the bees on the meadow's flowers", "de": "die Bienen auf den Blumen der Wiese" }
@@ -1147,6 +1147,106 @@
           "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
         },
         { "who": "lorenzo", "face": "happy", "it": "Io ho chiesto una bicicletta rossa. Shh, è un segreto!", "sl": "Jaz sem si zaželel rdeče kolo. Pst, to je skrivnost!", "en": "I wished for a red bike. Shh, it's a secret!", "de": "Ich habe mir ein rotes Fahrrad gewünscht. Pst, das ist ein Geheimnis!" }
+      ]
+    },
+    {
+      "id": "fiori-b1-corona",
+      "level": "B1",
+      "memory": { "it": "la corona di margherite", "sl": "venček iz marjetic", "en": "the daisy crown", "de": "den Gänseblümchenkranz" },
+      "lines": [
+        { "who": "rosa", "face": "happy", "it": "Buongiorno, tesoro! Quante margherite oggi nel prato! Ne raccogliamo un po' per fare una corona?", "sl": "Dobro jutro, srček! Koliko marjetic je danes na travniku! Jih nabereva nekaj za venček?", "en": "Good morning, sweetheart! So many daisies in the meadow today! Shall we pick a few to make a crown?", "de": "Guten Morgen, Schatz! So viele Gänseblümchen heute auf der Wiese! Pflücken wir ein paar für einen Kranz?" },
+        { "who": "rosa", "face": "thinking", "it": "Ma non tutte, eh: le api ne hanno bisogno per il loro pranzo.", "sl": "Ampak ne vseh, ja: čebele jih potrebujejo za svoje kosilo.", "en": "But not all of them, mind: the bees need them for their lunch.", "de": "Aber nicht alle, gell: Die Bienen brauchen sie zum Mittagessen." },
+        { "choices": [
+          { "it": "È importante che ne lasciamo tante per le api.", "sl": "Pomembno je, da jih pustiva veliko za čebele.", "en": "It's important that we leave lots for the bees.", "de": "Es ist wichtig, dass wir viele für die Bienen übrig lassen.", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così. Un fiore per noi, tre per le api.", "sl": "Prav tako. En cvet za naju, trije za čebele.", "en": "Exactly. One flower for us, three for the bees.", "de": "Genau. Eine Blume für uns, drei für die Bienen." } },
+          { "it": "È importante che lasciarne tante per le api.", "sl": "Pomembno je, da jih pustiva veliko za čebele.", "en": "It's important that we leave lots for the bees.", "de": "Es ist wichtig, dass wir viele für die Bienen übrig lassen.",
+            "grammar": "congiuntivo-espressioni", "why": { "sl": "Za è importante che pride cel stavek s konjunktivom: che ne lasciamo. Brez che: è importante lasciarne.", "en": "After è importante che comes a whole clause in the congiuntivo: che ne lasciamo. Without che: è importante lasciarne.", "de": "Nach è importante che kommt ein ganzer Satz im Konjunktiv: che ne lasciamo. Ohne che: è importante lasciarne." },
+            "reply": { "face": "curious", "it": "Che lasciarne…? Mmm, qui c'è una parola di troppo, tesoro.", "sl": "Che lasciarne …? Hm, tu je ena beseda preveč, srček.", "en": "Che lasciarne…? Hmm, there's one word too many here, sweetheart.", "de": "Che lasciarne …? Hm, da ist ein Wort zu viel, Schatz." } }
+        ] },
+        { "who": "rosa", "it": "Ecco, adesso intrecciamo i gambi. Prendi due margherite e fai come me.", "sl": "Tako, zdaj spleteva peclje. Vzemi dve marjetici in delaj kot jaz.", "en": "There, now we weave the stems. Take two daisies and do as I do.", "de": "So, jetzt flechten wir die Stiele. Nimm zwei Gänseblümchen und mach es wie ich." },
+        { "choices": [
+          { "it": "Come si fa il primo nodo, nonna?", "sl": "Kako se naredi prvi vozel, babica?", "en": "How do you do the first knot, Nonna?", "de": "Wie macht man den ersten Knoten, Oma?", "ok": true,
+            "reply": { "face": "happy", "it": "Così: un gambo sopra, uno sotto, e si stringe piano.", "sl": "Takole: en pecelj zgoraj, en spodaj, in se nežno zategne.", "en": "Like this: one stem over, one under, and you pull gently.", "de": "So: ein Stiel drüber, einer drunter, und man zieht sanft fest." } },
+          { "it": "Come fa il primo nodo, nonna?", "sl": "Kako se naredi prvi vozel, babica?", "en": "How do you do the first knot, Nonna?", "de": "Wie macht man den ersten Knoten, Oma?",
+            "grammar": "si-impersonale", "why": { "sl": "Ko sprašuješ, kako se kaj dela na splošno, je si: come si fa? Brez si je on ali ona.", "en": "To ask how something is done in general, it's si: come si fa? Without si it's he or she.", "de": "Wenn du fragst, wie man etwas macht, steht si: come si fa? Ohne si heißt es er oder sie." },
+            "reply": { "face": "laugh", "it": "Come fa? Il nodo non fa niente, tesoro: sta lì, fermo fermo!", "sl": "Kako dela? Vozel ne dela nič, srček: tam je, čisto pri miru!", "en": "How does it do? The knot doesn't do anything, sweetheart: it just sits there!", "de": "Wie macht er? Der Knoten macht gar nichts, Schatz: Der bleibt einfach still!" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Ecco la corona! Adesso sei {m:il re|f:la regina} del prato delle api.", "sl": "Tu je venček! Zdaj si {m:kralj|f:kraljica} čebeljega travnika.", "en": "Here's the crown! Now you're the king of the bee meadow.", "de": "Hier ist der Kranz! Jetzt bist du {m:der König|f:die Königin} der Bienenwiese." }
+      ]
+    },
+    {
+      "id": "fiori-b2-camomilla",
+      "level": "B2",
+      "memory": { "it": "la camomilla di mia mamma", "sl": "kamilico moje mame", "en": "my mother's camomile", "de": "die Kamille meiner Mama" },
+      "lines": [
+        { "who": "rosa", "face": "thinking", "it": "Vedi quei fiorellini bianchi e gialli? È la camomilla. Mia mamma la raccoglieva qui e la faceva seccare sul davanzale.", "sl": "Vidiš tiste bele in rumene cvetke? To je kamilica. Moja mama jo je nabirala tukaj in sušila na oknu.", "en": "See those little white and yellow flowers? That's camomile. My mum picked it here and dried it on the windowsill.", "de": "Siehst du die kleinen weißen und gelben Blümchen? Das ist Kamille. Meine Mama pflückte sie hier und trocknete sie auf dem Fensterbrett." },
+        { "who": "rosa", "it": "Conosceva tutte le erbe del prato. Peccato che io non le abbia chiesto di insegnarmele tutte: adesso ne ricordo solo cinque o sei.", "sl": "Poznala je vse zeli na travniku. Škoda, da je nisem prosila, naj me vse nauči: zdaj se jih spomnim samo pet ali šest.", "en": "She knew every herb in the meadow. Pity I didn't ask her to teach me them all: now I remember only five or six.", "de": "Sie kannte alle Kräuter der Wiese. Schade, dass ich sie nicht gebeten habe, mir alle beizubringen: Jetzt kenne ich nur noch fünf oder sechs." },
+        { "choices": [
+          { "it": "Se le avessi chiesto di più, adesso le conosceresti tutte.", "sl": "Če bi jo bila več vprašala, bi jih zdaj poznala vse.", "en": "If you'd asked her more, you'd know them all now.", "de": "Hättest du sie mehr gefragt, würdest du jetzt alle kennen.", "ok": true,
+            "reply": { "face": "thinking", "it": "È vero. Ma anche cinque o sei, sai, bastano per un raffreddore.", "sl": "Res je. Ampak tudi pet ali šest, veš, zadostuje za prehlad.", "en": "That's true. But five or six, you know, are enough for a cold.", "de": "Das stimmt. Aber fünf oder sechs reichen, weißt du, für einen Schnupfen." } },
+          { "it": "Se le fossi chiesto di più, adesso le conosceresti tutte.", "sl": "Če bi jo bila več vprašala, bi jih zdaj poznala vse.", "en": "If you'd asked her more, you'd know them all now.", "de": "Hättest du sie mehr gefragt, würdest du jetzt alle kennen.",
+            "grammar": "periodo-ipotetico-irrealta", "why": { "sl": "Chiedere ima avere: le ho chiesto, zato se le avessi chiesto.", "en": "Chiedere takes avere: le ho chiesto, so se le avessi chiesto.", "de": "Chiedere bildet mit avere: le ho chiesto, also se le avessi chiesto." },
+            "reply": { "face": "curious", "it": "Se le fossi chiesto? Mmm, così sembra che qualcuno abbia chiesto me!", "sl": "Se le fossi chiesto? Hm, tako zveni, kot da je nekdo vprašal mene!", "en": "Se le fossi chiesto? Hmm, that sounds as if someone had asked me!", "de": "Se le fossi chiesto? Hm, das klingt, als hätte mich jemand gefragt!" } }
+        ] },
+        { "who": "rosa", "face": "curious", "it": "La camomilla va raccolta di mattina, quando c'è il sole. Secondo te, perché proprio col sole?", "sl": "Kamilico je treba nabirati zjutraj, ko sije sonce. Kaj misliš, zakaj prav ob soncu?", "en": "Camomile has to be picked in the morning, when the sun's out. Why with the sun, do you think?", "de": "Kamille muss man morgens pflücken, wenn die Sonne scheint. Warum gerade bei Sonne, meinst du?" },
+        { "choices": [
+          { "it": "Perché con il sole i fiori sono asciutti, e seccando non fanno la muffa?", "sl": "Ker so ob soncu cvetovi suhi in se med sušenjem ne naredi plesen?", "en": "Because with the sun the flowers are dry, and while drying they don't go mouldy?", "de": "Weil die Blüten bei Sonne trocken sind und beim Trocknen nicht schimmeln?", "ok": true,
+            "reply": { "face": "proud", "it": "{m:Bravo|f:Brava}, la sai lunga! La rugiada è buona per l'erba, non per la camomilla.", "sl": "{m:Priden|f:Pridna}, veliko veš! Rosa je dobra za travo, ne za kamilico.", "en": "Clever you, you know a thing or two! Dew is good for grass, not for camomile.", "de": "Schlau, du kennst dich aus! Tau ist gut fürs Gras, nicht für die Kamille." } },
+          { "it": "Perché con il sole la camomilla fa dormire anche le api?", "sl": "Ker kamilica ob soncu uspava tudi čebele?", "en": "Because with the sun the camomile sends the bees to sleep too?", "de": "Weil die Kamille bei Sonne auch die Bienen schläfrig macht?",
+            "why": { "sl": "Rosa misli na to, da morajo biti cvetovi suhi; o spečih čebelah ni govora.", "en": "Rosa means the flowers must be dry; nothing about sleeping bees.", "de": "Rosa meint, die Blüten müssen trocken sein; von schlafenden Bienen ist keine Rede." },
+            "reply": { "face": "laugh", "it": "Le api a dormire a mezzogiorno? Magari! Così il miele lo facciamo noi.", "sl": "Čebele, ki spijo opoldne? Ko bi le! Potem bi med naredili kar sami.", "en": "Bees asleep at noon? If only! Then we'd make the honey ourselves.", "de": "Bienen, die mittags schlafen? Schön wär's! Dann machen wir den Honig selbst." } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Domani raccogliamo la camomilla insieme. E stasera ti preparo una tisana, così dormi come un ghiro.", "sl": "Jutri nabereva kamilico skupaj. Zvečer ti pa skuham čaj, da boš {m:spal|f:spala} kot polh.", "en": "Tomorrow we'll pick camomile together. And tonight I'll make you a tea, so you sleep like a dormouse.", "de": "Morgen pflücken wir zusammen Kamille. Und heute Abend mach ich dir einen Tee, damit du schläfst wie ein Murmeltier." }
+      ]
+    },
+    {
+      "id": "polline-b1-ciliegie",
+      "level": "B1",
+      "memory": { "it": "le ciliegie che dobbiamo alle api", "sl": "češnje, za katere se moramo zahvaliti čebelam", "en": "the cherries we owe the bees", "de": "die Kirschen, die wir den Bienen verdanken" },
+      "lines": [
+        { "who": "aldo", "it": "Ciao, {learner}. Guarda quest'ape: vola da un fiore all'altro e porta il polline. Senza di lei, niente ciliegie a giugno.", "sl": "Živjo, {learner}. Poglej to čebelo: leta od cveta do cveta in nosi cvetni prah. Brez nje junija ne bi bilo češenj.", "en": "Hi, {learner}. Look at this bee: she flies from flower to flower carrying pollen. Without her, no cherries in June.", "de": "Hallo, {learner}. Schau diese Biene an: Sie fliegt von Blüte zu Blüte und trägt den Pollen. Ohne sie gäbe es im Juni keine Kirschen." },
+        { "who": "aldo", "face": "curious", "it": "E tu, a giugno, senza ciliegie, come staresti?", "sl": "Pa ti, junija brez češenj, kako bi ti bilo?", "en": "And you, in June, without cherries, how would you feel?", "de": "Und du, im Juni ohne Kirschen, wie ginge es dir?" },
+        { "choices": [
+          { "it": "Sarei {m:tristissimo|f:tristissima}! Le ciliegie sono il mio frutto preferito.", "sl": "{m:Bil|f:Bila} bi zelo {m:žalosten|f:žalostna}! Češnje so moje najljubše sadje.", "en": "I'd be so sad! Cherries are my favourite fruit.", "de": "Ich wäre ganz traurig! Kirschen sind mein Lieblingsobst.", "ok": true,
+            "reply": { "face": "happy", "it": "Anche quello di Giulia! Allora ogni volta che vedi un'ape, dille grazie.", "sl": "Tudi Giuliino! Potem vsaki čebeli, ki jo vidiš, reci hvala.", "en": "Giulia's too! Then every time you see a bee, say thank you to her.", "de": "Giulias auch! Dann sag jeder Biene, die du siehst, danke." } },
+          { "it": "Sono {m:tristissimo|f:tristissima}! Le ciliegie sono il mio frutto preferito.", "sl": "{m:Bil|f:Bila} bi zelo {m:žalosten|f:žalostna}! Češnje so moje najljubše sadje.", "en": "I'd be so sad! Cherries are my favourite fruit.", "de": "Ich wäre ganz traurig! Kirschen sind mein Lieblingsobst.",
+            "grammar": "condizionale", "why": { "sl": "Aldo vpraša, kako bi ti bilo: odgovor gre v pogojnik, sarei.", "en": "Aldo asks how you would feel: the answer is the conditional, sarei.", "de": "Aldo fragt, wie es dir ginge: Die Antwort steht im Konditional, sarei." },
+            "reply": { "face": "surprised", "it": "Triste adesso? Ma le api ci sono, {learner}, guarda quante!", "sl": "{m:Žalosten|f:Žalostna} zdaj? Saj so čebele tukaj, {learner}, poglej, koliko jih je!", "en": "Sad now? But the bees are here, {learner}, look how many!", "de": "Jetzt traurig? Die Bienen sind doch da, {learner}, schau, wie viele!" } }
+        ] },
+        { "who": "aldo", "it": "Vedi le sue zampe? Sono già piene di polline giallo. Dove andrà adesso, secondo te?", "sl": "Vidiš njene nožice? Že so polne rumenega cvetnega prahu. Kam bo šla zdaj, kaj misliš?", "en": "See her legs? They're already full of yellow pollen. Where will she go now, do you think?", "de": "Siehst du ihre Beinchen? Die sind schon voll gelbem Pollen. Wohin fliegt sie jetzt wohl?" },
+        { "choices": [
+          { "it": "Tornerà all'arnia quando avrà riempito bene le zampe.", "sl": "V panj se bo vrnila, ko bo dobro napolnila nožice.", "en": "She'll go back to the hive when she's filled her legs right up.", "de": "Sie fliegt zum Stock zurück, wenn sie ihre Beinchen richtig voll hat.", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così. Poi domani torna, fiore dopo fiore. Piano, piano.", "sl": "Prav tako. In jutri se vrne, cvet za cvetom. Počasi, počasi.", "en": "Exactly. Then tomorrow she comes back, flower after flower. Slowly, slowly.", "de": "Genau. Und morgen kommt sie wieder, Blüte für Blüte. Langsam, langsam." } },
+          { "it": "Tornerà all'arnia quando sarà riempito bene le zampe.", "sl": "V panj se bo vrnila, ko bo dobro napolnila nožice.", "en": "She'll go back to the hive when she's filled her legs right up.", "de": "Sie fliegt zum Stock zurück, wenn sie ihre Beinchen richtig voll hat.",
+            "grammar": "futuro-anteriore", "why": { "sl": "Riempire ima avere: ha riempito, zato avrà riempito.", "en": "Riempire takes avere: ha riempito, so avrà riempito.", "de": "Riempire bildet mit avere: ha riempito, also avrà riempito." },
+            "reply": { "face": "curious", "it": "Sarà riempito? Mmm, chi riempie chi? L'ape le zampe, o le zampe l'ape?", "sl": "Sarà riempito? Hm, kdo koga napolni? Čebela nožice ali nožice čebelo?", "en": "Sarà riempito? Hmm, who fills whom? The bee her legs, or the legs the bee?", "de": "Sarà riempito? Hm, wer füllt wen? Die Biene die Beinchen oder die Beinchen die Biene?" } }
+        ] },
+        { "who": "aldo", "face": "happy", "it": "Ecco, vola via. Ciao, ape! E grazie per le ciliegie di giugno.", "sl": "Glej, odletela je. Adijo, čebela! In hvala za junijske češnje.", "en": "There, she's flying off. Bye, bee! And thank you for June's cherries.", "de": "Da, sie fliegt weg. Tschüss, Biene! Und danke für die Kirschen im Juni." }
+      ]
+    },
+    {
+      "id": "polline-b2-jansa",
+      "level": "B2",
+      "memory": { "it": "la Giornata mondiale delle api", "sl": "svetovni dan čebel", "en": "World Bee Day", "de": "den Weltbienentag" },
+      "lines": [
+        { "who": "aldo", "it": "Lo sai che il 20 maggio è la Giornata mondiale delle api? L'ha proposta la Slovenia, qui dall'altra parte del confine.", "sl": "Veš, da je 20. maj svetovni dan čebel? Predlagala ga je Slovenija, tukaj na drugi strani meje.", "en": "Do you know that 20 May is World Bee Day? Slovenia proposed it, right here across the border.", "de": "Weißt du, dass der 20. Mai Weltbienentag ist? Slowenien hat ihn vorgeschlagen, gleich hier jenseits der Grenze." },
+        { "who": "aldo", "face": "thinking", "it": "Scelsero il giorno in cui nacque Anton Janša, un apicoltore sloveno di tanto tempo fa, che insegnava ai contadini ad allevare le api.", "sl": "Izbrali so dan, ko se je rodil Anton Janša, slovenski čebelar izpred davnih časov, ki je kmete učil čebelariti.", "en": "They chose the day Anton Janša was born, a Slovene beekeeper from long ago, who taught farmers to keep bees.", "de": "Sie wählten den Tag, an dem Anton Janša geboren wurde, ein slowenischer Imker von vor langer Zeit, der den Bauern die Bienenzucht beibrachte." },
+        { "choices": [
+          { "it": "Quindi Janša è nato proprio il 20 maggio, tanti anni fa?", "sl": "Torej se je Janša rodil prav 20. maja, pred mnogimi leti?", "en": "So Janša was born on exactly 20 May, many years ago?", "de": "Janša ist also genau am 20. Mai geboren, vor vielen Jahren?", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così, quasi trecento anni fa. Poi diventò il maestro delle api a Vienna, alla corte dell'imperatrice.", "sl": "Prav tako, pred skoraj tristo leti. Potem je postal učitelj čebelarstva na Dunaju, na cesaričinem dvoru.", "en": "Exactly, nearly three hundred years ago. Later he became the beekeeping teacher in Vienna, at the empress's court.", "de": "Genau, vor fast dreihundert Jahren. Später wurde er Bienenlehrer in Wien, am Hof der Kaiserin." } },
+          { "it": "Quindi Janša nasce il 20 maggio di quest'anno?", "sl": "Torej se je Janša rodil prav 20. maja, pred mnogimi leti?", "en": "So Janša was born on exactly 20 May, many years ago?", "de": "Janša ist also genau am 20. Mai geboren, vor vielen Jahren?",
+            "grammar": "passato-remoto", "why": { "sl": "Nacque je passato remoto: se je rodil, pred davnimi časi, ne letos.", "en": "Nacque is the passato remoto: he was born long ago, not this year.", "de": "Nacque ist das passato remoto: Er wurde vor langer Zeit geboren, nicht dieses Jahr." },
+            "reply": { "face": "laugh", "it": "Quest'anno? No, no! Adesso sarebbe un po' vecchiotto, sai. Più di Bepi!", "sl": "Letos? Ne, ne! Zdaj bi bil malo starikav, veš. Starejši od Bepija!", "en": "This year? No, no! By now he'd be a bit oldish, you know. Older than Bepi!", "de": "Dieses Jahr? Nein, nein! Er wäre inzwischen ein bisschen ältlich, weißt du. Älter als Bepi!" } }
+        ] },
+        { "who": "aldo", "face": "curious", "it": "Si dice che, se le api sparissero, per noi sarebbe dura: niente frutta, poco miele, pochi fiori. Secondo te è esagerato?", "sl": "Pravijo, da bi bilo za nas hudo, če bi čebele izginile: nič sadja, malo medu, malo cvetja. Kaj misliš, je to pretirano?", "en": "They say that if bees vanished, it would be hard for us: no fruit, little honey, few flowers. Do you think that's exaggerated?", "de": "Man sagt, wenn die Bienen verschwänden, wäre es schwer für uns: kein Obst, wenig Honig, wenige Blumen. Ist das übertrieben, meinst du?" },
+        { "choices": [
+          { "it": "Non credo che sia esagerato. Magari tutti lo sapessero!", "sl": "Ne verjamem, da je pretirano. Ko bi le vsi to vedeli!", "en": "I don't think it's exaggerated. If only everyone knew it!", "de": "Ich glaube nicht, dass es übertrieben ist. Wenn das doch alle wüssten!", "ok": true,
+            "reply": { "face": "happy", "it": "Hai ragione. Per questo lo racconto ai bambini, ogni 20 maggio, qui sul prato.", "sl": "Prav imaš. Zato to otrokom pripovedujem vsak 20. maj, tukaj na travniku.", "en": "You're right. That's why I tell the children, every 20 May, here on the meadow.", "de": "Du hast recht. Deshalb erzähle ich es den Kindern, jeden 20. Mai, hier auf der Wiese." } },
+          { "it": "Non credo che sia esagerato. Magari tutti lo sanno!", "sl": "Ne verjamem, da je pretirano. Ko bi le vsi to vedeli!", "en": "I don't think it's exaggerated. If only everyone knew it!", "de": "Ich glaube nicht, dass es übertrieben ist. Wenn das doch alle wüssten!",
+            "grammar": "congiuntivo-indipendente", "why": { "sl": "Magari s sedanjikom pomeni morda; želja, ki ni resnična, je magari lo sapessero.", "en": "Magari with the present means maybe; a wish that isn't so is magari lo sapessero.", "de": "Magari mit dem Präsens heißt vielleicht; ein Wunsch, der nicht wahr ist, heißt magari lo sapessero." },
+            "reply": { "face": "thinking", "it": "Magari lo sanno? Forse sì, forse no… Io non ne sarei così sicuro.", "sl": "Morda vedo? Morda ja, morda ne … Jaz ne bi bil tako prepričan.", "en": "Maybe they know? Maybe yes, maybe no… I wouldn't be so sure.", "de": "Vielleicht wissen sie es? Vielleicht ja, vielleicht nein … Ich wäre mir da nicht so sicher." } }
+        ] },
+        { "who": "aldo", "face": "happy", "it": "Il prossimo 20 maggio vieni con me alle arnie. Le api, quel giorno, meritano una festa. Piano, piano, si capisce.", "sl": "Naslednji 20. maj pridi z mano k panjem. Čebele si tisti dan zaslužijo praznik. Počasi, počasi, seveda.", "en": "Next 20 May, come with me to the hives. The bees deserve a party that day. Slowly, slowly, of course.", "de": "Am nächsten 20. Mai kommst du mit zu den Bienenstöcken. Die Bienen verdienen an dem Tag ein Fest. Langsam, langsam, versteht sich." }
       ]
     }
   ]

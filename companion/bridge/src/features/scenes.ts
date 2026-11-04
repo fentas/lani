@@ -12,7 +12,7 @@ import { learnerLangs } from '../learners'
 import { localDate } from '../rhythm'
 import { knownIds, Names, residentsNamed, sceneMentions } from '../mentions'
 import { checkWoven, fittingWords, lemmaFinder, testedAt, WEAVES_A_DAY, wordsToWeave, wovenToday, type Card, type WeaveWord } from '../dialog-words'
-import { answererErrors, artsOf, dialogGrammar, FACES, FACES_SAID, forApp, forHost, inSeason, talksOffered, lookOnlyErrors, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
+import { answererErrors, artsOf, dialogGrammar, dialogLevel, levelRank, FACES, FACES_SAID, forApp, forHost, inSeason, talksOffered, lookOnlyErrors, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
 import { attachStories } from '../stories'
 import { allHeard, variantNote, VariantAsks, weakSpots } from '../variants'
 import { learnerLevel } from '../villagers'
@@ -43,7 +43,9 @@ line) names only people who are in the village and whom the learner has met (get
 a happening that names anyone else back until they are (Zala's "Anton toči med!" waits for Anton), and publish_scene
 says which. A happening may have several dialogs, its variants ("dialogs": ids of the scene's dialogs or "variants"):
 the app plays one not heard yet, then, once all are heard, the one heard longest ago after a few days, never the same
-twice in a row. A dialog may count something with the village's number of the day ("count": {n} and forms like
+twice in a row. A dialog or a happening may say the level it is written for ("level": "B1"; companion/SCENES.md
+"Dialogs by level"): the app plays a learner what is at or below their level, their own level's first, and what has no
+level to everyone; a happening for everyone keeps a dialog without a level as its "dialog". A dialog may count something with the village's number of the day ("count": {n} and forms like
 {ovca|ovci|ovce|ovc}, the wrong choices "wrong_form": companion/SCENES.md "Numbers"). dialog_variants_heard: the
 learner has heard every dialog of a happening; write a fresh one with publish_dialog_variant (the same situation, other
 words, another point of grammar, at their level, around a weak spot the note names), no message to the learner needed;
@@ -81,6 +83,7 @@ export function sceneInfo(s: LoadedScene, month: number) {
   const { schema: _, objects, people, happenings, dialogs, variants, ...meta } = s
   const tutor = new Set(variants.filter(d => d.source === 'tutor').map(d => d.id))
   const seasonal = [...dialogs, ...variants].filter(d => d.months)
+  const levelled = [...dialogs, ...variants].filter(d => d.level)
   const season = (months: number[] | undefined) => (months ? { months: monthsSaid(months), ...(inSeason(months, month) ? {} : { out_of_season: true }) } : {})
   return {
     ...meta,
@@ -89,12 +92,14 @@ export function sceneInfo(s: LoadedScene, month: number) {
     happenings: happenings.map(h => ({
       id: h.id, title: h.title, who: h.who, when: h.when, weekdays: h.weekdays, ...season(h.months), chance: h.chance, dialog: h.dialog,
       ...(h.dialogs ? { dialogs: h.dialogs } : {}), ...(h.dialogs?.some(d => tutor.has(d)) ? { tutor_variants: h.dialogs.filter(d => tutor.has(d)) } : {}),
-      reward: h.reward, needs: h.needs, ...(h.guests ? { guests: true } : {}), ...(h.stories ? { stories: true } : {}),
+      reward: h.reward, needs: h.needs, ...(h.guests ? { guests: true } : {}), ...(h.stories ? { stories: true } : {}), ...(h.level ? { level: h.level } : {}),
     })),
     dialogs: dialogs.map(d => d.id),
     ...(variants.length ? { variants: variants.map(d => d.id) } : {}),
     // the dialogs with months of their own: when each plays
     ...(seasonal.length ? { dialog_months: Object.fromEntries(seasonal.map(d => [d.id, season(d.months)])) } : {}),
+    // the dialogs written for a level (SCENES.md "Dialogs by level"): the learner meets those at or below theirs
+    ...(levelled.length ? { dialog_levels: Object.fromEntries(levelled.map(d => [d.id, d.level])) } : {}),
   }
 }
 
@@ -167,7 +172,8 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       if (key === seen) return
       seen = key
       // (a happening out of season waits until it comes back: today's month)
-      const due = asks.due(allHeard(scenes.resolved(), state, Number(today.slice(5, 7))), today)
+      // (what is above the learner's level isn't theirs to hear: SCENES.md "Dialogs by level")
+      const due = asks.due(allHeard(scenes.resolved(), state, Number(today.slice(5, 7)), learnerLevel(cfg.dataDir)), today)
       if (!due.length) return
       const weak = weakSpots(learner.state().databases?.mistakes_db)
       const nameOf = (id: string) => villagers.get(id)?.name
@@ -219,8 +225,18 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       '. Name only people who are here and met, or keep it for later.'
     )
   }
-  /** The role-plays a scene's dialog may lead into for this learner: the offered ones (a child is never led into a grown-up's). */
-  const talkable = () => new Set(scenarios.offered(profile.child).map(x => x.id))
+  /**
+   * The role-plays a scene's dialog may lead into for this learner: the offered ones (a child is never led into a grown-up's,
+   * an A1 learner never into a B1 or B2 talk).
+   */
+  const talkable = () => new Set(scenarios.offered(profile.child, learnerLevel(cfg.dataDir)).map(x => x.id))
+  /** Said after publishing a dialog of [level]: it waits while the learner is below it (SCENES.md "Dialogs by level"). */
+  const aboveLearner = (level: string | undefined): string => {
+    const mine = learnerLevel(cfg.dataDir)
+    return levelRank(level) > levelRank(mine)
+      ? `\nNote: it is a ${level} dialog and the learner is at ${mine}: it waits until they are at ${level} (the app plays what is at or below their level).`
+      : ''
+  }
   /** A scene's title as the app shows it: "target · base" in the learner's pair. */
   const titleOf = (s: LoadedScene['title']) => {
     const { target, base } = learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')
@@ -341,7 +357,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
           properties: {
             scene: { type: 'string', description: 'The scene id (list_scenes)' },
             happening: { type: 'string', description: 'The happening id in that scene' },
-            dialog: { type: 'object', description: 'The dialog (lani.scene/v0: id, lines, optional count, memory, talk, sky_stays, fx_stays, months: a season of its own within the happening\'s)' },
+            dialog: { type: 'object', description: 'The dialog (lani.scene/v0: id, lines, optional count, memory, talk, sky_stays, fx_stays, months: a season of its own within the happening\'s, level: the learner\'s level it is written for, from B1 on)' },
             note: { type: 'string', description: 'Optional one-line announcement shown in the app' },
           },
           required: ['scene', 'happening', 'dialog'],
@@ -389,6 +405,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
             `published variant ${did} of ${sceneId}/${hid} (its dialogs now: ${variantsOf(now ?? h).join(', ')}); it plays the next time the happening comes, as the one not heard yet` +
               waiting({ ...v.scene, happenings: v.scene.happenings.filter(x => x.id === hid).map(x => ({ ...x, dialogs: [did] })) }) +
               w.said +
+              aboveLearner(dialogLevel(dialog, h)) +
               (dialog.words?.length ? weaveLimit(sceneId, hid) : ''),
           )
         },

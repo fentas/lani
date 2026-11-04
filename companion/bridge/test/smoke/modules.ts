@@ -211,6 +211,15 @@ export default async function modules() {
   check('… and with none such: the first, without its request, so that a run has its drills', lone.length === 1 && lone[0].id === 'first' && !lone[0].quest, lone)
   const allDone = ['first', 'second', 'third'].map(id => asked(id, '2026-11-03', true))
   check('… all played: nothing new until the level-up, then its next', ids('A1', allDone, '2026-11-09') === 'first second third' && ids('A2', allDone, '2026-11-09') === 'first later second third')
+  // where the learner is first (followups-14: a starter at B2, or one the placement test put there, began with A1's): their
+  // level's modules, then the levels below, the nearest first; a module asked stays listed as it was, a helps link too
+  check('… a learner at A2 with nothing asked: A2\'s first, not A1\'s', ids('A2', [], '2026-11-03') === 'later', ids('A2', [], '2026-11-03'))
+  check('… A2\'s played: then A1\'s, by their order', ids('A2', [asked('later', '2026-11-03', true)], '2026-11-04') === 'first later', ids('A2', [asked('later', '2026-11-03', true)], '2026-11-04'))
+  check('… a B1 learner (no B1 module): the nearest level below first', ids('B1', [], '2026-11-03') === 'later', ids('B1', [], '2026-11-03'))
+  check('… a module asked stays as it was whatever the level: an A1 request open holds the rest back for a B2 learner', ids('B2', [asked('first', '2026-11-03')], '2026-11-09') === 'first')
+  check("… a tutor's request that leads to a module (helps) counts as asked: kept, and the next is the learner's level's", ids('B1', led, '2026-11-03') === 'later third', ids('B1', led, '2026-11-03'))
+  const listedA2 = store.offered('A2', { quests: [], here: everyone, today: '2026-11-03' }).map(m => m.id)
+  check("… and the list in that order (Home's ideas take its first): A2's before A1's", listedA2.indexOf('later') === 0 && listedA2.indexOf('plain') > 0, listedA2)
   const over = await client.callTool({ name: 'publish_module', arguments: { spec: { ...spec, id: 'curated-demo', title: 'Rewritten' } } })
   check('tutor rewrite of a curated module becomes v2', JSON.stringify(over).includes('v2'), over)
 

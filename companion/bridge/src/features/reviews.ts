@@ -36,6 +36,7 @@ import { answerLine, AnswerLog, fromLabel, fromOf, lookedUpNote, reviewAnswers, 
 import { fail, ok } from '../tool'
 import { countingErrors, countingNote, countingRuns } from '../counting'
 import { formsCardsNote, formsErrors, formsRuns } from '../forms-cards'
+import { isParadigmLanguage } from '../paradigms'
 import { countsInDialog, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
@@ -55,13 +56,28 @@ import { LANGUAGES } from '../learners'
 export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting', 'chat-images', 'forms-cards', 'cases'] as const
 
 /**
- * What makes counting and forms cards is Slovene's (its numerals, cases and dual), and so is the case trainer (GET /cases,
- * POST /cases/done: features/cases.ts): a village in another language says none of them.
+ * What makes counting and forms cards is Slovene's (its numerals, cases and dual); the case trainer (GET /cases, POST
+ * /cases/done: features/cases.ts) is Slovene's and German's (its four cases): a village in another language says none.
+ * An older app in a German village never asks for the trainer (its own list of languages is Slovene's alone).
  */
-const SLOVENE_ONLY = new Set<string>(['counting', 'forms-cards', 'cases'])
+const ONLY_IN: Record<string, ReadonlySet<string>> = { counting: new Set(['sl']), 'forms-cards': new Set(['sl']), cases: new Set(['sl', 'de']) }
 
 /** [STATE_FEATURES] as a bridge whose village speaks [language] says them. */
-export const stateFeatures = (language: string): string[] => STATE_FEATURES.filter(f => language === 'sl' || !SLOVENE_ONLY.has(f))
+export const stateFeatures = (language: string): string[] => STATE_FEATURES.filter(f => !ONLY_IN[f] || ONLY_IN[f]!.has(language))
+
+/**
+ * Italian's, German's and English's forms cards (paradigms.ts' tables): their own word, so an older app, which knows
+ * only "forms-cards" and only for Slovene, never meets them.
+ */
+export const OTHER_FORMS_FEATURE = 'forms-cards-v2'
+
+/** [state] (read-db.py's) without the review items that are another language's forms cards (forms.language: it, de, en). */
+export function withoutOtherFormsCards(state: { databases?: { spaced_repetition?: { items?: Record<string, { type?: string; forms?: { language?: string } }> } } }) {
+  const items = state.databases?.spaced_repetition?.items
+  if (!items) return
+  for (const [id, it] of Object.entries(items)) if (it?.type === 'forms' && it.forms?.language && it.forms.language !== 'sl') delete items[id]
+}
+const otherFeatures = (language: string): string[] => (isParadigmLanguage(language) ? [OTHER_FORMS_FEATURE] : [])
 
 /** A form of a card's word asked in a review: the slot ("pres.1sg"), the grammar page it counts on, how it went. */
 const formAsked = z.object({
@@ -305,7 +321,7 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox, culture
     const tables = language ? [] : formsRuns(r.data.forms_cards)
     const cells = tables.flatMap(t => t.cells)
     const steps = [...counted.flatMap(c => c.steps), ...cells]
-    const errors = [...countingErrors(counted), ...formsErrors(tables)]
+    const errors = [...countingErrors(counted), ...formsErrors(tables, culture.manifest?.language ?? 'sl')]
     const countingWrong = countingErrors(counted).length
     const payload = {
       session_id: state.computed.next_session_id,
@@ -350,7 +366,11 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox, culture
         handle: ({ url }) => {
           const l = languageParam.safeParse(url.searchParams.get('language') ?? undefined)
           if (!l.success) return json({ error: 'language: a language code, e.g. "it"' }, 400)
-          return json({ ...JSON.parse(learner.stateJson(l.data)), features: stateFeatures(culture.manifest?.language ?? 'sl') })
+          const state = JSON.parse(learner.stateJson(l.data))
+          // Italian's, German's and English's forms cards only to an app that plays them (forms=2): an older one would
+          // lay their table out as Slovene's (jaz, ti, on before mangio)
+          if (url.searchParams.get('forms') !== '2') withoutOtherFormsCards(state)
+          return json({ ...state, features: [...stateFeatures(culture.manifest?.language ?? 'sl'), ...otherFeatures(culture.manifest?.language ?? 'sl')] })
         },
       },
     ],
