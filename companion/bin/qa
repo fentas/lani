@@ -4806,7 +4806,8 @@ def hint_de():
         end = time.time() + 15 * slow()
         while time.time() < end:
             labels = [t for t, _ in nodes()]
-            if any(t.startswith(answer) or typed in t for t in labels):
+            # (a rule the learner has secure types its turn, a mastered one says it: "let me choose" is in both)
+            if any(t.startswith(answer) or typed in t or choose in t for t in labels):
                 time.sleep(1.2)
                 return True
             if not tap(nxt, 2):
@@ -4820,7 +4821,7 @@ def hint_de():
         if wait_for(close, 15) is None:
             return f"skipped: {sid}/{did} didn't open (no QA hook in this build?)"
         for k, turn in enumerate(turns):
-            assert to_turn(), f"turn {k + 1} (on screen: {[t[:30] for t, _ in nodes()][:14]})"
+            assert to_turn(), f"turn {k + 1} (on screen: {[t[:30] for t, _ in nodes() if t][:20]})"
             if any(choose in t for t, _ in nodes()):
                 tap(choose, 2)
             shot(f"hint-de-turn-{k + 1}")
