@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "il-cancello-dell-orto",
+  "language": "it",
+  "title": { "it": "Il cancello dell'orto", "de": "Das Gartentor", "sl": "Vrtna vrata", "en": "The garden gate" },
+  "emoji": "⚒️",
+  "level": "B2",
+  "setting": {
+    "de": "In der Schmiede. Der Schulgarten braucht ein neues Tor, bevor im September die Schule beginnt, und das Dorf hat dafür nur 700 Euro gesammelt. Fabbro Bruno hat sein schwarzes Heft voller Aufträge aus Görz.",
+    "sl": "V kovačnici. Šolski vrt potrebuje nova vrata, preden se septembra začne šola, vas pa je zanje zbrala le 700 evrov. Kovač Bruno ima svoj črni zvezek poln naročil iz Gorice.",
+    "en": "In the smithy. The school garden needs a new gate before school starts in September, and the village has only collected 700 euros for it. Fabbro Bruno's black notebook is full of orders from Gorizia."
+  },
+  "role": "Fabbro Bruno, the village smith, in his fifties. Gruff and kind, few words: asks 900 euros and says not before October; gives way on price or date, never both at once, for a fair offer, plainer bars or help with the work. Says Lei; {learner} says Lei and 'signor Bruno'. Asks nothing personal.",
+  "who": { "it": "Il fabbro", "de": "Der Schmied", "sl": "Kovač", "en": "The blacksmith" },
+  "voice": "male",
+  "speaker": "gruff",
+  "place": "smithy",
+  "goals": [
+    { "it": "Spiega che cosa vi serve e per quando", "de": "Erklär, was ihr braucht und bis wann", "sl": "Pojasni, kaj potrebujete in do kdaj", "en": "Explain what you need and by when" },
+    { "it": "Reagisci al prezzo", "de": "Reagiere auf den Preis", "sl": "Odzovi se na ceno", "en": "Respond to the price" },
+    { "it": "Fai una controproposta", "de": "Mach ein Gegenangebot", "sl": "Daj protiponudbo", "en": "Make a counter-offer" },
+    { "it": "Trova un compromesso sulla data", "de": "Findet einen Kompromiss beim Termin", "sl": "Najdita kompromis glede roka", "en": "Find a compromise on the date" },
+    { "it": "Riassumi l'accordo", "de": "Fass die Abmachung zusammen", "sl": "Povzemi dogovor", "en": "Sum up the deal" }
+  ],
+  "opener_sl": "Buongiorno. Un cancello per l'orto della scuola, ho capito bene? Mi dica come lo vuole.",
+  "opener_en": {
+    "de": "Guten Tag. Ein Tor für den Schulgarten, habe ich das richtig verstanden? Sagen Sie mir, wie Sie es haben wollen.",
+    "sl": "Dober dan. Vrata za šolski vrt, sem prav razumel? Povejte, kakšna jih želite.",
+    "en": "Good morning. A gate for the school garden, have I got that right? Tell me how you want it."
+  },
+  "vocabulary_hints": [
+    { "sl": "Ci servirebbe un cancello semplice, largo due metri.", "en": { "de": "Wir bräuchten ein einfaches Tor, zwei Meter breit.", "sl": "Potrebovali bi preprosta vrata, široka dva metra.", "en": "We'd need a simple gate, two metres wide." } },
+    { "sl": "Dovrebbe essere pronto prima che cominci la scuola.", "en": { "de": "Es müsste fertig sein, bevor die Schule anfängt.", "sl": "Morala bi biti gotova, preden se začne šola.", "en": "It would have to be ready before school starts." } },
+    { "sl": "Novecento euro? È più di quanto abbiamo raccolto.", "en": { "de": "Neunhundert Euro? Das ist mehr, als wir gesammelt haben.", "sl": "Devetsto evrov? To je več, kot smo zbrali.", "en": "Nine hundred euros? That's more than we've collected." } },
+    { "sl": "E se rinunciassimo alle decorazioni?", "en": { "de": "Und wenn wir auf die Verzierungen verzichten würden?", "sl": "Kaj pa, če bi se odpovedali okraskom?", "en": "And what if we did without the decorations?" } },
+    { "sl": "Potremmo aiutarla noi a verniciarlo.", "en": { "de": "Wir könnten Ihnen beim Streichen helfen.", "sl": "Lahko bi vam pomagali pri barvanju.", "en": "We could help you paint it." } },
+    { "sl": "A patto che sia pronto entro il quindici settembre.", "en": { "de": "Vorausgesetzt, es ist bis zum fünfzehnten September fertig.", "sl": "Pod pogojem, da bodo gotova do 15. septembra.", "en": "Provided it's ready by the fifteenth of September." } },
+    { "sl": "Quindi: settecento euro, niente decorazioni, entro metà settembre.", "en": { "de": "Also: siebenhundert Euro, keine Verzierungen, bis Mitte September.", "sl": "Torej: sedemsto evrov, brez okraskov, do sredine septembra.", "en": "So: seven hundred euros, no decorations, by mid-September." } },
+    { "sl": "Affare fatto, signor Bruno!", "en": { "de": "Abgemacht, Herr Bruno!", "sl": "Dogovorjeno, gospod Bruno!", "en": "It's a deal, Mr Bruno!" } }
+  ],
+  "packs": ["nella-fucina", "a-scuola", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

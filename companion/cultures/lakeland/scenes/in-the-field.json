@@ -5,7 +5,7 @@
   "title": { "en": "In the field", "sl": "Na polju", "it": "Nel campo", "de": "Auf dem Feld" },
   "emoji": "🌾",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "field",
   "from": ["field", "kozolec"],
   "pack": "in-the-field",
@@ -40,7 +40,7 @@
     {
       "id": "hay", "title": { "en": "Mr Tyson makes hay", "sl": "Gospod Tyson spravlja seno", "it": "Il signor Tyson fa il fieno", "de": "Mr Tyson macht Heu" }, "who": "tyson",
       "when": ["afternoon"], "months": [6, 7, 8, 9], "chance": 0.5, "needs": { "building": "KOZOLEC" },
-      "dialog": "hay", "dialogs": ["hay-rain", "hay"], "reward": { "food": 20 }, "marker": "🌾",
+      "dialog": "hay", "dialogs": ["hay-b2-rain", "hay-b1-cart", "hay-rain", "hay"], "reward": { "food": 20 }, "marker": "🌾",
       "memory": { "en": "the smell of the hay", "sl": "vonj sena", "it": "il profumo del fieno", "de": "den Duft vom Heu" }
     },
     {
@@ -58,7 +58,7 @@
     {
       "id": "dusk", "title": { "en": "Evening in the field", "sl": "Večer na polju", "it": "Sera nel campo", "de": "Abend auf dem Feld" }, "who": "tyson",
       "when": ["evening"], "chance": 0.4,
-      "dialog": "dusk", "dialogs": ["dusk-bats", "dusk"], "reward": { "wisdom": 15 }, "marker": "🌇",
+      "dialog": "dusk", "dialogs": ["dusk-b2-yan", "dusk-b1-rabbits", "dusk-bats", "dusk"], "reward": { "wisdom": 15 }, "marker": "🌇",
       "memory": { "en": "the hare by the wall at dusk", "sl": "zajca ob zidu ob mraku", "it": "la lepre vicino al muretto al crepuscolo", "de": "den Hasen an der Mauer in der Abenddämmerung" }
     }
   ],
@@ -320,6 +320,80 @@
             "reply": { "face": "curious", "en": "There? Where's there? Over by the wall?", "sl": "Tam? Kje je tam? Tamle pri zidu?", "it": "Là? Dov'è là? Laggiù vicino al muretto?", "de": "Dort? Wo ist dort? Da drüben an der Mauer?" } }
         ] },
         { "who": "tyson", "en": "Right. Bed for me. Up at five tomorrow: the cows don't wait.", "sl": "Tako. Jaz grem spat. Jutri vstanem ob petih: krave ne čakajo.", "it": "Bene. Io vado a letto. Domani mi alzo alle cinque: le mucche non aspettano.", "de": "So. Ich geh ins Bett. Morgen um fünf raus: Die Kühe warten nicht." }
+      ]
+    },
+    {
+      "id": "hay-b2-rain", "level": "B2",
+      "memory": {"en": "twelve rows of hay before the rain", "sl": "dvanajst vrst sena pred dežjem", "it": "dodici file di fieno prima della pioggia", "de": "zwölf Reihen Heu vor dem Regen"},
+      "lines": [
+        {"who": "tyson", "face": "worried", "en": "Afternoon, {m:lad|f:lass}. The forecast says rain by six. That gives us three hours.", "sl": "Dober dan. Napoved pravi, da bo do šestih deževalo. Imamo tri ure.", "it": "Buon pomeriggio, {m:ragazzo|f:ragazza}. Le previsioni dicono pioggia entro le sei. Abbiamo tre ore.", "de": "Tag, {m:Junge|f:Mädchen}. Der Wetterbericht sagt Regen bis sechs. Das gibt uns drei Stunden."},
+        {"who": "tyson", "face": "thinking", "en": "Twelve rows, four an hour. By six we'll have finished, if Alfie doesn't eat all the sandwiches.", "sl": "Dvanajst vrst, štiri na uro. Do šestih bomo končali, če Alfie ne poje vseh sendvičev.", "it": "Dodici file, quattro all'ora. Per le sei avremo finito, se Alfie non si mangia tutti i panini.", "de": "Zwölf Reihen, vier pro Stunde. Bis sechs sind wir fertig, wenn Alfie nicht alle Brote isst."},
+        { "choices": [
+          {"en": "So the work will be done before the rain comes.", "sl": "Torej bo delo narejeno, preden pride dež.", "it": "Quindi il lavoro sarà fatto prima che arrivi la pioggia.", "de": "Die Arbeit ist also erledigt, bevor der Regen kommt.", "ok": true, "reply": {"en": "Before the rain. If my sums are right, and they usually are.", "sl": "Pred dežjem. Če sem prav izračunal, in ponavadi sem.", "it": "Prima della pioggia. Se i miei conti tornano, e di solito tornano.", "de": "Vor dem Regen. Wenn meine Rechnung stimmt, und das tut sie meistens."}},
+          {"en": "So we'll still be working when it rains.", "sl": "Torej bomo še delali, ko bo začelo deževati.", "it": "Quindi staremo ancora lavorando quando pioverà.", "de": "Wir arbeiten also noch, wenn es regnet.", "grammar": "future-perfect", "why": {"en": "By six we'll have finished: the work is done by six, before the rain.", "sl": "By six we'll have finished: delo bo narejeno do šestih, pred dežjem.", "it": "By six we'll have finished: il lavoro è fatto per le sei, prima della pioggia.", "de": "By six we'll have finished: Bis sechs ist die Arbeit getan, vor dem Regen."}, "reply": {"face": "cross", "en": "Still working? Not if I can count. Four an hour, twelve rows.", "sl": "Še delali? Ne, če znam šteti. Štiri na uro, dvanajst vrst.", "it": "Ancora a lavorare? No, se so contare. Quattro all'ora, dodici file.", "de": "Noch am Arbeiten? Nicht, wenn ich zählen kann. Vier pro Stunde, zwölf Reihen."}}
+        ] },
+        {"who": "tyson", "face": "curious", "en": "Two forks here, an old one and a new one. Which do you want?", "sl": "Tu sta dve vili, stare in nove. Katero hočeš?", "it": "Qui ci sono due forche, una vecchia e una nuova. Quale vuoi?", "de": "Hier sind zwei Gabeln, eine alte und eine neue. Welche willst du?"},
+        { "choices": [
+          {"en": "Either will do. They both look fine to me.", "sl": "Katero koli. Obe se mi zdita v redu.", "it": "Va bene l'una o l'altra. Mi sembrano buone tutte e due.", "de": "Egal welche. Beide sehen gut aus.", "ok": true, "reply": {"face": "happy", "en": "Then take the old one. It's lighter, and it knows the way.", "sl": "Potem vzemi staro. Lažja je in pozna pot.", "it": "Allora prendi quella vecchia. È più leggera, e sa la strada.", "de": "Dann nimm die alte. Die ist leichter und kennt den Weg."}},
+          {"en": "Neither will do. They both look fine to me.", "sl": "Katero koli. Obe se mi zdita v redu.", "it": "Va bene l'una o l'altra. Mi sembrano buone tutte e due.", "de": "Egal welche. Beide sehen gut aus.", "grammar": "quantifiers", "why": {"en": "Either: one or the other, any one is fine. Neither: not one and not the other.", "sl": "Either: eno ali drugo, katero koli je v redu. Neither: ne eno ne drugo.", "it": "Either: l'una o l'altra, qualsiasi va bene. Neither: né l'una né l'altra.", "de": "Either: die eine oder die andere, jede passt. Neither: keine von beiden."}, "reply": {"face": "surprised", "en": "Neither? Then you'll be turning hay with your hands!", "sl": "Nobene? Potem boš seno {m:obračal|f:obračala} z rokami!", "it": "Nessuna? Allora girerai il fieno con le mani!", "de": "Keine? Dann wendest du das Heu mit den Händen!"}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Twelve rows, two forks, three hours. Go!", "sl": "Prav. Dvanajst vrst, dve vili, tri ure. Gremo!", "it": "Bene. Dodici file, due forche, tre ore. Via!", "de": "Gut. Zwölf Reihen, zwei Gabeln, drei Stunden. Los!"}
+      ]
+    },
+    {
+      "id": "hay-b1-cart", "level": "B1",
+      "memory": {"en": "the hay we got in before the weather turned", "sl": "seno, ki smo ga spravili pred poslabšanjem vremena", "it": "il fieno che abbiamo messo al riparo prima che cambiasse il tempo", "de": "das Heu, das wir reingebracht haben, bevor das Wetter umschlug"},
+      "lines": [
+        {"who": "tyson", "face": "happy", "en": "Now then, {m:lad|f:lass}! The sun's out. Today we make hay and get it into the barn.", "sl": "Živjo! Sonce je zunaj. Danes sušimo seno in ga spravimo v skedenj.", "it": "Ehilà, {m:ragazzo|f:ragazza}! C'è il sole. Oggi facciamo il fieno e lo mettiamo nel fienile.", "de": "Na, {m:Junge|f:Mädchen}! Die Sonne scheint. Heute machen wir Heu und bringen es in die Scheune."},
+        {"who": "tyson", "face": "curious", "en": "If it rained tonight, what would happen to it?", "sl": "Kaj bi se zgodilo z njim, če bi nocoj deževalo?", "it": "Se stanotte piovesse, che cosa gli succederebbe?", "de": "Wenn es heute Nacht regnen würde, was würde damit passieren?"},
+        { "choices": [
+          {"en": "If it rained, the hay would get wet and spoil.", "sl": "Če bi deževalo, bi se seno zmočilo in pokvarilo.", "it": "Se piovesse, il fieno si bagnerebbe e si rovinerebbe.", "de": "Wenn es regnen würde, würde das Heu nass und verdürbe.", "ok": true, "reply": {"en": "Spoil. Aye. So we get it in today.", "sl": "Pokvarilo. Ja. Zato ga spravimo danes.", "it": "Rovinato. Sì. Perciò lo mettiamo dentro oggi.", "de": "Verderben. Ja. Darum bringen wir es heute rein."}},
+          {"en": "If it rained, the hay will get wet and spoil.", "sl": "Če bi deževalo, bi se seno zmočilo in pokvarilo.", "it": "Se piovesse, il fieno si bagnerebbe e si rovinerebbe.", "de": "Wenn es regnen würde, würde das Heu nass und verdürbe.", "grammar": "second-conditional", "why": {"en": "It's only imagined: if it rained, then would in the other half: it would get wet.", "sl": "Samo predstavljaš si: if it rained, nato would v drugi polovici: it would get wet.", "it": "È solo immaginato: if it rained, poi would nell'altra metà: it would get wet.", "de": "Es ist nur vorgestellt: if it rained, dann would in der anderen Hälfte: it would get wet."}, "reply": {"face": "cross", "en": "Will get wet? Not yet. Look, the sky's blue, {m:lad|f:lass}.", "sl": "Will get wet? Še ne. Poglej, nebo je modro.", "it": "Will get wet? Non ancora. Guarda, il cielo è azzurro, {m:ragazzo|f:ragazza}.", "de": "Will get wet? Noch nicht. Schau, der Himmel ist blau, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "en": "Alfie came running out a minute ago, all excited.", "sl": "Alfie je pravkar pritekel ven, ves navdušen.", "it": "Alfie è corso fuori un minuto fa, tutto eccitato.", "de": "Alfie kam vor einer Minute rausgerannt, ganz aufgeregt."},
+        {"who": "tyson", "face": "curious", "en": "What did he want from you?", "sl": "Kaj je hotel od tebe?", "it": "Che cosa voleva da te?", "de": "Was wollte er von dir?"},
+        { "choices": [
+          {"en": "He asked me if he could ride on the cart.", "sl": "Vprašal me je, ali se lahko pelje na vozu.", "it": "Mi ha chiesto se poteva salire sul carro.", "de": "Er hat mich gefragt, ob er auf dem Wagen mitfahren darf.", "ok": true, "reply": {"en": "On the cart. Only with me holding him.", "sl": "Na vozu. Samo če ga držim.", "it": "Sul carro. Solo se lo tengo io.", "de": "Auf dem Wagen. Nur wenn ich ihn festhalte."}},
+          {"en": "He asked to me if he could ride on the cart.", "sl": "Vprašal me je, ali se lahko pelje na vozu.", "it": "Mi ha chiesto se poteva salire sul carro.", "de": "Er hat mich gefragt, ob er auf dem Wagen mitfahren darf.", "grammar": "reported-questions", "why": {"en": "Ask takes the person with no to: he asked me if …", "sl": "Ask zahteva osebo brez to: he asked me if …", "it": "Ask vuole la persona senza to: he asked me if …", "de": "Ask nimmt die Person ohne to: he asked me if …"}, "reply": {"face": "curious", "en": "Asked to you? One word too many there, {m:lad|f:lass}.", "sl": "Asked to you? Ena beseda preveč.", "it": "Asked to you? Una parola di troppo, {m:ragazzo|f:ragazza}.", "de": "Asked to you? Ein Wort zu viel, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Two forks, one cart, one small helper. Let's get it in.", "sl": "Prav. Dve vili, en voz, en majhen pomočnik. Spravimo ga.", "it": "Bene. Due forche, un carro, un piccolo aiutante. Mettiamolo dentro.", "de": "Gut. Zwei Gabeln, ein Wagen, ein kleiner Helfer. Bringen wir's rein."}
+      ]
+    },
+    {
+      "id": "dusk-b2-yan", "level": "B2",
+      "memory": {"en": "yan, tyan, tethera at dusk", "sl": "yan, tyan, tethera ob mraku", "it": "yan, tyan, tethera al tramonto", "de": "yan, tyan, tethera in der Dämmerung"},
+      "lines": [
+        {"who": "tyson", "en": "Listen, {m:lad|f:lass}. The church bell. My grandad would stand right here every evening and count his sheep the old way.", "sl": "Poslušaj. Cerkveni zvon. Moj ded je vsak večer stal prav tukaj in štel ovce po starem.", "it": "Ascolta, {m:ragazzo|f:ragazza}. La campana. Mio nonno si metteva proprio qui ogni sera a contare le pecore all'antica.", "de": "Hör mal, {m:Junge|f:Mädchen}. Die Kirchenglocke. Mein Opa stand jeden Abend genau hier und zählte seine Schafe auf die alte Art."},
+        {"who": "tyson", "face": "proud", "en": "Yan, tyan, tethera, methera, pimp. One to five. Want to try?", "sl": "Yan, tyan, tethera, methera, pimp. Od ena do pet. Bi {m:poskusil|f:poskusila}?", "it": "Yan, tyan, tethera, methera, pimp. Da uno a cinque. Vuoi provare?", "de": "Yan, tyan, tethera, methera, pimp. Eins bis fünf. Willst du's versuchen?"},
+        { "choices": [
+          {"en": "Listening to you, I've already learnt three of them.", "sl": "Ob poslušanju sem se jih že {m:naučil|f:naučila} tri.", "it": "Ascoltandola, ne ho già imparati tre.", "de": "Beim Zuhören habe ich schon drei gelernt.", "ok": true, "reply": {"face": "proud", "en": "Three! Yan, tyan, tethera. Grandad would be pleased.", "sl": "Tri! Yan, tyan, tethera. Ded bi bil zadovoljen.", "it": "Tre! Yan, tyan, tethera. Il nonno sarebbe contento.", "de": "Drei! Yan, tyan, tethera. Opa wäre zufrieden."}},
+          {"en": "Listen to you, I've already learnt three of them.", "sl": "Ob poslušanju sem se jih že {m:naučil|f:naučila} tri.", "it": "Ascoltandola, ne ho già imparati tre.", "de": "Beim Zuhören habe ich schon drei gelernt.", "grammar": "participle-clauses", "why": {"en": "One subject, two clauses: the first gets -ing. Listening to you, I've learnt …", "sl": "En osebek, dva stavka: prvi dobi -ing. Listening to you, I've learnt …", "it": "Un soggetto, due frasi: la prima prende -ing. Listening to you, I've learnt …", "de": "Ein Subjekt, zwei Sätze: Der erste bekommt -ing. Listening to you, I've learnt …"}, "reply": {"face": "confused", "en": "Listen to me? All right, then. Did you learn any?", "sl": "Listen to me? Saj poslušam. Si se kaj {m:naučil|f:naučila}?", "it": "Listen to me? Sto ascoltando. Ne hai imparato qualcuno?", "de": "Listen to me? Ich hör doch zu. Hast du welche gelernt?"}}
+        ] },
+        {"who": "tyson", "face": "thinking", "en": "The young ones don't bother with it any more. Ten more numbers, and you'd be the only one.", "sl": "Mladi se s tem ne ukvarjajo več. Še deset števil in {m:bil bi edini|f:bila bi edina}.", "it": "I giovani non ci badano più. Altri dieci numeri, e saresti {m:l'unico|f:l'unica}.", "de": "Die Jungen kümmern sich nicht mehr darum. Noch zehn Zahlen, und du wärst {m:der Einzige|f:die Einzige}."},
+        { "choices": [
+          {"en": "I'm looking forward to learning the rest.", "sl": "Veselim se, da se naučim še ostale.", "it": "Non vedo l'ora di imparare il resto.", "de": "Ich freue mich darauf, den Rest zu lernen.", "ok": true, "reply": {"face": "happy", "en": "Then tomorrow, same time, same wall. Sethera is six.", "sl": "Potem jutri, ob isti uri, pri istem zidu. Sethera je šest.", "it": "Allora domani, stessa ora, stesso muretto. Sethera è sei.", "de": "Dann morgen, gleiche Zeit, gleiche Mauer. Sethera ist sechs."}},
+          {"en": "I'm looking forward to learn the rest.", "sl": "Veselim se, da se naučim še ostale.", "it": "Non vedo l'ora di imparare il resto.", "de": "Ich freue mich darauf, den Rest zu lernen.", "grammar": "phrasal-verbs-more", "why": {"en": "Look forward to + a noun or -ing: looking forward to learning. Here to isn't part of the verb.", "sl": "Look forward to + samostalnik ali -ing: looking forward to learning. Tu to ni del glagola.", "it": "Look forward to + un nome o -ing: looking forward to learning. Qui to non fa parte del verbo.", "de": "Look forward to + Nomen oder -ing: looking forward to learning. Hier gehört to nicht zum Verb."}, "reply": {"face": "curious", "en": "To learn? Nearly, {m:lad|f:lass}. Count your endings again.", "sl": "To learn? Skoraj. Še enkrat preštej končnice.", "it": "To learn? Quasi, {m:ragazzo|f:ragazza}. Ricontrolla le desinenze.", "de": "To learn? Fast, {m:Junge|f:Mädchen}. Zähl deine Endungen noch mal."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Home now. The sheep are counted, and so is the day.", "sl": "Prav. Zdaj domov. Ovce so preštete in dan tudi.", "it": "Bene. Ora a casa. Le pecore sono contate, e anche la giornata.", "de": "Gut. Jetzt heim. Die Schafe sind gezählt, und der Tag auch."}
+      ]
+    },
+    {
+      "id": "dusk-b1-rabbits", "level": "B1",
+      "memory": {"en": "the rabbits under the field wall", "sl": "zajce pod zidom ob njivi", "it": "i conigli sotto il muro del campo", "de": "die Kaninchen unter der Feldmauer"},
+      "lines": [
+        {"who": "tyson", "en": "Listen, {m:lad|f:lass}. The church bell. The day's done.", "sl": "Poslušaj. Cerkveni zvon. Dan je končan.", "it": "Ascolta, {m:ragazzo|f:ragazza}. La campana. La giornata è finita.", "de": "Hör mal, {m:Junge|f:Mädchen}. Die Kirchenglocke. Der Tag ist vorbei."},
+        {"who": "tyson", "face": "thinking", "en": "When I got here this morning, the rabbits had already dug under the wall. Two holes.", "sl": "Ko sem zjutraj prišel sem, so zajci že izkopali luknjo pod zidom. Dve luknji.", "it": "Quando sono arrivato stamattina, i conigli avevano già scavato sotto il muro. Due buche.", "de": "Als ich heute Morgen herkam, hatten die Kaninchen schon unter der Mauer gegraben. Zwei Löcher."},
+        {"who": "tyson", "face": "curious", "en": "And when I came back at lunch, guess what?", "sl": "Ko pa sem se vrnil opoldne, ugani, kaj?", "it": "E quando sono tornato a pranzo, indovina?", "de": "Und als ich mittags zurückkam, rate mal?"},
+        { "choices": [
+          {"en": "They had dug another one, I bet.", "sl": "Gotovo so izkopali še eno.", "it": "Ne avevano scavata un'altra, scommetto.", "de": "Sie hatten noch eins gegraben, wette ich.", "ok": true, "reply": {"en": "Another one. Three. I counted. Rabbits everywhere.", "sl": "Še eno. Tri. Preštel sem. Povsod zajci.", "it": "Un'altra. Tre. Le ho contate. Conigli dappertutto.", "de": "Noch eins. Drei. Ich hab gezählt. Überall Kaninchen."}},
+          {"en": "They have dug another one, I bet.", "sl": "Gotovo so izkopali še eno.", "it": "Ne avevano scavata un'altra, scommetto.", "de": "Sie hatten noch eins gegraben, wette ich.", "grammar": "past-perfect", "why": {"en": "Earlier than another past moment: had + the participle, they had dug. Have dug would mean up to now.", "sl": "Pred drugim trenutkom v preteklosti: had + deležnik, they had dug. Have dug bi pomenilo do zdaj.", "it": "Prima di un altro momento passato: had + il participio, they had dug. Have dug vorrebbe dire fino ad adesso.", "de": "Vor einem anderen Moment in der Vergangenheit: had + Partizip, they had dug. Have dug hieße bis jetzt."}, "reply": {"face": "cross", "en": "Have dug? That was at lunch, {m:lad|f:lass}. It's evening now.", "sl": "Have dug? To je bilo opoldne. Zdaj je večer.", "it": "Have dug? Era a pranzo, {m:ragazzo|f:ragazza}. Adesso è sera.", "de": "Have dug? Das war mittags, {m:Junge|f:Mädchen}. Jetzt ist Abend."}}
+        ] },
+        {"who": "tyson", "face": "thinking", "en": "I should have mended that wall in the spring.", "sl": "Spomladi bi moral popraviti ta zid.", "it": "Avrei dovuto riparare quel muro in primavera.", "de": "Ich hätte die Mauer im Frühling ausbessern sollen."},
+        { "choices": [
+          {"en": "If you'd mended it, they wouldn't have got in.", "sl": "Če bi ga popravili, ne bi prišli noter.", "it": "Se l'avesse riparato, non sarebbero entrati.", "de": "Hätten Sie sie ausgebessert, wären sie nicht reingekommen.", "ok": true, "reply": {"en": "Aye. Lesson learnt. Tomorrow: stones.", "sl": "Ja. Nauk sprejet. Jutri: kamni.", "it": "Sì. Lezione imparata. Domani: pietre.", "de": "Ja. Lektion gelernt. Morgen: Steine."}},
+          {"en": "If you'd mended it, they wouldn't got in.", "sl": "Če bi ga popravili, ne bi prišli noter.", "it": "Se l'avesse riparato, non sarebbero entrati.", "de": "Hätten Sie sie ausgebessert, wären sie nicht reingekommen.", "grammar": "third-conditional", "why": {"en": "What didn't happen: wouldn't have + the participle, they wouldn't have got in.", "sl": "Za tisto, kar se ni zgodilo: wouldn't have + deležnik, they wouldn't have got in.", "it": "Per ciò che non è successo: wouldn't have + il participio, they wouldn't have got in.", "de": "Für das, was nicht passiert ist: wouldn't have + Partizip, they wouldn't have got in."}, "reply": {"face": "curious", "en": "Wouldn't got? Count again, {m:lad|f:lass}. One's missing.", "sl": "Wouldn't got? Še enkrat preštej. Ena manjka.", "it": "Wouldn't got? Riconta, {m:ragazzo|f:ragazza}. Ne manca una.", "de": "Wouldn't got? Zähl noch mal, {m:Junge|f:Mädchen}. Eins fehlt."}}
+        ] },
+        {"who": "tyson", "face": "happy", "en": "Right. Home. The rabbits can have tonight. Tomorrow's mine.", "sl": "Prav. Domov. Zajci lahko imajo nocojšnjo noč. Jutri je moj.", "it": "Bene. A casa. Ai conigli la notte. Domani tocca a me.", "de": "Gut. Heim. Die Nacht gehört den Kaninchen. Morgen gehört mir."}
       ]
     }
   ]

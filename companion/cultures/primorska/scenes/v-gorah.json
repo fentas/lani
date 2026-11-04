@@ -4,7 +4,7 @@
   "title": { "sl": "V gorah", "en": "In the mountains", "de": "In den Bergen", "it": "In montagna" },
   "emoji": "🏔️",
   "level": "A1",
-  "review": "reactions, second right answers, variants: machine-written, not reviewed by a native speaker; checked against Fran 2026-10-30: ob šest is spoken, accepted",
+  "review": "reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker; checked against Fran 2026-10-30: ob šest is spoken, accepted",
   "art": "alps",
   "from": ["spot:horizon"],
   "pack": "v-gorah",
@@ -41,7 +41,7 @@
     },
     {
       "id": "planina", "title": { "sl": "Luka na planini", "en": "Luka on the mountain pasture", "de": "Luka auf der Alm", "it": "Luka all'alpeggio" }, "who": "luka",
-      "when": ["morning", "afternoon"], "months": [6, 7, 8, 9], "chance": 0.5, "dialog": "planina", "dialogs": ["planina-stejem", "planina-zvonec", "planina"],"reward": { "food": 20 }, "marker": "🐄",
+      "when": ["morning", "afternoon"], "months": [6, 7, 8, 9], "chance": 0.5, "dialog": "planina", "dialogs": ["planina-b2-metla", "planina-b1-sir", "planina-stejem", "planina-zvonec", "planina"],"reward": { "food": 20 }, "marker": "🐄",
       "memory": { "sl": "krave na planini", "en": "the cows on the mountain pasture", "de": "die Kühe auf der Alm", "it": "le mucche all'alpeggio" }
     },
     {
@@ -50,7 +50,7 @@
       "memory": { "sl": "ribo, ki je skočila iz jezera", "en": "the fish that jumped out of the lake", "de": "den Fisch, der aus dem See gesprungen ist", "it": "il pesce che è saltato fuori dal lago" }
     },
     { "id": "molza", "title": { "sl": "Luka molze ob zori", "en": "Luka milking at dawn", "de": "Luka melkt im Morgengrauen", "it": "Luka munge all'alba" }, "who": "luka",
-      "when": ["dawn"], "months": [6, 7, 8, 9], "chance": 0.6, "dialog": "molza", "dialogs": ["molza-mleko", "molza-umivanje", "molza"],"reward": { "food": 20 }, "marker": "🥛",
+      "when": ["dawn"], "months": [6, 7, 8, 9], "chance": 0.6, "dialog": "molza", "dialogs": ["molza-b2-triglav", "molza-b1-liska", "molza-mleko", "molza-umivanje", "molza"],"reward": { "food": 20 }, "marker": "🥛",
       "memory": { "sl": "jutro, ko so gore žarele", "en": "the morning the mountains glowed", "de": "den Morgen, an dem die Berge geglüht haben", "it": "la mattina in cui le montagne risplendevano" } }
   ],
   "dialogs": [
@@ -387,6 +387,553 @@
             "reply": { "face": "surprised", "sl": "Že? Potem si pa {m:hiter|f:hitra}, {learner}!", "en": "Already? Then you're quick, {learner}!", "de": "Schon? Dann bist du aber schnell, {learner}!", "it": "Di già? Allora sei veloce, {learner}!" } }
         ] },
         { "who": "luka", "sl": "Zdaj pa h kravam. Molža čaka!", "en": "Now to the cows. The milking is waiting!", "de": "Jetzt zu den Kühen. Das Melken wartet!", "it": "Adesso dalle mucche. La mungitura aspetta!", "fx": { "glow": 0.3, "cowbells": 1 } }
+      ]
+    },
+    {
+      "id": "planina-b1-sir",
+      "level": "B1",
+      "memory": {
+        "sl": "moj prvi sir s planine",
+        "en": "my first cheese from the pasture",
+        "de": "meinen ersten Käse von der Alm",
+        "it": "il mio primo formaggio dell'alpeggio"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "proud",
+          "sl": "Ej, {learner}! Poskusi moj prvi sir s planine. Stari planšar pravi, da je premlad, jaz pa mislim, da je že dober.",
+          "en": "Hey, {learner}! Try my first cheese from the pasture. The old herdsman says it's too young, but I think it's good already.",
+          "de": "Hey, {learner}! Probier meinen ersten Käse von der Alm. Der alte Senn sagt, er ist zu jung, aber ich finde, er ist schon gut.",
+          "it": "Ehi, {learner}! Assaggia il mio primo formaggio dell'alpeggio. Il vecchio malgaro dice che è troppo giovane, ma secondo me è già buono."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mmm, dober je! Kako se dela tak sir?",
+              "en": "Mmm, it's good! How is cheese like this made?",
+              "de": "Mmm, der ist gut! Wie macht man so einen Käse?",
+              "it": "Mmm, è buono! Come si fa un formaggio così?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Mleko se segreje, potem se doda sirišče in se čaka. Potrpljenje, veš!",
+                "en": "The milk is warmed, then rennet is added, and you wait. Patience, you know!",
+                "de": "Die Milch wird erwärmt, dann kommt Lab dazu, und man wartet. Geduld, weißt du!",
+                "it": "Si scalda il latte, poi si aggiunge il caglio e si aspetta. Pazienza, sai!"
+              }
+            },
+            {
+              "sl": "Mmm, dober je! Kako dela tak sir?",
+              "en": "Mmm, it's good! How is cheese like this doing?",
+              "de": "Mmm, der ist gut! Wie geht es so einem Käse?",
+              "it": "Mmm, è buono! Come sta un formaggio così?",
+              "grammar": "trpnik",
+              "why": {
+                "en": "The cheese is what is made, not who makes it: delati needs se here, kako se dela (how is it made). Kako dela asks how it's doing.",
+                "de": "Der Käse wird gemacht, er macht nichts: delati braucht hier se, kako se dela (wie wird er gemacht). Kako dela fragt, wie es ihm geht.",
+                "it": "Il formaggio è ciò che si fa, non chi fa: qui delati vuole il se, kako se dela (come si fa). Kako dela chiede come sta."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Kako dela? Sir ne dela, sir počiva, ha ha!",
+                "en": "How's it doing? Cheese doesn't work, cheese rests, ha ha!",
+                "de": "Wie es ihm geht? Käse arbeitet nicht, Käse ruht, ha ha!",
+                "it": "Come sta? Il formaggio non lavora, riposa, ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Zvonci so preglasni!",
+            "en": "Hey, what? The cowbells are too loud!",
+            "de": "Hey, was? Die Kuhglocken sind zu laut!",
+            "it": "Ehi, cosa? I campanacci fanno troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "worried",
+          "sl": "Ampak jutri bo megla. Če bodo krave šle predaleč, jih ne bom našel.",
+          "en": "But tomorrow there'll be fog. If the cows wander too far, I won't find them.",
+          "de": "Aber morgen kommt Nebel. Wenn die Kühe zu weit gehen, finde ich sie nicht.",
+          "it": "Ma domani ci sarà nebbia. Se le mucche vanno troppo lontano, non le troverò."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Daj vsem kravam zvonce, da jih boš slišal tudi v megli.",
+              "en": "Give all the cows bells, so you'll hear them even in the fog.",
+              "de": "Gib allen Kühen Glocken, damit du sie auch im Nebel hörst.",
+              "it": "Metti un campanaccio a tutte le mucche, così le senti anche nella nebbia.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Vsem? Ej, pametno! Zvonci so v koči, v skrinji. Greva ponje?",
+                "en": "All of them? Hey, smart! The bells are in the hut, in the chest. Shall we go and get them?",
+                "de": "Allen? Hey, klug! Die Glocken sind in der Hütte, in der Truhe. Holen wir sie?",
+                "it": "A tutte? Ehi, furbo! I campanacci sono nella baita, nel baule. Andiamo a prenderli?"
+              }
+            },
+            {
+              "sl": "Daj vsem kravom zvonce, da jih boš slišal tudi v megli.",
+              "en": "Give all the cows (masc.) bells, so you'll hear them even in the fog.",
+              "de": "Gib allen Kühen (männlich) Glocken, damit du sie auch im Nebel hörst.",
+              "it": "Metti un campanaccio a tutti i mucchi, così li senti anche nella nebbia.",
+              "grammar": "sklanjatev-zenski",
+              "why": {
+                "en": "Krava is feminine: its dative plural ends in -am, vsem kravam. -om is a masculine ending.",
+                "de": "Krava ist weiblich: der Dativ Plural endet auf -am, vsem kravam. -om ist eine männliche Endung.",
+                "it": "Krava è femminile: il dativo plurale finisce in -am, vsem kravam. -om è una desinenza maschile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Kravom? Ej, moje krave niso voli!",
+                "en": "Cows like oxen? Hey, my cows aren't oxen!",
+                "de": "Kühen wie Ochsen? Hey, meine Kühe sind keine Ochsen!",
+                "it": "Mucchi? Ehi, le mie mucche non sono buoi!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Zvonci so preglasni!",
+            "en": "Hey, what? The cowbells are too loud!",
+            "de": "Hey, was? Die Kuhglocken sind zu laut!",
+            "it": "Ehi, cosa? I campanacci fanno troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Megla ali ne, zdaj mi ne uide nobena. Hvala, {learner}!",
+          "en": "Fog or no fog, now not one will get away from me. Thanks, {learner}!",
+          "de": "Nebel oder nicht, jetzt entwischt mir keine. Danke, {learner}!",
+          "it": "Nebbia o no, adesso non me ne scappa nessuna. Grazie, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "planina-b2-metla",
+      "level": "B2",
+      "memory": {
+        "sl": "novo metlo, ki dobro pometa",
+        "en": "the new broom that sweeps well",
+        "de": "den neuen Besen, der gut kehrt",
+        "it": "la scopa nuova che spazza bene"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Ej, {learner}, veš, da je bilo nekoč na tej planini dvajset pastirjev? Zdaj sem ostal samo jaz.",
+          "en": "Hey, {learner}, did you know there were once twenty herdsmen on this pasture? Now only I am left.",
+          "de": "Hey, {learner}, weißt du, dass es auf dieser Alm einmal zwanzig Hirten gab? Jetzt bin nur noch ich übrig.",
+          "it": "Ehi, {learner}, lo sai che una volta su questo alpeggio c'erano venti pastori? Adesso sono rimasto solo io."
+        },
+        {
+          "who": "luka",
+          "face": "cross",
+          "sl": "Stari planšar mi je včeraj rekel: »Nova metla dobro pometa.« Kaj je s tem mislil?",
+          "en": "Yesterday the old herdsman said to me: »A new broom sweeps clean.« What did he mean by that?",
+          "de": "Der alte Senn hat gestern zu mir gesagt: »Neue Besen kehren gut.« Was hat er damit gemeint?",
+          "it": "Ieri il vecchio malgaro mi ha detto: »Scopa nuova scopa bene.« Cosa voleva dire?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Da zdaj delaš z veseljem, ker si nov. Čez leto dni pa boš morda manj priden.",
+              "en": "That you work with a will now, because you're new. In a year's time you might be less keen.",
+              "de": "Dass du jetzt mit Freude arbeitest, weil du neu bist. In einem Jahr bist du vielleicht weniger fleißig.",
+              "it": "Che adesso lavori con entusiasmo perché sei nuovo. Fra un anno forse sarai meno diligente.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ej, to pa ne! Jaz bom priden tudi čez deset let. No … vsaj do kosila.",
+                "en": "Hey, no way! I'll be keen in ten years' time too. Well … at least until lunch.",
+                "de": "Hey, das sicher nicht! Ich bin auch in zehn Jahren noch fleißig. Na ja … zumindest bis zum Mittagessen.",
+                "it": "Ehi, questo no! Sarò diligente anche fra dieci anni. Be' … almeno fino a pranzo."
+              }
+            },
+            {
+              "sl": "Da moraš v koči bolje pometati.",
+              "en": "That you should sweep the hut better.",
+              "de": "Dass du die Hütte besser kehren musst.",
+              "it": "Che devi spazzare meglio la baita.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "An idiom is taken as a whole, never word by word: nova metla dobro pometa means a newcomer works hard at first. Nobody was talking about brooms.",
+                "de": "Eine Redewendung nimmt man als Ganzes, nie Wort für Wort: nova metla dobro pometa heißt, ein Neuer arbeitet anfangs eifrig. Von Besen war keine Rede.",
+                "it": "Un modo di dire va preso intero, mai parola per parola: nova metla dobro pometa vuol dire che chi è nuovo all'inizio lavora sodo. Nessuno parlava di scope."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Pometati? Ej, koča je čista, včeraj sem pometel!",
+                "en": "Sweep? Hey, the hut's clean, I swept it yesterday!",
+                "de": "Kehren? Hey, die Hütte ist sauber, ich habe gestern gekehrt!",
+                "it": "Spazzare? Ehi, la baita è pulita, ho spazzato ieri!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Zvonci so preglasni!",
+            "en": "Hey, what? The cowbells are too loud!",
+            "de": "Hey, was? Die Kuhglocken sind zu laut!",
+            "it": "Ehi, cosa? I campanacci fanno troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Ampak resno: če bi bili drugi mladi ostali na planinah, bi bile koče še polne. Zakaj so odšli, kaj misliš?",
+          "en": "But seriously: if the other young people had stayed on the pastures, the huts would still be full. Why did they leave, do you think?",
+          "de": "Aber im Ernst: Wären die anderen Jungen auf den Almen geblieben, wären die Hütten noch voll. Warum sind sie gegangen, was meinst du?",
+          "it": "Ma sul serio: se gli altri giovani fossero rimasti sugli alpeggi, le baite sarebbero ancora piene. Perché se ne sono andati, secondo te?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Marsikdo bi bil ostal, če bi lahko živel od sira. Ampak z ljubeznijo do gora se ne da plačati računov.",
+              "en": "Many a one would have stayed if he could have lived off cheese. But love of the mountains doesn't pay the bills.",
+              "de": "So mancher wäre geblieben, wenn er vom Käse hätte leben können. Aber mit Liebe zu den Bergen bezahlt man keine Rechnungen.",
+              "it": "Più d'uno sarebbe rimasto, se avesse potuto vivere di formaggio. Ma con l'amore per i monti non si pagano le bollette.",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Res je. Od sira se ne da živeti. Jaz ga delam iz ljubezni, ne za denar.",
+                "en": "That's true. You can't live off cheese. I make it out of love, not for money.",
+                "de": "Das stimmt. Vom Käse kann man nicht leben. Ich mache ihn aus Liebe, nicht fürs Geld.",
+                "it": "È vero. Di formaggio non si vive. Io lo faccio per amore, non per soldi."
+              }
+            },
+            {
+              "sl": "Marsikdo bi bili ostali, če bi lahko živeli od sira. Ampak z ljubeznijo do gora se ne da plačati računov.",
+              "en": "Many a one (plural) would have stayed if they could have lived off cheese. But love of the mountains doesn't pay the bills.",
+              "de": "So mancher wären geblieben, wenn sie vom Käse hätten leben können. Aber mit Liebe zu den Bergen bezahlt man keine Rechnungen.",
+              "it": "Più d'uno sarebbero rimasti, se avessero potuto vivere di formaggio. Ma con l'amore per i monti non si pagano le bollette.",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "Marsikdo (many a one) agrees as one person, like nekdo: bi bil ostal, če bi lahko živel.",
+                "de": "Marsikdo (so mancher) richtet sich wie eine Person, wie nekdo: bi bil ostal, če bi lahko živel.",
+                "it": "Marsikdo (più d'uno) concorda come una persona sola, come nekdo: bi bil ostal, če bi lahko živel."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bili ostali … kdo vse? Ej, zdaj pa štejem pastirje kot krave!",
+                "en": "They'd have stayed … who all? Hey, now I'm counting herdsmen like cows!",
+                "de": "Wären geblieben … wer alles? Hey, jetzt zähle ich Hirten wie Kühe!",
+                "it": "Sarebbero rimasti … chi tutti? Ehi, adesso conto i pastori come le mucche!"
+              }
+            },
+            {
+              "sl": "Ker so bili leni. Delo na planini ni za vsakogar.",
+              "en": "Because they were lazy. Work on the pasture isn't for everyone.",
+              "de": "Weil sie faul waren. Die Arbeit auf der Alm ist nichts für jeden.",
+              "it": "Perché erano pigri. Il lavoro in alpeggio non è per tutti.",
+              "why": {
+                "en": "Luka asks about the hardship that drove them away, and he's fond of them: calling them lazy dismisses both. Weigh what they gave up.",
+                "de": "Luka fragt nach der Not, die sie vertrieben hat, und er mag sie: sie faul zu nennen übergeht beides. Wäge ab, was sie aufgegeben haben.",
+                "it": "Luka chiede delle difficoltà che li hanno spinti via, e vuole loro bene: dar loro dei pigri ignora entrambe le cose. Valuta a cosa hanno rinunciato."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Leni? Moj stric je molzel štirideset krav na dan!",
+                "en": "Lazy? My uncle milked forty cows a day!",
+                "de": "Faul? Mein Onkel hat vierzig Kühe am Tag gemolken!",
+                "it": "Pigri? Mio zio mungeva quaranta mucche al giorno!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Zvonci so preglasni!",
+            "en": "Hey, what? The cowbells are too loud!",
+            "de": "Hey, was? Die Kuhglocken sind zu laut!",
+            "it": "Ehi, cosa? I campanacci fanno troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Pa naj bom nova metla. Ampak ta metla bo pometala še dolgo, ej!",
+          "en": "So let me be the new broom. But this broom will be sweeping for a long time yet, hey!",
+          "de": "Dann bin ich eben der neue Besen. Aber dieser Besen kehrt noch lange, hey!",
+          "it": "E va bene, sarò la scopa nuova. Ma questa scopa spazzerà ancora a lungo, ehi!"
+        }
+      ]
+    },
+    {
+      "id": "molza-b1-liska",
+      "level": "B1",
+      "memory": {
+        "sl": "Lisko in vedro, ki ga je prevrnila",
+        "en": "Liska, and the bucket she knocked over",
+        "de": "Liska und den Eimer, den sie umgeworfen hat",
+        "it": "Liska e il secchio che ha rovesciato"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "cross",
+          "sl": "Ej, {learner}! Liska mi je ravnokar prevrnila vedro. Pol mleka je v travi!",
+          "en": "Hey, {learner}! Liska has just knocked over my bucket. Half the milk is in the grass!",
+          "de": "Hey, {learner}! Liska hat mir gerade den Eimer umgeworfen. Die halbe Milch ist im Gras!",
+          "it": "Ehi, {learner}! Liska mi ha appena rovesciato il secchio. Mezzo latte è nell'erba!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Joj! Koliko časa jo pa že molzeš?",
+              "en": "Oh no! And how long have you been milking her?",
+              "de": "Oje! Und wie lange melkst du sie schon?",
+              "it": "Oh no! E da quanto tempo la mungi?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Šele tri dni. Prej jo je molzel stari planšar, pa je bila mirna kot ovca.",
+                "en": "Only three days. Before that the old herdsman milked her, and she was as gentle as a lamb.",
+                "de": "Erst drei Tage. Vorher hat sie der alte Senn gemolken, und da war sie lammfromm.",
+                "it": "Solo da tre giorni. Prima la mungeva il vecchio malgaro, ed era mansueta come un agnello."
+              }
+            },
+            {
+              "sl": "Joj! Koliko časa si jo pa že molzel?",
+              "en": "Oh no! And how long had you milked her?",
+              "de": "Oje! Und wie lange hast du sie schon gemolken?",
+              "it": "Oh no! E per quanto tempo l'hai munta?",
+              "grammar": "cas-izrazi",
+              "why": {
+                "en": "How long something has gone on until now, and still does, takes the present with že: koliko časa jo že molzeš? The past says it's over.",
+                "de": "Wie lange etwas bis jetzt dauert und noch anhält, steht im Präsens mit že: koliko časa jo že molzeš? Die Vergangenheit sagt, es ist vorbei.",
+                "it": "Da quanto tempo dura una cosa, che continua ancora, vuole il presente con že: koliko časa jo že molzeš? Il passato dice che è finita."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Molzel? Saj jo še vedno molzem, ej! Vsak dan.",
+                "en": "Milked? I'm still milking her, hey! Every day.",
+                "de": "Gemolken? Ich melke sie doch immer noch, hey! Jeden Tag.",
+                "it": "Munta? Ma la mungo ancora, ehi! Ogni giorno."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Zvonci so preglasni!",
+            "en": "Hey, what? The cowbells are too loud!",
+            "de": "Hey, was? Die Kuhglocken sind zu laut!",
+            "it": "Ehi, cosa? I campanacci fanno troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "curious",
+          "sl": "Planšar pravi, da me Liska še ne pozna. Kaj misliš, kaj naj naredim, da me bo imela rada?",
+          "en": "The herdsman says Liska doesn't know me yet. What do you think I should do so she'll like me?",
+          "de": "Der Senn sagt, Liska kennt mich noch nicht. Was meinst du, was soll ich tun, damit sie mich mag?",
+          "it": "Il malgaro dice che Liska non mi conosce ancora. Secondo te cosa devo fare perché mi voglia bene?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Daj ji pred molžo tisto, kar krave najraje ližejo: sol.",
+              "en": "Before milking, give her what cows like licking best: salt.",
+              "de": "Gib ihr vor dem Melken das, was Kühe am liebsten lecken: Salz.",
+              "it": "Prima della mungitura dalle quello che le mucche leccano più volentieri: il sale.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Sol! Ej, seveda. Tudi planšar ji jo je dajal. Zato ga ima tako rada!",
+                "en": "Salt! Hey, of course. The herdsman used to give her some too. That's why she loves him so!",
+                "de": "Salz! Hey, klar. Der Senn hat ihr auch immer welches gegeben. Darum mag sie ihn so!",
+                "it": "Il sale! Ehi, certo. Anche il malgaro gliene dava. Per questo gli vuole così bene!"
+              }
+            },
+            {
+              "sl": "Daj ji pred molžo tisto, ki krave najraje ližejo: sol.",
+              "en": "Before milking, give her that, who cows like licking best: salt.",
+              "de": "Gib ihr vor dem Melken das, der Kühe am liebsten lecken: Salz.",
+              "it": "Prima della mungitura dalle quello, il quale le mucche leccano: il sale.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "After tisto, vse or nekaj, the relative pronoun is kar: tisto, kar ližejo. Ki refers to a noun.",
+                "de": "Nach tisto, vse oder nekaj ist das Relativpronomen kar: tisto, kar ližejo. Ki bezieht sich auf ein Nomen.",
+                "it": "Dopo tisto, vse o nekaj il pronome relativo è kar: tisto, kar ližejo. Ki si riferisce a un nome."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Tisto, ki … kdo? Ej, govori, da te razumem!",
+                "en": "That, who … who? Hey, talk so I can understand you!",
+                "de": "Das, der … wer? Hey, sprich so, dass ich dich verstehe!",
+                "it": "Quello, il quale … chi? Ehi, parla in modo che ti capisca!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Zvonci so preglasni!",
+            "en": "Hey, what? The cowbells are too loud!",
+            "de": "Hey, was? Die Kuhglocken sind zu laut!",
+            "it": "Ehi, cosa? I campanacci fanno troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Jutri ji prinesem sol, in potem bo vedro ostalo polno. Upam.",
+          "en": "Tomorrow I'll bring her salt, and then the bucket will stay full. I hope.",
+          "de": "Morgen bringe ich ihr Salz, und dann bleibt der Eimer voll. Hoffentlich.",
+          "it": "Domani le porto il sale, e così il secchio resterà pieno. Spero."
+        }
+      ]
+    },
+    {
+      "id": "molza-b2-triglav",
+      "level": "B2",
+      "memory": {
+        "sl": "jutro, ko sva govorila o Nejcu in Triglavu",
+        "en": "the morning we talked about Nejc and Triglav",
+        "de": "den Morgen, an dem wir über Nejc und den Triglav gesprochen haben",
+        "it": "la mattina in cui abbiamo parlato di Nejc e del Tricorno"
+      },
+      "lines": [
+        {
+          "who": "luka",
+          "face": "proud",
+          "sl": "Ej, {learner}, vidiš, kako žarijo vrhovi? Nejc me je včeraj prosil, naj ga peljem na Triglav, preden gre Janez šestič.",
+          "en": "Hey, {learner}, see how the peaks are glowing? Yesterday Nejc asked me to take him up Triglav before Janez goes for the sixth time.",
+          "de": "Hey, {learner}, siehst du, wie die Gipfel glühen? Nejc hat mich gestern gebeten, ihn auf den Triglav zu bringen, bevor Janez zum sechsten Mal geht.",
+          "it": "Ehi, {learner}, vedi come brillano le vette? Ieri Nejc mi ha chiesto di portarlo sul Tricorno prima che Janez ci vada per la sesta volta."
+        },
+        {
+          "who": "luka",
+          "face": "worried",
+          "sl": "Rad bi ga peljal. Ampak devet let ima, in če bi se mu kaj zgodilo, si tega ne bi nikoli odpustil.",
+          "en": "I'd like to take him. But he's nine, and if anything happened to him, I'd never forgive myself.",
+          "de": "Ich würde ihn gern mitnehmen. Aber er ist neun, und wenn ihm etwas passieren würde, würde ich mir das nie verzeihen.",
+          "it": "Lo porterei volentieri. Ma ha nove anni, e se gli succedesse qualcosa non me lo perdonerei mai."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda je še majhen, ampak naj najprej vpraša mamo. Če ona reče ja, greš z njim do koče.",
+              "en": "Of course he's still small, but let him ask his mum first. If she says yes, you go with him as far as the hut.",
+              "de": "Natürlich ist er noch klein, aber er soll zuerst seine Mama fragen. Wenn sie ja sagt, gehst du mit ihm bis zur Hütte.",
+              "it": "Certo, è ancora piccolo, ma prima chieda alla mamma. Se lei dice di sì, vai con lui fino al rifugio.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Do koče! Ej, to je pa pametno. Vrh počaka, kot pravi Janez.",
+                "en": "As far as the hut! Hey, that's smart. The summit will wait, as Janez says.",
+                "de": "Bis zur Hütte! Hey, das ist klug. Der Gipfel wartet, wie Janez sagt.",
+                "it": "Fino al rifugio! Ehi, questo sì che è furbo. La vetta aspetta, come dice Janez."
+              }
+            },
+            {
+              "sl": "Seveda je še majhen, ampak naj najprej vprašam mamo. Če ona reče ja, greš z njim do koče.",
+              "en": "Of course he's still small, but let me ask his mum first. If she says yes, you go with him as far as the hut.",
+              "de": "Natürlich ist er noch klein, aber ich soll zuerst seine Mama fragen. Wenn sie ja sagt, gehst du mit ihm bis zur Hütte.",
+              "it": "Certo, è ancora piccolo, ma prima devo chiedere io alla mamma. Se lei dice di sì, vai con lui fino al rifugio.",
+              "grammar": "ukazi",
+              "why": {
+                "en": "For someone else it's naj + his present: naj vpraša (let him ask). Vprašam is 'I ask'.",
+                "de": "Für jemand anderen heißt es naj + seine Präsensform: naj vpraša (er soll fragen). Vprašam ist 'ich frage'.",
+                "it": "Per qualcun altro si dice naj + il suo presente: naj vpraša (che chieda lui). Vprašam è 'io chiedo'."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti? Ej, saj ni tvoja mama!",
+                "en": "You? Hey, she isn't your mum!",
+                "de": "Du? Hey, das ist doch nicht deine Mama!",
+                "it": "Tu? Ehi, non è mica tua mamma!"
+              }
+            },
+            {
+              "sl": "Pelji ga kar na vrh. Otroci so v gorah bolj spretni kot odrasli.",
+              "en": "Just take him to the top. Children are nimbler in the mountains than grown-ups.",
+              "de": "Bring ihn ruhig ganz hinauf. Kinder sind in den Bergen geschickter als Erwachsene.",
+              "it": "Portalo pure in cima. I bambini in montagna sono più agili degli adulti.",
+              "why": {
+                "en": "Luka is afraid for Nejc: waving that away misses his worry. Grant that Nejc is small, then make the wish safe.",
+                "de": "Luka hat Angst um Nejc: das wegzuwischen übergeht seine Sorge. Gib zu, dass Nejc klein ist, und mach den Wunsch sicher.",
+                "it": "Luka ha paura per Nejc: liquidarla ignora la sua preoccupazione. Ammetti che Nejc è piccolo, poi rendi sicuro il desiderio."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Kar na vrh? Ej, ti si pa bolj nor kot jaz!",
+                "en": "Right to the top? Hey, you're even madder than me!",
+                "de": "Ganz hinauf? Hey, du bist ja noch verrückter als ich!",
+                "it": "Fino in cima? Ehi, sei più matto di me!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Zvonci so preglasni!",
+            "en": "Hey, what? The cowbells are too loud!",
+            "de": "Hey, was? Die Kuhglocken sind zu laut!",
+            "it": "Ehi, cosa? I campanacci fanno troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "thinking",
+          "sl": "Pri devetih letih sem bil jaz že na Krnu. Oče me ni niti vprašal, preprosto me je vzel s seboj. Sem zdaj preveč previden?",
+          "en": "At nine I'd already been up Krn. Dad didn't even ask me, he just took me along. Am I too careful now?",
+          "de": "Mit neun war ich schon auf dem Krn. Papa hat mich nicht mal gefragt, er hat mich einfach mitgenommen. Bin ich jetzt zu vorsichtig?",
+          "it": "A nove anni ero già stato sul Krn. Papà non me l'ha neanche chiesto, mi ha portato con sé e basta. Adesso sono troppo prudente?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne, samo zdaj si ti tisti, ki nosi odgovornost. To je nekaj drugega.",
+              "en": "No, it's just that now you're the one who carries the responsibility. That's something else.",
+              "de": "Nein, nur bist jetzt du derjenige, der die Verantwortung trägt. Das ist etwas anderes.",
+              "it": "No, è solo che adesso sei tu quello che porta la responsabilità. È un'altra cosa.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Odgovornost … Ej, to zveni, kot da sem že star. Ampak prav imaš.",
+                "en": "Responsibility … Hey, that sounds as if I'm old already. But you're right.",
+                "de": "Verantwortung … Hey, das klingt, als wäre ich schon alt. Aber du hast recht.",
+                "it": "Responsabilità … Ehi, sembra che io sia già vecchio. Ma hai ragione."
+              }
+            },
+            {
+              "sl": "Ja, tvoj oče je bil boljši pastir kot ti.",
+              "en": "Yes, your dad was a better herdsman than you.",
+              "de": "Ja, dein Vater war ein besserer Hirte als du.",
+              "it": "Sì, tuo padre era un pastore migliore di te.",
+              "why": {
+                "en": "Luka wonders whether his care is too much, not who herds better: his father only took a risk for himself. Name the difference.",
+                "de": "Luka fragt sich, ob er zu vorsichtig ist, nicht wer besser hütet: sein Vater ging nur für sich selbst ein Risiko ein. Nenn den Unterschied.",
+                "it": "Luka si chiede se è troppo prudente, non chi pascola meglio: suo padre rischiava solo per sé. Indica la differenza."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Boljši? Ej, to bom povedal kravam, pa bodo užaljene!",
+                "en": "Better? Hey, I'll tell the cows that, and they'll be offended!",
+                "de": "Besser? Hey, das erzähle ich den Kühen, die werden beleidigt sein!",
+                "it": "Migliore? Ehi, lo dirò alle mucche, e si offenderanno!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ej, kaj? Zvonci so preglasni!",
+            "en": "Hey, what? The cowbells are too loud!",
+            "de": "Hey, was? Die Kuhglocken sind zu laut!",
+            "it": "Ehi, cosa? I campanacci fanno troppo rumore!"
+          }
+        },
+        {
+          "who": "luka",
+          "face": "happy",
+          "sl": "Zvečer grem do Nejčeve mame. Zdaj pa, krave, na pašo!",
+          "en": "This evening I'll go and see Nejc's mum. And now, cows, off to graze!",
+          "de": "Heute Abend gehe ich zu Nejcs Mama. Und jetzt, Kühe, auf die Weide!",
+          "it": "Stasera vado dalla mamma di Nejc. E adesso, mucche, al pascolo!"
+        }
       ]
     }
   ]

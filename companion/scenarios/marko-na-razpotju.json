@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "marko-na-razpotju",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Marko na razpotju", "en": "Marko at a crossroads", "de": "Marko am Scheideweg", "it": "Marko a un bivio" },
+  "emoji": "🧭",
+  "level": "B2",
+  "setting": {
+    "en": "One evening Marko the winemaker sits down beside you, unusually quiet. A firm in Ljubljana has offered him a well-paid office job, but if he goes, his father will have to sell the vineyards in Brda. He can't decide and asks what you think.",
+    "de": "Eines Abends setzt sich Marko, der Winzer, zu dir, ungewohnt still. Eine Firma in Ljubljana hat ihm eine gut bezahlte Bürostelle angeboten, aber wenn er geht, muss sein Vater die Weinberge in Brda verkaufen. Er kann sich nicht entscheiden und fragt dich, was du denkst.",
+    "it": "Una sera Marko, il vignaiolo, si siede accanto a te, stranamente silenzioso. Un'azienda di Lubiana gli ha offerto un lavoro d'ufficio ben pagato, ma se se ne va, suo padre dovrà vendere le vigne nel Collio. Non sa decidersi e ti chiede che cosa ne pensi."
+  },
+  "role": "Vinar Marko, the young winemaker from Brda, one evening after work. Unusually quiet and honest: a firm in Ljubljana offers him a well-paid office job, but his father is getting old and the vineyards would be sold. Asks {learner}'s advice, pushes back on easy answers, weighs each idea aloud. Says ti.",
+  "who": { "sl": "Vinar iz Brd", "en": "The winemaker from Brda", "de": "Der Winzer aus Brda", "it": "Il vignaiolo del Collio" },
+  "voice": "male",
+  "speaker": "young-man",
+  "goals": [
+    { "sl": "Vprašaj, kaj ga muči, in ga poslušaj", "en": "Ask what is troubling him, and listen", "de": "Frag, was ihn bedrückt, und hör zu", "it": "Chiedigli che cosa lo tormenta e ascoltalo" },
+    { "sl": "Pretehtaj prednosti in slabosti obeh možnosti", "en": "Weigh up the pros and cons of both choices", "de": "Wäge die Vor- und Nachteile beider Möglichkeiten ab", "it": "Valuta i pro e i contro di entrambe le scelte" },
+    { "sl": "Povej, kaj bi {m:naredil|f:naredila} na njegovem mestu", "en": "Say what you would do in his place", "de": "Sag, was du an seiner Stelle tun würdest", "it": "Di' che cosa faresti al posto suo" },
+    { "sl": "Predlagaj tretjo možnost", "en": "Suggest a third way", "de": "Schlag einen dritten Weg vor", "it": "Proponi una terza via" },
+    { "sl": "Opogumi ga", "en": "Encourage him", "de": "Mach ihm Mut", "it": "Incoraggialo" }
+  ],
+  "opener_sl": "Ej, {learner}, lahko sedem k tebi? Moram se z nekom pogovoriti. Ponudili so mi službo v Ljubljani, pa ne vem, kaj naj naredim.",
+  "opener_en": {
+    "en": "Hey, {learner}, can I sit with you? I need to talk to someone. I've been offered a job in Ljubljana, and I don't know what to do.",
+    "de": "Du, {learner}, darf ich mich zu dir setzen? Ich muss mit jemandem reden. Man hat mir eine Stelle in Ljubljana angeboten, und ich weiß nicht, was ich tun soll.",
+    "it": "Ehi, {learner}, posso sedermi con te? Devo parlare con qualcuno. Mi hanno offerto un lavoro a Lubiana e non so che cosa fare."
+  },
+  "vocabulary_hints": [
+    { "sl": "Kaj te pravzaprav najbolj skrbi?", "en": { "en": "What actually worries you most?", "de": "Was macht dir eigentlich am meisten Sorgen?", "it": "Che cosa ti preoccupa di più, in fondo?" } },
+    { "sl": "Po eni strani je plača dobra, po drugi pa …", "en": { "en": "On the one hand the pay is good, but on the other …", "de": "Einerseits ist das Gehalt gut, andererseits …", "it": "Da un lato lo stipendio è buono, dall'altro …" } },
+    { "sl": "Ali si se že pogovoril z očetom?", "en": { "en": "Have you talked to your father yet?", "de": "Hast du schon mit deinem Vater gesprochen?", "it": "Hai già parlato con tuo padre?" } },
+    { "sl": "Na tvojem mestu bi {m:ostal|f:ostala} pri vinogradih.", "en": { "en": "In your place, I'd stay with the vineyards.", "de": "An deiner Stelle würde ich bei den Weinbergen bleiben.", "it": "Al posto tuo resterei con le vigne." } },
+    { "sl": "Kaj pa, če bi delal od doma in ob vikendih pomagal?", "en": { "en": "What if you worked from home and helped at weekends?", "de": "Und wenn du von zu Hause arbeitest und am Wochenende hilfst?", "it": "E se lavorassi da casa e aiutassi nel weekend?" } },
+    { "sl": "Vino bi lahko prodajal tudi po spletu.", "en": { "en": "You could sell the wine online too.", "de": "Du könntest den Wein auch online verkaufen.", "it": "Potresti vendere il vino anche online." } },
+    { "sl": "Denar ni vse, a brez njega tudi ne gre.", "en": { "en": "Money isn't everything, but you can't do without it.", "de": "Geld ist nicht alles, aber ohne geht es auch nicht.", "it": "I soldi non sono tutto, ma senza non si va avanti." } },
+    { "sl": "Če ne poskusiš, ne boš nikoli vedel.", "en": { "en": "If you don't try, you'll never know.", "de": "Wenn du es nicht versuchst, wirst du es nie wissen.", "it": "Se non provi, non lo saprai mai." } },
+    { "sl": "Ne glede na to, kako se odločiš, sem s tabo.", "en": { "en": "Whatever you decide, I'm with you.", "de": "Egal, wie du dich entscheidest, ich bin für dich da.", "it": "Qualunque cosa tu decida, io ci sono." } }
+  ],
+  "packs": ["v-kleti", "druzina", "delo-in-pisarna", "glagoli-vsak-dan", "kariera", "custva-in-odnosi"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

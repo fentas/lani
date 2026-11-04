@@ -24,6 +24,7 @@ class Prefs(private val context: Context) {
     private val tipsMemory = stringPreferencesKey("tips_memory") // the tips dealt with on this phone, for a village founded anew (game/Guidance)
     private val eveningReminder = booleanPreferencesKey("evening_reminder") // the learner's choice; none: the profile's default
     private val learnerChild = booleanPreferencesKey("learner_child") // the app's last word on it, for the background check
+    private val placementAsked = booleanPreferencesKey("placement_asked") // the setup chose the placement test: it opens once the village is founded
 
     private val plan = stringPreferencesKey("today_plan") // "yyyy-MM-dd\n<markdown>"
 
@@ -125,6 +126,8 @@ class Prefs(private val context: Context) {
      * pairing's, the hosted onboarding's or the town's own row); null before the app said.
      */
     suspend fun learnerChild(): Boolean? = context.store.data.first()[learnerChild]
+    suspend fun placementAsked(): Boolean = context.store.data.first()[placementAsked] ?: false
+    suspend fun savePlacementAsked(on: Boolean) = context.store.edit { it[placementAsked] = on }
     suspend fun saveLearnerChild(child: Boolean) = context.store.edit { it[learnerChild] = child }
 
     /**

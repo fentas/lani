@@ -139,7 +139,7 @@ Keep `say` short (one sentence, what a person says in one breath). Recognizers w
 
 ## The school's exercise types (worksheets)
 
-Four types for a page of work at once: `gaptext`, `table`, `transform` and `sort`. **They are worksheet types for now**:
+Four types for a page of work at once: `gaptext`, `table`, `transform` and `sort` (and `speaking` and `writing`, below). **They are worksheet types for now**:
 they go in the school's units, tests and homework (`lani.unit/v0`, `lani.worksheet/v0`, `publish_worksheet`;
 `companion/COURSE.md`), next to every module type above. Modules will accept them once every phone has an app that plays
 them; until then `publish_module` refuses them. Source of truth: `companion/bridge/src/course.ts`. They are strict: a key
@@ -154,7 +154,7 @@ its `explain`), the count under the sheet. In a test an almost-right item counts
 reads in their own language — `explain`, `hint`, `instruction`, `translation`, `cue`, `label`, `prompt` and a table's
 `columns` — may instead be a text per base, `{"de": "…", "sl": "…", "en": "…"}` (English always): the learner gets it in
 their base (companion/COURSE.md "Texts in the learner's language"; the Italian units write them so, for a learner from
-German). A module you publish keeps plain strings. A curated module of another language (`companion/modules/<language>/`) may have them per base too, also its `title`, `description`, a quest's `story`, a flashcard's `back` and `note`; the bridge serves it in the learner's base, and offers the app those at or below the learner's level one request at a time, the next (its level, then its `order`) when none is open and none was asked today (a module you publish is always offered).
+German). A module you publish keeps plain strings. A curated module (Slovene's A2–B2 ones in `companion/modules/`, another language's in `companion/modules/<language>/`) may have them per base too, also its `title`, `description`, a quest's `story`, a flashcard's `back` and `note`; the bridge serves it in the learner's base, and offers the app those at or below the learner's level one request at a time, the next (the learner's own level first, then the levels below, the nearest first; within a level by its `order`) when none is open and none was asked today (a module you publish is always offered).
 
 **Spoken forms are never wrong** (Jan's household: a native speaker says *bojo*, *gremo*, *a si*). A gap, a table's
 cell to fill and a transform's line take `spoken`: what a native speaker says beside the standard answer (1-8, in the
@@ -256,6 +256,23 @@ jedu?* for *Ali si že jedel?*). companion/COURSE.md "Spoken forms".
 - Played by tap: a word, then its column (a word placed can be taken back); "Preveri · Check" marks each word. Also
   `instruction`, `prompt`, `explain`.
 
+### `speaking` and `writing` — speaking and free writing in a unit (worksheets)
+
+Two more school types, for a unit's sheets, its test and homework (`publish_worksheet`); `publish_module` refuses them.
+Full format and rules: companion/COURSE.md, "Speaking and writing"; source of truth `companion/bridge/src/production.ts`.
+- `speaking`: `prompt` (the task, in the base), `ask` (what the teacher asks, one sentence in the language learned,
+  optional), `say` (the model, one sentence), `accept`, `spoken` (whole sentences as people say them: right, labelled),
+  `must` (an open answer: any sentence that meets it is right), `avoid`, `min_words`, `show` (default `false`), `child`.
+  Graded on the phone through its recognizer: a form people say is right aloud, the grading table's nonstandard too.
+- `writing`: `prompt`, `ask`, `model` (a text meeting every check), `must`, `avoid`, `length` `{min, max}` (words),
+  `child`. Checked at once by the rules (all met right, one not almost, more wrong); the text then comes to you as an
+  `answer` with `course` for feedback only: never say the verdict changed.
+- `must`: `{label, any: [rules], n}`; `avoid`: `{any, explain}`, the unit's own mistake, never a form people say. A rule is
+  a few words matched folded: `če` a word, `pogovor*` begins so, `*la` ends so, `bi … *l` none to three words between;
+  one rule per word order and gender. The bridge refuses a model or accepted answer that misses its own rules.
+- `child`: what a child (Friuli's Teo, 7) plays instead: short, and a writing item said aloud first.
+- An older app gets the sheet without them (GET /course?types=2): don't put a unit's only check of a rule there.
+
 ## Village sidequests (`quest`)
 
 With a `quest` block, the module appears in the game *Moja vas* as a villager's request, and playing it pays the reward into the village.
@@ -329,7 +346,7 @@ test/check-steps.ts primorska <project>`); there is no tool to publish one. What
 
 ## Role-play scenarios (`lani.scenario/v0`)
 
-A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice or typing). Validator: `companion/bridge/src/scenarios.ts`. Curated scenarios live in `companion/scenarios/<id>.json` (Slovene) and `companion/scenarios/<language>/<id>.json` (another language's: `companion/scenarios/it/` for an Italian village, Teo's; `companion/scenarios/de/` for the Carinthian village, `companion/scenarios/en/` for the Lake District); `publish_scenario` writes tutor ones to `<data>/app/scenarios/` (same id = replace; curated ids are refused). A village is offered only its own language's scenarios: a file in another language is skipped (a Slovene scenario never reaches an Italian village), and a child is never offered one with `audience: "adult"`.
+A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice or typing). Validator: `companion/bridge/src/scenarios.ts`. Curated scenarios live in `companion/scenarios/<id>.json` (Slovene) and `companion/scenarios/<language>/<id>.json` (another language's: `companion/scenarios/it/` for an Italian village, Teo's; `companion/scenarios/de/` for the Carinthian village, `companion/scenarios/en/` for the Lake District); `publish_scenario` writes tutor ones to `<data>/app/scenarios/` (same id = replace; curated ids are refused). A village is offered only its own language's scenarios: a file in another language is skipped (a Slovene scenario never reaches an Italian village), and a child is never offered one with `audience: "adult"`. A curated one is offered up to one level above the learner's (`talkLevelOffered`: an A1 learner meets A1 and A2 talks, never B1 or B2; a B1 learner up to B2); yours at any level, as you wrote it for this learner.
 
 | Field | Type | Notes |
 |---|---|---|
@@ -339,7 +356,7 @@ A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice
 | `audience` | `child` \| `adult`? | `child`: written for a child (the brief tells you how to talk to one); `adult`: a grown-up's situation (wine at the inn, the in-laws), never offered to a child |
 | `title` | string or per language | "Na pošti · At the post office", or `{"it": "Al mercato", "de": "Auf dem Markt", "sl": "Na tržnici", "en": "At the market"}` (its own language and `en`; the learner sees "Al mercato · Auf dem Markt") |
 | `emoji` | string | scene icon (default 🗣️) |
-| `level` | `A1`…`C2` | how you speak in character |
+| `level` | `A1`…`C2` | how you speak in character; a curated one is offered up to a level above the learner's |
 | `setting` | string or per base | 1-2 sentences, English, or `{"de": …, "sl": …, "en": …}` (English always): the learner reads it in their base. Write a text per base for each base the language has: Slovene en, de, it; Italian de, sl, en; German sl, en, it; English sl, de, it (and en) |
 | `role` | string | who you play, in English (for you). **Starts with the character's name, then a comma** (the app shows the part before the comma): "Uslužbenka Mojca, the clerk at the counter. Patient, says vi." Say ti or vi (tu or Lei). A name of the village's cast ("Nonna Rosa", "Giulia") plays them: their sprite and voice, and the talk grows the friendship once the learner has met them |
 | `who` | per language? | who the character is, as the learner reads it: `{"it": "La fruttivendola", "de": "Die Obstverkäuferin", "en": "The fruit seller"}` (else the app shows the role's words after the comma) |
@@ -363,7 +380,7 @@ The bridge serves every text in the learner's pair (`GET /scenarios`: the title,
   "vocabulary_hints": [{ "sl": "Rad bi poslal paket.", "en": "I'd like to send a parcel." }, { "sl": "v Nemčijo", "en": "to Germany" }, { "sl": "Koliko stane?", "en": "How much is it?" }] }
 ```
 
-Rules: one real situation from the learner's life (Primorska, family, shops, offices; for a child in Friuli the market, the baker, the paediatrician, the ice-cream shop, break time at school, Sunday lunch at the nonna's, the playground, a phone call to the nonna: `companion/scenarios/it/`; for a grown-up in Carinthia the baker, the farmers' market, the doctor, the Gasthaus, Villach station, the Kirchtag, the neighbour at the fence, a call to the council: `companion/scenarios/de/`, in Austrian German (Grüß Gott, Semmel, hin und retour, Sie to strangers); in the Lake District the farm shop, the pub, the GP, the bus stop in Keswick, the B&B, asking the way on the fell, the village fête, the neighbour over the wall: `companion/scenarios/en/`, in British English with Cumbrian touches (Now then, beck, tarn, fell)); the opener is a question or invitation the learner can answer with the hints; goals in the order the scene naturally takes; every line simple and correct at `level`. For a child (`audience: "child"`): a grown-up close by in the setting (Mamma, Papà), the role kind, with one or two short sentences a turn, asking nothing personal (never the full name, the address, the school, where they are, not even their own birthday), nothing frightening; the adults say tu to the child, who may say tu or Lei (never corrected).
+Rules: one real situation from the learner's life (Primorska, family, shops, offices; for a child in Friuli the market, the baker, the paediatrician, the ice-cream shop, break time at school, Sunday lunch at the nonna's, the playground, a phone call to the nonna: `companion/scenarios/it/`; for a grown-up in Carinthia the baker, the farmers' market, the doctor, the Gasthaus, Villach station, the Kirchtag, the neighbour at the fence, a call to the council, and at B1 and B2 a complaint, a negotiation, an appointment that goes wrong, the mayor, a job, a doctor's history, advice, what happened: `companion/scenarios/de/`, in Austrian German as Kärnten speaks it (Grüß Gott, Semmel, hin und retour, in der Arbeit, wegen dem, the Perfekt for the past; Sie to strangers); in the Lake District the farm shop, the pub, the GP, the bus stop in Keswick, the B&B, asking the way on the fell, the village fête, the neighbour over the wall: `companion/scenarios/en/`, in British English with Cumbrian touches (Now then, beck, tarn, fell)); the opener is a question or invitation the learner can answer with the hints; goals in the order the scene naturally takes; every line simple and correct at `level`. For a child (`audience: "child"`): a grown-up close by in the setting (Mamma, Papà), the role kind, with one or two short sentences a turn, asking nothing personal (never the full name, the address, the school, where they are, not even their own birthday), nothing frightening; the adults say tu to the child, who may say tu or Lei (never corrected). **Above A2** a talk has something to settle: a complaint, a negotiation, an appointment that goes wrong, a problem put to the mayor, a job, a doctor's history, advice, telling what happened (Friuli's B1 and B2 in `companion/scenarios/it/`); the role says what the character holds out for or asks for and when they give way, and the hints use the level's forms (B1: the imperfetto beside the passato prossimo, the condizionale, combined pronouns, siccome; B2: the congiuntivo, the unreal past, benché, a patto che). A child's B1 stays a child's (`audience: "child"`, a grown-up close by); a B2 one for an older learner leaves `audience` out and holds nothing a child mayn't hear (no wine, nothing frightening): a child's profile still adds the child brief.
 
 **Playing it** (kind `roleplay` on the channel, `conversation_id` `rp-…`): stay in character, 1-2 short sentences of the simple target language per turn, and reply with the line as `text` and `data: {"sl", "en", "correction"?, "goals_done", "end"?}` (the keys are `sl` and `en` in every language: `sl` the line in the language, `en` its translation in the learner's base). `heard` comes from a speech recognizer: forgive missing punctuation, capitals and a misheard word; correct only real mistakes (wrong ending, word order, wrong word), gently, as "Rekli bi: **…** · why in English". `goals_done` lists all goal indices (0-based) reached so far; set `end: true` when the scene closes naturally (after the goodbye, or once all goals are done). For `data.hint: true` reply `{"hint": true, "sl", "en"}`: one line the learner could say next, towards the next open goal. On `roleplay_end`, step out of the role: 3-5 lines of debrief (what went well, 2 things to practise, with the correct Slovene) with `data: {"debrief": true}`, then persist with lani-db-updater: `skills_practiced: ["speaking"]`, `skill_scores.speaking` = turns and turns without correction, one `errors[]` entry per real mistake, `command_used: "/lani-app-talk"`. The app has already paid the village; don't mention resources.
 

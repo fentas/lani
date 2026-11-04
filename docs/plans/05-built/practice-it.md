@@ -186,7 +186,9 @@ So it wasn't a wall the first day: the window and its pins held. It was a slow t
 four open), and curated modules had none.
 
 **The rule** (`ModuleStore.offered`, on the bridge, so 0.2.698 gets it): the list holds the modules already asked (dropped, the app would
-forget them as played) and, when none is open and none was asked today, the next by level and `order` whose giver lives here. So
+forget them as played) and, when none is open and none was asked today, the next by level and `order` whose giver lives here
+(since 2026-11-03, placement: the learner's own level first, then the levels below, the nearest first, each by its `order`;
+the list in that order too, so Home's ideas take the learner's level's first; a module asked stays listed whatever its level). So
 one request is open at a time, at most one new one a day, in the course's order. A module not played holds the next one: that's the
 pace, and nothing in the game waits for modules. A level-up adds its modules after the level before. Nobody here for any: the first, without a request, for the runs. A
 module without a quest block and what a tutor publishes are never held. `/modules` now also depends on the `village` area, so the next

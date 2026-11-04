@@ -4,7 +4,7 @@
   "title": { "sl": "Na čebeljem travniku", "en": "In the bee meadow", "de": "Auf der Bienenwiese", "it": "Nel prato delle api" },
   "emoji": "🌼",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), unreviewed; checked against Fran 2026-10-30: facelija, točim med, v gruči; to check: Mlad svet, de Smoker; scene-replier.md: to check",
+  "review": "sl lines, reactions, variants, B1/B2 ones, de, it: machine-written, unreviewed; checked against Fran 2026-10-30: facelija, točim med, v gruči; to check: Mlad svet, de Smoker; scene-replier.md: to",
   "art": "apiary",
   "from": ["project:cebelji_travnik"],
   "pack": "na-cebeljem-travniku",
@@ -43,7 +43,7 @@
       "months": [4, 5, 6, 7, 8, 9],
       "chance": 0.55,
       "dialog": "cvetje",
-      "dialogs": ["cvetje-facelija", "cvetje"],
+      "dialogs": ["cvetje-b2-jansa", "cvetje-b1-semena", "cvetje-facelija", "cvetje"],
       "reward": { "food": 15 },
       "marker": "🌼",
       "memory": {
@@ -128,7 +128,7 @@
       "when": ["evening"],
       "chance": 0.5,
       "dialog": "caj",
-      "dialogs": ["caj-zima", "caj"],
+      "dialogs": ["caj-b2-potres", "caj-b1-malica", "caj-zima", "caj"],
       "reward": { "food": 15 },
       "marker": "🍵",
       "memory": {
@@ -2020,6 +2020,682 @@
           "en": "In spring they'll fly to the meadow again.",
           "de": "Im Frühling fliegen sie wieder auf die Wiese.",
           "it": "In primavera torneranno a volare sul prato."
+        }
+      ]
+    },
+    {
+      "id": "cvetje-b1-semena",
+      "level": "B1",
+      "memory": {
+        "sl": "pogovor o semenih za čebele",
+        "en": "our talk about seeds for the bees",
+        "de": "unser Gespräch über Samen für die Bienen",
+        "it": "la nostra chiacchierata sui semi per le api"
+      },
+      "lines": [
+        {
+          "who": "anton",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}. Veste, da je čebel vsako leto manj? Pravijo, da zaradi strupov na poljih.",
+          "en": "Good morning, {learner}. Did you know there are fewer bees every year? They say it's because of the poisons on the fields.",
+          "de": "Guten Morgen, {learner}. Wissen Sie, dass es jedes Jahr weniger Bienen gibt? Man sagt, wegen der Gifte auf den Feldern.",
+          "it": "Buongiorno, {learner}. Lo sa che ogni anno le api sono di meno? Dicono che sia per i veleni nei campi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "To je žalostno. Mislim, da bi morali posejati več cvetja, ker čebele potrebujejo hrano.",
+              "en": "That's sad. I think we should sow more flowers, because bees need food.",
+              "de": "Das ist traurig. Ich finde, wir sollten mehr Blumen säen, weil die Bienen Nahrung brauchen.",
+              "it": "È triste. Penso che dovremmo seminare più fiori, perché le api hanno bisogno di cibo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako je. Ko so otroci posejali ta travnik, so se čebele vrnile.",
+                "en": "That's right. When the children sowed this meadow, the bees came back.",
+                "de": "Genau. Als die Kinder diese Wiese eingesät haben, sind die Bienen zurückgekommen.",
+                "it": "Proprio così. Quando i bambini hanno seminato questo prato, le api sono tornate."
+              }
+            },
+            {
+              "sl": "To je žalostno. Mislim, da bi morali posejati več cvetja, čeprav čebele potrebujejo hrano.",
+              "en": "That's sad. I think we should sow more flowers, although bees need food.",
+              "de": "Das ist traurig. Ich finde, wir sollten mehr Blumen säen, obwohl die Bienen Nahrung brauchen.",
+              "it": "È triste. Penso che dovremmo seminare più fiori, anche se le api hanno bisogno di cibo.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Ker is the reason (because): the bees need food, so you sow. Čeprav (although) would mean you sow in spite of it.",
+                "de": "Die Nahrung der Bienen ist der Grund zum Säen: ker (weil). Čeprav (obwohl) hieße, ihr sät trotzdem.",
+                "it": "Il cibo delle api è il motivo per seminare: ker (perché). Čeprav (anche se) direbbe che si semina nonostante questo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Čeprav? … Hm. Potem bi sejali kar tako, za šalo?",
+                "en": "Although? … Hm. Then we'd be sowing just for fun?",
+                "de": "Obwohl? … Hm. Dann säen wir einfach so, zum Spaß?",
+                "it": "Anche se? … Mm. Allora semineremmo così, per scherzo?"
+              }
+            },
+            {
+              "sl": "To je žalostno. Mislim, da bi morali posejati več cvetje, ker čebele potrebujejo hrano.",
+              "en": "That's sad. I think we should sow more flowers (nominative), because bees need food.",
+              "de": "Das ist traurig. Ich finde, wir sollten mehr Blumen (Nominativ) säen, weil die Bienen Nahrung brauchen.",
+              "it": "È triste. Penso che dovremmo seminare più fiori (nominativo), perché le api hanno bisogno di cibo.",
+              "grammar": "rodilnik-kolicina",
+              "why": {
+                "en": "Več (more) takes the genitive: več cvetja.",
+                "de": "Več (mehr) steht mit dem Genitiv: več cvetja.",
+                "it": "Več (più) regge il genitivo: več cvetja."
+              },
+              "reply": {
+                "face": "thinking",
+                "sl": "Več cvetje? … Nekaj ne gre skupaj, ampak razumem vas.",
+                "en": "Več cvetje? … Something doesn't fit, but I understand you.",
+                "de": "Več cvetje? … Da passt etwas nicht, aber ich verstehe Sie.",
+                "it": "Več cvetje? … Qualcosa non torna, ma La capisco."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Prosim? … Počasi, prosim.",
+            "en": "Pardon? … Slowly, please.",
+            "de": "Bitte? … Langsam, bitte.",
+            "it": "Prego? … Piano, per favore."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Na sestanku so rekli, da bo občina dala semena vsakemu, ki jih bo hotel.",
+          "en": "At the meeting they said the municipality would give seeds to anyone who wants them.",
+          "de": "Bei der Versammlung hieß es, die Gemeinde gibt jedem Samen, der welche will.",
+          "it": "Alla riunione hanno detto che il comune darà i semi a chiunque li vorrà."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ali bodo semena razdeljena že letos?",
+              "en": "Will the seeds be handed out this year already?",
+              "de": "Werden die Samen schon dieses Jahr verteilt?",
+              "it": "I semi verranno distribuiti già quest'anno?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Da, spomladi. Če jih dobimo dovolj, posejemo še breg ob potoku.",
+                "en": "Yes, in spring. If we get enough, we'll sow the bank by the stream too.",
+                "de": "Ja, im Frühling. Wenn wir genug bekommen, säen wir auch das Ufer am Bach ein.",
+                "it": "Sì, in primavera. Se ne riceviamo abbastanza, seminiamo anche la riva del ruscello."
+              }
+            },
+            {
+              "sl": "Ali bodo semena razdeljeni že letos?",
+              "en": "Will the seeds (masculine) be handed out this year already?",
+              "de": "Werden die Samen (männlich) schon dieses Jahr verteilt?",
+              "it": "I semi (maschile) verranno distribuiti già quest'anno?",
+              "grammar": "trpnik",
+              "why": {
+                "en": "Semena is neuter plural: the participle agrees with it, razdeljena.",
+                "de": "Semena ist sächlich Plural: das Partizip richtet sich danach, razdeljena.",
+                "it": "Semena è neutro plurale: il participio si accorda, razdeljena."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Razdeljeni? Kdo, mi? … Semena, upam, ne ljudje.",
+                "en": "Handed out (masculine)? Who, us? … The seeds, I hope, not the people.",
+                "de": "Verteilt, männlich? Wer, wir? … Die Samen, hoffe ich, nicht die Leute.",
+                "it": "Distribuiti? Chi, noi? … I semi, spero, non la gente."
+              }
+            },
+            {
+              "sl": "Ali bodo semena razdelila že letos?",
+              "en": "Will the seeds hand out this year already?",
+              "de": "Werden die Samen schon dieses Jahr verteilen?",
+              "it": "I semi distribuiranno già quest'anno?",
+              "grammar": "trpnik",
+              "why": {
+                "en": "Someone hands the seeds out: the passive, bodo razdeljena (the participle in -en). Razdelila makes the seeds do the handing out.",
+                "de": "Jemand verteilt die Samen: das Passiv, bodo razdeljena (das Partizip auf -en). Razdelila lässt die Samen selbst verteilen.",
+                "it": "Qualcuno distribuisce i semi: il passivo, bodo razdeljena (il participio in -en). Razdelila fa distribuire ai semi stessi."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Semena bodo delila? … To bi bil pa čudež.",
+                "en": "The seeds will hand things out? … That would be a miracle.",
+                "de": "Die Samen verteilen? … Das wäre ein Wunder.",
+                "it": "I semi distribuiranno? … Sarebbe un miracolo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Prosim? … Počasi, prosim.",
+            "en": "Pardon? … Slowly, please.",
+            "de": "Bitte? … Langsam, bitte.",
+            "it": "Prego? … Piano, per favore."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Lepo, da vas to zanima. Čebele so majhne, ampak brez njih bi bili lačni vsi.",
+          "en": "It's good that this interests you. Bees are small, but without them everyone would go hungry.",
+          "de": "Schön, dass Sie das interessiert. Bienen sind klein, aber ohne sie hätten alle Hunger.",
+          "it": "Bello che La interessi. Le api sono piccole, ma senza di loro avremmo tutti fame."
+        }
+      ]
+    },
+    {
+      "id": "cvetje-b2-jansa",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o Antonu Janši, ki sem vam jo povedal",
+        "en": "the story of Anton Janša I told you",
+        "de": "die Geschichte von Anton Janša, die ich Ihnen erzählt habe",
+        "it": "la storia di Anton Janša che Le ho raccontato"
+      },
+      "lines": [
+        {
+          "who": "anton",
+          "face": "proud",
+          "sl": "Veste, {learner}, da je moj soimenjak Anton Janša učil čebelarstvo na Dunaju? Za cesarico Marijo Terezijo.",
+          "en": "Did you know, {learner}, that my namesake Anton Janša taught beekeeping in Vienna? For the Empress Maria Theresa.",
+          "de": "Wissen Sie, {learner}, dass mein Namensvetter Anton Janša in Wien Bienenzucht unterrichtet hat? Für Kaiserin Maria Theresia.",
+          "it": "Lo sa, {learner}, che il mio omonimo Anton Janša insegnava apicoltura a Vienna? Per l'imperatrice Maria Teresa."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Res? In na njegov rojstni dan zdaj praznujemo svetovni dan čebel, kajne?",
+              "en": "Really? And on his birthday we now celebrate World Bee Day, don't we?",
+              "de": "Wirklich? Und an seinem Geburtstag feiern wir jetzt den Weltbienentag, nicht wahr?",
+              "it": "Davvero? E nel giorno del suo compleanno ora si festeggia la Giornata mondiale delle api, vero?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako je. Dvajsetega maja. To smo dosegli Slovenci, čeprav smo majhni.",
+                "en": "Indeed. On the twentieth of May. We Slovenes achieved that, small as we are.",
+                "de": "Genau. Am zwanzigsten Mai. Das haben wir Slowenen geschafft, so klein wir sind.",
+                "it": "Proprio. Il venti maggio. L'abbiamo ottenuto noi sloveni, per quanto piccoli."
+              }
+            },
+            {
+              "sl": "Res? In na njegov rojstni dan zdaj praznujemo dan žena, kajne?",
+              "en": "Really? And on his birthday we now celebrate Women's Day, don't we?",
+              "de": "Wirklich? Und an seinem Geburtstag feiern wir jetzt den Frauentag, nicht wahr?",
+              "it": "Davvero? E nel giorno del suo compleanno ora si festeggia la festa della donna, vero?",
+              "why": {
+                "en": "Janša's birthday, 20 May, is World Bee Day (svetovni dan čebel); Women's Day is 8 March.",
+                "de": "Janšas Geburtstag, der 20. Mai, ist der Weltbienentag (svetovni dan čebel); der Frauentag ist am 8. März.",
+                "it": "Il compleanno di Janša, il 20 maggio, è la Giornata mondiale delle api (svetovni dan čebel); la festa della donna è l'8 marzo."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Dan žena? … To je pa osmega marca, {learner}.",
+                "en": "Women's Day? … That's the eighth of March, {learner}.",
+                "de": "Frauentag? … Der ist doch am achten März, {learner}.",
+                "it": "La festa della donna? … Quella è l'otto marzo, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Prosim? … Počasi, prosim.",
+            "en": "Pardon? … Slowly, please.",
+            "de": "Bitte? … Langsam, bitte.",
+            "it": "Prego? … Piano, per favore."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Pravijo, da bi bil ostal doma na Breznici, če ga ne bi bila poklicala cesarica. Kdo ve …",
+          "en": "They say he would have stayed at home in Breznica if the empress hadn't called him. Who knows …",
+          "de": "Man sagt, er wäre zu Hause in Breznica geblieben, wenn ihn die Kaiserin nicht gerufen hätte. Wer weiß …",
+          "it": "Dicono che sarebbe rimasto a casa a Breznica, se l'imperatrice non l'avesse chiamato. Chissà …"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Na srečo ga je poklicala. Sicer bi bil ostal neznan kmet.",
+              "en": "Luckily she did call him. Otherwise he would have remained an unknown farmer.",
+              "de": "Zum Glück hat sie ihn gerufen. Sonst wäre er ein unbekannter Bauer geblieben.",
+              "it": "Per fortuna l'ha chiamato. Altrimenti sarebbe rimasto un contadino sconosciuto.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako je. In njegove knjige berejo čebelarji še danes.",
+                "en": "That's right. And beekeepers still read his books today.",
+                "de": "So ist es. Und seine Bücher lesen die Imker noch heute.",
+                "it": "Proprio così. E gli apicoltori leggono i suoi libri ancora oggi."
+              }
+            },
+            {
+              "sl": "Na srečo ga je poklicala. Sicer je ostal neznan kmet.",
+              "en": "Luckily she did call him. Otherwise he remained an unknown farmer.",
+              "de": "Zum Glück hat sie ihn gerufen. Sonst ist er ein unbekannter Bauer geblieben.",
+              "it": "Per fortuna l'ha chiamato. Altrimenti è rimasto un contadino sconosciuto.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Sicer (otherwise) is what didn't happen: the conditional, bi bil ostal (or bi ostal). Je ostal says he did stay unknown.",
+                "de": "Sicer (sonst) ist, was nicht geschah: der Konditional, bi bil ostal (oder bi ostal). Je ostal sagt, er blieb unbekannt.",
+                "it": "Sicer (altrimenti) è ciò che non è successo: il condizionale, bi bil ostal (o bi ostal). Je ostal dice che è rimasto sconosciuto."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Neznan? Janša? Po vsem svetu ga poznajo!",
+                "en": "Unknown? Janša? He's known all over the world!",
+                "de": "Unbekannt? Janša? Die ganze Welt kennt ihn!",
+                "it": "Sconosciuto? Janša? Lo conoscono in tutto il mondo!"
+              }
+            },
+            {
+              "sl": "Na srečo ga je poklical. Sicer bi bil ostal neznan kmet.",
+              "en": "Luckily he (?) did call him. Otherwise he would have remained an unknown farmer.",
+              "de": "Zum Glück hat er (?) ihn gerufen. Sonst wäre er ein unbekannter Bauer geblieben.",
+              "it": "Per fortuna l'ha chiamato lui (?). Altrimenti sarebbe rimasto un contadino sconosciuto.",
+              "grammar": "pretekli-cas",
+              "why": {
+                "en": "The empress called him: a woman, so the l-form is feminine, poklicala.",
+                "de": "Die Kaiserin hat ihn gerufen: eine Frau, also die weibliche l-Form, poklicala.",
+                "it": "L'ha chiamato l'imperatrice: una donna, quindi la forma in -l femminile, poklicala."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Poklical? Kdo? Cesarica je bila ženska, {learner}.",
+                "en": "Poklical? Who? The empress was a woman, {learner}.",
+                "de": "Poklical? Wer? Die Kaiserin war eine Frau, {learner}.",
+                "it": "Poklical? Chi? L'imperatrice era una donna, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Prosim? … Počasi, prosim.",
+            "en": "Pardon? … Slowly, please.",
+            "de": "Bitte? … Langsam, bitte.",
+            "it": "Prego? … Piano, per favore."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Kranjska sivka je mirna in pridna. Ampak ne mara hrupa, hitenja in jeze.",
+          "en": "The Carniolan bee is calm and hard-working. But it doesn't like noise, hurry or anger.",
+          "de": "Die Krainer Biene ist ruhig und fleißig. Aber sie mag keinen Lärm, keine Eile und keinen Ärger.",
+          "it": "L'ape carnica è calma e laboriosa. Ma non ama il rumore, la fretta e la rabbia."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pri čebelah je torej treba biti miren, kot vi.",
+              "en": "So with bees one has to be calm, like you.",
+              "de": "Bei Bienen muss man also ruhig sein, so wie Sie.",
+              "it": "Con le api, quindi, bisogna essere calmi, come Lei.",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "sl": "Ha … hvala. Mir sem se naučil od čebel, ne one od mene.",
+                "en": "Ha … thank you. I learned calm from the bees, not they from me.",
+                "de": "Ha … danke. Die Ruhe habe ich von den Bienen gelernt, nicht sie von mir.",
+                "it": "Ah … grazie. La calma l'ho imparata dalle api, non loro da me."
+              }
+            },
+            {
+              "sl": "Pri čebelah sem torej treba biti miren, kot vi.",
+              "en": "So with bees I am necessary to be calm, like you.",
+              "de": "Bei Bienen bin ich also nötig, ruhig zu sein, so wie Sie.",
+              "it": "Con le api, quindi, sono necessario essere calmo, come Lei.",
+              "grammar": "brezosebno",
+              "why": {
+                "en": "Treba (needed) has no person: treba je biti miren, for anyone.",
+                "de": "Treba (nötig) hat keine Person: treba je biti miren, für jeden.",
+                "it": "Treba (bisogna) non ha persona: treba je biti miren, per chiunque."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Vi ste nujni? … Ha. To povejte čebelam.",
+                "en": "You're needed? … Ha. Tell that to the bees.",
+                "de": "Sie sind nötig? … Ha. Sagen Sie das den Bienen.",
+                "it": "Lei è necessario? … Ah. Lo dica alle api."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Prosim? … Počasi, prosim.",
+            "en": "Pardon? … Slowly, please.",
+            "de": "Bitte? … Langsam, bitte.",
+            "it": "Prego? … Piano, per favore."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Pridite dvajsetega maja. Takrat ta travnik najlepše cveti.",
+          "en": "Come on the twentieth of May. That's when this meadow is at its loveliest in bloom.",
+          "de": "Kommen Sie am zwanzigsten Mai. Dann blüht diese Wiese am schönsten.",
+          "it": "Venga il venti maggio. È allora che questo prato fiorisce più bello."
+        }
+      ]
+    },
+    {
+      "id": "caj-b1-malica",
+      "level": "B1",
+      "memory": {
+        "sl": "nasvet za Zalino malico",
+        "en": "the advice about Zala's snack",
+        "de": "den Rat für Zalas Jause",
+        "it": "il consiglio per la merenda di Zala"
+      },
+      "lines": [
+        {
+          "who": "micka",
+          "face": "worried",
+          "sl": "Dober večer, {learner}. Zala mi je rekla, da v šoli ne je kosila, ker ji ni všeč.",
+          "en": "Good evening, {learner}. Zala told me she doesn't eat lunch at school, because she doesn't like it.",
+          "de": "Guten Abend, {learner}. Zala hat mir gesagt, dass sie in der Schule nicht zu Mittag isst, weil es ihr nicht schmeckt.",
+          "it": "Buonasera, {learner}. Zala mi ha detto che a scuola non mangia il pranzo, perché non le piace."
+        },
+        {
+          "who": "micka",
+          "face": "curious",
+          "sl": "Kaj bi ti {m:naredil|f:naredila} na mojem mestu?",
+          "en": "What would you do in my place?",
+          "de": "Was würdest du an meiner Stelle tun?",
+          "it": "Tu cosa faresti al mio posto?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Na vašem mestu bi ji {m:dal|f:dala} malico s seboj.",
+              "en": "In your place I'd give her a packed snack to take along.",
+              "de": "An Ihrer Stelle würde ich ihr eine Jause mitgeben.",
+              "it": "Al posto Suo le darei una merenda da portare con sé.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Malico s seboj … Ja! Kruh z medom in jabolko. To ima rada.",
+                "en": "A snack to take along … Yes! Bread with honey and an apple. She likes that.",
+                "de": "Eine Jause zum Mitnehmen … Ja! Brot mit Honig und einen Apfel. Das mag sie.",
+                "it": "Una merenda da portare … Sì! Pane e miele e una mela. Quello le piace."
+              }
+            },
+            {
+              "sl": "Na vašem mestu ji dam malico s seboj.",
+              "en": "In your place I give her a packed snack to take along.",
+              "de": "An Ihrer Stelle gebe ich ihr eine Jause mit.",
+              "it": "Al posto Suo le do una merenda da portare con sé.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "In someone's place is only imagined: the conditional, bi ji {m:dal|f:dala}. Dam says you do it.",
+                "de": "An jemandes Stelle ist nur gedacht: der Konditional, bi ji {m:dal|f:dala}. Dam heißt, du tust es.",
+                "it": "Al posto di qualcuno è solo immaginato: il condizionale, bi ji {m:dal|f:dala}. Dam dice che lo fai tu."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti ji daš malico? Prav, jutri ob sedmih te čakam!",
+                "en": "You'll give her the snack? Fine, tomorrow at seven I'll expect you!",
+                "de": "Du gibst ihr die Jause? Gut, morgen um sieben warte ich auf dich!",
+                "it": "Gliela porti tu la merenda? Bene, domani alle sette ti aspetto!"
+              }
+            },
+            {
+              "sl": "Na tvojem mestu bi ji {m:dal|f:dala} malico s seboj.",
+              "en": "In your (ti) place I'd give her a packed snack to take along.",
+              "de": "An deiner Stelle würde ich ihr eine Jause mitgeben.",
+              "it": "Al posto tuo le darei una merenda da portare con sé.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Micka is older and expects vi: na vašem mestu.",
+                "de": "Micka ist älter und erwartet vi: na vašem mestu.",
+                "it": "Micka è più anziana e si aspetta il vi: na vašem mestu."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Na tvojem? Oho, kar na ti z babico?",
+                "en": "Your (ti)? Oho, on ti terms with Grandma?",
+                "de": "Deiner? Oho, mit der Oma per du?",
+                "it": "Al posto tuo? Oho, del tu alla nonna?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "micka",
+          "face": "thinking",
+          "sl": "Ko sem bila jaz majhna, smo jedli vse, kar je bilo na mizi. Danes je drugače.",
+          "en": "When I was little, we ate everything that was on the table. Today it's different.",
+          "de": "Als ich klein war, haben wir alles gegessen, was auf dem Tisch stand. Heute ist das anders.",
+          "it": "Quando ero piccola, si mangiava tutto quello che c'era in tavola. Oggi è diverso."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Danes otroci jedo samo tisto, kar jim je všeč.",
+              "en": "Today children eat only what they like.",
+              "de": "Heute essen Kinder nur das, was ihnen schmeckt.",
+              "it": "Oggi i bambini mangiano solo quello che gli piace.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Res je. Ampak lipov čaj z medom pije vsak otrok. He he.",
+                "en": "That's true. But every child drinks linden tea with honey. Heh heh.",
+                "de": "Stimmt. Aber Lindenblütentee mit Honig trinkt jedes Kind. He he.",
+                "it": "È vero. Ma la tisana di tiglio col miele la beve ogni bambino. Eh eh."
+              }
+            },
+            {
+              "sl": "Danes otroci jedo samo tisto, ki jim je všeč.",
+              "en": "Today children eat only that which they like (ki).",
+              "de": "Heute essen Kinder nur das, das ihnen schmeckt (ki).",
+              "it": "Oggi i bambini mangiano solo quello il quale gli piace (ki).",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "After tisto, vse, nekaj (a whole thing) the relative pronoun is kar: tisto, kar.",
+                "de": "Nach tisto, vse, nekaj (etwas Ganzes) heißt das Relativwort kar: tisto, kar.",
+                "it": "Dopo tisto, vse, nekaj (una cosa intera) il relativo è kar: tisto, kar."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Tisto, ki? … Hm, zdaj pa ne vem več, kaj jedo.",
+                "en": "Tisto, ki? … Hm, now I don't know any more what they eat.",
+                "de": "Tisto, ki? … Hm, jetzt weiß ich nicht mehr, was sie essen.",
+                "it": "Tisto, ki? … Mm, adesso non so più cosa mangiano."
+              }
+            },
+            {
+              "sl": "Danes otroci jedo samo tisto, kar jih je všeč.",
+              "en": "Today children eat only what pleases them (accusative).",
+              "de": "Heute essen Kinder nur das, was sie (Akkusativ) mögen.",
+              "it": "Oggi i bambini mangiano solo quello che li (accusativo) piace.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Všeč is said of someone in the dative: jim je všeč.",
+                "de": "Všeč steht mit dem Dativ der Person: jim je všeč.",
+                "it": "Všeč vuole la persona al dativo: jim je všeč."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Jih je všeč? … Komu, prosim? Moja ušesa.",
+                "en": "Jih je všeč? … To whom, please? My ears.",
+                "de": "Jih je všeč? … Wem, bitte? Meine Ohren.",
+                "it": "Jih je všeč? … A chi, scusa? Le mie orecchie."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "micka",
+          "face": "happy",
+          "sl": "Jutri ji bom dala kruh z medom. Če ga ne poje, bo pa kosilo pri meni!",
+          "en": "Tomorrow I'll give her bread with honey. And if she doesn't eat it, lunch will be at my place!",
+          "de": "Morgen gebe ich ihr Brot mit Honig mit. Und wenn sie es nicht isst, gibt es das Mittagessen bei mir!",
+          "it": "Domani le do pane e miele. E se non lo mangia, il pranzo sarà da me!"
+        }
+      ]
+    },
+    {
+      "id": "caj-b2-potres",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o potresu, ki sem ti jo povedala ob čaju",
+        "en": "the story of the earthquake I told you over tea",
+        "de": "die Geschichte vom Erdbeben, die ich dir beim Tee erzählt habe",
+        "it": "la storia del terremoto che ti ho raccontato davanti a una tisana"
+      },
+      "lines": [
+        {
+          "who": "micka",
+          "face": "thinking",
+          "sl": "Veš, {learner}, ko se je leta 1976 stresla zemlja, smo en teden spali kar zunaj, pod lipo pred hišo.",
+          "en": "You know, {learner}, when the earth shook in 1976, we slept outside for a week, under the linden in front of the house.",
+          "de": "Weißt du, {learner}, als 1976 die Erde bebte, haben wir eine Woche lang draußen geschlafen, unter der Linde vor dem Haus.",
+          "it": "Sai, {learner}, quando nel 1976 tremò la terra, per una settimana dormimmo fuori, sotto il tiglio davanti a casa."
+        },
+        {
+          "who": "micka",
+          "face": "sad",
+          "sl": "Hiše so bile razpokane, otroci prestrašeni. Pa sem jim vsak večer skuhala lipov čaj.",
+          "en": "The houses were cracked, the children frightened. So every evening I made them linden tea.",
+          "de": "Die Häuser waren rissig, die Kinder verängstigt. Da habe ich ihnen jeden Abend Lindenblütentee gekocht.",
+          "it": "Le case erano crepate, i bambini spaventati. E io ogni sera preparavo loro la tisana di tiglio."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tudi vaša hiša je bila razpokana?",
+              "en": "Was your house cracked too?",
+              "de": "War Ihr Haus auch rissig?",
+              "it": "Anche la Sua casa era crepata?",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Tudi. Spomladi so jo možje popravili, kamen za kamnom.",
+                "en": "Mine too. In spring the men repaired it, stone by stone.",
+                "de": "Auch. Im Frühling haben die Männer es repariert, Stein für Stein.",
+                "it": "Anche la mia. In primavera gli uomini l'hanno riparata, pietra su pietra."
+              }
+            },
+            {
+              "sl": "Tudi vaša hiša je bila razpokan?",
+              "en": "Was your house cracked (masculine) too?",
+              "de": "War Ihr Haus auch rissig (männlich)?",
+              "it": "Anche la Sua casa era crepato?",
+              "grammar": "delezniki",
+              "why": {
+                "en": "A participle used as an adjective agrees like one: hiša is feminine, so razpokana.",
+                "de": "Ein Partizip als Adjektiv richtet sich wie eines: hiša ist weiblich, also razpokana.",
+                "it": "Un participio usato come aggettivo si accorda come un aggettivo: hiša è femminile, quindi razpokana."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Razpokan? Kaj pa, lonec? Ne, ne, hiša!",
+                "en": "Cracked? What, a pot? No, no, the house!",
+                "de": "Rissig? Was denn, ein Topf? Nein, nein, das Haus!",
+                "it": "Crepato? Cosa, una pentola? No, no, la casa!"
+              }
+            },
+            {
+              "sl": "Tudi tvoja hiša je bila razpokana?",
+              "en": "Was your (ti) house cracked too?",
+              "de": "War dein Haus auch rissig?",
+              "it": "Anche la tua casa era crepata?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Micka is older and expects vi: vaša hiša.",
+                "de": "Micka ist älter und erwartet vi: vaša hiša.",
+                "it": "Micka è più anziana e si aspetta il vi: vaša hiša."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tvoja? Na ti z babico? No ja, v takih časih …",
+                "en": "Your (ti)? On ti terms with Grandma? Oh well, in times like those …",
+                "de": "Dein? Per du mit der Oma? Na ja, in solchen Zeiten …",
+                "it": "Tua? Del tu alla nonna? Be', in tempi come quelli …"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "micka",
+          "face": "proud",
+          "sl": "Še danes pravim: lipov čaj je zdravilo za vse.",
+          "en": "To this day I say: linden tea is a cure for everything.",
+          "de": "Ich sage es bis heute: Lindenblütentee ist ein Heilmittel für alles.",
+          "it": "Lo dico ancora oggi: la tisana di tiglio è la medicina per tutto."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda vam verjamem, ampak z zlomljeno nogo bi vseeno raje {m:šel|f:šla} k zdravniku.",
+              "en": "Of course I believe you, but with a broken leg I'd still rather go to the doctor.",
+              "de": "Natürlich glaube ich Ihnen, aber mit einem gebrochenen Bein würde ich trotzdem lieber zum Arzt gehen.",
+              "it": "Certo che Le credo, ma con una gamba rotta preferirei comunque andare dal medico.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "He he, prav imaš. Ampak ko prideš nazaj, ti skuham čaj.",
+                "en": "Heh heh, you're right. But when you come back, I'll make you tea.",
+                "de": "He he, du hast recht. Aber wenn du zurückkommst, koche ich dir Tee.",
+                "it": "Eh eh, hai ragione. Ma quando torni, ti faccio una tisana."
+              }
+            },
+            {
+              "sl": "Ne, to ni res. Čaj ne pomaga nič.",
+              "en": "No, that's not true. Tea doesn't help at all.",
+              "de": "Nein, das stimmt nicht. Tee hilft überhaupt nicht.",
+              "it": "No, non è vero. La tisana non serve a niente.",
+              "why": {
+                "en": "Micka speaks from a hard week and loves her tea: grant it first (seveda), then say your but.",
+                "de": "Micka spricht von einer schweren Woche und liebt ihren Tee: gib ihr zuerst recht (seveda), dann sag dein Aber.",
+                "it": "Micka parla di una settimana difficile e ama la sua tisana: dalle prima ragione (seveda), poi di' il tuo ma."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Nič? … Joj, kako trdo govoriš.",
+                "en": "Not at all? … Oh, how harshly you speak.",
+                "de": "Überhaupt nicht? … Ach, wie hart du sprichst.",
+                "it": "A niente? … Oh, come parli duro."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "micka",
+          "face": "happy",
+          "sl": "Tako. Pij, dokler je topel. In naj se zemlja nikoli več ne strese.",
+          "en": "There. Drink it while it's warm. And may the earth never shake again.",
+          "de": "So. Trink, solange er warm ist. Und möge die Erde nie wieder beben.",
+          "it": "Ecco. Bevi finché è calda. E che la terra non tremi mai più."
         }
       ]
     }

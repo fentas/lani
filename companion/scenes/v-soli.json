@@ -4,7 +4,7 @@
   "title": { "sl": "V šoli", "en": "At school", "de": "In der Schule", "it": "A scuola" },
   "emoji": "🏫",
   "level": "A1",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "school",
   "from": ["school"],
   "pack": "v-soli",
@@ -32,7 +32,7 @@
   ],
   "happenings": [
     { "id": "tabla", "title": { "sl": "Napake na tabli", "en": "Mistakes on the blackboard", "de": "Fehler an der Tafel", "it": "Errori alla lavagna" }, "who": "mojca",
-      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "tabla", "dialogs": ["tabla-rodilnik", "tabla-preteklik", "tabla"],"reward": { "stone": 20 }, "marker": "🖍️",
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "tabla", "dialogs": ["tabla-b2-zdravnica", "tabla-b1-zala", "tabla-rodilnik", "tabla-preteklik", "tabla"],"reward": { "stone": 20 }, "marker": "🖍️",
       "memory": { "sl": "napake na tabli, ki ste jih popravili", "en": "the mistakes on the blackboard you corrected", "de": "die Fehler an der Tafel, die Sie verbessert haben", "it": "gli errori alla lavagna che Lei ha corretto" } },
     { "id": "dvojina", "title": { "sl": "Dva učenca, dve knjigi", "en": "Two pupils, two books", "de": "Zwei Schüler, zwei Bücher", "it": "Due alunni, due libri" }, "who": "mojca", "with": ["tine", "zala"],
       "when": ["afternoon"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "dvojina", "dialogs": ["dvojina-knjige", "dvojina-vceraj", "dvojina"],"reward": { "stone": 20 }, "marker": "✌️",
@@ -44,7 +44,7 @@
       "when": ["morning", "evening"], "chance": 0.4, "dialog": "globus", "dialogs": ["globus-morje", "globus"],"reward": { "food": 15 }, "marker": "🌍", "needs": { "level": 2 },
       "memory": { "sl": "globus in Nemčijo, ki si mi jo {m:pokazal|f:pokazala}", "en": "the globe and Germany, which you showed me", "de": "den Globus und Deutschland, das du mir gezeigt hast", "it": "il mappamondo e la Germania che mi hai mostrato" } },
     { "id": "stara-sola", "title": { "sl": "Janez v svoji stari šoli", "en": "Janez in his old school", "de": "Janez in seiner alten Schule", "it": "Janez nella sua vecchia scuola" }, "who": "janez",
-      "when": ["afternoon"], "chance": 0.3, "dialog": "stara-sola", "dialogs": ["stara-sola-pec", "stara-sola"],"reward": { "wisdom": 20 }, "marker": "🎓",
+      "when": ["afternoon"], "chance": 0.3, "dialog": "stara-sola", "dialogs": ["stara-sola-b2-palica", "stara-sola-b1-tele", "stara-sola-pec", "stara-sola"],"reward": { "wisdom": 20 }, "marker": "🎓",
       "memory": { "sl": "dan v stari šoli, ko sem ti pravil o gospe Pavli", "en": "the day in the old school when I told you about Mrs Pavla", "de": "den Tag in der alten Schule, als ich dir von Frau Pavla erzählt habe", "it": "il giorno nella vecchia scuola, quando ti ho raccontato della signora Pavla" } }
   ],
   "dialogs": [
@@ -465,6 +465,555 @@
             "reply": { "face": "confused", "sl": "Smem? Ti smeš, seveda. Ti nisi otrok.", "en": "Smem (I may)? You may, of course. You're not a child.", "de": "Smem (ich darf)? Du darfst, natürlich. Du bist kein Kind.", "it": "Smem (io posso)? Tu puoi, certo. Non sei un bambino." } }
         ] },
         { "who": "janez", "sl": "Časi se spreminjajo, {m:sinko|f:{learner}}. Pojdi domov, jaz še malo ostanem.", "en": "Times change, {m:son|f:{learner}}. Go home, I'll stay a little longer.", "de": "Die Zeiten ändern sich, {m:mein Junge|f:{learner}}. Geh nach Hause, ich bleibe noch ein bisschen.", "it": "I tempi cambiano, {m:figliolo|f:{learner}}. Va' a casa, io resto ancora un po'." }
+      ]
+    },
+    {
+      "id": "tabla-b1-zala",
+      "level": "B1",
+      "memory": {
+        "sl": "Zalino nalogo, ki ste jo popravili",
+        "en": "Zala's homework you corrected",
+        "de": "Zalas Hausaufgabe, die Sie verbessert haben",
+        "it": "il compito di Zala che ha corretto"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Dobro jutro, {learner}! Zala je za domačo nalogo napisala: »Ves dan sem napisala pismo.« Ali je to prav?",
+          "en": "Good morning, {learner}! For her homework Zala wrote: »All day I wrote (and finished) a letter.« Is that right?",
+          "de": "Guten Morgen, {learner}! Zala hat in ihrer Hausaufgabe geschrieben: »Den ganzen Tag habe ich einen Brief fertig geschrieben.« Ist das richtig?",
+          "it": "Buongiorno, {learner}! Per compito Zala ha scritto: »Tutto il giorno ho finito di scrivere una lettera.« È giusto?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne čisto. Ves dan traja, zato: »Ves dan sem pisala pismo.«",
+              "en": "Not quite. All day goes on, so: »All day I was writing a letter.«",
+              "de": "Nicht ganz. Den ganzen Tag dauert an, also: »Den ganzen Tag habe ich an einem Brief geschrieben.«",
+              "it": "Non proprio. Tutto il giorno dura, quindi: »Tutto il giorno ho scritto una lettera.«",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično. Ves dan traja, zato pisala. Ko je pismo gotovo, pa: zvečer sem ga napisala.",
+                "en": "Excellent. All day goes on, so pisala. Once the letter is finished: in the evening I had written it.",
+                "de": "Ausgezeichnet. Den ganzen Tag dauert an, also pisala. Wenn der Brief fertig ist: am Abend hatte ich ihn geschrieben.",
+                "it": "Ottimo. Tutto il giorno dura, quindi pisala. Quando la lettera è finita, invece: la sera l'ho scritta."
+              }
+            },
+            {
+              "sl": "Ja, to je prav.",
+              "en": "Yes, that's right.",
+              "de": "Ja, das ist richtig.",
+              "it": "Sì, è giusto.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Ves dan goes on for a while: the imperfective, sem pisala. Napisala is one letter, done.",
+                "de": "Ves dan dauert eine Weile: der unvollendete Aspekt, sem pisala. Napisala ist ein Brief, fertig.",
+                "it": "Ves dan dura nel tempo: l'aspetto imperfettivo, sem pisala. Napisala è una lettera, finita."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Prav? Ves dan za eno pismo, pa še dokončano? Hm.",
+                "en": "Right? All day for one letter, and finished too? Hm.",
+                "de": "Richtig? Den ganzen Tag für einen Brief, und dann noch fertig? Hm.",
+                "it": "Giusto? Tutto il giorno per una lettera, e per giunta finita? Mm."
+              }
+            },
+            {
+              "sl": "Ne čisto. Ves dan traja, zato: »Ves dan bom pisala pismo.«",
+              "en": "Not quite. All day goes on, so: »All day I will be writing a letter.«",
+              "de": "Nicht ganz. Den ganzen Tag dauert an, also: »Den ganzen Tag werde ich einen Brief schreiben.«",
+              "it": "Non proprio. Tutto il giorno dura, quindi: »Tutto il giorno scriverò una lettera.«",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Zala wrote about yesterday: keep the past and change only the aspect, the imperfective sem pisala.",
+                "de": "Zala schrieb über gestern: behalte die Vergangenheit und ändere nur den Aspekt, den unvollendeten: sem pisala.",
+                "it": "Zala scriveva di ieri: tieni il passato e cambia solo l'aspetto, l'imperfettivo sem pisala."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Bom? Pismo je že napisano, {learner}. Včeraj!",
+                "en": "Will? The letter's already written, {learner}. Yesterday!",
+                "de": "Werde? Der Brief ist schon geschrieben, {learner}. Gestern!",
+                "it": "Scriverò? La lettera è già scritta, {learner}. Ieri!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ne razumem čisto. Lahko ponovite, prosim?",
+            "en": "I don't quite understand. Could you repeat that, please?",
+            "de": "Ich verstehe nicht ganz. Können Sie das wiederholen, bitte?",
+            "it": "Non ho capito bene. Può ripetere, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Drugi stavek: »To je fant, ki sem mu videla včeraj.« Kako bi ga popravili?",
+          "en": "The second sentence: »That's the boy who I saw (to him) yesterday.« How would you correct it?",
+          "de": "Der zweite Satz: »Das ist der Junge, dem ich gestern gesehen habe.« Wie würden Sie ihn verbessern?",
+          "it": "Seconda frase: »È il ragazzo a cui ho visto ieri.« Come la correggerebbe?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "»To je fant, ki sem ga videla včeraj.«",
+              "en": "»That's the boy I saw yesterday.«",
+              "de": "»Das ist der Junge, den ich gestern gesehen habe.«",
+              "it": "»È il ragazzo che ho visto ieri.«",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Odlično. Ki se ne spreminja, zato kratki ga pove, koga je videla.",
+                "en": "Excellent. Ki doesn't change, so the short ga tells whom she saw.",
+                "de": "Ausgezeichnet. Ki ändert sich nicht, also sagt das kurze ga, wen sie gesehen hat.",
+                "it": "Ottimo. Ki non cambia, quindi il breve ga dice chi ha visto."
+              }
+            },
+            {
+              "sl": "»To je fant, ki ga sem videla včeraj.«",
+              "en": "»That's the boy I saw yesterday.«",
+              "de": "»Das ist der Junge, den ich gestern gesehen habe.«",
+              "it": "»È il ragazzo che ho visto ieri.«",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words keep one order: sem before whom (ga): ki sem ga videla.",
+                "de": "Die kurzen Wörter haben eine feste Reihenfolge: sem vor wen (ga): ki sem ga videla.",
+                "it": "Le paroline hanno un ordine fisso: sem prima di chi (ga): ki sem ga videla."
+              },
+              "reply": {
+                "face": "thinking",
+                "sl": "Hm, skoraj. Besede so se malo premešale. Še enkrat?",
+                "en": "Hm, nearly. The words got a little shuffled. Once more?",
+                "de": "Hm, fast. Die Wörter sind ein bisschen durcheinander. Noch einmal?",
+                "it": "Mm, quasi. Le parole si sono un po' mescolate. Ancora una volta?"
+              }
+            },
+            {
+              "sl": "»To je fant, ki sem ga videl včeraj.«",
+              "en": "»That's the boy I (a boy) saw yesterday.«",
+              "de": "»Das ist der Junge, den ich (ein Junge) gestern gesehen habe.«",
+              "it": "»È il ragazzo che ho visto (io, maschio) ieri.«",
+              "grammar": "pretekli-cas",
+              "why": {
+                "en": "Zala writes about herself, a girl: the past's l-form agrees, sem videla. Videl is a boy's.",
+                "de": "Zala schreibt über sich, ein Mädchen: die l-Form der Vergangenheit richtet sich danach, sem videla. Videl ist für einen Jungen.",
+                "it": "Zala scrive di sé, una bambina: la forma in -l del passato concorda, sem videla. Videl è per un maschio."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Videl? Zala bi bila užaljena, {learner}.",
+                "en": "A boy? Zala would be offended, {learner}.",
+                "de": "Ein Junge? Zala wäre beleidigt, {learner}.",
+                "it": "Un maschio? Zala si offenderebbe, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ne razumem čisto. Lahko ponovite, prosim?",
+            "en": "I don't quite understand. Could you repeat that, please?",
+            "de": "Ich verstehe nicht ganz. Können Sie das wiederholen, bitte?",
+            "it": "Non ho capito bene. Può ripetere, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "laugh",
+          "sl": "Danes ste bili {m:učitelj|f:učiteljica} namesto mene. Zali pa ne povejte, da je imela napake. Ona vedno popravlja druge!",
+          "en": "Today you were the teacher instead of me. But don't tell Zala she made mistakes. She's always correcting others!",
+          "de": "Heute waren Sie {m:der Lehrer|f:die Lehrerin} statt meiner. Aber sagen Sie Zala nicht, dass sie Fehler hatte. Sie verbessert immer die anderen!",
+          "it": "Oggi {m:il maestro|f:la maestra} l'ha fatto Lei al posto mio. Ma non dica a Zala che ha fatto errori. È sempre lei a correggere gli altri!"
+        }
+      ]
+    },
+    {
+      "id": "tabla-b2-zdravnica",
+      "level": "B2",
+      "memory": {
+        "sl": "dan, ko sem vam povedala, da sem hotela biti zdravnica",
+        "en": "the day I told you I'd wanted to be a doctor",
+        "de": "den Tag, als ich Ihnen erzählt habe, dass ich Ärztin werden wollte",
+        "it": "il giorno in cui Le ho raccontato che volevo fare il medico"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Dobro jutro, {learner}! Danes nekaj težjega, iz knjige: »Ko je Peter pritekel v razred, je bil zvonec že zazvonil.« Kaj se je zgodilo?",
+          "en": "Good morning, {learner}! Something harder today, from a book: »When Peter ran into the classroom, the bell had already rung.« What happened?",
+          "de": "Guten Morgen, {learner}! Heute etwas Schwereres, aus einem Buch: »Als Peter ins Klassenzimmer lief, hatte die Glocke schon geläutet.« Was ist passiert?",
+          "it": "Buongiorno, {learner}! Oggi una cosa più difficile, da un libro: »Quando Peter corse in classe, la campanella era già suonata.« Cos'è successo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Peter je zamudil: zvonec je zazvonil, preden je prišel.",
+              "en": "Peter was late: the bell rang before he came.",
+              "de": "Peter kam zu spät: die Glocke läutete, bevor er kam.",
+              "it": "Peter è arrivato tardi: la campanella è suonata prima che arrivasse.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično. To je predpreteklik. V knjigah ga boste še srečali, v govoru pa redko.",
+                "en": "Excellent. That's the pluperfect. You'll meet it in books, but rarely in speech.",
+                "de": "Ausgezeichnet. Das ist das Plusquamperfekt. In Büchern begegnen Sie ihm noch, im Gespräch selten.",
+                "it": "Ottimo. È il trapassato. Nei libri lo incontrerà ancora, nel parlato raramente."
+              }
+            },
+            {
+              "sl": "Peter je bil prvi: prišel je, preden je zazvonil zvonec.",
+              "en": "Peter was first: he came before the bell rang.",
+              "de": "Peter war der Erste: er kam, bevor die Glocke läutete.",
+              "it": "Peter è arrivato primo: è venuto prima che suonasse la campanella.",
+              "grammar": "predpreteklik",
+              "why": {
+                "en": "Je bil že zazvonil is the pluperfect, the past before the past: the bell had rung before Peter came, so he was late.",
+                "de": "Je bil že zazvonil ist das Plusquamperfekt, die Vergangenheit vor der Vergangenheit: die Glocke hatte geläutet, bevor Peter kam, also kam er zu spät.",
+                "it": "Je bil že zazvonil è il trapassato, il passato prima del passato: la campanella era suonata prima che Peter arrivasse, quindi era in ritardo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Prvi? V tej zgodbi pa prav gotovo ne!",
+                "en": "First? Certainly not in this story!",
+                "de": "Der Erste? In dieser Geschichte ganz sicher nicht!",
+                "it": "Primo? In questa storia proprio no!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ne razumem čisto. Lahko ponovite, prosim?",
+            "en": "I don't quite understand. Could you repeat that, please?",
+            "de": "Ich verstehe nicht ganz. Können Sie das wiederholen, bitte?",
+            "it": "Non ho capito bene. Può ripetere, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Veste, nekoč sem hotela postati zdravnica. Če bi bila takrat vztrajala, bi zdaj delala v bolnišnici v Šempetru.",
+          "en": "You know, I once wanted to become a doctor. If I had kept at it back then, I'd be working at the hospital in Šempeter now.",
+          "de": "Wissen Sie, ich wollte einmal Ärztin werden. Hätte ich damals durchgehalten, würde ich jetzt im Krankenhaus in Šempeter arbeiten.",
+          "it": "Sa, una volta volevo diventare medico. Se allora avessi tenuto duro, adesso lavorerei all'ospedale di Šempeter."
+        },
+        {
+          "who": "mojca",
+          "face": "sad",
+          "sl": "Včasih se vprašam, ali sem se prav odločila.",
+          "en": "Sometimes I wonder whether I made the right choice.",
+          "de": "Manchmal frage ich mich, ob ich mich richtig entschieden habe.",
+          "it": "A volte mi chiedo se ho fatto la scelta giusta."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Morda bi bili dobra zdravnica, ampak tukaj ste najboljša učiteljica, kar jih poznam.",
+              "en": "You might have been a good doctor, but here you're the best teacher I know.",
+              "de": "Vielleicht wären Sie eine gute Ärztin geworden, aber hier sind Sie die beste Lehrerin, die ich kenne.",
+              "it": "Forse sarebbe stata un bravo medico, ma qui è la migliore insegnante che conosca.",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "sl": "Oh, {learner} … Zdaj sem pa rdeča kot kreda. Ne, kreda je bela …",
+                "en": "Oh, {learner} … Now I'm as red as chalk. No, chalk is white …",
+                "de": "Oh, {learner} … Jetzt bin ich rot wie Kreide. Nein, Kreide ist weiß …",
+                "it": "Oh, {learner} … Adesso sono rossa come il gesso. No, il gesso è bianco …"
+              }
+            },
+            {
+              "sl": "Škoda, da ste zdravnica. Učiteljica bi bila boljša.",
+              "en": "A pity you're a doctor. A teacher would be better.",
+              "de": "Schade, dass Sie Ärztin sind. Lehrerin wäre besser.",
+              "it": "Peccato che Lei sia medico. Un'insegnante sarebbe meglio.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Bi bila vztrajala is the past conditional: what Mojca would have done, and didn't. She gave up medicine and became a teacher.",
+                "de": "Bi bila vztrajala ist der Konditional der Vergangenheit: was Mojca getan hätte, und nicht tat. Sie gab die Medizin auf und wurde Lehrerin.",
+                "it": "Bi bila vztrajala è il condizionale passato: ciò che Mojca avrebbe fatto, e non ha fatto. Ha lasciato medicina ed è diventata insegnante."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Zdravnica? Jaz? Samo kadar si Tine odrgne koleno!",
+                "en": "A doctor? Me? Only when Tine grazes his knee!",
+                "de": "Ärztin? Ich? Nur wenn Tine sich das Knie aufschürft!",
+                "it": "Medico? Io? Solo quando Tine si sbuccia un ginocchio!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Ne razumem čisto. Lahko ponovite, prosim?",
+            "en": "I don't quite understand. Could you repeat that, please?",
+            "de": "Ich verstehe nicht ganz. Können Sie das wiederholen, bitte?",
+            "it": "Non ho capito bene. Può ripetere, per favore?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Prav. Nobene medicine več. Za domačo nalogo pa napišite en stavek s predpreteklikom!",
+          "en": "Right. No more medicine. And for homework, write one sentence with the pluperfect!",
+          "de": "Gut. Keine Medizin mehr. Und als Hausaufgabe schreiben Sie einen Satz mit dem Plusquamperfekt!",
+          "it": "Bene. Basta medicina. E per compito scriva una frase col trapassato!"
+        }
+      ]
+    },
+    {
+      "id": "stara-sola-b1-tele",
+      "level": "B1",
+      "memory": {
+        "sl": "zgodbo o teletu in gospe Pavli, ki sem ti jo povedal",
+        "en": "the story of the calf and Mrs Pavla I told you",
+        "de": "die Geschichte vom Kalb und Frau Pavla, die ich dir erzählt habe",
+        "it": "la storia del vitellino e della signora Pavla che ti ho raccontato"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "{learner}, veš, gospa Pavla me je nekoč postavila v kot, ker sem zamudil. Pa nisem bil nič kriv.",
+          "en": "{learner}, you know, Mrs Pavla once stood me in the corner because I was late. And it wasn't my fault at all.",
+          "de": "{learner}, weißt du, Frau Pavla hat mich einmal in die Ecke gestellt, weil ich zu spät kam. Dabei war ich gar nicht schuld.",
+          "it": "{learner}, sai, la signora Pavla una volta mi ha messo in castigo nell'angolo perché ero in ritardo. E non era colpa mia."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ste ji povedali, zakaj ste zamudili?",
+              "en": "Did you tell her why you were late?",
+              "de": "Haben Sie ihr gesagt, warum Sie zu spät kamen?",
+              "it": "Le ha detto perché era in ritardo?",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Sem. Rekel sem ji, da je krava telila in da sem moral pomagati očetu.",
+                "en": "I did. I told her the cow was calving and I'd had to help my father.",
+                "de": "Ja. Ich habe ihr gesagt, dass die Kuh gekalbt hat und ich meinem Vater helfen musste.",
+                "it": "Sì. Le ho detto che la mucca stava partorendo e che avevo dovuto aiutare mio padre."
+              }
+            },
+            {
+              "sl": "Ste ji povedali, zakaj zamudili ste?",
+              "en": "Did you tell her why you were late?",
+              "de": "Haben Sie ihr gesagt, warum Sie zu spät kamen?",
+              "it": "Le ha detto perché era in ritardo?",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "In a clause the short words come right after the question word: zakaj ste zamudili.",
+                "de": "Im Nebensatz stehen die kurzen Wörter gleich nach dem Fragewort: zakaj ste zamudili.",
+                "it": "In una frase dipendente le paroline vanno subito dopo la parola interrogativa: zakaj ste zamudili."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Besede ti hodijo narobe, kot meni noge.",
+                "en": "Hm? Your words walk the wrong way, like my legs.",
+                "de": "Hm? Deine Wörter laufen verkehrt, wie meine Beine.",
+                "it": "Mm? Le parole ti camminano al contrario, come le mie gambe."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "cross",
+          "sl": "Pa ni verjela. Rekla je: »Janez, kdor laže, tudi krade.« Še danes me jezi.",
+          "en": "But she didn't believe me. She said: »Janez, whoever lies also steals.« It still makes me cross today.",
+          "de": "Aber sie hat mir nicht geglaubt. Sie sagte: »Janez, wer lügt, der stiehlt auch.« Das ärgert mich heute noch.",
+          "it": "Ma non mi ha creduto. Ha detto: »Janez, chi mente ruba anche.« Mi fa arrabbiare ancora oggi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Razumem, da vas še danes jezi, ker ste govorili resnico.",
+              "en": "I understand it still makes you cross, because you were telling the truth.",
+              "de": "Ich verstehe, dass Sie das heute noch ärgert, weil Sie die Wahrheit gesagt haben.",
+              "it": "Capisco che La faccia ancora arrabbiare, perché diceva la verità.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ja. Ampak naslednji teden je prišla k nam in videla tele. Potem mi je dala jabolko.",
+                "en": "Yes. But the next week she came to us and saw the calf. Then she gave me an apple.",
+                "de": "Ja. Aber in der Woche darauf kam sie zu uns und sah das Kalb. Dann gab sie mir einen Apfel.",
+                "it": "Sì. Ma la settimana dopo è venuta da noi e ha visto il vitellino. Poi mi ha dato una mela."
+              }
+            },
+            {
+              "sl": "Razumem, da vam še danes jezi, ker ste govorili resnico.",
+              "en": "I understand it still makes you (to you) cross, because you were telling the truth.",
+              "de": "Ich verstehe, dass es Ihnen heute noch ärgert, weil Sie die Wahrheit gesagt haben.",
+              "it": "Capisco che a Lei faccia ancora arrabbiare, perché diceva la verità.",
+              "grammar": "custva",
+              "why": {
+                "en": "Jeziti has whom it angers in the accusative, like skrbi me: jezi vas. The dative is for žal mi je, mrzlo mi je.",
+                "de": "Jeziti hat den, den es ärgert, im Akkusativ, wie skrbi me: jezi vas. Der Dativ ist für žal mi je, mrzlo mi je.",
+                "it": "Jeziti vuole chi si arrabbia all'accusativo, come skrbi me: jezi vas. Il dativo è per žal mi je, mrzlo mi je."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Stara ušesa so slišala nekaj čudnega.",
+                "en": "Hm? These old ears heard something odd.",
+                "de": "Hm? Die alten Ohren haben etwas Seltsames gehört.",
+                "it": "Mm? Le orecchie vecchie hanno sentito una cosa strana."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Vidiš, {learner}: resnica pride na dan, kot tele na svet. Samo počakati moraš.",
+          "en": "You see, {learner}: the truth comes out, like a calf into the world. You only have to wait.",
+          "de": "Siehst du, {learner}: die Wahrheit kommt ans Licht, wie ein Kalb auf die Welt. Man muss nur warten.",
+          "it": "Vedi, {learner}: la verità viene a galla, come un vitellino al mondo. Basta aspettare."
+        }
+      ]
+    },
+    {
+      "id": "stara-sola-b2-palica",
+      "level": "B2",
+      "memory": {
+        "sl": "tvoje besede: kljub palici, ne zaradi nje",
+        "en": "your words: despite the cane, not because of it",
+        "de": "deine Worte: trotz des Stocks, nicht wegen ihm",
+        "it": "le tue parole: nonostante la bacchetta, non grazie a lei"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Veš, {learner}, gospa Pavla je imela palico. Mojca pa ima samo kredo in nasmeh.",
+          "en": "You know, {learner}, Mrs Pavla had a cane. And Mojca has only chalk and a smile.",
+          "de": "Weißt du, {learner}, Frau Pavla hatte einen Stock. Mojca hat nur Kreide und ein Lächeln.",
+          "it": "Sai, {learner}, la signora Pavla aveva la bacchetta. Mojca invece ha solo il gesso e un sorriso."
+        },
+        {
+          "who": "janez",
+          "face": "cross",
+          "sl": "Ljudje pravijo, da so bili otroci včasih bolj pridni. Jaz pa mislim, da smo se samo bolj bali.",
+          "en": "People say children used to be better behaved. But I think we were just more afraid.",
+          "de": "Die Leute sagen, die Kinder seien früher braver gewesen. Ich aber glaube, wir hatten nur mehr Angst.",
+          "it": "La gente dice che una volta i bambini erano più bravi. Io invece penso che avessimo solo più paura."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Medtem ko ste se vi bali palice, se otroci danes šole veselijo.",
+              "en": "Whereas you were afraid of the cane, today children look forward to school.",
+              "de": "Während Sie Angst vor dem Stock hatten, freuen sich die Kinder heute auf die Schule.",
+              "it": "Mentre voi avevate paura della bacchetta, oggi i bambini sono contenti di andare a scuola.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Res je. Jaz sem se šole veselil samo junija, ko je bilo pouka konec.",
+                "en": "Ha! True. I only looked forward to school in June, when lessons were over.",
+                "de": "Ha! Stimmt. Ich habe mich auf die Schule nur im Juni gefreut, wenn der Unterricht vorbei war.",
+                "it": "Ah! È vero. Io la scuola la aspettavo con gioia solo a giugno, quando le lezioni finivano."
+              }
+            },
+            {
+              "sl": "Medtem ste se vi bali palice, se otroci danes šole veselijo.",
+              "en": "Meanwhile you were afraid of the cane, today children look forward to school.",
+              "de": "Inzwischen hatten Sie Angst vor dem Stock, freuen sich die Kinder heute auf die Schule.",
+              "it": "Nel frattempo voi avevate paura della bacchetta, oggi i bambini sono contenti di andare a scuola.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Medtem ko (while, whereas) is a joining word that starts a clause: medtem ko ste se bali. Medtem alone is meanwhile.",
+                "de": "Medtem ko (während) ist ein Bindewort, das einen Nebensatz einleitet: medtem ko ste se bali. Medtem allein ist inzwischen.",
+                "it": "Medtem ko (mentre) è una congiunzione che introduce una frase: medtem ko ste se bali. Medtem da solo è nel frattempo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Medtem … kaj? Počasi, stara ušesa.",
+                "en": "Meanwhile … what? Slowly, old ears.",
+                "de": "Inzwischen … was? Langsam, alte Ohren.",
+                "it": "Nel frattempo … cosa? Piano, orecchie vecchie."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "curious",
+          "sl": "Ampak brati in računati smo pa znali vsi, palica ali ne. Kaj misliš ti, kaj je boljše?",
+          "en": "But we could all read and do sums, cane or no cane. What do you think is better?",
+          "de": "Aber lesen und rechnen konnten wir alle, Stock hin oder her. Was meinst du, was ist besser?",
+          "it": "Però leggere e far di conto lo sapevamo tutti, bacchetta o no. Tu cosa pensi che sia meglio?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Strah naredi otroke tihe, ne pametne. Brati ste se naučili kljub palici, ne zaradi nje.",
+              "en": "Fear makes children quiet, not clever. You learned to read despite the cane, not because of it.",
+              "de": "Angst macht Kinder still, nicht klug. Lesen haben Sie trotz des Stocks gelernt, nicht wegen ihm.",
+              "it": "La paura rende i bambini zitti, non intelligenti. A leggere avete imparato nonostante la bacchetta, non grazie a lei.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Kljub palici, ne zaradi nje … To si pa lepo {m:rekel|f:rekla}. Zapomnil si bom.",
+                "en": "Despite the cane, not because of it … That's well said. I'll remember it.",
+                "de": "Trotz des Stocks, nicht wegen ihm … Das hast du schön gesagt. Das merke ich mir.",
+                "it": "Nonostante la bacchetta, non grazie a lei … Detto bene. Me lo ricorderò."
+              }
+            },
+            {
+              "sl": "Palica je boljša. Danes bi jo morali spet uvesti.",
+              "en": "The cane is better. They ought to bring it back today.",
+              "de": "Der Stock ist besser. Man sollte ihn heute wieder einführen.",
+              "it": "La bacchetta è meglio. Bisognerebbe reintrodurla oggi.",
+              "why": {
+                "en": "Janez grants that they all learned to read, but says the cane taught them fear: siding with the cane goes against his point.",
+                "de": "Janez gibt zu, dass alle lesen lernten, sagt aber, der Stock habe sie Angst gelehrt: für den Stock zu sein geht gegen seinen Punkt.",
+                "it": "Janez ammette che tutti hanno imparato a leggere, ma dice che la bacchetta insegnava la paura: dare ragione alla bacchetta va contro il suo punto."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Spet palico? Mojca bi jo zlomila čez koleno, verjemi.",
+                "en": "The cane again? Mojca would break it over her knee, believe me.",
+                "de": "Wieder den Stock? Mojca würde ihn übers Knie brechen, glaub mir.",
+                "it": "Di nuovo la bacchetta? Mojca la spezzerebbe sul ginocchio, credimi."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim? Stara ušesa.",
+            "en": "Hm? Sorry, what? Old ears.",
+            "de": "Hm? Wie bitte? Alte Ohren.",
+            "it": "Mm? Come, scusa? Orecchie vecchie."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Pojdiva, {learner}. Muri čaka zunaj. On se šole nikoli ni bal.",
+          "en": "Let's go, {learner}. Muri's waiting outside. He was never afraid of school.",
+          "de": "Gehen wir, {learner}. Muri wartet draußen. Der hatte nie Angst vor der Schule.",
+          "it": "Andiamo, {learner}. Muri aspetta fuori. Lui la scuola non l'ha mai temuta."
+        }
       ]
     }
   ]

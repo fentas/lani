@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "prijava-skode",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Prijava škode", "en": "Reporting the damage", "de": "Die Schadensmeldung", "it": "La denuncia del sinistro" },
+  "emoji": "🚗",
+  "level": "B2",
+  "setting": {
+    "en": "Yesterday evening, at a roundabout in Nova Gorica, another car drove into the side of yours. Nobody was hurt; you and the other driver filled in the European accident report. Now you phone your insurance company to report the damage.",
+    "de": "Gestern Abend ist dir in einem Kreisverkehr in Nova Gorica ein anderes Auto in die Seite gefahren. Niemand wurde verletzt; du und der andere Fahrer habt den Europäischen Unfallbericht ausgefüllt. Jetzt rufst du deine Versicherung an, um den Schaden zu melden.",
+    "it": "Ieri sera, in una rotatoria a Nova Gorica, un'altra auto ti è finita contro la fiancata. Nessuno si è fatto male; tu e l'altro conducente avete compilato la constatazione amichevole. Ora telefoni alla tua assicurazione per denunciare il sinistro."
+  },
+  "role": "Gospa Mateja, a claims adviser at the insurance company, on the phone. Polite, precise, a little formal: takes the claim step by step (when, where, how, who had right of way, witnesses, police, injuries, photos, where the car is), repeats facts back, explains what comes next. Says vi.",
+  "who": { "sl": "Svetovalka na zavarovalnici", "en": "The insurance claims adviser", "de": "Die Schadensberaterin der Versicherung", "it": "La consulente dell'assicurazione" },
+  "voice": "female",
+  "speaker": "young-woman",
+  "place": "kitchen",
+  "goals": [
+    { "sl": "Povej, kdaj in kje se je zgodilo", "en": "Say when and where it happened", "de": "Sag, wann und wo es passiert ist", "it": "Di' quando e dove è successo" },
+    { "sl": "Natančno opiši potek nesreče", "en": "Describe exactly how the accident happened", "de": "Beschreib genau, wie der Unfall passiert ist", "it": "Descrivi esattamente come è avvenuto l'incidente" },
+    { "sl": "Pojasni, kdo je imel prednost", "en": "Explain who had right of way", "de": "Erklär, wer Vorfahrt hatte", "it": "Spiega chi aveva la precedenza" },
+    { "sl": "Opiši škodo in povej, kje je avto", "en": "Describe the damage and say where the car is", "de": "Beschreib den Schaden und sag, wo das Auto ist", "it": "Descrivi i danni e di' dov'è l'auto" },
+    { "sl": "Vprašaj, kaj sledi", "en": "Ask what happens next", "de": "Frag, wie es weitergeht", "it": "Chiedi che cosa succede adesso" }
+  ],
+  "opener_sl": "Zavarovalnica, prijava škode, Mateja pri telefonu, dober dan. Povejte mi, prosim, kaj se je zgodilo.",
+  "opener_en": {
+    "en": "Insurance claims, Mateja speaking, good afternoon. Please tell me what happened.",
+    "de": "Versicherung, Schadensmeldung, Mateja am Apparat, guten Tag. Erzählen Sie mir bitte, was passiert ist.",
+    "it": "Assicurazione, denuncia sinistri, sono Mateja, buongiorno. Mi dica, per favore, che cosa è successo."
+  },
+  "vocabulary_hints": [
+    { "sl": "Včeraj okrog šestih zvečer sem {m:imel|f:imela} prometno nesrečo.", "en": { "en": "Yesterday around six in the evening I had a car accident.", "de": "Gestern gegen sechs Uhr abends hatte ich einen Verkehrsunfall.", "it": "Ieri verso le sei di sera ho avuto un incidente stradale." } },
+    { "sl": "Zgodilo se je v krožišču pri trgovskem centru.", "en": { "en": "It happened at the roundabout by the shopping centre.", "de": "Es ist im Kreisverkehr beim Einkaufszentrum passiert.", "it": "È successo nella rotatoria vicino al centro commerciale." } },
+    { "sl": "Prednost sem {m:imel|f:imela} jaz, ker sem {m:bil|f:bila} že v krožišču.", "en": { "en": "I had right of way: I was already in the roundabout.", "de": "Ich hatte Vorfahrt, weil ich schon im Kreisverkehr war.", "it": "La precedenza era mia, perché ero già nella rotatoria." } },
+    { "sl": "Zaletel se je v moja vrata.", "en": { "en": "He drove into my door.", "de": "Er ist in meine Tür gefahren.", "it": "È finito contro la mia portiera." } },
+    { "sl": "Nihče ni bil poškodovan, zato policije nismo klicali.", "en": { "en": "Nobody was hurt, so we didn't call the police.", "de": "Niemand wurde verletzt, deshalb haben wir die Polizei nicht gerufen.", "it": "Nessuno si è fatto male, quindi non abbiamo chiamato la polizia." } },
+    { "sl": "Skupaj sva izpolnila evropsko poročilo.", "en": { "en": "We filled in the European accident report together.", "de": "Wir haben zusammen den Europäischen Unfallbericht ausgefüllt.", "it": "Abbiamo compilato insieme la constatazione amichevole." } },
+    { "sl": "Vrata in blatnik so udrti, ogledalo je razbito.", "en": { "en": "The door and the wing are dented, the mirror is broken.", "de": "Tür und Kotflügel sind eingedellt, der Spiegel ist kaputt.", "it": "La portiera e il parafango sono ammaccati, lo specchietto è rotto." } },
+    { "sl": "Avto je zdaj na servisu v Šempetru.", "en": { "en": "The car is at a garage in Šempeter now.", "de": "Das Auto ist jetzt in einer Werkstatt in Šempeter.", "it": "L'auto adesso è in officina a Šempeter." } },
+    { "sl": "Fotografije vam lahko pošljem po e-pošti.", "en": { "en": "I can send you the photos by email.", "de": "Ich kann Ihnen die Fotos per E-Mail schicken.", "it": "Posso mandarle le foto per e-mail." } },
+    { "sl": "Koliko časa traja, da poravnate škodo?", "en": { "en": "How long does it take you to settle the damage?", "de": "Wie lange dauert es, bis Sie den Schaden regulieren?", "it": "Quanto tempo ci vuole per liquidare il danno?" } }
+  ],
+  "packs": ["pot-in-promet", "cas-in-koledar", "stevila", "avto-in-servis", "ceste-in-promet"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

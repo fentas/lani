@@ -22,6 +22,9 @@ internal object RunTime {
         is Exercise.Dictation, is Exercise.Reorder, is Exercise.Scenario -> 30
         is Exercise.Translate -> if (ex.grade == "claude") 90 else 35
         is Exercise.Speak -> 40
+        // an answer aloud, its tries; a text of its words, about four seconds each, at least two minutes
+        is Exercise.Speaking -> 60
+        is Exercise.Writing -> maxOf(120, 4 * (ex.length?.max ?: ex.length?.min ?: 30))
         is Exercise.Free -> 120
         is Exercise.Unsupported -> 5
         // a page of work: about a cloze's time an item, a sorted word a choice's

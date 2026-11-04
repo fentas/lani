@@ -1,0 +1,703 @@
+{
+  "schema": "lani.drill/v0",
+  "id": "uganke",
+  "kind": "riddle",
+  "language": "en",
+  "emoji": "🕵️",
+  "title": {"en": "Riddles", "sl": "Uganke", "de": "Rätsel", "it": "Indovinelli"},
+  "teller": "wilf",
+  "about": {"en": "Old Wilf describes a thing, an animal, a person or a place of the village in three or four short clues. Guess aloud, then hear the answer and the clues again with their meaning. Every answer is a word of the packs, or someone of the village.", "sl": "Stari Wilf v treh ali štirih kratkih namigih opiše stvar, žival, osebo ali kraj iz vasi. Ugibaj na glas, nato slišiš odgovor in še enkrat namige z njihovim pomenom. Vsak odgovor je beseda iz paketov ali nekdo iz vasi.", "de": "Der alte Wilf beschreibt ein Ding, ein Tier, einen Menschen oder einen Ort des Dorfes in drei oder vier kurzen Hinweisen. Rate laut, dann hörst du die Antwort und die Hinweise noch einmal mit ihrer Bedeutung. Jede Antwort ist ein Wort der Pakete oder jemand aus dem Dorf.", "it": "Il vecchio Wilf descrive una cosa, un animale, una persona o un luogo del paese in tre o quattro brevi indizi. Indovina ad alta voce, poi ascolti la risposta e di nuovo gli indizi con il loro significato. Ogni risposta è una parola dei pacchetti o qualcuno del paese."},
+  "riddles": [
+    {
+      "id": "sheepdog",
+      "level": "A1",
+      "word": "feast-shepherds-meet/sheepdog",
+      "clues": [
+        {"en": "I've got four legs.", "sl": "Imam štiri noge.", "de": "Ich habe vier Beine.", "it": "Ho quattro zampe."},
+        {"en": "I'm black and white.", "sl": "Črno-bel sem.", "de": "Ich bin schwarz-weiß.", "it": "Sono bianco e nero."},
+        {"en": "I run on the fell all day.", "sl": "Ves dan tečem po hribu.", "de": "Ich renne den ganzen Tag am Berg herum.", "it": "Corro sul monte tutto il giorno."},
+        {"en": "I bring the sheep home for Jack.", "sl": "Jacku pripeljem ovce domov.", "de": "Ich bringe die Schafe für Jack nach Hause.", "it": "Riporto a casa le pecore per Jack."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A sheepdog!", "sl": "Ovčarski pes!", "de": "Ein Hütehund!", "it": "Un cane pastore!"}
+    },
+    {
+      "id": "kettle",
+      "level": "A1",
+      "word": "home-and-kitchen/kettle",
+      "clues": [
+        {"en": "I live in the kitchen.", "sl": "Živim v kuhinji.", "de": "Ich wohne in der Küche.", "it": "Vivo in cucina."},
+        {"en": "I'm full of water.", "sl": "Poln sem vode.", "de": "Ich bin voller Wasser.", "it": "Sono pieno d'acqua."},
+        {"en": "I get very hot.", "sl": "Zelo se segrejem.", "de": "Ich werde sehr heiß.", "it": "Divento molto caldo."},
+        {"en": "Granny Maggie puts me on every morning.", "sl": "Babica Maggie me prižge vsako jutro.", "de": "Oma Maggie schaltet mich jeden Morgen ein.", "it": "Nonna Maggie mi accende ogni mattina."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A kettle!", "sl": "Grelnik vode!", "de": "Ein Wasserkocher!", "it": "Il bollitore!"}
+    },
+    {
+      "id": "scone",
+      "level": "A1",
+      "word": "food/scone",
+      "clues": [
+        {"en": "I'm small and round.", "sl": "Majhna in okrogla sem.", "de": "Ich bin klein und rund.", "it": "Sono piccolo e rotondo."},
+        {"en": "Granny Maggie bakes me.", "sl": "Babica Maggie me speče.", "de": "Oma Maggie backt mich.", "it": "Nonna Maggie mi fa al forno."},
+        {"en": "You eat me with jam and cream.", "sl": "Ješ me z marmelado in smetano.", "de": "Man isst mich mit Marmelade und Sahne.", "it": "Mi mangi con marmellata e panna."},
+        {"en": "I go well with a cup of tea.", "sl": "Dobro se podam k skodelici čaja.", "de": "Ich passe gut zu einer Tasse Tee.", "it": "Sto bene con una tazza di tè."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A scone!", "sl": "Scone, angleška pogačica!", "de": "Ein Scone!", "it": "Uno scone!"}
+    },
+    {
+      "id": "horseshoe",
+      "level": "A1",
+      "word": "in-the-smithy/horseshoe",
+      "clues": [
+        {"en": "I'm made of iron.", "sl": "Iz železa sem.", "de": "Ich bin aus Eisen.", "it": "Sono di ferro."},
+        {"en": "Mr Dixon makes me in the smithy.", "sl": "Gospod Dixon me skuje v kovačnici.", "de": "Herr Dixon macht mich in der Schmiede.", "it": "Il signor Dixon mi fa alla fucina."},
+        {"en": "A pony wears me on its foot.", "sl": "Poni me nosi na kopitu.", "de": "Ein Pony trägt mich am Huf.", "it": "Un pony mi porta sotto lo zoccolo."},
+        {"en": "People say I bring luck.", "sl": "Pravijo, da prinašam srečo.", "de": "Man sagt, ich bringe Glück.", "it": "Dicono che porto fortuna."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A horseshoe!", "sl": "Podkev!", "de": "Ein Hufeisen!", "it": "Un ferro di cavallo!"}
+    },
+    {
+      "id": "honey",
+      "level": "A1",
+      "word": "at-the-bees/honey",
+      "clues": [
+        {"en": "I'm sweet and golden.", "sl": "Sladek in zlat sem.", "de": "Ich bin süß und golden.", "it": "Sono dolce e dorato."},
+        {"en": "Bees make me.", "sl": "Naredijo me čebele.", "de": "Bienen machen mich.", "it": "Mi fanno le api."},
+        {"en": "Arthur puts me in jars.", "sl": "Arthur me da v kozarce.", "de": "Arthur füllt mich in Gläser.", "it": "Arthur mi mette nei vasetti."},
+        {"en": "You eat me on bread.", "sl": "Ješ me na kruhu.", "de": "Man isst mich auf Brot.", "it": "Mi mangi sul pane."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "Honey!", "sl": "Med!", "de": "Honig!", "it": "Il miele!"}
+    },
+    {
+      "id": "bee",
+      "level": "A1",
+      "word": "at-the-bees/bee",
+      "clues": [
+        {"en": "I'm small, yellow and black.", "sl": "Majhna sem, rumena in črna.", "de": "Ich bin klein, gelb und schwarz.", "it": "Sono piccola, gialla e nera."},
+        {"en": "I fly from flower to flower.", "sl": "Letim od cveta do cveta.", "de": "Ich fliege von Blume zu Blume.", "it": "Volo di fiore in fiore."},
+        {"en": "I live in a hive.", "sl": "Živim v panju.", "de": "Ich wohne in einem Bienenstock.", "it": "Vivo in un'arnia."},
+        {"en": "I say: buzz!", "sl": "Pravim: bzz!", "de": "Ich sage: summ!", "it": "Faccio: bzz!"}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A bee!", "sl": "Čebela!", "de": "Eine Biene!", "it": "Un'ape!"}
+    },
+    {
+      "id": "lamb",
+      "level": "A1",
+      "word": "at-the-gate/lamb",
+      "clues": [
+        {"en": "I'm small and woolly.", "sl": "Majhno in volneno sem.", "de": "Ich bin klein und wollig.", "it": "Sono piccolo e lanoso."},
+        {"en": "I'm born in spring.", "sl": "Rodim se spomladi.", "de": "Ich komme im Frühling zur Welt.", "it": "Nasco in primavera."},
+        {"en": "My mum is a sheep.", "sl": "Moja mama je ovca.", "de": "Meine Mama ist ein Schaf.", "it": "La mia mamma è una pecora."},
+        {"en": "I say: baa!", "sl": "Pravim: bee!", "de": "Ich sage: mäh!", "it": "Faccio: bee!"}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A lamb!", "sl": "Jagnje!", "de": "Ein Lamm!", "it": "Un agnello!"}
+    },
+    {
+      "id": "bridge",
+      "level": "A1",
+      "word": "in-the-village/bridge",
+      "clues": [
+        {"en": "I'm made of stone.", "sl": "Iz kamna sem.", "de": "Ich bin aus Stein.", "it": "Sono di pietra."},
+        {"en": "The beck runs under me.", "sl": "Pod mano teče potok.", "de": "Unter mir fließt der Bach.", "it": "Sotto di me scorre il ruscello."},
+        {"en": "People and ponies walk over me.", "sl": "Čez mene hodijo ljudje in poniji.", "de": "Menschen und Ponys gehen über mich.", "it": "Persone e pony passano sopra di me."},
+        {"en": "I'm very old.", "sl": "Zelo star sem.", "de": "Ich bin sehr alt.", "it": "Sono molto vecchio."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A bridge!", "sl": "Most!", "de": "Eine Brücke!", "it": "Un ponte!"}
+    },
+    {
+      "id": "fire",
+      "level": "A1",
+      "word": "by-the-fire/fire",
+      "clues": [
+        {"en": "I'm hot and bright.", "sl": "Vroč in svetel sem.", "de": "Ich bin heiß und hell.", "it": "Sono caldo e luminoso."},
+        {"en": "I'm red and yellow.", "sl": "Rdeč in rumen sem.", "de": "Ich bin rot und gelb.", "it": "Sono rosso e giallo."},
+        {"en": "I eat wood.", "sl": "Jem les.", "de": "Ich fresse Holz.", "it": "Mangio la legna."},
+        {"en": "Old Wilf tells his stories by me.", "sl": "Ob meni stari Wilf pripoveduje svoje zgodbe.", "de": "Bei mir erzählt der alte Wilf seine Geschichten.", "it": "Vicino a me il vecchio Wilf racconta le sue storie."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A fire!", "sl": "Ogenj!", "de": "Ein Feuer!", "it": "Il fuoco!"}
+    },
+    {
+      "id": "moon",
+      "level": "A1",
+      "word": "by-the-fire/moon",
+      "clues": [
+        {"en": "I live in the sky.", "sl": "Živim na nebu.", "de": "Ich wohne am Himmel.", "it": "Vivo nel cielo."},
+        {"en": "You see me at night.", "sl": "Vidiš me ponoči.", "de": "Du siehst mich in der Nacht.", "it": "Mi vedi di notte."},
+        {"en": "Sometimes I'm round, and sometimes I'm thin.", "sl": "Včasih sem okrogla, včasih tanka.", "de": "Manchmal bin ich rund und manchmal dünn.", "it": "A volte sono tonda e a volte sottile."},
+        {"en": "I'm not the sun.", "sl": "Nisem sonce.", "de": "Ich bin nicht die Sonne.", "it": "Non sono il sole."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "The moon!", "sl": "Luna!", "de": "Der Mond!", "it": "La luna!"}
+    },
+    {
+      "id": "mill",
+      "level": "A1",
+      "word": "in-the-mill/mill",
+      "clues": [
+        {"en": "I stand by the beck.", "sl": "Stojim ob potoku.", "de": "Ich stehe am Bach.", "it": "Sto vicino al ruscello."},
+        {"en": "My big wheel turns in the water.", "sl": "Moje veliko kolo se vrti v vodi.", "de": "Mein großes Rad dreht sich im Wasser.", "it": "La mia grande ruota gira nell'acqua."},
+        {"en": "I make flour from oats.", "sl": "Iz ovsa delam moko.", "de": "Ich mache Mehl aus Hafer.", "it": "Faccio la farina con l'avena."},
+        {"en": "Mr Tyson works in me.", "sl": "Gospod Tyson dela v meni.", "de": "Herr Tyson arbeitet in mir.", "it": "Il signor Tyson lavora dentro di me."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A mill!", "sl": "Mlin!", "de": "Eine Mühle!", "it": "Un mulino!"}
+    },
+    {
+      "id": "owl",
+      "level": "A1",
+      "word": "in-the-wood/owl",
+      "clues": [
+        {"en": "I've got big round eyes.", "sl": "Imam velike okrogle oči.", "de": "Ich habe große runde Augen.", "it": "Ho grandi occhi rotondi."},
+        {"en": "I sleep in the day.", "sl": "Podnevi spim.", "de": "Am Tag schlafe ich.", "it": "Di giorno dormo."},
+        {"en": "I fly at night.", "sl": "Ponoči letim.", "de": "In der Nacht fliege ich.", "it": "Di notte volo."},
+        {"en": "I say: twit-twoo!", "sl": "Pravim: hu, hu!", "de": "Ich rufe: schuhu!", "it": "Faccio: uh, uh!"}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "An owl!", "sl": "Sova!", "de": "Eine Eule!", "it": "Un gufo!"}
+    },
+    {
+      "id": "hedgehog",
+      "level": "A1",
+      "word": "in-the-wood/hedgehog",
+      "clues": [
+        {"en": "I'm small and brown.", "sl": "Majhen in rjav sem.", "de": "Ich bin klein und braun.", "it": "Sono piccolo e marrone."},
+        {"en": "I've got a lot of prickles.", "sl": "Imam veliko bodic.", "de": "Ich habe viele Stacheln.", "it": "Ho tanti aculei."},
+        {"en": "I sleep all winter.", "sl": "Vso zimo spim.", "de": "Ich schlafe den ganzen Winter.", "it": "Dormo tutto l'inverno."},
+        {"en": "At night I come into the garden.", "sl": "Ponoči pridem na vrt.", "de": "In der Nacht komme ich in den Garten.", "it": "Di notte vengo in giardino."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A hedgehog!", "sl": "Jež!", "de": "Ein Igel!", "it": "Un riccio!"}
+    },
+    {
+      "id": "squirrel",
+      "level": "A1",
+      "word": "in-the-wood/squirrel",
+      "clues": [
+        {"en": "I'm small and red.", "sl": "Majhna in rdeča sem.", "de": "Ich bin klein und rot.", "it": "Sono piccolo e rosso."},
+        {"en": "I've got a big bushy tail.", "sl": "Imam velik košat rep.", "de": "Ich habe einen großen buschigen Schwanz.", "it": "Ho una grande coda folta."},
+        {"en": "I live in the trees.", "sl": "Živim na drevesih.", "de": "Ich wohne in den Bäumen.", "it": "Vivo sugli alberi."},
+        {"en": "I love nuts.", "sl": "Zelo rada imam oreščke.", "de": "Ich liebe Nüsse.", "it": "Adoro le noci."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A red squirrel!", "sl": "Veverica!", "de": "Ein Eichhörnchen!", "it": "Uno scoiattolo rosso!"}
+    },
+    {
+      "id": "scarecrow",
+      "level": "A1",
+      "word": "in-the-field/scarecrow",
+      "clues": [
+        {"en": "I stand in the field all day.", "sl": "Ves dan stojim na polju.", "de": "Ich stehe den ganzen Tag auf dem Feld.", "it": "Sto nel campo tutto il giorno."},
+        {"en": "I wear an old hat and old clothes.", "sl": "Nosim star klobuk in stara oblačila.", "de": "Ich trage einen alten Hut und alte Kleider.", "it": "Porto un vecchio cappello e vestiti vecchi."},
+        {"en": "There's straw inside me.", "sl": "V meni je slama.", "de": "In mir ist Stroh.", "it": "Dentro di me c'è la paglia."},
+        {"en": "The crows don't like me.", "sl": "Vrane me ne marajo.", "de": "Die Krähen mögen mich nicht.", "it": "Ai corvi non piaccio."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A scarecrow!", "sl": "Strašilo!", "de": "Eine Vogelscheuche!", "it": "Uno spaventapasseri!"}
+    },
+    {
+      "id": "teapot",
+      "level": "A1",
+      "word": "in-the-kitchen/teapot",
+      "clues": [
+        {"en": "I've got a handle and a spout.", "sl": "Imam ročaj in dulec.", "de": "Ich habe einen Griff und eine Tülle.", "it": "Ho un manico e un beccuccio."},
+        {"en": "I'm full of hot tea.", "sl": "Poln sem vročega čaja.", "de": "Ich bin voll mit heißem Tee.", "it": "Sono piena di tè caldo."},
+        {"en": "Auntie Edna knits me a woolly hat.", "sl": "Teta Edna mi splete volneno kapo.", "de": "Tante Edna strickt mir eine Wollmütze.", "it": "Zia Edna mi fa un berretto di lana."},
+        {"en": "You pour tea from me into cups.", "sl": "Iz mene natakaš čaj v skodelice.", "de": "Aus mir gießt man Tee in die Tassen.", "it": "Da me si versa il tè nelle tazze."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A teapot!", "sl": "Čajnik!", "de": "Eine Teekanne!", "it": "Una teiera!"}
+    },
+    {
+      "id": "bus",
+      "level": "A1",
+      "word": "in-the-village/bus",
+      "clues": [
+        {"en": "I've got a lot of seats.", "sl": "Imam veliko sedežev.", "de": "Ich habe viele Sitze.", "it": "Ho tanti posti a sedere."},
+        {"en": "I go to Keswick every hour.", "sl": "Vsako uro peljem v Keswick.", "de": "Jede Stunde fahre ich nach Keswick.", "it": "Ogni ora vado a Keswick."},
+        {"en": "You buy a ticket from my driver.", "sl": "Vozovnico kupiš pri mojem vozniku.", "de": "Die Fahrkarte kaufst du bei meinem Fahrer.", "it": "Il biglietto lo compri dal mio autista."},
+        {"en": "I stop by the bridge.", "sl": "Ustavim se pri mostu.", "de": "Ich halte an der Brücke.", "it": "Mi fermo vicino al ponte."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A bus!", "sl": "Avtobus!", "de": "Ein Bus!", "it": "Un autobus!"}
+    },
+    {
+      "id": "cat",
+      "level": "A1",
+      "word": "family/cat",
+      "clues": [
+        {"en": "I've got four legs and a long tail.", "sl": "Imam štiri noge in dolg rep.", "de": "Ich habe vier Beine und einen langen Schwanz.", "it": "Ho quattro zampe e una coda lunga."},
+        {"en": "I like milk.", "sl": "Rada imam mleko.", "de": "Ich mag Milch.", "it": "Mi piace il latte."},
+        {"en": "I sleep by the fire.", "sl": "Spim ob ognju.", "de": "Ich schlafe am Feuer.", "it": "Dormo vicino al fuoco."},
+        {"en": "I say: miaow!", "sl": "Pravim: mijav!", "de": "Ich sage: miau!", "it": "Faccio: miao!"}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A cat!", "sl": "Mačka!", "de": "Eine Katze!", "it": "Un gatto!"}
+    },
+    {
+      "id": "tractor",
+      "level": "A1",
+      "word": "in-the-damson-orchard/tractor",
+      "clues": [
+        {"en": "I'm big and red.", "sl": "Velik in rdeč sem.", "de": "Ich bin groß und rot.", "it": "Sono grande e rosso."},
+        {"en": "I've got four big wheels.", "sl": "Imam štiri velika kolesa.", "de": "Ich habe vier große Räder.", "it": "Ho quattro grandi ruote."},
+        {"en": "I work in the fields.", "sl": "Delam na poljih.", "de": "Ich arbeite auf den Feldern.", "it": "Lavoro nei campi."},
+        {"en": "Alfie loves me.", "sl": "Alfie me ima zelo rad.", "de": "Alfie liebt mich.", "it": "Alfie mi adora."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A tractor!", "sl": "Traktor!", "de": "Ein Traktor!", "it": "Un trattore!"}
+    },
+    {
+      "id": "drystone-wall",
+      "level": "A1",
+      "word": "on-the-fell/drystone-wall",
+      "clues": [
+        {"en": "I'm long and grey.", "sl": "Dolg in siv sem.", "de": "Ich bin lang und grau.", "it": "Sono lungo e grigio."},
+        {"en": "I'm made of stones, with no cement.", "sl": "Iz kamnov sem, brez malte.", "de": "Ich bin aus Steinen, ohne Mörtel.", "it": "Sono fatto di pietre, senza cemento."},
+        {"en": "I go up and down the fells.", "sl": "Vijem se gor in dol po hribih.", "de": "Ich laufe die Berge hinauf und hinunter.", "it": "Salgo e scendo per i monti."},
+        {"en": "I keep the sheep in the field.", "sl": "Ovce zadržim na pašniku.", "de": "Ich halte die Schafe auf der Weide.", "it": "Tengo le pecore nel pascolo."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A drystone wall!", "sl": "Suhozid!", "de": "Eine Trockenmauer!", "it": "Un muretto a secco!"}
+    },
+    {
+      "id": "mist",
+      "level": "A1",
+      "word": "on-the-fell/mist",
+      "clues": [
+        {"en": "I'm white and wet.", "sl": "Bela in mokra sem.", "de": "Ich bin weiß und nass.", "it": "Sono bianca e umida."},
+        {"en": "I come down on the fells.", "sl": "Spustim se na hribe.", "de": "Ich komme auf die Berge herunter.", "it": "Scendo sui monti."},
+        {"en": "You can't see far in me.", "sl": "V meni ne vidiš daleč.", "de": "In mir siehst du nicht weit.", "it": "Dentro di me non vedi lontano."},
+        {"en": "Jack doesn't like me.", "sl": "Jack me nima rad.", "de": "Jack mag mich nicht.", "it": "A Jack non piaccio."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "Mist!", "sl": "Megla!", "de": "Nebel!", "it": "La foschia!"}
+    },
+    {
+      "id": "raven",
+      "level": "A1",
+      "word": "on-the-fell/raven",
+      "clues": [
+        {"en": "I'm big and black.", "sl": "Velik in črn sem.", "de": "Ich bin groß und schwarz.", "it": "Sono grande e nero."},
+        {"en": "I fly over the fells.", "sl": "Letim nad hribi.", "de": "Ich fliege über die Berge.", "it": "Volo sopra i monti."},
+        {"en": "I say: kronk, kronk!", "sl": "Pravim: krok, krok!", "de": "Ich rufe: krok, krok!", "it": "Faccio: cra, cra!"},
+        {"en": "People say I'm very clever.", "sl": "Pravijo, da sem zelo pameten.", "de": "Man sagt, ich bin sehr klug.", "it": "Dicono che sono molto intelligente."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A raven!", "sl": "Krokar!", "de": "Ein Kolkrabe!", "it": "Un corvo imperiale!"}
+    },
+    {
+      "id": "waterfall",
+      "level": "A1",
+      "word": "on-the-fell/waterfall",
+      "clues": [
+        {"en": "I'm white and loud.", "sl": "Bel in glasen sem.", "de": "Ich bin weiß und laut.", "it": "Sono bianca e rumorosa."},
+        {"en": "I fall from the rocks.", "sl": "Padam s skal.", "de": "Ich falle von den Felsen.", "it": "Cado dalle rocce."},
+        {"en": "I never stop.", "sl": "Nikoli se ne ustavim.", "de": "Ich höre nie auf.", "it": "Non mi fermo mai."},
+        {"en": "I'm made of water.", "sl": "Iz vode sem.", "de": "Ich bin aus Wasser.", "it": "Sono fatta d'acqua."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A waterfall!", "sl": "Slap!", "de": "Ein Wasserfall!", "it": "Una cascata!"}
+    },
+    {
+      "id": "pony",
+      "level": "A1",
+      "word": "in-the-field/pony",
+      "clues": [
+        {"en": "I'm small, strong and black.", "sl": "Majhen, močan in črn sem.", "de": "Ich bin klein, stark und schwarz.", "it": "Sono piccolo, forte e nero."},
+        {"en": "I live on the fells.", "sl": "Živim v hribih.", "de": "Ich lebe in den Bergen.", "it": "Vivo sui monti."},
+        {"en": "Mr Dixon makes shoes for me.", "sl": "Gospod Dixon mi skuje podkve.", "de": "Herr Dixon macht mir Hufeisen.", "it": "Il signor Dixon mi fa i ferri."},
+        {"en": "Children can ride me.", "sl": "Otroci lahko jezdijo na meni.", "de": "Kinder können auf mir reiten.", "it": "I bambini possono cavalcarmi."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A pony!", "sl": "Poni!", "de": "Ein Pony!", "it": "Un pony!"}
+    },
+    {
+      "id": "blackboard",
+      "level": "A1",
+      "word": "at-school/blackboard",
+      "clues": [
+        {"en": "I hang on the wall at school.", "sl": "Visim na steni v šoli.", "de": "Ich hänge in der Schule an der Wand.", "it": "Sono appesa al muro a scuola."},
+        {"en": "Mrs Hartley writes on me.", "sl": "Gospa Hartley piše name.", "de": "Frau Hartley schreibt auf mich.", "it": "La signora Hartley scrive su di me."},
+        {"en": "She uses chalk.", "sl": "Uporablja kredo.", "de": "Sie benutzt Kreide.", "it": "Usa il gesso."},
+        {"en": "Then she cleans me with a sponge.", "sl": "Potem me obriše z gobo.", "de": "Dann wischt sie mich mit einem Schwamm ab.", "it": "Poi mi pulisce con una spugna."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A blackboard!", "sl": "Tabla!", "de": "Eine Tafel!", "it": "Una lavagna!"}
+    },
+    {
+      "id": "clock",
+      "level": "A1",
+      "word": "at-school/clock",
+      "clues": [
+        {"en": "I've got a face and two hands.", "sl": "Imam obraz in dva kazalca.", "de": "Ich habe ein Gesicht und zwei Zeiger.", "it": "Ho una faccia e due lancette."},
+        {"en": "I hang on the wall.", "sl": "Visim na steni.", "de": "Ich hänge an der Wand.", "it": "Sono appeso al muro."},
+        {"en": "I say: tick-tock.", "sl": "Pravim: tik-tak.", "de": "Ich sage: tick-tack.", "it": "Faccio: tic-tac."},
+        {"en": "I tell you the time.", "sl": "Povem ti čas.", "de": "Ich sage dir die Zeit.", "it": "Ti dico l'ora."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A clock!", "sl": "Ura!", "de": "Eine Uhr!", "it": "Un orologio!"}
+    },
+    {
+      "id": "wellies",
+      "level": "A1",
+      "word": "in-the-tent/wellies",
+      "clues": [
+        {"en": "We're made of rubber.", "sl": "Iz gume smo.", "de": "Wir sind aus Gummi.", "it": "Siamo di gomma."},
+        {"en": "We keep your feet dry.", "sl": "Tvoje noge ostanejo v nas suhe.", "de": "Wir halten deine Füße trocken.", "it": "Ti teniamo asciutti i piedi."},
+        {"en": "You wear us in the rain and the mud.", "sl": "Nosiš nas v dežju in blatu.", "de": "Du trägst uns im Regen und im Matsch.", "it": "Ci porti sotto la pioggia e nel fango."},
+        {"en": "There are always two of us.", "sl": "Vedno sva dva.", "de": "Wir sind immer zu zweit.", "it": "Siamo sempre in due."}
+      ],
+      "ask": {"en": "What are we?", "sl": "Kaj smo?", "de": "Was sind wir?", "it": "Che cosa siamo?"},
+      "answer": {"en": "Wellies!", "sl": "Gumijasti škornji!", "de": "Gummistiefel!", "it": "Gli stivali di gomma!"}
+    },
+    {
+      "id": "bonfire",
+      "level": "A1",
+      "word": "feast-bonfire-night/bonfire",
+      "clues": [
+        {"en": "I'm very big and very hot.", "sl": "Zelo velik in zelo vroč sem.", "de": "Ich bin sehr groß und sehr heiß.", "it": "Sono molto grande e molto caldo."},
+        {"en": "People build me with wood.", "sl": "Ljudje me zložijo iz lesa.", "de": "Man baut mich aus Holz.", "it": "La gente mi costruisce con la legna."},
+        {"en": "You light me in November.", "sl": "Prižgejo me novembra.", "de": "Man zündet mich im November an.", "it": "Mi accendono a novembre."},
+        {"en": "Fireworks go up around me.", "sl": "Okoli mene letijo ognjemeti.", "de": "Um mich herum steigt Feuerwerk auf.", "it": "Intorno a me salgono i fuochi d'artificio."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A bonfire!", "sl": "Kres!", "de": "Ein Freudenfeuer!", "it": "Un falò!"}
+    },
+    {
+      "id": "maypole",
+      "level": "A1",
+      "word": "feast-may-day/maypole",
+      "clues": [
+        {"en": "I'm tall and made of wood.", "sl": "Visok in lesen sem.", "de": "Ich bin hoch und aus Holz.", "it": "Sono alto e di legno."},
+        {"en": "I stand on the green in May.", "sl": "Maja stojim na vaški zelenici.", "de": "Im Mai stehe ich auf der Dorfwiese.", "it": "A maggio sto sul prato del paese."},
+        {"en": "I've got long ribbons.", "sl": "Imam dolge trakove.", "de": "Ich habe lange Bänder.", "it": "Ho lunghi nastri."},
+        {"en": "Children dance round me.", "sl": "Otroci plešejo okoli mene.", "de": "Kinder tanzen um mich herum.", "it": "I bambini ballano intorno a me."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A maypole!", "sl": "Mlaj!", "de": "Ein Maibaum!", "it": "L'albero del maggio!"}
+    },
+    {
+      "id": "frog",
+      "level": "A1",
+      "word": "at-the-tarn/frog",
+      "clues": [
+        {"en": "I'm small and green.", "sl": "Majhna in zelena sem.", "de": "Ich bin klein und grün.", "it": "Sono piccola e verde."},
+        {"en": "I live by the tarn.", "sl": "Živim ob jezercu.", "de": "Ich wohne am Bergsee.", "it": "Vivo vicino al laghetto."},
+        {"en": "I can jump very far.", "sl": "Skočim zelo daleč.", "de": "Ich kann sehr weit springen.", "it": "So saltare molto lontano."},
+        {"en": "I say: croak!", "sl": "Pravim: rega!", "de": "Ich sage: quak!", "it": "Faccio: cra!"}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A frog!", "sl": "Žaba!", "de": "Ein Frosch!", "it": "Una rana!"}
+    },
+    {
+      "id": "maggie",
+      "level": "A1",
+      "villager": "maggie",
+      "clues": [
+        {"en": "I'm a granny.", "sl": "Babica sem.", "de": "Ich bin eine Oma.", "it": "Sono una nonna."},
+        {"en": "I bake scones every day.", "sl": "Vsak dan pečem pogačice.", "de": "Ich backe jeden Tag Scones.", "it": "Faccio gli scones ogni giorno."},
+        {"en": "My kettle is always on.", "sl": "Pri meni je voda za čaj vedno na ognju.", "de": "Bei mir ist der Wasserkocher immer an.", "it": "Da me il bollitore è sempre acceso."},
+        {"en": "My granddaughter is Poppy.", "sl": "Moja vnukinja je Poppy.", "de": "Meine Enkelin heißt Poppy.", "it": "Mia nipote è Poppy."}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "Granny Maggie!", "sl": "Babica Maggie!", "de": "Oma Maggie!", "it": "Nonna Maggie!"}
+    },
+    {
+      "id": "jack",
+      "level": "A1",
+      "villager": "jack",
+      "clues": [
+        {"en": "I'm young, and I run fast.", "sl": "Mlad sem in hitro tečem.", "de": "Ich bin jung und renne schnell.", "it": "Sono giovane e corro veloce."},
+        {"en": "I've got a lot of sheep.", "sl": "Imam veliko ovc.", "de": "Ich habe viele Schafe.", "it": "Ho tante pecore."},
+        {"en": "My dog is called Meg.", "sl": "Moji psički je ime Meg.", "de": "Meine Hündin heißt Meg.", "it": "La mia cagnolina si chiama Meg."},
+        {"en": "I live on the fell.", "sl": "Živim v hribih.", "de": "Ich lebe in den Bergen.", "it": "Vivo sui monti."}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "Shepherd Jack!", "sl": "Pastir Jack!", "de": "Schäfer Jack!", "it": "Il pastore Jack!"}
+    },
+    {
+      "id": "umbrella",
+      "level": "A2",
+      "word": "weather-and-garden/umbrella",
+      "clues": [
+        {"en": "You open me when it rains.", "sl": "Odpreš me, ko dežuje.", "de": "Du machst mich auf, wenn es regnet.", "it": "Mi apri quando piove."},
+        {"en": "I keep your head dry.", "sl": "Glavo ti ohranim suho.", "de": "Ich halte deinen Kopf trocken.", "it": "Ti tengo asciutta la testa."},
+        {"en": "In the Lake District you need me a lot.", "sl": "V Lake Districtu me pogosto potrebuješ.", "de": "Im Lake District brauchst du mich oft.", "it": "Nel Lake District ti servo spesso."},
+        {"en": "Don't open me in the house!", "sl": "Ne odpiraj me v hiši!", "de": "Mach mich nicht im Haus auf!", "it": "Non aprirmi in casa!"}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "An umbrella!", "sl": "Dežnik!", "de": "Ein Regenschirm!", "it": "Un ombrello!"}
+    },
+    {
+      "id": "rainbow",
+      "level": "A2",
+      "word": "weather-and-garden/rainbow",
+      "clues": [
+        {"en": "I come after the rain, when the sun comes out.", "sl": "Pridem po dežju, ko posije sonce.", "de": "Ich komme nach dem Regen, wenn die Sonne herauskommt.", "it": "Arrivo dopo la pioggia, quando esce il sole."},
+        {"en": "I've got seven colours.", "sl": "Imam sedem barv.", "de": "Ich habe sieben Farben.", "it": "Ho sette colori."},
+        {"en": "I'm like a bridge in the sky.", "sl": "Sem kot most na nebu.", "de": "Ich bin wie eine Brücke am Himmel.", "it": "Sono come un ponte nel cielo."},
+        {"en": "Nobody has ever found my end.", "sl": "Mojega konca ni še nihče našel.", "de": "Mein Ende hat noch nie jemand gefunden.", "it": "Nessuno ha mai trovato la mia fine."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A rainbow!", "sl": "Mavrica!", "de": "Ein Regenbogen!", "it": "Un arcobaleno!"}
+    },
+    {
+      "id": "cairn",
+      "level": "A2",
+      "word": "asking-the-way/cairn",
+      "clues": [
+        {"en": "I'm a small pile of stones.", "sl": "Majhen kup kamnov sem.", "de": "Ich bin ein kleiner Steinhaufen.", "it": "Sono un piccolo mucchio di pietre."},
+        {"en": "Walkers build me on the tops of the fells.", "sl": "Pohodniki me postavijo na vrhove hribov.", "de": "Wanderer bauen mich oben auf den Bergen.", "it": "Gli escursionisti mi fanno in cima ai monti."},
+        {"en": "Every walker adds a stone.", "sl": "Vsak pohodnik doda kamen.", "de": "Jeder Wanderer legt einen Stein dazu.", "it": "Ogni escursionista aggiunge una pietra."},
+        {"en": "In the mist I show you the way.", "sl": "V megli ti pokažem pot.", "de": "Im Nebel zeige ich dir den Weg.", "it": "Nella nebbia ti indico la strada."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A cairn!", "sl": "Možic!", "de": "Ein Steinmännchen!", "it": "Un ometto di pietre!"}
+    },
+    {
+      "id": "stile",
+      "level": "A2",
+      "word": "asking-the-way/stile",
+      "clues": [
+        {"en": "I help you over a wall.", "sl": "Pomagam ti čez zid.", "de": "Ich helfe dir über eine Mauer.", "it": "Ti aiuto a passare un muro."},
+        {"en": "I'm made of wood or stone.", "sl": "Iz lesa ali kamna sem.", "de": "Ich bin aus Holz oder Stein.", "it": "Sono di legno o di pietra."},
+        {"en": "Walkers can climb me, but sheep can't.", "sl": "Pohodniki lahko zlezejo čezme, ovce pa ne.", "de": "Wanderer können über mich steigen, Schafe aber nicht.", "it": "Gli escursionisti possono salirmi, le pecore no."},
+        {"en": "You'll find me on the footpath.", "sl": "Najdeš me na pešpoti.", "de": "Du findest mich am Wanderweg.", "it": "Mi troverai sul sentiero."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A stile!", "sl": "Prehod čez zid!", "de": "Ein Überstieg!", "it": "La scaletta per scavalcare!"}
+    },
+    {
+      "id": "barn-owl",
+      "level": "A2",
+      "word": "at-the-bank-barn/barn-owl",
+      "clues": [
+        {"en": "I'm white and gold.", "sl": "Bela in zlata sem.", "de": "Ich bin weiß und golden.", "it": "Sono bianco e dorato."},
+        {"en": "I live in the old barn.", "sl": "Živim v starem skednju.", "de": "Ich wohne in der alten Scheune.", "it": "Vivo nel vecchio fienile."},
+        {"en": "I fly at night without a sound.", "sl": "Ponoči letim povsem tiho.", "de": "Ich fliege nachts ohne einen Laut.", "it": "Volo di notte senza fare rumore."},
+        {"en": "I catch mice for the farmer.", "sl": "Kmetu lovim miši.", "de": "Ich fange für den Bauern Mäuse.", "it": "Prendo i topi per il contadino."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A barn owl!", "sl": "Pegasta sova!", "de": "Eine Schleiereule!", "it": "Un barbagianni!"}
+    },
+    {
+      "id": "charcoal",
+      "level": "A2",
+      "word": "at-the-pit/charcoal",
+      "clues": [
+        {"en": "I'm black and light.", "sl": "Črno in lahko sem.", "de": "Ich bin schwarz und leicht.", "it": "Sono nero e leggero."},
+        {"en": "Once I was wood.", "sl": "Nekoč sem bilo les.", "de": "Früher war ich Holz.", "it": "Una volta ero legno."},
+        {"en": "The charcoal burner makes me in the wood.", "sl": "Oglar me naredi v gozdu.", "de": "Der Köhler macht mich im Wald.", "it": "Il carbonaio mi fa nel bosco."},
+        {"en": "Mr Dixon needs me for his forge.", "sl": "Gospod Dixon me potrebuje za svoje ognjišče.", "de": "Herr Dixon braucht mich für seine Esse.", "it": "Il signor Dixon mi usa per la sua forgia."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "Charcoal!", "sl": "Oglje!", "de": "Holzkohle!", "it": "Il carbone di legna!"}
+    },
+    {
+      "id": "telescope",
+      "level": "A2",
+      "word": "on-the-watchtower/telescope",
+      "clues": [
+        {"en": "I'm long and thin.", "sl": "Dolg in tanek sem.", "de": "Ich bin lang und dünn.", "it": "Sono lungo e sottile."},
+        {"en": "You look through me.", "sl": "Skozme gledaš.", "de": "Du schaust durch mich hindurch.", "it": "Guardi attraverso di me."},
+        {"en": "With me, things far away look near.", "sl": "Z mano so daljne stvari videti blizu.", "de": "Mit mir sehen ferne Dinge nah aus.", "it": "Con me le cose lontane sembrano vicine."},
+        {"en": "On the watchtower, I help you see the moon.", "sl": "Na stražnem stolpu ti pomagam videti luno.", "de": "Auf dem Wachturm helfe ich dir, den Mond zu sehen.", "it": "Sulla torre di guardia ti aiuto a vedere la luna."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A telescope!", "sl": "Daljnogled!", "de": "Ein Fernrohr!", "it": "Un cannocchiale!"}
+    },
+    {
+      "id": "edna",
+      "level": "A2",
+      "villager": "edna",
+      "clues": [
+        {"en": "I'm Granny Maggie's sister.", "sl": "Sestra babice Maggie sem.", "de": "Ich bin Oma Maggies Schwester.", "it": "Sono la sorella di nonna Maggie."},
+        {"en": "My radio is always on.", "sl": "Moj radio je vedno prižgan.", "de": "Mein Radio läuft immer.", "it": "La mia radio è sempre accesa."},
+        {"en": "I've knitted every tea cosy in the village.", "sl": "Spletla sem vse prevleke za čajnike v vasi.", "de": "Ich habe jeden Teewärmer im Dorf gestrickt.", "it": "Ho fatto a maglia tutti i copriteiera del paese."},
+        {"en": "Eh? Say that again, love!", "sl": "Kaj? Ponovi, prosim!", "de": "Wie bitte? Sag das noch mal, Schatz!", "it": "Eh? Ripeti, tesoro!"}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "Auntie Edna!", "sl": "Teta Edna!", "de": "Tante Edna!", "it": "Zia Edna!"}
+    },
+    {
+      "id": "tyson",
+      "level": "A2",
+      "villager": "tyson",
+      "clues": [
+        {"en": "I count everything.", "sl": "Vse preštejem.", "de": "Ich zähle alles.", "it": "Conto tutto."},
+        {"en": "I grow oats in my fields.", "sl": "Na svojih poljih gojim oves.", "de": "Auf meinen Feldern baue ich Hafer an.", "it": "Nei miei campi coltivo l'avena."},
+        {"en": "I grind the oats for everyone's porridge.", "sl": "Zmeljem oves za vso ovseno kašo v vasi.", "de": "Ich mahle den Hafer für den Haferbrei aller.", "it": "Macino l'avena per il porridge di tutti."},
+        {"en": "My grandson is Alfie.", "sl": "Moj vnuk je Alfie.", "de": "Mein Enkel ist Alfie.", "it": "Mio nipote è Alfie."}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "Mr Tyson!", "sl": "Gospod Tyson!", "de": "Herr Tyson!", "it": "Il signor Tyson!"}
+    },
+    {
+      "id": "harry",
+      "level": "A2",
+      "villager": "harry",
+      "clues": [
+        {"en": "I'm nine, and I'm always loud.", "sl": "Star sem devet let in vedno sem glasen.", "de": "Ich bin neun und immer laut.", "it": "Ho nove anni e sono sempre rumoroso."},
+        {"en": "I never go anywhere without my football.", "sl": "Nikamor ne grem brez svoje žoge.", "de": "Ich gehe nie ohne meinen Fußball los.", "it": "Non vado da nessuna parte senza il mio pallone."},
+        {"en": "My mum runs the inn.", "sl": "Moja mama vodi gostilno.", "de": "Meine Mama führt das Gasthaus.", "it": "Mia mamma gestisce la locanda."},
+        {"en": "When I skim stones, they bounce seven times.", "sl": "Ko spuščam žabice, kamen odskoči sedemkrat.", "de": "Wenn ich Steine hüpfen lasse, springen sie siebenmal.", "it": "Quando faccio rimbalzare i sassi, saltano sette volte."}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "Harry!", "sl": "Harry!", "de": "Harry!", "it": "Harry!"}
+    },
+    {
+      "id": "graphite",
+      "level": "B1",
+      "word": "yarns/graphite",
+      "clues": [
+        {"en": "I was found in Borrowdale, under a fallen tree.", "sl": "Našli so me v Borrowdalu, pod podrtim drevesom.", "de": "Man hat mich in Borrowdale unter einem umgestürzten Baum gefunden.", "it": "Mi hanno trovata a Borrowdale, sotto un albero caduto."},
+        {"en": "Shepherds used to mark their sheep with me.", "sl": "Pastirji so z mano včasih označevali ovce.", "de": "Früher haben die Schäfer mit mir ihre Schafe markiert.", "it": "Una volta i pastori segnavano le pecore con me."},
+        {"en": "Today you'll find me inside every pencil.", "sl": "Danes me najdeš v vsakem svinčniku.", "de": "Heute findest du mich in jedem Bleistift.", "it": "Oggi mi trovi dentro ogni matita."},
+        {"en": "The pencils that are made in Keswick are full of me.", "sl": "Svinčniki, ki jih izdelujejo v Keswicku, so polni mene.", "de": "Die Bleistifte, die in Keswick gemacht werden, sind voll von mir.", "it": "Le matite che si fanno a Keswick sono piene di me."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "Graphite!", "sl": "Grafit!", "de": "Graphit!", "it": "La grafite!"}
+    },
+    {
+      "id": "packhorse",
+      "level": "B1",
+      "word": "on-the-packhorse-bridge/packhorse",
+      "clues": [
+        {"en": "People used to load me with wool and slate.", "sl": "Včasih so me otovorili z volno in skrilom.", "de": "Früher hat man mich mit Wolle und Schiefer beladen.", "it": "Una volta mi caricavano di lana e ardesia."},
+        {"en": "I carried heavy panniers over the fells.", "sl": "Čez hribe sem nosil težke bisage.", "de": "Ich trug schwere Packtaschen über die Berge.", "it": "Portavo pesanti bisacce sopra i monti."},
+        {"en": "The old bridge was built for me.", "sl": "Stari most so zgradili zame.", "de": "Die alte Brücke wurde für mich gebaut.", "it": "Il vecchio ponte è stato costruito per me."},
+        {"en": "Now lorries do the work that I used to do.", "sl": "Zdaj delo, ki sem ga opravljal jaz, opravljajo tovornjaki.", "de": "Heute machen Lastwagen die Arbeit, die ich früher gemacht habe.", "it": "Oggi il lavoro che facevo io lo fanno i camion."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A packhorse!", "sl": "Tovorni konj!", "de": "Ein Packpferd!", "it": "Un cavallo da soma!"}
+    },
+    {
+      "id": "tarn",
+      "level": "B1",
+      "word": "legends/tarn",
+      "clues": [
+        {"en": "I'm a small lake that lies high up on the fell.", "sl": "Majhno jezero sem, ki leži visoko v hribih.", "de": "Ich bin ein kleiner See, der hoch oben am Berg liegt.", "it": "Sono un piccolo lago che si trova in alto sul monte."},
+        {"en": "You'll find me where the beck begins.", "sl": "Najdeš me tam, kjer se začne potok.", "de": "Du findest mich dort, wo der Bach beginnt.", "it": "Mi troverai dove nasce il ruscello."},
+        {"en": "People say that I have no bottom.", "sl": "Pravijo, da nimam dna.", "de": "Man sagt, dass ich keinen Grund habe.", "it": "Si dice che non ho fondo."},
+        {"en": "Harry skims stones on me.", "sl": "Harry na meni spušča žabice.", "de": "Harry lässt auf mir Steine hüpfen.", "it": "Harry fa rimbalzare i sassi su di me."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A tarn!", "sl": "Gorsko jezerce!", "de": "Ein Bergsee!", "it": "Un laghetto di montagna!"}
+    },
+    {
+      "id": "waterwheel",
+      "level": "B1",
+      "word": "in-the-mill/waterwheel",
+      "clues": [
+        {"en": "I'm a big wheel that is turned by the beck.", "sl": "Veliko kolo sem, ki ga vrti potok.", "de": "Ich bin ein großes Rad, das vom Bach gedreht wird.", "it": "Sono una grande ruota che viene girata dal ruscello."},
+        {"en": "I never get tired, as long as there's water.", "sl": "Nikoli se ne utrudim, dokler je voda.", "de": "Ich werde nie müde, solange es Wasser gibt.", "it": "Non mi stanco mai, finché c'è acqua."},
+        {"en": "My job is to turn the millstones.", "sl": "Moja naloga je vrteti mlinske kamne.", "de": "Meine Arbeit ist es, die Mühlsteine zu drehen.", "it": "Il mio lavoro è far girare le macine."},
+        {"en": "You'll find me on the side of the mill.", "sl": "Najdeš me ob strani mlina.", "de": "Du findest mich an der Seite der Mühle.", "it": "Mi troverai sul fianco del mulino."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A waterwheel!", "sl": "Vodno kolo!", "de": "Ein Wasserrad!", "it": "Una ruota ad acqua!"}
+    },
+    {
+      "id": "wilf",
+      "level": "B1",
+      "villager": "wilf",
+      "clues": [
+        {"en": "I was born when packhorses still crossed the old bridge.", "sl": "Rodil sem se, ko so čez stari most še hodili tovorni konji.", "de": "Ich wurde geboren, als noch Packpferde über die alte Brücke gingen.", "it": "Sono nato quando i cavalli da soma attraversavano ancora il vecchio ponte."},
+        {"en": "I've climbed Scafell Pike twenty times.", "sl": "Na Scafell Pike sem se povzpel dvajsetkrat.", "de": "Ich bin zwanzigmal auf den Scafell Pike gestiegen.", "it": "Sono salito sullo Scafell Pike venti volte."},
+        {"en": "My old dog Bess goes everywhere with me.", "sl": "Moja stara psička Bess gre povsod z mano.", "de": "Meine alte Hündin Bess geht überall mit mir hin.", "it": "La mia vecchia cagnolina Bess viene dappertutto con me."},
+        {"en": "Every evening I tell stories under the oak.", "sl": "Vsak večer pod hrastom pripovedujem zgodbe.", "de": "Jeden Abend erzähle ich unter der Eiche Geschichten.", "it": "Ogni sera racconto storie sotto la quercia."}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "It's me, Old Wilf!", "sl": "To sem jaz, stari Wilf!", "de": "Das bin ich, der alte Wilf!", "it": "Sono io, il vecchio Wilf!"}
+    },
+    {
+      "id": "arthur",
+      "level": "B1",
+      "villager": "arthur",
+      "clues": [
+        {"en": "I keep my hives by the tarn.", "sl": "Panje imam ob jezercu.", "de": "Meine Bienenstöcke stehen am Bergsee.", "it": "Tengo le arnie vicino al laghetto."},
+        {"en": "In August I carry them up to the heather.", "sl": "Avgusta jih nesem gor v vresje.", "de": "Im August trage ich sie hinauf ins Heidekraut.", "it": "Ad agosto le porto su, tra l'erica."},
+        {"en": "The honey that my bees make is dark and sweet.", "sl": "Med, ki ga delajo moje čebele, je temen in sladek.", "de": "Der Honig, den meine Bienen machen, ist dunkel und süß.", "it": "Il miele che fanno le mie api è scuro e dolce."},
+        {"en": "I speak softly, because the bees hear everything.", "sl": "Govorim tiho, ker čebele slišijo vse.", "de": "Ich spreche leise, weil die Bienen alles hören.", "it": "Parlo piano, perché le api sentono tutto."}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "Beekeeper Arthur!", "sl": "Čebelar Arthur!", "de": "Imker Arthur!", "it": "L'apicoltore Arthur!"}
+    },
+    {
+      "id": "birkett",
+      "level": "B1",
+      "villager": "birkett",
+      "clues": [
+        {"en": "I run the inn that stands by the old bridge.", "sl": "Vodim gostilno, ki stoji ob starem mostu.", "de": "Ich führe das Gasthaus, das an der alten Brücke steht.", "it": "Gestisco la locanda che si trova vicino al vecchio ponte."},
+        {"en": "I can carry three plates on one arm.", "sl": "Na eni roki lahko nesem tri krožnike.", "de": "Ich kann drei Teller auf einem Arm tragen.", "it": "Riesco a portare tre piatti su un braccio."},
+        {"en": "Walkers from Germany, Italy and Slovenia stay with me.", "sl": "Pri meni bivajo pohodniki iz Nemčije, Italije in Slovenije.", "de": "Bei mir wohnen Wanderer aus Deutschland, Italien und Slowenien.", "it": "Da me alloggiano escursionisti dalla Germania, dall'Italia e dalla Slovenia."},
+        {"en": "Coming, love! Won't be a minute!", "sl": "Že grem! Samo minutko!", "de": "Komme schon! Nur eine Minute!", "it": "Arrivo! Solo un minuto!"}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "Mrs Birkett!", "sl": "Gospa Birkett!", "de": "Frau Birkett!", "it": "La signora Birkett!"}
+    },
+    {
+      "id": "heather",
+      "level": "B2",
+      "word": "at-the-bees/heather",
+      "clues": [
+        {"en": "In August, I turn the fells purple.", "sl": "Avgusta pobarvam hribe vijolično.", "de": "Im August färbe ich die Berge lila.", "it": "Ad agosto coloro i monti di viola."},
+        {"en": "Walking through me, you'll hear the bees hum.", "sl": "Ko hodiš skozme, slišiš brenčati čebele.", "de": "Wenn du durch mich gehst, hörst du die Bienen summen.", "it": "Camminando in mezzo a me, senti ronzare le api."},
+        {"en": "The dark honey that is made from me is the best in the dale.", "sl": "Temni med, ki nastane iz mene, je najboljši v dolini.", "de": "Der dunkle Honig, der aus mir gemacht wird, ist der beste im Tal.", "it": "Il miele scuro che si fa con me è il migliore della valle."},
+        {"en": "Long ago, people made brooms and roofs from me.", "sl": "Nekoč so iz mene delali metle in strehe.", "de": "Früher machte man aus mir Besen und Dächer.", "it": "Tanto tempo fa mi usavano per fare scope e tetti."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "Heather!", "sl": "Vresje!", "de": "Heidekraut!", "it": "L'erica!"}
+    },
+    {
+      "id": "shooting-star",
+      "level": "B2",
+      "word": "the-night-sky/shooting-star",
+      "clues": [
+        {"en": "Seen from the fell on a clear night, I'm gone in a second.", "sl": "Če me z hriba gledaš v jasni noči, izginem v sekundi.", "de": "Vom Berg aus in einer klaren Nacht gesehen, bin ich in einer Sekunde weg.", "it": "Vista dal monte in una notte serena, sparisco in un secondo."},
+        {"en": "I'm not really a star at all.", "sl": "Pravzaprav sploh nisem zvezda.", "de": "Eigentlich bin ich gar kein Stern.", "it": "In realtà non sono affatto una stella."},
+        {"en": "Anyone who sees me is supposed to make a wish.", "sl": "Kdor me vidi, naj si nekaj zaželi.", "de": "Wer mich sieht, soll sich etwas wünschen.", "it": "Chi mi vede dovrebbe esprimere un desiderio."},
+        {"en": "In August, lots of us can be seen.", "sl": "Avgusta nas je mogoče videti veliko.", "de": "Im August kann man viele von uns sehen.", "it": "Ad agosto se ne vedono tante."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "A shooting star!", "sl": "Utrinek!", "de": "Eine Sternschnuppe!", "it": "Una stella cadente!"}
+    },
+    {
+      "id": "packhorse-bridge",
+      "level": "B2",
+      "word": "on-the-packhorse-bridge/packhorse-bridge",
+      "clues": [
+        {"en": "Built three hundred years ago, I still carry walkers over the beck.", "sl": "Zgrajen pred tristo leti še vedno prenašam pohodnike čez potok.", "de": "Vor dreihundert Jahren gebaut, trage ich noch immer Wanderer über den Bach.", "it": "Costruito trecento anni fa, porto ancora gli escursionisti oltre il ruscello."},
+        {"en": "I'm so narrow that only one pony can cross me at a time.", "sl": "Tako ozek sem, da me lahko hkrati prečka le en poni.", "de": "Ich bin so schmal, dass immer nur ein Pony über mich gehen kann.", "it": "Sono così stretto che può attraversarmi solo un pony alla volta."},
+        {"en": "I'm said to have been washed away by a flood once.", "sl": "Pravijo, da me je nekoč odnesla poplava.", "de": "Man sagt, ein Hochwasser habe mich einmal weggespült.", "it": "Si dice che una volta un'alluvione mi abbia portato via."},
+        {"en": "My walls were kept low, so that the panniers wouldn't catch.", "sl": "Moje ograje so bile nizke, da se bisage ne bi zataknile.", "de": "Meine Mauern wurden niedrig gehalten, damit die Packtaschen nicht hängen blieben.", "it": "I miei parapetti erano bassi, perché le bisacce non si impigliassero."}
+      ],
+      "ask": {"en": "What am I?", "sl": "Kaj sem?", "de": "Was bin ich?", "it": "Che cosa sono?"},
+      "answer": {"en": "The packhorse bridge!", "sl": "Kamniti most!", "de": "Die Steinbrücke!", "it": "Il ponte di pietra!"}
+    },
+    {
+      "id": "dixon",
+      "level": "B2",
+      "villager": "dixon",
+      "clues": [
+        {"en": "I'm said to have won the wrestling at Grasmere when I was young.", "sl": "Pravijo, da sem v mladosti zmagal v rokoborbi v Grasmeru.", "de": "Ich soll in meiner Jugend das Ringen in Grasmere gewonnen haben.", "it": "Si dice che da giovane io abbia vinto la lotta a Grasmere."},
+        {"en": "Every order I'm given is written in a small black notebook.", "sl": "Vsako naročilo, ki ga dobim, je zapisano v majhni črni beležnici.", "de": "Jeder Auftrag, den ich bekomme, wird in ein kleines schwarzes Notizbuch geschrieben.", "it": "Ogni ordine che ricevo viene scritto in un piccolo taccuino nero."},
+        {"en": "It's me who shoes the ponies of half the dale.", "sl": "Prav jaz podkujem ponije pol doline.", "de": "Ich bin es, der die Ponys des halben Tals beschlägt.", "it": "Sono io che ferro i pony di mezza valle."},
+        {"en": "I don't say much, but I notice everything.", "sl": "Ne govorim veliko, opazim pa vse.", "de": "Ich rede nicht viel, aber ich bemerke alles.", "it": "Non parlo molto, ma noto tutto."}
+      ],
+      "ask": {"en": "Who am I?", "sl": "Kdo sem?", "de": "Wer bin ich?", "it": "Chi sono?"},
+      "answer": {"en": "Mr Dixon, the blacksmith!", "sl": "Kovač, gospod Dixon!", "de": "Herr Dixon, der Schmied!", "it": "Il signor Dixon, il fabbro!"}
+    }
+  ],
+  "machine_written": true,
+  "review": "en, sl, de, it: machine-written (Claude), not reviewed by a native speaker"
+}

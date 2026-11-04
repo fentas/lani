@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "l-altalena-rotta",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "L'altalena rotta", "de": "Die kaputte Schaukel", "sl": "Pokvarjena gugalnica", "en": "The broken swing" },
+  "emoji": "🛝",
+  "level": "B1",
+  "setting": {
+    "de": "Im Rathaus von Cormòns. Heute hört die Bürgermeisterin den Kindern zu. Auf dem Spielplatz im Park ist die Schaukel seit einer Woche kaputt, und die Rutsche wackelt. Mama ist mit dir gekommen.",
+    "sl": "Na občini v Krminu. Danes županja posluša otroke. Na igrišču v parku je gugalnica že en teden pokvarjena, tobogan pa se maje. Mama je prišla s tabo.",
+    "en": "At Cormòns town hall. Today the mayor is listening to the children. At the playground in the park the swing has been broken for a week, and the slide wobbles. Mamma has come with you."
+  },
+  "role": "Signora Cossar, the mayor of Cormòns, meeting the area's children today. Listens carefully; asks what is broken, since when, why it is dangerous and what the children would like; promises to send someone and welcomes ideas. Says tu. Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "La sindaca", "de": "Die Bürgermeisterin", "sl": "Županja", "en": "The mayor" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "square",
+  "goals": [
+    { "it": "Saluta la sindaca", "de": "Begrüße die Bürgermeisterin", "sl": "Pozdravi županjo", "en": "Greet the mayor" },
+    { "it": "Spiega che cosa si è rotto", "de": "Erklär, was kaputt ist", "sl": "Pojasni, kaj se je pokvarilo", "en": "Explain what's broken" },
+    { "it": "Di' da quando e perché è pericoloso", "de": "Sag, seit wann und warum es gefährlich ist", "sl": "Povej, od kdaj in zakaj je nevarno", "en": "Say since when and why it's dangerous" },
+    { "it": "Proponi un'idea", "de": "Schlag eine Idee vor", "sl": "Predlagaj idejo", "en": "Suggest an idea" },
+    { "it": "Ringrazia la sindaca", "de": "Bedank dich bei der Bürgermeisterin", "sl": "Zahvali se županji", "en": "Thank the mayor" }
+  ],
+  "opener_sl": "Ciao, {m:benvenuto|f:benvenuta} in Comune! Dimmi pure: che problema c'è?",
+  "opener_en": {
+    "de": "Hallo, willkommen im Rathaus! Erzähl ruhig: Was ist das Problem?",
+    "sl": "Živjo, {m:dobrodošel|f:dobrodošla} na občini! Kar povej: kakšna težava je?",
+    "en": "Hello, welcome to the town hall! Go ahead: what's the problem?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Buongiorno, signora sindaca!", "en": { "de": "Guten Tag, Frau Bürgermeisterin!", "sl": "Dober dan, gospa županja!", "en": "Good morning, Madam Mayor!" } },
+    { "sl": "Al parco giochi l'altalena è rotta.", "en": { "de": "Auf dem Spielplatz ist die Schaukel kaputt.", "sl": "Na igrišču je gugalnica pokvarjena.", "en": "At the playground the swing is broken." } },
+    { "sl": "È rotta da una settimana.", "en": { "de": "Sie ist seit einer Woche kaputt.", "sl": "Pokvarjena je že en teden.", "en": "It's been broken for a week." } },
+    { "sl": "Siccome lo scivolo traballa, è pericoloso.", "en": { "de": "Weil die Rutsche wackelt, ist es gefährlich.", "sl": "Ker se tobogan maje, je nevarno.", "en": "Since the slide wobbles, it's dangerous." } },
+    { "sl": "Potreste mettere anche una panchina per i nonni?", "en": { "de": "Könntet ihr auch eine Bank für die Großeltern aufstellen?", "sl": "Bi lahko postavili tudi klop za stare starše?", "en": "Could you put a bench there for the grandparents too?" } },
+    { "sl": "Noi bambini possiamo aiutare a dipingere.", "en": { "de": "Wir Kinder können beim Anmalen helfen.", "sl": "Mi otroci lahko pomagamo pri barvanju.", "en": "We children can help with the painting." } },
+    { "sl": "Grazie, signora sindaca!", "en": { "de": "Danke, Frau Bürgermeisterin!", "sl": "Hvala, gospa županja!", "en": "Thank you, Madam Mayor!" } }
+  ],
+  "packs": ["al-parco-giochi", "in-paese", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

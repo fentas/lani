@@ -5,7 +5,7 @@
   "title": { "en": "In the smithy", "sl": "V kovačnici", "it": "Nella fucina", "de": "In der Schmiede" },
   "emoji": "⚒️",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "smithy",
   "from": ["smithy"],
   "pack": "in-the-smithy",
@@ -32,7 +32,7 @@
   "happenings": [
     {
       "id": "horseshoe", "title": { "en": "Mr Dixon is making a horseshoe", "sl": "Gospod Dixon kuje podkev", "it": "Il signor Dixon forgia un ferro di cavallo", "de": "Herr Dixon schmiedet ein Hufeisen" }, "who": "dixon",
-      "when": ["morning"], "chance": 0.5, "dialog": "horseshoe", "dialogs": ["horseshoe-count", "horseshoe"], "reward": { "stone": 20 }, "marker": "⚒️",
+      "when": ["morning"], "chance": 0.5, "dialog": "horseshoe", "dialogs": ["horseshoe-b2-gates", "horseshoe-b1-kick", "horseshoe-count", "horseshoe"], "reward": { "stone": 20 }, "marker": "⚒️",
       "memory": { "en": "the morning you held the tongs", "sl": "jutro, ko si {m:držal|f:držala} klešče", "it": "la mattina in cui hai tenuto le tenaglie", "de": "den Morgen, an dem du die Zange gehalten hast" }
     },
     {
@@ -42,7 +42,7 @@
     },
     {
       "id": "wheel", "title": { "en": "Brewer Sam's cart has a broken wheel", "sl": "Voz pivovarja Sama ima zlomljeno kolo", "it": "Il carro del birraio Sam ha una ruota rotta", "de": "Brauer Sams Wagen hat ein kaputtes Rad" }, "who": "dixon",
-      "when": ["afternoon", "evening"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "wheel", "dialogs": ["wheel-crates", "wheel"], "reward": { "wisdom": 15 }, "marker": "🛞",
+      "when": ["afternoon", "evening"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "wheel", "dialogs": ["wheel-b2-note", "wheel-b1-wheelwright", "wheel-crates", "wheel"], "reward": { "wisdom": 15 }, "marker": "🛞",
       "memory": { "en": "the day we mended Sam's cart", "sl": "dan, ko sva popravila Samov voz", "it": "il giorno in cui abbiamo aggiustato il carro di Sam", "de": "den Tag, an dem wir Sams Wagen repariert haben" }
     },
     {
@@ -232,6 +232,79 @@
           { "en": "Wow! Was you very strong?", "sl": "Uau! Ste bili zelo močni?", "it": "Wow! Era fortissimo?", "de": "Wow! Waren Sie sehr stark?", "grammar": "past-simple",
             "why": { "en": "With you, the past of be is were: were you strong? Was is for I, he, she and it.", "sl": "Z you je pretekli čas od be were: were you strong? Was je za I, he, she in it.", "it": "Con you il passato di be è were: were you strong? Was è per I, he, she e it.", "de": "Mit you heißt die Vergangenheit von be were: were you strong? Was ist für I, he, she und it." }, "reply": { "face": "cross", "en": "Was you? Hmph. It's right, or it isn't.", "sl": "Was you? Hm. Je prav ali pa ni.", "it": "Was you? Mah. O è giusto o non lo è.", "de": "Was you? Hmpf. Es ist richtig, oder es ist es nicht." } }
         ] }
+      ]
+    },
+    {
+      "id": "horseshoe-b2-gates", "level": "B2",
+      "memory": {"en": "the forty ponies and the Penrith gates", "sl": "štirideset ponijev in vrata za Penrith", "it": "i quaranta pony e i cancelli per Penrith", "de": "die vierzig Ponys und die Tore für Penrith"},
+      "lines": [
+        {"who": "dixon", "en": "Morning. Hold the tongs. Forty ponies shod last month. And three gates for Penrith.", "sl": "Jutro. Drži klešče. Prejšnji mesec sem podkoval štirideset ponijev. In tri vrata za Penrith.", "it": "Buongiorno. Tieni le tenaglie. Quaranta pony ferrati il mese scorso. E tre cancelli per Penrith.", "de": "Morgen. Halt die Zange. Vierzig Ponys beschlagen letzten Monat. Und drei Tore für Penrith."},
+        { "choices": [
+          {"en": "Not only do you shoe every pony, you make the gates too!", "sl": "Ne le da podkujete vsakega ponija, delate tudi vrata!", "it": "Non solo ferra tutti i pony, fa anche i cancelli!", "de": "Sie beschlagen nicht nur jedes Pony, Sie machen auch noch die Tore!", "ok": true, "reply": {"face": "proud", "en": "Aye. And the hinges. And the nails.", "sl": "Ja. In tečaje. In žeblje.", "it": "Sì. E i cardini. E i chiodi.", "de": "Ja. Und die Scharniere. Und die Nägel."}},
+          {"en": "Not only you shoe every pony, you make the gates too!", "sl": "Ne le da podkujete vsakega ponija, delate tudi vrata!", "it": "Non solo ferra tutti i pony, fa anche i cancelli!", "de": "Sie beschlagen nicht nur jedes Pony, Sie machen auch noch die Tore!", "grammar": "emphasis", "why": {"en": "With not only at the front, the helping verb comes first, as in a question: not only do you shoe …", "sl": "Ko je not only spredaj, pride pomožni glagol prvi, kot v vprašanju: not only do you shoe …", "it": "Con not only all'inizio, l'ausiliare viene prima, come in una domanda: not only do you shoe …", "de": "Mit not only am Anfang kommt das Hilfsverb zuerst, wie in einer Frage: not only do you shoe …"}, "reply": {"face": "cross", "en": "Not only you? Again, {m:lad|f:lass}. Properly.", "sl": "Not only you? Še enkrat. Kot se spodobi.", "it": "Not only you? Di nuovo, {m:ragazzo|f:ragazza}. Come si deve.", "de": "Not only you? Noch mal, {m:Junge|f:Mädchen}. Ordentlich."}}
+        ] },
+        {"who": "dixon", "en": "The gates are forged. This week comes the paint.", "sl": "Vrata so skovana. Ta teden pride na vrsto barva.", "it": "I cancelli sono forgiati. Questa settimana tocca alla vernice.", "de": "Die Tore sind geschmiedet. Diese Woche kommt die Farbe."},
+        { "choices": [
+          {"en": "So they're being painted this week, then.", "sl": "Torej jih ta teden barvajo.", "it": "Quindi questa settimana vengono verniciati.", "de": "Sie werden also diese Woche gestrichen.", "ok": true, "reply": {"en": "Aye. Black. Like every gate in the dale.", "sl": "Ja. Črno. Kot vsa vrata v dolini.", "it": "Sì. Neri. Come ogni cancello della valle.", "de": "Ja. Schwarz. Wie jedes Tor im Tal."}},
+          {"en": "So they're painting this week, then.", "sl": "Torej jih ta teden barvajo.", "it": "Quindi questa settimana vengono verniciati.", "de": "Sie werden also diese Woche gestrichen.", "grammar": "passive-more", "why": {"en": "The gates don't do the painting: they're being painted, be + being + the participle.", "sl": "Vrata ne barvajo sama: they're being painted, be + being + deležnik.", "it": "I cancelli non verniciano da soli: they're being painted, be + being + il participio.", "de": "Die Tore streichen nicht selbst: they're being painted, be + being + Partizip."}, "reply": {"face": "laugh", "en": "The gates painting? With what, their hinges?", "sl": "The gates painting? S čim, s tečaji?", "it": "The gates painting? Con cosa, con i cardini?", "de": "The gates painting? Womit, mit ihren Scharnieren?"}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "There. Four shoes. Next pony.", "sl": "Tako. Štiri podkve. Naslednji poni.", "it": "Ecco. Quattro ferri. Prossimo pony.", "de": "So. Vier Eisen. Nächstes Pony."}
+      ]
+    },
+    {
+      "id": "horseshoe-b1-kick", "level": "B1",
+      "memory": {"en": "the pony that kicks and the farmer's question", "sl": "ponija, ki brca, in kmetovo vprašanje", "it": "il pony che scalcia e la domanda del contadino", "de": "das Pony, das tritt, und die Frage des Bauern"},
+      "lines": [
+        {"who": "dixon", "en": "Morning. Hold the tongs. Tight. This pony's from the farm up the dale.", "sl": "Jutro. Drži klešče. Trdno. Ta poni je s kmetije više v dolini.", "it": "Buongiorno. Tieni le tenaglie. Forte. Questo pony viene dalla fattoria su per la valle.", "de": "Morgen. Halt die Zange. Fest. Das Pony ist vom Hof oben im Tal."},
+        {"who": "dixon", "face": "curious", "en": "His farmer asked me something. You were here. What did he ask?", "sl": "Njegov kmet me je nekaj vprašal. {m:Bil|f:Bila} si tu. Kaj je vprašal?", "it": "Il suo contadino mi ha chiesto una cosa. Eri qui. Che cosa ha chiesto?", "de": "Sein Bauer hat mich was gefragt. Du warst dabei. Was hat er gefragt?"},
+        { "choices": [
+          {"en": "He asked how often his pony needed new shoes.", "sl": "Vprašal je, kako pogosto potrebuje njegov poni nove podkve.", "it": "Ha chiesto ogni quanto il suo pony ha bisogno di ferri nuovi.", "de": "Er hat gefragt, wie oft sein Pony neue Eisen braucht.", "ok": true, "reply": {"en": "Every six weeks. Hooves grow, like nails.", "sl": "Vsakih šest tednov. Kopita rastejo, kot nohti.", "it": "Ogni sei settimane. Gli zoccoli crescono, come le unghie.", "de": "Alle sechs Wochen. Hufe wachsen, wie Fingernägel."}},
+          {"en": "He asked to me how often his pony needed new shoes.", "sl": "Vprašal je, kako pogosto potrebuje njegov poni nove podkve.", "it": "Ha chiesto ogni quanto il suo pony ha bisogno di ferri nuovi.", "de": "Er hat gefragt, wie oft sein Pony neue Eisen braucht.", "grammar": "reported-questions", "why": {"en": "Ask takes the person with no to: he asked me how often … , or just he asked how often …", "sl": "Ask zahteva osebo brez to: he asked me how often … ali samo he asked how often …", "it": "Ask vuole la persona senza to: he asked me how often … , o solo he asked how often …", "de": "Ask nimmt die Person ohne to: he asked me how often … oder nur he asked how often …"}, "reply": {"face": "cross", "en": "Asked to you? Hm. Again, {m:lad|f:lass}.", "sl": "Asked to you? Hm. Še enkrat.", "it": "Asked to you? Mh. Di nuovo, {m:ragazzo|f:ragazza}.", "de": "Asked to you? Hm. Noch mal, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "en": "This one kicks, mind. Twice last time. I still shoe him.", "sl": "Ta brca, pazi. Zadnjič dvakrat. Pa ga vseeno podkujem.", "it": "Questo scalcia, attento. Due volte l'ultima volta. Lo ferro lo stesso.", "de": "Der tritt, pass auf. Letztes Mal zweimal. Ich beschlag ihn trotzdem."},
+        { "choices": [
+          {"en": "Despite being kicked, you never give up on him.", "sl": "Kljub brcam ga nikoli ne pustite na cedilu.", "it": "Nonostante i calci, non si arrende mai con lui.", "de": "Obwohl er Sie tritt, geben Sie ihn nie auf.", "ok": true, "reply": {"en": "Never. A kick's just a pony saying good morning.", "sl": "Nikoli. Brca je samo ponijev dobro jutro.", "it": "Mai. Un calcio è solo un pony che dice buongiorno.", "de": "Nie. Ein Tritt ist nur das Guten Morgen eines Ponys."}},
+          {"en": "Despite to be kicked, you never give up on him.", "sl": "Kljub brcam ga nikoli ne pustite na cedilu.", "it": "Nonostante i calci, non si arrende mai con lui.", "de": "Obwohl er Sie tritt, geben Sie ihn nie auf.", "grammar": "contrast-linkers", "why": {"en": "Despite + a noun or -ing: despite being kicked. To + the base form doesn't go after despite.", "sl": "Despite + samostalnik ali -ing: despite being kicked. To z osnovno obliko ne gre za despite.", "it": "Despite + un nome o -ing: despite being kicked. To + la forma base non va dopo despite.", "de": "Despite + Nomen oder -ing: despite being kicked. To + Grundform steht nicht nach despite."}, "reply": {"face": "cross", "en": "Despite to be? Doesn't fit, {m:lad|f:lass}.", "sl": "Despite to be? To ne gre skupaj.", "it": "Despite to be? Non va, {m:ragazzo|f:ragazza}.", "de": "Despite to be? Passt nicht, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "There. Four shoes. He'll walk to Keswick and back.", "sl": "Tako. Štiri podkve. Do Keswicka in nazaj bo šel.", "it": "Ecco. Quattro ferri. Arriverà a Keswick e ritorno.", "de": "So. Vier Eisen. Der läuft bis Keswick und zurück."}
+      ]
+    },
+    {
+      "id": "wheel-b2-note", "level": "B2",
+      "memory": {"en": "Sam's note and the wheel mended overnight", "sl": "Samov listek in kolo, popravljeno čez noč", "it": "il biglietto di Sam e la ruota riparata in una notte", "de": "Sams Zettel und das Rad, über Nacht repariert"},
+      "lines": [
+        {"who": "dixon", "en": "Sam's wheel. Broken right through. He wants it by tomorrow, for the market.", "sl": "Samovo kolo. Zlomljeno skoz in skoz. Hoče ga do jutri, za tržnico.", "it": "La ruota di Sam. Rotta da parte a parte. La vuole per domani, per il mercato.", "de": "Sams Rad. Ganz durchgebrochen. Er will es bis morgen, für den Markt."},
+        {"who": "dixon", "face": "cross", "en": "He left me a note. \"Dixon, mate, sort the wheel, ta.\" Ta! As if I'm his brother.", "sl": "Pustil mi je listek. »Dixon, stari, uredi kolo, hvala.« Hvala! Kot da sem njegov brat.", "it": "Mi ha lasciato un biglietto. »Dixon, amico, sistemami la ruota, grazie.« Grazie! Come se fossi suo fratello.", "de": "Er hat mir einen Zettel dagelassen. »Dixon, Alter, mach das Rad, danke.« Danke! Als wär ich sein Bruder."},
+        {"who": "dixon", "face": "curious", "en": "If he wrote to a stranger, what should it say?", "sl": "Kaj bi moralo pisati, če bi pisal neznancu?", "it": "Se scrivesse a uno sconosciuto, cosa dovrebbe dire?", "de": "Wenn er einem Fremden schriebe, was müsste da stehen?"},
+        { "choices": [
+          {"en": "Dear Mr Dixon, could you possibly repair the wheel by tomorrow?", "sl": "Dear Mr Dixon, bi lahko kolo morda popravili do jutri?", "it": "Dear Mr Dixon, potrebbe per caso riparare la ruota entro domani?", "de": "Dear Mr Dixon, könnten Sie das Rad vielleicht bis morgen reparieren?", "ok": true, "reply": {"en": "That's how it's done. Not that Sam ever will.", "sl": "Tako se to dela. Ne da bi Sam to kdaj storil.", "it": "È così che si fa. Non che Sam lo farà mai.", "de": "So macht man das. Nicht, dass Sam das je tut."}},
+          {"en": "Oi, Dixon, fix the wheel by tomorrow, yeah?", "sl": "Ej, Dixon, popravi kolo do jutri, ja?", "it": "Ehi, Dixon, sistemami la ruota per domani, eh?", "de": "He, Dixon, mach das Rad bis morgen, ja?", "grammar": "formal-informal", "why": {"en": "To someone you don't know: Dear Mr Dixon, could you possibly … ? Oi and yeah are for friends, or for nobody.", "sl": "Nekomu, ki ga ne poznaš: Dear Mr Dixon, could you possibly … ? Oi in yeah sta za prijatelje ali za nikogar.", "it": "A uno sconosciuto: Dear Mr Dixon, could you possibly … ? Oi e yeah sono per gli amici, o per nessuno.", "de": "An jemanden, den man nicht kennt: Dear Mr Dixon, could you possibly … ? Oi und yeah sind für Freunde, oder für niemanden."}, "reply": {"face": "cross", "en": "Oi? Say that to me and the wheel stays broken.", "sl": "Oi? Reci mi to in kolo ostane zlomljeno.", "it": "Oi? Dimmelo e la ruota resta rotta.", "de": "Oi? Sag das zu mir, und das Rad bleibt kaputt."}}
+        ] },
+        {"who": "dixon", "face": "thinking", "en": "He drove it over the rocks by the ford. Last week. Told nobody.", "sl": "Zapeljal ga je čez skale pri brodu. Prejšnji teden. Nikomur ni povedal.", "it": "L'ha portato sopra le rocce vicino al guado. La settimana scorsa. Senza dirlo a nessuno.", "de": "Er ist damit über die Felsen an der Furt gefahren. Letzte Woche. Hat's keinem gesagt."},
+        { "choices": [
+          {"en": "I wish he'd brought it in last week, then.", "sl": "Ko bi ga le prinesel prejšnji teden.", "it": "Avrei voluto che l'avesse portato la settimana scorsa.", "de": "Hätte er es doch letzte Woche gebracht.", "ok": true, "reply": {"en": "Aye. A day's work, not a night's.", "sl": "Ja. Za en dan dela, ne za eno noč.", "it": "Sì. Un giorno di lavoro, non una notte.", "de": "Ja. Eine Tagesarbeit, keine Nachtschicht."}},
+          {"en": "I wish he has brought it in last week, then.", "sl": "Ko bi ga le prinesel prejšnji teden.", "it": "Avrei voluto che l'avesse portato la settimana scorsa.", "de": "Hätte er es doch letzte Woche gebracht.", "grammar": "wish-if-only", "why": {"en": "A regret about then: wish + had + the participle, I wish he'd brought it.", "sl": "Obžalovanje za takrat: wish + had + deležnik, I wish he'd brought it.", "it": "Un rimpianto per allora: wish + had + il participio, I wish he'd brought it.", "de": "Bedauern über damals: wish + had + Partizip, I wish he'd brought it."}, "reply": {"face": "cross", "en": "Has brought? He hasn't. That's the trouble, {m:lad|f:lass}.", "sl": "Has brought? Ni ga. V tem je težava.", "it": "Has brought? Non l'ha fatto. È questo il problema, {m:ragazzo|f:ragazza}.", "de": "Has brought? Hat er nicht. Das ist ja das Problem, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Pass the hammer. Long night. Market's at nine.", "sl": "Podaj kladivo. Dolga noč bo. Tržnica je ob devetih.", "it": "Passami il martello. Lunga notte. Il mercato è alle nove.", "de": "Gib mir den Hammer. Lange Nacht. Der Markt ist um neun."}
+      ]
+    },
+    {
+      "id": "wheel-b1-wheelwright", "level": "B1",
+      "memory": {"en": "Sam's old cart and the wheelwrights of long ago", "sl": "Samov stari voz in kolarje izpred davnih let", "it": "il vecchio carro di Sam e i carradori di una volta", "de": "Sams alten Wagen und die Stellmacher von früher"},
+      "lines": [
+        {"who": "dixon", "en": "Look at Sam's cart. The wheel's broken. He needs it for the market.", "sl": "Poglej Samov voz. Kolo je zlomljeno. Potrebuje ga za tržnico.", "it": "Guarda il carro di Sam. La ruota è rotta. Gli serve per il mercato.", "de": "Schau dir Sams Wagen an. Das Rad ist kaputt. Er braucht ihn für den Markt."},
+        {"who": "dixon", "face": "thinking", "en": "Wheelwrights made wheels once. Not any more.", "sl": "Nekoč so kolesa delali kolarji. Zdaj ne več.", "it": "Una volta le ruote le facevano i carradori. Adesso non più.", "de": "Früher haben Stellmacher die Räder gemacht. Heute nicht mehr."},
+        { "choices": [
+          {"en": "There used to be a wheelwright in every village, didn't there?", "sl": "Včasih je bil kolar v vsaki vasi, kajne?", "it": "Una volta c'era un carradore in ogni villaggio, vero?", "de": "Früher gab es in jedem Dorf einen Stellmacher, oder?", "ok": true, "reply": {"en": "Aye. Now there's me.", "sl": "Ja. Zdaj sem tu jaz.", "it": "Sì. Adesso ci sono io.", "de": "Ja. Jetzt gibt's mich."}},
+          {"en": "There was used to be a wheelwright in every village, didn't there?", "sl": "Včasih je bil kolar v vsaki vasi, kajne?", "it": "Una volta c'era un carradore in ogni villaggio, vero?", "de": "Früher gab es in jedem Dorf einen Stellmacher, oder?", "grammar": "used-to", "why": {"en": "There used to be + a noun, for what was there once: there used to be a wheelwright. No was.", "sl": "There used to be + samostalnik, za tisto, kar je nekoč bilo: there used to be a wheelwright. Brez was.", "it": "There used to be + un nome, per ciò che c'era una volta: there used to be a wheelwright. Senza was.", "de": "There used to be + Nomen, für das, was es früher gab: there used to be a wheelwright. Ohne was."}, "reply": {"face": "cross", "en": "Was used to be? One word too many, {m:lad|f:lass}.", "sl": "Was used to be? Ena beseda preveč.", "it": "Was used to be? Una parola di troppo, {m:ragazzo|f:ragazza}.", "de": "Was used to be? Ein Wort zu viel, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "en": "Sam's had this cart since he was a lad.", "sl": "Sam ima ta voz, odkar je bil fant.", "it": "Sam ha questo carro da quando era ragazzo.", "de": "Sam hat diesen Wagen, seit er ein Junge war."},
+        {"who": "dixon", "face": "curious", "en": "He's thirty now. How long would that be, then?", "sl": "Zdaj jih ima trideset. Koliko časa je to torej?", "it": "Adesso ha trent'anni. Quanto fa, allora?", "de": "Jetzt ist er dreißig. Wie lange wäre das also?"},
+        { "choices": [
+          {"en": "He's had it for twenty years, then.", "sl": "Potem ga ima že dvajset let.", "it": "Allora ce l'ha da vent'anni.", "de": "Dann hat er ihn seit zwanzig Jahren.", "ok": true, "reply": {"en": "Near enough. And it's never let him down. Till today.", "sl": "Približno. In nikoli ga ni pustil na cedilu. Do danes.", "it": "Più o meno. E non l'ha mai tradito. Fino a oggi.", "de": "Ungefähr. Und er hat ihn nie im Stich gelassen. Bis heute."}},
+          {"en": "He has it for twenty years, then.", "sl": "Potem ga ima že dvajset let.", "it": "Allora ce l'ha da vent'anni.", "de": "Dann hat er ihn seit zwanzig Jahren.", "grammar": "for-since", "why": {"en": "From then up to now: has had, for twenty years. He has it says only now.", "sl": "Od takrat do zdaj: has had, for twenty years. He has it pove samo zdaj.", "it": "Da allora fino ad adesso: has had, for twenty years. He has it dice solo adesso.", "de": "Von damals bis jetzt: has had, for twenty years. He has it sagt nur jetzt."}, "reply": {"face": "cross", "en": "He has it? Not right now. It's in my smithy!", "sl": "He has it? Zdaj pa ne. V moji kovačnici je!", "it": "He has it? Adesso no. È nella mia fucina!", "de": "He has it? Gerade nicht. Der steht in meiner Schmiede!"}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Spokes in, rim on. Sam's at the market tomorrow.", "sl": "Napere noter, obroč gor. Sam je jutri na tržnici.", "it": "Raggi dentro, cerchione su. Domani Sam è al mercato.", "de": "Speichen rein, Reifen drauf. Sam ist morgen auf dem Markt."}
       ]
     }
   ]
