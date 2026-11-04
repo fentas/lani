@@ -9,8 +9,8 @@ or B2 one. Everything written here is machine-written and needs a native check (
 ## Native check
 
 Machine-written, every new file flagged in its `review` ("sl, en, de, it: machine-written, not reviewed by a native
-speaker"). Settled on fran.si and Sloleks, one request at a time (36 to fran.si, 2 to Sloleks: its search and one headword page;
-one web search for the accident report's name), with the URL; what a dictionary doesn't settle is listed for a native eye.
+speaker"). Settled on fran.si and Sloleks, one request at a time (36 to fran.si; 2 lookups on Sloleks, its search and one headword page, after a few
+loads of its front page to find that search; one web search for the accident report's name), with the URL; what a dictionary doesn't settle is listed for a native eye.
 
 **Settled (the dictionary has it as the talk uses it):**
 
@@ -164,7 +164,7 @@ the conditional), picked by the brief's level; an A1 talk keeps its soup.
 
 ## How to use
 
-- Jan: Home's "🗣️ Pogovor · Talk"; the list shows the B1 and B2 talks once Jan's level is A2 (the B1 ones) or B1 (all);
+- Jan: Home's "Pogovor · Talk" tile; the list shows the B1 and B2 talks once Jan's level is A2 (the B1 ones) or B1 (all);
   a talk, Start.
 - The tutor: `publish_scenario` as before; a talk the tutor writes is offered at any level.
 - QA: `LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts <dir> --target sl --base en --name Ana
@@ -176,12 +176,15 @@ the conditional), picked by the brief's level; an A1 talk keeps its soup.
 
 | Journey | Before | After |
 |---|---|---|
-| Jan at B1, Home to talking at the mayor's | not possible (no talk above A1) | 3: "🗣️ Pogovor · Talk", "Pri županji · At the mayor's office", "Začni · Start" |
+| Jan at B1, Home to talking at the mayor's | not possible (no talk above A1) | 3: the "Pogovor · Talk" tile, "Pri županji · At the mayor's office", "Začni · Start" (QA counted 3 on "Po noči burje") |
 | Jan, Home to an A1 talk | 3 | 3 (unchanged) |
 
 ## Checks
 
-- Bridge: `bunx tsc --noEmit -p .`; the smoke with ports 10730– (LANI_SMOKE_DRAMA3_PORT 10748): all checks passed. Its
+All after merging main (896065a7e), on the tip 7b009be99; the QA fix after it touches only `bin/qa`, and QA and the Python
+suites ran with it.
+
+- Bridge: `bunx tsc --noEmit -p .`; the smoke with ports 10730– (LANI_SMOKE_DRAMA3_PORT 10748): all 3,751 checks passed. Its
   scenarios section: `talkLevelOffered` and a store's `offered()` at A1, A2, B1 and with no level (a tutor's B2 offered
   at A1); the 18 curated files, six each at A1, B1 and B2; each B1/B2 one a grown-up's with its goals in Slovene too and
   every pack the village's; the A1 smoke learner offered the six and none above, `/scenarios/pri-zupanji` 404; at B1
@@ -190,13 +193,26 @@ the conditional), picked by the brief's level; an A1 talk keeps its soup.
   B1 turn's brief with its level and packs.
 - `test/check-culture.ts primorska`: ok. `bun test/learner-content.ts`: no text names Jan. `bun test/prompt-clashes.ts`:
   no new clash. `tutor-export --check`: the files match.
-- Android: `TalkTest` (18 curated files, six per level; the twelve in sl · en with title, goals and who in the pair,
-  their packs, a grown-up's; the mayor's in sl · de).
-- QA: the step `primorska-talk` (`village_talk("primorska")`).
+- Android: the full unit suite through lani-slot.sh: 4,102 tests in 520 classes, 0 failures, 2 skipped. `TalkTest` (15 tests:
+  18 curated files, six per level; the twelve in sl · en with title, goals and who in the pair, their packs, a grown-up's;
+  the mayor's in sl · de).
+- Python: `python3 -m unittest discover -s tests` (253) and `-s companion/tests` (179, 11 skipped): OK.
+- QA through `qa-slot`: `primorska-talk` on a synthetic Ana at B1 (slot 2): passed, 3 taps from Home to talking, no crash.
+  Its shots (`st-*.png`, scratchpad `ux-talks-sl/`): the list with the B1 and B2 talks and their tags, Po noči burje's intro,
+  the opener, the dev tutor's lines above A2, a hint that is the talk's first phrase, the correction, the goals in sl · en
+  (2/5), the debrief. Two earlier runs proved nothing: one was killed by its timeout in setup after hours waiting for a
+  build slot, one exited 0 with the step *skipped* (the stale lookup below). Read the report line, not the exit code.
+- **Not checked:** `friuli-talk`, `kaernten-talk` and `lakeland-talk` after the lookup fix (the same code path, not run);
+  a talk on the emulator for a learner who is a woman (the fixture has no gender, and that means male: QA's goal reads
+  "kaj si slišal" for Ana; the audit `learner-content.ts` covers the pairs, 0 malformed); an A1 learner's list on the
+  emulator (the smoke covers it); a real tutor playing any of the twelve (QA's answers are canned).
 
 ## What's left
 
 - **The native check** above.
+- **The list's order.** Talks come by file name, so levels are mixed: a B1 learner's list starts B1, B2, B1, B2, A1
+  (`ScenarioStore.read` sorts by file). With 18 talks, ordering by level, the learner's own first, would read better. Not
+  changed here: the order is shared with the other languages' lists.
 - **The B1/B2 packs.** `packs-sl` (not on main yet) adds Slovene B1 and B2 packs that fit these talks better than the A1
   and A2 ones they name now. Once it is merged, add to each talk's `packs` (at most six):
   `reklamacija` oblacila, denar-in-banka; `vino-za-praznovanje` druzinski-dogodki, denar-in-banka;
@@ -224,4 +240,9 @@ Gepard voices read them at no cost; until then the phone's text-to-speech does. 
 
 ## Commits
 
-- eab33206c feat(talks): a talk is offered up to a level above the learner's
+- eab33206c feat(talks): a talk is offered up to a level above the learner's (language-neutral)
+- e11f65bd0 feat(talks): Jan's twelve talks at B1 and B2
+- d27ca7c01 fix(talks): three Slovene phrases, settled on fran.si
+- 9338821ca test(talks): TalkTest and QA's primorska-talk for the B1 and B2 talks; docs
+- 896065a7e merge of main; f44125138, 7b009be99 docs
+- 151ea96f8 fix(qa): the talk steps find Home's talk tile
