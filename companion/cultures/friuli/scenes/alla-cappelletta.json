@@ -5,7 +5,7 @@
   "title": { "it": "Alla cappelletta", "sl": "Pri kapelici", "en": "At the wayside chapel", "de": "An der Wegkapelle" },
   "emoji": "🛐",
   "level": "A1",
-  "review": "it, sl, en, de, reactions, variants, whys: machine-written (Claude), not reviewed by a native speaker; to check: cappelletta, campanella, lumino, merletto, Ave Maria, Castelmonte",
+  "review": "it, sl, en, de, reactions, variants, whys: machine-written (Claude), not reviewed by a native speaker; to check: cappelletta, campanella, lumino, merletto, Ave Maria, Castelmonte; B1, B2 variants too",
   "art": "chapel",
   "from": ["project:kapelica"],
   "pack": "alla-cappelletta",
@@ -66,7 +66,7 @@
       "when": ["evening"],
       "chance": 0.5,
       "dialog": "lumini",
-      "dialogs": ["lumini-tovaglia", "lumini"],
+      "dialogs": ["lumini-b2-due-campane", "lumini-b1-giulia", "lumini-tovaglia", "lumini"],
       "reward": { "wisdom": 20},
       "marker": "🕯️",
       "memory": { "it": "i lumini rossi che abbiamo acceso la sera", "sl": "rdeče lučke, ki sva jih zvečer {m:prižgala|f:prižgali}", "en": "the little red lights we lit in the evening", "de": "die roten Lichtlein, die wir am Abend angezündet haben" }
@@ -78,7 +78,7 @@
       "when": ["afternoon"],
       "chance": 0.45,
       "dialog": "pellegrino",
-      "dialogs": ["pellegrino-pane", "pellegrino"],
+      "dialogs": ["pellegrino-b2-salita", "pellegrino-b1-pane", "pellegrino-pane", "pellegrino"],
       "reward": { "food": 20},
       "marker": "🚶",
       "memory": { "it": "il pellegrino sulla strada della cappelletta", "sl": "romarja na cesti pri kapelici", "en": "the pilgrim on the road by the chapel", "de": "den Pilger auf der Straße bei der Kapelle" }
@@ -1218,6 +1218,105 @@
           ],
           "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
         }
+      ]
+    },
+    {
+      "id": "lumini-b1-giulia",
+      "level": "B1",
+      "memory": { "it": "i lumini rossi accesi prima del buio", "sl": "rdeče lučke, prižgane pred temo", "en": "the little red lights lit before dark", "de": "die roten Lichtlein, angezündet vor der Dunkelheit" },
+      "lines": [
+        { "who": "nives", "it": "Buonasera, {learner}! Giulia ha detto qualcosa dei lumini, ma io non ho sentito bene. Che cosa ha detto?", "sl": "Dober večer, {learner}! Giulia je nekaj rekla o lučkah, ampak nisem dobro slišala. Kaj je rekla?", "en": "Good evening, {learner}! Giulia said something about the little lights, but I didn't hear properly. What did she say?", "de": "Guten Abend, {learner}! Giulia hat was von den Lichtlein gesagt, aber ich hab's nicht richtig gehört. Was hat sie gesagt?" },
+        { "choices": [
+          { "it": "Ha detto che stasera li accende lei!", "sl": "Rekla je, da jih nocoj prižge ona!", "en": "She said she's lighting them tonight!", "de": "Sie hat gesagt, dass sie sie heute Abend anzündet!", "ok": true,
+            "reply": { "face": "happy", "it": "Lei? Così piccola? Va bene, ma con un fiammifero lungo!", "sl": "Ona? Tako majhna? Prav, ampak z dolgo vžigalico!", "en": "Her? So little? All right, but with a long match!", "de": "Sie? So klein? Na gut, aber mit einem langen Streichholz!" } },
+          { "it": "Ha detto che stasera li accendo io!", "sl": "Rekla je, da jih nocoj prižge ona!", "en": "She said she's lighting them tonight!", "de": "Sie hat gesagt, dass sie sie heute Abend anzündet!",
+            "grammar": "discorso-indiretto", "why": { "sl": "Giulia je rekla »li accendo io«; ko poveš naprej, je li accende lei.", "en": "Giulia said «li accendo io»; passed on, it's li accende lei.", "de": "Giulia sagte «li accendo io»; weitergesagt heißt es li accende lei." },
+            "reply": { "face": "surprised", "it": "Tu? Allora accendili tu! Come? Cosa? Adesso non capisco più chi li accende!", "sl": "Ti? Potem jih prižgi ti! Kako? Kaj? Zdaj ne vem več, kdo jih prižge!", "en": "You? Then you light them! What? Now I don't know who's lighting them!", "de": "Du? Dann zünd du sie an! Wie? Was? Jetzt weiß ich nicht mehr, wer sie anzündet!" } }
+        ] },
+        { "who": "nives", "face": "thinking", "it": "Il sole sta già scendendo dietro la collina. Bisogna fare presto.", "sl": "Sonce že zahaja za hribom. Pohiteti moramo.", "en": "The sun's already going down behind the hill. We must be quick.", "de": "Die Sonne geht schon hinter dem Hügel unter. Wir müssen uns beeilen." },
+        { "choices": [
+          { "it": "Accendiamoli prima che faccia buio!", "sl": "Prižgimo jih, preden se stemni!", "en": "Let's light them before it gets dark!", "de": "Zünden wir sie an, bevor es dunkel wird!", "ok": true,
+            "reply": { "face": "happy", "it": "Giusto. Uno, due, tre lumini rossi. Che bella luce!", "sl": "Prav. Ena, dve, tri rdeče lučke. Kako lepa svetloba!", "en": "Right. One, two, three little red lights. What lovely light!", "de": "Richtig. Eins, zwei, drei rote Lichtlein. Was für ein schönes Licht!" } },
+          { "it": "Accendiamoli prima che fare buio!", "sl": "Prižgimo jih, preden se stemni!", "en": "Let's light them before it gets dark!", "de": "Zünden wir sie an, bevor es dunkel wird!",
+            "grammar": "congiuntivo-espressioni", "why": { "sl": "Prima che zahteva konjunktiv: prima che faccia. Prima di gre z nedoločnikom.", "en": "Prima che takes the congiuntivo: prima che faccia. Prima di takes the infinitive.", "de": "Prima che verlangt den Konjunktiv: prima che faccia. Prima di steht mit der Grundform." },
+            "reply": { "face": "curious", "it": "Prima che fare? Come? Cosa? Mi manca una parola, {learner}!", "sl": "Prima che fare? Kako? Kaj? Manjka mi beseda, {learner}!", "en": "Prima che fare? What? I'm missing a word, {learner}!", "de": "Prima che fare? Wie? Was? Mir fehlt ein Wort, {learner}!" } }
+        ] },
+        { "who": "nives", "face": "happy", "it": "Buonanotte, {learner}. Lo dico due volte: buonanotte! I lumini restano accesi fino a domattina.", "sl": "Lahko noč, {learner}. Povem dvakrat: lahko noč! Lučke ostanejo prižgane do jutra.", "en": "Good night, {learner}. I'll say it twice: good night! The little lights stay lit till morning.", "de": "Gute Nacht, {learner}. Ich sag's zweimal: gute Nacht! Die Lichtlein bleiben bis morgen früh an." }
+      ]
+    },
+    {
+      "id": "lumini-b2-due-campane",
+      "level": "B2",
+      "memory": { "it": "le due campane di Gorizia", "sl": "dva zvona Gorice", "en": "the two bells of Gorizia", "de": "die zwei Glocken von Görz" },
+      "lines": [
+        { "who": "nives", "face": "thinking", "it": "Quando abitavo a Gorizia, la sera sentivo due campane: una dalla mia chiesa e una dall'altra parte del confine, in Slovenia.", "sl": "Ko sem živela v Gorici, sem zvečer slišala dva zvona: enega iz moje cerkve in enega z druge strani meje, iz Slovenije.", "en": "When I lived in Gorizia, in the evening I heard two bells: one from my church and one from across the border, in Slovenia.", "de": "Als ich in Görz wohnte, hörte ich abends zwei Glocken: eine von meiner Kirche und eine von jenseits der Grenze, in Slowenien." },
+        { "who": "nives", "it": "Mia madre diceva che, quando suonavano insieme, il confine spariva per un minuto.", "sl": "Moja mama je rekla, da je meja za minuto izginila, ko sta zvonila skupaj.", "en": "My mother used to say that when they rang together, the border vanished for a minute.", "de": "Meine Mutter sagte, wenn sie zusammen läuteten, verschwand die Grenze für eine Minute." },
+        { "choices": [
+          { "it": "Che bello: per un minuto le due città diventavano una!", "sl": "Kako lepo: za minuto sta dve mesti postali eno!", "en": "How lovely: for a minute the two towns became one!", "de": "Wie schön: Für eine Minute wurden die zwei Städte eins!", "ok": true,
+            "reply": { "face": "shy", "it": "Proprio così, {learner}. E io, da bambina, contavo i rintocchi per non perdere quel minuto.", "sl": "Prav tako, {learner}. Jaz pa sem kot deklica štela udarce, da ne bi zamudila tiste minute.", "en": "Exactly, {learner}. And as a girl I counted the strokes so as not to miss that minute.", "de": "Genau, {learner}. Und als Mädchen hab ich die Schläge gezählt, um diese Minute nicht zu verpassen." } },
+          { "it": "Quindi le campane slovene suonavano più forte, per coprire quelle italiane.", "sl": "Torej so slovenski zvonovi zvonili glasneje, da bi preglasili italijanske.", "en": "So the Slovene bells rang louder, to drown out the Italian ones.", "de": "Dann läuteten die slowenischen Glocken lauter, um die italienischen zu übertönen.",
+            "why": { "sl": "Nives govori o zvonovih, ki zvonijo skupaj; ni bilo tekme, kdo bo glasnejši.", "en": "Nives is talking about bells ringing together; it wasn't a contest of loudness.", "de": "Nives spricht von Glocken, die zusammen läuten; es war kein Wettstreit um die Lautstärke." },
+            "reply": { "face": "surprised", "it": "Più forte? Come? Cosa? No, no, non era una gara! Suonavano insieme, d'accordo.", "sl": "Glasneje? Kako? Kaj? Ne, ne, ni bilo tekmovanje! Zvonila sta skupaj, v sozvočju.", "en": "Louder? What? No, no, it wasn't a contest! They rang together, in harmony.", "de": "Lauter? Wie? Was? Nein, nein, das war kein Wettstreit! Sie läuteten zusammen, einträchtig." } }
+        ] },
+        { "who": "nives", "face": "curious", "it": "Adesso, con la mia radio, sento le notizie di tutte e due le città. Tu, se potessi scegliere, che cosa vorresti sentire la sera?", "sl": "Zdaj z radiom slišim novice iz obeh mest. Kaj bi ti, če bi lahko {m:izbral|f:izbrala}, {m:rad slišal|f:rada slišala} zvečer?", "en": "Now, with my radio, I hear the news from both towns. If you could choose, what would you like to hear in the evening?", "de": "Jetzt hör ich mit meinem Radio die Nachrichten aus beiden Städten. Was würdest du abends gern hören, wenn du wählen könntest?" },
+        { "choices": [
+          { "it": "Vorrei che le campane suonassero anche alla radio, ogni sera!", "sl": "{m:Rad|f:Rada} bi, da bi zvonovi zvonili tudi po radiu, vsak večer!", "en": "I'd like the bells to ring on the radio too, every evening!", "de": "Ich wünschte, die Glocken würden auch im Radio läuten, jeden Abend!", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah, ah! Lo chiedo al direttore della radio. Lo dico due volte!", "sl": "Ha, ha! To vprašam direktorja radia. Povem dvakrat!", "en": "Ha, ha! I'll ask the radio director. I'll say it twice!", "de": "Ha, ha! Das frag ich den Radiodirektor. Ich sag's zweimal!" } },
+          { "it": "Vorrei che le campane suonerebbero anche alla radio, ogni sera!", "sl": "{m:Rad|f:Rada} bi, da bi zvonovi zvonili tudi po radiu, vsak večer!", "en": "I'd like the bells to ring on the radio too, every evening!", "de": "Ich wünschte, die Glocken würden auch im Radio läuten, jeden Abend!",
+            "grammar": "congiuntivo-imperfetto", "why": { "sl": "Za vorrei che pride konjunktiv: che suonassero, ne pogojnik.", "en": "After vorrei che comes the congiuntivo: che suonassero, not the conditional.", "de": "Nach vorrei che kommt der Konjunktiv: che suonassero, nicht der Konditional." },
+            "reply": { "face": "curious", "it": "Suonerebbero? Se… che cosa? Come? Cosa? Le campane non mettono condizioni!", "sl": "Suonerebbero? Če … kaj? Kako? Kaj? Zvonovi ne postavljajo pogojev!", "en": "Suonerebbero? If… what? What? Bells don't set conditions!", "de": "Suonerebbero? Wenn … was? Wie? Was? Glocken stellen keine Bedingungen!" } }
+        ] },
+        { "who": "nives", "face": "happy", "it": "Senti? Adesso suona la campanella. Din, don… Buonanotte, {learner}. Buonanotte, cappelletta!", "sl": "Slišiš? Zdaj zvoni zvonček. Bim, bam … Lahko noč, {learner}. Lahko noč, kapelica!", "en": "Hear that? The little bell's ringing now. Ding, dong… Good night, {learner}. Good night, little chapel!", "de": "Hörst du? Jetzt läutet das Glöckchen. Bim, bam … Gute Nacht, {learner}. Gute Nacht, Kapelle!" }
+      ]
+    },
+    {
+      "id": "pellegrino-b1-pane",
+      "level": "B1",
+      "memory": { "it": "il pane per il pellegrino di Castelmonte", "sl": "kruh za romarja na Stari gori", "en": "the bread for the Castelmonte pilgrim", "de": "das Brot für den Pilger nach Castelmonte" },
+      "lines": [
+        { "who": "rosa", "it": "{learner}, guarda la strada: arriva un pellegrino, con il bastone e lo zaino. Va a Castelmonte, a piedi.", "sl": "{learner}, poglej cesto: prihaja romar, s palico in nahrbtnikom. Peš gre na Staro goro.", "en": "{learner}, look at the road: a pilgrim's coming, with a stick and a rucksack. He's walking to Castelmonte.", "de": "{learner}, schau auf die Straße: Da kommt ein Pilger, mit Stock und Rucksack. Er geht zu Fuß nach Castelmonte.", "fx": { "traveller": 0.3 } },
+        { "who": "rosa", "face": "worried", "it": "È stanco e ha fame, poverino. Ho qui un pezzo di pane. Vuoi portarlo tu al signore?", "sl": "Utrujen in lačen je, revček. Tu imam kos kruha. Mu ga hočeš nesti ti?", "en": "He's tired and hungry, poor thing. I've got a piece of bread here. Will you take it to the gentleman?", "de": "Er ist müde und hungrig, der Arme. Ich hab hier ein Stück Brot. Willst du es dem Herrn bringen?" },
+        { "choices": [
+          { "it": "Sì, nonna, glielo porto subito!", "sl": "Ja, babica, takoj mu ga nesem!", "en": "Yes, Nonna, I'll take it to him right away!", "de": "Ja, Oma, ich bring es ihm sofort!", "ok": true,
+            "reply": { "face": "happy", "it": "Grazie, tesoro. Un pezzo di pane fa felici tutti, anche i pellegrini.", "sl": "Hvala, srček. Kos kruha osreči vse, tudi romarje.", "en": "Thank you, sweetheart. A piece of bread makes everyone happy, pilgrims too.", "de": "Danke, Schatz. Ein Stück Brot macht alle glücklich, auch Pilger." } },
+          { "it": "Sì, nonna, gli lo porto subito!", "sl": "Ja, babica, takoj mu ga nesem!", "en": "Yes, Nonna, I'll take it to him right away!", "de": "Ja, Oma, ich bring es ihm sofort!",
+            "grammar": "pronomi-combinati", "why": { "sl": "Gli in lo se združita v eno besedo: glielo.", "en": "Gli and lo join into one word: glielo.", "de": "Gli und lo werden ein Wort: glielo." },
+            "reply": { "face": "curious", "it": "Gli lo? Tesoro, il pane va bene, ma le parole vanno attaccate!", "sl": "Gli lo? Srček, kruh je v redu, besedi pa morata biti skupaj!", "en": "Gli lo? Sweetheart, the bread's fine, but the words go together!", "de": "Gli lo? Schatz, das Brot passt, aber die Wörter gehören zusammen!" } }
+        ] },
+        { "who": "rosa", "face": "thinking", "it": "Da ragazza ci sono andata anch'io, a piedi, con mia mamma. È una chiesa antica, in cima a un monte vicino a Cividale.", "sl": "Kot dekle sem šla tudi jaz, peš, z mamo. To je stara cerkev na vrhu hriba blizu Čedada.", "en": "As a girl I went there too, on foot, with my mum. It's an old church, on top of a mountain near Cividale.", "de": "Als Mädchen bin ich auch hingegangen, zu Fuß, mit meiner Mama. Das ist eine alte Kirche, oben auf einem Berg bei Cividale." },
+        { "choices": [
+          { "it": "È il santuario da cui si vede tutto il Friuli?", "sl": "Je to božja pot, s katere se vidi vsa Furlanija?", "en": "Is it the sanctuary you can see all of Friuli from?", "de": "Ist das der Wallfahrtsort, von dem aus man ganz Friaul sieht?", "ok": true,
+            "reply": { "face": "proud", "it": "Quasi tutto! E nelle giornate di bora, anche il mare.", "sl": "Skoraj vsa! In ob burji tudi morje.", "en": "Nearly all! And on bora days, the sea too.", "de": "Fast ganz! Und an Bora-Tagen auch das Meer." } },
+          { "it": "È il santuario in cui si vede tutto il Friuli?", "sl": "Je to božja pot, s katere se vidi vsa Furlanija?", "en": "Is it the sanctuary you can see all of Friuli from?", "de": "Ist das der Wallfahrtsort, von dem aus man ganz Friaul sieht?",
+            "grammar": "relativi-cui", "why": { "sl": "Od kod se vidi, pove da: da cui (s katere). In cui je »v kateri«.", "en": "From where you see, it's da: da cui. In cui is «in which».", "de": "Von wo aus man sieht, sagt da: da cui. In cui heißt «in dem»." },
+            "reply": { "face": "curious", "it": "In cui? Dentro la chiesa? No, no, tesoro: dentro si vedono solo le candele!", "sl": "In cui? V cerkvi? Ne, ne, srček: notri se vidijo samo sveče!", "en": "In cui? Inside the church? No, no, sweetheart: inside you only see the candles!", "de": "In cui? In der Kirche? Nein, nein, Schatz: Drinnen sieht man nur die Kerzen!" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Il pellegrino ci saluta da lontano. Buon cammino! E tu, tesoro, vieni: c'è la merenda anche per te.", "sl": "Romar nama maha od daleč. Srečno pot! Ti pa, srček, pridi: malica je tudi zate.", "en": "The pilgrim's waving to us from afar. Safe journey! And you, sweetheart, come: there's a snack for you too.", "de": "Der Pilger winkt uns von weitem. Gute Reise! Und du, Schatz, komm: Es gibt auch für dich eine Jause.", "fx": { "traveller": 0.6 } }
+      ]
+    },
+    {
+      "id": "pellegrino-b2-salita",
+      "level": "B2",
+      "memory": { "it": "la salita a Castelmonte con mia mamma", "sl": "vzpon na Staro goro z mojo mamo", "en": "the climb to Castelmonte with my mother", "de": "den Aufstieg nach Castelmonte mit meiner Mama" },
+      "lines": [
+        { "who": "rosa", "face": "thinking", "it": "Quando avevo dodici anni, salii a Castelmonte con mia mamma. Partimmo da Cividale prima dell'alba, con il pane e il formaggio nella borsa.", "sl": "Ko sem imela dvanajst let, sem se z mamo povzpela na Staro goro. Iz Čedada sva šli pred zoro, s kruhom in sirom v torbi.", "en": "When I was twelve, I climbed to Castelmonte with my mum. We left Cividale before dawn, with bread and cheese in the bag.", "de": "Als ich zwölf war, stieg ich mit meiner Mama nach Castelmonte hinauf. Wir brachen vor Sonnenaufgang in Cividale auf, mit Brot und Käse in der Tasche." },
+        { "who": "rosa", "face": "laugh", "it": "Per tre ore salimmo, salimmo… Io mi lamentavo a ogni curva, e lei rideva.", "sl": "Tri ure sva se vzpenjali in vzpenjali … Jaz sem tarnala ob vsakem ovinku, ona pa se je smejala.", "en": "For three hours we climbed and climbed… I complained at every bend, and she laughed.", "de": "Drei Stunden lang stiegen und stiegen wir … Ich jammerte bei jeder Kurve, und sie lachte." },
+        { "choices": [
+          { "it": "E arrivate in cima, che cosa avete visto?", "sl": "In ko sta prišli na vrh, kaj sta videli?", "en": "And once you'd got to the top, what did you see?", "de": "Und oben angekommen, was habt ihr gesehen?", "ok": true,
+            "reply": { "face": "proud", "it": "Il Friuli intero, fino al mare! E mia mamma mi disse: «Vedi? La fatica è già dimenticata.»", "sl": "Vso Furlanijo, do morja! In mama mi je rekla: »Vidiš? Trud je že pozabljen.«", "en": "All of Friuli, right to the sea! And my mum said: «See? The effort's already forgotten.»", "de": "Ganz Friaul, bis zum Meer! Und meine Mama sagte: «Siehst du? Die Mühe ist schon vergessen.»" } },
+          { "it": "E arrivato in cima, che cosa avete visto?", "sl": "In ko sta prišli na vrh, kaj sta videli?", "en": "And once you'd got to the top, what did you see?", "de": "Und oben angekommen, was habt ihr gesehen?",
+            "grammar": "participio-assoluto", "why": { "sl": "Deležnik se ujema z osebama: ti in tvoja mama (ženski, množina), arrivate.", "en": "The participle agrees with the people: you and your mum (feminine, plural), arrivate.", "de": "Das Partizip richtet sich nach den Personen: du und deine Mama (weiblich, Mehrzahl), arrivate." },
+            "reply": { "face": "curious", "it": "Arrivato? Chi, un signore? Eravamo due donne, tesoro: io e la mamma!", "sl": "Arrivato? Kdo, en gospod? Bili sva dve ženski, srček: jaz in mama!", "en": "Arrivato? Who, a gentleman? We were two women, sweetheart: me and my mum!", "de": "Arrivato? Wer, ein Herr? Wir waren zwei Frauen, Schatz: ich und meine Mama!" } }
+        ] },
+        { "who": "rosa", "face": "curious", "it": "Oggi si arriva su in macchina in dieci minuti. Secondo te, è la stessa cosa?", "sl": "Danes pripelješ gor z avtom v desetih minutah. Kaj misliš, je to isto?", "en": "Today you drive up in ten minutes. Do you think it's the same thing?", "de": "Heute fährt man in zehn Minuten mit dem Auto hinauf. Ist das dasselbe, meinst du?" },
+        { "choices": [
+          { "it": "Forse no: senza la fatica della salita, il panorama non sembrerebbe così bello.", "sl": "Morda ne: brez truda vzpona razgled ne bi bil videti tako lep.", "en": "Maybe not: without the effort of the climb, the view wouldn't seem so beautiful.", "de": "Vielleicht nicht: Ohne die Mühe des Aufstiegs käme einem die Aussicht nicht so schön vor.", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio così. Un giorno ci andiamo insieme, a piedi. Piano piano: io con il bastone, tu con la merenda!", "sl": "Prav tako. Nekoč greva skupaj, peš. Počasi: jaz s palico, ti z malico!", "en": "Exactly. One day we'll go together, on foot. Slowly: me with the stick, you with the snack!", "de": "Genau. Eines Tages gehen wir zusammen, zu Fuß. Langsam: ich mit dem Stock, du mit der Jause!" } },
+          { "it": "Sì, è proprio uguale, perché adesso il monte è più basso.", "sl": "Ja, čisto enako je, ker je hrib zdaj nižji.", "en": "Yes, it's just the same, because the mountain is lower now.", "de": "Ja, genau dasselbe, weil der Berg jetzt niedriger ist.",
+            "why": { "sl": "Hrib je enak kot prej; Rosa sprašuje o vzponu, ne o višini.", "en": "The mountain is the same as before; Rosa is asking about the climb, not the height.", "de": "Der Berg ist derselbe wie früher; Rosa fragt nach dem Aufstieg, nicht nach der Höhe." },
+            "reply": { "face": "laugh", "it": "Più basso? Ah, ah! I monti non si abbassano, tesoro, nemmeno per le nonne!", "sl": "Nižji? Ha, ha! Hribi se ne nižajo, srček, niti za babice ne!", "en": "Lower? Ha, ha! Mountains don't get lower, sweetheart, not even for grannies!", "de": "Niedriger? Ha, ha! Berge werden nicht niedriger, Schatz, nicht mal für Omas!" } }
+        ] },
+        { "who": "rosa", "face": "happy", "it": "Allora è deciso. In primavera, quando i giorni sono lunghi, partiamo prima dell'alba, come io e la mia mamma.", "sl": "Potem je dogovorjeno. Spomladi, ko so dnevi dolgi, odideva pred zoro, kot jaz in moja mama.", "en": "Then it's settled. In spring, when the days are long, we'll leave before dawn, like me and my mum.", "de": "Dann ist es beschlossen. Im Frühling, wenn die Tage lang sind, brechen wir vor Sonnenaufgang auf, wie ich und meine Mama." }
       ]
     }
   ]

@@ -4276,7 +4276,11 @@ the trigger, the case and the question the lens names (`TurnHintLensTest`; the s
 so, `bun test/hint-lens.ts --write` records them again). An Italian turn's chip has Italian's own table, in the app
 too (`game/ItalianHints.kt`; docs/plans/05-built/hint-chip-it.md): every page's rule in words and what the sentence shows
 of it (the noun an article goes with, who does it, who is spoken to, the participle that picks essere or avere, the
-word that asks for the congiuntivo …), from word lists, without the bridge.
+word that asks for the congiuntivo …), from word lists, without the bridge. An English turn's chip has English's (`game/EnglishHints.kt`;
+docs/plans/05-built/hint-chip-en.md): every page's rule in words (its card's) and the word beside the form that decides
+it (who does it, the helper before a verb, the -ing form after be, what there is, the first sound after a or an, a number
+before a noun, whose it is, a no before any, the place or time after a preposition …). The chip takes the scene's and
+the village's names for people (`TurnHints.of`'s cast), and on a tie `Forms.turn` takes the word a rule names.
 
 **German's lens** (docs/plans/05-built/case-de.md): a German village's word shows its case the same way, read by
 `bridge/src/case-lens-de.ts` from German's own trigger table (`companion/grammar/de/data/case-triggers.json`, made by

@@ -363,6 +363,133 @@
               "done": true
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "{learner}, mio nonno diceva che un mulino va messo dove l'acqua non riposa mai. Tu dove lo metteresti?",
+              "sl": "{learner}, moj ded je govoril, da je treba mlin postaviti tja, kjer voda nikoli ne počiva. Kam bi ga {m:postavil|f:postavila} ti?",
+              "en": "{learner}, my grandfather used to say a mill has to go where the water never rests. Where would you put it?",
+              "de": "{learner}, mein Großvater sagte, eine Mühle gehöre dorthin, wo das Wasser nie ruht. Wohin würdest du sie stellen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Nel posto nel quale l'acqua corre più veloce.",
+                  "sl": "Na mesto, kjer voda teče najhitreje.",
+                  "en": "In the place where the water runs fastest.",
+                  "de": "An die Stelle, an der das Wasser am schnellsten fließt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. E per trovarlo basta ascoltare.",
+                    "sl": "Prav. In da ga najdeš, je dovolj poslušati.",
+                    "en": "Right. And to find it, you only have to listen.",
+                    "de": "Richtig. Und um sie zu finden, muss man nur hinhören."
+                  }
+                },
+                {
+                  "it": "Nel posto nella quale l'acqua corre più veloce.",
+                  "sl": "Na mesto, kjer voda teče najhitreje.",
+                  "en": "In the place where the water runs fastest.",
+                  "de": "An die Stelle, an der das Wasser am schnellsten fließt.",
+                  "grammar": "relativi-il-quale",
+                  "why": {
+                    "sl": "Il quale se ujema s svojim samostalnikom: il posto, torej nel quale.",
+                    "en": "Il quale agrees with its noun: il posto, so nel quale.",
+                    "de": "Il quale richtet sich nach seinem Nomen: il posto, also nel quale."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Nella quale? Il posto è uno solo, ma la frase ne cerca un altro.",
+                    "sl": "Nella quale? Mesto je eno samo, stavek pa išče drugega.",
+                    "en": "Nella quale? There's only one place, but the sentence is looking for another.",
+                    "de": "Nella quale? Es gibt nur eine Stelle, aber der Satz sucht eine andere."
+                  }
+                },
+                {
+                  "it": "Nel cappello nel quale l'acqua corre più veloce.",
+                  "sl": "V klobuk, v katerem voda teče najhitreje.",
+                  "en": "In the hat where the water runs fastest.",
+                  "de": "In den Hut, in dem das Wasser am schnellsten fließt.",
+                  "why": {
+                    "sl": "Gospod Franco išče mesto: il posto. Il cappello je klobuk.",
+                    "en": "Mr Franco is looking for a place: il posto. Il cappello is a hat.",
+                    "de": "Herr Franco sucht eine Stelle: il posto. Il cappello ist ein Hut."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Nel cappello? Quello si chiama secchio, e perde pure.",
+                    "sl": "V klobuk? Temu se reče vedro, pa še pušča.",
+                    "en": "In the hat? That's called a bucket, and it leaks too.",
+                    "de": "In den Hut? Das heißt Eimer, und der ist auch noch undicht."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bruno",
+              "it": "E là, dove l'acqua salta sui sassi? Sembra che abbia fretta.",
+              "sl": "Pa tam, kjer voda skače po kamnih? Videti je, kot da se ji mudi.",
+              "en": "And over there, where the water jumps over the stones? It looks as if it's in a hurry.",
+              "de": "Und dort, wo das Wasser über die Steine springt? Es sieht aus, als hätte es es eilig."
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Lì è più veloce, perché il ruscello scende.",
+                  "sl": "Tam je hitrejša, ker potok teče navzdol.",
+                  "en": "It's faster there, because the stream runs downhill.",
+                  "de": "Dort ist es schneller, weil der Bach bergab fließt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Proprio così. Lì la ruota non starà mai ferma.",
+                    "sl": "Prav tako. Tam kolo ne bo nikoli mirovalo.",
+                    "en": "Exactly. The wheel will never stand still there.",
+                    "de": "Genau. Dort steht das Rad nie still."
+                  }
+                },
+                {
+                  "it": "Lì è più fredda, perché il ruscello scende.",
+                  "sl": "Tam je bolj mrzla, ker potok teče navzdol.",
+                  "en": "It's colder there, because the stream runs downhill.",
+                  "de": "Dort ist es kälter, weil der Bach bergab fließt.",
+                  "why": {
+                    "sl": "Voda, ki skače po kamnih, je hitra: veloce. Mraz ne zavrti kolesa.",
+                    "en": "Water that jumps over the stones is fast: veloce. Cold turns no wheel.",
+                    "de": "Wasser, das über Steine springt, ist schnell: veloce. Kälte dreht kein Rad."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Più fredda? A una ruota il freddo non dà fastidio.",
+                    "sl": "Bolj mrzla? Kolesa mraz ne moti.",
+                    "en": "Colder? A wheel doesn't mind the cold.",
+                    "de": "Kälter? Ein Rad stört die Kälte nicht."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "proud",
+              "it": "Bene, è deciso: vicino al ruscello, dove l'acqua corre più veloce. L'ho segnato con un palo.",
+              "sl": "Dobro, odločeno je: ob potoku, kjer voda teče najhitreje. Označil sem s kolom.",
+              "en": "Good, it's decided: by the stream, where the water runs fastest. I've marked it with a stake.",
+              "de": "Gut, es ist entschieden: am Bach, wo das Wasser am schnellsten fließt. Ich habe es mit einem Pflock markiert.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -813,6 +940,133 @@
               "done": true
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "{learner}, oggi i vicini hanno lavorato tutto il giorno. Se qualcuno ti chiede che cosa hanno fatto, come glielo racconti?",
+              "sl": "{learner}, danes so sosedje delali ves dan. Če te kdo vpraša, kaj so naredili, kako mu poveš?",
+              "en": "{learner}, the neighbours worked all day today. If anyone asks you what they did, how do you tell it?",
+              "de": "{learner}, die Nachbarn haben heute den ganzen Tag gearbeitet. Wenn dich jemand fragt, was sie gemacht haben, wie erzählst du es?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Avendo scavato tutto il giorno, i vicini hanno gettato le fondamenta.",
+                  "sl": "Ker so sosedje ves dan kopali, so postavili temelje.",
+                  "en": "Having dug all day, the neighbours laid the foundations.",
+                  "de": "Nachdem sie den ganzen Tag gegraben hatten, haben die Nachbarn das Fundament gelegt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. E di pietra, così durano cent'anni.",
+                    "sl": "Prav. In iz kamna, da bodo zdržali sto let.",
+                    "en": "Right. And of stone, so they last a hundred years.",
+                    "de": "Richtig. Und aus Stein, damit es hundert Jahre hält."
+                  }
+                },
+                {
+                  "it": "Essendo scavato tutto il giorno, i vicini hanno gettato le fondamenta.",
+                  "sl": "Ker so sosedje ves dan kopali, so postavili temelje.",
+                  "en": "Having dug all day, the neighbours laid the foundations.",
+                  "de": "Nachdem sie den ganzen Tag gegraben hatten, haben die Nachbarn das Fundament gelegt.",
+                  "grammar": "gerundio-passato",
+                  "why": {
+                    "sl": "Scavare tvori preteklik z avere: avendo scavato.",
+                    "en": "Scavare forms its past with avere: avendo scavato.",
+                    "de": "Scavare bildet die Vergangenheit mit avere: avendo scavato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Essendo scavato? Chi, io? Io sono ancora tutto intero.",
+                    "sl": "Essendo scavato? Kdo, jaz? Jaz sem še čisto cel.",
+                    "en": "Essendo scavato? Who, me? I'm still all in one piece.",
+                    "de": "Essendo scavato? Wer, ich? Ich bin noch ganz heil."
+                  }
+                },
+                {
+                  "it": "Avendo ballato tutto il giorno, i vicini hanno gettato le fondamenta.",
+                  "sl": "Ker so sosedje ves dan plesali, so postavili temelje.",
+                  "en": "Having danced all day, the neighbours laid the foundations.",
+                  "de": "Nachdem sie den ganzen Tag getanzt hatten, haben die Nachbarn das Fundament gelegt.",
+                  "why": {
+                    "sl": "Za temelje je treba najprej kopati: scavare. Ballare je plesati.",
+                    "en": "For foundations you dig first: scavare. Ballare is to dance.",
+                    "de": "Für ein Fundament gräbt man zuerst: scavare. Ballare heißt tanzen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Ballato? La festa viene dopo. Prima si suda.",
+                    "sl": "Plesali? Veselica pride pozneje. Najprej se potimo.",
+                    "en": "Danced? The party comes later. First we sweat.",
+                    "de": "Getanzt? Das Fest kommt später. Erst wird geschwitzt."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "E perché proprio di pietra? Il legno non bastava?",
+              "sl": "Zakaj pa ravno iz kamna? Les ne bi zadostoval?",
+              "en": "And why of stone? Wouldn't wood have done?",
+              "de": "Und warum ausgerechnet aus Stein? Hätte Holz nicht gereicht?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Perché le fondamenta di pietra non marciscono con l'acqua.",
+                  "sl": "Ker kamniti temelji v vodi ne gnijejo.",
+                  "en": "Because stone foundations don't rot in the water.",
+                  "de": "Weil ein Fundament aus Stein im Wasser nicht fault.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto. Un mulino sta in piedi per quello che non si vede.",
+                    "sl": "Prav. Mlin stoji zaradi tistega, česar se ne vidi.",
+                    "en": "Right. A mill stands because of what you can't see.",
+                    "de": "Richtig. Eine Mühle steht dank dem, was man nicht sieht."
+                  }
+                },
+                {
+                  "it": "Perché le finestre di pietra non marciscono con l'acqua.",
+                  "sl": "Ker kamnita okna v vodi ne gnijejo.",
+                  "en": "Because stone windows don't rot in the water.",
+                  "de": "Weil Fenster aus Stein im Wasser nicht faulen.",
+                  "why": {
+                    "sl": "Pod mlinom, ob vodi, so temelji: le fondamenta. Okna pridejo pozneje.",
+                    "en": "Under a mill, by the water, are the foundations: le fondamenta. Windows come later.",
+                    "de": "Unter einer Mühle, am Wasser, liegt das Fundament: le fondamenta. Fenster kommen später."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le finestre? Sotto terra? Così guardiamo i lombrichi.",
+                    "sl": "Okna? Pod zemljo? Da bomo gledali deževnike.",
+                    "en": "Windows? Underground? So we can watch the worms.",
+                    "de": "Fenster? Unter der Erde? Damit wir den Regenwürmern zuschauen."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "proud",
+              "it": "Bene. Le fondamenta sono pronte, e sono di pietra. Adesso può venire tutto il resto.",
+              "sl": "Dobro. Temelji so gotovi, in to iz kamna. Zdaj lahko pride vse drugo.",
+              "en": "Good. The foundations are ready, and they're stone. Now everything else can come.",
+              "de": "Gut. Das Fundament ist fertig, und zwar aus Stein. Jetzt kann alles andere kommen.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -1198,6 +1452,134 @@
               "sl": "Dobro. Vsa vas je pomagala in zdaj leseni zidovi stojijo. Hvala vsem.",
               "en": "Good. The whole village has helped, and now the wooden walls are standing. Thank you all.",
               "de": "Gut. Das ganze Dorf hat geholfen, und jetzt stehen die Holzwände. Danke euch allen.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "face": "surprised",
+              "it": "{learner}, stamattina sono arrivato alle sei e il paese era già qui. Chi l'avrebbe mai detto!",
+              "sl": "{learner}, zjutraj sem prišel ob šestih, vas pa je bila že tu. Kdo bi si mislil!",
+              "en": "{learner}, this morning I got here at six and the village was already here. Who'd have thought it!",
+              "de": "{learner}, heute Morgen war ich um sechs da, und das Dorf war schon hier. Wer hätte das gedacht!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Pensavo anch'io che qualcuno avesse portato le travi già ieri sera.",
+                  "sl": "Tudi jaz sem {m:mislil|f:mislila}, da je kdo prinesel tramove že sinoči.",
+                  "en": "I thought someone had brought the beams last night already, too.",
+                  "de": "Ich dachte auch, jemand hätte die Balken schon gestern Abend gebracht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "surprised",
+                    "it": "Proprio così! Prima di me. Non mi era mai successo.",
+                    "sl": "Prav tako! Pred mano. To se mi še ni zgodilo.",
+                    "en": "Just so! Before me. That had never happened to me.",
+                    "de": "Genau so! Vor mir. Das ist mir noch nie passiert."
+                  }
+                },
+                {
+                  "it": "Pensavo anch'io che qualcuno fosse portato le travi già ieri sera.",
+                  "sl": "Tudi jaz sem {m:mislil|f:mislila}, da je kdo prinesel tramove že sinoči.",
+                  "en": "I thought someone had brought the beams last night already, too.",
+                  "de": "Ich dachte auch, jemand hätte die Balken schon gestern Abend gebracht.",
+                  "grammar": "congiuntivo-trapassato",
+                  "why": {
+                    "sl": "Portare tvori preteklik z avere: che qualcuno avesse portato.",
+                    "en": "Portare forms its past with avere: che qualcuno avesse portato.",
+                    "de": "Portare bildet die Vergangenheit mit avere: che qualcuno avesse portato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Fosse portato? E da chi, dal vento? Rifacciamo.",
+                    "sl": "Fosse portato? In kdo, veter? Še enkrat.",
+                    "en": "Fosse portato? By whom, the wind? Let's try again.",
+                    "de": "Fosse portato? Und von wem, vom Wind? Noch mal."
+                  }
+                },
+                {
+                  "it": "Pensavo anch'io che qualcuno avesse portato le trote già ieri sera.",
+                  "sl": "Tudi jaz sem {m:mislil|f:mislila}, da je kdo prinesel postrvi že sinoči.",
+                  "en": "I thought someone had brought the trout last night already, too.",
+                  "de": "Ich dachte auch, jemand hätte die Forellen schon gestern Abend gebracht.",
+                  "why": {
+                    "sl": "Za stene so potrebni tramovi: le travi. Le trote so postrvi.",
+                    "en": "For the walls you need beams: le travi. Le trote are trout.",
+                    "de": "Für die Wände braucht man Balken: le travi. Le trote sind Forellen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le trote? Alle sei del mattino? Che profumo!",
+                    "sl": "Postrvi? Ob šestih zjutraj? Kakšen vonj!",
+                    "en": "Trout? At six in the morning? What a smell!",
+                    "de": "Forellen? Um sechs Uhr früh? Was für ein Duft!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "rosa",
+              "face": "curious",
+              "it": "Ma perché i muri di legno, e non di pietra, come le case?",
+              "sl": "Zakaj pa lesene stene in ne kamnite, kot pri hišah?",
+              "en": "But why wooden walls, and not stone ones, like the houses?",
+              "de": "Aber warum Wände aus Holz und nicht aus Stein, wie bei den Häusern?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Perché un muro di legno si alza in un giorno, se aiutano tutti.",
+                  "sl": "Ker se lesena stena postavi v enem dnevu, če pomagajo vsi.",
+                  "en": "Because a wooden wall goes up in a day, if everyone helps.",
+                  "de": "Weil eine Holzwand an einem Tag steht, wenn alle helfen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. E pesa meno, sopra le fondamenta.",
+                    "sl": "Prav. In na temeljih manj tehta.",
+                    "en": "Right. And it weighs less on the foundations.",
+                    "de": "Richtig. Und sie wiegt weniger auf dem Fundament."
+                  }
+                },
+                {
+                  "it": "Perché un mulo di legno si alza in un giorno, se aiutano tutti.",
+                  "sl": "Ker se lesena mula postavi v enem dnevu, če pomagajo vsi.",
+                  "en": "Because a wooden mule goes up in a day, if everyone helps.",
+                  "de": "Weil ein Maultier aus Holz an einem Tag steht, wenn alle helfen.",
+                  "why": {
+                    "sl": "Postavljamo stene: il muro. Un mulo je mula.",
+                    "en": "We're raising walls: il muro. Un mulo is a mule.",
+                    "de": "Wir stellen Wände auf: il muro. Un mulo ist ein Maultier."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un mulo di legno? Testardo come quello vero, scommetto.",
+                    "sl": "Lesena mula? Gotovo trmasta kot prava.",
+                    "en": "A wooden mule? As stubborn as a real one, I bet.",
+                    "de": "Ein Holzmaultier? So stur wie ein echtes, wette ich."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "proud",
+              "it": "Bene. Tutto il paese ha aiutato, e ora i muri di legno sono in piedi. Grazie, gente.",
+              "sl": "Dobro. Vsa vas je pomagala in zdaj lesene stene stojijo. Hvala, ljudje.",
+              "en": "Good. The whole village helped, and now the wooden walls are standing. Thank you, everyone.",
+              "de": "Gut. Das ganze Dorf hat geholfen, und jetzt stehen die Holzwände. Danke, Leute.",
               "done": true
             }
           ]
@@ -1613,6 +1995,158 @@
               "done": true
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "it": "{learner}, i ragazzi sono sul tetto. Tu resti giù con me e passi le ceste. Non farle riempire troppo, però.",
+              "sl": "{learner}, fantje so na strehi. Ti ostaneš spodaj z mano in podajaš košare. Ampak naj jih ne napolnijo preveč.",
+              "en": "{learner}, the lads are on the roof. You stay down with me and pass the baskets. Don't have them filled too full, though.",
+              "de": "{learner}, die Jungs sind auf dem Dach. Du bleibst mit mir unten und reichst die Körbe. Lass sie aber nicht zu voll machen."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Me le faccio riempire a metà, così non cade niente.",
+                  "sl": "Naj mi jih napolnijo do polovice, da nič ne pade.",
+                  "en": "I'll have them filled halfway, so nothing falls.",
+                  "de": "Ich lasse sie mir halb füllen, dann fällt nichts heraus.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Bene. Una cesta alla volta: non è una gara.",
+                    "sl": "Dobro. Ena košara naenkrat: ni tekma.",
+                    "en": "Good. One basket at a time: it's not a race.",
+                    "de": "Gut. Ein Korb nach dem anderen: Es ist kein Wettrennen."
+                  }
+                },
+                {
+                  "it": "Me le faccio a riempire a metà, così non cade niente.",
+                  "sl": "Naj mi jih napolnijo do polovice, da nič ne pade.",
+                  "en": "I'll have them filled halfway, so nothing falls.",
+                  "de": "Ich lasse sie mir halb füllen, dann fällt nichts heraus.",
+                  "grammar": "fare-lasciare",
+                  "why": {
+                    "sl": "Za fare sledi nedoločnik brez predloga: me le faccio riempire.",
+                    "en": "After fare the infinitive follows straight, with no a: me le faccio riempire.",
+                    "de": "Nach fare folgt der Infinitiv direkt, ohne a: me le faccio riempire."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Faccio a riempire? Riempi la cesta, {learner}, non la frase!",
+                    "sl": "Faccio a riempire? Napolni košaro, {learner}, ne stavka!",
+                    "en": "Faccio a riempire? Fill the basket, {learner}, not the sentence!",
+                    "de": "Faccio a riempire? Füll den Korb, {learner}, nicht den Satz!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bruno",
+              "face": "curious",
+              "it": "Ma perché queste tavolette di legno, e non le tegole?",
+              "sl": "Zakaj pa te lesene deščice in ne strešniki?",
+              "en": "But why these little wooden boards, and not tiles?",
+              "de": "Aber warum diese Holzbrettchen und nicht die Ziegel?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Perché le scandole pesano meno delle tegole.",
+                  "sl": "Ker so skodle lažje od strešnikov.",
+                  "en": "Because shingles weigh less than tiles.",
+                  "de": "Weil Schindeln weniger wiegen als Ziegel.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Un muro di legno non vuole un tetto di pietra.",
+                    "sl": "Prav. Lesena stena noče kamnite strehe.",
+                    "en": "Right. A wooden wall doesn't want a stone roof.",
+                    "de": "Richtig. Eine Holzwand will kein Steindach."
+                  }
+                },
+                {
+                  "it": "Perché le scarpe pesano meno delle tegole.",
+                  "sl": "Ker so čevlji lažji od strešnikov.",
+                  "en": "Because shoes weigh less than tiles.",
+                  "de": "Weil Schuhe weniger wiegen als Ziegel.",
+                  "why": {
+                    "sl": "Deščice za streho so skodle: le scandole. Le scarpe so čevlji.",
+                    "en": "The little boards for the roof are shingles: le scandole. Le scarpe are shoes.",
+                    "de": "Die Brettchen fürs Dach sind Schindeln: le scandole. Le scarpe sind Schuhe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le scarpe? Sul tetto? Con la pioggia, i piedi si bagnano lo stesso.",
+                    "sl": "Čevlji? Na strehi? Ob dežju se noge vseeno zmočijo.",
+                    "en": "Shoes? On the roof? When it rains, feet get wet all the same.",
+                    "de": "Schuhe? Auf dem Dach? Bei Regen werden die Füße trotzdem nass."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "it": "E allora dimmi: tutte queste, una sopra l'altra, a che cosa servono?",
+              "sl": "Pa mi povej: vse te, ena na drugi, čemu služijo?",
+              "en": "Then tell me: all of these, one on top of the other, what are they for?",
+              "de": "Dann sag mir: All die, eine über der anderen, wozu sind die gut?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Servono a coprire il tetto, come le squame di un pesce.",
+                  "sl": "Pokrijejo streho, kot luske ribo.",
+                  "en": "They cover the roof, like a fish's scales.",
+                  "de": "Sie decken das Dach, wie die Schuppen eines Fisches.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Bella questa. Piccole, ma insieme fanno un tetto.",
+                    "sl": "Lepo rečeno. Majhne, a skupaj naredijo streho.",
+                    "en": "Nicely put. Small, but together they make a roof.",
+                    "de": "Schön gesagt. Klein, aber zusammen ergeben sie ein Dach."
+                  }
+                },
+                {
+                  "it": "Servono a colorare il tetto, come le squame di un pesce.",
+                  "sl": "Pobarvajo streho, kot luske ribo.",
+                  "en": "They colour the roof, like a fish's scales.",
+                  "de": "Sie malen das Dach an, wie die Schuppen eines Fisches.",
+                  "why": {
+                    "sl": "Skodle odbijajo dež: coprire, pokriti. Colorare je barvati.",
+                    "en": "Shingles keep the rain out: coprire, to cover. Colorare is to colour in.",
+                    "de": "Schindeln halten den Regen ab: coprire, decken. Colorare heißt anmalen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Colorare? Non è mica un disegno.",
+                    "sl": "Barvati? Saj ni risba.",
+                    "en": "Colour in? It's not a drawing.",
+                    "de": "Anmalen? Das ist doch keine Zeichnung."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "proud",
+              "it": "I ragazzi hanno coperto il tetto con le scandole. Mille e venti. Le ho contate io.",
+              "sl": "Fantje so streho pokrili s skodlami. Tisoč dvajset. Preštel sem jih jaz.",
+              "en": "The lads have covered the roof with shingles. A thousand and twenty. I counted them.",
+              "de": "Die Jungs haben das Dach mit Schindeln gedeckt. Tausendzwanzig. Ich habe sie gezählt.",
+              "done": true
+            }
+          ]
         }
       }
     },
@@ -1998,6 +2532,134 @@
               "sl": "Dobro. Naredil sem veliko leseno kolo in kanal za vodo. Jutri preizkus.",
               "en": "Good. I've made a big wooden wheel and a channel for the water. Tomorrow, the test.",
               "de": "Gut. Ich habe ein großes Holzrad und eine Rinne für das Wasser gebaut. Morgen die Probe.",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "{learner}, la ruota è pronta, ma da sola non gira. Magari l'acqua arrivasse già fin qui!",
+              "sl": "{learner}, kolo je gotovo, ampak samo se ne vrti. Ko bi le voda že prišla do sem!",
+              "en": "{learner}, the wheel's ready, but it doesn't turn by itself. If only the water reached this far already!",
+              "de": "{learner}, das Rad ist fertig, aber von allein dreht es sich nicht. Wenn das Wasser doch schon bis hierher käme!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Se pulissimo la roggia oggi, domani l'acqua arriverebbe.",
+                  "sl": "Če bi danes očistili mlinščico, bi voda jutri prišla.",
+                  "en": "If we cleaned the mill race today, the water would come tomorrow.",
+                  "de": "Wenn wir heute den Mühlbach reinigten, käme das Wasser morgen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Dieci metri oggi, e domani si vede.",
+                    "sl": "Prav. Danes deset metrov, jutri pa bomo videli.",
+                    "en": "Right. Ten metres today, and tomorrow we'll see.",
+                    "de": "Richtig. Heute zehn Meter, und morgen sehen wir weiter."
+                  }
+                },
+                {
+                  "it": "Se pulessimo la roggia oggi, domani l'acqua arriverebbe.",
+                  "sl": "Če bi danes očistili mlinščico, bi voda jutri prišla.",
+                  "en": "If we cleaned the mill race today, the water would come tomorrow.",
+                  "de": "Wenn wir heute den Mühlbach reinigten, käme das Wasser morgen.",
+                  "grammar": "congiuntivo-imperfetto",
+                  "why": {
+                    "sl": "Pulire je glagol na -ire: se pulissimo.",
+                    "en": "Pulire is an -ire verb: se pulissimo.",
+                    "de": "Pulire ist ein Verb auf -ire: se pulissimo."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Pulessimo? Questa parola non l'ho mai sentita.",
+                    "sl": "Pulessimo? Te besede še nisem slišal.",
+                    "en": "Pulessimo? Never heard that word.",
+                    "de": "Pulessimo? Das Wort habe ich noch nie gehört."
+                  }
+                },
+                {
+                  "it": "Se pulissimo la zuppa oggi, domani l'acqua arriverebbe.",
+                  "sl": "Če bi danes očistili juho, bi voda jutri prišla.",
+                  "en": "If we cleaned the soup today, the water would come tomorrow.",
+                  "de": "Wenn wir heute die Suppe reinigten, käme das Wasser morgen.",
+                  "why": {
+                    "sl": "Voda priteče po mlinščici: la roggia. La zuppa je juha.",
+                    "en": "The water comes along the mill race: la roggia. La zuppa is soup.",
+                    "de": "Das Wasser kommt durch den Mühlbach: la roggia. La zuppa ist Suppe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La zuppa? Allora stasera cucini tu.",
+                    "sl": "Juho? Potem nocoj kuhaš ti.",
+                    "en": "The soup? Then you're cooking tonight.",
+                    "de": "Die Suppe? Dann kochst du heute Abend."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "rosa",
+              "face": "curious",
+              "it": "Ma come fa un po' d'acqua a far girare una ruota così grande?",
+              "sl": "Kako pa lahko malo vode zavrti tako veliko kolo?",
+              "en": "But how can a little water turn such a big wheel?",
+              "de": "Aber wie kann ein bisschen Wasser so ein großes Rad drehen?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Spinge le pale, una dopo l'altra, senza fermarsi mai.",
+                  "sl": "Poriva lopate, eno za drugo, ne da bi se kdaj ustavila.",
+                  "en": "It pushes the paddles, one after another, without ever stopping.",
+                  "de": "Es drückt die Schaufeln, eine nach der anderen, ohne je aufzuhören.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto. Non serve forza, serve pazienza.",
+                    "sl": "Prav. Ni treba moči, treba je potrpežljivosti.",
+                    "en": "Right. It's not strength you need, it's patience.",
+                    "de": "Richtig. Man braucht keine Kraft, sondern Geduld."
+                  }
+                },
+                {
+                  "it": "Spinge le mele, una dopo l'altra, senza fermarsi mai.",
+                  "sl": "Poriva jabolka, eno za drugim, ne da bi se kdaj ustavila.",
+                  "en": "It pushes the apples, one after another, without ever stopping.",
+                  "de": "Es drückt die Äpfel, einen nach dem anderen, ohne je aufzuhören.",
+                  "why": {
+                    "sl": "Voda poriva lopate kolesa: le pale. Le mele so jabolka.",
+                    "en": "The water pushes the wheel's paddles: le pale. Le mele are apples.",
+                    "de": "Das Wasser drückt die Schaufeln des Rads: le pale. Le mele sind Äpfel."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le mele? Allora il mulino fa il succo, mica il pane!",
+                    "sl": "Jabolka? Potem mlin dela sok, ne kruha!",
+                    "en": "Apples? Then the mill makes juice, not bread!",
+                    "de": "Äpfel? Dann macht die Mühle Saft und kein Brot!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "proud",
+              "it": "Bene. La grande ruota di legno c'è, e il canale per l'acqua anche. Domani, la prova.",
+              "sl": "Dobro. Veliko leseno kolo je tu, pa tudi žleb za vodo. Jutri preizkus.",
+              "en": "Good. The big wooden wheel's there, and the channel for the water too. Tomorrow, the test.",
+              "de": "Gut. Das große Holzrad ist da und der Kanal fürs Wasser auch. Morgen die Probe.",
               "done": true
             }
           ]
@@ -2420,6 +3082,145 @@
               "sl": "Kolo se je vrtelo in mlin je zmlel prvo moko. Vsi na svež kruh! Mandi, adijo!",
               "en": "The wheel has turned and the mill has ground the first flour. Everyone to the fresh bread! Mandi, cheerio!",
               "de": "Das Rad hat sich gedreht, und die Mühle hat das erste Mehl gemahlen. Alle zum frischen Brot! Mandi, servus!",
+              "done": true
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "{learner}, la roggia è piena e il paese aspetta. Ho la mano sulla paratoia. Se la ruota non girasse, che figura farei!",
+              "sl": "{learner}, mlinščica je polna in vas čaka. Roko imam na zapornici. Če se kolo ne bi zavrtelo, kakšna sramota!",
+              "en": "{learner}, the mill race is full and the village is waiting. My hand's on the sluice gate. If the wheel didn't turn, what a fool I'd look!",
+              "de": "{learner}, der Mühlbach ist voll, und das Dorf wartet. Meine Hand liegt am Schieber. Wenn sich das Rad nicht drehte, wie stünde ich da!"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Vedrà come gira, signor Franco, come se non avesse fatto altro in vita sua.",
+                  "sl": "Boste videli, kako se vrti, gospod Franco, kot da vse življenje ni počelo nič drugega.",
+                  "en": "You'll see how it turns, Mr Franco, as if it had never done anything else in its life.",
+                  "de": "Sie werden sehen, wie es sich dreht, Herr Franco, als hätte es sein Leben lang nichts anderes getan.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Speriamo. Trattenete il fiato… adesso!",
+                    "sl": "Upajmo. Zadržite dih … zdaj!",
+                    "en": "Let's hope so. Hold your breath… now!",
+                    "de": "Hoffen wir's. Haltet den Atem an … jetzt!"
+                  }
+                },
+                {
+                  "it": "Vedrà come gira, signor Franco, come se non ha fatto altro in vita sua.",
+                  "sl": "Boste videli, kako se vrti, gospod Franco, kot da vse življenje ni počelo nič drugega.",
+                  "en": "You'll see how it turns, Mr Franco, as if it had never done anything else in its life.",
+                  "de": "Sie werden sehen, wie es sich dreht, Herr Franco, als hätte es sein Leben lang nichts anderes getan.",
+                  "grammar": "congiuntivo-trapassato",
+                  "why": {
+                    "sl": "Come se zahteva konjunktiv: come se non avesse fatto.",
+                    "en": "Come se takes the subjunctive: come se non avesse fatto.",
+                    "de": "Come se verlangt den Congiuntivo: come se non avesse fatto."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Come se non ha? Questa frase gira, ma al contrario.",
+                    "sl": "Come se non ha? Ta stavek se vrti, ampak v napačno smer.",
+                    "en": "Come se non ha? This sentence turns, but backwards.",
+                    "de": "Come se non ha? Dieser Satz dreht sich, aber rückwärts."
+                  }
+                },
+                {
+                  "it": "Vedrà come canta, signor Franco, come se non avesse fatto altro in vita sua.",
+                  "sl": "Boste videli, kako poje, gospod Franco, kot da vse življenje ni počelo nič drugega.",
+                  "en": "You'll see how it sings, Mr Franco, as if it had never done anything else in its life.",
+                  "de": "Sie werden sehen, wie es singt, Herr Franco, als hätte es sein Leben lang nichts anderes getan.",
+                  "why": {
+                    "sl": "Kolo se vrti: girare. Cantare je peti.",
+                    "en": "A wheel turns: girare. Cantare is to sing.",
+                    "de": "Ein Rad dreht sich: girare. Cantare heißt singen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Cantare? Se ci riesce, la porto alla festa.",
+                    "sl": "Peti? Če mu uspe, ga peljem na veselico.",
+                    "en": "Sing? If it manages, I'll take it to the party.",
+                    "de": "Singen? Wenn es das schafft, nehme ich es mit aufs Fest."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "face": "surprised",
+              "it": "Ecco l'acqua! Sei giri, sette, otto… Non sbaglia un colpo.",
+              "sl": "Tu je voda! Šest obratov, sedem, osem … Niti enkrat ne zgreši.",
+              "en": "Here comes the water! Six turns, seven, eight… It doesn't miss a beat.",
+              "de": "Da kommt das Wasser! Sechs Umdrehungen, sieben, acht … Kein einziger Fehltritt.",
+              "fx": {
+                "wheel": 1
+              }
+            },
+            {
+              "who": "rosa",
+              "face": "curious",
+              "it": "E quando la macina avrà finito, che cosa troveremo in questi sacchi?",
+              "sl": "Ko bo mlinski kamen končal, kaj bomo našli v teh vrečah?",
+              "en": "And when the millstone's finished, what will we find in these sacks?",
+              "de": "Und wenn der Mühlstein fertig ist, was finden wir dann in diesen Säcken?"
+            },
+            {
+              "to": "franco",
+              "choices": [
+                {
+                  "it": "Troveremo la prima farina macinata in paese.",
+                  "sl": "Našli bomo prvo moko, zmleto v vasi.",
+                  "en": "We'll find the first flour ground in the village.",
+                  "de": "Wir finden das erste Mehl, das im Dorf gemahlen wurde.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. E chi l'avrebbe detto, dieci mesi fa?",
+                    "sl": "Prav. In kdo bi si mislil pred desetimi meseci?",
+                    "en": "Right. And who'd have said so, ten months ago?",
+                    "de": "Richtig. Und wer hätte das vor zehn Monaten gedacht?"
+                  }
+                },
+                {
+                  "it": "Troveremo la prima rana macinata in paese.",
+                  "sl": "Našli bomo prvo žabo, zmleto v vasi.",
+                  "en": "We'll find the first frog ground in the village.",
+                  "de": "Wir finden den ersten Frosch, der im Dorf gemahlen wurde.",
+                  "why": {
+                    "sl": "Mlin melje moko: la farina. Una rana je žaba.",
+                    "en": "A mill grinds flour: la farina. Una rana is a frog.",
+                    "de": "Eine Mühle mahlt Mehl: la farina. Una rana ist ein Frosch."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una rana? Poverina! Le rane stanno nel ruscello, non nei sacchi.",
+                    "sl": "Žaba? Revica! Žabe so v potoku, ne v vrečah.",
+                    "en": "A frog? Poor thing! Frogs live in the stream, not in sacks.",
+                    "de": "Ein Frosch? Der Arme! Frösche wohnen im Bach, nicht in Säcken."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "proud",
+              "it": "La ruota ha girato e il mulino ha macinato la prima farina. Tutti a mangiare pane fresco! Mandi!",
+              "sl": "Kolo se je zavrtelo in mlin je zmlel prvo moko. Vsi na svež kruh! Mandi!",
+              "en": "The wheel turned and the mill ground its first flour. Everyone, come and eat fresh bread! Mandi!",
+              "de": "Das Rad hat sich gedreht, und die Mühle hat das erste Mehl gemahlen. Alle zum frischen Brot! Mandi!",
               "done": true
             }
           ]

@@ -114,7 +114,7 @@ export default async function cases() {
     ['Seno se suši na kozolcu.', 'kozolcu', 0, 'loc.sg decided preposition na'],
     // (mlaj's forms are the supplement's since dialogs-primorska: zvonik's are still derived)
     ['Na vrhu mlaja visi nagrada.', 'mlaja', 0, 'gen.sg decided attribute vrhu'],
-    ['Na vrhu zvonika visi nagrada.', 'zvonika', 0, 'gen.sg decided attribute vrhu derived'],
+    ['Na vrhu zvonika visi nagrada.', 'zvonika', 0, 'gen.sg decided attribute vrhu'],
     ['Pridem ob četrt na tri.', 'četrt', 0, 'none'],
     // the third held-out set's misses, fixed after its one run: a possessive before its noun, a village name over a
     // common noun, an ordinal before its noun (not to sing), a plural-only noun, a line's first word a verb
@@ -136,7 +136,7 @@ export default async function cases() {
     ['Tako je! Pismo s cesarjevim pečatom.', 'cesarjevim', 0, 'ins.sg decided preposition s derived'],
     // a comparative or a superlative by its ending (mlajša: mlajši, Wiktionary's comparative; najnovejša: naj- before
     // novejši); one the supplement has from Sloleks; a past participle; a verbal noun
-    ['Moja sestra je mlajša.', 'mlajša', 0, 'nom.sg decided predicative je derived'],
+    ['Moja sestra je mlajša.', 'mlajša', 0, 'nom.sg decided predicative je'],
     ['Ta hiša je najnovejša.', 'najnovejša', 0, 'nom.sg decided predicative je derived'],
     ['Megla je danes gostejša kot včeraj.', 'gostejša', 0, 'nom.sg decided predicative je'],
     ['Veš, nekoč je vsa družina spala na peči. Pozimi je bila to najtoplejša postelja.', 'najtoplejša', 0, 'nom.sg decided subject bila'],

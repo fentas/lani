@@ -10,5 +10,8 @@
     "pr[ei](?:nes(?:ti|el|la|li|le|lo|em|es|e|eva|eta|emo|ete|ejo|i|ite)|nas(?:ati|am|as|a|ava|ata|amo|ate|ajo|al|ala|ali|ale|alo|aj|ajte)|s(?:el|la|li|le|lo)|d(?:em|es|e|eva|eta|emo|ete|ejo|i|ite)|pis(?:ati|al|ala|ali|ale|alo|em|es|e|emo|ete|ejo|i|ite)|pisov(?:ati|al|ala|ali|ale|alo)|pisuj(?:em|es|e|emo|ete|ejo)|pelj(?:ati|al|ala|ali|ale|alo|em|es|e|emo|ete|ejo|i|ite)|haj(?:ati|am|as|a|amo|ate|ajo|al|ala|ali|ale|alo))",
     "[nz]apis(?:ati|al|ala|ali|ale|alo|em|es|e|emo|ete|ejo|i|ite)",
     "o[db](?:s(?:el|la|li|le|lo)|id(?:em|es|e|eva|eta|emo|ete|ejo|i|ite))"
+  ],
+  "nonstandard": [
+    { "word": "plesati", "for": "plesat", "after": "(?<!\\p{L})(?:gre[mš]?|gres|greva|gresta|gremo|greste|gredo|grejo|pojd\\p{L}*|[sš](?:el|la|li|le)|prid\\p{L}*|pri[sš](?:el|la|li|le))(?!\\p{L})(?:\\s+[\\p{L}']+){0,3}\\s*$" }
   ]
 }

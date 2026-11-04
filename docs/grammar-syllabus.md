@@ -577,6 +577,24 @@ from word lists, and the rule alone where it shows nothing:
 | a verb before an infinitive | after the modal, *vorrei, fare, per*; *a* or *di* by the verb | *Posso giocare?* |
 | the hour, the place | with the hour; with the kind of place | *alle cinque · all'una*, *a Udine · in Italia* |
 
+**English** (game/EnglishHints.kt, 2026-11-03; docs/plans/05-built/hint-chip-en.md): every page of the English book has
+its rule in words (its card's), a spoken sentence and models; the chip names the word beside the form that decides it:
+
+| The turn tests | The chip | Model |
+|---|---|---|
+| the verb's person (*is, are; does, do; keeps, keep; was, were*) | *Who?* who: the subject, after the verb in a question | *I read · she reads* |
+| a verb after its helper | after *can, will, 'll, did, do, to, let's*: the base form; after *have*: the participle; after *be*: the -ing form | *I can swim. · She can swim.* |
+| *be* against no verb, *do* or *have* | with the -ing form after it; with a feeling, an age (*cold, old*): English says it with be | *I'm reading. · She's sleeping.* |
+| *do* against *be* or *not* | with the verb of its own after the subject | *Do you swim? · Does she swim?* |
+| *there is, there are* | with what there is: one or more | *There's a cat. · There are two cats.* |
+| *a, an* | with the next word: its first sound | *a horse · an apple · an hour* |
+| the plural | after a number, *lots of, how many*: more than one; *every*: the singular | *a cat · two cats* |
+| *'s*, *my* or *mine* | before the noun: whose it is; alone, no noun | *Jack's cap · my coat · mine* |
+| *some, any; much, many* | after a no; with the noun: can it be counted? | *There isn't any bread.* |
+| *in, on, at; to* | with the kind of place or time; after a verb of going | *in the kitchen · at the station* |
+| *for, since* | with how long or when it began | *for three weeks · since Tuesday* |
+| a time | yesterday, last week: the past; now, every day | *walk · walked · go · went* |
+
 Give each page a short `hint` in the bases (e.g. "Kje? → 5 mestnik · Where? → locative"), so the chip reads the
 page, and let a turn override it. For Jan, add the German question where the logic is German's: *Kje?* is *Wo?*,
 *Kam?* is *Wohin?* (the same idea as the German two-way prepositions, other cases), *pomagati* takes the dative like

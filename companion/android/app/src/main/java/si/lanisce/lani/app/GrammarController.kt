@@ -388,10 +388,11 @@ class GrammarController(
      * "📖 Namig · Hint" at a learner's turn ([line]; companion/SCENES.md, "The hint"): its rule, the question and its
      * trigger, a model with another word; null when the turn's rule has no page in the book. A dialog in another language
      * than the book's (a visit) has none: its pages aren't in this book. The pages [hidden] (rules not introduced yet, which
-     * the turn doesn't ask for: [later]) are left out, as if the book lacked them.
+     * the turn doesn't ask for: [later]) are left out, as if the book lacked them. [cast]: the names of the people of
+     * the scene and the village, so a name is taken for who does it ([TurnHints.of]).
      */
-    fun hint(line: DialogLine, language: String = this.language, hidden: Collection<String> = emptyList()): TurnHint? =
-        if (language != this.language) null else TurnHints.of(line, language) { id -> if (id in hidden) null else page(id) }
+    fun hint(line: DialogLine, language: String = this.language, hidden: Collection<String> = emptyList(), cast: Collection<String> = emptyList()): TurnHint? =
+        if (language != this.language) null else TurnHints.of(line, language, cast) { id -> if (id in hidden) null else page(id) }
 
     /** The feedback said it: page [id] is no longer news. */
     fun announced(id: String) {

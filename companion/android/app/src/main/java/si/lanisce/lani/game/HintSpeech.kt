@@ -97,7 +97,7 @@ object HintSpeech {
     )
 
     /** The spoken sentence of the card's rule [key] ("hint.ruleTiVi"), a string table's key; null for a rule it lacks. */
-    fun spoken(key: String): String? = RULES[key] ?: ItalianHints.spoken(key)
+    fun spoken(key: String): String? = RULES[key] ?: ItalianHints.spoken(key) ?: EnglishHints.spoken(key)
 
     /** How many phrases of the models it says at most: a TL;DR, not the table. */
     private const val MODEL_PHRASES = 3
