@@ -226,6 +226,7 @@ export default async function dictionariesSection() {
   check('clean() cuts a long page, and the angle brackets of any kind', clean('<'.repeat(5000)).length <= 3002 && !clean('<a>').includes('<'))
   check('pageText() decodes before clean() runs', !/[<>]/.test(clean(pageText('<main>&lt;b&gt;</main>'))))
   check('unsendable(): a set phrase and a word with an apostrophe go, a line doesn\'t', unsendable('dvoja vrata') === null && unsendable("l'altro") === null && unsendable('Ich gehe heute nach Hause, weil') !== null && unsendable('a@b.c') !== null)
+  check("unsendable(): any part of the learner's name stays home, and a word beside it goes", unsendable('Marija', 'Ana Marija') !== null && unsendable('ana', 'Ana Marija') !== null && unsendable('hiša', 'Ana Marija') === null)
   check("wiktionarySection(): another language's page has nothing for this one", wiktionarySection('== German ==\n=== Noun ===\nx', 'sl') === null)
   fake.stop()
 }

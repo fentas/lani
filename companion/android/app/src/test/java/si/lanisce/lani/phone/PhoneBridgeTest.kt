@@ -57,8 +57,9 @@ class PhoneBridgeTest {
                 home = home,
                 roots = listOf(HostFs.Root(home, writable = true), HostFs.Root(repo, writable = false)),
                 bundle = { bundle.readText() },
-                // no routine timers in a test (the rhythm's minute), no scene variants asked for
-                env = mapOf("LANI_RHYTHM" to "off", "LANI_VARIANTS" to "off") + env,
+                // no routine timers in a test (the rhythm's minute), no scene variants asked for, and no real dictionary's
+                // site, whatever a test's tutor looks up
+                env = mapOf("LANI_RHYTHM" to "off", "LANI_VARIANTS" to "off", "LANI_DICTIONARY_SOURCE" to "off") + env,
                 log = { level, text -> synchronized(logs) { logs += "$level $text" } },
                 bytecodeDir = bytecode,
             ),

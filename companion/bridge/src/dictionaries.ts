@@ -159,8 +159,8 @@ const WORD = /^[\p{L}\p{M}]+(?:['’. -][\p{L}\p{M}]+){0,3}$/u
 /** Why [word] doesn't go out, or null when it may: the only thing that leaves is a word, never the learner's name. */
 export function unsendable(word: string, learner?: string): string | null {
   if (word.length > 40 || !WORD.test(word)) return 'not sent: only a single word or a short set phrase goes out'
-  const name = learner?.trim().toLocaleLowerCase()
-  if (name && word.toLocaleLowerCase().split(/[' -]/).includes(name)) return "not sent: that is the learner's name"
+  const names = new Set(learner?.toLocaleLowerCase().split(/\s+/).filter(n => n.length > 1))
+  if (word.toLocaleLowerCase().split(/[' -]/).some(w => names.has(w))) return "not sent: that is the learner's name"
   return null
 }
 
@@ -320,6 +320,7 @@ export class OutsideDictionaries {
     } catch (e) {
       if (e instanceof Refused) return failed(e.message)
       if ((e as Error).name === 'TimeoutError' || (e as Error).name === 'AbortError') return failed('timed out')
+      if (/over \d+ bytes/.test((e as Error).message)) return failed('its answer is too large') // the phone's fetch stopped reading
       if (e instanceof SyntaxError) return failed("its answer couldn't be read")
       return failed('it could not be reached')
     } finally {

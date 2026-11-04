@@ -124,13 +124,14 @@ WorkManager check use the same.
     bridge's `notebook_write`.
   - A thread made under another prefix (an app update changed a tool or the prompt) restarts as text. A new key does
     the same.
-- **Tools** (`LiveTools`). Phase A's 17, in the shadow's order and prefix (`PhaseA`):
+- **Tools** (`LiveTools`). Phase A's 19, in the shadow's order and prefix (`PhaseA`):
   - The bridge's tools run for real through `POST /tutor/tools/:name`, with the tool call's id as `client_id`.
   - `reply` goes through the bridge as Claude Code's does: the bridge emits the `reply` event, and the chat shows it.
   - `guide(topic)` is the app's own bundled guide.
-  - `dictionary_lookup` is the app's dictionary on the node (`GET /lookup`) and, for Slovene, fran.si's search page,
-    which the app fetches itself (`FranLookup`: only `https://fran.si`, the page's text). Both are returned as
-    `<untrusted_dictionary_content>`.
+  - `dictionary_lookup` goes through the node (`GET /dictionary`): its dictionary and, when that has nothing or the tutor
+    asks (`deep`), the language's outside sources, each returned as `<untrusted_dictionary_content>`. The app reaches no
+    dictionary itself since [tutor-reach.md](tutor-reach.md) (`FranLookup` is gone).
+  - `chat_history` is the phone's own: the chat and the day logs ([tutor-reach.md](tutor-reach.md)).
   - `report_problem` keeps the shadow's check (a fix about a word needs a `dictionary_lookup` earlier in the turn).
   - Every input is checked against its schema before it goes anywhere.
 - **Streaming into the chat sheet.** The transports now hand out a tool call's input as it streams:

@@ -17369,6 +17369,51 @@ def start_tutor_mock():
     raise AssertionError("the mock didn't start (tutor-mock.log)")
 
 
+def shadow_on():
+    """The shadow tutor on, against QA's mock: the developer section, its panel, the mock's address, a fake key, the switch."""
+    # the developer section: hidden until the settings' version line is tapped seven times
+    open_settings()
+    version = find("Lani 0.")
+    assert version, "the version line at the bottom of the settings"
+    if find(DEVELOPER) is None:
+        for _ in range(7):
+            adb("shell", "input", "tap", str(version[0]), str(version[1]))
+            time.sleep(0.25)
+        time.sleep(1.5)
+    assert tap(DEVELOPER, 4), "the developer section's row after seven taps"
+    assert wait_for(SHADOW, 6), "the developer's page"
+    shot("shadow-developer")
+    scroll_to(OPEN_PANEL, 3)  # below the section's lines; at the sheet's end it may stay low on the screen
+    assert tap(OPEN_PANEL, 4), "the panel's button"
+    assert wait_for("Shadow mode", 8), "the panel's settings"
+
+    # the mock's address (a QA build's setting), the key, shadow mode on
+    assert scroll_to("The mock (10.0.2.2:8771)", 4) and tap("The mock (10.0.2.2:8771)", 3), "the mock's base URL"
+    if SHADOW_MOCK != "http://10.0.2.2:8771":
+        # the mock of this run's slot (qa-slot's second: LANI_TUTOR_MOCK_PORT), typed over the button's and used
+        type_into("http://10.0.2.2:8771", SHADOW_MOCK)
+        assert tap("Use it", 3), "the base URL's Use it"
+    to_top()
+    field = find("sk-ant-…")
+    assert field, "the key's field"
+    tap_at(field)
+    time.sleep(slow())
+    adb("shell", "input", "text", SHADOW_KEY)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    assert tap("Check (GET /v1/models) and keep", 4), "the key's check"
+    assert wait_for("the key works", 10 * slow()), "the mock took the key"
+    shot("shadow-key")
+    if find("Shadow mode: off"):
+        assert tap("Shadow mode: off", 3), "the switch"
+    assert wait_for("Shadow mode: on", 6), "shadow mode on"
+    assert wait_for("idle", 6) or find("waiting"), "the shadow's status"
+    shot("shadow-on")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
+    time.sleep(1)
+    go_home()  # the developer's page and the settings under it
+
+
 def shadow_tutor():
     """The in-app tutor in shadow mode (companion/README.md "The in-app tutor in shadow mode"), against QA's mock of the
     Messages API on 127.0.0.1:8771 (started here): the developer section shown by tapping the settings' version
@@ -17387,47 +17432,7 @@ def shadow_tutor():
     order, the per-message effort's beta only with an effort message; the chat never shows the shadow's reply."""
     mock = start_tutor_mock()
     try:
-        # the developer section: hidden until the settings' version line is tapped seven times
-        open_settings()
-        version = find("Lani 0.")
-        assert version, "the version line at the bottom of the settings"
-        if find(DEVELOPER) is None:
-            for _ in range(7):
-                adb("shell", "input", "tap", str(version[0]), str(version[1]))
-                time.sleep(0.25)
-            time.sleep(1.5)
-        assert tap(DEVELOPER, 4), "the developer section's row after seven taps"
-        assert wait_for(SHADOW, 6), "the developer's page"
-        shot("shadow-developer")
-        scroll_to(OPEN_PANEL, 3)  # below the section's lines; at the sheet's end it may stay low on the screen
-        assert tap(OPEN_PANEL, 4), "the panel's button"
-        assert wait_for("Shadow mode", 8), "the panel's settings"
-
-        # the mock's address (a QA build's setting), the key, shadow mode on
-        assert scroll_to("The mock (10.0.2.2:8771)", 4) and tap("The mock (10.0.2.2:8771)", 3), "the mock's base URL"
-        if SHADOW_MOCK != "http://10.0.2.2:8771":
-            # the mock of this run's slot (qa-slot's second: LANI_TUTOR_MOCK_PORT), typed over the button's and used
-            type_into("http://10.0.2.2:8771", SHADOW_MOCK)
-            assert tap("Use it", 3), "the base URL's Use it"
-        to_top()
-        field = find("sk-ant-…")
-        assert field, "the key's field"
-        tap_at(field)
-        time.sleep(slow())
-        adb("shell", "input", "text", SHADOW_KEY)
-        adb("shell", "input", "keyevent", "KEYCODE_BACK")
-        time.sleep(1)
-        assert tap("Check (GET /v1/models) and keep", 4), "the key's check"
-        assert wait_for("the key works", 10 * slow()), "the mock took the key"
-        shot("shadow-key")
-        if find("Shadow mode: off"):
-            assert tap("Shadow mode: off", 3), "the switch"
-        assert wait_for("Shadow mode: on", 6), "shadow mode on"
-        assert wait_for("idle", 6) or find("waiting"), "the shadow's status"
-        shot("shadow-on")
-        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
-        time.sleep(1)
-        go_home()  # the developer's page and the settings under it
+        shadow_on()
 
         # a chat: the real tutor (the dev bridge's) answers it in the chat; the shadow's answer is the panel's
         assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
@@ -17601,6 +17606,48 @@ def shadow_tutor():
         (OUT / "shadow-logcat.txt").write_text(log)
         assert SHADOW_KEY not in log and "qa-fake" not in log, "the key in a log line"
         print(f"    {len(reqs)} calls to the mock; the export {export}, {len(text) // 1024} KB")
+    finally:
+        mock.terminate()
+
+
+def tutor_reach():
+    """The tutor's reach (docs/plans/05-built/tutor-reach.md), one turn on QA's mock in the shadow: a chat with [mock:reach]
+    makes the mock call dictionary_lookup on a word the lexicon has nothing on and chat_history on what the learner just
+    wrote. The dev bridge's fake dictionary answers (never a real site). The panel lists the calls, the mock's log has
+    Wiktionary's block with its source and URL and the chat's record, and the real chat shows neither."""
+    mock = start_tutor_mock()
+    try:
+        shadow_on()
+        assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+        assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+        assert tap("Napiši…", 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Kaj%sje%szlatoperka%s[mock:reach]")  # adb types ASCII only
+        time.sleep(0.5)
+        assert tap("Pošlji · Send", 4), "send"
+        assert wait_for(DEV_TUTOR, 20), "the real tutor's reply in the chat"
+        end = time.time() + 30 * slow()
+        said = ""
+        while time.time() < end:
+            said = json.dumps([r.get("body") for r in mock_api("/mock/requests") if r.get("path") == "/v1/messages"], ensure_ascii=False).replace("\\", "")
+            if "untrusted_chat_history" in said and "untrusted_dictionary_content" in said:
+                break
+            time.sleep(1)
+        assert 'source="Wiktionary" url="https://en.wiktionary.org/wiki/zlatoperka"' in said, "the outside source's block, named, with its URL"
+        assert "a word of the fake dictionary (QA)" in said, "what the fake dictionary said"
+        assert "untrusted_chat_history" in said and "zlatoperka" in said, "the chat's record"
+        assert not any(MOCK_TUTOR in t for t, _ in nodes()), "the shadow's reply in the real chat"
+        shot("tutor-reach-chat")
+        go_home()
+        qa_hook("shadow")
+        assert wait_for("Events", 8), "the panel"
+        assert tap("Events", 3), "the events tab"
+        assert wait_for("tool call(s)", 10), "the turn's tool calls"
+        assert any("dictionary_lookup" in t and "chat_history" in t for t, _ in nodes()), "both tools in the turn's line"
+        assert tap("tool call(s)", 3), "open the calls"
+        time.sleep(1)
+        shot("tutor-reach-panel")
+        print("    dictionary_lookup and chat_history in one turn, their results in the mock's log")
     finally:
         mock.terminate()
 
@@ -19548,6 +19595,7 @@ def plan():
         ("data-sheet", data_sheet, go_home, False, ""),
         ("studio", studio, go_home, False, ""),
         ("tutor-live", tutor_live, go_home, False, ""),
+        ("tutor-reach", tutor_reach, go_home, False, ""),
         ("tutor-language", tutor_language, go_home, False, ""),
         # only with --steps town-progress-child: the app paired again with the second town (a child's)
         ("town-progress-child", town_progress_child, None, False, ""),

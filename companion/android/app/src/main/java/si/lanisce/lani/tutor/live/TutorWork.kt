@@ -62,6 +62,13 @@ object TutorRuntime {
         HostedRuntime.ensure() ?: throw java.io.IOException("Lani on this phone isn't running")
     }
 
+    /** The chat as the phone keeps it, read only: `chat_history`'s conversation, for both tutors, the app open or not. */
+    fun chat(app: Context): () -> List<si.lanisce.lani.tutor.PastMessage> = {
+        si.lanisce.lani.app.ChatStore(File(app.filesDir, "chat"), File(app.filesDir, "chat.json")).read().map {
+            si.lanisce.lani.tutor.PastMessage(it.at, it.fromMe, si.lanisce.lani.app.ChatArchive.textOf(it), it.about)
+        }
+    }
+
     /** Whether this phone's learner is a child, as the app last said. */
     fun lastChild(app: Context): Boolean = kotlinx.coroutines.runBlocking { Prefs(app).learnerChild() } == true
 
@@ -80,6 +87,7 @@ object TutorRuntime {
             // its calls, turns and errors (never a key: tutor/KeyVault Redact)
             logLine = { android.util.Log.i("LiveTutor", it) },
             texts = texts,
+            chat = chat(app),
             // the learner's GitHub sign-in, as git sync keeps it: report_problem posts to Lani's discussions with it
             githubToken = { runCatching { si.lanisce.lani.sync.KeystoreBox(app.applicationContext).get(si.lanisce.lani.sync.SecretBox.GIT_TOKEN) }.getOrNull() },
             nightOk = { StudioWork.nightOk(app) },

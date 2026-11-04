@@ -38,9 +38,9 @@ class ShadowToolsTest {
 
     private fun use(name: String, vararg kv: Pair<String, Any?>) = runBlocking { tools.run(ToolUse("toolu_$name", name, obj(*kv))) }
 
-    @Test fun `the bundle has phase A's eighteen tools, in their order`() {
+    @Test fun `the bundle has phase A's nineteen tools, in their order`() {
         assertEquals(PhaseA.TOOLS.map { it.first }, PhaseA.load().map { it.name })
-        assertEquals(18, PhaseA.definitions(PhaseA.load()).size)
+        assertEquals(19, PhaseA.definitions(PhaseA.load()).size)
         // the aim, as Claude Code's tutor sets it: the bridge's own tool, a write
         assertEquals(listOf("set_rhythm", "set_target_level", "record_session"), PhaseA.TOOLS.map { it.first }.let { it.subList(it.indexOf("set_rhythm"), it.indexOf("set_rhythm") + 3) })
         assertTrue(specs.getValue("set_target_level").description.contains("next age"))
@@ -251,6 +251,7 @@ class ShadowToolsTest {
         val answers = Answering { r ->
             when (r.url.encodedPath) {
                 "/lookup" -> Triple(200, """{"word":"vedve","entries":[]}""", "application/json")
+                "/dictionary" -> Triple(200, """{"lexicon":{"word":"vedve","entries":[]}}""", "application/json")
                 "/game" -> Triple(200, """{"state":{"age":12,"name":"Lipa"}}""", "application/json")
                 else -> Triple(200, state, "application/json")
             }

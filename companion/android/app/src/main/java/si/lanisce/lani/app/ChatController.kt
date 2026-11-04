@@ -93,6 +93,12 @@ class ChatStore(private val dir: File, private val legacy: File, private val kee
         return old + dated
     }
 
+    /** Everything kept, as [load] has it, for a reader beside the chat (the tutor's `chat_history`): nothing is let go or written. */
+    fun read(): List<ChatMessage> {
+        val old = FileStorage(legacy).read()?.let(ChatHistory::decode).orEmpty()
+        return old + dir.listFiles { f -> MONTH_FILE.matches(f.name) }.orEmpty().sortedBy { it.name }.flatMap { FileStorage(it).read()?.let(ChatHistory::decode).orEmpty() }
+    }
+
     /** Writes the file of [part] ([partOf]) with its messages of [all]. */
     fun write(part: String, all: List<ChatMessage>) {
         val mine = all.filter { partOf(it) == part }

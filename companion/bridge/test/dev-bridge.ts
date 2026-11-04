@@ -4,6 +4,7 @@
 // else the repo's data/), with its voice clips (the voice cache, paths.ts voiceDir); LANI_DEV_KEEP_TOWNS=1
 // keeps the copy's town links (by default QA's town knows only the towns QA links, e.g. test/dev-town.ts, and never
 // asks a real learner's town); LANI_DEV_FAKE_ELEVENLABS=1 a fake ElevenLabs (below).
+// The outside dictionaries are always a fake here (test/fakes/dictionary.ts): QA never reaches a real site.
 import '../src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
@@ -13,6 +14,7 @@ import { join, resolve } from 'node:path'
 import { setting } from '../src/env'
 import { learnerLangs } from '../src/learners'
 import { voiceDir } from '../src/paths'
+import { fakeDictionary } from './fakes/dictionary'
 import { fakeEleven } from './fakes/eleven'
 
 const port = process.env.LANI_DEV_PORT ?? '8791'
@@ -291,11 +293,19 @@ const eleven = fake
   : // QA must not spend the ElevenLabs quota; LANI_DEV_ELEVENLABS=1 allows it. Cached clips still play.
     { ELEVENLABS_API_KEY: process.env.LANI_DEV_ELEVENLABS === '1' ? (process.env.ELEVENLABS_API_KEY ?? '') : '' }
 
+// what QA's tutor turn looks up (bin/qa): words the lexicon has nothing on, one in each language's section
+const dictionary = fakeDictionary({
+  zlatoperka: { section: 'Slovene', text: 'a word of the fake dictionary (QA)' },
+  zibaldone: { section: 'Italian', text: 'a word of the fake dictionary (QA)' },
+  Schnickschnack: { section: 'German', text: 'a word of the fake dictionary (QA)', wortart: 'Substantiv' },
+  thingamajig: { section: 'English', text: 'a word of the fake dictionary (QA)' },
+})
+
 await client.connect(
   new StdioClientTransport({
     command: 'bun',
     args: [resolve(import.meta.dir, '../src/index.ts')],
-    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off', ...eleven } as Record<string, string>,
+    env: { ...process.env, LANI_DICTIONARY_SOURCE: dictionary.url, LANI_DICTIONARY_CACHE: join(dataDir, 'app', 'dictionary-cache'), LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off', ...eleven } as Record<string, string>,
     stderr: 'inherit',
   }),
 )

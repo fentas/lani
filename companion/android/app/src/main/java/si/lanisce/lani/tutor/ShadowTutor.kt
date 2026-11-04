@@ -88,6 +88,8 @@ class ShadowTutor(
     private val openrouterLaneTransportFor: (suspend () -> String?) -> OpenRouterTransport = { OpenRouterTransport(it, OpenRouterTransport.laneClient) },
     /** The phone's network ([Online]): while it's down the primary's and the lanes' queues wait for it, no turn fails. */
     private val online: Online = Online.ALWAYS,
+    /** The chat as the phone keeps it (app/ChatStore, read only): `chat_history`'s conversation. */
+    private val chat: () -> List<PastMessage> = { emptyList() },
 ) {
     private val specs = PhaseA.load(read)
     private val guide = Guide(read)
@@ -101,10 +103,13 @@ class ShadowTutor(
     private var q: List<TurnRecord> = emptyList()
     private val logs = mutableMapOf<String, DayLog>()
 
+    /** `chat_history`: what the learner saw, the real tutor's replies; never the shadow's own, which nobody was shown. */
+    private val history = TutorHistory(chat, store, { log -> log.real.map { it.reply } }, zone, TutorHistory.SHADOW_NOTE)
+
     /** The lanes' reads: one GET for the same read of all lanes at an event (the primary keeps its own). */
     private val laneReads = SharedReads(scope, io, clock) { name, input, writes ->
         val bridge = bridgeConfig()?.let(bridgeFor)
-        BridgeReads({ bridge }, ::allEvents, today = ::dayNow).read(name, input, writes)
+        BridgeReads({ bridge }, ::allEvents, today = ::dayNow, history = history).read(name, input, writes)
     }
 
     private val matrixHost = object : ShadowMatrix.Host {
@@ -1004,7 +1009,7 @@ class ShadowTutor(
         val bridge = bridgeConfig()?.let(bridgeFor)
         val tools = ShadowTools(
             specs.associateBy { it.name },
-            BridgeReads({ bridge }, ::allEvents, today = ::dayNow),
+            BridgeReads({ bridge }, ::allEvents, today = ::dayNow, history = history),
             guide,
             notebookHost,
             onReply = { r -> t = t.copy(replies = t.replies + r); replace(t) },

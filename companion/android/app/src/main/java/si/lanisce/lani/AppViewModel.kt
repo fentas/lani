@@ -214,6 +214,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         debug = si.lanisce.lani.BuildConfig.QA, // a debug or qa build: the base URL may be QA's mock
         learner = { content.dashboard?.name },
         where = ::whereNow,
+        chat = si.lanisce.lani.tutor.live.TutorRuntime.chat(app),
         // its calls, turns and transport errors (never the key: tutor/KeyVault Redact); it runs only when the developer
         // turned it on, and its lines go to the node with the app's log (devUpload)
         logLine = { android.util.Log.i("ShadowTutor", it) },

@@ -525,7 +525,7 @@ def table(head: list[str], rows: list[list[str]]) -> str:
 
 HEAD = ["column", "days", "turns", "events", "calls", "spend/day", "≈API/day", "median first token (ms)", "median total (ms)",
         "median reply delay (s)", "replies", "from text", "errors", "refusals", "truncations", "guide",
-        "dictionary_lookup", "writes", "notes"]
+        "dictionary_lookup", "chat_history", "writes", "notes"]
 
 LEGEND = (
     "days: days with a turn (the real tutor: with a reply) · turns: turns with a call · events: distinct events "
@@ -536,7 +536,7 @@ LEGEND = (
     "median reply delay: from the event to the reply (a shadow's: after the latest event its turn answers; the real "
     "tutor has no calls, so this is its only time) · replies: reply messages (closings left out) · from text: turns "
     "whose text became the reply / turns that replied · errors: calls with an error + turns FAILED · refusals: turns "
-    "REFUSED or with a refusal · truncations: turns TRUNCATED or stopped at max_tokens · guide, dictionary_lookup: "
+    "REFUSED or with a refusal · truncations: turns TRUNCATED or stopped at max_tokens · guide, dictionary_lookup, chat_history: "
     "those tool calls · writes: tool calls of kind write · notes: notebook_note and notebook_write calls."
 )
 
@@ -558,7 +558,7 @@ def summary_rows(sts: list[Stat]) -> list[list[str]]:
             s.name, str(len(s.days)), str(s.turns), str(len(s.events)), str(s.calls),
             money(s.spend / n_days) if n_days else DASH, money(s.api / n_days) if n_days else DASH, ms(median(s.first)), ms(median(s.total)), dl,
             str(s.replies), rate, str(s.errors), str(s.refusals), str(s.truncations),
-            str(s.tools["guide"]), str(s.tools["dictionary_lookup"]), str(s.writes), str(sum(s.tools[n] for n in NOTES)),
+            str(s.tools["guide"]), str(s.tools["dictionary_lookup"]), str(s.tools["chat_history"]), str(s.writes), str(sum(s.tools[n] for n in NOTES)),
         ])
     return rows
 
