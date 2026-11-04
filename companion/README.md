@@ -347,7 +347,7 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   for Granny Maggie's trip to London, a summer job at Mrs Birkett's inn; a word with the councillor, an interview at the
   visitor centre, the new patient check, a cottage to let, a statement for the police, Jack at a crossroads;
   docs/plans/05-built/talks-en.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
-  A1 and A2 talks, never B1 or B2.
+  A1 and A2 talks, never B1 or B2. The list goes by level, easiest first.
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
 - A learner of German plays the same way in `kaernten` (`--target de --culture kaernten`), with the German packs of

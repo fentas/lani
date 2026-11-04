@@ -197,11 +197,14 @@ export class ScenarioStore {
       })
   }
 
-  /** Curated first; a tutor scenario never shadows a curated id. */
+  /**
+   * A tutor scenario never shadows a curated id. By level, easiest first (curated first within one), so a list opens on what
+   * suits the learner, not on a talk above them that happens to have the first file name.
+   */
   all(): LoadedScenario[] {
     const curated = this.read(this.curatedDir, 'curated')
     const ids = new Set(curated.map(s => s.id))
-    return [...curated, ...this.read(this.tutorDir, 'tutor').filter(s => !ids.has(s.id))]
+    return [...curated, ...this.read(this.tutorDir, 'tutor').filter(s => !ids.has(s.id))].sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level))
   }
 
   /**

@@ -212,9 +212,6 @@ After merging main (1311eeb2a) into the branch:
 - `lexicon-build --coverage` counts an English talk's `en` texts (the meanings) but not its lines (`opener_sl`, the
   phrases' `sl`: "the key is sl in every language"); the new talks' lines were checked by a script of their own. The
   coverage tool could count a non-Slovene scenario's `opener_sl` and `vocabulary_hints[].sl` as the village's language.
-- The list of talks is in the order of its file names (`ScenarioStore.read`), so at B1 a B2 talk stands first ("A cottage
-  to let"), each with its level's chip. Sorting by level would serve a learner better; that is every village's list, so
-  it isn't changed here.
 - A garage, a surgery, a police visit or a village hall have no stage place of their own: the shop and the councillor
   stand on the square, the phone call, the interview, the inn and the cottage in the kitchen, the statement in the field,
   the nurse at a stand-in's home (as the GP's).
