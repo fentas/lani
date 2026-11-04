@@ -98,14 +98,15 @@ its wood as Tone's does.
   by about 400 entries and 140 forms, each with its meanings in sl, de and it.
 - Tests: `LakelandPitTest` (new), `LakelandProjectStepsLevelsTest` (new), `SceneCoherenceTest` (50 more done lines), `KopaCycleTest` (the
   Lake District left the list of piles without a cycle). The Friuli and Kärnten agents will touch the same two lines.
-- Smoke on the merged tree: all checks passed (3,846, none failed).
+- Smoke on the last merge of main (`775384b64`): all checks passed (3,873, none failed). Python: 253 and 179 tests OK (11 skipped).
 - Android suite through `lani-slot.sh`: the first run found three failures, all fixed: `LakelandPitTest` (its setup returned a value, so no
   test in it ran), `SceneCoherenceTest` (Ned's "look" at things his picture doesn't draw) and `DialogReactionsTest` (a reaction said "made").
-  Then 4,140 tests, none failed, 2 skipped.
+  On the last merge of main: 4,159 tests, none failed, 2 skipped.
 - QA: the step `lakeland-b2` (only when named), a B2 step and Mr Dixon's B2 arrival: `make-learner.ts <dir> --name Alex --target en
   --base sl` (no `--level B2`: it reads companion/modules/en, which doesn't exist), `LANI_CULTURE=lakeland LANI_QA_SETUP_PAIR=en-sl`.
   It passed: the mill's walls at B2 (the right and the wrong choice, the reaction, the walls drawn at the end) and Mr Dixon's arrival at
-  B2 ("Morali ste biti zelo potrpežljivi", "Must have be? Hm. That's a nail without a head"). Screenshots: `b2-*.png`.
+  B2 ("Morali ste biti zelo potrpežljivi", "Must have be? Hm. That's a nail without a head"). Screenshots: `b2-*.png`. This ran on
+  `f7ddd16d6`, one merge of main before the last; it was not repeated.
 
 ## Open: the room a B2 line has
 
