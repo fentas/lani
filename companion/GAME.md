@@ -2026,7 +2026,12 @@ A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; th
   "kopa:delivery", "kopa:rest", "kopa:winter" (app/QaHooks); the keepers are there whatever their dice then. "show:kopa"
   flies the village's camera to the pile, as a place of the scroll's "Kraji" does.
 
-A culture without a `cycle` keeps its pile as it always was (Friuli, Kärnten, the Lake District for now). The tutor sees
+A culture without a `cycle` keeps its pile as it always was (Friuli, the Lake District for now). Kärnten's Meiler has its
+own since village-b2-kaernten (`seed` "meiler-kaernten", so its piles fall on other days than Primorska's): Köhler Michl's eleven
+stages (`holz` and `aufschichten` with the village's wood, `zudecken`, `anzuenden`, `weisser-rauch`, `gelber-rauch`, `blauer-rauch`,
+`abkuehlen`, `ausziehen`, `saecke`, `liefern`, which delivers to Schmied Toni), the wind and a fox at night, the breakout on a white
+or yellow smoke night (25 s at A1, 18 at A2, B1 and B2), every talk and piece at A1, A2, B1 and B2, and his own story in six parts.
+There is no Carinthian record of the stages' days: they follow the Alpine craft as Primorska's do. The tutor sees
 where it is in `get_village`'s `spots` (the stage, the day of it, a breakout tonight, the last delivery).
 
 **Primorska's pile** (Trnovski gozd). There is no Slovene record of the stages' days from the Trnovo forest itself; they
