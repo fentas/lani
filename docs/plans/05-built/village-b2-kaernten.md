@@ -89,17 +89,28 @@ than a month's credits. With the learner's choices 226,000 or so. Jan decides wh
 - **Bridge:** `bun test/check-culture.ts kaernten` ok, `bun test/check-steps.ts kaernten` ok (13 files, 78 steps, 312 dialogs),
   `bun test/check-celebrations.ts kaernten` ok.
 - **Lexicon** (`companion/lexicon/de.extra.json`, indent 2): `lexicon-build --coverage --lang de --all`, before 51 words nothing knows,
-  99.1 % of words (5,534); after writing 767 unknown, 88.0 %; after the entries (450 new lemmas, the forms on existing ones) 55, 99.1 %
+  99.1 % of words (5,534); after writing 767 unknown, 88.0 %; after the entries (451 new lemmas, the forms on existing ones) 55, 99.1 %
   of 6,470 words, 99.9 % of tokens. The four new ones: the clock's roman numerals (v, viii, iiii) and *gewordet*, a form offered on purpose.
-- **Android:** `KopaCycleTest` plays every stage's, the rest's and the winter's talks to their end at four levels in de·sl, de·en, de·it
-  with a wrong choice each, the meeting, the race's seconds by level, the six tales, the delivery to Toni. `ArrivalsContentTest`
-  plays the templates at four levels. `KopaCulturesTest` reads a B2 learner's history at the highest level told.
+  On the tree merged with main 97 words are unknown: the rest came with main's German practice, and most are wrong forms offered on
+  purpose (gesprecht, habte).
+- **Android:** the whole suite on the merged tree: 4,153 tests, 2 skipped, none failed. `KopaCycleTest` plays every stage's, the rest's
+  and the winter's talks to their end at four levels in de·sl, de·en, de·it with a wrong choice each, the meeting, the race's seconds by
+  level, the six tales, the delivery to Toni. `ArrivalsContentTest` plays the templates at four levels. `KopaCulturesTest` reads a B2
+  learner's history at the highest level told. `DialogReactionsTest` covers a keeper's `levels`, not his cycle, so the cycle's reactions
+  were held to the same rules by a script of mine (80 characters, not saying the right word): 21 rewritten. `SceneCoherenceTest`: 33
+  looks had nothing to look at; 7 rewritten (the stars, the winter's snow, Michl's hands, the orchard's evening sky), 26 reviewed in
+  `looks.json` (the pile in the picture, or no look asked: schaut aus, schaut nach Norden). Its done lines' count takes Kärnten's 46.
+- **The rest:** tsc, the smoke (ports 10960 up, LANI_SMOKE_DRAMA3_PORT=10978; all checks passed, 3,873), `tutor-export --check`, Python
+  (253 and 179 tests, 11 skipped).
 - **QA:** the step `kaernten-b2`: a synthetic learner (make-learner.ts --name Teo --target de --base sl), LANI_CULTURE=kaernten,
   LANI_QA_SETUP_PAIR=de-sl; the fountain's second step at B2 from its landmark to its end card with a wrong choice and its reaction,
   then Schmied Toni's arrival at B2 to its first turn's reaction.
 
 ## Findings, unchanged
 
+- On a B2 turn with three long choices the answers take the panel: a reaction shows only its first two lines above them, cut off, and
+  its 🔊 too (`ux-village-b2-kaernten/k2-meet-toni-reaction.png`, `k2-b2step-wrong.png`). It scrolls, but a learner may not know. Generic, the
+  same at B2 in every culture.
 - Existing A1 and A2 Kärnten steps offer weil with the verb second as a wrong choice under `nebensatz` ("weil die Bienen lieben ihn"),
   against followups-12. Not mine and they have voice clips: for the lead.
 - The test files overlap with Friuli's: `KopaCycleTest`'s "no cycle" list (`friuli`, `lakeland` here; `kaernten`, `lakeland` there; once
