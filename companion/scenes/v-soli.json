@@ -43,9 +43,9 @@
     { "id": "globus", "title": { "sl": "Zala in globus", "en": "Zala and the globe", "de": "Zala und der Globus", "it": "Zala e il mappamondo" }, "who": "zala",
       "when": ["morning", "evening"], "chance": 0.4, "dialog": "globus", "dialogs": ["globus-morje", "globus"],"reward": { "food": 15 }, "marker": "🌍", "needs": { "level": 2 },
       "memory": { "sl": "globus in Nemčijo, ki si mi jo {m:pokazal|f:pokazala}", "en": "the globe and Germany, which you showed me", "de": "den Globus und Deutschland, das du mir gezeigt hast", "it": "il mappamondo e la Germania che mi hai mostrato" } },
-    { "id": "stara-sola", "title": { "sl": "Janez v svoji stari šoli", "en": "Janez in his old school", "de": "Janez in seiner alten Schule", "it": "Janez nella sua vecchia scuola" }, "who": "janez",
+    { "id": "stara-sola", "title": { "sl": "Janez se spominja svoje šole", "en": "Janez remembers his school", "de": "Janez erinnert sich an seine Schule", "it": "Janez ricorda la sua scuola" }, "who": "janez",
       "when": ["afternoon"], "chance": 0.3, "dialog": "stara-sola", "dialogs": ["stara-sola-b2-palica", "stara-sola-b1-tele", "stara-sola-pec", "stara-sola"],"reward": { "wisdom": 20 }, "marker": "🎓",
-      "memory": { "sl": "dan v stari šoli, ko sem ti pravil o gospe Pavli", "en": "the day in the old school when I told you about Mrs Pavla", "de": "den Tag in der alten Schule, als ich dir von Frau Pavla erzählt habe", "it": "il giorno nella vecchia scuola, quando ti ho raccontato della signora Pavla" } }
+      "memory": { "sl": "dan v šoli, ko sem ti pravil o gospe Pavli", "en": "the day at school when I told you about Mrs Pavla", "de": "den Tag in der Schule, als ich dir von Frau Pavla erzählt habe", "it": "il giorno a scuola, quando ti ho raccontato della signora Pavla" } }
   ],
   "dialogs": [
     {
@@ -202,7 +202,7 @@
     {
       "id": "stara-sola",
       "lines": [
-        { "who": "janez", "face": "proud", "sl": "{learner}, veš, tu sem hodil v šolo. Pred sedemdesetimi leti. Ta klop je bila moja.", "en": "{learner}, you know, I went to school here. Seventy years ago. This desk was mine.", "de": "{learner}, weißt du, hier bin ich zur Schule gegangen. Vor siebzig Jahren. Diese Bank war meine.", "it": "{learner}, sai, qui andavo a scuola. Settant'anni fa. Questo banco era il mio." },
+        { "who": "janez", "face": "proud", "sl": "{learner}, veš, tudi jaz sem hodil v šolo. Na planoti, pred sedemdesetimi leti. Taka klop je bila moja.", "en": "{learner}, you know, I went to school too. On the plateau, seventy years ago. A desk like this was mine.", "de": "{learner}, weißt du, auch ich bin zur Schule gegangen. Auf der Hochebene, vor siebzig Jahren. So eine Bank war meine.", "it": "{learner}, sai, anch'io andavo a scuola. Sull'altopiano, settant'anni fa. Un banco così era il mio." },
         { "choices": [
           { "sl": "Res? Ste bili dober učenec?", "en": "Really? Were you a good pupil?", "de": "Wirklich? Waren Sie ein guter Schüler?", "it": "Davvero? Era un bravo alunno?", "ok": true,
             "reply": { "face": "laugh", "sl": "Ha! Dober v zgodbah. Slab v računanju.", "en": "Ha! Good at stories. Bad at arithmetic.", "de": "Ha! Gut in Geschichten. Schlecht im Rechnen.", "it": "Ah! Bravo nelle storie. Scarso nei conti." } },
@@ -442,7 +442,7 @@
       "id": "stara-sola-pec",
       "memory": { "sl": "dan v stari šoli, ko sem ti pravil o polenih za peč", "en": "the day in the old school when I told you about the logs for the stove", "de": "den Tag in der alten Schule, als ich dir von den Holzscheiten für den Ofen erzählt habe", "it": "il giorno nella vecchia scuola, quando ti ho raccontato dei ceppi per la stufa" },
       "lines": [
-        { "who": "janez", "face": "thinking", "sl": "Veš, pozimi je bilo tu mrzlo. Vsak otrok je moral prinesti poleno za peč.", "en": "You know, in winter it was cold here. Every child had to bring a log for the stove.", "de": "Weißt du, im Winter war es hier kalt. Jedes Kind musste ein Holzscheit für den Ofen mitbringen.", "it": "Sai, d'inverno qui faceva freddo. Ogni bambino doveva portare un ceppo per la stufa." },
+        { "who": "janez", "face": "thinking", "sl": "Veš, pozimi je bilo v naši šoli mrzlo. Vsak otrok je moral prinesti poleno za peč.", "en": "You know, in winter it was cold in our school. Every child had to bring a log for the stove.", "de": "Weißt du, im Winter war es in unserer Schule kalt. Jedes Kind musste ein Holzscheit für den Ofen mitbringen.", "it": "Sai, d'inverno nella nostra scuola faceva freddo. Ogni bambino doveva portare un ceppo per la stufa." },
         { "choices": [
           { "sl": "Vsak dan? Ste morali tudi vi nositi drva?", "en": "Every day? Did you have to carry wood too?", "de": "Jeden Tag? Mussten Sie auch Holz tragen?", "it": "Ogni giorno? Anche Lei doveva portare la legna?", "ok": true,
             "reply": { "face": "proud", "sl": "Seveda. Peš, v snegu do kolen.", "en": "Of course. On foot, in snow up to my knees.", "de": "Natürlich. Zu Fuß, im Schnee bis zu den Knien.", "it": "Certo. A piedi, con la neve fino alle ginocchia." } },
