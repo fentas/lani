@@ -28,7 +28,7 @@ import kotlinx.serialization.json.jsonPrimitive
 object GermanHints {
     /** What the chip looks for in the sentence, by page, in order (each is described where it is found: [find]). */
     enum class Look {
-        PREP, CHUNK, VERB_CASE, OBJECT, COPULA, BITTE, SELF, TWO_OBJECTS, GENDER, ADJ, WHOSE, WEAK, MANY, VERB_MANY, ONE_OR_MORE, THING,
+        PREP, CHUNK, VERB_CASE, OBJECT, COPULA, BITTE, SELF, TWO_OBJECTS, GENDER, ADJ, ADJ_NOUN, WHOSE, WEAK, MANY, VERB_MANY, ONE_OR_MORE, THING,
         COUNT, WHO, TO_WHOM, INFINITIVE, DOUBLE_INF, PARTICIPLE, BY_PARTICIPLE, PAST_IMAGINED, FEEL, KEIN, REL, IMAGINED, POLITE, PAIR,
         PARTICLE, ASK_REST, WHEN, VERB_NEXT, NOUN_VERB, PART_ADJ, WHAT_FOR, PASSIVE, WORDEN, VERB_NOUN, PAST,
     }
@@ -42,7 +42,7 @@ object GermanHints {
     /** The book's pages (companion/grammar/de), by id: every page, A1 to B2. */
     val RULES: Map<String, Rule> = mapOf(
         // A1
-        "akkusativ" to Rule("hint.de.ruleAkkusativ", "hintSay.de.ruleAkkusativ", listOf("Ich sehe den Bus. · Ich sehe ihn.", "Er kauft einen Mantel.", "Sie sucht meinen Schlüssel.", "Kennst du mich?", "Wir rufen dich.", "Er liest die Zeitung."), "Wen? Was?", listOf(Look.PREP, Look.COPULA, Look.SELF, Look.BITTE, Look.OBJECT)),
+        "akkusativ" to Rule("hint.de.ruleAkkusativ", "hintSay.de.ruleAkkusativ", listOf("Ich sehe den Bus. · Ich sehe ihn.", "Er kauft einen Mantel.", "Sie sucht meinen Schlüssel.", "Kennst du mich?", "Wir rufen dich.", "Er liest die Zeitung."), "Wen? Was?", listOf(Look.PREP, Look.COPULA, Look.SELF, Look.OBJECT, Look.BITTE)),
         "artikel-genus" to Rule("hint.de.ruleArtikelGenus", "hintSay.de.ruleArtikelGenus", listOf("der Bus · die Tasche · das Buch", "ein Bus · eine Tasche · ein Buch", "unser Bus · unsere Tasche", "die Busse · die Taschen · die Bücher"), null, listOf(Look.ADJ, Look.GENDER)),
         "du-sie" to Rule("hint.de.ruleDuSie", "hintSay.de.ruleDuSie", listOf("Wie heißt du? · Wie heißen Sie?", "Kommst du? · Kommen Sie?", "Ich danke dir. · Ich danke Ihnen.", "Dein Mantel? · Ihr Mantel?"), "Du oder Sie?", listOf(Look.TO_WHOM)),
         "faelle" to Rule("hint.de.ruleFaelle", "hintSay.de.ruleFaelle", listOf("Der Bus kommt.", "Ich sehe den Bus.", "Ich danke dem Fahrer.", "die Tasche des Fahrers", "Eine Frau kommt.", "Ich sehe einen Bus."), "Wer? Wen? Wem? Wessen?", listOf(Look.COPULA, Look.PREP, Look.OBJECT, Look.BITTE)),
@@ -95,7 +95,7 @@ object GermanHints {
         "werden-futur" to Rule("hint.de.ruleWerdenFutur", "hintSay.de.ruleWerdenFutur", listOf("Ich werde dich anrufen.", "Es wird dunkel.", "Sie wird Ärztin.", "Er wird wohl krank sein."), null, listOf(Look.BY_PARTICIPLE, Look.INFINITIVE, Look.WHO)),
         "wo-da-woerter" to Rule("hint.de.ruleWoDaWoerter", "hintSay.de.ruleWoDaWoerter", listOf("Worauf wartest du? · Ich warte darauf.", "Wofür? · Dafür.", "Womit? · Damit.", "Auf wen wartest du? · Auf ihn."), null, listOf(Look.CHUNK)),
         // B2
-        "adjektiv-nomen" to Rule("hint.de.ruleAdjektivNomen", "hintSay.de.ruleAdjektivNomen", listOf("der Verwandte · ein Verwandter", "die Verwandten · zwei Verwandte", "etwas Neues · nichts Neues", "alles Liebe"), null, listOf(Look.ADJ)),
+        "adjektiv-nomen" to Rule("hint.de.ruleAdjektivNomen", "hintSay.de.ruleAdjektivNomen", listOf("der Verwandte · ein Verwandter", "die Verwandten · zwei Verwandte", "etwas Neues · nichts Neues", "alles Liebe"), null, listOf(Look.ADJ_NOUN)),
         "adjektive-praepositionen" to Rule("hint.de.ruleAdjektivePraep", "hintSay.de.ruleAdjektivePraep", listOf("stolz auf seine Tochter", "froh über die Nachricht", "zufrieden mit dem Ergebnis", "abhängig vom Wetter", "Worauf bist du stolz?"), null, listOf(Look.CHUNK, Look.PREP)),
         "als-ob" to Rule("hint.de.ruleAlsOb", "hintSay.de.ruleAlsOb", listOf("Er tut, als ob er schliefe.", "Sie lacht, als wäre nichts passiert.", "Wenn er doch käme!", "Hätte ich nur Zeit!")),
         "formeller-brief" to Rule("hint.de.ruleFormellerBrief", "hintSay.de.ruleFormellerBrief", listOf("Sehr geehrte Frau Magister Huber,", "Könnten Sie mir bitte mitteilen, …", "Ich wäre Ihnen dankbar, wenn …", "Mit freundlichen Grüßen"), null, listOf(Look.CHUNK)),
@@ -146,10 +146,11 @@ object GermanHints {
     }
 
     /**
-     * Where the verb goes, at a turn of two sentences of the same words in another order ([right], [wrong]): at the first
-     * word they differ in, the verb of a clause that starts with a joining word (weil, dass, wie, der) goes last; a helper's
-     * other verb goes last; a clause's first part (Morgen, Im Winter) or a clause before it (Obwohl es schneit,) has the
-     * verb next; und, aber, oder take no place. Null when they aren't the same words.
+     * Where the verb goes, at a turn of two sentences of the same words in another order ([right], [wrong]), at the first
+     * word they differ in: the verb of a clause opened by a joining word (weil, damit, and after a comma wie, der) goes last;
+     * a helper's other verb goes last; und, aber, oder take no place; else what comes first (Morgen, Im Winter) or the clause
+     * before it (Obwohl es schneit,) has the verb next. Null when they aren't the same words, or what moved is no verb (es
+     * ihm, nicht: the order after the verb).
      */
     fun order(right: String, wrong: String): Trigger? {
         val a = Forms.words(right)
@@ -159,12 +160,14 @@ object GermanHints {
         val s = Said(right, emptySet())
         val start = s.start(d)
         val first = a[start]
+        val last = a[s.end(d)]
         // the word the wrong sentence moved up stands last in the right one
-        if (b[d] == a[s.end(d)]) {
-            if (first in JOINING || first in WH || first in T.relative) return asks(s, start, start, "hint.de.verbLast", "hintSay.after")
-            return (start..d).firstOrNull { a[it] in HELPERS }?.let { asks(s, it, it, "hint.de.endVerb", "hintSay.with") }
-        }
+        val movedUp = b[d] == last
+        val joins = (first in JOINING && (movedUp || first !in T.prepositions)) || (movedUp && !s.opens(start) && (first in WH || first in T.relative))
+        if (joins) return asks(s, start, start, "hint.de.verbLast", "hintSay.after")
+        if (movedUp && (participle(last) || infinitive(last))) (start..d).firstOrNull { a[it] in HELPERS }?.let { return asks(s, it, it, "hint.de.endVerb", "hintSay.with") }
         if (first in NO_PLACE) return asks(s, start, start, "hint.de.noPlace", "hintSay.after")
+        if (a[d] in FUNCTION - HELPERS) return null
         if (start < d) return asks(s, start, d - 1, "hint.de.verbSecond", "hintSay.de.first")
         // the clause before it comes first: the verb at the comma
         val before = (start - 1).takeIf { it >= 0 && a[s.start(it)] in JOINING } ?: return null
@@ -200,15 +203,15 @@ object GermanHints {
         val bare: Set<String>,
         /** A personal pronoun's form, its cases. */
         val pronouns: Map<String, Set<String>>,
-        /** The relative pronoun's forms. */
-        val relative: Set<String>,
+        /** The relative pronoun's form, its cases. */
+        val relative: Map<String, Set<String>>,
         /** The nouns of the n-Deklination, lower case: the lemma and its other forms. */
         val weak: Set<String>,
         /** The nouns of time, lower case. */
         val times: Set<String>,
     ) {
         companion object {
-            val EMPTY = Table(emptyMap(), emptyMap(), emptyMap(), emptyMap(), emptySet(), emptySet(), emptySet(), emptyMap(), emptySet(), emptyMap(), emptySet(), emptySet(), emptySet())
+            val EMPTY = Table(emptyMap(), emptyMap(), emptyMap(), emptyMap(), emptySet(), emptySet(), emptySet(), emptyMap(), emptySet(), emptyMap(), emptyMap(), emptySet(), emptySet())
         }
     }
 
@@ -273,7 +276,7 @@ object GermanHints {
             determiners = dets,
             bare = bare,
             pronouns = pronouns,
-            relative = (o["relative"]?.jsonObject?.get("forms")?.jsonObject?.values.orEmpty()).map { it.jsonPrimitive.content }.toSet(),
+            relative = o["relative"]?.jsonObject?.get("forms")?.jsonObject.orEmpty().entries.groupBy({ it.value.jsonPrimitive.content }, { it.key.substringBefore('.') }).mapValues { it.value.toSet() },
             weak = weak,
             times = strings(o["time"]?.jsonObject?.get("nouns")).map { it.lowercase() }.toSet(),
         )
@@ -365,16 +368,15 @@ object GermanHints {
         set("mag magst mögen mögt"), set("weiß weißt wissen wisst"), set("möchte möchtest möchten möchtet"),
     )
 
-    /** A stem by its letters: the vowel a verb changes in du and er set back (fährst, liest, nimmt), its ending off. */
-    private fun stem(w: String): String {
-        val cut = Regex("(est|en|et|st|e|n|t)$").replace(w, "")
-        return cut.replace('ä', 'a').replace('ö', 'o').replace('ü', 'u').replace("ie", "e").replace('i', 'e').replace("ss", "ß")
-    }
+    /** The stems a verb's form may have: its ending off, the vowel it changes in du and er set back (fährst, liest, nimmt, frisst). */
+    private fun stems(w: String): Set<String> = listOf("est", "en", "et", "st", "e", "n", "t", "").filter { w.endsWith(it) }.map { end ->
+        w.removeSuffix(end).replace('ä', 'a').replace('ö', 'o').replace('ü', 'u').replace("ie", "e").replace('i', 'e').replace("h", "").replace("ß", "s").replace(Regex("(.)\\1"), "$1")
+    }.filter { it.length >= 2 }.toSet()
 
     private fun personPair(a: String, b: String): Boolean {
         if (a == b) return false
         if (PERSON.any { a in it && b in it }) return true
-        return stem(a).length >= 2 && stem(a) == stem(b)
+        return stems(a).any { it in stems(b) }
     }
 
     private val PARTICLES = listOf(
@@ -448,7 +450,7 @@ object GermanHints {
         if (w[n] in set("ich du er sie es wir ihr man")) return n to n
         if (w[n] in T.determiners) {
             if (T.determiners.getValue(w[n]).none { it.startsWith("nom") }) return null
-            return nounFrom(s, n + 1)?.let { n to it }
+            return nounFrom(s, n + 1)?.let { n to it } ?: (n to n).takeIf { w[n] == "das" }
         }
         if (number(w[n]) || w[n] in QUANTITY) return nounFrom(s, n + 1)?.let { n to it }
         if (adjective(s, n)) return nounFrom(s, n)?.let { n to it }
@@ -457,10 +459,16 @@ object GermanHints {
     }
 
     /** The cases of a determiner's or a pronoun's form. */
-    private fun casesOf(w: String): Set<String> = T.determiners[w].orEmpty().map { it.substringBefore('.') }.toSet() + T.pronouns[w].orEmpty()
+    private fun casesOf(w: String): Set<String> = T.determiners[w].orEmpty().map { it.substringBefore('.') }.toSet() + T.pronouns[w].orEmpty() + T.relative[w].orEmpty()
+
+    /** A word with its umlauts set back. */
+    private fun plain(w: String) = w.replace('ä', 'a').replace('ö', 'o').replace('ü', 'u')
 
     /** Two forms of one word, or a determiner and a pronoun of a turn: the sentence's case can decide between them. */
-    private fun related(a: String, b: String): Boolean = (casesOf(a).isNotEmpty() && casesOf(b).isNotEmpty()) || a.commonPrefixWith(b).length >= 3
+    private fun related(a: String, b: String): Boolean = (casesOf(a).isNotEmpty() && casesOf(b).isNotEmpty()) || plain(a).commonPrefixWith(plain(b)).length >= 3
+
+    /** One noun's forms: the plural and its singular (Köpfe, Kopf; Mütter, Mutter). */
+    private fun oneNoun(gap: String, forms: Set<String>): Boolean = forms.any { it != gap && plain(it).commonPrefixWith(plain(gap)).length >= 3 }
 
     // --- what decides the form --------------------------------------------------------------------------------------
 
@@ -479,7 +487,8 @@ object GermanHints {
             Look.SELF -> self(s, i, gap)
             Look.TWO_OBJECTS -> twoObjects(s, i, gap, forms)
             Look.GENDER -> gender(s, i, gap, forms)
-            Look.ADJ -> adjectiveEnding(s, i, gap, forms)
+            Look.ADJ -> if (s.capital(i) && !s.opens(i)) null else adjectiveEnding(s, i, gap, forms)
+            Look.ADJ_NOUN -> adjectiveEnding(s, i, gap, forms)
             Look.WHOSE -> whose(s, i, gap, forms)
             Look.WEAK -> weak(s, i, gap, forms)
             Look.MANY -> many(s, i, gap, forms)
@@ -541,6 +550,8 @@ object GermanHints {
     private fun governing(s: Said, i: Int): Int? {
         val w = s.words
         var k = i - 1
+        // (mit dem Hammer und dem Meißel: the phrase before and)
+        if (k > 0 && s.same(k, i) && w[k] in set("und oder") && noun(s, k - 1)) k -= 2
         while (k >= 0 && s.same(k, i) && (w[k] !in T.prepositions && w[k] !in T.fused) && (determiner(s, k) || adjective(s, k) || w[k] in SOFT)) k--
         if (k < 0 || !s.same(k, i)) return null
         if (w[k] !in T.prepositions && w[k] !in T.fused) return null
@@ -623,11 +634,7 @@ object GermanHints {
     /** A preposition at the gap (or da-, wo- with it: darauf, dafür) against another, and the verb, adjective or noun whose own it is. */
     private fun chunk(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
         val prep = daWord(gap) ?: gap
-        if (prep !in T.prepositions) {
-            // a preposition's noun at the gap: its case, as prep finds it
-            return prep(s, i, gap, forms)
-        }
-        if (forms.size < 2) return null
+        if (prep !in T.prepositions || forms.size < 2) return null
         val (k, _) = chunkOf(s, i, prep) ?: return null
         return asks(s, k, k, "hint.de.chunk", "hintSay.with")
     }
@@ -655,9 +662,9 @@ object GermanHints {
         val w = s.words
         val start = s.start(i)
         val end = s.end(i)
-        val helper = (start until end).firstOrNull { it != i && (w[it] in MODALS || w[it] in WERDEN || w[it] in HABEN || w[it] in SEIN) && verbShaped(s, it) }
+        val helper = (start until end).firstOrNull { it != i && (w[it] in MODALS || w[it] in WERDEN || w[it] in HABEN || w[it] in SEIN - "sein") && verbShaped(s, it) }
         if (helper != null && end != i && !s.capital(end) && (participle(w[end]) || infinitive(w[end]))) return end
-        val p = (start..end).firstOrNull { k -> k != i && w[k] in set("ich du er sie es wir ihr man wer") && !(k > start && w[k - 1] in T.prepositions) }
+        val p = (start..end).firstOrNull { k -> k != i && w[k] in set("ich du er sie es wir ihr man wer jemand niemand") && !(k > start && w[k - 1] in T.prepositions) }
         if (p != null) {
             if (p > start && w[p - 1] !in FUNCTION - HELPERS && verbShaped(s, p - 1)) return p - 1
             if (p + 1 != i && p + 1 <= end && w[p + 1] !in FUNCTION - HELPERS && !s.capital(p + 1)) return p + 1
@@ -695,12 +702,17 @@ object GermanHints {
         return asks(s, k, k, "hint.de.bitte", "hintSay.with")
     }
 
-    /** sich, mich, dich at the gap, and who does it: the subject of its clause. */
+    /** Who does it to themselves: sich anyone (empty), mich ich, dich du. */
+    private val OWN_SELF = mapOf("sich" to "", "mich" to "ich", "dich" to "du", "uns" to "wir", "euch" to "ihr")
+
+    /** sich at the gap, or mich, dich with their own pronoun (ich wasche mich), and who does it: the subject of its clause. */
     private fun self(s: Said, i: Int, gap: String): Trigger? {
-        if (gap !in set("sich mich dich uns euch")) return null
+        val own = OWN_SELF[gap] ?: return null
         val k = before(s, i, emptySet()) ?: return null
-        val from = phraseEnding(s, k - 1) ?: (k - 1).takeIf { it >= 0 && s.same(it, i) && s.words[it] in SUBJECTS } ?: return null
-        return Trigger.Cue(s.text(from, k - 1), k - 1, Trigger.Cue.Kind.WHO)
+        val at = k - 1
+        if (at < 0 || !s.same(at, i)) return null
+        val from = if (gap == "sich") phraseEnding(s, at) ?: at.takeIf { s.words[it] in SUBJECTS } else at.takeIf { s.words[it] == own }
+        return from?.let { Trigger.Cue(s.text(it, at), at, Trigger.Cue.Kind.WHO) }
     }
 
     /** mir or dir at the gap against mich or dich, and an object of its own in the clause (Ich stelle es mir vor): the dative. */
@@ -719,7 +731,7 @@ object GermanHints {
         }
         if (gap in set("er sie es ihn") && forms.all { it in set("er sie es ihn") } && s.clause[i] > 0) {
             val ks = s.words.indices.filter { s.clause[it] == s.clause[i] - 1 }
-            val n = ks.lastOrNull()?.takeIf { ks.size in 1..3 && s.capital(it) && (ks.size == 1 || s.words[ks.first()] in T.determiners) } ?: return null
+            val n = ks.lastOrNull()?.takeIf { ks.size in 2..3 && s.capital(it) && s.words[ks.first()] in T.determiners } ?: return null
             return asks(s, n, n, "hint.de.gender", "hintSay.with")
         }
         return null
@@ -767,7 +779,7 @@ object GermanHints {
     /** A noun at the gap against its singular, and before it, past its adjectives, a number or a word of more than one. */
     private fun many(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
         val w = s.words
-        if (!s.capital(i) || gap in MEASURES || forms.none { it != gap && it.commonPrefixWith(gap).length >= 2 }) return null
+        if (!s.capital(i) || gap in MEASURES || !oneNoun(gap, forms)) return null
         var k = i - 1
         while (k >= 0 && s.same(k, i) && (adjective(s, k) && w[k] !in QUANTITY && !number(w[k]))) k--
         if (k < 0 || !s.same(k, i)) return null
@@ -783,7 +795,7 @@ object GermanHints {
     /** A noun at the gap against its singular, and the verb of more than one beside it (Die Blüten sind, Das sind Stare, Sind das Bäume?). */
     private fun verbMany(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
         val w = s.words
-        if (!s.capital(i) || forms.none { it != gap && it.commonPrefixWith(gap).length >= 2 }) return null
+        if (!s.capital(i) || !oneNoun(gap, forms)) return null
         val n = i + 1
         if (s.same(n, i) && !s.capital(n) && (w[n] in set("sind waren haben hatten") || (w[n].endsWith("en") && w[n] !in FUNCTION))) return asks(s, n, n, "hint.de.verbMany", "hintSay.with")
         val k = (i - 1).takeIf { it >= 0 && s.same(it, i) } ?: return null
@@ -827,19 +839,19 @@ object GermanHints {
      * gewinnen wir. Fressen sie Mücken?); wer or was alone before it is who.
      */
     private fun who(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
-        if (forms.none { personPair(gap, it) }) return null
+        if ((s.capital(i) && !s.opens(i)) || forms.none { personPair(gap, it) }) return null
         val w = s.words
         val k = before(s, i, set("auch nur noch schon nicht"))
         if (k != null) {
-            val governed = k > 0 && s.same(k - 1, k) && w[k - 1] in T.prepositions
-            if (w[k] in SUBJECTS && w[k] !in set("wer das") && !governed) return Trigger.Cue(s.spans[k].value, k, Trigger.Cue.Kind.WHO)
+            val governed = k > 0 && s.same(k - 1, k) && (w[k - 1] in T.prepositions || w[k - 1] == "wie")
+            if (w[k] in SUBJECTS && w[k] != "wer" && !governed) return Trigger.Cue(s.spans[k].value, k, Trigger.Cue.Kind.WHO)
             phraseEnding(s, k)?.let { from ->
                 if (from == k || w[from] !in T.determiners || T.determiners.getValue(w[from]).any { it.startsWith("nom") }) return Trigger.Cue(s.text(from, k), k, Trigger.Cue.Kind.WHO)
             }
         }
         val n = after(s, i, set("denn nicht auch schon doch ja wirklich"))
         if (n != null) subjectFrom(s, n)?.let { (a, b) -> return Trigger.Cue(s.text(a, b), b, Trigger.Cue.Kind.WHO) }
-        if (k != null && k == s.start(i) && w[k] in set("wer was das")) return Trigger.Cue(s.spans[k].value, k, Trigger.Cue.Kind.WHO)
+        if (k != null && k == s.start(i) && w[k] in set("wer was")) return Trigger.Cue(s.spans[k].value, k, Trigger.Cue.Kind.WHO)
         return null
     }
 
@@ -871,7 +883,7 @@ object GermanHints {
 
     /** An infinitive at the gap against another form of it, and a modal, würde or werden before it in its clause (Darf ich … machen, lässt sich … herausfinden). */
     private fun infinitiveAfter(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
-        if (!infinitive(gap) || forms.none { it != gap && it.commonPrefixWith(gap).length >= 2 || (gap == "sein" && it in SEIN) || (gap == "haben" && it in HABEN) }) return null
+        if (!infinitive(gap) || forms.none { it != gap && (personPair(gap, it) || participle(it) || (gap == "sein" && it in SEIN) || (gap == "haben" && it in HABEN)) }) return null
         val k = (i - 1 downTo s.start(i)).firstOrNull { s.words[it] in BEFORE_INFINITIVE && verbShaped(s, it) } ?: return null
         return asks(s, k, k, "hint.de.infinitive", "hintSay.after")
     }
@@ -886,7 +898,10 @@ object GermanHints {
     /** A participle at the gap against another form of it, and haben or sein before it in its clause: the helper. */
     private fun participleAfter(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
         if (!participle(gap) || forms.size < 2) return null
-        val k = (i - 1 downTo s.start(i)).firstOrNull { (s.words[it] in HABEN || s.words[it] in SEIN) && verbShaped(s, it) } ?: return null
+        val helps = { k: Int -> (s.words[k] in HABEN || s.words[k] in SEIN - "sein") && verbShaped(s, k) }
+        // (in a clause with its verb last, the helper comes after it: dass es gehalten hat)
+        (i + 1).takeIf { s.same(it, i) && helps(it) }?.let { return asks(s, it, it, "hint.de.participleBefore", "hintSay.with") }
+        val k = (i - 1 downTo s.start(i)).firstOrNull(helps) ?: return null
         return asks(s, k, k, "hint.de.participle", "hintSay.after")
     }
 
@@ -959,12 +974,10 @@ object GermanHints {
             "dürften sollte solltest sollten möchte möchtest möchten wüsste wüsstest wüssten",
     )
 
-    private fun plain(w: String) = w.replace('ä', 'a').replace('ö', 'o').replace('ü', 'u')
-
     /** The Konjunktiv at the gap against the plain form, and what says it isn't so: another Konjunktiv in the sentence's other half (Wenn ich krank wäre, würde ich …), ich wünschte, ohne at its clause's start. */
     private fun imagined(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
         val w = s.words
-        if (gap !in KONJUNKTIV && forms.none { it != gap && plain(it) == plain(gap) }) return null
+        if (gap !in KONJUNKTIV && forms.none { it != gap && plain(it) == plain(gap).removeSuffix("e") }) return null
         val other = w.indices.firstOrNull { !s.same(it, i) && w[it] in KONJUNKTIV && kotlin.math.abs(s.clause[it] - s.clause[i]) == 1 }
         if (other != null) return asks(s, other, other, "hint.de.imagined", "hintSay.with")
         (0 until i).firstOrNull { w[it] == "wünschte" }?.let { return asks(s, it, it, "hint.de.imagined", "hintSay.with") }
@@ -1059,6 +1072,8 @@ object GermanHints {
         }
         if (gap !in WERDEN) return null
         val k = (i - 1).takeIf { it >= 0 && s.same(it, i) && participle(w[it]) } ?: return null
+        // (müssen noch übersetzt werden: the modal's infinitive)
+        (k - 1 downTo s.start(i)).firstOrNull { w[it] in MODALS }?.let { return asks(s, it, it, "hint.de.infinitive", "hintSay.after") }
         return when {
             "worden" in forms -> asks(s, k, k, "hint.de.oneVerb", "hintSay.with")
             forms.any { it in HABEN } -> asks(s, k, k, "hint.de.passiveDone", "hintSay.with")
