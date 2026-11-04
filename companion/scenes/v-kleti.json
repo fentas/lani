@@ -4,7 +4,7 @@
   "title": { "sl": "V kleti", "en": "In the cellar", "de": "Im Keller", "it": "In cantina" },
   "emoji": "🍷",
   "level": "A2",
-  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker; reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker; reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "cellar",
   "from": ["house"],
   "household": ["marko"],
@@ -32,13 +32,13 @@
   ],
   "happenings": [
     { "id": "vida", "title": { "sl": "Vida pride po vino", "en": "Vida comes for wine", "de": "Vida holt Wein", "it": "Vida viene a prendere il vino" }, "who": "vida",
-      "when": ["morning"], "chance": 0.5, "dialog": "vida", "dialogs": ["vida-gostje", "vida-ples", "vida"], "reward": { "food": 20 }, "marker": "🏺",
+      "when": ["morning"], "chance": 0.5, "dialog": "vida", "dialogs": ["vida-b2-trnovo", "vida-b1-gost", "vida-gostje", "vida-ples", "vida"], "reward": { "food": 20 }, "marker": "🏺",
       "memory": { "sl": "jutro, ko sva {m:točila|f:točili} vino za gostilno", "en": "the morning we drew wine for the inn", "de": "den Morgen, an dem wir Wein für das Gasthaus abgefüllt haben", "it": "la mattina in cui abbiamo spillato il vino per l'osteria" } },
     { "id": "prsut", "title": { "sl": "Marko reže pršut", "en": "Marko is slicing pršut", "de": "Marko schneidet Pršut auf", "it": "Marko taglia il prosciutto" }, "who": "marko",
       "when": ["afternoon"], "chance": 0.5, "dialog": "prsut", "dialogs": ["prsut-kruh", "prsut-noz", "prsut"], "reward": { "food": 25 }, "marker": "🍖", "needs": { "level": 3 },
       "memory": { "sl": "pršut, ki sva ga jedla v kleti", "en": "the pršut we ate in the cellar", "de": "den Pršut, den wir im Keller gegessen haben", "it": "il prosciutto che abbiamo mangiato in cantina" } },
     { "id": "pokusina", "title": { "sl": "Marko toči novo vino", "en": "Marko is drawing the new wine", "de": "Marko zapft den neuen Wein", "it": "Marko spilla il vino nuovo" }, "who": "marko",
-      "when": ["evening"], "months": [11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "pokusina", "dialogs": ["pokusina-kozarci", "pokusina-vsec", "pokusina"], "reward": { "wisdom": 20 }, "marker": "🍷",
+      "when": ["evening"], "months": [11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "pokusina", "dialogs": ["pokusina-b2-toca", "pokusina-b1-gorica", "pokusina-kozarci", "pokusina-vsec", "pokusina"], "reward": { "wisdom": 20 }, "marker": "🍷",
       "memory": { "sl": "večer, ko sva v temi pokušala vino", "en": "the evening we tasted wine in the dark", "de": "den Abend, an dem wir im Dunkeln Wein probiert haben", "it": "la sera in cui abbiamo assaggiato il vino al buio" } }
   ],
   "dialogs": [
@@ -316,6 +316,592 @@
             "reply": { "face": "laugh", "sl": "Potem pa še en kozarec. Teran greje!", "en": "Then one more glass. Teran warms you up!", "de": "Dann noch ein Glas. Teran wärmt!", "it": "Allora un altro bicchiere. Il terrano scalda!", "fx": { "tap": 1 } } }
         ] },
         { "who": "marko", "sl": "Na zdravje, {learner}! Teran in prijatelji, to je vse, kar rabim.", "en": "Cheers, {learner}! Teran and friends, that's all I need.", "de": "Prost, {learner}! Teran und Freunde, mehr brauche ich nicht.", "it": "Salute, {learner}! Terrano e amici, non mi serve altro." }
+      ]
+    },
+    {
+      "id": "vida-b1-gost",
+      "level": "B1",
+      "memory": {
+        "sl": "gosta, ki mu moj teran ni bil všeč",
+        "en": "the guest who didn't like my teran",
+        "de": "den Gast, dem mein Teran nicht geschmeckt hat",
+        "it": "l'ospite a cui il mio terrano non era piaciuto"
+      },
+      "lines": [
+        {
+          "who": "vida",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}! Včeraj mi je neki gost iz Nemčije rekel, da je bil moj teran prekisel. Prekisel!",
+          "en": "Good morning, {learner}! Yesterday a guest from Germany told me my teran was too sour. Too sour!",
+          "de": "Guten Morgen, {learner}! Gestern hat mir ein Gast aus Deutschland gesagt, mein Teran sei zu sauer gewesen. Zu sauer!",
+          "it": "Buongiorno, {learner}! Ieri un ospite tedesco mi ha detto che il mio terrano era troppo aspro. Troppo aspro!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Gost, ki mu teran ni bil všeč, gotovo ne pozna Krasa.",
+              "en": "A guest who didn't like the teran surely doesn't know the Karst.",
+              "de": "Ein Gast, dem der Teran nicht geschmeckt hat, kennt den Karst bestimmt nicht.",
+              "it": "Un ospite a cui il terrano non è piaciuto di sicuro non conosce il Carso.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Prav imate! Teran je kot Kras: oster, ampak pošten.",
+                "en": "You're right! Teran is like the Karst: sharp, but honest.",
+                "de": "Sie haben recht! Der Teran ist wie der Karst: herb, aber ehrlich.",
+                "it": "Ha ragione! Il terrano è come il Carso: aspro, ma onesto."
+              }
+            },
+            {
+              "sl": "Gost, ki teran ni bil všeč, gotovo ne pozna Krasa.",
+              "en": "A guest who the teran wasn't liked surely doesn't know the Karst.",
+              "de": "Ein Gast, der der Teran nicht geschmeckt hat, kennt den Karst bestimmt nicht.",
+              "it": "Un ospite che il terrano non è piaciuto di sicuro non conosce il Carso.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "Ki never changes: the guest is whom it didn't please, the dative, so a short mu after ki shows it: ki mu ni bil všeč.",
+                "de": "Ki ändert sich nie: der Gast ist der, dem es nicht gefiel, der Dativ, also zeigt ein kurzes mu nach ki es an: ki mu ni bil všeč.",
+                "it": "Ki non cambia mai: l'ospite è colui a cui non è piaciuto, il dativo, quindi un mu breve dopo ki lo indica: ki mu ni bil všeč."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kdo ni bil komu všeč? Bitte, še enkrat, {learner}.",
+                "en": "Who didn't please whom? Bitte, once more, {learner}.",
+                "de": "Wer hat wem nicht gefallen? Bitte, noch einmal, {learner}.",
+                "it": "Chi non è piaciuto a chi? Bitte, ancora una volta, {learner}."
+              }
+            },
+            {
+              "sl": "Gost, ki ga teran ni bil všeč, gotovo ne pozna Krasa.",
+              "en": "A guest whom the teran didn't please (acc.) surely doesn't know the Karst.",
+              "de": "Ein Gast, den der Teran nicht geschmeckt hat, kennt den Karst bestimmt nicht.",
+              "it": "Un ospite che il terrano non è piaciuto di sicuro non conosce il Carso.",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Všeč takes the dative, whom it pleases: mu, not ga. Ki mu ni bil všeč.",
+                "de": "Všeč verlangt den Dativ, wem es gefällt: mu, nicht ga. Ki mu ni bil všeč.",
+                "it": "Všeč vuole il dativo, a chi piace: mu, non ga. Ki mu ni bil všeč."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ga? Moj teran ni ugriznil še nikogar, ha ha!",
+                "en": "Him? My teran has never bitten anyone, ha ha!",
+                "de": "Ihn? Mein Teran hat noch niemanden gebissen, ha ha!",
+                "it": "Lui? Il mio terrano non ha mai morso nessuno, ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Bitte, še enkrat.",
+            "en": "Sorry? Bitte, once more.",
+            "de": "Wie bitte? Bitte, noch einmal.",
+            "it": "Come, scusi? Bitte, ancora una volta."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "curious",
+          "sl": "Danes spet pride. Kaj naj mu ponudim, da ne bo spet godrnjal?",
+          "en": "He's coming again today. What should I offer him so he doesn't grumble again?",
+          "de": "Heute kommt er wieder. Was soll ich ihm anbieten, damit er nicht wieder meckert?",
+          "it": "Oggi torna. Cosa gli offro, perché non brontoli di nuovo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ponudite mu kozarec rebule, ker je bolj mehka kot teran.",
+              "en": "Offer him a glass of rebula, because it's softer than teran.",
+              "de": "Bieten Sie ihm ein Glas Rebula an, weil er milder ist als der Teran.",
+              "it": "Gli offra un bicchiere di ribolla, perché è più morbida del terrano.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Rebula! Seveda. Danke, {learner}, kaj bi brez vas?",
+                "en": "Rebula! Of course. Danke, {learner}, what would I do without you?",
+                "de": "Rebula! Natürlich. Danke, {learner}, was täte ich ohne Sie?",
+                "it": "La ribolla! Certo. Danke, {learner}, cosa farei senza di Lei?"
+              }
+            },
+            {
+              "sl": "Ponujajte mu kozarec rebule, ker je bolj mehka kot teran.",
+              "en": "Keep offering him a glass of rebula, because it's softer than teran.",
+              "de": "Bieten Sie ihm immer wieder ein Glas Rebula an, weil er milder ist als der Teran.",
+              "it": "Continui a offrirgli un bicchiere di ribolla, perché è più morbida del terrano.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "One offer, done, is perfective: ponudite. Ponujajte is going on, offering again and again.",
+                "de": "Ein Angebot, einmal erledigt, ist vollendet: ponudite. Ponujajte dauert an: immer wieder anbieten.",
+                "it": "Un'offerta sola, compiuta, è perfettiva: ponudite. Ponujajte dura: offrire ancora e ancora."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ves dan, kozarec za kozarcem? Potem bo pa res vesel!",
+                "en": "All day, glass after glass? Then he'll be happy all right!",
+                "de": "Den ganzen Tag, Glas um Glas? Dann ist er aber wirklich froh!",
+                "it": "Tutto il giorno, un bicchiere dopo l'altro? Allora sì che sarà contento!"
+              }
+            },
+            {
+              "sl": "Ponudite mu kozarec rebule, ker je bolj mehkejša kot teran.",
+              "en": "Offer him a glass of rebula, because it's more softer than teran.",
+              "de": "Bieten Sie ihm ein Glas Rebula an, weil er mehr milder ist als der Teran.",
+              "it": "Gli offra un bicchiere di ribolla, perché è più più morbida del terrano.",
+              "grammar": "primernik",
+              "why": {
+                "en": "The comparative is bolj mehka or mehkejša, never both together.",
+                "de": "Der Komparativ ist bolj mehka oder mehkejša, nie beides zusammen.",
+                "it": "Il comparativo è bolj mehka oppure mehkejša, mai tutti e due insieme."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Še bolj kot bolj? Potem je že kot olje, ha ha!",
+                "en": "Even more than more? Then it's like oil already, ha ha!",
+                "de": "Noch mehr als mehr? Dann ist er ja schon wie Öl, ha ha!",
+                "it": "Ancora più di più? Allora è già come l'olio, ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Bitte, še enkrat.",
+            "en": "Sorry? Bitte, once more.",
+            "de": "Wie bitte? Bitte, noch einmal.",
+            "it": "Come, scusi? Bitte, ancora una volta."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "happy",
+          "sl": "Prav. In če bo spet godrnjal, mu bom rekla, da je teran zdravilo. Lepa beseda lepo mesto najde!",
+          "en": "Right. And if he grumbles again, I'll tell him teran is medicine. A kind word finds a kind place!",
+          "de": "Gut. Und wenn er wieder meckert, sage ich ihm, Teran ist Medizin. Ein schönes Wort findet einen schönen Platz!",
+          "it": "Bene. E se brontola ancora, gli dirò che il terrano è una medicina. Una bella parola trova sempre un bel posto!"
+        }
+      ]
+    },
+    {
+      "id": "vida-b2-trnovo",
+      "level": "B2",
+      "memory": {
+        "sl": "mojo staro gostilno v Trnovem",
+        "en": "my old inn in Trnovo",
+        "de": "mein altes Gasthaus in Trnovo",
+        "it": "la mia vecchia trattoria a Trnovo"
+      },
+      "lines": [
+        {
+          "who": "vida",
+          "face": "thinking",
+          "sl": "Dobro jutro, {learner}. Ste vedeli, da sem imela včasih gostilno v Trnovem? S teraso nad dolino, kjer so Nemci sedeli do polnoči.",
+          "en": "Good morning, {learner}. Did you know I used to have an inn in Trnovo? With a terrace above the valley, where the Germans sat until midnight.",
+          "de": "Guten Morgen, {learner}. Wussten Sie, dass ich früher ein Gasthaus in Trnovo hatte? Mit einer Terrasse über dem Tal, wo die Deutschen bis Mitternacht saßen.",
+          "it": "Buongiorno, {learner}. Sapeva che una volta avevo una trattoria a Trnovo? Con una terrazza sulla valle, dove i tedeschi restavano seduti fino a mezzanotte."
+        },
+        {
+          "who": "vida",
+          "face": "sad",
+          "sl": "Včasih se vprašam, ali ne bi bilo bolje, če bi bila ostala tam. Tam je bilo vse urejeno, tukaj pa je vse še novo.",
+          "en": "Sometimes I wonder whether it wouldn't have been better if I'd stayed there. There everything was in order, and here it's all still new.",
+          "de": "Manchmal frage ich mich, ob es nicht besser gewesen wäre, wenn ich dort geblieben wäre. Dort war alles geregelt, hier ist alles noch neu.",
+          "it": "A volte mi chiedo se non sarebbe stato meglio restare là. Là era tutto a posto, qui invece è ancora tutto nuovo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi bili ostali tam, me ne bi bili nikoli spoznali.",
+              "en": "If you had stayed there, you would never have met me.",
+              "de": "Wären Sie dort geblieben, hätten Sie mich nie kennengelernt.",
+              "it": "Se fosse rimasta là, non mi avrebbe mai conosciuto.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Res je. In kdo bi mi potem ob jutrih točil vino?",
+                "en": "Ha! That's true. And who would draw my wine in the mornings then?",
+                "de": "Ha! Stimmt. Und wer würde mir dann morgens den Wein zapfen?",
+                "it": "Ah! È vero. E chi mi spillerebbe il vino la mattina, allora?"
+              }
+            },
+            {
+              "sl": "Če ste ostali tam, me niste nikoli spoznali.",
+              "en": "If you stayed there, you never met me.",
+              "de": "Wenn Sie dort geblieben sind, haben Sie mich nie kennengelernt.",
+              "it": "Se è rimasta là, non mi ha mai conosciuto.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "She didn't stay: what would have been takes the conditional in both halves, če bi bili ostali … ne bi bili spoznali. Če ste ostali reads as if she perhaps did.",
+                "de": "Sie ist nicht geblieben: was gewesen wäre, steht in beiden Hälften im Konditional, če bi bili ostali … ne bi bili spoznali. Če ste ostali klingt, als wäre sie geblieben.",
+                "it": "Non è rimasta: ciò che sarebbe stato vuole il condizionale in tutte e due le parti, če bi bili ostali … ne bi bili spoznali. Če ste ostali suona come se fosse rimasta."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Saj nisem ostala! Tukaj sem, z vrčem v roki.",
+                "en": "But I didn't stay! Here I am, jug in hand.",
+                "de": "Ich bin doch nicht geblieben! Hier bin ich, den Krug in der Hand.",
+                "it": "Ma non sono rimasta! Sono qui, con la brocca in mano."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Bitte, še enkrat.",
+            "en": "Sorry? Bitte, once more.",
+            "de": "Wie bitte? Bitte, noch einmal.",
+            "it": "Come, scusi? Bitte, ancora una volta."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "thinking",
+          "sl": "Ampak resno: tam sem imela mir, tukaj imam hrup, otroke in vso vas. Ne vem, kaj je več vredno.",
+          "en": "But seriously: there I had peace, here I have noise, children and the whole village. I don't know which is worth more.",
+          "de": "Aber im Ernst: dort hatte ich Ruhe, hier habe ich Lärm, Kinder und das ganze Dorf. Ich weiß nicht, was mehr wert ist.",
+          "it": "Ma sul serio: là avevo pace, qui ho rumore, bambini e tutto il paese. Non so cosa valga di più."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mir je lep, seveda, ampak brez ljudi je gostilna samo prazna hiša.",
+              "en": "Peace is lovely, of course, but without people an inn is just an empty house.",
+              "de": "Ruhe ist schön, sicher, aber ohne Leute ist ein Gasthaus nur ein leeres Haus.",
+              "it": "La pace è bella, certo, ma senza gente una trattoria è solo una casa vuota.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav pravite. Prazna hiša, polna tišine … Bitte, nikoli več!",
+                "en": "Well said. An empty house full of silence … Bitte, never again!",
+                "de": "Recht haben Sie. Ein leeres Haus voller Stille … Bitte, nie wieder!",
+                "it": "Ben detto. Una casa vuota, piena di silenzio … Bitte, mai più!"
+              }
+            },
+            {
+              "sl": "Potem se vrnite v Trnovo. Tam vam je bilo očitno lepše.",
+              "en": "Then go back to Trnovo. You obviously liked it better there.",
+              "de": "Dann gehen Sie doch zurück nach Trnovo. Dort hat es Ihnen offenbar besser gefallen.",
+              "it": "Allora torni a Trnovo. Là evidentemente stava meglio.",
+              "why": {
+                "en": "Vida weighs peace against people, and her voice warms at the noise and the children: she isn't asking to be sent back. Grant her the peace, then side with what she loves.",
+                "de": "Vida wägt Ruhe gegen Menschen ab, und bei Lärm und Kindern wird ihre Stimme warm: sie will nicht zurückgeschickt werden. Gib ihr die Ruhe zu, dann halte zu dem, was sie liebt.",
+                "it": "Vida soppesa la pace e la gente, e la sua voce si scalda per il rumore e i bambini: non chiede di tornare indietro. Concedile la pace, poi sta' con ciò che ama."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Nazaj? Z vsemi sodi in lonci? Bitte, ne!",
+                "en": "Back? With all the barrels and pots? Bitte, no!",
+                "de": "Zurück? Mit all den Fässern und Töpfen? Bitte nicht!",
+                "it": "Indietro? Con tutte le botti e le pentole? Bitte, no!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Bitte, še enkrat.",
+            "en": "Sorry? Bitte, once more.",
+            "de": "Wie bitte? Bitte, noch einmal.",
+            "it": "Come, scusi? Bitte, ancora una volta."
+          }
+        },
+        {
+          "who": "vida",
+          "face": "happy",
+          "sl": "Lepa beseda lepo mesto najde, {learner}. Zdaj pa hitro: dva vrča rebule, gostje že čakajo!",
+          "en": "A kind word finds a kind place, {learner}. Now quick: two jugs of rebula, the guests are waiting!",
+          "de": "Ein schönes Wort findet einen schönen Platz, {learner}. Jetzt aber schnell: zwei Krüge Rebula, die Gäste warten schon!",
+          "it": "Una bella parola trova sempre un bel posto, {learner}. Ora presto: due brocche di ribolla, gli ospiti aspettano!"
+        }
+      ]
+    },
+    {
+      "id": "pokusina-b1-gorica",
+      "level": "B1",
+      "memory": {
+        "sl": "sto steklenic rebule za prijatelja iz Gorice",
+        "en": "the hundred bottles of rebula for my friend from Gorizia",
+        "de": "die hundert Flaschen Rebula für meinen Freund aus Gorizia",
+        "it": "le cento bottiglie di ribolla per il mio amico di Gorizia"
+      },
+      "lines": [
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "{learner}! Hitro dol v klet. Novo vino je pripravljeno, letos iz same rebule. Poskusi!",
+          "en": "{learner}! Quick, down to the cellar. The new wine is ready, all rebula this year. Taste it!",
+          "de": "{learner}! Schnell in den Keller. Der neue Wein ist fertig, dieses Jahr reiner Rebula. Probier!",
+          "it": "{learner}! Presto, giù in cantina. Il vino nuovo è pronto, quest'anno tutto ribolla. Assaggia!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mmm! Je bilo to vino narejeno iz grozdja z Brd?",
+              "en": "Mmm! Was this wine made from grapes from Brda?",
+              "de": "Mmm! Wurde dieser Wein aus Trauben aus Brda gemacht?",
+              "it": "Mmm! Questo vino è stato fatto con l'uva del Collio?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Seveda, z Brd! Vsak grozd sem obral sam. No, skoraj vsakega.",
+                "en": "Of course, from Brda! I picked every bunch myself. Well, nearly every one.",
+                "de": "Natürlich, aus Brda! Jede Traube habe ich selbst gelesen. Na ja, fast jede.",
+                "it": "Certo, dal Collio! Ogni grappolo l'ho raccolto io. Be', quasi ogni."
+              }
+            },
+            {
+              "sl": "Mmm! Je bilo to vino narejen iz grozdja z Brd?",
+              "en": "Mmm! Was this wine made (masc.) from grapes from Brda?",
+              "de": "Mmm! Wurde dieser Wein (männlich) aus Trauben aus Brda gemacht?",
+              "it": "Mmm! Questo vino è stato fatto (maschile) con l'uva del Collio?",
+              "grammar": "trpnik",
+              "why": {
+                "en": "The participle agrees like an adjective: vino is neuter, vino je bilo narejeno.",
+                "de": "Das Partizip richtet sich wie ein Adjektiv: vino ist sächlich, vino je bilo narejeno.",
+                "it": "Il participio concorda come un aggettivo: vino è neutro, vino je bilo narejeno."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Narejen? Kdo, jaz? Ha ha, mene je naredila mama!",
+                "en": "Made? Who, me? Ha ha, my mum made me!",
+                "de": "Gemacht? Wer, ich? Ha ha, mich hat meine Mama gemacht!",
+                "it": "Fatto? Chi, io? Ah ah, me mi ha fatto la mamma!"
+              }
+            },
+            {
+              "sl": "Mmm! Je bilo to vino narejeno iz grozdje z Brd?",
+              "en": "Mmm! Was this wine made from grapes from Brda?",
+              "de": "Mmm! Wurde dieser Wein aus Trauben aus Brda gemacht?",
+              "it": "Mmm! Questo vino è stato fatto con l'uva del Collio?",
+              "grammar": "rodilnik-predlogi",
+              "why": {
+                "en": "Iz takes the genitive: iz grozdja.",
+                "de": "Iz verlangt den Genitiv: iz grozdja.",
+                "it": "Iz vuole il genitivo: iz grozdja."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Iz … kaj? Allora, počasi, vino ne beži.",
+                "en": "From … what? Allora, slowly, the wine isn't going anywhere.",
+                "de": "Aus … was? Allora, langsam, der Wein läuft nicht weg.",
+                "it": "Da … cosa? Allora, piano, il vino non scappa."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Allora, še enkrat, počasi.",
+            "en": "Hm? Allora, once more, slowly.",
+            "de": "Hm? Allora, noch einmal, langsam.",
+            "it": "Mm? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Aja, popoldne je klical moj prijatelj iz Gorice, ti si se {m:oglasil|f:oglasila}. Kaj je rekel?",
+          "en": "Oh right, my friend from Gorizia called this afternoon, and you answered. What did he say?",
+          "de": "Ach ja, heute Nachmittag hat mein Freund aus Gorizia angerufen, du bist rangegangen. Was hat er gesagt?",
+          "it": "Ah già, oggi pomeriggio ha chiamato il mio amico di Gorizia, hai risposto tu. Cosa ha detto?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Rekel je, naj mu prihraniš sto steklenic rebule. V soboto pride ponje.",
+              "en": "He said you should keep a hundred bottles of rebula for him. He's coming for them on Saturday.",
+              "de": "Er hat gesagt, du sollst ihm hundert Flaschen Rebula zurücklegen. Am Samstag holt er sie ab.",
+              "it": "Ha detto di tenergli da parte cento bottiglie di ribolla. Sabato passa a prenderle.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Sto! Perfetto! Potem je letošnja trgatev že plačana.",
+                "en": "A hundred! Perfetto! Then this year's harvest is paid for already.",
+                "de": "Hundert! Perfetto! Dann ist die Weinlese dieses Jahr schon bezahlt.",
+                "it": "Cento! Perfetto! Allora la vendemmia di quest'anno è già pagata."
+              }
+            },
+            {
+              "sl": "Rekel je, naj mu prihranim sto steklenic rebule. V soboto pride ponje.",
+              "en": "He said I should keep a hundred bottles of rebula for him. He's coming for them on Saturday.",
+              "de": "Er hat gesagt, ich soll ihm hundert Flaschen Rebula zurücklegen. Am Samstag holt er sie ab.",
+              "it": "Ha detto che dovrei tenergli da parte cento bottiglie di ribolla io. Sabato passa a prenderle.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the person changes: he asked you to tell Marko »Prihrani mi …«, so to Marko it's naj mu prihraniš. Naj prihranim would be you.",
+                "de": "In der indirekten Rede ändert sich die Person: er bat dich, Marko »Prihrani mi …« auszurichten, also heißt es zu Marko naj mu prihraniš. Naj prihranim wärst du.",
+                "it": "Nel discorso indiretto cambia la persona: ti ha chiesto di dire a Marko »Prihrani mi …«, quindi a Marko è naj mu prihraniš. Naj prihranim saresti tu."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti? Ti pa nimaš niti ene steklenice, ha ha!",
+                "en": "You? You haven't got a single bottle, ha ha!",
+                "de": "Du? Du hast doch keine einzige Flasche, ha ha!",
+                "it": "Tu? Tu non hai nemmeno una bottiglia, ah ah!"
+              }
+            },
+            {
+              "sl": "Rekel je, naj mu prihraniš sto steklenice rebule. V soboto pride ponje.",
+              "en": "He said you should keep a hundred bottle of rebula for him. He's coming for them on Saturday.",
+              "de": "Er hat gesagt, du sollst ihm hundert Flasche Rebula zurücklegen. Am Samstag holt er sie ab.",
+              "it": "Ha detto di tenergli da parte cento bottiglia di ribolla. Sabato passa a prenderle.",
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "From five on, and with sto, the noun is in the genitive plural: sto steklenic.",
+                "de": "Ab fünf, und so auch bei sto, steht das Nomen im Genitiv Plural: sto steklenic.",
+                "it": "Da cinque in su, e quindi con sto, il nome va al genitivo plurale: sto steklenic."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Sto … kaj? Allora, štej še enkrat, počasi.",
+                "en": "A hundred … what? Allora, count again, slowly.",
+                "de": "Hundert … was? Allora, zähl noch mal, langsam.",
+                "it": "Cento … cosa? Allora, conta di nuovo, piano."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Allora, še enkrat, počasi.",
+            "en": "Hm? Allora, once more, slowly.",
+            "de": "Hm? Allora, noch einmal, langsam.",
+            "it": "Mm? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Na zdravje, {learner}! Na novo vino in na prijatelje z obeh strani meje!",
+          "en": "Cheers, {learner}! To the new wine and to friends on both sides of the border!",
+          "de": "Prost, {learner}! Auf den neuen Wein und auf die Freunde auf beiden Seiten der Grenze!",
+          "it": "Salute, {learner}! Al vino nuovo e agli amici di tutte e due le parti del confine!"
+        }
+      ]
+    },
+    {
+      "id": "pokusina-b2-toca",
+      "level": "B2",
+      "memory": {
+        "sl": "večer, ko sva pila malo, ampak dobro vino",
+        "en": "the evening we drank a little but good wine",
+        "de": "den Abend, an dem wir wenig, aber guten Wein getrunken haben",
+        "it": "la sera in cui abbiamo bevuto poco vino, ma buono"
+      },
+      "lines": [
+        {
+          "who": "marko",
+          "face": "sad",
+          "sl": "Ciao, {learner}. Poskusi … Dobro je, ne? Škoda, da ga je tako malo. Avgusta je toča v Brdih pobila pol vinograda.",
+          "en": "Ciao, {learner}. Taste it … Good, isn't it? Pity there's so little. In August the hail in Brda flattened half the vineyard.",
+          "de": "Ciao, {learner}. Probier … Gut, oder? Schade, dass es so wenig ist. Im August hat der Hagel in Brda den halben Weinberg zerschlagen.",
+          "it": "Ciao, {learner}. Assaggia … Buono, no? Peccato che sia così poco. Ad agosto la grandine nel Collio ha distrutto mezza vigna."
+        },
+        {
+          "who": "marko",
+          "face": "thinking",
+          "sl": "Če bi bil obral teden prej, bi bil rešil vse. Ampak grozdje takrat še ni bilo zrelo, veš.",
+          "en": "If I'd picked a week earlier, I'd have saved it all. But the grapes weren't ripe yet then, you know.",
+          "de": "Hätte ich eine Woche früher gelesen, hätte ich alles gerettet. Aber die Trauben waren damals noch nicht reif, weißt du.",
+          "it": "Se avessi vendemmiato una settimana prima, avrei salvato tutto. Ma l'uva allora non era ancora matura, sai."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak iz nezrelega grozdja bi bil tako ali tako dobil kislo vino.",
+              "en": "Of course, but from unripe grapes you'd have got sour wine anyway.",
+              "de": "Sicher, aber aus unreifen Trauben hättest du sowieso sauren Wein bekommen.",
+              "it": "Certo, ma dall'uva acerba avresti avuto comunque un vino aspro.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Res je. Kislo vino ali malo vina … Raje imam malo dobrega.",
+                "en": "True. Sour wine or little wine … I'd rather have a little good wine.",
+                "de": "Stimmt. Saurer Wein oder wenig Wein … Lieber ein bisschen guten.",
+                "it": "È vero. Vino aspro o poco vino … Preferisco poco ma buono."
+              }
+            },
+            {
+              "sl": "Seveda, ampak iz nezrelega grozdja si tako ali tako dobil kislo vino.",
+              "en": "Of course, but from unripe grapes you got sour wine anyway.",
+              "de": "Sicher, aber aus unreifen Trauben hast du sowieso sauren Wein bekommen.",
+              "it": "Certo, ma dall'uva acerba hai avuto comunque un vino aspro.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "He didn't pick early, so there was no such wine: what would have come of it is the conditional, bi bil dobil (or bi dobil). Si dobil says he got it.",
+                "de": "Er hat nicht früher gelesen, also gab es diesen Wein nie: was daraus geworden wäre, ist der Konditional, bi bil dobil (oder bi dobil). Si dobil sagt, er hat ihn bekommen.",
+                "it": "Non ha vendemmiato prima, quindi quel vino non c'è mai stato: ciò che ne sarebbe venuto è il condizionale, bi bil dobil (o bi dobil). Si dobil dice che l'ha avuto."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Kislo? Saj sem ti ravnokar natočil dobrega!",
+                "en": "Sour? I've only just poured you a good one!",
+                "de": "Sauer? Ich habe dir doch gerade einen guten eingeschenkt!",
+                "it": "Aspro? Ma se ti ho appena versato uno buono!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Allora, še enkrat, počasi.",
+            "en": "Hm? Allora, once more, slowly.",
+            "de": "Hm? Allora, noch einmal, langsam.",
+            "it": "Mm? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Sosed iz Brd pravi, da bi moral postaviti mreže proti toči. Drage so, ampak … Kaj praviš ti?",
+          "en": "My neighbour in Brda says I ought to put up hail nets. They're expensive, but … What do you say?",
+          "de": "Mein Nachbar in Brda sagt, ich sollte Hagelnetze aufstellen. Die sind teuer, aber … Was meinst du?",
+          "it": "Il mio vicino del Collio dice che dovrei mettere le reti antigrandine. Costano, però … Tu che ne dici?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Drage so, seveda, ampak ena sama toča stane več kot vse mreže skupaj.",
+              "en": "They're expensive, of course, but a single hailstorm costs more than all the nets put together.",
+              "de": "Teuer sind sie, sicher, aber ein einziger Hagel kostet mehr als alle Netze zusammen.",
+              "it": "Costano, certo, ma una sola grandinata costa più di tutte le reti messe insieme.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav imaš. Spomladi jih postavim. Puške pa že ne bom vrgel v koruzo!",
+                "en": "You're right. I'll put them up in spring. I'm certainly not throwing in the towel!",
+                "de": "Du hast recht. Im Frühling stelle ich sie auf. Die Flinte werfe ich bestimmt nicht ins Korn!",
+                "it": "Hai ragione. In primavera le metto. Non ho certo intenzione di gettare la spugna!"
+              }
+            },
+            {
+              "sl": "Raje ne. Toča tako ali tako pride samo enkrat v sto letih.",
+              "en": "Better not. Hail only comes once in a hundred years anyway.",
+              "de": "Lieber nicht. Hagel kommt doch sowieso nur einmal in hundert Jahren.",
+              "it": "Meglio di no. Tanto la grandine viene solo una volta ogni cent'anni.",
+              "why": {
+                "en": "Marko has just lost half his vineyard to hail: once in a hundred years ignores what he told you. Grant the cost, then weigh it against the loss.",
+                "de": "Marko hat gerade den halben Weinberg durch Hagel verloren: einmal in hundert Jahren übergeht, was er dir erzählt hat. Gib die Kosten zu und wäge sie dann gegen den Schaden ab.",
+                "it": "Marko ha appena perso mezza vigna per la grandine: una volta ogni cent'anni ignora ciò che ti ha raccontato. Ammetti il costo, poi mettilo a confronto con il danno."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Enkrat v sto letih? Lani je prišla dvakrat, {learner}!",
+                "en": "Once in a hundred years? Last year it came twice, {learner}!",
+                "de": "Einmal in hundert Jahren? Letztes Jahr kam er zweimal, {learner}!",
+                "it": "Una volta ogni cent'anni? L'anno scorso è venuta due volte, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Allora, še enkrat, počasi.",
+            "en": "Hm? Allora, once more, slowly.",
+            "de": "Hm? Allora, noch einmal, langsam.",
+            "it": "Mm? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Allora, na zdravje! Na letošnje malo vino in na veliko trgatev drugo leto!",
+          "en": "Allora, cheers! To this year's little wine and to a big harvest next year!",
+          "de": "Allora, Prost! Auf den wenigen Wein von heuer und auf eine große Lese nächstes Jahr!",
+          "it": "Allora, salute! Al poco vino di quest'anno e a una grande vendemmia l'anno prossimo!"
+        }
       ]
     }
   ]

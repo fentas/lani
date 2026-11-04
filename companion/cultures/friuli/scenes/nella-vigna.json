@@ -5,7 +5,7 @@
   "title": { "it": "Nella vigna", "sl": "V vinogradu", "en": "In the vineyard", "de": "Im Weinberg" },
   "emoji": "🍇",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; B1, B2 variants: machine-written, unreviewed",
   "art": "hills",
   "from": ["project:vinograd"],
   "pack": "nella-vigna",
@@ -39,7 +39,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "vigna",
-      "dialogs": ["vigna-potatura", "vigna-germogli", "vigna"],
+      "dialogs": ["vigna-b2-ramo", "vigna-b1-muretti", "vigna-potatura", "vigna-germogli", "vigna"],
       "reward": { "wisdom": 15},
       "marker": "🍇",
       "memory": { "it": "la mattina nella vigna, sulle terrazze", "sl": "jutro v vinogradu, na terasah", "en": "the morning in the vineyard, on the terraces", "de": "den Morgen im Weinberg, auf den Terrassen" }
@@ -90,7 +90,7 @@
       "months": [5, 6, 7, 8, 9],
       "chance": 0.4,
       "dialog": "tempesta",
-      "dialogs": ["tempesta-secondi", "tempesta"],
+      "dialogs": ["tempesta-b2-campane", "tempesta-b1-portico", "tempesta-secondi", "tempesta"],
       "reward": { "wisdom": 20},
       "marker": "⛈️",
       "memory": { "it": "il temporale che abbiamo guardato dal muretto", "sl": "nevihto, ki sva jo gledala pri zidku", "en": "the storm we watched from the wall", "de": "das Gewitter, das wir an der Mauer beobachtet haben" }
@@ -1105,6 +1105,107 @@
           "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
         },
         { "who": "giulia", "face": "happy", "it": "Allora quando sono morbidi li mangiamo insieme!", "sl": "Potem jih bova skupaj {m:pojedla|f:pojedli}, ko bodo mehki!", "en": "Then we'll eat them together when they're soft!", "de": "Dann essen wir sie zusammen, wenn sie weich sind!" }
+      ]
+    },
+    {
+      "id": "vigna-b1-muretti",
+      "level": "B1",
+      "memory": { "it": "i muretti di sassi della vigna", "sl": "suhozidi v vinogradu", "en": "the dry-stone walls of the vineyard", "de": "die Trockenmauern im Weinberg" },
+      "lines": [
+        { "who": "matteo", "it": "Ciao, {learner}! Guarda le terrazze: ogni gradino ha il suo muretto di sassi. Sai perché?", "sl": "Živjo, {learner}! Poglej terase: vsaka stopnica ima svoj zidek iz kamnov. Veš, zakaj?", "en": "Hi, {learner}! Look at the terraces: every step has its own little stone wall. Do you know why?", "de": "Hallo, {learner}! Schau dir die Terrassen an: Jede Stufe hat ihre kleine Steinmauer. Weißt du, warum?" },
+        { "choices": [
+          { "it": "Perché senza muretti la pioggia porterebbe via la terra.", "sl": "Ker bi brez zidkov dež odnesel zemljo.", "en": "Because without the walls the rain would carry the soil away.", "de": "Weil ohne Mauern der Regen die Erde wegschwemmen würde.", "ok": true,
+            "reply": { "face": "proud", "it": "Esatto! I muretti tengono la terra, e la terra tiene le viti.", "sl": "Tako je! Zidki držijo zemljo, zemlja pa trte.", "en": "Exactly! The walls hold the soil, and the soil holds the vines.", "de": "Genau! Die Mauern halten die Erde, und die Erde hält die Reben." } },
+          { "it": "Perché senza muretti la pioggia portasse via la terra.", "sl": "Ker bi brez zidkov dež odnesel zemljo.", "en": "Because without the walls the rain would carry the soil away.", "de": "Weil ohne Mauern der Regen die Erde wegschwemmen würde.",
+            "grammar": "condizionale", "why": { "sl": "Kar bi se zgodilo, je pogojnik: porterebbe. Portasse gre za se.", "en": "What would happen is the conditional: porterebbe. Portasse goes after se.", "de": "Was passieren würde, steht im Konditional: porterebbe. Portasse kommt nach se." },
+            "reply": { "face": "curious", "it": "Portasse…? E poi? Sembra che manchi un pezzo, come un sasso dal muretto!", "sl": "Portasse …? In potem? Zdi se, da manjka košček, kot kamen iz zidka!", "en": "Portasse…? And then? Seems a piece is missing, like a stone from the wall!", "de": "Portasse …? Und dann? Da fehlt wohl ein Stück, wie ein Stein aus der Mauer!" } }
+        ] },
+        { "who": "matteo", "it": "Guarda questa vite: è ribolla gialla. Ieri ti ho raccontato di quest'uva, ti ricordi?", "sl": "Poglej to trto: rebula je. Včeraj sem ti pripovedoval o tem grozdju, se spomniš?", "en": "Look at this vine: it's ribolla gialla. Yesterday I told you about these grapes, remember?", "de": "Schau diese Rebe an: Das ist Ribolla Gialla. Gestern hab ich dir von diesen Trauben erzählt, weißt du noch?" },
+        { "choices": [
+          { "it": "Sì! È l'uva di cui mi hai parlato ieri, quella del Collio!", "sl": "Ja! To je grozdje, o katerem si mi včeraj pripovedoval, tisto iz Collia!", "en": "Yes! It's the grape you told me about yesterday, the Collio one!", "de": "Ja! Das ist die Traube, von der du mir gestern erzählt hast, die vom Collio!", "ok": true,
+            "reply": { "face": "happy", "it": "Proprio lei. A settembre la raccogliamo insieme, e tu assaggi l'uva, non il vino!", "sl": "Prav to. Septembra ga bova skupaj obrala, ti pa boš {m:poskusil|f:poskusila} grozdje, ne vina!", "en": "That's the one. In September we'll pick it together, and you'll taste the grapes, not the wine!", "de": "Genau die. Im September lesen wir sie zusammen, und du probierst die Trauben, nicht den Wein!" } },
+          { "it": "Sì! È l'uva a cui mi hai parlato ieri, quella del Collio!", "sl": "Ja! To je grozdje, o katerem si mi včeraj pripovedoval, tisto iz Collia!", "en": "Yes! It's the grape you told me about yesterday, the Collio one!", "de": "Ja! Das ist die Traube, von der du mir gestern erzählt hast, die vom Collio!",
+            "grammar": "relativi-cui", "why": { "sl": "Parlare di (o čem): di cui. A cui je »komu«.", "en": "Parlare di (about): di cui. A cui is «to which».", "de": "Parlare di (über): di cui. A cui heißt «zu der»." },
+            "reply": { "face": "laugh", "it": "A cui? Io non ho parlato all'uva, {learner}! Anche se a volte lo faccio, sai.", "sl": "A cui? Saj nisem govoril grozdju, {learner}! Čeprav to včasih naredim, veš.", "en": "A cui? I didn't talk to the grapes, {learner}! Though sometimes I do, you know.", "de": "A cui? Ich hab nicht mit den Trauben geredet, {learner}! Obwohl ich das manchmal tu, weißt du." } }
+        ] },
+        { "who": "matteo", "face": "happy", "it": "Ecco. La terra resta, l'uva cresce, e a settembre facciamo festa. Grazie, {learner}!", "sl": "Tako. Zemlja ostane, grozdje raste, septembra pa bo praznik. Hvala, {learner}!", "en": "There. The soil stays, the grapes grow, and in September we celebrate. Thanks, {learner}!", "de": "So. Die Erde bleibt, die Trauben wachsen, und im September wird gefeiert. Danke, {learner}!" }
+      ]
+    },
+    {
+      "id": "vigna-b2-ramo",
+      "level": "B2",
+      "memory": { "it": "il ramo alto che tagliai da bambino", "sl": "visoko vejo, ki sem jo kot otrok odrezal", "en": "the high branch I cut as a boy", "de": "den hohen Ast, den ich als Kind abschnitt" },
+      "lines": [
+        { "who": "matteo", "face": "thinking", "it": "Quando ero piccolo come te, mio padre mi lasciava potare solo i rami più bassi. Quelli alti, diceva, erano roba da grandi.", "sl": "Ko sem bil majhen kot ti, mi je oče dovolil obrezovati samo najnižje veje. Visoke, je rekel, so za odrasle.", "en": "When I was little like you, my father only let me prune the lowest branches. The high ones, he said, were for grown-ups.", "de": "Als ich so klein war wie du, ließ mich mein Vater nur die untersten Äste schneiden. Die hohen, sagte er, seien was für die Großen." },
+        { "who": "matteo", "face": "laugh", "it": "Una volta, di nascosto, tagliai un ramo alto. Quell'anno la vite fece la metà dell'uva, e io imparai la lezione.", "sl": "Nekoč sem skrivaj odrezal visoko vejo. Tisto leto je trta dala pol manj grozdja, jaz pa sem se naučil lekcije.", "en": "Once, secretly, I cut a high branch. That year the vine gave half the grapes, and I learnt my lesson.", "de": "Einmal schnitt ich heimlich einen hohen Ast ab. In dem Jahr trug die Rebe nur halb so viele Trauben, und ich hatte meine Lektion gelernt." },
+        { "choices": [
+          { "it": "Quindi, se non avessi tagliato quel ramo, la vite avrebbe fatto più uva.", "sl": "Torej bi trta dala več grozdja, če ne bi bil odrezal tiste veje.", "en": "So if you hadn't cut that branch, the vine would have given more grapes.", "de": "Hättest du den Ast also nicht abgeschnitten, hätte die Rebe mehr Trauben getragen.", "ok": true,
+            "reply": { "face": "happy", "it": "Esatto. E mio padre non mi disse niente: lasciò parlare la vite.", "sl": "Tako je. In oče mi ni rekel ničesar: pustil je, da govori trta.", "en": "Exactly. And my father said nothing to me: he let the vine do the talking.", "de": "Genau. Und mein Vater sagte nichts: Er ließ die Rebe sprechen." } },
+          { "it": "Quindi, se non avessi tagliato quel ramo, la vite sarebbe fatto più uva.", "sl": "Torej bi trta dala več grozdja, če ne bi bil odrezal tiste veje.", "en": "So if you hadn't cut that branch, the vine would have given more grapes.", "de": "Hättest du den Ast also nicht abgeschnitten, hätte die Rebe mehr Trauben getragen.",
+            "grammar": "periodo-ipotetico-irrealta", "why": { "sl": "Fare ima avere: ha fatto, zato avrebbe fatto.", "en": "Fare takes avere: ha fatto, so avrebbe fatto.", "de": "Fare bildet mit avere: ha fatto, also avrebbe fatto." },
+            "reply": { "face": "curious", "it": "Sarebbe fatto? Mmm, la vite non si fa da sola, {learner}: fa l'uva!", "sl": "Sarebbe fatto? Hm, trta se ne naredi sama, {learner}: dela grozdje!", "en": "Sarebbe fatto? Hmm, the vine doesn't make itself, {learner}: it makes grapes!", "de": "Sarebbe fatto? Hm, die Rebe macht sich nicht selbst, {learner}: Sie macht Trauben!" } }
+        ] },
+        { "who": "matteo", "face": "curious", "it": "Secondo te, ha fatto bene a non sgridarmi? O avrebbe dovuto dirmi subito che avevo sbagliato?", "sl": "Kaj misliš, je prav naredil, da me ni oštel? Ali bi mi moral takoj reči, da sem se zmotil?", "en": "Do you think he did right not to scold me? Or should he have told me at once that I'd got it wrong?", "de": "Hat er richtig gehandelt, mich nicht zu schimpfen, meinst du? Oder hätte er mir sofort sagen sollen, dass ich falsch lag?" },
+        { "choices": [
+          { "it": "Ha fatto bene: la vite ti ha insegnato più di cento parole.", "sl": "Prav je naredil: trta te je naučila več kot sto besed.", "en": "He did right: the vine taught you more than a hundred words.", "de": "Er hat richtig gehandelt: Die Rebe hat dir mehr beigebracht als hundert Worte.", "ok": true,
+            "reply": { "face": "proud", "it": "Proprio così. Da allora i rami alti li taglio solo quando lo dice la vite.", "sl": "Prav tako. Od takrat visoke veje režem samo, ko to reče trta.", "en": "Exactly. Since then I only cut high branches when the vine says so.", "de": "Genau. Seitdem schneide ich hohe Äste nur, wenn die Rebe es sagt." } },
+          { "it": "Avrebbe dovuto sgridarti, perché da una vite non si impara niente.", "sl": "Moral bi te oštevati, ker se od trte ne naučiš ničesar.", "en": "He should have scolded you, because you learn nothing from a vine.", "de": "Er hätte dich schimpfen sollen, weil man von einer Rebe nichts lernt.",
+            "why": { "sl": "Matteo je pravkar povedal, da se je lekcije naučil prav od trte: pol manj grozdja.", "en": "Matteo has just told how he learnt his lesson from the vine itself: half the grapes.", "de": "Matteo hat gerade erzählt, dass er seine Lektion von der Rebe selbst gelernt hat: halb so viele Trauben." },
+            "reply": { "face": "surprised", "it": "Niente? Ma se ho imparato tutto proprio da quella vite!", "sl": "Ničesar? Saj sem se vsega naučil prav od tiste trte!", "en": "Nothing? But I learnt everything from that very vine!", "de": "Nichts? Ich hab doch alles von genau dieser Rebe gelernt!" } }
+        ] },
+        { "who": "matteo", "face": "happy", "it": "Allora oggi poti tu i rami bassi. Quelli alti… fra qualche anno!", "sl": "Potem danes ti obrezuješ nizke veje. Visoke … čez nekaj let!", "en": "Then today you prune the low branches. The high ones… in a few years!", "de": "Dann schneidest du heute die unteren Äste. Die hohen … in ein paar Jahren!" }
+      ]
+    },
+    {
+      "id": "tempesta-b1-portico",
+      "level": "B1",
+      "sky_stays": false,
+      "memory": { "it": "il temporale visto dal portico", "sl": "nevihto, ki sva jo gledala izpod lope", "en": "the storm we watched from the porch", "de": "das Gewitter, das wir vom Vordach aus gesehen haben" },
+      "lines": [
+        { "who": "bepi", "it": "{learner}, vieni qui sotto il portico. Arriva un temporale dalle montagne: guarda le nuvole nere.", "sl": "{learner}, pridi sem pod lopo. Z gora prihaja nevihta: poglej črne oblake.", "en": "{learner}, come here under the porch. A storm's coming from the mountains: look at the black clouds.", "de": "{learner}, komm hier unters Vordach. Ein Gewitter kommt von den Bergen: Schau die schwarzen Wolken.", "sky": { "gloom": 0.5, "wind": 0.35 } },
+        { "who": "bepi", "it": "Ecco le prime gocce, e il primo lampo. Qui siamo al sicuro. Quando torniamo a casa, secondo te?", "sl": "Tu so prve kaplje in prvi blisk. Tukaj sva na varnem. Kdaj greva domov, kaj misliš?", "en": "Here are the first drops, and the first flash. We're safe here. When shall we go home, do you think?", "de": "Da sind die ersten Tropfen und der erste Blitz. Hier sind wir sicher. Wann gehen wir heim, meinst du?", "sky": { "rain": 0.4, "gloom": 0.75, "lightning": true } },
+        { "choices": [
+          { "it": "Quando sarà passato il temporale, torniamo.", "sl": "Ko bo nevihta minila, greva.", "en": "When the storm has passed, we'll go back.", "de": "Wenn das Gewitter vorbei ist, gehen wir.", "ok": true,
+            "reply": { "face": "happy", "it": "Giusto. Chi va piano va sano, anche con la pioggia.", "sl": "Prav. Kdor počasi hodi, varno pride, tudi v dežju.", "en": "Right. Slow and steady keeps you safe, in the rain too.", "de": "Richtig. Wer langsam geht, kommt sicher an, auch im Regen." } },
+          { "it": "Quando avrà passato il temporale, torniamo.", "sl": "Ko bo nevihta minila, greva.", "en": "When the storm has passed, we'll go back.", "de": "Wenn das Gewitter vorbei ist, gehen wir.",
+            "grammar": "futuro-anteriore", "why": { "sl": "Passare (miniti) ima essere: è passato, zato sarà passato.", "en": "Passare (to go by) takes essere: è passato, so sarà passato.", "de": "Passare (vorbeigehen) bildet mit essere: è passato, also sarà passato." },
+            "reply": { "face": "curious", "it": "Avrà passato? Che cosa? Il sale? Mmm, il temporale passa con essere!", "sl": "Avrà passato? Kaj? Sol? Hm, nevihta mine z essere!", "en": "Avrà passato? Passed what? The salt? Hmm, the storm passes with essere!", "de": "Avrà passato? Was? Das Salz? Hm, das Gewitter vergeht mit essere!" } }
+        ] },
+        { "who": "bepi", "face": "thinking", "it": "Intanto stiamo qui. Fa un po' freddo, ma da qui si vede tutta la valle.", "sl": "Medtem ostaneva tukaj. Malo je mrzlo, ampak od tu se vidi vsa dolina.", "en": "Meanwhile we'll stay here. It's a bit cold, but from here you can see the whole valley.", "de": "Inzwischen bleiben wir hier. Es ist ein bisschen kalt, aber von hier sieht man das ganze Tal." },
+        { "choices": [
+          { "it": "Restiamo, anche se fa freddo: il temporale da qui è bellissimo.", "sl": "Ostaneva, čeprav je mrzlo: nevihta je od tu prelepa.", "en": "Let's stay, even though it's cold: the storm's beautiful from here.", "de": "Wir bleiben, auch wenn es kalt ist: Das Gewitter ist von hier wunderschön.", "ok": true,
+            "reply": { "face": "proud", "it": "Hai ragione. I temporali, da lontano, sono uno spettacolo.", "sl": "Prav imaš. Nevihte so od daleč prava predstava.", "en": "You're right. Storms, from far off, are quite a show.", "de": "Du hast recht. Gewitter sind von weitem ein Schauspiel." } },
+          { "it": "Restiamo, siccome fa freddo: il temporale da qui è bellissimo.", "sl": "Ostaneva, čeprav je mrzlo: nevihta je od tu prelepa.", "en": "Let's stay, even though it's cold: the storm's beautiful from here.", "de": "Wir bleiben, auch wenn es kalt ist: Das Gewitter ist von hier wunderschön.",
+            "grammar": "congiunzioni", "why": { "sl": "Siccome pove razlog; za čeprav rečeš anche se. Mraz ni razlog, da ostaneva.", "en": "Siccome gives a reason; for even though, say anche se. The cold is no reason to stay.", "de": "Siccome nennt einen Grund; für obwohl sagst du anche se. Die Kälte ist kein Grund zu bleiben." },
+            "reply": { "face": "confused", "it": "Restiamo perché fa freddo? Mmm, di solito il freddo fa scappare a casa!", "sl": "Ostaneva, ker je mrzlo? Hm, navadno mraz prežene domov!", "en": "We stay because it's cold? Hmm, usually the cold sends you running home!", "de": "Wir bleiben, weil es kalt ist? Hm, normalerweise treibt die Kälte einen nach Hause!" } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Ecco, la pioggia smette. Guarda: il sole sulla collina! Adesso sì, torniamo.", "sl": "Tako, dež neha. Poglej: sonce na hribu! Zdaj pa ja, greva domov.", "en": "There, the rain's stopping. Look: the sun on the hill! Now we can go back.", "de": "So, der Regen hört auf. Schau: die Sonne auf dem Hügel! Jetzt gehen wir heim.", "sky": { "rain": 0, "gloom": 0, "wind": 0, "lightning": false } }
+      ]
+    },
+    {
+      "id": "tempesta-b2-campane",
+      "level": "B2",
+      "sky_stays": false,
+      "memory": { "it": "le campane contro la grandine", "sl": "zvonove proti toči", "en": "the bells against the hail", "de": "die Glocken gegen den Hagel" },
+      "lines": [
+        { "who": "bepi", "face": "thinking", "it": "Una volta, quando arrivava la grandine, il sagrestano suonava le campane. Si diceva che il suono rompesse le nuvole.", "sl": "Nekoč je cerkovnik zvonil, ko je prihajala toča. Pravili so, da zvok razbije oblake.", "en": "In the old days, when hail was coming, the sexton rang the bells. People said the sound broke up the clouds.", "de": "Früher läutete der Mesner die Glocken, wenn Hagel kam. Man sagte, der Klang zerreiße die Wolken.", "sky": { "gloom": 0.6, "wind": 0.4 } },
+        { "who": "bepi", "it": "Mio nonno ci credeva. Mio padre no. Io… dipende dalla giornata!", "sl": "Moj dedek je verjel. Oče ne. Jaz … odvisno od dneva!", "en": "My grandfather believed it. My father didn't. Me… it depends on the day!", "de": "Mein Großvater glaubte daran. Mein Vater nicht. Ich … kommt auf den Tag an!", "sky": { "rain": 0.3, "gloom": 0.75, "lightning": true } },
+        { "choices": [
+          { "it": "Quindi tuo nonno pensava che le campane allontanassero la grandine.", "sl": "Torej je tvoj dedek mislil, da zvonovi odženejo točo.", "en": "So your grandfather thought the bells drove the hail away.", "de": "Dein Großvater dachte also, die Glocken würden den Hagel vertreiben.", "ok": true,
+            "reply": { "face": "laugh", "it": "Proprio così. E quando la grandine non veniva, diceva: «Visto?»", "sl": "Prav tako. In ko toče ni bilo, je rekel: »Vidiš?«", "en": "Exactly. And when the hail didn't come, he'd say: «See?»", "de": "Genau. Und wenn kein Hagel kam, sagte er: «Siehst du?»" } },
+          { "it": "Quindi tuo nonno pensava che le campane allontanino la grandine.", "sl": "Torej je tvoj dedek mislil, da zvonovi odženejo točo.", "en": "So your grandfather thought the bells drove the hail away.", "de": "Dein Großvater dachte also, die Glocken würden den Hagel vertreiben.",
+            "grammar": "concordanza-tempi", "why": { "sl": "Za pensava (preteklost) se konjunktiv pomakne nazaj: che allontanassero.", "en": "After pensava (past), the congiuntivo moves back: che allontanassero.", "de": "Nach pensava (Vergangenheit) rückt der Konjunktiv zurück: che allontanassero." },
+            "reply": { "face": "thinking", "it": "Allontanino? Adesso? Mio nonno parlava di tanti anni fa, {m:piccolo|f:piccola}.", "sl": "Allontanino? Zdaj? Moj dedek je govoril o davnih časih, {m:mali|f:mala}.", "en": "Allontanino? Now? My grandfather was talking about many years ago, little one.", "de": "Allontanino? Jetzt? Mein Großvater sprach von vor vielen Jahren, {m:Kleiner|f:Kleine}." } }
+        ] },
+        { "who": "bepi", "face": "curious", "it": "E quando la grandine veniva lo stesso, che cosa avrà detto, secondo te?", "sl": "Pa ko je toča vseeno prišla, kaj je neki rekel, kaj misliš?", "en": "And when the hail came anyway, what do you suppose he said?", "de": "Und wenn der Hagel trotzdem kam, was hat er da wohl gesagt, meinst du?" },
+        { "choices": [
+          { "it": "Avrà detto che il sagrestano aveva suonato troppo tardi!", "sl": "Najbrž je rekel, da je cerkovnik zazvonil prepozno!", "en": "He'll have said the sexton had rung too late!", "de": "Er wird gesagt haben, der Mesner habe zu spät geläutet!", "ok": true,
+            "reply": { "face": "laugh", "it": "Ah, ah! Esatto! La colpa era sempre del sagrestano, mai delle campane.", "sl": "Ha, ha! Tako je! Vedno je bil kriv cerkovnik, nikoli zvonovi.", "en": "Ha, ha! Exactly! It was always the sexton's fault, never the bells'.", "de": "Ha, ha! Genau! Schuld war immer der Mesner, nie die Glocken." } },
+          { "it": "Avrà detto che le campane avevano portato la grandine.", "sl": "Najbrž je rekel, da so zvonovi prinesli točo.", "en": "He'll have said the bells had brought the hail.", "de": "Er wird gesagt haben, die Glocken hätten den Hagel gebracht.",
+            "why": { "sl": "Dedek je verjel, da zvonovi točo odženejo; ne bi jih obtožil, da so jo prinesli.", "en": "The grandfather believed the bells drove hail away; he wouldn't blame them for bringing it.", "de": "Der Großvater glaubte, die Glocken vertreiben den Hagel; er würde ihnen nicht vorwerfen, ihn gebracht zu haben." },
+            "reply": { "face": "laugh", "it": "Portare la grandine? No, no! Mio nonno le difendeva come le sue galline.", "sl": "Prinesli točo? Ne, ne! Moj dedek jih je branil kot svoje kokoši.", "en": "Bring the hail? No, no! My grandfather defended them like his hens.", "de": "Den Hagel bringen? Nein, nein! Mein Großvater verteidigte sie wie seine Hühner." } }
+        ] },
+        { "who": "bepi", "face": "happy", "it": "Ecco, passa. Niente grandine oggi, solo pioggia buona per la vigna. Guarda il sole!", "sl": "Tako, mine. Danes nobene toče, samo dober dež za vinograd. Poglej sonce!", "en": "There, it's passing. No hail today, only good rain for the vineyard. Look at the sun!", "de": "So, es zieht vorbei. Heute kein Hagel, nur guter Regen für den Weinberg. Schau, die Sonne!", "sky": { "rain": 0, "gloom": 0, "wind": 0, "lightning": false } }
       ]
     }
   ]

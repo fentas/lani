@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "po-noci-burje",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Po noči burje", "en": "After the night of the bora", "de": "Nach der Bora-Nacht", "it": "Dopo la notte di bora" },
+  "emoji": "🌬️",
+  "level": "B1",
+  "setting": {
+    "en": "Last night the bora blew harder than anyone in the village remembers. In the morning the commander of the volunteer fire brigade goes from house to house writing down the damage. He stops at yours: tell him what happened in the night.",
+    "de": "Letzte Nacht hat die Bora stärker geweht, als sich irgendwer im Dorf erinnern kann. Am Morgen geht der Kommandant der freiwilligen Feuerwehr von Haus zu Haus und schreibt die Schäden auf. Er bleibt bei dir stehen: Erzähl ihm, was in der Nacht passiert ist.",
+    "it": "Stanotte la bora ha soffiato più forte di quanto chiunque in paese ricordi. La mattina il comandante dei vigili del fuoco volontari passa di casa in casa e annota i danni. Si ferma da te: raccontagli che cosa è successo durante la notte."
+  },
+  "role": "Poveljnik Boris, the commander of the village's volunteer fire brigade (PGD), the morning after a night of strong bora (burja). Calm and practical, writes everything down: asks when it started, what happened, whether anyone is hurt, what is damaged and what must be done first. Says vi.",
+  "who": { "sl": "Poveljnik gasilcev", "en": "The fire brigade commander", "de": "Der Feuerwehrkommandant", "it": "Il comandante dei vigili del fuoco" },
+  "voice": "male",
+  "place": "square",
+  "goals": [
+    { "sl": "Povej, kdaj se je začelo in kaj si {m:slišal|f:slišala}", "en": "Say when it started and what you heard", "de": "Sag, wann es angefangen hat und was du gehört hast", "it": "Di' quando è cominciato e che cosa hai sentito" },
+    { "sl": "Opiši škodo na hiši in okrog nje", "en": "Describe the damage to the house and around it", "de": "Beschreib den Schaden am Haus und rundherum", "it": "Descrivi i danni alla casa e intorno" },
+    { "sl": "Povej, kaj si {m:naredil|f:naredila} ponoči", "en": "Say what you did in the night", "de": "Sag, was du in der Nacht gemacht hast", "it": "Di' che cosa hai fatto durante la notte" },
+    { "sl": "Povej, kaj je najbolj nujno", "en": "Say what is most urgent", "de": "Sag, was am dringendsten ist", "it": "Di' che cosa è più urgente" },
+    { "sl": "Zahvali se gasilcem", "en": "Thank the firefighters", "de": "Bedanke dich bei der Feuerwehr", "it": "Ringrazia i vigili del fuoco" }
+  ],
+  "opener_sl": "Dobro jutro! Kakšna noč, kaj? Vidim, da vam je burja odnesla nekaj strešnikov. Kaj se je zgodilo?",
+  "opener_en": {
+    "en": "Good morning! What a night, eh? I see the bora took some tiles off your roof. What happened?",
+    "de": "Guten Morgen! Was für eine Nacht, was? Ich sehe, die Bora hat Ihnen ein paar Dachziegel weggerissen. Was ist passiert?",
+    "it": "Buongiorno! Che notte, eh? Vedo che la bora le ha portato via alcune tegole. Che cosa è successo?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Okrog dveh ponoči me je zbudil močan pok.", "en": { "en": "Around two in the morning a loud bang woke me up.", "de": "Gegen zwei Uhr nachts hat mich ein lauter Knall geweckt.", "it": "Verso le due di notte mi ha svegliato un forte botto." } },
+    { "sl": "Veter je odtrgal polkno in razbil šipo.", "en": { "en": "The wind tore off a shutter and broke a pane.", "de": "Der Wind hat einen Fensterladen abgerissen und eine Scheibe zerbrochen.", "it": "Il vento ha strappato un'imposta e rotto un vetro." } },
+    { "sl": "Na avto je padla velika veja.", "en": { "en": "A big branch fell on the car.", "de": "Ein großer Ast ist aufs Auto gefallen.", "it": "Un grosso ramo è caduto sulla macchina." } },
+    { "sl": "Elektrike ni bilo do jutra.", "en": { "en": "There was no power until the morning.", "de": "Bis zum Morgen gab es keinen Strom.", "it": "Non c'è stata corrente fino al mattino." } },
+    { "sl": "Okno sem {m:zabil|f:zabila} z deskami.", "en": { "en": "I boarded up the window.", "de": "Ich habe das Fenster mit Brettern vernagelt.", "it": "Ho chiuso la finestra con delle assi." } },
+    { "sl": "Nihče ni bil poškodovan.", "en": { "en": "Nobody was hurt.", "de": "Niemand wurde verletzt.", "it": "Nessuno si è fatto male." } },
+    { "sl": "Najbolj nujna je streha, ker bo jutri deževalo.", "en": { "en": "The roof is most urgent: it's going to rain tomorrow.", "de": "Am dringendsten ist das Dach, weil es morgen regnet.", "it": "La cosa più urgente è il tetto, perché domani pioverà." } },
+    { "sl": "Hvala, da ste prišli tako hitro.", "en": { "en": "Thank you for coming so quickly.", "de": "Danke, dass Sie so schnell gekommen sind.", "it": "Grazie di essere venuti così presto." } }
+  ],
+  "packs": ["vreme-in-dan", "dom-in-hisa", "v-gasilskem-domu", "v-delavnici", "vreme-in-letni-casi", "popravila-v-hisi"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

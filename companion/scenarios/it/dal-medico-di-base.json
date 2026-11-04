@@ -1,0 +1,41 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "dal-medico-di-base",
+  "language": "it",
+  "title": { "it": "Dal medico di base", "de": "Beim Hausarzt", "sl": "Pri družinskem zdravniku", "en": "At the family doctor's" },
+  "emoji": "🩺",
+  "level": "B2",
+  "setting": {
+    "de": "In der Praxis des Hausarztes in Cormòns. Seit zwei Wochen hast du fast jeden Nachmittag Kopfschmerzen. Der Arzt nimmt sich Zeit und will alles genau wissen, bevor er etwas verschreibt.",
+    "sl": "V ambulanti družinskega zdravnika v Krminu. Že dva tedna te skoraj vsako popoldne boli glava. Zdravnik si vzame čas in hoče vse natančno vedeti, preden ti kaj predpiše.",
+    "en": "At the family doctor's surgery in Cormòns. For two weeks you've had a headache almost every afternoon. The doctor takes his time and wants to know everything before he prescribes anything."
+  },
+  "role": "Dottor Perusin, the family doctor in Cormòns, near retirement. Calm, thorough, dry humour: asks when it began, how often, where, what helps or worsens it, sleep, screens, water, medicines, allergies; reassures, suggests a diary and an eye test. Says Lei. Asks nothing personal.",
+  "who": { "it": "Il medico di base", "de": "Der Hausarzt", "sl": "Družinski zdravnik", "en": "The family doctor" },
+  "voice": "male",
+  "goals": [
+    { "it": "Descrivi il dolore e da quando c'è", "de": "Beschreib den Schmerz und seit wann er da ist", "sl": "Opiši bolečino in od kdaj traja", "en": "Describe the pain and since when you've had it" },
+    { "it": "Di' quando viene e che cosa lo peggiora", "de": "Sag, wann er kommt und was ihn schlimmer macht", "sl": "Povej, kdaj pride in kaj jo poslabša", "en": "Say when it comes and what makes it worse" },
+    { "it": "Racconta che cosa hai già provato", "de": "Erzähl, was du schon versucht hast", "sl": "Povej, kaj si že {m:poskusil|f:poskusila}", "en": "Say what you've already tried" },
+    { "it": "Rispondi su farmaci e allergie", "de": "Antworte zu Medikamenten und Allergien", "sl": "Odgovori glede zdravil in alergij", "en": "Answer about medicines and allergies" },
+    { "it": "Chiedi che cosa ti consiglia", "de": "Frag, was er dir rät", "sl": "Vprašaj, kaj ti svetuje", "en": "Ask what he advises" }
+  ],
+  "opener_sl": "Buongiorno, si sieda. Allora, che cosa la porta qui oggi?",
+  "opener_en": {
+    "de": "Guten Tag, setzen Sie sich. Also, was führt Sie heute zu mir?",
+    "sl": "Dober dan, sedite. No, kaj vas danes prinaša k meni?",
+    "en": "Good morning, have a seat. So, what brings you here today?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Da un paio di settimane ho mal di testa quasi tutti i giorni.", "en": { "de": "Seit ein paar Wochen habe ich fast jeden Tag Kopfschmerzen.", "sl": "Že nekaj tednov me skoraj vsak dan boli glava.", "en": "For a couple of weeks I've had a headache almost every day." } },
+    { "sl": "Di solito comincia nel pomeriggio, qui sulla fronte.", "en": { "de": "Meistens fängt er am Nachmittag an, hier an der Stirn.", "sl": "Navadno se začne popoldne, tukaj na čelu.", "en": "It usually starts in the afternoon, here on my forehead." } },
+    { "sl": "Peggiora quando sto molto al computer.", "en": { "de": "Er wird schlimmer, wenn ich lange am Computer sitze.", "sl": "Poslabša se, ko sem dolgo za računalnikom.", "en": "It gets worse when I'm at the computer a lot." } },
+    { "sl": "Ho preso un antidolorifico, ma non è servito a molto.", "en": { "de": "Ich habe ein Schmerzmittel genommen, aber es hat kaum geholfen.", "sl": "{m:Vzel|f:Vzela} sem tableto proti bolečinam, a ni kaj dosti pomagala.", "en": "I took a painkiller, but it didn't help much." } },
+    { "sl": "Che io sappia, non sono {m:allergico|f:allergica} a niente.", "en": { "de": "Soweit ich weiß, bin ich gegen nichts allergisch.", "sl": "Kolikor vem, nisem {m:alergičen|f:alergična} na nič.", "en": "As far as I know, I'm not allergic to anything." } },
+    { "sl": "Pensa che sia una cosa seria?", "en": { "de": "Glauben Sie, dass es etwas Ernstes ist?", "sl": "Mislite, da je kaj resnega?", "en": "Do you think it's something serious?" } },
+    { "sl": "Forse avrei dovuto bere più acqua.", "en": { "de": "Vielleicht hätte ich mehr Wasser trinken sollen.", "sl": "Mogoče bi {m:moral|f:morala} piti več vode.", "en": "Maybe I should have drunk more water." } },
+    { "sl": "Che cosa mi consiglia di fare?", "en": { "de": "Was raten Sie mir?", "sl": "Kaj mi svetujete?", "en": "What do you advise me to do?" } }
+  ],
+  "packs": ["il-corpo", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

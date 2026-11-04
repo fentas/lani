@@ -33,6 +33,8 @@ data class FormsCardSlot(
     val page: String = "",
     val needs: List<String> = emptyList(),
     val composed: Boolean = false,
+    /** The same as the word's own form (German's dem Haus, English's cut): shown, never a gap (the node says so). */
+    val given: Boolean = false,
 ) {
     /** The form shown: the first of the dictionary's. */
     val shown: String get() = forms.firstOrNull { it.isNotBlank() }?.trim().orEmpty()
@@ -64,6 +66,10 @@ data class FormsCardData(
     val resurface: String? = null,
     val asked: Boolean = false,
     val v: Int = 1,
+    /** Another language's card (Italian, German, English: their own slots, the bridge's paradigms.ts); null: Slovene's. */
+    val language: String? = null,
+    /** A verb's auxiliary in the compound past (avere, essere; haben, sein). */
+    val aux: List<String> = emptyList(),
 ) {
     fun slot(key: String): FormsCardSlot? = slots.firstOrNull { it.key == key }
 
@@ -169,6 +175,8 @@ data class FormsGap(
     val where: String,
     val before: String = "",
     val after: String = "",
+    /** The card's language (Italian's, German's, English's: graded as theirs); null: Slovene's. */
+    val language: String? = null,
 )
 
 /**
@@ -191,7 +199,15 @@ object FormsCard {
     const val KIND = "forms"
     /** What GET /state's `features` says of a bridge that makes forms cards (POST /forms-cards). */
     const val FEATURE = "forms-cards"
+    /** What it says of a bridge that makes Italian's, German's and English's (POST /forms-cards with v=2). */
+    const val OTHER_FEATURE = "forms-cards-v2"
+    /** The tables the app reads: 2 has Italian's, German's and English's (WordFormsWire.VERSION). */
+    const val VERSION = WordFormsWire.VERSION
     const val LANGUAGE = "sl"
+
+    /** The languages with forms cards: Slovene ([FEATURE]), Italian, German and English ([OTHER_FEATURE]). */
+    fun has(language: String?, features: Collection<String>): Boolean =
+        (language == LANGUAGE && FEATURE in features) || (language in si.lanisce.lani.game.OtherForms.LANGUAGES && OTHER_FEATURE in features)
     val POS = setOf("noun", "verb", "adj")
 
     /** A card has at least this many forms besides the word's own (the node says the same). */
@@ -216,13 +232,23 @@ object FormsCard {
 
     /** The core verbs: their cards first. */
     val CORE = listOf("biti", "imeti", "iti", "delati", "hoteti", "moči", "vedeti", "videti", "reči", "dati", "priti", "govoriti", "piti", "jesti", "spati", "živeti")
+    /** Italian's, German's and English's (the node says the same: forms-cards.ts CORE_IN). */
+    val CORE_IN = mapOf(
+        "sl" to CORE,
+        "it" to listOf("essere", "avere", "andare", "fare", "stare", "venire", "volere", "potere", "dovere", "sapere", "dire", "dare", "mangiare", "bere", "dormire", "parlare"),
+        "de" to listOf("sein", "haben", "werden", "gehen", "kommen", "machen", "können", "müssen", "wollen", "sehen", "essen", "trinken", "fahren", "sprechen", "wissen", "geben"),
+        "en" to listOf("be", "have", "go", "do", "come", "see", "get", "make", "take", "say", "eat", "drink", "give", "know", "run", "write"),
+    )
 
     /** The words one GET /forms-cards asks about at most (the node says the same). */
     const val TABLES_MAX = 10
 
     /** `/forms-cards?w=delati&w=hiša`: the words' tables to read (the overview), nothing made. */
     fun tablesUrl(base: String, words: List<String>): HttpUrl =
-        (base.trimEnd('/') + "/forms-cards").toHttpUrl().newBuilder().apply { words.take(TABLES_MAX).forEach { addQueryParameter("w", it) } }.build()
+        (base.trimEnd('/') + "/forms-cards").toHttpUrl().newBuilder().apply {
+            words.take(TABLES_MAX).forEach { addQueryParameter("w", it) }
+            addQueryParameter("v", VERSION.toString())
+        }.build()
 
     fun parseTables(raw: String): FormsTablesAnswer = json.decodeFromString(FormsTablesAnswer.serializer(), raw)
 
@@ -231,7 +257,7 @@ object FormsCard {
         (e as? JsonObject)?.let { runCatching { json.decodeFromJsonElement(FormsCardData.serializer(), it) }.getOrNull() }?.takeIf { it.whole }
 
     /** The word's own form: a noun's nominative singular, an adjective's masculine singular. Shown, never asked. */
-    fun own(d: FormsCardData, key: String): Boolean = (d.pos == "noun" && key == "nom.sg") || (d.pos == "adj" && key == "adj.m.sg")
+    fun own(d: FormsCardData, key: String): Boolean = (d.pos == "noun" && (key == "nom.sg" || key == "sg")) || (d.pos == "adj" && key == "adj.m.sg")
 
     fun key(w: String): String = w.trim().lowercase()
 
@@ -252,7 +278,7 @@ object FormsCard {
 
     /** Whether [slot] of [d] is asked: its page and the pages it needs introduced, not the word's own, a form to ask. */
     fun tested(d: FormsCardData, slot: FormsCardSlot, introduced: Set<String>): Boolean =
-        !own(d, slot.key) && slot.shown.isNotEmpty() && slot.page in introduced && slot.needs.all { it in introduced }
+        !own(d, slot.key) && !slot.given && slot.shown.isNotEmpty() && slot.page in introduced && slot.needs.all { it in introduced }
 
     /** The keys of [d]'s slots asked now, in the dictionary's order. */
     fun testedKeys(d: FormsCardData, introduced: Set<String>): List<String> = d.slots.filter { tested(d, it, introduced) }.map { it.key }
@@ -323,7 +349,77 @@ object FormsCard {
     }
 
     /** [d]'s plans with only the spots it has a form of; rows and sections left empty go. */
-    fun layout(d: FormsCardData): List<Plan> = plans(d.pos).mapNotNull { p ->
+    /** [d]'s plans: Slovene's by its part of speech ([plans]), another language's its own ([otherPlans]). */
+    fun plansOf(d: FormsCardData): List<Plan> = if (d.language in si.lanisce.lani.game.OtherForms.LANGUAGES) otherPlans(d) else plans(d.pos)
+
+    private val P6 = listOf("1sg", "2sg", "3sg", "1pl", "2pl", "3pl")
+    private val OTHER_PRONOUNS = mapOf(
+        "it" to listOf("io", "tu", "lui, lei", "noi", "voi", "loro"),
+        "de" to listOf("ich", "du", "er, sie, es", "wir", "ihr", "sie"),
+    )
+    private val OTHER_AUX = mapOf("avere" to "lui ha", "essere" to "lui è", "haben" to "er hat", "sein" to "er ist")
+    private val DE_CASES = listOf("nom", "gen", "dat", "acc")
+
+    /**
+     * Italian's, German's and English's table as a card lays it out (game/OtherForms has the word card's): a tense by
+     * person (rows 1–3, singular and plural: "io ____", "che io ____" for the subjunctive), the participle once with its
+     * auxiliary ("lui ha ____", "er ist ____"), the imperative ("(tu) ____!"), the gerund ("sto ____"); German's four
+     * cases by number with their article ("dem ____", "den ____"); an Italian adjective's genders by number and its
+     * comparative and superlative; English's be by person, another verb's forms a row each.
+     */
+    private fun otherPlans(d: FormsCardData): List<Plan> {
+        val lang = d.language ?: return emptyList()
+        val numbers = listOf("sg", "pl")
+        fun persons(head: String, title: String, lead: String = "") = OTHER_PRONOUNS[lang]?.let { pr ->
+            Plan(title, numbers, (0..2).map { p -> "" to numbers.mapIndexed { ni, n -> Spot("$head.${P6[p + ni * 3]}", lead + pr[p + ni * 3]) } })
+        }
+        val aux = d.aux.firstOrNull() ?: if (lang == "de") "haben" else "avere"
+        return when {
+            d.pos == "verb" && lang == "it" -> listOfNotNull(
+                persons("pres", "wordForms.present"),
+                Plan("wordForms.perfect", listOf(""), listOf("" to listOf(Spot("pp", if (d.lemma.endsWith("rsi")) "lui si è" else OTHER_AUX.getValue(aux))))),
+                persons("impf", "wordForms.imperfect"), persons("fut", "wordForms.future"), persons("cond", "wordForms.conditional"),
+                persons("subj", "wordForms.subjunctive", "che "), persons("subji", "wordForms.subjunctiveImperfect", "se "), persons("rem", "wordForms.remotePast"),
+                Plan("wordForms.imperative", listOf("", "", ""), listOf("" to listOf(Spot("imp.2sg", "(tu)", "!"), Spot("imp.1pl", "(noi)", "!"), Spot("imp.2pl", "(voi)", "!")))),
+                Plan("wordForms.gerund", listOf(""), listOf("" to listOf(Spot("ger", "sto")))),
+            )
+            d.pos == "verb" && lang == "de" -> listOfNotNull(
+                persons("pres", "wordForms.present"), persons("pret", "wordForms.preterite"),
+                Plan("wordForms.perfect", listOf(""), listOf("" to listOf(Spot("pp", OTHER_AUX.getValue(aux))))),
+                persons("konj2", "wordForms.konjunktiv2"),
+                Plan("wordForms.imperative", listOf("", ""), listOf("" to listOf(Spot("imp.2sg", "(du)", "!"), Spot("imp.2pl", "(ihr)", "!")))),
+            )
+            d.pos == "verb" -> if (d.lemma == "be") listOf(
+                Plan("wordForms.present", listOf("", "", ""), listOf("" to listOf(Spot("pres.1sg", "I"), Spot("pres.2sg", "you, we, they"), Spot("pres.3sg", "he, she, it")))),
+                Plan("wordForms.past", listOf("", ""), listOf("" to listOf(Spot("past.1sg", "I, he, she, it"), Spot("past.2sg", "you, we, they")))),
+                Plan("wordForms.title", listOf("", ""), listOf("" to listOf(Spot("pp", "have"), Spot("ing", "am")))),
+            ) else listOf(
+                Plan(
+                    "wordForms.title", listOf(""), listOf(
+                        "wordForms.present" to listOf(Spot("pres.3sg", "he, she")), "wordForms.past" to listOf(Spot("past")),
+                        "wordForms.pastParticiple" to listOf(Spot("pp", "have")), "wordForms.ingForm" to listOf(Spot("ing", "am")),
+                    ),
+                ),
+            )
+            d.pos == "noun" && lang == "de" -> listOf(
+                Plan("wordForms.cases", numbers, (1..4).map { n ->
+                    val c = DE_CASES[n - 1]
+                    "$n. ${listOf("wer? was?", "wessen?", "wem?", "wen? was?")[n - 1]}" to listOf(
+                        Spot("$c.sg", si.lanisce.lani.game.OtherForms.article(d.gender, c).orEmpty()), Spot("$c.pl", si.lanisce.lani.game.OtherForms.article("pl", c).orEmpty()),
+                    )
+                }),
+            )
+            d.pos == "noun" -> listOf(Plan("wordForms.plural", numbers, listOf("" to listOf(Spot("sg"), Spot("pl")))))
+            d.pos == "adj" && lang == "it" -> listOf(
+                Plan("wordForms.adjective", numbers, listOf("m" to numbers.map { Spot("adj.m.$it") }, "f" to numbers.map { Spot("adj.f.$it") })),
+                Plan("wordForms.comparative", listOf("", ""), listOf("" to listOf(Spot("cmp", "↑"), Spot("sup", "↑↑")))),
+            )
+            d.pos == "adj" -> listOf(Plan("wordForms.comparative", listOf("", ""), listOf("" to listOf(Spot("cmp", "↑"), Spot("sup", if (lang == "en") "↑↑ the" else "↑↑")))))
+            else -> emptyList()
+        }
+    }
+
+    fun layout(d: FormsCardData): List<Plan> = plansOf(d).mapNotNull { p ->
         val rows = p.rows.map { (label, spots) -> label to spots.map { s -> s?.takeIf { d.slot(it.key)?.shown?.isNotEmpty() == true } } }
             .filter { (_, spots) -> spots.any { it != null } }
         if (rows.isEmpty()) null else p.copy(rows = rows)
@@ -389,7 +485,7 @@ object FormsCard {
      */
     fun options(d: FormsCardData, key: String, tested: Set<String>, random: Random): List<String> {
         val slot = d.slot(key) ?: return emptyList()
-        val plans = plans(d.pos)
+        val plans = plansOf(d)
         val here = placeOf(plans, key)
         fun distance(k: String): Int {
             val p = placeOf(plans, k) ?: return 3
@@ -424,10 +520,12 @@ object FormsCard {
         else -> code
     }
 
-    private fun rowLabel(l: String, label: (String) -> String): String = when (l) {
-        "m" -> label("words.genderM")
-        "f" -> label("words.genderF")
-        "n" -> label("words.genderN")
+    private fun rowLabel(l: String, label: (String) -> String): String = when {
+        l == "m" -> label("words.genderM")
+        l == "f" -> label("words.genderF")
+        l == "n" -> label("words.genderN")
+        // English's rows: a form's tense ("wordForms.past")
+        l.startsWith("wordForms.") -> label(l)
         else -> l
     }
 
@@ -497,7 +595,7 @@ object FormsCard {
             val spot = spots[k] ?: Spot(k)
             FormsGap(
                 k, slot.shown, slot.accept, options(d, k, tested, random), chosen = !typed || k in freshKeys, page = slot.page,
-                where = where[k].orEmpty(), before = spot.before, after = spot.after,
+                where = where[k].orEmpty(), before = spot.before, after = spot.after, language = d.language,
             )
         }
         val pages = asks.flatMap { g -> d.slot(g.key)?.let { listOf(it.page) + it.needs }.orEmpty() }.filter { it.isNotBlank() }.distinct()
@@ -557,14 +655,16 @@ object FormsCard {
         val pos = (if (e.pos == "adjective") "adj" else e.pos).takeIf { it in POS } ?: return null
         val slots = e.slots.filter { it.key != "cmp.m.sg" && it.forms.any { f -> f.isNotBlank() } }
             .map { FormsCardSlot(it.key, it.forms, it.also, it.page, it.needs) }
-        val d = FormsCardData(e.lemma, pos, e.gender, e.gloss, meaning, emoji, e.table, slots)
+        val d = FormsCardData(e.lemma, pos, e.gender, e.gloss, meaning, emoji, e.table, slots, language = e.language, aux = e.aux)
         return d.takeIf { slots.count { !own(d, it.key) } >= 2 }
     }
 
     // --- an answer -----------------------------------------------------------------------------------------------------
 
-    private fun norm(s: String) = Grading.normalize(s, Lang.SL)
-    private fun fold(s: String) = Grading.fold(s, Lang.SL)
+    private fun norm(s: String, lang: Lang = Lang.SL) = Grading.normalize(s, lang)
+    private fun fold(s: String, lang: Lang = Lang.SL) = Grading.fold(s, lang)
+    /** The language a card's or a gap's forms are graded in: its own, Slovene's by default. */
+    private fun langOf(code: String?): Lang = Lang.of(code) ?: Lang.SL
 
     /** [answer] without the words already before the gap ("jaz delam" typed for "jaz ____"). */
     private fun bare(g: FormsGap, answer: String): String {
@@ -578,15 +678,17 @@ object FormsCard {
     /** Gap [g] answered [answer]: chosen (right when it is one it accepts), or [typed] (graded as a cloze: [Grading.check]). */
     fun grade(g: FormsGap, answer: String, typed: Boolean): ItemMark {
         val a = bare(g, answer)
-        if (!typed) return ItemMark(if (norm(a) in g.accept.map(::norm)) Verdict.CORRECT else Verdict.WRONG, a, g.answer)
-        val r = Grading.check(a, g.accept, Lang.SL)
+        val lang = langOf(g.language)
+        if (!typed) return ItemMark(if (norm(a, lang) in g.accept.map { norm(it, lang) }) Verdict.CORRECT else Verdict.WRONG, a, g.answer)
+        val r = Grading.check(a, g.accept, lang)
         return ItemMark(r.verdict, a, r.expected.ifBlank { g.answer }, r.hint, r.marks)
     }
 
     /** The mistake kinds (POST /reviews `forms_cards`, the mistakes database's `forms_<kind>`; the node keeps the same list). */
     val KINDS: List<String> = CASE_NAMES.values.map { "case_$it" } + listOf("number_plural", "number_dual") +
         listOf("1sg", "2sg", "3sg", "1pl", "2pl", "3pl").map { "verb_person_$it" } +
-        listOf("tense_past", "tense_future", "tense_imperative", "tense_negative", "adjective_gender")
+        listOf("tense_past", "tense_future", "tense_imperative", "tense_negative", "adjective_gender") +
+        listOf("tense_imperfect", "tense_conditional", "tense_subjunctive", "tense_remote_past", "tense_preterite", "tense_participle", "tense_gerund", "adjective_comparison")
 
     /**
      * What a wrong answer [answer] of slot [key] of [d] missed (the answer's own slots: those of the word's whose forms hold
@@ -596,6 +698,7 @@ object FormsCard {
      * plural answered in another number).
      */
     fun kind(d: FormsCardData, key: String, answer: String): String? {
+        if (d.language in si.lanisce.lani.game.OtherForms.LANGUAGES) return otherKind(d, key, answer)
         val a = fold(answer.trim())
         val other = d.slots.filter { it.key != key && it.accept.any { f -> fold(f) == a } }.map { it.key.split('.') }
         val p = key.split('.')
@@ -631,6 +734,37 @@ object FormsCard {
                 if (other.any { it.size == 4 && it[1] == case && it[3] == n && it[2] != g }) "adjective_gender"
                 else CASE_NAMES[case]?.let { "case_$it" }
             }
+            else -> null
+        }
+    }
+
+    /**
+     * What a wrong answer of Italian's, German's or English's slot [key] missed: a present's person (English's -s, be's
+     * am and are), a tense's or mood's own (the imperfect, the conditional, the subjunctive, the passato remoto, the
+     * preterite, the participle, the gerund, the future, the imperative, English's past), a German case, or its number
+     * when the answer is the same case's other number; a noun's plural; an adjective's gender (or number), its comparison.
+     */
+    private fun otherKind(d: FormsCardData, key: String, answer: String): String? {
+        val lang = langOf(d.language)
+        val a = fold(answer.trim(), lang)
+        val other = d.slots.filter { it.key != key && it.accept.any { f -> fold(f, lang) == a } }.map { it.key.split('.') }
+        val p = key.split('.')
+        return when (p[0]) {
+            in DE_CASES -> if (other.any { it[0] == p[0] && it.getOrNull(1) != p.getOrNull(1) } && p.getOrNull(1) == "pl") "number_plural" else "case_${CASE_NAMES.getValue(p[0])}"
+            "pres" -> "verb_person_${p.getOrNull(1)}".takeIf { it in KINDS }
+            "impf" -> "tense_imperfect"
+            "cond" -> "tense_conditional"
+            "subj", "subji", "konj2" -> "tense_subjunctive"
+            "rem" -> "tense_remote_past"
+            "pret" -> "tense_preterite"
+            "pp" -> "tense_participle"
+            "ger", "ing" -> "tense_gerund"
+            "fut" -> "tense_future"
+            "imp" -> "tense_imperative"
+            "past" -> if (p.size > 1) "verb_person_${if (p[1] == "1sg") "1sg" else "2sg"}" else "tense_past"
+            "pl" -> "number_plural"
+            "adj" -> if (other.any { it[0] == "adj" && it.getOrNull(2) == p.getOrNull(2) && it.getOrNull(1) != p.getOrNull(1) }) "adjective_gender" else if (p.getOrNull(2) == "pl") "number_plural" else "adjective_gender"
+            "cmp", "sup" -> "adjective_comparison"
             else -> null
         }
     }
@@ -711,13 +845,14 @@ object FormsCard {
      */
     fun candidates(
         pool: List<ReviewCard>, learned: Set<String>, have: List<ReviewCard>, entries: (String) -> List<LemmaForms>?,
-        refused: Set<String> = emptySet(),
+        refused: Set<String> = emptySet(), language: String = LANGUAGE,
     ): List<Pair<String, String>> {
         val made = have.flatMap { listOfNotNull(it.forms?.lemma, it.front) }.map(::key).toSet()
-        fun core(w: String) = CORE.indexOf(key(w)).let { if (it < 0) CORE.size else it }
+        val core = CORE_IN[language] ?: CORE
+        fun core(w: String) = core.indexOf(key(w)).let { if (it < 0) core.size else it }
         return pool.asSequence()
             .filter { it.kind == "vocabulary" && it.id in learned }
-            .mapNotNull { c -> WordFormsWire.lemmaOf(c)?.let { it to c } }
+            .mapNotNull { c -> WordFormsWire.lemmaOf(c, language)?.let { it to c } }
             .filter { (w, _) -> key(w) !in made && key(w) !in refused && hasForms(entries(w)) }
             .sortedWith(compareBy<Pair<String, ReviewCard>>({ core(it.first) }, { -it.second.repetitions }))
             .distinctBy { key(it.first) }

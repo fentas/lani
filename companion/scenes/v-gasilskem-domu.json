@@ -9,7 +9,7 @@
   },
   "emoji": "🚒",
   "level": "A2",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; checked against Fran 2026-10-30: brizgalna, cev, prapor, florjanovo (written small)",
+  "review": "sl, de, it, reactions, variants, B1/B2: machine-written (Claude), not reviewed by a native speaker; checked against Fran 2026-10-30: brizgalna, cev, prapor, florjanovo (written small)",
   "art": "firestation",
   "from": ["project:gasilski_dom"],
   "pack": "v-gasilskem-domu",
@@ -95,7 +95,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "cevi",
-      "dialogs": ["cevi-stejem", "cevi"],
+      "dialogs": ["cevi-b2-nakovalo", "cevi-b1-sekire", "cevi-stejem", "cevi"],
       "reward": { "stone": 15 },
       "marker": "🧯",
       "memory": {
@@ -118,7 +118,7 @@
       "months": [5],
       "chance": 0.6,
       "dialog": "florjan",
-      "dialogs": ["florjan-datum", "florjan"],
+      "dialogs": ["florjan-b2-molitev", "florjan-b1-sod", "florjan-datum", "florjan"],
       "reward": { "food": 20 },
       "marker": "✨",
       "memory": {
@@ -1605,6 +1605,616 @@
           "de": "Oje. Jetzt kommen alle. Schnell, machen wir das Tor zu!",
           "it": "Oh no. Adesso verranno tutti. Presto, chiudiamo il portone!",
           "fx": { "horn": 0, "doors": 0 }
+        }
+      ]
+    },
+    {
+      "id": "cevi-b1-sekire",
+      "level": "B1",
+      "memory": {
+        "sl": "sekire za gasilce iz Gorice",
+        "en": "the axes for the Gorizia firemen",
+        "de": "die Äxte für die Feuerwehr aus Gorizia",
+        "it": "le asce per i pompieri di Gorizia"
+      },
+      "lines": [
+        {
+          "who": "tone",
+          "face": "thinking",
+          "sl": "Jutro. Iz Gorice so pisali. Potrebujejo deset sekir za gasilce. Do petka.",
+          "en": "Morning. They wrote from Gorizia. They need ten axes for the firemen. By Friday.",
+          "de": "Morgen. Aus Gorizia haben sie geschrieben. Sie brauchen zehn Äxte für die Feuerwehr. Bis Freitag.",
+          "it": "Giorno. Hanno scritto da Gorizia. Servono dieci asce per i pompieri. Entro venerdì."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Boste do petka naredili vseh deset sekir?",
+              "en": "Will you have all ten axes made by Friday?",
+              "de": "Schaffen Sie bis Freitag alle zehn Äxte?",
+              "it": "Riuscirà a fare tutte e dieci le asce entro venerdì?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Bom. Dve na dan. Ali je prav, ali ni.",
+                "en": "I will. Two a day. Either it's right or it isn't.",
+                "de": "Schaffe ich. Zwei am Tag. Entweder ist es richtig oder nicht.",
+                "it": "Sì. Due al giorno. O è giusto, o non lo è."
+              }
+            },
+            {
+              "sl": "Boste do petka delali vseh deset sekir?",
+              "en": "Will you be working on all ten axes until Friday?",
+              "de": "Arbeiten Sie bis Freitag an allen zehn Äxten?",
+              "it": "Lavorerà a tutte e dieci le asce fino a venerdì?",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Do petka (by Friday) wants them done by then: the perfective, boste naredili. Delali is the imperfective, working on and on.",
+                "de": "Do petka (bis Freitag) will sie bis dahin fertig: der vollendete Aspekt, boste naredili. Delali ist unvollendet, ein Arbeiten ohne Ende.",
+                "it": "Do petka (entro venerdì) le vuole finite per allora: il perfettivo, boste naredili. Delali è imperfettivo, un lavorare senza fine."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Delal? Do petka? Ne. Do petka bodo gotove.",
+                "en": "Working on them? Till Friday? No. By Friday they'll be done.",
+                "de": "Daran arbeiten? Bis Freitag? Nein. Bis Freitag sind sie fertig.",
+                "it": "Lavorarci? Fino a venerdì? No. Per venerdì saranno pronte."
+              }
+            },
+            {
+              "sl": "Boste do petka naredili vseh deset sekire?",
+              "en": "Will you have all ten axe (wrong form) made by Friday?",
+              "de": "Schaffen Sie bis Freitag alle zehn Äxte (falsche Form)?",
+              "it": "Riuscirà a fare tutte e dieci le asce (forma sbagliata) entro venerdì?",
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "From five on, the noun is in the genitive plural: deset sekir. Sekire is for three and four.",
+                "de": "Ab fünf steht das Nomen im Genitiv Plural: deset sekir. Sekire ist für drei und vier.",
+                "it": "Da cinque in su il nome va al genitivo plurale: deset sekir. Sekire è per tre e quattro."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Sekire? Hm. Deset, sem rekel. Še enkrat.",
+                "en": "Sekire? Hm. Ten, I said. Again.",
+                "de": "Sekire? Hm. Zehn, hab ich gesagt. Noch mal.",
+                "it": "Sekire? Mm. Dieci, ho detto. Di nuovo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "en": "Hm? Again. Slowly.",
+            "de": "Hm? Noch mal. Langsam.",
+            "it": "Mm? Di nuovo. Piano."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "thinking",
+          "sl": "Ampak jutri je gasilska vaja. Če bom koval, ne bom mogel priti. Kaj misliš?",
+          "en": "But tomorrow is the fire drill. If I'm forging, I can't come. What do you think?",
+          "de": "Aber morgen ist Feuerwehrübung. Wenn ich schmiede, kann ich nicht kommen. Was meinst du?",
+          "it": "Ma domani c'è l'esercitazione dei pompieri. Se forgio, non posso venire. Che ne pensi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pojdite na vajo. Sekire lahko kujete zvečer, ko bo vaja končana.",
+              "en": "Go to the drill. You can forge the axes in the evening, when the drill is over.",
+              "de": "Gehen Sie zur Übung. Die Äxte können Sie abends schmieden, wenn die Übung vorbei ist.",
+              "it": "Vada all'esercitazione. Le asce può forgiarle la sera, quando l'esercitazione è finita.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Hm. Zvečer. Tončka bo vesela: ponoči ne bom smrčal doma.",
+                "en": "Hm. In the evening. Tončka will be pleased: I won't be snoring at home all night.",
+                "de": "Hm. Abends. Tončka wird sich freuen: nachts schnarche ich dann nicht zu Hause.",
+                "it": "Mm. La sera. Tončka sarà contenta: di notte non russerò a casa."
+              }
+            },
+            {
+              "sl": "Pojdite na vajo. Sekire lahko kujete zvečer, ko bo vaja končena.",
+              "en": "Go to the drill. You can forge the axes in the evening, when the drill is over (a wrong form).",
+              "de": "Gehen Sie zur Übung. Die Äxte können Sie abends schmieden, wenn die Übung vorbei ist (falsche Form).",
+              "it": "Vada all'esercitazione. Le asce può forgiarle la sera, quando l'esercitazione è finita (forma sbagliata).",
+              "grammar": "trpnik",
+              "why": {
+                "en": "Končati is an -ati verb: its participle ends in -an, končana (as napisati → napisan). Končena isn't a form.",
+                "de": "Končati ist ein Verb auf -ati: sein Partizip endet auf -an, končana (wie napisati → napisan). Končena gibt es nicht.",
+                "it": "Končati è un verbo in -ati: il participio finisce in -an, končana (come napisati → napisan). Končena non esiste."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Končena? Hm. Tako ne govori niti moje kladivo.",
+                "en": "Končena? Hm. Not even my hammer talks like that.",
+                "de": "Končena? Hm. So redet nicht mal mein Hammer.",
+                "it": "Končena? Mm. Così non parla nemmeno il mio martello."
+              }
+            },
+            {
+              "sl": "Ne hodite na vajo. Sekire so pomembnejše.",
+              "en": "Don't go to the drill. The axes are more important.",
+              "de": "Gehen Sie nicht zur Übung. Die Äxte sind wichtiger.",
+              "it": "Non vada all'esercitazione. Le asce sono più importanti.",
+              "why": {
+                "en": "The drill is for the whole village, and the axes can wait till evening: Tone wants a way to do both.",
+                "de": "Die Übung ist für das ganze Dorf, und die Äxte können bis zum Abend warten: Tone will beides schaffen.",
+                "it": "L'esercitazione è per tutto il paese, e le asce possono aspettare la sera: Tone vuole fare tutte e due le cose."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Pomembnejše? Ko gori, je vaja pomembnejša od vsega.",
+                "en": "More important? When there's a fire, the drill matters more than anything.",
+                "de": "Wichtiger? Wenn es brennt, ist die Übung wichtiger als alles.",
+                "it": "Più importanti? Quando c'è un incendio, l'esercitazione conta più di tutto."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "en": "Hm? Again. Slowly.",
+            "de": "Hm? Noch mal. Langsam.",
+            "it": "Mm? Di nuovo. Piano."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "happy",
+          "sl": "Prav. Vaja podnevi, kovačnica ponoči. Tako bo.",
+          "en": "Right. The drill by day, the smithy by night. That's how it'll be.",
+          "de": "Gut. Übung bei Tag, Schmiede bei Nacht. So wird's gemacht.",
+          "it": "Va bene. Esercitazione di giorno, fucina di notte. Così sarà."
+        }
+      ]
+    },
+    {
+      "id": "cevi-b2-nakovalo",
+      "level": "B2",
+      "memory": {
+        "sl": "nakovalo, ki je ostalo po požaru",
+        "en": "the anvil that was left after the fire",
+        "de": "den Amboss, der nach dem Brand übrig blieb",
+        "it": "l'incudine rimasta dopo l'incendio"
+      },
+      "lines": [
+        {
+          "who": "tone",
+          "face": "thinking",
+          "sl": "Ta cev ima luknjo. Majhno. … Veš, zakaj sem tako natančen s cevmi?",
+          "en": "This hose has a hole. A small one. … You know why I'm so particular about hoses?",
+          "de": "Dieser Schlauch hat ein Loch. Ein kleines. … Weißt du, warum ich bei Schläuchen so genau bin?",
+          "it": "Questa manichetta ha un buco. Piccolo. … Sai perché sono così pignolo con le manichette?"
+        },
+        {
+          "who": "tone",
+          "face": "sad",
+          "sl": "Ko sem bil mlad, mi je v dolini pogorela kovačnica. Gasilci so imeli cev polno lukenj.",
+          "en": "When I was young, my smithy down in the valley burned down. The firemen had a hose full of holes.",
+          "de": "Als ich jung war, ist mir unten im Tal die Schmiede abgebrannt. Die Feuerwehr hatte einen Schlauch voller Löcher.",
+          "it": "Da giovane mi è bruciata la fucina giù in valle. I pompieri avevano una manichetta piena di buchi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ali se ni dalo ničesar rešiti?",
+              "en": "Couldn't anything be saved?",
+              "de": "Konnte man gar nichts retten?",
+              "it": "Non si è potuto salvare niente?",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Samo nakovalo. Še danes je moje. Na njem kujem.",
+                "en": "Only the anvil. It's still mine today. I forge on it.",
+                "de": "Nur den Amboss. Er gehört heute noch mir. Auf ihm schmiede ich.",
+                "it": "Solo l'incudine. È ancora mia. Ci forgio sopra."
+              }
+            },
+            {
+              "sl": "Ali ni dalo ničesar rešiti?",
+              "en": "Didn't it give anything to save (without se)?",
+              "de": "Hat es nichts zu retten gegeben (ohne se)?",
+              "it": "Non ha dato niente da salvare (senza se)?",
+              "grammar": "brezosebno",
+              "why": {
+                "en": "Without se, dati is to give. What can or can't be done, with no one doing it, takes se: se ni dalo rešiti (it couldn't be saved).",
+                "de": "Ohne se heißt dati geben. Was sich tun lässt oder nicht, ohne dass jemand es tut, verlangt se: se ni dalo rešiti (es ließ sich nicht retten).",
+                "it": "Senza se, dati vuol dire dare. Ciò che si può o non si può fare, senza un soggetto, vuole se: se ni dalo rešiti (non si è potuto salvare)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Dalo? Kdo je kaj dal? … Hm. Še enkrat.",
+                "en": "Gave? Who gave what? … Hm. Again.",
+                "de": "Gegeben? Wer hat was gegeben? … Hm. Noch mal.",
+                "it": "Dato? Chi ha dato cosa? … Mm. Di nuovo."
+              }
+            },
+            {
+              "sl": "Ali se niste dali ničesar rešiti?",
+              "en": "Didn't you let yourself save anything?",
+              "de": "Haben Sie sich nichts retten lassen?",
+              "it": "Non si è lasciato salvare niente?",
+              "grammar": "brezosebno",
+              "why": {
+                "en": "Se da (it can be done) has no subject: in the past it is neuter, se ni dalo. Niste dali makes Tone the subject.",
+                "de": "Se da (es lässt sich machen) hat kein Subjekt: in der Vergangenheit steht es im Neutrum, se ni dalo. Niste dali macht Tone zum Subjekt.",
+                "it": "Se da (si può fare) non ha soggetto: al passato è neutro, se ni dalo. Niste dali fa di Tone il soggetto."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Jaz se nisem dal? Hm. Jaz sem gasil, {learner}.",
+                "en": "I didn't let myself? Hm. I was putting out the fire, {learner}.",
+                "de": "Ich habe mich nicht gelassen? Hm. Ich habe gelöscht, {learner}.",
+                "it": "Non mi sono lasciato? Mm. Io spegnevo il fuoco, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "en": "Hm? Again. Slowly.",
+            "de": "Hm? Noch mal. Langsam.",
+            "it": "Mm? Di nuovo. Piano."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "thinking",
+          "sl": "Če bi bila cev cela, bi bila kovačnica še danes stala. Zato pregledam vsako. Ljudje pravijo, da pretiravam.",
+          "en": "If the hose had been whole, the smithy would still be standing today. So I check every one. People say I overdo it.",
+          "de": "Wäre der Schlauch heil gewesen, stünde die Schmiede heute noch. Darum prüfe ich jeden. Die Leute sagen, ich übertreibe.",
+          "it": "Se la manichetta fosse stata intera, la fucina sarebbe ancora in piedi. Per questo le controllo tutte. La gente dice che esagero."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda je to veliko dela, ampak raje ena luknja preveč kot ena kovačnica premalo.",
+              "en": "Of course it's a lot of work, but better one hole too many than one smithy too few.",
+              "de": "Natürlich ist das viel Arbeit, aber lieber ein Loch zu viel als eine Schmiede zu wenig.",
+              "it": "Certo, è tanto lavoro, ma meglio un buco di troppo che una fucina in meno.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Hm. Dobro rečeno. To si bom zapisal v knjigo.",
+                "en": "Hm. Well said. I'll write that down in my book.",
+                "de": "Hm. Gut gesagt. Das schreibe ich mir ins Buch.",
+                "it": "Mm. Ben detto. Me lo scrivo sul libretto."
+              }
+            },
+            {
+              "sl": "Res je, cevi bi lahko pregledovali enkrat na leto.",
+              "en": "That's true, the hoses could be checked once a year.",
+              "de": "Stimmt, man könnte die Schläuche einmal im Jahr prüfen.",
+              "it": "È vero, le manichette si potrebbero controllare una volta all'anno.",
+              "why": {
+                "en": "Tone's own smithy burned for a bad hose: grant that it's a lot of work (seveda) and side with his care, not with the people.",
+                "de": "Tones eigene Schmiede brannte wegen eines schlechten Schlauchs ab: gib zu, dass es viel Arbeit ist (seveda), und stell dich hinter seine Sorgfalt.",
+                "it": "La fucina di Tone è bruciata per una manichetta rotta: ammetti che è tanto lavoro (seveda) e sta' dalla parte della sua cura."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Enkrat na leto? Ogenj ne vpraša, kateri mesec je.",
+                "en": "Once a year? Fire doesn't ask what month it is.",
+                "de": "Einmal im Jahr? Das Feuer fragt nicht, welcher Monat ist.",
+                "it": "Una volta all'anno? Il fuoco non chiede che mese è."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "en": "Hm? Again. Slowly.",
+            "de": "Hm? Noch mal. Langsam.",
+            "it": "Mm? Di nuovo. Piano."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "happy",
+          "sl": "Zdaj pa krpa in usnje. Luknja ne čaka.",
+          "en": "Now a patch and some leather. A hole doesn't wait.",
+          "de": "Jetzt Flicken und Leder. Ein Loch wartet nicht.",
+          "it": "Adesso una pezza e del cuoio. Un buco non aspetta."
+        }
+      ]
+    },
+    {
+      "id": "florjan-b1-sod",
+      "level": "B1",
+      "months": [
+        5
+      ],
+      "memory": {
+        "sl": "dva soda rebule za florjanovo",
+        "en": "the two barrels of rebula for St Florian's day",
+        "de": "die zwei Fässer Rebula für den Florianitag",
+        "it": "le due botti di rebula per San Floriano"
+      },
+      "lines": [
+        {
+          "who": "marko",
+          "face": "thinking",
+          "sl": "Ciao, {learner}! Na florjanovo bo veselica. Lani je na veselici v Brdih zmanjkalo vina že ob devetih!",
+          "en": "Ciao, {learner}! There's a party on St Florian's day. Last year at the party in Brda the wine ran out by nine!",
+          "de": "Ciao, {learner}! Am Florianitag gibt es ein Fest. Letztes Jahr ist beim Fest in Brda schon um neun der Wein ausgegangen!",
+          "it": "Ciao, {learner}! A San Floriano c'è la festa. L'anno scorso, alla festa nel Collio, il vino è finito già alle nove!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Letos pripelji dva soda, da ga ne bo zmanjkalo.",
+              "en": "This year bring two barrels, so it doesn't run out.",
+              "de": "Bring dieses Jahr zwei Fässer, damit er nicht ausgeht.",
+              "it": "Quest'anno porta due botti, così non finisce.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Dva soda rebule! Ha, potem bo Florjan gasil samo žejo.",
+                "en": "Two barrels of rebula! Ha, then St Florian will only be putting out thirst.",
+                "de": "Zwei Fässer Rebula! Ha, dann löscht der heilige Florian nur den Durst.",
+                "it": "Due botti di rebula! Ah, allora San Floriano spegnerà solo la sete."
+              }
+            },
+            {
+              "sl": "Letos pripelji dve soda, da ga ne bo zmanjkalo.",
+              "en": "This year bring two (feminine) barrels, so it doesn't run out.",
+              "de": "Bring dieses Jahr zwei (weiblich) Fässer, damit er nicht ausgeht.",
+              "it": "Quest'anno porta due (femminile) botti, così non finisce.",
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "Dva is for masculine nouns, dve for feminine ones: sod is masculine, so dva soda.",
+                "de": "Dva steht bei männlichen Nomen, dve bei weiblichen: sod ist männlich, also dva soda.",
+                "it": "Dva va coi nomi maschili, dve coi femminili: sod è maschile, quindi dva soda."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Dve soda? Ha, sod ni steklenica, {learner}!",
+                "en": "Two (feminine) barrels? Ha, a barrel's not a bottle, {learner}!",
+                "de": "Zwei (weiblich) Fässer? Ha, ein Fass ist keine Flasche, {learner}!",
+                "it": "Due (femminile) botti? Ah, una botte non è una bottiglia, {learner}!"
+              }
+            },
+            {
+              "sl": "Letos pripelji dva soda, ker ga ne bo zmanjkalo.",
+              "en": "This year bring two barrels, because it won't run out.",
+              "de": "Bring dieses Jahr zwei Fässer, weil er nicht ausgehen wird.",
+              "it": "Quest'anno porta due botti, perché non finirà.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Not running out is the aim of the barrels, not their cause: da (so that). Ker is the cause (because).",
+                "de": "Dass er nicht ausgeht, ist das Ziel der Fässer, nicht ihr Grund: da (damit). Ker ist der Grund (weil).",
+                "it": "Che non finisca è lo scopo delle botti, non la loro causa: da (così che). Ker è la causa (perché)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ker ga ne bo zmanjkalo? Potem pa sploh ne rabim dveh!",
+                "en": "Because it won't run out? Then I don't need two at all!",
+                "de": "Weil er nicht ausgeht? Dann brauche ich ja gar keine zwei!",
+                "it": "Perché non finirà? Allora due non mi servono proprio!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej še enkrat, {learner}.",
+            "en": "Sorry? Say it again, {learner}.",
+            "de": "Wie? Sag's noch mal, {learner}.",
+            "it": "Come? Ripeti, {learner}."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "worried",
+          "sl": "Samo kako ju pripeljem? V moj kombi gre samo eden.",
+          "en": "Only how do I bring them? My van only takes one.",
+          "de": "Nur wie bringe ich sie her? In meinen Lieferwagen passt nur eins.",
+          "it": "Solo che come le porto? Nel mio furgone ne sta una sola."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Lahko bi si sposodil Francetov voz. Sivko bo vesel, da gre na veselico.",
+              "en": "You could borrow France's cart. Sivko will be glad to go to a party.",
+              "de": "Du könntest dir Frances Wagen ausleihen. Sivko freut sich, dass er auf ein Fest darf.",
+              "it": "Potresti farti prestare il carro di France. Sivko sarà contento di andare alla festa.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Sivko na veselici! Ha, prvi ples je njegov.",
+                "en": "Sivko at the party! Ha, the first dance is his.",
+                "de": "Sivko auf dem Fest! Ha, der erste Tanz gehört ihm.",
+                "it": "Sivko alla festa! Ah, il primo ballo è suo."
+              }
+            },
+            {
+              "sl": "Lahko bi sposodil Francetov voz. Sivko bo vesel, da gre na veselico.",
+              "en": "You could lend France's cart (to someone). Sivko will be glad to go to a party.",
+              "de": "Du könntest Frances Wagen verleihen. Sivko freut sich, dass er auf ein Fest darf.",
+              "it": "Potresti prestare il carro di France (a qualcuno). Sivko sarà contento di andare alla festa.",
+              "grammar": "povratni-glagoli",
+              "why": {
+                "en": "Borrowing is reflexive, with si: sposoditi si (for yourself). Without si, sposoditi is to lend it to someone.",
+                "de": "Ausleihen ist reflexiv, mit si: sposoditi si (für sich). Ohne si heißt sposoditi, es jemandem leihen.",
+                "it": "Farsi prestare è riflessivo, con si: sposoditi si (per sé). Senza si, sposoditi è prestarlo a qualcuno."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Sposodil? Komu? Saj voz ni moj, {learner}!",
+                "en": "Lend it? To whom? It's not my cart, {learner}!",
+                "de": "Verleihen? Wem? Der Wagen gehört doch nicht mir, {learner}!",
+                "it": "Prestarlo? A chi? Il carro non è mica mio, {learner}!"
+              }
+            },
+            {
+              "sl": "Lahko bi si sposodil Francetov voz. Sivko bo vesela, da gre na veselico.",
+              "en": "You could borrow France's cart. Sivko (feminine) will be glad to go to a party.",
+              "de": "Du könntest dir Frances Wagen ausleihen. Sivko (weiblich) freut sich, dass er auf ein Fest darf.",
+              "it": "Potresti farti prestare il carro di France. Sivko sarà contenta (femminile) di andare alla festa.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "The adjective agrees with its noun: Sivko is a horse, masculine, so vesel. Vesela is feminine.",
+                "de": "Das Adjektiv richtet sich nach dem Nomen: Sivko ist ein Pferd, männlich, also vesel. Vesela ist weiblich.",
+                "it": "L'aggettivo concorda col nome: Sivko è un cavallo, maschile, quindi vesel. Vesela è femminile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Vesela? Ha, France bi ti rekel, da je Sivko fant!",
+                "en": "Glad, feminine? Ha, France would tell you Sivko's a boy!",
+                "de": "Froh, weiblich? Ha, France würde dir sagen, dass Sivko ein Bursche ist!",
+                "it": "Contenta? Ah, France ti direbbe che Sivko è un maschio!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej še enkrat, {learner}.",
+            "en": "Sorry? Say it again, {learner}.",
+            "de": "Wie? Sag's noch mal, {learner}.",
+            "it": "Come? Ripeti, {learner}."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Allora, dogovorjeno! Ti vprašaj Franceta, jaz pa pripravim kozarce.",
+          "en": "Allora, it's a deal! You ask France, and I'll get the glasses ready.",
+          "de": "Allora, abgemacht! Du fragst France, und ich stelle die Gläser bereit.",
+          "it": "Allora, d'accordo! Tu chiedi a France, io preparo i bicchieri."
+        }
+      ]
+    },
+    {
+      "id": "florjan-b2-molitev",
+      "level": "B2",
+      "months": [
+        5
+      ],
+      "memory": {
+        "sl": "molitev mojega nona na florjanovo",
+        "en": "my nonno's St Florian's prayer",
+        "de": "das Florianigebet meines Nonno",
+        "it": "la preghiera di mio nonno a San Floriano"
+      },
+      "lines": [
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Ciao, {learner}! Na florjanovo gremo zjutraj k maši, zvečer pa na veselico.",
+          "en": "Ciao, {learner}! On St Florian's day we go to Mass in the morning and to the party in the evening.",
+          "de": "Ciao, {learner}! Am Florianitag gehen wir morgens zur Messe und abends aufs Fest.",
+          "it": "Ciao, {learner}! A San Floriano la mattina andiamo a messa e la sera alla festa."
+        },
+        {
+          "who": "marko",
+          "face": "laugh",
+          "sl": "Veš, kaj je moj nono molil na florjanovo? »Sveti Florjan, varuj mojo klet, zažgi sosedovo!«",
+          "en": "You know what my nonno used to pray on St Florian's day? »Saint Florian, spare my cellar, set my neighbour's on fire!«",
+          "de": "Weißt du, was mein Nonno am Florianitag gebetet hat? »Heiliger Florian, verschon meinen Keller, zünd den des Nachbarn an!«",
+          "it": "Sai cosa pregava mio nonno a San Floriano? »San Floriano, salva la mia cantina, brucia quella del vicino!«"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Šaljiva molitev, ampak gasilci pomagajo vsem, tudi sosedom.",
+              "en": "A funny prayer, but firemen help everyone, the neighbours too.",
+              "de": "Ein lustiges Gebet, aber die Feuerwehr hilft allen, auch den Nachbarn.",
+              "it": "Una preghiera spiritosa, ma i pompieri aiutano tutti, anche i vicini.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Seveda! Nono je tudi sam gasil pri sosedu. Molil je pa vseeno tako.",
+                "en": "Of course! Nonno helped put out the fire at the neighbour's himself. But he still prayed like that.",
+                "de": "Natürlich! Nonno hat beim Nachbarn selbst mitgelöscht. Gebetet hat er trotzdem so.",
+                "it": "Certo! Il nonno ha spento lui stesso il fuoco dal vicino. Ma pregava lo stesso così."
+              }
+            },
+            {
+              "sl": "Pametna molitev. Sosedova klet je manj pomembna.",
+              "en": "A wise prayer. The neighbour's cellar matters less.",
+              "de": "Ein kluges Gebet. Der Keller des Nachbarn ist weniger wichtig.",
+              "it": "Una preghiera saggia. La cantina del vicino conta meno.",
+              "why": {
+                "en": "Marko is telling an old joke against selfish prayers: laugh with the joke, don't take its side.",
+                "de": "Marko erzählt einen alten Witz über eigennützige Gebete: lach mit, statt ihm recht zu geben.",
+                "it": "Marko racconta una vecchia battuta sulle preghiere egoiste: ridici sopra, non dargli ragione."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Manj pomembna? Ha, to povej sosedu, {learner}!",
+                "en": "Matters less? Ha, you tell the neighbour that, {learner}!",
+                "de": "Weniger wichtig? Ha, sag das mal dem Nachbarn, {learner}!",
+                "it": "Conta meno? Ah, vallo a dire al vicino, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej še enkrat, {learner}.",
+            "en": "Sorry? Say it again, {learner}.",
+            "de": "Wie? Sag's noch mal, {learner}.",
+            "it": "Come? Ripeti, {learner}."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "proud",
+          "sl": "Allora, prapor je čist, čelade pa sem drgnil vse jutro. Kaj praviš, bodo dovolj lepe?",
+          "en": "Allora, the banner's clean, and I've been rubbing the helmets all morning. What do you say, will they be shiny enough?",
+          "de": "Allora, die Fahne ist sauber, und die Helme habe ich den ganzen Morgen gerieben. Was meinst du, sind sie schön genug?",
+          "it": "Allora, lo stendardo è pulito, e gli elmi li ho strofinati tutta la mattina. Che dici, saranno abbastanza belli?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Zloščene čelade bodo na veselici sijale kot sonce.",
+              "en": "The polished helmets will shine like the sun at the party.",
+              "de": "Die polierten Helme werden auf dem Fest strahlen wie die Sonne.",
+              "it": "Gli elmi lucidati brilleranno come il sole alla festa.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Kot sonce, ja! In jaz kot luna, po treh kozarcih.",
+                "en": "Like the sun, yes! And me like the moon, after three glasses.",
+                "de": "Wie die Sonne, ja! Und ich wie der Mond, nach drei Gläsern.",
+                "it": "Come il sole, sì! E io come la luna, dopo tre bicchieri."
+              }
+            },
+            {
+              "sl": "Zloščele čelade bodo na veselici sijale kot sonce.",
+              "en": "The self-polished (wrong participle) helmets will shine like the sun at the party.",
+              "de": "Die von selbst polierten (falsches Partizip) Helme werden auf dem Fest strahlen wie die Sonne.",
+              "it": "Gli elmi lucidatisi da soli (participio sbagliato) brilleranno come il sole alla festa.",
+              "grammar": "delezniki",
+              "why": {
+                "en": "Someone polished them: the -n participle, zloščene (zloščiti → zloščen). An -l participle is for what becomes so by itself, as ovenele rože.",
+                "de": "Jemand hat sie poliert: das Partizip auf -n, zloščene (zloščiti → zloščen). Ein Partizip auf -l ist für das, was von selbst so wird, wie ovenele rože.",
+                "it": "Qualcuno li ha lucidati: il participio in -n, zloščene (zloščiti → zloščen). Un participio in -l è per ciò che diventa così da sé, come ovenele rože."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Zloščele? Same od sebe? Ne, ne, jaz sem jih drgnil vse jutro!",
+                "en": "Polished themselves? By themselves? No, no, I was rubbing them all morning!",
+                "de": "Von selbst poliert? Ganz allein? Nein, nein, ich habe sie den ganzen Morgen gerieben!",
+                "it": "Lucidati da soli? Da sé? No, no, li ho strofinati io tutta la mattina!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Povej še enkrat, {learner}.",
+            "en": "Sorry? Say it again, {learner}.",
+            "de": "Wie? Sag's noch mal, {learner}.",
+            "it": "Come? Ripeti, {learner}."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Allora, na florjanovo: zjutraj čelade, zvečer ples. Florjan bo ponosen na nas!",
+          "en": "Allora, on St Florian's day: helmets in the morning, dancing in the evening. Florian will be proud of us!",
+          "de": "Allora, am Florianitag: morgens die Helme, abends der Tanz. Florian wird stolz auf uns sein!",
+          "it": "Allora, a San Floriano: la mattina gli elmi, la sera il ballo. Floriano sarà fiero di noi!"
         }
       ]
     }

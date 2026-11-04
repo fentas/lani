@@ -4,7 +4,7 @@
   "title": { "sl": "Pri kapelici", "en": "At the wayside chapel", "de": "An der Wegkapelle", "it": "Alla cappelletta" },
   "emoji": "🛐",
   "level": "A1",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: mreža (the grille), avemarija, zvoniti proti toči",
+  "review": "sl, de, it, reactions, variants, B1 and B2 variants: machine-written (Claude), not reviewed by a native speaker; to check: mreža (the grille), avemarija, zvoniti proti toči",
   "art": "chapel",
   "from": ["project:kapelica"],
   "pack": "pri-kapelici",
@@ -45,7 +45,7 @@
       "months": [3, 4, 5, 6, 7, 8, 9, 10, 11],
       "chance": 0.55,
       "dialog": "roze",
-      "dialogs": ["roze-vaza", "roze"],
+      "dialogs": ["roze-b2-sopek", "roze-b1-smarnice", "roze-vaza", "roze"],
       "reward": { "wisdom": 15 },
       "marker": "💐",
       "memory": {
@@ -111,7 +111,7 @@
       "when": ["afternoon"],
       "chance": 0.45,
       "dialog": "popotnik",
-      "dialogs": ["popotnik-kruh", "popotnik"],
+      "dialogs": ["popotnik-b2-romanje", "popotnik-b1-hci", "popotnik-kruh", "popotnik"],
       "reward": { "food": 20 },
       "marker": "🚶",
       "memory": {
@@ -1887,6 +1887,672 @@
           "en": "Come in winter. We'll eat bread with honey and drink linden tea.",
           "de": "Komm im Winter. Wir essen Brot mit Honig und trinken Lindenblütentee.",
           "it": "Vieni d'inverno. Mangeremo pane e miele e berremo la tisana di tiglio."
+        }
+      ]
+    },
+    {
+      "id": "popotnik-b1-hci",
+      "level": "B1",
+      "memory": {
+        "sl": "popotnika, ki ga je v Gorici čakala hči",
+        "en": "the traveller whose daughter was waiting for him in Gorizia",
+        "de": "den Wanderer, auf den in Gorizia seine Tochter wartete",
+        "it": "il viandante che la figlia aspettava a Gorizia"
+      },
+      "lines": [
+        {
+          "who": "micka",
+          "face": "curious",
+          "sl": "{learner}, ti imaš mlada ušesa. Kaj te je vprašal tisti popotnik?",
+          "en": "{learner}, you've got young ears. What did that traveller ask you?",
+          "de": "{learner}, du hast junge Ohren. Was hat dich der Wanderer gefragt?",
+          "it": "{learner}, tu hai le orecchie giovani. Che cosa ti ha chiesto quel viandante?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vprašal me je, ali je do Gorice še daleč.",
+              "en": "He asked me whether it's still far to Gorizia.",
+              "de": "Er hat mich gefragt, ob es noch weit bis Gorizia ist.",
+              "it": "Mi ha chiesto se Gorizia è ancora lontana.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Daleč, ja. Peš še pol dneva, revež.",
+                "en": "Far, yes. Half a day on foot yet, poor man.",
+                "de": "Weit, ja. Zu Fuß noch einen halben Tag, der Arme.",
+                "it": "Lontana, sì. A piedi ancora mezza giornata, poveretto."
+              }
+            },
+            {
+              "sl": "Vprašal me je, da je do Gorice še daleč.",
+              "en": "He asked me that it's still far to Gorizia.",
+              "de": "Er hat mich gefragt, dass es noch weit bis Gorizia ist.",
+              "it": "Mi ha chiesto che Gorizia è ancora lontana.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech a yes/no question is joined with ali (or če): ali je do Gorice še daleč. Da passes on a statement.",
+                "de": "In der indirekten Rede wird eine Ja/Nein-Frage mit ali (oder če) angeschlossen: ali je do Gorice še daleč. Da gibt eine Aussage weiter.",
+                "it": "Nel discorso indiretto una domanda sì/no si unisce con ali (o če): ali je do Gorice še daleč. Da riferisce un'affermazione."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Da je daleč? To ni vprašanje, to vemo vsi!",
+                "en": "That it's far? That's no question, we all know that!",
+                "de": "Dass es weit ist? Das ist doch keine Frage, das wissen alle!",
+                "it": "Che è lontana? Questa non è una domanda, lo sappiamo tutti!"
+              }
+            },
+            {
+              "sl": "Vprašal me je, ali je bilo do Gorice še daleč.",
+              "en": "He asked me whether it had still been far to Gorizia.",
+              "de": "Er hat mich gefragt, ob es noch weit bis Gorizia gewesen war.",
+              "it": "Mi ha chiesto se Gorizia era stata ancora lontana.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the tense stays as it was asked: »Je še daleč?« → ali je še daleč. Je bilo asks about a walk already over.",
+                "de": "In der indirekten Rede bleibt die Zeit der Frage: »Je še daleč?« → ali je še daleč. Je bilo fragt nach einem Weg, der schon vorbei ist.",
+                "it": "Nel discorso indiretto il tempo resta quello della domanda: »Je še daleč?« → ali je še daleč. Je bilo chiede di un cammino già finito."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Je bilo? Saj je še vedno na poti, ne?",
+                "en": "Had been? But he's still on his way, isn't he?",
+                "de": "War gewesen? Er ist doch noch unterwegs, oder?",
+                "it": "Era stata? Ma è ancora in cammino, no?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Zdaj pa jaz slabo slišim.",
+            "en": "Sorry, what? Now I'm the one who can't hear.",
+            "de": "Wie bitte? Jetzt höre ich schlecht.",
+            "it": "Come, scusa? Adesso sono io che sento male."
+          }
+        },
+        {
+          "who": "micka",
+          "face": "worried",
+          "sl": "Revež, ves prašen je. Kaj misliš, bi ga {m:povabila|f:povabili} na kosilo?",
+          "en": "Poor man, he's all dusty. What do you think, shall we invite him to lunch?",
+          "de": "Der Arme, er ist ganz staubig. Was meinst du, sollen wir ihn zum Mittagessen einladen?",
+          "it": "Poveretto, è tutto impolverato. Che dici, lo invitiamo a pranzo?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Raje ne. Rekel je, da se mu mudi, ker ga v Gorici čaka hči.",
+              "en": "Better not. He said he's in a hurry, because his daughter's waiting for him in Gorizia.",
+              "de": "Lieber nicht. Er hat gesagt, er hat es eilig, weil in Gorizia seine Tochter auf ihn wartet.",
+              "it": "Meglio di no. Ha detto che ha fretta, perché a Gorizia lo aspetta la figlia.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hči? Potem pa naj hiti. Dam mu vsaj kos kruha za na pot.",
+                "en": "His daughter? Then let him hurry. I'll give him a piece of bread for the road at least.",
+                "de": "Die Tochter? Dann soll er sich beeilen. Ich gebe ihm wenigstens ein Stück Brot für unterwegs.",
+                "it": "La figlia? Allora che si sbrighi. Gli do almeno un pezzo di pane per il viaggio."
+              }
+            },
+            {
+              "sl": "Raje ne. Rekel je, da se mi mudi, ker me v Gorici čaka hči.",
+              "en": "Better not. He said I'm in a hurry, because my daughter's waiting for me in Gorizia.",
+              "de": "Lieber nicht. Er hat gesagt, ich habe es eilig, weil in Gorizia meine Tochter auf mich wartet.",
+              "it": "Meglio di no. Ha detto che ho fretta, perché a Gorizia mi aspetta la figlia.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech the person changes: his »mudi se mi« becomes da se mu mudi (he's in a hurry). Da se mi mudi would be you.",
+                "de": "In der indirekten Rede ändert sich die Person: sein »mudi se mi« wird zu da se mu mudi (er hat es eilig). Da se mi mudi wärst du.",
+                "it": "Nel discorso indiretto la persona cambia: il suo »mudi se mi« diventa da se mu mudi (ha fretta lui). Da se mi mudi saresti tu."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tebi se mudi? Potem pa kar pojdi, nihče te ne drži!",
+                "en": "You're in a hurry? Then off you go, nobody's holding you!",
+                "de": "Du hast es eilig? Dann geh nur, niemand hält dich!",
+                "it": "Hai fretta tu? Allora vai pure, nessuno ti trattiene!"
+              }
+            },
+            {
+              "sl": "Raje ne. Rekel je, da se mu ne mudi, ker ga nihče ne čaka.",
+              "en": "Better not. He said he's in no hurry, because nobody's waiting for him.",
+              "de": "Lieber nicht. Er hat gesagt, er hat es nicht eilig, weil niemand auf ihn wartet.",
+              "it": "Meglio di no. Ha detto che non ha fretta, perché nessuno lo aspetta.",
+              "why": {
+                "en": "In no hurry and nobody waiting: that's a reason to invite him, not to say raje ne.",
+                "de": "Keine Eile und niemand wartet: das ist ein Grund, ihn einzuladen, nicht raje ne zu sagen.",
+                "it": "Nessuna fretta e nessuno che lo aspetta: è un motivo per invitarlo, non per dire raje ne."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Nihče ga ne čaka? Potem pa naj kar pride na kosilo!",
+                "en": "Nobody's waiting for him? Then he should just come to lunch!",
+                "de": "Niemand wartet auf ihn? Dann soll er doch zum Mittagessen kommen!",
+                "it": "Nessuno lo aspetta? Allora venga pure a pranzo!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Zdaj pa jaz slabo slišim.",
+            "en": "Sorry, what? Now I'm the one who can't hear.",
+            "de": "Wie bitte? Jetzt höre ich schlecht.",
+            "it": "Come, scusa? Adesso sono io che sento male."
+          }
+        },
+        {
+          "who": "micka",
+          "face": "happy",
+          "sl": "Prav. Ko bo v Gorici objel hčer, se bo spomnil na naš kruh.",
+          "en": "All right. When he hugs his daughter in Gorizia, he'll remember our bread.",
+          "de": "Gut. Wenn er in Gorizia seine Tochter umarmt, denkt er an unser Brot.",
+          "it": "Va bene. Quando a Gorizia abbraccerà la figlia, si ricorderà del nostro pane."
+        }
+      ]
+    },
+    {
+      "id": "popotnik-b2-romanje",
+      "level": "B2",
+      "memory": {
+        "sl": "obljubo, da me pelješ na Sveto Goro",
+        "en": "your promise to take me up to Sveta Gora",
+        "de": "dein Versprechen, mich auf die Sveta Gora zu fahren",
+        "it": "la tua promessa di portarmi sul Monte Santo"
+      },
+      "lines": [
+        {
+          "who": "micka",
+          "face": "curious",
+          "sl": "Si {m:videl|f:videla} tistega popotnika s palico? Stavim, da gre na Sveto Goro. Romarji še vedno hodijo peš.",
+          "en": "Did you see that traveller with the stick? I bet he's going to Sveta Gora. Pilgrims still go on foot.",
+          "de": "Hast du den Wanderer mit dem Stock gesehen? Ich wette, er geht auf die Sveta Gora. Die Pilger gehen immer noch zu Fuß.",
+          "it": "Hai visto quel viandante col bastone? Scommetto che va sul Monte Santo. I pellegrini ci vanno ancora a piedi."
+        },
+        {
+          "who": "micka",
+          "face": "sad",
+          "sl": "Ko sem bila mlada, sem šla gor vsako leto. Odkar me bolijo kolena, pa nisem bila tam že deset let.",
+          "en": "When I was young, I went up every year. But since my knees started aching, I haven't been there for ten years.",
+          "de": "Als ich jung war, bin ich jedes Jahr hinaufgegangen. Aber seit mir die Knie wehtun, war ich zehn Jahre nicht mehr dort.",
+          "it": "Da giovane ci salivo ogni anno. Ma da quando mi fanno male le ginocchia, non ci sono stata per dieci anni."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ni vam treba hoditi peš. V nedeljo vas lahko peljem gor z avtom.",
+              "en": "You don't need to walk. On Sunday I can drive you up.",
+              "de": "Sie müssen nicht zu Fuß gehen. Am Sonntag kann ich Sie mit dem Auto hinauffahren.",
+              "it": "Non c'è bisogno che vada a piedi. Domenica posso portarla su in macchina.",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "sl": "Z avtom? Na Sveto Goro? Joj, {learner}, saj bom jokala od veselja.",
+                "en": "By car? To Sveta Gora? Oh, {learner}, I'll cry for joy.",
+                "de": "Mit dem Auto? Auf die Sveta Gora? Ach, {learner}, ich weine gleich vor Freude.",
+                "it": "In macchina? Sul Monte Santo? Oh, {learner}, piango dalla gioia."
+              }
+            },
+            {
+              "sl": "Ne rabite hoditi peš. V nedeljo vas lahko peljem gor z avtom.",
+              "en": "No need to walk (as people say it). On Sunday I can drive you up.",
+              "de": "Sie brauchen nicht zu laufen (wie man so sagt). Am Sonntag kann ich Sie mit dem Auto hinauffahren.",
+              "it": "Non serve che vada a piedi (come si dice parlando). Domenica posso portarla su in macchina.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ne rabim? Govoriš kot mladi v Gorici. Ampak ja, z veseljem!",
+                "en": "Ne rabim? You talk like the young people in Gorizia. But yes, gladly!",
+                "de": "Ne rabim? Du redest wie die Jungen in Gorizia. Aber ja, gern!",
+                "it": "Ne rabim? Parli come i giovani di Gorizia. Ma sì, volentieri!"
+              }
+            },
+            {
+              "sl": "Niste treba hoditi peš. V nedeljo vas lahko peljem gor z avtom.",
+              "en": "You aren't needed to walk. On Sunday I can drive you up.",
+              "de": "Sie sind nicht nötig, zu Fuß zu gehen. Am Sonntag kann ich Sie mit dem Auto hinauffahren.",
+              "it": "Lei non è necessaria a piedi. Domenica posso portarla su in macchina.",
+              "grammar": "brezosebno",
+              "why": {
+                "en": "Treba je has no subject: who needn't is in the dative, ni vam treba hoditi. Niste treba makes Micka the subject.",
+                "de": "Treba je hat kein Subjekt: wer nicht muss, steht im Dativ, ni vam treba hoditi. Niste treba macht Micka zum Subjekt.",
+                "it": "Treba je non ha soggetto: chi non deve va al dativo, ni vam treba hoditi. Niste treba fa di Micka il soggetto."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Nisem treba? Joj, ali me na Sveti Gori nočejo več?",
+                "en": "I'm not needed? Oh dear, don't they want me on Sveta Gora any more?",
+                "de": "Ich bin nicht nötig? Ach je, wollen sie mich auf der Sveta Gora nicht mehr?",
+                "it": "Non sono necessaria? Oddio, non mi vogliono più sul Monte Santo?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo il filo."
+          }
+        },
+        {
+          "who": "micka",
+          "face": "laugh",
+          "sl": "Zadnjič sva šli gor z Ančko. Ona je vso pot govorila, jaz pa molila.",
+          "en": "The last time, Ančka and I went up together. She talked the whole way, and I prayed.",
+          "de": "Das letzte Mal bin ich mit Ančka hinaufgegangen. Sie hat den ganzen Weg geredet, und ich habe gebetet.",
+          "it": "L'ultima volta ci siamo salite con Ančka. Lei ha parlato per tutta la strada, e io ho pregato."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Naj gre še teta Ančka z nama! Bo vsaj kdo govoril vso pot.",
+              "en": "Let Aunt Ančka come with us too! Then at least someone will talk the whole way.",
+              "de": "Tante Ančka soll auch mitkommen! Dann redet wenigstens jemand den ganzen Weg.",
+              "it": "Che venga con noi anche la zia Ančka! Così almeno qualcuno parlerà per tutta la strada.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Prav imaš. Jaz bom molila, ona pa govorila, kot zadnjič.",
+                "en": "Ha! You're right. I'll pray and she'll talk, like last time.",
+                "de": "Ha! Recht hast du. Ich bete, und sie redet, wie letztes Mal.",
+                "it": "Ah! Hai ragione. Io pregherò e lei parlerà, come l'ultima volta."
+              }
+            },
+            {
+              "sl": "Pojdi še teta Ančka z nama! Bo vsaj kdo govoril vso pot.",
+              "en": "Go (ti) with us too, Aunt Ančka! Then at least someone will talk the whole way.",
+              "de": "Geh du auch mit, Tante Ančka! Dann redet wenigstens jemand den ganzen Weg.",
+              "it": "Vieni anche tu, zia Ančka! Così almeno qualcuno parlerà per tutta la strada.",
+              "grammar": "ukazi",
+              "why": {
+                "en": "For someone else, not the one you talk to, Slovene says naj + the present: naj gre teta Ančka. Pojdi is said to you (ti).",
+                "de": "Für jemand anderen, nicht den Angesprochenen, sagt man naj + Präsens: naj gre teta Ančka. Pojdi sagt man zu dir (ti).",
+                "it": "Per un'altra persona, non chi ascolta, si dice naj + il presente: naj gre teta Ančka. Pojdi si dice a te (ti)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Pojdi? Komu praviš? Ančke ni tukaj, {learner}.",
+                "en": "Go? Who are you telling? Ančka isn't here, {learner}.",
+                "de": "Geh? Zu wem sagst du das? Ančka ist nicht hier, {learner}.",
+                "it": "Vieni? A chi lo dici? Ančka non è qui, {learner}."
+              }
+            },
+            {
+              "sl": "Naj gre še teta Ančka z nama! Bo vsaj kdo molil vso pot.",
+              "en": "Let Aunt Ančka come with us too! Then at least someone will pray the whole way.",
+              "de": "Tante Ančka soll auch mitkommen! Dann betet wenigstens jemand den ganzen Weg.",
+              "it": "Che venga con noi anche la zia Ančka! Così almeno qualcuno pregherà per tutta la strada.",
+              "why": {
+                "en": "Micka just said Ančka talked the whole way while she prayed: the joke is that Ančka will talk again.",
+                "de": "Micka hat gerade erzählt, dass Ančka den ganzen Weg geredet und sie gebetet hat: der Witz ist, dass Ančka wieder redet.",
+                "it": "Micka ha appena detto che Ančka parlava per tutta la strada mentre lei pregava: lo scherzo è che Ančka parlerà di nuovo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ančka? Molila? Ha, ta celo v cerkvi šepeta novice!",
+                "en": "Ančka? Pray? Ha, she whispers the news even in church!",
+                "de": "Ančka? Beten? Ha, die flüstert sogar in der Kirche Neuigkeiten!",
+                "it": "Ančka? Pregare? Ah, quella sussurra le novità perfino in chiesa!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Spet sem izgubila besedo.",
+            "en": "Sorry, what? I've lost the word again.",
+            "de": "Wie bitte? Mir ist das Wort wieder entfallen.",
+            "it": "Come, scusa? Ho perso di nuovo il filo."
+          }
+        },
+        {
+          "who": "micka",
+          "face": "happy",
+          "sl": "Dogovorjeno. V nedeljo zjutraj, po kavi. Prinesem potico za na pot!",
+          "en": "It's a deal. Sunday morning, after coffee. I'll bring a potica for the road!",
+          "de": "Abgemacht. Sonntagmorgen, nach dem Kaffee. Ich bringe eine Potica für unterwegs mit!",
+          "it": "D'accordo. Domenica mattina, dopo il caffè. Porto una potica per il viaggio!"
+        }
+      ]
+    },
+    {
+      "id": "roze-b1-smarnice",
+      "level": "B1",
+      "months": [
+        5
+      ],
+      "memory": {
+        "sl": "šmarnice, na katere si {m:obljubil|f:obljubila}, da prideš",
+        "en": "the May devotions you promised to come to",
+        "de": "die Maiandacht, zu der du versprochen hast zu kommen",
+        "it": "il fioretto di maggio a cui hai promesso di venire"
+      },
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "happy",
+          "sl": "Dobro jutro, {learner}! Maj je, zato imamo vsak večer šmarnice pri kapelici. Si {m:prišel|f:prišla} sinoči?",
+          "en": "Good morning, {learner}! It's May, so we have the May devotions at the chapel every evening. Did you come last night?",
+          "de": "Guten Morgen, {learner}! Es ist Mai, darum haben wir jeden Abend Maiandacht an der Kapelle. Warst du gestern Abend da?",
+          "it": "Buongiorno, {learner}! È maggio, quindi ogni sera c'è il fioretto alla cappelletta. Sei {m:venuto|f:venuta} ieri sera?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Žal ne. Koliko ljudi pa je prišlo?",
+              "en": "Sadly not. How many people came, then?",
+              "de": "Leider nicht. Wie viele Leute sind denn gekommen?",
+              "it": "Purtroppo no. E quanta gente è venuta?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Kaj? Koliko? A, ja! Dvanajst! In vsi so lepo peli, razen Toneta, ki samo brunda.",
+                "en": "What? How many? Ah, yes! Twelve! And they all sang nicely, except Tone, who only hums.",
+                "de": "Was? Wie viele? Ach ja! Zwölf! Und alle haben schön gesungen, außer Tone, der nur brummt.",
+                "it": "Cosa? Quanti? Ah, sì! Dodici! E tutti hanno cantato bene, tranne Tone, che borbotta e basta."
+              }
+            },
+            {
+              "sl": "Žal ne. Koliko ljudi pa je prišel?",
+              "en": "Sadly not. How many people did he (masculine) come?",
+              "de": "Leider nicht. Wie viele Leute ist er (männlich) gekommen?",
+              "it": "Purtroppo no. Quanta gente è venuto (maschile)?",
+              "grammar": "stevila-glagol",
+              "why": {
+                "en": "After koliko (how many) the verb is singular and neuter, as if the subject were it: koliko ljudi je prišlo. Prišel is masculine, for one man.",
+                "de": "Nach koliko (wie viele) steht das Verb im Singular und Neutrum, als wäre das Subjekt es: koliko ljudi je prišlo. Prišel ist männlich, für einen Mann.",
+                "it": "Dopo koliko (quanti) il verbo è al singolare neutro, come se il soggetto fosse esso: koliko ljudi je prišlo. Prišel è maschile, per un uomo solo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Prišel? Kdo? Samo eden? Ne, ne, veliko nas je bilo!",
+                "en": "Came? Who? Just one man? No, no, there were lots of us!",
+                "de": "Gekommen? Wer? Nur einer? Nein, nein, wir waren viele!",
+                "it": "Venuto? Chi? Uno solo? No, no, eravamo in tanti!"
+              }
+            },
+            {
+              "sl": "Žal ne. Koliko ljudje pa je prišlo?",
+              "en": "Sadly not. How many people (nominative) came, then?",
+              "de": "Leider nicht. Wie viele Leute (Nominativ) sind denn gekommen?",
+              "it": "Purtroppo no. E quanta gente (nominativo) è venuta?",
+              "grammar": "mnozina-skloni",
+              "why": {
+                "en": "After koliko comes the genitive plural: koliko ljudi, as veliko ljudi. Ljudje is the nominative.",
+                "de": "Nach koliko folgt der Genitiv Plural: koliko ljudi, wie veliko ljudi. Ljudje ist der Nominativ.",
+                "it": "Dopo koliko viene il genitivo plurale: koliko ljudi, come veliko ljudi. Ljudje è il nominativo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ljudje? Kateri ljudje? Kaj? Glasneje!",
+                "en": "People? Which people? What? Louder!",
+                "de": "Leute? Welche Leute? Was? Lauter!",
+                "it": "La gente? Quale gente? Cosa? Più forte!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, {learner}!",
+            "en": "What? Louder, {learner}!",
+            "de": "Was? Lauter, {learner}!",
+            "it": "Cosa? Più forte, {learner}!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "curious",
+          "sl": "Nocoj pa prideš, ne? Ob osmih začnemo.",
+          "en": "But you're coming tonight, aren't you? We start at eight.",
+          "de": "Aber heute Abend kommst du, ja? Um acht fangen wir an.",
+          "it": "Stasera però vieni, vero? Cominciamo alle otto."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pridem, če bom do osmih {m:pospravil|f:pospravila} na vrtu.",
+              "en": "I'll come if I've finished tidying the garden by eight.",
+              "de": "Ich komme, wenn ich bis acht im Garten fertig aufgeräumt habe.",
+              "it": "Vengo, se per le otto avrò finito di sistemare l'orto.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pospravi hitro! Brez tebe nas je samo dvanajst.",
+                "en": "Tidy up quickly! Without you there are only twelve of us.",
+                "de": "Räum schnell auf! Ohne dich sind wir nur zwölf.",
+                "it": "Sbrigati a sistemare! Senza di te siamo solo in dodici."
+              }
+            },
+            {
+              "sl": "Pridem, če bom do osmih {m:pospravljal|f:pospravljala} na vrtu.",
+              "en": "I'll come if I'm busy tidying the garden until eight.",
+              "de": "Ich komme, wenn ich bis acht im Garten am Aufräumen bin.",
+              "it": "Vengo, se fino alle otto starò a sistemare l'orto.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Do osmih (by eight) wants it done by then: the perfective, bom {m:pospravil|f:pospravila}. Pospravljal is the imperfective, tidying on until eight.",
+                "de": "Do osmih (bis acht) will es bis dahin erledigt: der vollendete Aspekt, bom {m:pospravil|f:pospravila}. Pospravljal ist unvollendet, Aufräumen bis acht.",
+                "it": "Do osmih (entro le otto) vuole la cosa finita entro allora: il perfettivo, bom {m:pospravil|f:pospravila}. Pospravljal è imperfettivo, sistemare fino alle otto."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Do osmih? Potem pa pridi vsaj za amen!",
+                "en": "Until eight? Then come for the amen at least!",
+                "de": "Bis acht? Dann komm wenigstens zum Amen!",
+                "it": "Fino alle otto? Allora vieni almeno per l'amen!"
+              }
+            },
+            {
+              "sl": "Pridem, če bi do osmih {m:pospravil|f:pospravila} na vrtu.",
+              "en": "I'll come if I were to finish tidying the garden by eight.",
+              "de": "Ich komme, wenn ich bis acht im Garten fertig aufräumen würde.",
+              "it": "Vengo, se per le otto finissi di sistemare l'orto.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "Coming is likely, so the condition takes the future: če bom {m:pospravil|f:pospravila}. Če bi … bi is for one only imagined.",
+                "de": "Das Kommen ist wahrscheinlich, also steht die Bedingung im Futur: če bom {m:pospravil|f:pospravila}. Če bi … bi ist für eine nur gedachte.",
+                "it": "Venire è probabile, quindi la condizione vuole il futuro: če bom {m:pospravil|f:pospravila}. Če bi … bi è per una solo immaginata."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bi ali ne bi? Kaj? Povej naravnost, {learner}!",
+                "en": "Would or wouldn't? What? Say it straight, {learner}!",
+                "de": "Würde oder würde nicht? Was? Sag's gerade heraus, {learner}!",
+                "it": "Sì o no? Cosa? Dillo chiaro, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, {learner}!",
+            "en": "What? Louder, {learner}!",
+            "de": "Was? Lauter, {learner}!",
+            "it": "Cosa? Più forte, {learner}!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "happy",
+          "sl": "Prav! Ob osmih pri kapelici. In zapoj glasno, da te bom slišala!",
+          "en": "Good! Eight o'clock at the chapel. And sing loud, so I can hear you!",
+          "de": "Gut! Um acht an der Kapelle. Und sing laut, damit ich dich höre!",
+          "it": "Bene! Alle otto alla cappelletta. E canta forte, così ti sento!"
+        }
+      ]
+    },
+    {
+      "id": "roze-b2-sopek",
+      "level": "B2",
+      "months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "memory": {
+        "sl": "šopek vrtnic brez listka, o katerem sva {m:ugibala|f:ugibali}",
+        "en": "the bunch of roses without a note we puzzled over",
+        "de": "den Rosenstrauß ohne Karte, über den wir gerätselt haben",
+        "it": "il mazzo di rose senza biglietto su cui abbiamo fantasticato"
+      },
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "surprised",
+          "sl": "{learner}, pridi sem! Nekdo je ponoči pustil na oltarju šopek rdečih vrtnic. Brez listka!",
+          "en": "{learner}, come here! Someone left a bunch of red roses on the altar last night. Without a note!",
+          "de": "{learner}, komm her! Jemand hat heute Nacht einen Strauß roter Rosen auf dem Altar gelassen. Ohne Karte!",
+          "it": "{learner}, vieni qui! Stanotte qualcuno ha lasciato sull'altare un mazzo di rose rosse. Senza biglietto!"
+        },
+        {
+          "who": "ancka",
+          "face": "curious",
+          "sl": "Sem slišala, da je sosedova hči zadnje čase vsak večer hodila na sprehod. Sama! Kaj praviš na to?",
+          "en": "I've heard the neighbour's daughter has been going for a walk every evening lately. Alone! What do you say to that?",
+          "de": "Ich habe gehört, die Tochter der Nachbarn geht in letzter Zeit jeden Abend spazieren. Allein! Was sagst du dazu?",
+          "it": "Ho sentito che la figlia dei vicini ultimamente va a passeggio ogni sera. Da sola! Che ne dici?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Morda, ampak samo ne obešajte tega takoj na veliki zvon!",
+              "en": "Maybe, but just don't go hanging it on the big bell straight away!",
+              "de": "Vielleicht, aber hängen Sie das bloß nicht gleich an die große Glocke!",
+              "it": "Forse, ma non lo vada a strombazzare subito ai quattro venti!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Jaz? Na veliki zvon? Kaj? … No, mogoče samo na majhnega.",
+                "en": "Me? On the big bell? What? … Well, maybe just on a little one.",
+                "de": "Ich? An die große Glocke? Was? … Na, vielleicht nur an eine kleine.",
+                "it": "Io? Ai quattro venti? Cosa? … Be', magari solo a un venticello."
+              }
+            },
+            {
+              "sl": "Morda, ampak samo ne obešajte tega takoj na veliko uro!",
+              "en": "Maybe, but just don't go hanging it on the big clock straight away!",
+              "de": "Vielleicht, aber hängen Sie das bloß nicht gleich an die große Uhr!",
+              "it": "Forse, ma non lo vada ad appendere subito al grande orologio!",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom is obesiti na veliki zvon (to hang on the big bell): tell the whole village. An idiom keeps its words as they are.",
+                "de": "Die Redewendung heißt obesiti na veliki zvon (an die große Glocke hängen): dem ganzen Dorf erzählen. Eine Redewendung behält ihre Wörter.",
+                "it": "Il modo di dire è obesiti na veliki zvon (appendere alla grande campana): dirlo a tutto il paese. Un modo di dire tiene le sue parole."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Na uro? Kaj? Ura je na zvoniku, jaz pa tukaj!",
+                "en": "On the clock? What? The clock's on the tower, and I'm down here!",
+                "de": "An die Uhr? Was? Die Uhr ist am Turm, und ich bin hier!",
+                "it": "All'orologio? Cosa? L'orologio è sul campanile, e io sono qui!"
+              }
+            },
+            {
+              "sl": "Res je, to mora takoj izvedeti vsa vas.",
+              "en": "That's right, the whole village must hear about this at once.",
+              "de": "Genau, das muss sofort das ganze Dorf erfahren.",
+              "it": "È vero, deve saperlo subito tutto il paese.",
+              "why": {
+                "en": "Ančka is itching to spread a guess about a girl: a B2 answer weighs it (morda, ampak …) and asks her to wait, not to tell the whole village.",
+                "de": "Ančka brennt darauf, eine Vermutung über ein Mädchen zu verbreiten: eine B2-Antwort wägt ab (morda, ampak …) und bittet sie zu warten.",
+                "it": "Ančka non vede l'ora di spargere un sospetto su una ragazza: una risposta B2 soppesa (morda, ampak …) e le chiede di aspettare."
+              },
+              "reply": {
+                "face": "happy",
+                "sl": "Kajne? Takoj grem! … Ah, počakaj, najprej rože.",
+                "en": "Right? I'm off at once! … Ah, wait, the flowers first.",
+                "de": "Nicht wahr? Ich gehe sofort! … Ach, warte, erst die Blumen.",
+                "it": "Vero? Vado subito! … Ah, aspetta, prima i fiori."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "thinking",
+          "sl": "Ampak če ne bi bila sinoči tako zgodaj zaspala, bi zdaj vedela, kdo je bil!",
+          "en": "But if I hadn't fallen asleep so early last night, I'd know now who it was!",
+          "de": "Aber wenn ich gestern Abend nicht so früh eingeschlafen wäre, wüsste ich jetzt, wer es war!",
+          "it": "Ma se ieri sera non mi fossi addormentata così presto, adesso saprei chi è stato!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mogoče je bolje, da ne veste. Kdor prinese rože brez listka, ne želi, da bi ga poznali.",
+              "en": "Maybe it's better you don't know. Whoever brings roses without a note doesn't want to be known.",
+              "de": "Vielleicht ist es besser, dass Sie es nicht wissen. Wer Rosen ohne Karte bringt, will nicht erkannt werden.",
+              "it": "Forse è meglio che non lo sappia. Chi porta rose senza biglietto non vuole farsi riconoscere.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Hm. Mogoče imaš prav. Skrivnost je tudi lepa … ampak težka!",
+                "en": "Hm. Maybe you're right. A secret is lovely too … but heavy!",
+                "de": "Hm. Vielleicht hast du recht. Ein Geheimnis ist auch schön … aber schwer!",
+                "it": "Mm. Forse hai ragione. Anche un segreto è bello … ma pesante!"
+              }
+            },
+            {
+              "sl": "Potem pa vprašajte sosedovo hčer, ali je zaljubljena.",
+              "en": "Then just ask the neighbour's daughter whether she's in love.",
+              "de": "Dann fragen Sie doch die Tochter der Nachbarn, ob sie verliebt ist.",
+              "it": "Allora chieda alla figlia dei vicini se è innamorata.",
+              "why": {
+                "en": "Ančka has a guess, not a fact: a B2 answer weighs the mystery gently instead of sending her to question a girl.",
+                "de": "Ančka hat eine Vermutung, keine Tatsache: eine B2-Antwort wägt das Geheimnis behutsam ab, statt sie ein Mädchen ausfragen zu lassen.",
+                "it": "Ančka ha un sospetto, non un fatto: una risposta B2 soppesa il mistero con garbo invece di mandarla a interrogare una ragazza."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Kar tako? Kaj? Ne, ne, takih stvari se ne sprašuje!",
+                "en": "Just like that? What? No, no, you don't ask things like that!",
+                "de": "Einfach so? Was? Nein, nein, so etwas fragt man nicht!",
+                "it": "Così? Cosa? No, no, certe cose non si chiedono!"
+              }
+            },
+            {
+              "sl": "Mogoče je bolje, da ne veš. Kdor prinese rože brez listka, ne želi, da bi ga poznali.",
+              "en": "Maybe it's better you (ti) don't know. Whoever brings roses without a note doesn't want to be known.",
+              "de": "Vielleicht ist es besser, dass du es nicht weißt. Wer Rosen ohne Karte bringt, will nicht erkannt werden.",
+              "it": "Forse è meglio che tu non lo sappia. Chi porta rose senza biglietto non vuole farsi riconoscere.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Ančka says ti to you but expects vi back: da ne veste. Veš is ti, for friends and children.",
+                "de": "Ančka sagt ti zu dir, erwartet aber vi: da ne veste. Veš ist ti, für Freunde und Kinder.",
+                "it": "Ančka ti dà del ti ma si aspetta il vi: da ne veste. Veš è il ti, per amici e bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Kaj? Tikaš teto? Glasneje, mogoče sem narobe slišala!",
+                "en": "What? Saying ti to your aunt? Louder, maybe I heard wrong!",
+                "de": "Was? Du duzt die Tante? Lauter, vielleicht habe ich mich verhört!",
+                "it": "Cosa? Dai del tu alla zia? Più forte, forse ho sentito male!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "proud",
+          "sl": "Dobro. Molčala bom kot grob. … Vsaj do kosila.",
+          "en": "All right. I'll be as silent as the grave. … Until lunch, at least.",
+          "de": "Gut. Ich schweige wie ein Grab. … Wenigstens bis zum Mittagessen.",
+          "it": "Va bene. Sarò muta come una tomba. … Almeno fino a pranzo."
         }
       ]
     }

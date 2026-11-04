@@ -149,6 +149,23 @@ class ReadingsTest {
         assertEquals(listOf("names-on-the-map", "the-night-the-bridge-went", "the-vicar-who-saved-the-fells"), lib.filter { it.level == "B2" }.map { it.id }.sorted())
     }
 
+    @Test fun `Kärnten's corner reads to B2 - three readings at B1 and three at B2, every question type and new words in each`() {
+        val lib = Cultures.library("kaernten")
+        // readings-kaernten: the Lindwurm fountain and Stefan's letter from Weitensfeld at B1 (with the Dobratsch); the
+        // Carniolan bee, the Ratschen of Holy Week and the Gailtal alpine cheese at B2
+        val b1 = listOf("der-bergsturz-am-dobratsch", "der-lindwurmbrunnen", "stefans-brief-aus-weitensfeld")
+        val b2 = listOf("der-gailtaler-almkaese", "die-kaerntner-biene", "wenn-die-glocken-schweigen")
+        assertEquals(b1, lib.filter { it.level == "B1" }.map { it.id }.sorted())
+        assertEquals(b2, lib.filter { it.level == "B2" }.map { it.id }.sorted())
+        for (r in lib.filter { it.id in b1 + b2 }) {
+            assertEquals(r.id, Readings.QUESTION_TYPES.toSet(), r.questions.mapNotNull { it.type }.toSet())
+            assertTrue(r.id, r.words.size in 4..Readings.MAX_WORDS && r.machineWritten == true && r.by != null)
+        }
+        // a B2 learner is offered the B2 readings as theirs, an A1 learner finds them harder
+        assertEquals(Readings.Fit.AT, Readings.fit("B2", "B2"))
+        assertEquals(Readings.Fit.HARDER, Readings.fit("B2", "A1"))
+    }
+
     @Test fun `a reading's length is its words to read, and about how long they take at its level`() {
         val frtalja = Cultures.load("primorska").readings.getValue("frtalja")
         val words = Readings.length(frtalja, si.lanisce.lani.l10n.Lang.SL)
@@ -173,5 +190,19 @@ class ReadingsTest {
         assertEquals("frtalja", a2.last().id) // read: after the unread of its level
         assertEquals(all.size, order.size)
         assertEquals("🥣" to "📖", Readings.Readable.of(Cultures.load("primorska").readings.getValue("potica")).item.emoji to Readings.emojiOf("story"))
+    }
+
+    @Test fun `every reading of the corner, the bridge's as the app gets them, passes the app's own check`() {
+        val root = listOf(java.io.File("../.."), java.io.File(".."), java.io.File("companion")).first { java.io.File(it, "cultures").isDirectory }
+        var read = 0
+        for (culture in listOf("primorska", "friuli", "kaernten", "lakeland")) {
+            for (f in java.io.File(root, "cultures/$culture/readings").listFiles { x -> x.extension == "json" }.orEmpty().sortedBy { it.name }) {
+                val r = si.lanisce.lani.data.ReadingPractice.parseServed("[${f.readText()}]").singleOrNull()
+                assertTrue("$culture/${f.name}: the app can't read it", r != null)
+                assertEquals("$culture/${f.name}", emptyList<String>(), Cultures.check(culture, r!!))
+                read++
+            }
+        }
+        assertTrue("$read readings", read >= 41)
     }
 }

@@ -12,12 +12,16 @@ import kotlinx.serialization.json.contentOrNull
 // own. companion/cases/<language>/bank.json is bundled (app/build.gradle.kts: cases/<language>/bank.json); the bridge
 // serves it with the tutor's items and assignment (GET /cases, companion/bridge/src/case-bank.ts, which checks it). Pure.
 
-/** A text in the learner's bases: English, German, Italian; English is every base's fallback. */
+/**
+ * A text in the learner's bases: English, German, Italian (a Slovene village's), Slovene (a German village's); English is
+ * every base's fallback.
+ */
 @Serializable
-data class CaseTexts(val en: String = "", val de: String = "", val it: String = "") {
+data class CaseTexts(val en: String = "", val de: String = "", val it: String = "", val sl: String = "") {
     fun inBase(base: String): String = when (base) {
         "de" -> de
         "it" -> it
+        "sl" -> sl
         else -> en
     }.ifBlank { en }
 }
@@ -33,7 +37,10 @@ data class CaseRuleLine(
     val de: String = "",
     val it: String = "",
 ) {
-    fun inBase(base: String): String = CaseTexts(en, de, it).inBase(base)
+    fun inBase(base: String): String = CaseTexts(en, de, it, sl).inBase(base)
+
+    /** The rule's line in the bank's language [lang]: Slovene's under sl, German's under de. */
+    fun inTarget(lang: String): String = if (lang == "de") de else sl
 }
 
 /** A spoken form in an item's sentence: right, never a mistake; labelled with the standard one. */
@@ -52,7 +59,8 @@ data class CaseItem(
     val id: String,
     val kind: String,
     val level: String = "A1",
-    val sl: String,
+    /** The sentence in a Slovene bank; a German bank's meaning in Slovene ([text] is the sentence of either). */
+    val sl: String = "",
     val en: String = "",
     val de: String = "",
     val it: String = "",
@@ -77,9 +85,15 @@ data class CaseItem(
     val cue: String? = null,
     val scene: String? = null,
     val source: String = "curated",
+    /** A German item's framed noun phrase: its tokens from … to (the article, the adjectives, the noun). */
+    val phrase: List<Int> = emptyList(),
+    /** The bank's language ([CaseBanks.parse] sets it): which field holds the sentence. */
+    @kotlinx.serialization.Transient val lang: String = "sl",
 ) {
-    val tokens: List<String> get() = CaseBanks.tokens(sl)
-    fun meaning(base: String): String = CaseTexts(en, de, it).inBase(base)
+    /** The sentence, in the bank's language. */
+    val text: String get() = if (lang == "de") de else sl
+    val tokens: List<String> get() = CaseBanks.tokens(text)
+    fun meaning(base: String): String = CaseTexts(en, if (lang == "de") "" else de, it, if (lang == "de") sl else "").inBase(base)
 }
 
 /**
@@ -94,15 +108,20 @@ data class CaseFrame(
     val number: String,
     val why: String,
     val level: String = "A1",
-    val sl: String,
+    val sl: String = "",
     val en: String = "",
     val de: String = "",
     val it: String = "",
     val adj: Boolean = false,
     val needs: List<String> = emptyList(),
     val gender: List<String>? = null,
+    /** A German frame's cue's determiner (der, ein, kein, mein …; none: an adjective alone or a plural). */
+    val det: String? = null,
+    @kotlinx.serialization.Transient val lang: String = "sl",
 ) {
-    fun meaning(base: String): String = CaseTexts(en, de, it).inBase(base)
+    /** The frame's sentence with its gap, in the bank's language. */
+    val text: String get() = if (lang == "de") de else sl
+    fun meaning(base: String): String = CaseTexts(en, if (lang == "de") "" else de, it, if (lang == "de") sl else "").inBase(base)
 }
 
 /** An adjective or a possessive with every form ("gen.f.sg", "acc.m.sg.anim"), its level and meaning. */
@@ -114,10 +133,13 @@ data class CaseAdjective(
     val en: String = "",
     val de: String = "",
     val it: String = "",
+    /** Slovene's every form; a German adjective's come from the table's endings (data/GermanForms.kt). */
     val forms: Map<String, String> = emptyMap(),
+    /** A German bank's meaning in Slovene. */
+    val sl: String = "",
 ) {
     val possessive: Boolean get() = kind == "possessive"
-    fun meaning(base: String): String = CaseTexts(en, de, it).inBase(base)
+    fun meaning(base: String): String = CaseTexts(en, de, it, sl).inBase(base)
 }
 
 /** A noun the frames use when the learner has too few of their own: its gender, meaning and forms by slot (one or more each). */
@@ -130,7 +152,13 @@ data class CaseBankNoun(
     val de: String = "",
     val it: String = "",
     val forms: Map<String, JsonElement> = emptyMap(),
+    /** A German bank's meaning in Slovene. */
+    val sl: String = "",
+    /** A German noun's nominative plural (its forms come from the rules: data/GermanForms.kt). */
+    val plural: String? = null,
 ) {
+    fun meaning(base: String): String = CaseTexts(en, de, it, sl).inBase(base)
+
     /** Its forms by slot, each a list (the bank writes one as a string). */
     val slots: Map<String, List<String>>
         get() = forms.mapValues { (_, v) ->
@@ -141,6 +169,10 @@ data class CaseBankNoun(
             }
         }
 }
+
+/** A German village's learner's noun (GET /cases `learner_nouns`): their card, the noun, its gender and nominative plural. */
+@Serializable
+data class CaseLearnerNoun(val card: String, val lemma: String, val gender: String, val plural: String? = null)
 
 /** The tutor's assignment: a session focused on a case or a rule, with a note. */
 @Serializable
@@ -162,6 +194,8 @@ data class CaseBank(
     /** Mass nouns the frames keep to the singular (voda, mleko: "Grem k vodam" is no Slovene). */
     val uncountable: List<String> = emptyList(),
     val assigned: CaseAssigned? = null,
+    /** German's: the learner's nouns with their gender and plural (the bridge knows the packs); none from an older bridge. */
+    @kotlinx.serialization.SerialName("learner_nouns") val learnerNouns: List<CaseLearnerNoun> = emptyList(),
 ) {
     fun rule(key: String): CaseRuleLine? = rules[key]
 
@@ -170,8 +204,8 @@ data class CaseBank(
 }
 
 object CaseBanks {
-    /** The languages that have a trainer: the cases are Slovene's (the forms book's FORMS_LANGUAGES). */
-    val LANGUAGES = setOf("sl")
+    /** The languages that have a trainer: Slovene's six cases, German's four (docs/plans/05-built/case-de.md). */
+    val LANGUAGES = setOf("sl", "de")
 
     /** A sentence's tokens: split at white space, punctuation on its word (as the bridge's case-bank.ts tokensOf). */
     fun tokens(sentence: String): List<String> = sentence.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
@@ -181,7 +215,11 @@ object CaseBanks {
 
     /** The bank in [raw] (GET /cases, or the bundled file); null when it isn't one. */
     fun parse(raw: String): CaseBank? = runCatching { json.decodeFromString(CaseBank.serializer(), raw) }.getOrNull()
-        ?.takeIf { it.schema == "lani.cases/v0" }
+        ?.takeIf { it.schema == "lani.cases/v0" }?.let(::withLanguage)
+
+    /** [b]'s items and frames told their bank's language (which field holds the sentence). */
+    fun withLanguage(b: CaseBank): CaseBank =
+        if (b.language == "sl") b else b.copy(items = b.items.map { it.copy(lang = b.language) }, frames = b.frames.map { it.copy(lang = b.language) })
 
     /** The bundled bank of [language] (app resources cases/<language>/bank.json); null for a language without one. */
     fun bundled(language: String): CaseBank? {
@@ -198,7 +236,7 @@ object CaseBanks {
         if (bridge == null) return bundled
         if (bundled == null) return bridge
         val ids = bridge.items.map { it.id }.toSet()
-        return bridge.copy(
+        return withLanguage(bridge).copy(
             items = bridge.items + bundled.items.filter { it.id !in ids },
             rules = bundled.rules + bridge.rules,
             frames = bridge.frames.ifEmpty { bundled.frames },

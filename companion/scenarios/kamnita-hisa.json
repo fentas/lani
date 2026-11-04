@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "kamnita-hisa",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Kamnita hiša na Krasu", "en": "A stone house on the Karst", "de": "Ein Steinhaus auf dem Karst", "it": "Una casa di pietra sul Carso" },
+  "emoji": "🏚️",
+  "level": "B2",
+  "setting": {
+    "en": "You want to rent an old stone house in a Karst village for at least two years. The owner is showing you round. The house is beautiful, but the roof leaks, the heating is old and the rent he asks is high. Negotiate.",
+    "de": "Du möchtest ein altes Steinhaus in einem Karstdorf für mindestens zwei Jahre mieten. Der Besitzer zeigt es dir. Das Haus ist wunderschön, aber das Dach ist undicht, die Heizung ist alt und die Miete, die er verlangt, ist hoch. Verhandle.",
+    "it": "Vuoi prendere in affitto una vecchia casa di pietra in un paese del Carso per almeno due anni. Il proprietario te la fa vedere. La casa è bellissima, ma il tetto perde, il riscaldamento è vecchio e l'affitto che chiede è alto. Tratta."
+  },
+  "role": "Gospod Bogdan, a retired man from the Karst letting his late parents' stone house. Proud of it, tough but fair: asks 900 euros a month and three months' rent as a deposit, wants the tenant to see to the roof; gives way step by step to good arguments; wants a long lease. Says vi.",
+  "who": { "sl": "Lastnik hiše", "en": "The owner of the house", "de": "Der Hausbesitzer", "it": "Il proprietario della casa" },
+  "voice": "male",
+  "speaker": "grandpa",
+  "place": "kitchen",
+  "goals": [
+    { "sl": "Pohvali hišo, a omeni pomanjkljivosti", "en": "Praise the house but point out its faults", "de": "Lob das Haus, aber nenn seine Mängel", "it": "Loda la casa, ma fai notare i difetti" },
+    { "sl": "Pogajaj se o najemnini", "en": "Negotiate the rent", "de": "Verhandle über die Miete", "it": "Tratta sull'affitto" },
+    { "sl": "Dogovorita se, kdo plača popravilo strehe", "en": "Agree on who pays for the roof", "de": "Einigt euch, wer das Dach bezahlt", "it": "Mettetevi d'accordo su chi paga il tetto" },
+    { "sl": "Pogajaj se o varščini in trajanju pogodbe", "en": "Negotiate the deposit and the length of the lease", "de": "Verhandle über die Kaution und die Vertragsdauer", "it": "Tratta sulla cauzione e sulla durata del contratto" },
+    { "sl": "Povzemi, kaj sta se dogovorila", "en": "Sum up what you agreed", "de": "Fass zusammen, was ihr vereinbart habt", "it": "Riassumi che cosa avete concordato" }
+  ],
+  "opener_sl": "No, to je hiša. Kamen je še od mojega deda, takih hiš danes nihče več ne zida. Kaj pravite?",
+  "opener_en": {
+    "en": "Well, this is the house. The stone goes back to my grandfather; nobody builds houses like this any more. What do you say?",
+    "de": "So, das ist das Haus. Die Steine sind noch von meinem Großvater, solche Häuser baut heute keiner mehr. Was sagen Sie?",
+    "it": "Ecco, questa è la casa. La pietra è ancora di mio nonno, case così oggi non le costruisce più nessuno. Che ne dice?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Hiša je čudovita, a streha očitno pušča.", "en": { "en": "The house is wonderful, but the roof clearly leaks.", "de": "Das Haus ist wunderschön, aber das Dach ist offensichtlich undicht.", "it": "La casa è splendida, ma il tetto evidentemente perde." } },
+    { "sl": "Devetsto evrov je za tako stanje previsoka najemnina.", "en": { "en": "Nine hundred euros is too much rent for this state.", "de": "Neunhundert Euro sind für diesen Zustand zu viel Miete.", "it": "Novecento euro sono troppi per queste condizioni." } },
+    { "sl": "{m:Pripravljen|f:Pripravljena} sem plačati sedemsto.", "en": { "en": "I'm prepared to pay seven hundred.", "de": "Ich bin bereit, siebenhundert zu zahlen.", "it": "Sono {m:disposto|f:disposta} a pagare settecento." } },
+    { "sl": "Če streho popravim na svoje stroške, naj bo najemnina nižja.", "en": { "en": "If I repair the roof at my own cost, the rent should be lower.", "de": "Wenn ich das Dach auf eigene Kosten repariere, muss die Miete sinken.", "it": "Se riparo il tetto a mie spese, l'affitto dev'essere più basso." } },
+    { "sl": "Ali mi lahko pridete malo naproti?", "en": { "en": "Could you meet me halfway a little?", "de": "Können Sie mir ein bisschen entgegenkommen?", "it": "Può venirmi un po' incontro?" } },
+    { "sl": "Tri najemnine za varščino so preveč.", "en": { "en": "Three months' rent as a deposit is too much.", "de": "Drei Monatsmieten Kaution sind zu viel.", "it": "Tre mensilità di cauzione sono troppe." } },
+    { "sl": "{m:Podpisal|f:Podpisala} bi za tri leta.", "en": { "en": "I'd sign for three years.", "de": "Ich würde für drei Jahre unterschreiben.", "it": "Firmerei per tre anni." } },
+    { "sl": "Torej: osemsto evrov, streho plačate vi, varščina dve najemnini.", "en": { "en": "So: 800 euros, you pay for the roof, two months' deposit.", "de": "Also: 800 Euro, Sie zahlen das Dach, zwei Monatsmieten Kaution.", "it": "Allora: 800 euro, il tetto lo paga lei, cauzione di due mensilità." } },
+    { "sl": "To se mi zdi pošteno.", "en": { "en": "That seems fair to me.", "de": "Das finde ich fair.", "it": "Mi sembra giusto." } }
+  ],
+  "packs": ["dom-in-hisa", "v-hisi", "stevila", "stanovanje-in-selitev", "gradnja-in-obnova"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

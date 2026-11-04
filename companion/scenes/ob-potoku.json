@@ -4,7 +4,7 @@
   "title": { "sl": "Ob potoku", "en": "By the stream", "de": "Am Bach", "it": "Al ruscello" },
   "emoji": "🏞️",
   "level": "A2",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "stream",
   "from": ["spot:riverbank"],
   "pack": "ob-vodi",
@@ -32,7 +32,7 @@
   ],
   "happenings": [
     { "id": "mlin", "title": { "sl": "France melje v mlinu", "en": "France is milling", "de": "France mahlt Mehl", "it": "France macina al mulino" }, "who": "france",
-      "when": ["morning"], "weekdays": [1, 2, 3, 4, 5, 6], "chance": 0.5, "dialog": "mlin", "dialogs": ["mlin-vrece", "mlin-dez", "mlin"], "reward": { "food": 20 }, "marker": "🌾",
+      "when": ["morning"], "weekdays": [1, 2, 3, 4, 5, 6], "chance": 0.5, "dialog": "mlin", "dialogs": ["mlin-b2-mlinar", "mlin-b1-moka", "mlin-vrece", "mlin-dez", "mlin"], "reward": { "food": 20 }, "marker": "🌾",
       "needs": { "project": "mlin" },
       "memory": { "sl": "jutro, ko sva skupaj zagnala mlin", "en": "the morning we started the mill together", "de": "den Morgen, an dem wir zusammen die Mühle angeworfen haben", "it": "la mattina in cui abbiamo avviato insieme il mulino" } },
     { "id": "potok", "title": { "sl": "France gleda potok", "en": "France is looking at the stream", "de": "France schaut auf den Bach", "it": "France guarda il ruscello" }, "who": "france",
@@ -40,7 +40,7 @@
       "needs": { "project": "mlin", "before": true },
       "memory": { "sl": "jutro, ko sva sanjala o mlinu", "en": "the morning we dreamed of a mill", "de": "den Morgen, an dem wir von einer Mühle geträumt haben", "it": "la mattina in cui abbiamo sognato un mulino" } },
     { "id": "perilo", "title": { "sl": "Micka izpira perilo", "en": "Micka is rinsing the laundry", "de": "Micka spült die Wäsche", "it": "Micka risciacqua il bucato" }, "who": "babica",
-      "when": ["afternoon"], "chance": 0.45, "dialog": "perilo", "dialogs": ["perilo-rjuha", "perilo"], "reward": { "food": 15 }, "marker": "🧺",
+      "when": ["afternoon"], "chance": 0.45, "dialog": "perilo", "dialogs": ["perilo-b2-novice", "perilo-b1-stroj", "perilo-rjuha", "perilo"], "reward": { "food": 15 }, "marker": "🧺",
       "memory": { "sl": "dež, ki naju je ujel pri perilu", "en": "the rain that caught us at the laundry", "de": "den Regen, der uns beim Wäschewaschen erwischt hat", "it": "la pioggia che ci ha {m:sorpresi|f:sorprese} mentre lavavamo i panni" } },
     { "id": "ovce", "title": { "sl": "Luka napaja ovce", "en": "Luka is watering the sheep", "de": "Luka tränkt die Schafe", "it": "Luka abbevera le pecore" }, "who": "luka",
       "when": ["evening"], "chance": 0.5, "dialog": "ovce", "dialogs": ["ovce-stejem", "ovce-jagnje", "ovce"], "reward": { "wood": 15 }, "marker": "🐑",
@@ -594,6 +594,649 @@
             "reply": { "face": "thinking", "sl": "Strah? Ha, strah je v glavi, ne v megli.", "en": "Fear? Ha, fear lives in your head, not in the fog.", "de": "Angst? Ha, die Angst ist im Kopf, nicht im Nebel.", "it": "Paura? Ah, la paura sta nella testa, non nella nebbia." } }
         ] },
         { "who": "france", "face": "laugh", "sl": "Glej, megla gre. Pa povodni mož z njo!", "en": "Look, the fog is going. And the water man with it!", "de": "Schau, der Nebel geht. Und der Wassermann mit ihm!", "it": "Guarda, la nebbia se ne va. E l'uomo dell'acqua con lei!", "sky": { "fog": 0 } }
+      ]
+    },
+    {
+      "id": "mlin-b1-moka",
+      "level": "B1",
+      "memory": {
+        "sl": "jutro, ko sem ti povedal dedov pregovor o mletju",
+        "en": "the morning I told you my grandfather's saying about milling",
+        "de": "den Morgen, an dem ich dir Großvaters Spruch übers Mahlen erzählt habe",
+        "it": "la mattina in cui ti ho detto il detto del nonno sulla macinatura"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Dobro jutro, {learner}! Mlin melje že od petih. Do poldneva bo vse žito zmleto.",
+          "en": "Good morning, {learner}! The mill has been grinding since five. By noon all the grain will be ground.",
+          "de": "Guten Morgen, {learner}! Die Mühle mahlt schon seit fünf. Bis Mittag ist das ganze Korn gemahlen.",
+          "it": "Buongiorno, {learner}! Il mulino macina dalle cinque. Entro mezzogiorno tutto il grano sarà macinato."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Super. Bo tudi moka za gostilno zmleta danes?",
+              "en": "Great. Will the flour for the inn be ground today too?",
+              "de": "Super. Wird auch das Mehl fürs Gasthaus heute gemahlen?",
+              "it": "Ottimo. Anche la farina per l'osteria sarà macinata oggi?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ja, deset vreč. Gostilna jih je naročila že prejšnji teden.",
+                "en": "Yes, ten sacks. The inn ordered them last week.",
+                "de": "Ja, zehn Säcke. Das Gasthaus hat sie schon letzte Woche bestellt.",
+                "it": "Sì, dieci sacchi. L'osteria li ha ordinati già la settimana scorsa."
+              }
+            },
+            {
+              "sl": "Super. Bo tudi moka za gostilno zmleto danes?",
+              "en": "Great. Will the flour (neuter?) for the inn be ground today too?",
+              "de": "Super. Wird auch das Mehl (sächlich?) fürs Gasthaus heute gemahlen?",
+              "it": "Ottimo. Anche la farina (neutro?) per l'osteria sarà macinata oggi?",
+              "grammar": "trpnik",
+              "why": {
+                "en": "Moka is feminine: the passive participle agrees with it, zmleta.",
+                "de": "Moka ist weiblich: das Passivpartizip richtet sich danach, zmleta.",
+                "it": "Moka è femminile: il participio passivo si accorda, zmleta."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Zmleto? Kaj, žito? Moka je ona, {learner}.",
+                "en": "Ground (neuter)? What, the grain? Flour is a she, {learner}.",
+                "de": "Gemahlen, sächlich? Was, das Korn? Moka ist weiblich, {learner}.",
+                "it": "Macinato? Cosa, il grano? Moka è femminile, {learner}."
+              }
+            },
+            {
+              "sl": "Super. Bo tudi moka za gostilno zmlela danes?",
+              "en": "Great. Will the flour for the inn grind today too?",
+              "de": "Super. Wird auch das Mehl fürs Gasthaus heute mahlen?",
+              "it": "Ottimo. Anche la farina per l'osteria macinerà oggi?",
+              "grammar": "trpnik",
+              "why": {
+                "en": "The mill grinds the flour: the passive participle, bo zmleta. Zmlela, the l-form, would make the flour do the grinding.",
+                "de": "Die Mühle mahlt das Mehl: das Passivpartizip, bo zmleta. Zmlela, die l-Form, ließe das Mehl selbst mahlen.",
+                "it": "È il mulino a macinare la farina: il participio passivo, bo zmleta. Zmlela, la forma in -l, farebbe macinare la farina stessa."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Moka bo mlela? Ha, potem grem pa jaz spat!",
+                "en": "The flour will do the grinding? Ha, then I'm off to bed!",
+                "de": "Das Mehl mahlt selbst? Ha, dann gehe ich schlafen!",
+                "it": "La farina macinerà? Ah, allora io vado a dormire!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Moj ded je rekel, da je mletje kot pogovor: voda govori, kamen posluša.",
+          "en": "My grandfather said milling is like a conversation: the water talks, the stone listens.",
+          "de": "Mein Großvater hat gesagt, Mahlen ist wie ein Gespräch: das Wasser redet, der Stein hört zu.",
+          "it": "Mio nonno diceva che macinare è come una conversazione: l'acqua parla, la pietra ascolta."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Lep pregovor. Pri mletju je torej najpomembnejša voda?",
+              "en": "A lovely saying. So in milling the water matters most?",
+              "de": "Ein schöner Spruch. Beim Mahlen ist also das Wasser das Wichtigste?",
+              "it": "Bel detto. Nella macinatura, quindi, la cosa più importante è l'acqua?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Voda in potrpljenje. Brez obojega ni moke.",
+                "en": "Water and patience. Without both there's no flour.",
+                "de": "Wasser und Geduld. Ohne beides gibt es kein Mehl.",
+                "it": "Acqua e pazienza. Senza tutte e due non c'è farina."
+              }
+            },
+            {
+              "sl": "Lep pregovor. Pri mletja je torej najpomembnejša voda?",
+              "en": "A lovely saying. So in (genitive?) milling the water matters most?",
+              "de": "Ein schöner Spruch. Beim (Genitiv?) Mahlen ist also das Wasser das Wichtigste?",
+              "it": "Bel detto. Nella (genitivo?) macinatura, quindi, la cosa più importante è l'acqua?",
+              "grammar": "glagolniki",
+              "why": {
+                "en": "A verbal noun declines like morje: pri takes the locative, pri mletju.",
+                "de": "Ein Verbalsubstantiv wird wie morje dekliniert: pri verlangt den Lokativ, pri mletju.",
+                "it": "Un nome verbale si declina come morje: pri vuole il locativo, pri mletju."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Pri mletja? Hm, tega še kamen ne bi razumel.",
+                "en": "Pri mletja? Hm, not even the stone would understand that.",
+                "de": "Pri mletja? Hm, das würde nicht einmal der Stein verstehen.",
+                "it": "Pri mletja? Mm, questa non la capirebbe nemmeno la pietra."
+              }
+            },
+            {
+              "sl": "Lep pregovor. Pri mletju je torej najpomembnejši kruh?",
+              "en": "A lovely saying. So in milling the bread matters most?",
+              "de": "Ein schöner Spruch. Beim Mahlen ist also das Brot das Wichtigste?",
+              "it": "Bel detto. Nella macinatura, quindi, la cosa più importante è il pane?",
+              "why": {
+                "en": "Milling is the water and the stone; bread comes later, from the flour.",
+                "de": "Mahlen ist Wasser und Stein; das Brot kommt später, aus dem Mehl.",
+                "it": "Macinare è acqua e pietra; il pane viene dopo, dalla farina."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Kruh? Ta pride šele potem, iz peči!",
+                "en": "Bread? That comes only afterwards, out of the oven!",
+                "de": "Brot? Das kommt erst danach, aus dem Ofen!",
+                "it": "Il pane? Quello viene dopo, dal forno!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Jutri pridi spet. Pokažem ti, kako se kleše mlinski kamen.",
+          "en": "Come again tomorrow. I'll show you how a millstone is dressed.",
+          "de": "Komm morgen wieder. Ich zeige dir, wie man einen Mühlstein behaut.",
+          "it": "Torna domani. Ti faccio vedere come si scalpella una macina."
+        }
+      ]
+    },
+    {
+      "id": "mlin-b2-mlinar",
+      "level": "B2",
+      "memory": {
+        "sl": "jutro, ko sem ti pripovedoval o starem mlinarju",
+        "en": "the morning I told you about the old miller",
+        "de": "den Morgen, an dem ich dir vom alten Müller erzählt habe",
+        "it": "la mattina in cui ti ho parlato del vecchio mugnaio"
+      },
+      "lines": [
+        {
+          "who": "france",
+          "face": "happy",
+          "sl": "Dobro jutro, {learner}. Slišiš kolo? Danes melje kot ura.",
+          "en": "Good morning, {learner}. Can you hear the wheel? Today it's grinding like clockwork.",
+          "de": "Guten Morgen, {learner}. Hörst du das Rad? Heute mahlt es wie ein Uhrwerk.",
+          "it": "Buongiorno, {learner}. Senti la ruota? Oggi macina come un orologio."
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Veš, odkar imamo svoj mlin, ne vozim več žita v dolino. Tam je stari mlinar ostal brez dela.",
+          "en": "You know, since we've had our own mill, I don't take grain down to the valley any more. The old miller there has been left without work.",
+          "de": "Weißt du, seit wir unsere eigene Mühle haben, fahre ich kein Korn mehr ins Tal. Der alte Müller dort hat keine Arbeit mehr.",
+          "it": "Sai, da quando abbiamo il nostro mulino, non porto più il grano a valle. Laggiù il vecchio mugnaio è rimasto senza lavoro."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Škoda zanj, ampak za vas je bil lasten mlin nujen.",
+              "en": "A pity for him, but a mill of its own was a must for the village.",
+              "de": "Schade für ihn, aber für das Dorf war eine eigene Mühle nötig.",
+              "it": "Peccato per lui, ma per il paese un mulino proprio era indispensabile.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res je. In veš kaj? Zdaj pride k meni na kavo vsako nedeljo.",
+                "en": "That's true. And you know what? Now he comes to me for coffee every Sunday.",
+                "de": "Stimmt. Und weißt du was? Jetzt kommt er jeden Sonntag zu mir auf einen Kaffee.",
+                "it": "È vero. E sai una cosa? Adesso viene da me a prendere il caffè ogni domenica."
+              }
+            },
+            {
+              "sl": "Prav mu je. Zdaj imate vi vse stranke.",
+              "en": "Serves him right. Now you've got all the customers.",
+              "de": "Geschieht ihm recht. Jetzt haben Sie alle Kunden.",
+              "it": "Gli sta bene. Adesso ha Lei tutti i clienti.",
+              "why": {
+                "en": "France feels for the old miller: grant it (škoda zanj) before you give your but.",
+                "de": "France fühlt mit dem alten Müller: gib das zu (škoda zanj), bevor du dein Aber sagst.",
+                "it": "France prova pena per il vecchio mugnaio: concedilo (škoda zanj) prima di dire il tuo ma."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Prav mu je? Ne, ne. Bil je moj učitelj, {learner}.",
+                "en": "Serves him right? No, no. He was my teacher, {learner}.",
+                "de": "Geschieht ihm recht? Nein, nein. Er war mein Lehrer, {learner}.",
+                "it": "Gli sta bene? No, no. È stato il mio maestro, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "thinking",
+          "sl": "Če me ne bi bil naučil mleti, bi bil danes samo kmet brez mlina.",
+          "en": "If he hadn't taught me to mill, I'd just be a farmer without a mill today.",
+          "de": "Hätte er mir das Mahlen nicht beigebracht, wäre ich heute nur ein Bauer ohne Mühle.",
+          "it": "Se non mi avesse insegnato a macinare, oggi sarei solo un contadino senza mulino."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Torej je stari mlinar človek, čigar delo živi naprej v vašem mlinu.",
+              "en": "So the old miller is a man whose work lives on in your mill.",
+              "de": "Der alte Müller ist also ein Mensch, dessen Arbeit in Ihrer Mühle weiterlebt.",
+              "it": "Allora il vecchio mugnaio è un uomo il cui lavoro continua a vivere nel Suo mulino.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Lepo rečeno. To mu povem v nedeljo, ob kavi.",
+                "en": "Nicely put. I'll tell him that on Sunday, over coffee.",
+                "de": "Schön gesagt. Das erzähle ich ihm am Sonntag, beim Kaffee.",
+                "it": "Ben detto. Glielo dico domenica, davanti al caffè."
+              }
+            },
+            {
+              "sl": "Torej je stari mlinar človek, čigava delo živi naprej v vašem mlinu.",
+              "en": "So the old miller is a man, whose (asking?) work lives on in your mill.",
+              "de": "Der alte Müller ist also ein Mensch, wessen (fragend?) Arbeit in Ihrer Mühle weiterlebt.",
+              "it": "Allora il vecchio mugnaio è un uomo, di chi (domanda?) il lavoro continua nel Suo mulino.",
+              "grammar": "oziralni-kateri",
+              "why": {
+                "en": "In a relative clause the relative pronoun for whose is čigar, and it never changes: človek, čigar delo. Čigava asks a question.",
+                "de": "Im Relativsatz heißt das Relativpronomen für dessen čigar, und es ändert sich nie: človek, čigar delo. Čigava fragt.",
+                "it": "Nella relativa il pronome relativo per il cui è čigar, e non cambia mai: človek, čigar delo. Čigava fa una domanda."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Čigava? Sprašuješ ali pripoveduješ, {learner}?",
+                "en": "Whose? Are you asking or telling, {learner}?",
+                "de": "Wessen? Fragst du oder erzählst du, {learner}?",
+                "it": "Di chi? Stai chiedendo o raccontando, {learner}?"
+              }
+            },
+            {
+              "sl": "Torej je stari mlinar vaš največji tekmec.",
+              "en": "So the old miller is your biggest rival.",
+              "de": "Der alte Müller ist also Ihr größter Konkurrent.",
+              "it": "Allora il vecchio mugnaio è il Suo più grande rivale.",
+              "why": {
+                "en": "France owes him his craft: the old miller is his teacher, not his rival.",
+                "de": "France verdankt ihm sein Handwerk: der alte Müller ist sein Lehrer, nicht sein Konkurrent.",
+                "it": "France gli deve il mestiere: il vecchio mugnaio è il suo maestro, non il suo rivale."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tekmec? Kje pa! Brez njega ne bi znal nič.",
+                "en": "A rival? Not at all! Without him I'd know nothing.",
+                "de": "Ein Konkurrent? Von wegen! Ohne ihn könnte ich nichts.",
+                "it": "Un rivale? Macché! Senza di lui non saprei niente."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako? Še enkrat, počasi.",
+            "en": "What? Once more, slowly.",
+            "de": "Wie? Noch einmal, langsam.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "france",
+          "face": "proud",
+          "sl": "Tako je z mlini, {learner}: eden se ustavi, drugi se zavrti. Voda pa teče naprej.",
+          "en": "That's how it is with mills, {learner}: one stops, another starts to turn. And the water flows on.",
+          "de": "So ist das mit Mühlen, {learner}: eine bleibt stehen, eine andere dreht sich. Und das Wasser fließt weiter.",
+          "it": "Così vanno i mulini, {learner}: uno si ferma, un altro comincia a girare. E l'acqua scorre avanti."
+        }
+      ]
+    },
+    {
+      "id": "perilo-b1-stroj",
+      "level": "B1",
+      "memory": {
+        "sl": "teden, ko sem prala v potoku namesto v stroju",
+        "en": "the week I did the washing in the stream instead of the machine",
+        "de": "die Woche, in der ich im Bach statt in der Maschine gewaschen habe",
+        "it": "la settimana in cui ho lavato al ruscello invece che in lavatrice"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "O, {learner}! Pralni stroj se mi je pokvaril, pa perem kot nekoč, v potoku.",
+          "en": "Oh, {learner}! My washing machine broke down, so I'm washing as in the old days, in the stream.",
+          "de": "Oh, {learner}! Meine Waschmaschine ist kaputt, also wasche ich wie früher, im Bach.",
+          "it": "Oh, {learner}! Mi si è rotta la lavatrice, così lavo come una volta, nel ruscello."
+        },
+        {
+          "who": "babica",
+          "face": "laugh",
+          "sl": "Serviser je rekel, da bo prišel šele v petek. Do takrat bom pa jaz pralni stroj.",
+          "en": "The repairman said he wouldn't come until Friday. Until then I'll be the washing machine.",
+          "de": "Der Techniker hat gesagt, er kommt erst am Freitag. Bis dahin bin ich die Waschmaschine.",
+          "it": "Il tecnico ha detto che verrà solo venerdì. Fino ad allora la lavatrice sono io."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vas ne zebe v roke? Voda je ledena.",
+              "en": "Aren't your hands cold? The water is icy.",
+              "de": "Frieren Sie nicht an den Händen? Das Wasser ist eiskalt.",
+              "it": "Non Le gelano le mani? L'acqua è ghiacciata.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Zebe, zebe. Ampak ko se roke ogrejejo, je prav prijetno.",
+                "en": "They are, they are. But once the hands warm up, it's quite pleasant.",
+                "de": "Doch, doch. Aber wenn die Hände warm werden, ist es richtig angenehm.",
+                "it": "Gelano, gelano. Ma quando le mani si scaldano, è proprio piacevole."
+              }
+            },
+            {
+              "sl": "Vam ne zebe v roke? Voda je ledena.",
+              "en": "Aren't your (dative) hands cold? The water is icy.",
+              "de": "Frieren Ihnen (Dativ) nicht die Hände? Das Wasser ist eiskalt.",
+              "it": "Non Le (dativo) gelano le mani? L'acqua è ghiacciata.",
+              "grammar": "custva",
+              "why": {
+                "en": "Zebe (being cold) takes the person in the accusative: vas zebe, like zebe me.",
+                "de": "Zebe (frieren) steht mit der Person im Akkusativ: vas zebe, wie zebe me.",
+                "it": "Zebe (avere freddo) vuole la persona all'accusativo: vas zebe, come zebe me."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Vam? Hm, moje roke so stare, slabo slišijo, he he.",
+                "en": "Vam? Hm, my hands are old, they don't hear well, heh heh.",
+                "de": "Vam? Hm, meine Hände sind alt, die hören schlecht, he he.",
+                "it": "Vam? Mm, le mie mani sono vecchie, ci sentono poco, eh eh."
+              }
+            },
+            {
+              "sl": "Te ne zebe v roke? Voda je ledena.",
+              "en": "Aren't your (ti) hands cold? The water is icy.",
+              "de": "Frierst du nicht an den Händen? Das Wasser ist eiskalt.",
+              "it": "Non ti gelano le mani? L'acqua è ghiacciata.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Micka is older and expects vi: vas zebe.",
+                "de": "Micka ist älter und erwartet vi: vas zebe.",
+                "it": "Micka è più anziana e si aspetta il vi: vas zebe."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Te? Oho, kar na ti z babico!",
+                "en": "Te? Oho, on ti terms with Grandma!",
+                "de": "Te? Oho, per du mit der Oma!",
+                "it": "Te? Oho, del tu alla nonna!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "curious",
+          "sl": "Kaj praviš, bi kupila nov stroj ali bi počakala na serviserja?",
+          "en": "What do you say, should I buy a new machine or wait for the repairman?",
+          "de": "Was meinst du, soll ich eine neue Maschine kaufen oder auf den Techniker warten?",
+          "it": "Che ne dici, compro una lavatrice nuova o aspetto il tecnico?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jaz bi {m:počakal|f:počakala}. Če ga popravi, vam ni treba kupiti novega.",
+              "en": "I'd wait. If he fixes it, you don't need to buy a new one.",
+              "de": "Ich würde warten. Wenn er sie repariert, müssen Sie keine neue kaufen.",
+              "it": "Io aspetterei. Se la ripara, non deve comprarne una nuova.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav imaš. Varčna babica, vesela babica.",
+                "en": "You're right. A thrifty grandma is a happy grandma.",
+                "de": "Du hast recht. Sparsame Oma, frohe Oma.",
+                "it": "Hai ragione. Nonna parsimoniosa, nonna contenta."
+              }
+            },
+            {
+              "sl": "Jaz bi {m:kupil|f:kupila} novega. Star stroj se bo kmalu spet pokvaril.",
+              "en": "I'd buy a new one. An old machine will soon break down again.",
+              "de": "Ich würde eine neue kaufen. Eine alte Maschine geht bald wieder kaputt.",
+              "it": "Io ne comprerei una nuova. Una lavatrice vecchia si romperà presto di nuovo.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Mogoče res. Ampak novi stroji so tako dragi …",
+                "en": "Maybe so. But new machines are so expensive …",
+                "de": "Vielleicht. Aber neue Maschinen sind so teuer …",
+                "it": "Forse sì. Ma le lavatrici nuove costano così tanto …"
+              }
+            },
+            {
+              "sl": "Jaz bi {m:počakal|f:počakala}. Če ga popravi, vam ni treba kupiti nov.",
+              "en": "I'd wait. If he fixes it, you don't need to buy a new one (accusative).",
+              "de": "Ich würde warten. Wenn er sie repariert, müssen Sie keine neue (Akkusativ) kaufen.",
+              "it": "Io aspetterei. Se la ripara, non deve comprarne una nuova (accusativo).",
+              "grammar": "rodilnik-nikalnica",
+              "why": {
+                "en": "After a no (ni treba) the object goes into the genitive: kupiti novega.",
+                "de": "Nach einer Verneinung (ni treba) steht das Objekt im Genitiv: kupiti novega.",
+                "it": "Dopo una negazione (ni treba) l'oggetto va al genitivo: kupiti novega."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Nov? Kaj nov? Hm, pozabila sem, o čem govoriva.",
+                "en": "Nov? A new what? Hm, I've forgotten what we were talking about.",
+                "de": "Nov? Was neu? Hm, ich habe vergessen, worüber wir reden.",
+                "it": "Nov? Nuovo cosa? Mm, ho dimenticato di cosa parliamo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "laugh",
+          "sl": "Do petka pa naju čaka potok. Ti drži rjuho, jaz jo bom ožela.",
+          "en": "Until Friday the stream is waiting for us both. You hold the sheet, I'll wring it.",
+          "de": "Bis Freitag wartet der Bach auf uns zwei. Du hältst das Leintuch, ich winde es aus.",
+          "it": "Fino a venerdì ci aspetta il ruscello. Tu tieni il lenzuolo, io lo strizzo."
+        }
+      ]
+    },
+    {
+      "id": "perilo-b2-novice",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbe o ženskah, ki so prale ob potoku",
+        "en": "the stories of the women who washed by the stream",
+        "de": "die Geschichten von den Frauen, die am Bach gewaschen haben",
+        "it": "le storie delle donne che lavavano al ruscello"
+      },
+      "lines": [
+        {
+          "who": "babica",
+          "face": "thinking",
+          "sl": "Veš, {learner}, nekoč so ženske pri nas doma prale vse skupaj, ob potoku. In si povedale vse novice.",
+          "en": "You know, {learner}, back home the women used to wash all together, by the stream. And told each other all the news.",
+          "de": "Weißt du, {learner}, früher haben die Frauen bei uns daheim alle zusammen am Bach gewaschen. Und sich alle Neuigkeiten erzählt.",
+          "it": "Sai, {learner}, una volta, a casa mia, le donne lavavano tutte insieme al ruscello. E si raccontavano tutte le novità."
+        },
+        {
+          "who": "babica",
+          "face": "laugh",
+          "sl": "Ena soseda je bila najhujša. Kar je slišala ob potoku, je zvečer vedela vsa vas.",
+          "en": "One neighbour was the worst. Whatever she heard by the stream, the whole village knew by evening.",
+          "de": "Eine Nachbarin war die Schlimmste. Was sie am Bach hörte, wusste am Abend das ganze Dorf.",
+          "it": "Una vicina era la peggiore. Quello che sentiva al ruscello, la sera lo sapeva tutto il paese."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Torej so tu prali tudi umazano perilo, ne samo rjuhe.",
+              "en": "So they washed their dirty linen in public here too, not just the sheets.",
+              "de": "Hier wurde also auch schmutzige Wäsche gewaschen, nicht nur Leintücher.",
+              "it": "Allora qui si lavavano anche i panni sporchi, non solo le lenzuola.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "He he! Točno tako. Rjuhe bele, jeziki pa črni.",
+                "en": "Heh heh! Exactly. The sheets white, the tongues black.",
+                "de": "He he! Genau. Die Leintücher weiß, die Zungen schwarz.",
+                "it": "Eh eh! Proprio così. Lenzuola bianche, lingue nere."
+              }
+            },
+            {
+              "sl": "Torej so tu prali tudi umazano posodo, ne samo rjuhe.",
+              "en": "So they washed the dirty dishes here too, not just the sheets.",
+              "de": "Hier wurde also auch schmutziges Geschirr gewaschen, nicht nur Leintücher.",
+              "it": "Allora qui si lavavano anche i piatti sporchi, non solo le lenzuola.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom is prati umazano perilo (to wash dirty linen: to air private matters); keep its words.",
+                "de": "Die Wendung heißt prati umazano perilo (schmutzige Wäsche waschen: Privates breittreten); behalte ihre Wörter.",
+                "it": "Il modo di dire è prati umazano perilo (lavare i panni sporchi: spiattellare le faccende private); tieni le sue parole."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Posodo? V potoku? Ne, ne, posodo sem pomivala doma.",
+                "en": "Dishes? In the stream? No, no, I washed the dishes at home.",
+                "de": "Geschirr? Im Bach? Nein, nein, das Geschirr habe ich zu Hause gespült.",
+                "it": "I piatti? Nel ruscello? No, no, i piatti li lavavo a casa."
+              }
+            },
+            {
+              "sl": "Torej so bile tu vse ženske tihe in mirne.",
+              "en": "So all the women here were quiet and calm.",
+              "de": "Hier waren also alle Frauen still und ruhig.",
+              "it": "Allora qui tutte le donne erano zitte e tranquille.",
+              "why": {
+                "en": "Micka says the opposite: the women told each other all the news.",
+                "de": "Micka sagt das Gegenteil: die Frauen haben sich alle Neuigkeiten erzählt.",
+                "it": "Micka dice il contrario: le donne si raccontavano tutte le novità."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Tihe? Ob potoku? He he, nikoli!",
+                "en": "Quiet? By the stream? Heh heh, never!",
+                "de": "Still? Am Bach? He he, niemals!",
+                "it": "Zitte? Al ruscello? Eh eh, mai!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "sad",
+          "sl": "Ko je prišel prvi pralni stroj, je bilo ob potoku nenadoma tiho. Pogrešala sem tisto klepetanje.",
+          "en": "When the first washing machine came, it suddenly went quiet by the stream. I missed all that chatter.",
+          "de": "Als die erste Waschmaschine kam, wurde es am Bach plötzlich still. Das Geplauder hat mir gefehlt.",
+          "it": "Quando arrivò la prima lavatrice, al ruscello d'un tratto fu silenzio. Mi mancavano quelle chiacchiere."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak brez stroja bi bile vaše roke danes še bolj utrujene.",
+              "en": "Of course, but without the machine your hands would be even more tired today.",
+              "de": "Sicher, aber ohne die Maschine wären Ihre Hände heute noch müder.",
+              "it": "Certo, ma senza la lavatrice oggi le Sue mani sarebbero ancora più stanche.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res je. Klepetat bi pa še vedno lahko hodile k potoku, kajne?",
+                "en": "True. But we could still come down to the stream for a chat, couldn't we?",
+                "de": "Stimmt. Aber zum Plaudern könnten wir trotzdem noch an den Bach gehen, oder?",
+                "it": "È vero. Ma a chiacchierare al ruscello potremmo andarci ancora, no?"
+              }
+            },
+            {
+              "sl": "Seveda, ampak brez stroja bodo vaše roke danes še bolj utrujene.",
+              "en": "Of course, but without the machine your hands will be even more tired today.",
+              "de": "Sicher, aber ohne die Maschine werden Ihre Hände heute noch müder sein.",
+              "it": "Certo, ma senza la lavatrice oggi le Sue mani saranno ancora più stanche.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "Life without the machine is only imagined: the conditional, bi bile. Bodo is the future.",
+                "de": "Ein Leben ohne die Maschine ist nur gedacht: der Konditional, bi bile. Bodo ist das Futur.",
+                "it": "La vita senza lavatrice è solo immaginata: il condizionale, bi bile. Bodo è il futuro."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bodo? Danes? Saj stroj imam … no, imela sem ga do včeraj.",
+                "en": "Will be? Today? But I've got a machine … well, I had one until yesterday.",
+                "de": "Werden? Heute? Ich habe doch eine Maschine … na, bis gestern hatte ich eine.",
+                "it": "Saranno? Oggi? Ma la lavatrice ce l'ho … be', ce l'avevo fino a ieri."
+              }
+            },
+            {
+              "sl": "Res je. Stroj je bil največja napaka v vasi.",
+              "en": "That's true. The machine was the village's biggest mistake.",
+              "de": "Stimmt. Die Maschine war der größte Fehler im Dorf.",
+              "it": "È vero. La lavatrice è stata il più grande errore del paese.",
+              "why": {
+                "en": "Micka misses the chatter, but she doesn't want the hard work back: grant both.",
+                "de": "Micka vermisst das Geplauder, aber die harte Arbeit will sie nicht zurück: gib beidem recht.",
+                "it": "A Micka mancano le chiacchiere, ma la fatica non la rivuole: riconosci tutte e due le cose."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Napaka? Ne, ne, moje roke so mu hvaležne!",
+                "en": "A mistake? No, no, my hands are grateful to it!",
+                "de": "Ein Fehler? Nein, nein, meine Hände sind ihr dankbar!",
+                "it": "Un errore? No, no, le mie mani le sono grate!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kako, prosim? Moja ušesa so stara.",
+            "en": "Sorry, what? My ears are old.",
+            "de": "Wie bitte? Meine Ohren sind alt.",
+            "it": "Come, scusa? Le mie orecchie sono vecchie."
+          }
+        },
+        {
+          "who": "babica",
+          "face": "happy",
+          "sl": "Pa bova {m:midva klepetala|f:midve klepetali}. Ti mi povej svoje novice, jaz ti povem svoje.",
+          "en": "Then the two of us will chat. You tell me your news, I'll tell you mine.",
+          "de": "Dann plaudern eben wir zwei. Du erzählst mir deine Neuigkeiten, ich dir meine.",
+          "it": "Allora chiacchiereremo noi due. Tu mi racconti le tue novità, io le mie."
+        }
       ]
     }
   ]

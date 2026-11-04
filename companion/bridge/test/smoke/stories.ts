@@ -8,7 +8,7 @@ import { cultureStories } from '../../src/cultures'
 import { normalizeText } from '../../src/family'
 import { ownVoicesIn } from '../../src/profiles'
 import { PackStore, packsDirs } from '../../src/packs'
-import { chaptersOf, curatedPictureErrors, LEVELS, levelsOf, paragraphsOf, STORIES_LOW, storiesLeft, validateStory, VIGNETTES, type Story } from '../../src/stories'
+import { chaptersOf, curatedPictureErrors, LEVELS, levelsOf, paragraphsOf, STORIES_LOW, storiesLeft, storyUpTo, validateStory, VIGNETTES, type Story } from '../../src/stories'
 import { VillagerStore } from '../../src/villagers'
 import type { ResolvedScene } from '../../src/scenes'
 import { clipKey, corpus, PRIORITY_LABELS } from '../../src/voice'
@@ -89,6 +89,11 @@ export default async function stories() {
       carinthia.every(s => s.teller === 'sepp' && s.language === 'de' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.de === 'string' && typeof t.sl === 'string' && typeof t.en === 'string' && typeof t.it === 'string') && !!s.teaser.de && !!s.memory.de),
     carinthia.map(s => [s.id, levelsOf(s)]),
   )
+  check(
+    '… every one of them at B1 and B2 too, each with its notes (readings-kaernten)',
+    carinthia.length === 16 && carinthia.every(s => JSON.stringify(levelsOf(s)) === '["A1","A2","B1","B2"]' && ['B1', 'B2'].every(lv => (s.notes ?? []).some(n => n.level === lv))),
+    carinthia.map(s => [s.id, levelsOf(s), (s.notes ?? []).map(n => n.level)]),
+  )
 
   // --- their books' pictures ------------------------------------------------------------------------------
   const lake = read('lakeland').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [v.story] : []))
@@ -128,9 +133,9 @@ export default async function stories() {
   const tellings = (s: Story) => chaptersOf(s).flatMap((c, i) => LEVELS.filter(l => c.levels[l]).map(l => `${i + 1}/${l}`))
   const notedAs = (s: Story) => (s.notes ?? []).map(n => `${n.chapter ?? 1}/${n.level}`)
   check(
-    "every curated story is written down for the notebook: notes for each of its 180 tellings, a place for each picture, in the four languages, marked machine-written",
+    "every curated story is written down for the notebook: notes for each of its 244 tellings (148, and the 32 each of readings-kaernten, readings-friuli and readings-lakeland), a place for each picture, in the four languages, marked machine-written",
     packs4.every(s => JSON.stringify(notedAs(s).sort()) === JSON.stringify(tellings(s).sort()) && /machine-written/.test(s.review ?? '')) &&
-      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 180 &&
+      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 148 + 32 + 32 + 32 &&
       packs4.every(s => (s.notes ?? []).every(n => n.after?.length === (s.pictures ?? []).filter(p => (p.chapter ?? 1) === (n.chapter ?? 1)).length &&
         n.text.every(p => ['sl', 'en', 'de', 'it'].every(l => typeof (p as Record<string, unknown>)[l] === 'string')))),
     packs4.filter(s => JSON.stringify(notedAs(s).sort()) !== JSON.stringify(tellings(s).sort())).map(s => [s.id, notedAs(s), tellings(s)]),
@@ -364,6 +369,11 @@ export default async function stories() {
   const list = await (await fetch(`${base}/stories`, { headers: auth })).json()
   check('GET /stories serves the collection', list.length === janIds.length && list[2].id === 'martin-krpan' && list[2].chapters.length === 4)
   check('stories need the app token', (await fetch(`${base}/stories`)).status === 401)
+  // a retelling climbs a level each time: served up to a level above the learner's, for every app (storyUpTo)
+  const told = { levels: { A1: 1, A2: 2, B1: 3, B2: 4 } }
+  const keys = (x: { levels?: object }) => Object.keys(x.levels ?? {}).join(' ')
+  check('stories: a learner at A1 gets A1 and A2, never B1 or B2; at A2 up to B1; at B1 up to B2', keys(storyUpTo(told, 'A1')) === 'A1 A2' && keys(storyUpTo(told, 'A2')) === 'A1 A2 B1' && keys(storyUpTo(told, 'B1')) === 'A1 A2 B1 B2')
+  check('stories: … a story that starts higher keeps its easiest; each chapter is held back the same way; an unknown level counts as A1', keys(storyUpTo({ levels: { B1: 1, B2: 2 } }, 'A1')) === 'B1' && keys(storyUpTo({ chapters: [told] }, 'A1').chapters![0]) === 'A1 A2' && keys(storyUpTo(told, '')) === 'A1 A2')
 
   // --- the tutor: list, publish, remove -------------------------------------------------------------------
   const game = await (await fetch(`${base}/game`, { headers: auth })).json()

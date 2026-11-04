@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "pri-zupanji",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Pri županji", "en": "At the mayor's office", "de": "Bei der Bürgermeisterin", "it": "Dalla sindaca" },
+  "emoji": "🏛️",
+  "level": "B2",
+  "setting": {
+    "en": "Since the bus stop was moved to the main road, the village children walk half a kilometre along it to the bus, with no pavement and no street lights, while the cars drive fast. You go to the mayor's office hours to explain the problem and ask for a solution.",
+    "de": "Seit die Bushaltestelle an die Hauptstraße verlegt wurde, gehen die Kinder des Dorfes einen halben Kilometer an ihr entlang zum Bus, ohne Gehsteig und ohne Straßenbeleuchtung, während die Autos schnell fahren. Du gehst in die Sprechstunde der Bürgermeisterin, um das Problem zu erklären und eine Lösung zu verlangen.",
+    "it": "Da quando la fermata dell'autobus è stata spostata sulla strada principale, i bambini del paese percorrono mezzo chilometro lungo la strada per arrivarci, senza marciapiede né illuminazione, mentre le auto corrono. Vai al ricevimento della sindaca per spiegare il problema e chiedere una soluzione."
+  },
+  "role": "Županja Majda, the mayor of the municipality, at her office hours for citizens. Courteous, busy, a politician: listens, asks for facts and numbers, raises the budget and the procedure (a written proposal to the council, the state's road), promises only what she can. Says vi.",
+  "who": { "sl": "Županja", "en": "The mayor", "de": "Die Bürgermeisterin", "it": "La sindaca" },
+  "voice": "female",
+  "speaker": "teacher",
+  "place": "square",
+  "goals": [
+    { "sl": "Predstavi se in na kratko povej, zakaj si {m:prišel|f:prišla}", "en": "Introduce yourself and say briefly why you have come", "de": "Stell dich vor und sag kurz, warum du gekommen bist", "it": "Presentati e di' in breve perché sei {m:venuto|f:venuta}" },
+    { "sl": "Natančno opiši težavo in njene posledice", "en": "Describe the problem and its consequences precisely", "de": "Beschreib das Problem und seine Folgen genau", "it": "Descrivi con precisione il problema e le sue conseguenze" },
+    { "sl": "Predlagaj rešitev in jo utemelji", "en": "Propose a solution and argue for it", "de": "Schlag eine Lösung vor und begründe sie", "it": "Proponi una soluzione e motivala" },
+    { "sl": "Odgovori na njene pomisleke", "en": "Answer her objections", "de": "Antworte auf ihre Einwände", "it": "Rispondi alle sue obiezioni" },
+    { "sl": "Dogovori se za naslednji korak", "en": "Agree on the next step", "de": "Vereinbare den nächsten Schritt", "it": "Concordate il prossimo passo" }
+  ],
+  "opener_sl": "Dober dan, izvolite, sedite. Imam približno četrt ure, potem me čaka seja. Kaj vas je pripeljalo k meni?",
+  "opener_en": {
+    "en": "Good afternoon, please, take a seat. I have about a quarter of an hour, then I have a meeting. What brings you to me?",
+    "de": "Guten Tag, bitte, setzen Sie sich. Ich habe etwa eine Viertelstunde, dann habe ich eine Sitzung. Was führt Sie zu mir?",
+    "it": "Buongiorno, prego, si accomodi. Ho circa un quarto d'ora, poi ho una riunione. Che cosa la porta da me?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Prihajam zaradi poti do avtobusnega postajališča.", "en": { "en": "I've come about the way to the bus stop.", "de": "Ich komme wegen des Wegs zur Bushaltestelle.", "it": "Vengo per la strada fino alla fermata." } },
+    { "sl": "Otroci hodijo ob cesti, kjer ni pločnika.", "en": { "en": "The children walk along the road, where there is no pavement.", "de": "Die Kinder gehen an der Straße entlang, wo es keinen Gehsteig gibt.", "it": "I bambini camminano lungo la strada, dove non c'è il marciapiede." } },
+    { "sl": "Pozimi je zjutraj še tema, avtomobili pa vozijo hitro.", "en": { "en": "In winter it's still dark in the morning, and cars drive fast.", "de": "Im Winter ist es morgens noch dunkel, und die Autos fahren schnell.", "it": "D'inverno la mattina è ancora buio e le auto vanno veloci." } },
+    { "sl": "Bojim se, da se bo prej ali slej zgodila nesreča.", "en": { "en": "I'm afraid that sooner or later there will be an accident.", "de": "Ich fürchte, dass früher oder später ein Unfall passiert.", "it": "Temo che prima o poi succeda un incidente." } },
+    { "sl": "Predlagam vsaj javno razsvetljavo in omejitev hitrosti.", "en": { "en": "I'd propose at least street lights and a speed limit.", "de": "Ich schlage wenigstens Beleuchtung und ein Tempolimit vor.", "it": "Propongo almeno l'illuminazione e un limite di velocità." } },
+    { "sl": "Razumem, da denarja ni veliko, a gre za varnost otrok.", "en": { "en": "I understand money is tight, but this is the children's safety.", "de": "Ich verstehe, das Geld ist knapp, aber es geht um die Kinder.", "it": "Capisco che i soldi sono pochi, ma è la sicurezza dei bambini." } },
+    { "sl": "Podpise staršev smo že zbrali.", "en": { "en": "We've already collected the parents' signatures.", "de": "Wir haben die Unterschriften der Eltern schon gesammelt.", "it": "Abbiamo già raccolto le firme dei genitori." } },
+    { "sl": "Kakšen je postopek in kdo o tem odloča?", "en": { "en": "What is the procedure, and who decides?", "de": "Wie ist das Verfahren, und wer entscheidet darüber?", "it": "Qual è la procedura e chi decide?" } },
+    { "sl": "Ali vam lahko pobudo pošljem tudi pisno?", "en": { "en": "May I send you the proposal in writing too?", "de": "Darf ich Ihnen den Vorschlag auch schriftlich schicken?", "it": "Posso mandarle la proposta anche per iscritto?" } },
+    { "sl": "Kdaj lahko pričakujemo odgovor?", "en": { "en": "When can we expect an answer?", "de": "Wann können wir mit einer Antwort rechnen?", "it": "Quando possiamo aspettarci una risposta?" } }
+  ],
+  "packs": ["pot-in-promet", "v-vasi", "druzina", "cas-in-koledar", "na-obcini", "skupnost-in-drustva"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}
