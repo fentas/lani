@@ -12,13 +12,15 @@ below. The chip reads, it never grades: nothing in grading changes.
 
 Machine-written (Claude, 2026-11-04): the strings `hint.de.*` and `hintSay.de.*` in sl, en, it, de (`_note_hint_chip_de` in
 each table: 68 rules, their 68 spoken sentences, 72 trigger lines, 2 spoken openers); the 68 pages' German models and
-questions in `game/GermanHints.kt`. 60 of the rules are the pages' own cards (companion/grammar/de, `card.rule`, in sl, en and
+questions in `game/GermanHints.kt`. 58 of the rules are the pages' own cards (companion/grammar/de, `card.rule`, in sl, en and
 it, the markdown taken out), so they say what the book's card says. Written for the chip: the six pages without a card
-(dativ, modalverben, nebensatz, perfekt, trennbare-verben, wechselpraepositionen); two changed from their card: akkusativ
-leaves out "(Wen? Was?)", which the chip asks first, and praepositionen-genitiv says *wegen des Sturms … wegen dem Sturm* where
-the card says *Regens … Regen* (the very answers of Kärnten's "Wegen des Regens." and "Wegen dem Regen."). The cards have no
-German, so de.json's 68 rules are new (no pair learns German from German: they show to nobody, written for completeness, as
-en.json's `hint.en.*`).
+(dativ, modalverben, nebensatz, perfekt, trennbare-verben, wechselpraepositionen); four changed from their card: akkusativ
+leaves out "(Wen? Was?)", which the chip asks first; praepositionen-genitiv says *wegen des Sturms … wegen dem Sturm* where the
+card says *Regens … Regen* (the very answers of Kärnten's "Wegen des Regens." and "Wegen dem Regen."), and adds "der, das → des,
+die → der"; plural says *die Arme, die Bänke, die Taschen* for the card's *Schafe, Kühe, Blumen* (the village's answers) and
+"der, die and das all become die"; nomen-verb says *eine Rolle spielen, Hilfe leisten* for the card's *eine Entscheidung treffen,
+Rücksicht nehmen* (answers too). The cards have no German, so de.json's 68 rules are new (no pair learns German from German:
+they show to nobody, written for completeness, as en.json's `hint.en.*`).
 
 **For German (an Austrian speaker, from Kärnten if one can be had):**
 1. **The models** (GermanHints.kt, `RULES`), the doubtful ones: *Wenn ich reich wär, kaufte ich ein Schiff.* (the short
@@ -116,7 +118,11 @@ takes the dative, «Wohin?» the accusative.", the German by the app's German vo
 5. **The chip** (`TurnHints.of`): a German turn takes German's table; the models' choice and the rows are the shared `finish`.
    Slovene's, Italian's and English's turns are unchanged: the German branch comes after theirs, and the one line of shared
    code that changes (a turn of whole phrases: what isn't its answer) keeps `CaseTriggers.isPreposition` for them.
-6. **Tests**: `GermanHintTest` (18): every page's rule, sentence and models in every table; the table read, not repeated;
+6. **The card scrolls into view** (`SceneDialog.kt`, `HintCard`; its own commit, every language's chip). QA's hint-de found it:
+   the card opens under the chip, and with three two-line choices the chip already stands at the panel's foot, so a tap turned
+   the chip selected and opened a card nobody could see. It now brings itself into view as the app's other late cards do
+   (`BringIntoViewRequester`, the school's result, the forms card), after its layout. Before and after: the shots in "Tests".
+7. **Tests**: `GermanHintTest` (18): every page's rule, sentence and models in every table; the table read, not repeated;
    the triggers on the content's own turns; what people say in Kärnten; word order; models with no form of the turn; an English
    and an Italian base; and over every curated German turn (Kärnten's scenes with their counting dialogs at a number of each
    category, steps, stories, parties, arrivals), in sl, en and it: no line, row, title, model or spoken sentence gives the answer
@@ -146,6 +152,13 @@ takes the dative, «Wohin?» the accusative.", the German by the app's German vo
   its table and the helpers: 46 such hints are left. This is looser than a form turn on purpose, and only there: a rule may name
   *mir* among the pronouns at *Mir ist kalt* against *Ich bin kalt*, as it names both at a form turn. A turn of one word's form
   keeps every form, and nothing changes for the other languages.
+- **A rule shows both forms where it can.** `TurnHints.fair` hides a line that shows the turn's answer, unless it sets every form
+  of the turn side by side. A rule that listed *mir, dir, ihm* alone was hidden at each *dir* against *dich*: dativ's at 32 of its
+  49 form turns. So the rules written here say both ("der, das → dem, die → der", "ich → mir, du → dir; the accusative has mich,
+  dich, ihn, sie"), as akkusativ's card does, and the cards above say other words than the village's answers. Measured over the
+  756 form turns of the files: the rule hidden at 113 before, at 67 after, none of them on those four pages. The 67 left are
+  pages whose rule is its forms (konjunktiv-zwei's *hätte, wäre*): there the rule stays hidden and the trigger line and the
+  models speak, as the fairness rule wants.
 - **Word order, past the English shape.** English and Italian say the rule alone at a turn of no one word; in German 57
   turns are exactly that and the order is what they test, so the chip names what decides. A separable verb's turn
   (*Ich mache die Tür zu* against *Ich zumache die Tür*) has other words, so it stays the rule alone: a line there would say
