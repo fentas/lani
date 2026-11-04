@@ -17486,7 +17486,7 @@ def parity_small():
         spec = json.loads((ROOT / f"companion/cultures/{culture}/arrivals.json").read_text())["cast"][meet]["levels"][level]
         first = next(x for x in spec["lines"] if "choices" in x)
         wrong = next(c for c in first["choices"] if not c.get("ok"))[language]
-        wrong = re.split(r"[{]", wrong)[0].strip()
+        wrong = max(re.split(r"\{[^{}]*\}", wrong), key=len).strip()  # what tells it from the right one: their start may be the same
         for _ in range(8):
             if find(wrong) is not None:
                 break
