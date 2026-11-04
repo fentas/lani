@@ -5,7 +5,7 @@
   "title": { "en": "In the living room", "sl": "V dnevni sobi", "it": "In soggiorno", "de": "Im Wohnzimmer" },
   "emoji": "🛋️",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "livingroom",
   "from": ["house"],
   "household": ["wilf"],
@@ -35,7 +35,7 @@
   "happenings": [
     {
       "id": "fire", "title": { "en": "Old Wilf is lighting the fire", "sl": "Stari Wilf kuri ogenj", "it": "Il vecchio Wilf accende il fuoco", "de": "Der alte Wilf macht Feuer" }, "who": "wilf",
-      "when": ["dawn", "morning"], "months": [10, 11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "fire", "dialogs": ["fire-crumpets", "fire-wood", "fire"], "reward": { "wood": 15 }, "marker": "🔥",
+      "when": ["dawn", "morning"], "months": [10, 11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "fire", "dialogs": ["fire-b2-chimney", "fire-b1-poker", "fire-crumpets", "fire-wood", "fire"], "reward": { "wood": 15 }, "marker": "🔥",
       "memory": { "en": "the cold morning we lit the fire", "sl": "mrzlo jutro, ko sva zakurila ogenj", "it": "la mattina fredda in cui abbiamo acceso il fuoco", "de": "den kalten Morgen, an dem wir das Feuer angezündet haben" }
     },
     {
@@ -55,7 +55,7 @@
     },
     {
       "id": "tea", "title": { "en": "Old Wilf's cup of tea", "sl": "Skodelica čaja starega Wilfa", "it": "La tazza di tè del vecchio Wilf", "de": "Die Tasse Tee des alten Wilf" }, "who": "wilf",
-      "when": ["afternoon"], "chance": 0.45, "dialog": "tea", "dialogs": ["tea-daffodils", "tea"], "reward": { "wisdom": 15 }, "marker": "☕",
+      "when": ["afternoon"], "chance": 0.45, "dialog": "tea", "dialogs": ["tea-b2-cottage", "tea-b1-rain", "tea-daffodils", "tea"], "reward": { "wisdom": 15 }, "marker": "☕",
       "memory": { "en": "the cup of tea we had on the settle", "sl": "skodelico čaja na klopi z naslonom", "it": "la tazza di tè sulla panca con lo schienale", "de": "die Tasse Tee auf der Sitzbank" }
     }
   ],
@@ -314,6 +314,78 @@
           { "en": "I likes this poem, Wilf.", "sl": "Ta pesem mi je všeč, Wilf.", "it": "Mi piace questa poesia, Wilf.", "de": "Mir gefällt dieses Gedicht, Wilf.", "grammar": "present-simple",
             "why": { "en": "With I, no -s: I like. The -s is for he, she and it.", "sl": "Z I brez -s: I like. -s je za he, she in it.", "it": "Con I niente -s: I like. La -s è per he, she e it.", "de": "Mit I kein -s: I like. Das -s ist für he, she und it." }, "reply": { "face": "confused", "en": "Likes? Say it again, {m:son|f:lass}, slowly.", "sl": "Likes? Povej še enkrat, počasi.", "it": "Likes? Ripeti, {m:figliolo|f:cara}, piano.", "de": "Likes? Sag's noch mal, {m:mein Junge|f:meine Liebe}, langsam." } }
         ] }
+      ]
+    },
+    {
+      "id": "tea-b2-cottage", "level": "B2",
+      "memory": {"en": "the cottage I was born in, and Bess and the postman", "sl": "kočo, v kateri sem se rodil, in Bess s poštarjem", "it": "il cottage dove sono nato, e Bess col postino", "de": "das Häuschen, in dem ich geboren bin, und Bess mit dem Briefträger"},
+      "lines": [
+        {"who": "wilf", "en": "Afternoon, {m:son|f:lass}. Sit on the settle. This is the cottage I was born in, you know.", "sl": "Dober dan. Sedi na klop. To je koča, v kateri sem se rodil, veš.", "it": "Buon pomeriggio, {m:figliolo|f:ragazza}. Siediti sulla panca. Questo è il cottage dove sono nato, sai.", "de": "Tag, {m:Junge|f:Mädchen}. Setz dich auf die Bank. Das ist das Häuschen, in dem ich geboren bin, weißt du."},
+        { "choices": [
+          {"en": "The cottage in which you were born? Right here?", "sl": "Koča, v kateri si se rodil? Prav tukaj?", "it": "Il cottage in cui sei nato? Proprio qui?", "de": "Das Häuschen, in dem du geboren bist? Genau hier?", "ok": true, "reply": {"face": "happy", "en": "Right here, by this fire. Eighty-four years ago.", "sl": "Prav tukaj, ob tem ognju. Pred štiriinosemdesetimi leti.", "it": "Proprio qui, accanto a questo fuoco. Ottantaquattro anni fa.", "de": "Genau hier, an diesem Feuer. Vor vierundachtzig Jahren."}},
+          {"en": "The cottage in that you were born? Right here?", "sl": "Koča, v kateri si se rodil? Prav tukaj?", "it": "Il cottage in cui sei nato? Proprio qui?", "de": "Das Häuschen, in dem du geboren bist? Genau hier?", "grammar": "relative-clauses-more", "why": {"en": "After a small word like in: which, never that. Or put it at the end: the cottage that you were born in.", "sl": "Za majhno besedo, kot je in: which, nikoli that. Ali jo daj na konec: the cottage that you were born in.", "it": "Dopo una parolina come in: which, mai that. Oppure mettila alla fine: the cottage that you were born in.", "de": "Nach einem kleinen Wort wie in: which, nie that. Oder ans Ende: the cottage that you were born in."}, "reply": {"face": "curious", "en": "In that? In that what, {m:son|f:lass}?", "sl": "In that? V tem čem?", "it": "In that? In quel cosa, {m:figliolo|f:ragazza}?", "de": "In that? In dem was, {m:Junge|f:Mädchen}?"}}
+        ] },
+        {"who": "wilf", "face": "thinking", "en": "Bess was born here too. Hear her? That's the postman. Every day the same racket.", "sl": "Tudi Bess se je rodila tukaj. Jo slišiš? To je poštar. Vsak dan enak hrup.", "it": "Anche Bess è nata qui. La senti? È il postino. Ogni giorno lo stesso baccano.", "de": "Bess ist auch hier geboren. Hörst du sie? Das ist der Briefträger. Jeden Tag derselbe Krach."},
+        { "choices": [
+          {"en": "Poor man. I wish she would stop barking at him.", "sl": "Ubogi mož. Ko bi le nehala lajati nanj.", "it": "Pover'uomo. Vorrei che smettesse di abbaiargli contro.", "de": "Der Arme. Ich wünschte, sie würde aufhören, ihn anzubellen.", "ok": true, "reply": {"face": "laugh", "en": "Ha! She won't. Fourteen years she's barked at him.", "sl": "Ha! Ne bo. Štirinajst let že laja nanj.", "it": "Ah! Non smetterà. Sono quattordici anni che gli abbaia.", "de": "Ha! Wird sie nicht. Seit vierzehn Jahren bellt sie ihn an."}},
+          {"en": "Poor man. I wish she stops barking at him.", "sl": "Ubogi mož. Ko bi le nehala lajati nanj.", "it": "Pover'uomo. Vorrei che smettesse di abbaiargli contro.", "de": "Der Arme. Ich wünschte, sie würde aufhören, ihn anzubellen.", "grammar": "wish-if-only", "why": {"en": "For something you'd like someone to change: wish + would, I wish she would stop.", "sl": "Za nekaj, kar bi rad, da kdo spremeni: wish + would, I wish she would stop.", "it": "Per qualcosa che vorresti che qualcuno cambiasse: wish + would, I wish she would stop.", "de": "Für etwas, das jemand ändern soll: wish + would, I wish she would stop."}, "reply": {"face": "laugh", "en": "She stops? She doesn't, {m:son|f:lass}. That's the trouble!", "sl": "She stops? Pa ne neha. V tem je težava!", "it": "She stops? Non smette, {m:figliolo|f:ragazza}. È questo il problema!", "de": "She stops? Tut sie nicht, {m:Junge|f:Mädchen}. Das ist ja das Problem!"}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "More tea? There's always more tea in this house.", "sl": "Še čaja? V tej hiši je čaja vedno še.", "it": "Ancora tè? In questa casa il tè non manca mai.", "de": "Noch Tee? In diesem Haus gibt's immer noch Tee."}
+      ]
+    },
+    {
+      "id": "tea-b1-rain", "level": "B1",
+      "memory": {"en": "the cup of tea with no sugar after the rain", "sl": "skodelico čaja brez sladkorja po dežju", "it": "la tazza di tè senza zucchero dopo la pioggia", "de": "die Tasse Tee ohne Zucker nach dem Regen"},
+      "lines": [
+        {"who": "wilf", "en": "Afternoon, {m:son|f:lass}. Sit down on the settle. A cup of tea?", "sl": "Dober dan. Sedi na klop. Skodelico čaja?", "it": "Buon pomeriggio, {m:figliolo|f:ragazza}. Siediti sulla panca. Una tazza di tè?", "de": "Tag, {m:Junge|f:Mädchen}. Setz dich auf die Bank. Eine Tasse Tee?"},
+        {"who": "wilf", "face": "thinking", "en": "I used to take three sugars. Now the doctor says none. What about you?", "sl": "Včasih sem jemal tri sladkorje. Zdaj zdravnik pravi nobenega. Pa ti?", "it": "Una volta prendevo tre zollette. Adesso il dottore dice nessuna. E tu?", "de": "Früher hab ich drei Stück Zucker genommen. Jetzt sagt der Arzt keins. Und du?"},
+        { "choices": [
+          {"en": "I used to take two, but now I don't take any.", "sl": "Včasih sem {m:jemal|f:jemala} dva, zdaj pa nobenega.", "it": "Una volta ne prendevo due, ma adesso niente.", "de": "Früher hab ich zwei genommen, jetzt gar keinen.", "ok": true, "reply": {"face": "happy", "en": "None! Then you'll live as long as me.", "sl": "Nobenega! Potem boš {m:živel|f:živela} tako dolgo kot jaz.", "it": "Niente! Allora vivrai quanto me.", "de": "Keinen! Dann wirst du so alt wie ich."}},
+          {"en": "I used to took two, but now I don't take any.", "sl": "Včasih sem {m:jemal|f:jemala} dva, zdaj pa nobenega.", "it": "Una volta ne prendevo due, ma adesso niente.", "de": "Früher hab ich zwei genommen, jetzt gar keinen.", "grammar": "used-to", "why": {"en": "Used to + the base form: used to take. The past is already in used.", "sl": "Used to + osnovna oblika: used to take. Preteklost je že v used.", "it": "Used to + la forma base: used to take. Il passato è già in used.", "de": "Used to + Grundform: used to take. Die Vergangenheit steckt schon in used."}, "reply": {"face": "curious", "en": "Used to took? Slow and steady, {m:son|f:lass}.", "sl": "Used to took? Počasi in vztrajno.", "it": "Used to took? Piano, {m:figliolo|f:ragazza}.", "de": "Used to took? Langsam und stetig, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "wilf", "face": "curious", "en": "Your coat's dripping, {m:son|f:lass}. Did the rain spoil your walk?", "sl": "Plašč ti kaplja. Ti je dež pokvaril sprehod?", "it": "Il tuo cappotto gocciola, {m:figliolo|f:ragazza}. La pioggia ti ha rovinato la passeggiata?", "de": "Dein Mantel tropft, {m:Junge|f:Mädchen}. Hat dir der Regen den Spaziergang verdorben?"},
+        { "choices": [
+          {"en": "No. In spite of the rain, I enjoyed the walk.", "sl": "Ne. Kljub dežju sem {m:užival|f:uživala} v sprehodu.", "it": "No. Nonostante la pioggia, mi sono {m:goduto|f:goduta} la passeggiata.", "de": "Nein. Trotz des Regens hat mir der Spaziergang gefallen.", "ok": true, "reply": {"face": "happy", "en": "That's the spirit. Rain is just the Lakes saying hello.", "sl": "Tako se reče. Dež je samo jezersko pozdravljanje.", "it": "Così mi piace. La pioggia è solo il modo dei Laghi di salutarti.", "de": "So ist's recht. Regen ist nur der Lake District, der Hallo sagt."}},
+          {"en": "No. In spite the rain, I enjoyed the walk.", "sl": "Ne. Kljub dežju sem {m:užival|f:uživala} v sprehodu.", "it": "No. Nonostante la pioggia, mi sono {m:goduto|f:goduta} la passeggiata.", "de": "Nein. Trotz des Regens hat mir der Spaziergang gefallen.", "grammar": "contrast-linkers", "why": {"en": "In spite of + a noun: in spite of the rain. The of stays. Or say: despite the rain.", "sl": "In spite of + samostalnik: in spite of the rain. Of ostane. Ali: despite the rain.", "it": "In spite of + un nome: in spite of the rain. L'of resta. Oppure: despite the rain.", "de": "In spite of + Nomen: in spite of the rain. Das of bleibt. Oder: despite the rain."}, "reply": {"face": "laugh", "en": "In spite the rain? One little word got wet and fell off.", "sl": "In spite the rain? Ena besedica se je zmočila in odpadla.", "it": "In spite the rain? Una parolina si è bagnata ed è caduta.", "de": "In spite the rain? Ein Wörtchen ist nass geworden und abgefallen."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "Here's your tea. No sugar. Just as the doctor ordered.", "sl": "Tu je tvoj čaj. Brez sladkorja. Točno po zdravnikovem naročilu.", "it": "Ecco il tuo tè. Senza zucchero. Come ha ordinato il dottore.", "de": "Hier, dein Tee. Ohne Zucker. Genau wie der Arzt es verordnet hat."}
+      ]
+    },
+    {
+      "id": "fire-b2-chimney", "level": "B2",
+      "memory": {"en": "the smoky chimney on a cold morning", "sl": "zakajen dimnik v mrzlem jutru", "it": "il camino fumoso in una mattina fredda", "de": "den rauchenden Kamin an einem kalten Morgen"},
+      "lines": [
+        {"who": "wilf", "face": "thinking", "en": "Brr! Cold one. When I was a lad, the fire would be lit before anyone was up. My mother saw to it.", "sl": "Brr! Mrzlo jutro. Ko sem bil fant, je ogenj gorel, še preden je kdo vstal. Za to je skrbela mama.", "it": "Brr! Che freddo. Quand'ero ragazzo, il fuoco era acceso prima che qualcuno si alzasse. Ci pensava mia madre.", "de": "Brr! Kalt heute. Als ich ein Junge war, brannte das Feuer, bevor jemand aufstand. Dafür sorgte meine Mutter."},
+        {"who": "wilf", "face": "curious", "en": "Who lit the fire in your house, when you were small?", "sl": "Kdo je kuril pri vas doma, ko si {m:bil majhen|f:bila majhna}?", "it": "Chi accendeva il fuoco a casa tua, quando eri {m:piccolo|f:piccola}?", "de": "Wer hat bei euch zu Hause Feuer gemacht, als du klein warst?"},
+        { "choices": [
+          {"en": "We used to have a stove, and my father would light it at six.", "sl": "Imeli smo peč in oče jo je zakuril ob šestih.", "it": "Avevamo una stufa, e mio padre l'accendeva alle sei.", "de": "Wir hatten einen Ofen, und mein Vater hat ihn um sechs angeheizt.", "ok": true, "reply": {"face": "happy", "en": "A stove! Lucky you. We had a smoky old range.", "sl": "Peč! Srečneži. Mi smo imeli staro zakajeno štedilnico.", "it": "Una stufa! Beati voi. Noi avevamo una vecchia cucina fumosa.", "de": "Einen Ofen! Ihr Glücklichen. Wir hatten einen alten, rauchenden Herd."}},
+          {"en": "We would have a stove, and my father would light it at six.", "sl": "Imeli smo peč in oče jo je zakuril ob šestih.", "it": "Avevamo una stufa, e mio padre l'accendeva alle sei.", "de": "Wir hatten einen Ofen, und mein Vater hat ihn um sechs angeheizt.", "grammar": "would-used-to", "why": {"en": "Would is for what you did again and again. For what you had: used to have a stove.", "sl": "Would je za tisto, kar se je ponavljalo. Za tisto, kar ste imeli: used to have a stove.", "it": "Would è per ciò che si faceva più volte. Per ciò che si aveva: used to have a stove.", "de": "Would ist für das, was man immer wieder tat. Für das, was man hatte: used to have a stove."}, "reply": {"face": "confused", "en": "You would have one? If what, {m:son|f:lass}?", "sl": "You would have one? Če kaj?", "it": "You would have one? Se cosa, {m:figliolo|f:ragazza}?", "de": "You would have one? Wenn was, {m:Junge|f:Mädchen}?"}}
+        ] },
+        {"who": "wilf", "face": "worried", "en": "Cough! That smoke. The chimney hasn't been swept for years.", "sl": "Khm! Ta dim. Dimnik že leta ni bil ometen.", "it": "Coff! Che fumo. Il camino non viene spazzato da anni.", "de": "Hust! Der Rauch. Der Kamin ist seit Jahren nicht gekehrt worden."},
+        {"who": "wilf", "face": "curious", "en": "What do you think?", "sl": "Kaj praviš?", "it": "Che ne pensi?", "de": "Was meinst du?"},
+        { "choices": [
+          {"en": "It needs to be swept, and soon.", "sl": "Kmalu ga je treba ometi.", "it": "Va spazzato, e presto.", "de": "Er muss bald gekehrt werden.", "ok": true, "reply": {"en": "Aye. I'll have the sweep round on Friday.", "sl": "Ja. V petek bom poklical dimnikarja.", "it": "Sì. Venerdì faccio venire lo spazzacamino.", "de": "Ja. Am Freitag lass ich den Schornsteinfeger kommen."}},
+          {"en": "It needs to sweep, and soon.", "sl": "Kmalu ga je treba ometi.", "it": "Va spazzato, e presto.", "de": "Er muss bald gekehrt werden.", "grammar": "passive-more", "why": {"en": "The chimney doesn't do the sweeping: it needs to be swept, with be and the participle.", "sl": "Dimnik ne pometa sam: it needs to be swept, z be in deležnikom.", "it": "Il camino non spazza da sé: it needs to be swept, con be e il participio.", "de": "Der Kamin kehrt nicht selbst: it needs to be swept, mit be und Partizip."}, "reply": {"face": "laugh", "en": "The chimney sweep? It can't even hold a brush, {m:son|f:lass}!", "sl": "The chimney sweep? Saj še metle ne more držati!", "it": "The chimney sweep? Non sa nemmeno tenere una scopa, {m:figliolo|f:ragazza}!", "de": "The chimney sweep? Der kann doch nicht mal einen Besen halten!"}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "There. A good blaze. My mother would be proud.", "sl": "Tako. Dober ogenj. Mama bi bila ponosna.", "it": "Ecco. Un bel fuoco. Mia madre sarebbe fiera.", "de": "So. Ein gutes Feuer. Meine Mutter wäre stolz."}
+      ]
+    },
+    {
+      "id": "fire-b1-poker", "level": "B1",
+      "memory": {"en": "the poker under the settle and the lamp left on", "sl": "grebljico pod klopjo in prižgano svetilko", "it": "l'attizzatoio sotto la panca e la lampada rimasta accesa", "de": "den Schürhaken unter der Bank und die Lampe, die noch brannte"},
+      "lines": [
+        {"who": "wilf", "en": "Brr! It's a cold one this morning. Shall we light the fire?", "sl": "Brr! Danes je mrzlo jutro. Zakuriva?", "it": "Brr! Che freddo stamattina. Accendiamo il fuoco?", "de": "Brr! Kalt heute Morgen. Machen wir Feuer?"},
+        {"who": "wilf", "face": "curious", "en": "Where's my poker? I had it yesterday.", "sl": "Kje je moja grebljica? Včeraj sem jo še imel.", "it": "Dov'è il mio attizzatoio? Ieri ce l'avevo.", "de": "Wo ist mein Schürhaken? Gestern hatte ich ihn noch."},
+        { "choices": [
+          {"en": "It must be under the settle. Bess sleeps there.", "sl": "Gotovo je pod klopjo. Tam spi Bess.", "it": "Dev'essere sotto la panca. Bess dorme lì.", "de": "Er muss unter der Bank sein. Da schläft Bess.", "ok": true, "reply": {"face": "happy", "en": "Under the settle! Bess hides everything there.", "sl": "Pod klopjo! Bess vse skrije tja.", "it": "Sotto la panca! Bess nasconde tutto lì.", "de": "Unter der Bank! Bess versteckt alles dort."}},
+          {"en": "It must is under the settle. Bess sleeps there.", "sl": "Gotovo je pod klopjo. Tam spi Bess.", "it": "Dev'essere sotto la panca. Bess dorme lì.", "de": "Er muss unter der Bank sein. Da schläft Bess.", "grammar": "might-must", "why": {"en": "Must takes the base form: it must be. No is after must.", "sl": "Must zahteva osnovno obliko: it must be. Za must ni is.", "it": "Must vuole la forma base: it must be. Niente is dopo must.", "de": "Must nimmt die Grundform: it must be. Kein is nach must."}, "reply": {"face": "confused", "en": "Must is? Gently, {m:son|f:lass}. One step at a time.", "sl": "Must is? Počasi. Korak za korakom.", "it": "Must is? Piano, {m:figliolo|f:ragazza}. Un passo alla volta.", "de": "Must is? Sachte, {m:Junge|f:Mädchen}. Eins nach dem anderen."}}
+        ] },
+        {"who": "wilf", "face": "thinking", "en": "Found it. And look, that lamp's still on from last night.", "sl": "Našel sem jo. In glej, tista svetilka gori še od sinoči.", "it": "Trovato. E guarda, quella lampada è ancora accesa da ieri sera.", "de": "Gefunden. Und schau, die Lampe brennt noch von gestern Abend."},
+        { "choices": [
+          {"en": "Shall I turn it off for you?", "sl": "Naj jo ugasnem?", "it": "Vuoi che la spenga?", "de": "Soll ich sie ausmachen?", "ok": true, "reply": {"face": "happy", "en": "Please. The fire will give us all the light we need.", "sl": "Prosim. Ogenj nama bo dal dovolj svetlobe.", "it": "Sì, grazie. Il fuoco ci darà tutta la luce che serve.", "de": "Bitte. Das Feuer gibt uns alles Licht, das wir brauchen."}},
+          {"en": "Shall I turn off it for you?", "sl": "Naj jo ugasnem?", "it": "Vuoi che la spenga?", "de": "Soll ich sie ausmachen?", "grammar": "phrasal-verbs", "why": {"en": "With it, the small word goes after: turn it off. With a noun, both work: turn off the lamp.", "sl": "Pri it gre majhna beseda za njim: turn it off. S samostalnikom gre oboje: turn off the lamp.", "it": "Con it, la parolina va dopo: turn it off. Con un nome vanno bene tutte e due: turn off the lamp.", "de": "Bei it kommt das kleine Wort danach: turn it off. Mit einem Nomen geht beides: turn off the lamp."}, "reply": {"face": "confused", "en": "Gently, {m:son|f:lass}. Once more, slowly.", "sl": "Nežno. Še enkrat, počasi.", "it": "Piano, {m:figliolo|f:ragazza}. Ancora una volta, lentamente.", "de": "Sachte, {m:Junge|f:Mädchen}. Noch einmal, langsam."}}
+        ] },
+        {"who": "wilf", "face": "happy", "en": "There. Flames. Hands out, {m:son|f:lass}, and warm them up.", "sl": "Tako. Plameni. Iztegni roke in jih pogrej.", "it": "Ecco. Le fiamme. Avvicina le mani, {m:figliolo|f:ragazza}, e scaldale.", "de": "So. Flammen. Hände hin, {m:Junge|f:Mädchen}, und aufwärmen."}
       ]
     }
   ]

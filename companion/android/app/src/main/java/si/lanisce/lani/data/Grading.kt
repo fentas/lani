@@ -20,9 +20,10 @@ object Grading {
     /**
      * Why an answer wasn't exact, for the feedback line: [DIACRITICS] Slovene's č/š/ž, [ACCENT] Italian's è/é/à,
      * [UMLAUT] German's ä/ö/ü/ß (or ae/oe/ue/ss), [APOSTROPHE] Italian's elision (l'acqua, un'amica), [NONSTANDARD] what people
-     * say that writing doesn't want ([Spelling.nonstandard]: the standard form is [Result.expected]).
+     * say that writing doesn't want ([Spelling.nonstandard]: the standard form is [Result.expected]); [SPOKEN] a form people
+     * say, said aloud: right in speech, the standard form [Result.expected] ([Production.grade]).
      */
-    enum class Hint { NONE, DIACRITICS, TYPO, ENDING, ACCENT, UMLAUT, APOSTROPHE, NONSTANDARD }
+    enum class Hint { NONE, DIACRITICS, TYPO, ENDING, ACCENT, UMLAUT, APOSTROPHE, NONSTANDARD, SPOKEN }
 
     /**
      * @param expected the accepted answer closest to the learner's, in its original spelling
@@ -68,6 +69,12 @@ object Grading {
 
     /** [canonical], without what a keyboard may lack ("čaša" → "casa", "perché" → "perche", "Mädchen" → "maedchen"). */
     fun fold(s: String, lang: Lang = target()): String = rewrite(canonical(s, lang), Spelling.of(lang).fold)
+
+    /**
+     * [normalize]d and folded, without [canonical]'s rewrites of whole words: a part of a word, as a speaking or writing
+     * rule's stem "würd*" ([Production]), which German's "würd" → "würde" would complete.
+     */
+    fun foldStem(s: String, lang: Lang = target()): String = rewrite(normalize(s, lang), Spelling.of(lang).fold)
 
     /** [fold]ed, and what is almost right besides written one way (Italian: "un'amica" and "un amica" → "un amica"). */
     fun loose(s: String, lang: Lang = target()): String = rewrite(fold(s, lang), Spelling.of(lang).loose)

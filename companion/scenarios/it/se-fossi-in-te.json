@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "se-fossi-in-te",
+  "language": "it",
+  "title": { "it": "Se fossi in te…", "de": "Wenn ich du wäre …", "sl": "Na tvojem mestu …", "en": "If I were you…" },
+  "emoji": "🐑",
+  "level": "B2",
+  "setting": {
+    "de": "Abends am Dorftor, die Schafe sind schon im Stall. Pastore Davide hat einen Brief bekommen: Die Universität Udine nimmt ihn für Landwirtschaft. Aber wer kümmert sich dann um die Herde? Er möchte deinen Rat.",
+    "sl": "Zvečer pri vaških vratih, ovce so že v hlevu. Pastir Davide je dobil pismo: na univerzi v Vidmu so ga sprejeli na študij kmetijstva. Kdo pa bo potem skrbel za čredo? Rad bi slišal tvoj nasvet.",
+    "en": "Evening at the village gate, the sheep already in the fold. Pastore Davide has had a letter: the University of Udine has offered him a place to study agriculture. But who would look after the flock? He wants your advice."
+  },
+  "role": "Pastore Davide, twenty, the young shepherd from a farm below Monte Sabotino. Cheerful but torn: proud of the place at university, afraid to leave his sheep and the hills. Asks {learner}'s opinion, raises doubts ('E se…?'), weighs the ideas, decides at the end. Says tu. Asks nothing personal.",
+  "who": { "it": "Il giovane pastore", "de": "Der junge Hirte", "sl": "Mladi pastir", "en": "The young shepherd" },
+  "voice": "male",
+  "speaker": "young-man",
+  "place": "field",
+  "goals": [
+    { "it": "Chiedigli che cosa lo preoccupa", "de": "Frag ihn, was ihm Sorgen macht", "sl": "Vprašaj ga, kaj ga skrbi", "en": "Ask him what's worrying him" },
+    { "it": "Consiglialo con «se fossi in te»", "de": "Rate ihm mit „wenn ich du wäre“", "sl": "Svetuj mu z »na tvojem mestu«", "en": "Advise him with \"if I were you\"" },
+    { "it": "Rispondi a un suo dubbio", "de": "Geh auf einen seiner Zweifel ein", "sl": "Odgovori na enega od njegovih dvomov", "en": "Answer one of his doubts" },
+    { "it": "Proponi una soluzione per le pecore", "de": "Schlag eine Lösung für die Schafe vor", "sl": "Predlagaj rešitev za ovce", "en": "Suggest a solution for the sheep" },
+    { "it": "Incoraggialo", "de": "Mach ihm Mut", "sl": "Opogumi ga", "en": "Encourage him" }
+  ],
+  "opener_sl": "Ciao! Senti, mi è arrivata una lettera dall'università di Udine: mi hanno preso! Ma non so proprio che cosa fare…",
+  "opener_en": {
+    "de": "Hallo! Hör mal, ich habe einen Brief von der Uni Udine bekommen: Sie haben mich genommen! Aber ich weiß wirklich nicht, was ich tun soll …",
+    "sl": "Živjo! Poslušaj, dobil sem pismo z univerze v Vidmu: sprejeli so me! Ampak res ne vem, kaj naj naredim …",
+    "en": "Hi! Listen, I've had a letter from the University of Udine: they've accepted me! But I really don't know what to do…"
+  },
+  "vocabulary_hints": [
+    { "sl": "Che cosa ti preoccupa di più?", "en": { "de": "Was macht dir am meisten Sorgen?", "sl": "Kaj te najbolj skrbi?", "en": "What worries you most?" } },
+    { "sl": "Se fossi in te, ci andrei.", "en": { "de": "Wenn ich du wäre, würde ich hingehen.", "sl": "Na tvojem mestu bi {m:šel|f:šla}.", "en": "If I were you, I'd go." } },
+    { "sl": "È un'occasione che capita una volta sola.", "en": { "de": "So eine Gelegenheit kommt nur einmal.", "sl": "Taka priložnost pride samo enkrat.", "en": "It's a chance that only comes once." } },
+    { "sl": "Udine non è lontana: potresti tornare ogni fine settimana.", "en": { "de": "Udine ist nicht weit: Du könntest jedes Wochenende heimkommen.", "sl": "Videm ni daleč: lahko bi se vračal vsak konec tedna.", "en": "Udine isn't far: you could come home every weekend." } },
+    { "sl": "Magari Lorenzo e Franco potrebbero badare alle pecore.", "en": { "de": "Vielleicht könnten Lorenzo und Franco auf die Schafe aufpassen.", "sl": "Mogoče bi Lorenzo in Franco lahko pazila na ovce.", "en": "Maybe Lorenzo and Franco could look after the sheep." } },
+    { "sl": "Anche se ti mancheranno, ne vale la pena.", "en": { "de": "Auch wenn sie dir fehlen werden, es lohnt sich.", "sl": "Čeprav ti bodo manjkale, se splača.", "en": "Even if you'll miss them, it's worth it." } },
+    { "sl": "Credo che tu debba provarci.", "en": { "de": "Ich finde, du solltest es versuchen.", "sl": "Mislim, da moraš poskusiti.", "en": "I think you should give it a go." } },
+    { "sl": "Qualunque cosa tu decida, ti aiuteremo.", "en": { "de": "Was du auch entscheidest, wir helfen dir.", "sl": "Karkoli se boš odločil, ti bomo pomagali.", "en": "Whatever you decide, we'll help you." } }
+  ],
+  "packs": ["al-portone", "nel-campo", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

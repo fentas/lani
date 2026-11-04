@@ -10,7 +10,7 @@
  },
  "emoji": "⛲",
  "level": "A1",
- "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not reviewed by a native speaker",
+ "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not native-checked; B1, B2 variants too",
  "art": "square",
  "from": [
   "project:vodnjak_na_trgu"
@@ -167,6 +167,8 @@
    "chance": 0.5,
    "dialog": "water",
    "dialogs": [
+    "water-b2-springs",
+    "water-b1-walker",
     "water-frozen",
     "water-lion",
     "water"
@@ -197,6 +199,8 @@
    "chance": 0.5,
    "dialog": "walkers",
    "dialogs": [
+    "walkers-b2-boots",
+    "walkers-b1-bus",
     "walkers-bess",
     "walkers"
    ],
@@ -2386,6 +2390,78 @@
      "de": "Du tanzt gut, {learner}! Besser als ich."
     }
    ]
-  }
+  },
+    {
+      "id": "water-b2-springs", "level": "B2",
+      "memory": {"en": "the two springs that feed the lion", "sl": "dva izvira, ki napajata leva", "it": "le due sorgenti che alimentano il leone", "de": "die zwei Quellen, die den Löwen speisen"},
+      "lines": [
+        {"who": "dixon", "en": "Morning, {learner}. A walker asked me if the water's safe. Two springs feed it. I checked both. Neither was muddy.", "sl": "Jutro, {learner}. Neki pohodnik me je vprašal, ali je voda varna. Napajata jo dva izvira. Preveril sem oba. Nobeden ni bil blaten.", "it": "Buongiorno, {learner}. Un escursionista mi ha chiesto se l'acqua è sicura. La alimentano due sorgenti. Le ho controllate tutte e due. Nessuna era fangosa.", "de": "Morgen, {learner}. Ein Wanderer hat mich gefragt, ob das Wasser sicher ist. Zwei Quellen speisen ihn. Ich hab beide geprüft. Keine war schlammig."},
+        {"who": "dixon", "face": "curious", "en": "So. What do I tell him?", "sl": "No. Kaj naj mu povem?", "it": "Allora. Cosa gli dico?", "de": "Also. Was sag ich ihm?"},
+        { "choices": [
+          {"en": "Tell him both springs are clean, then.", "sl": "Povejte mu, da sta oba izvira čista.", "it": "Gli dica che tutte e due le sorgenti sono pulite.", "de": "Sagen Sie ihm, dass beide Quellen sauber sind.", "ok": true, "reply": {"en": "Aye. Clean as the day I built it.", "sl": "Ja. Čista kot na dan, ko sem ga zgradil.", "it": "Sì. Pulite come il giorno in cui l'ho costruita.", "de": "Ja. Sauber wie am Tag, an dem ich ihn gebaut hab."}},
+          {"en": "Tell him one of the springs is muddy, then.", "sl": "Povejte mu, da je eden od izvirov blaten.", "it": "Gli dica che una delle sorgenti è fangosa.", "de": "Sagen Sie ihm, dass eine der Quellen schlammig ist.", "grammar": "quantifiers", "why": {"en": "Neither means not one and not the other: no spring was muddy, so both are clean.", "sl": "Neither pomeni ne eden ne drugi: noben izvir ni bil blaten, torej sta oba čista.", "it": "Neither vuol dire né l'una né l'altra: nessuna sorgente era fangosa, quindi sono pulite tutte e due.", "de": "Neither heißt keine von beiden: Keine Quelle war schlammig, also sind beide sauber."}, "reply": {"face": "cross", "en": "Muddy? Listen again, {m:lad|f:lass}. I said what I said.", "sl": "Blaten? Še enkrat poslušaj. Rekel sem, kar sem rekel.", "it": "Fangosa? Ascolta di nuovo, {m:ragazzo|f:ragazza}. Ho detto quello che ho detto.", "de": "Schlammig? Hör noch mal hin, {m:Junge|f:Mädchen}. Ich hab gesagt, was ich gesagt hab."}}
+        ] },
+        {"who": "dixon", "en": "Built it the year I married. Carved the lion myself.", "sl": "Zgradil sem ga v letu, ko sem se poročil. Leva sem izklesal sam.", "it": "L'ho costruita l'anno in cui mi sono sposato. Il leone l'ho scolpito io.", "de": "Gebaut hab ich ihn im Jahr meiner Hochzeit. Den Löwen hab ich selbst gehauen."},
+        {"who": "dixon", "face": "curious", "en": "How did you find it, the first time?", "sl": "Kako si ga {m:našel|f:našla} prvič?", "it": "Come l'hai trovata, la prima volta?", "de": "Wie hast du ihn beim ersten Mal gefunden?"},
+        { "choices": [
+          {"en": "Coming down the fell, I heard the water before I saw the lion.", "sl": "Ko sem {m:šel|f:šla} s hriba, sem vodo {m:slišal|f:slišala}, preden sem {m:videl|f:videla} leva.", "it": "Scendendo dal monte, ho sentito l'acqua prima di vedere il leone.", "de": "Als ich vom Berg herunterkam, hörte ich das Wasser, bevor ich den Löwen sah.", "ok": true, "reply": {"face": "happy", "en": "Aye. That's how it should be. Ears first.", "sl": "Ja. Tako mora biti. Najprej ušesa.", "it": "Sì. È così che dev'essere. Prima le orecchie.", "de": "Ja. So soll es sein. Erst die Ohren."}},
+          {"en": "Came down the fell, I heard the water before I saw the lion.", "sl": "Ko sem {m:šel|f:šla} s hriba, sem vodo {m:slišal|f:slišala}, preden sem {m:videl|f:videla} leva.", "it": "Scendendo dal monte, ho sentito l'acqua prima di vedere il leone.", "de": "Als ich vom Berg herunterkam, hörte ich das Wasser, bevor ich den Löwen sah.", "grammar": "participle-clauses", "why": {"en": "Two clauses, one subject: the first gets -ing. Coming down the fell, I heard …", "sl": "Dva stavka, en osebek: prvi dobi -ing. Coming down the fell, I heard …", "it": "Due frasi, un soggetto: la prima prende -ing. Coming down the fell, I heard …", "de": "Zwei Sätze, ein Subjekt: Der erste bekommt -ing. Coming down the fell, I heard …"}, "reply": {"face": "cross", "en": "Came down, heard? Say it whole, {m:lad|f:lass}.", "sl": "Came down, heard? Povej v celoti.", "it": "Came down, heard? Dillo per intero, {m:ragazzo|f:ragazza}.", "de": "Came down, heard? Sag es ganz, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Have a drink. Fell water. Best in the dale.", "sl": "Kar pij. Voda s hriba. Najboljša v dolini.", "it": "Bevi. Acqua di monte. La migliore della valle.", "de": "Trink. Bergwasser. Das beste im Tal."}
+      ]
+    },
+    {
+      "id": "walkers-b1-bus", "level": "B1",
+      "memory": {"en": "the walker who asked about the bus", "sl": "pohodnico, ki je spraševala po avtobusu", "it": "l'escursionista che chiedeva dell'autobus", "de": "die Wanderin, die nach dem Bus gefragt hat"},
+      "lines": [
+        {"who": "sam", "face": "curious", "en": "Now then, {learner}! Busy day. What did that walker with the big rucksack want from you?", "sl": "Živijo, {learner}! Pester dan. Kaj je hotela od tebe tista pohodnica z velikim nahrbtnikom?", "it": "Ehilà, {learner}! Che giornata. Che cosa voleva da te quell'escursionista con lo zaino grande?", "de": "Na, {learner}! Viel los heute. Was wollte die Wanderin mit dem großen Rucksack von dir?"},
+        { "choices": [
+          {"en": "She asked me where the bus to Keswick stopped.", "sl": "Vprašala me je, kje ustavi avtobus za Keswick.", "it": "Mi ha chiesto dove si ferma l'autobus per Keswick.", "de": "Sie hat mich gefragt, wo der Bus nach Keswick hält.", "ok": true, "reply": {"en": "By the inn, at ten past. Did you tell her?", "sl": "Pri gostilni, deset čez. Si ji {m:povedal|f:povedala}?", "it": "Davanti alla locanda, e dieci. Gliel'hai detto?", "de": "Beim Gasthaus, um zehn nach. Hast du's ihr gesagt?"}},
+          {"en": "She asked to me where the bus to Keswick stopped.", "sl": "Vprašala me je, kje ustavi avtobus za Keswick.", "it": "Mi ha chiesto dove si ferma l'autobus per Keswick.", "de": "Sie hat mich gefragt, wo der Bus nach Keswick hält.", "grammar": "reported-questions", "why": {"en": "Ask takes the person with no to: she asked me where …", "sl": "Ask zahteva osebo brez to: she asked me where …", "it": "Ask vuole la persona senza to: she asked me where …", "de": "Ask nimmt die Person ohne to: she asked me where …"}, "reply": {"face": "confused", "en": "Asked to you? Well, she asked somebody, I'm sure.", "sl": "Asked to you? No, nekoga je že vprašala.", "it": "Asked to you? Be', qualcuno l'avrà pur chiesto.", "de": "Asked to you? Na, irgendwen hat sie bestimmt gefragt."}}
+        ] },
+        {"who": "sam", "en": "Ten past every hour, by the inn. She'll be fine.", "sl": "Vsako uro deset čez, pri gostilni. Bo že.", "it": "Ogni ora e dieci, davanti alla locanda. Se la caverà.", "de": "Jede Stunde um zehn nach, beim Gasthaus. Sie kommt schon zurecht."},
+        { "choices": [
+          {"en": "The last one's at six, isn't it?", "sl": "Zadnji je ob šestih, kajne?", "it": "L'ultimo è alle sei, vero?", "de": "Der letzte fährt um sechs, oder?", "ok": true, "reply": {"face": "happy", "en": "That's it. Miss that and it's a long walk!", "sl": "Tako je. Če ga zamudiš, je dolga pot peš!", "it": "Esatto. Se lo perdi, è una bella camminata!", "de": "Genau. Verpasst du den, wird's ein langer Fußmarsch!"}},
+          {"en": "The last one's at six, doesn't it?", "sl": "Zadnji je ob šestih, kajne?", "it": "L'ultimo è alle sei, vero?", "de": "Der letzte fährt um sechs, oder?", "grammar": "question-tags", "why": {"en": "Take the helping verb from the sentence: the last one is, so isn't it?", "sl": "Vzemi pomožni glagol iz stavka: the last one is, torej isn't it?", "it": "Prendi il verbo ausiliare dalla frase: the last one is, quindi isn't it?", "de": "Nimm das Hilfsverb aus dem Satz: the last one is, also isn't it?"}, "reply": {"face": "confused", "en": "Doesn't it what? Now you've got me muddled.", "sl": "Doesn't it kaj? Zdaj si me pa {m:zmedel|f:zmedla}.", "it": "Doesn't it cosa? Adesso mi hai confuso.", "de": "Doesn't it? Was denn? Jetzt bin ich ganz durcheinander."}}
+        ] },
+        {"who": "sam", "face": "happy", "en": "Right, back to my walkers. Thanks, {learner}. You're better than a timetable!", "sl": "Prav, nazaj k svojim pohodnikom. Hvala, {learner}. {m:Boljši|f:Boljša} si od voznega reda!", "it": "Bene, torno ai miei escursionisti. Grazie, {learner}. Sei meglio di un orario!", "de": "So, zurück zu meinen Wanderern. Danke, {learner}. Du bist besser als ein Fahrplan!"}
+      ]
+    },
+    {
+      "id": "water-b1-walker", "level": "B1",
+      "memory": {"en": "what the walker from Leeds said about the water", "sl": "kaj je pohodnik iz Leedsa rekel o vodi", "it": "quello che l'escursionista di Leeds ha detto dell'acqua", "de": "was der Wanderer aus Leeds über das Wasser gesagt hat"},
+      "lines": [
+        {"who": "dixon", "en": "Morning, {learner}. Fresh from the fell. A walker from Leeds was here before you.", "sl": "Jutro, {learner}. Sveža s hriba. Pred tabo je bil tu pohodnik iz Leedsa.", "it": "Buongiorno, {learner}. Fresca dal monte. Prima di te c'era un escursionista di Leeds.", "de": "Morgen, {learner}. Frisch vom Berg. Vor dir war ein Wanderer aus Leeds hier."},
+        {"who": "dixon", "face": "curious", "en": "He drank, then stopped to talk to you. What did he tell you?", "sl": "Napil se je in potem obstal, da bi se pogovoril s tabo. Kaj ti je rekel?", "it": "Ha bevuto, poi si è fermato a parlare con te. Che cosa ti ha detto?", "de": "Er hat getrunken und dann mit dir geredet. Was hat er dir gesagt?"},
+        { "choices": [
+          {"en": "He told me the water was the best he'd ever tasted.", "sl": "Rekel mi je, da je voda najboljša, kar jih je kdaj pil.", "it": "Mi ha detto che l'acqua era la migliore che avesse mai bevuto.", "de": "Er hat mir gesagt, das Wasser sei das beste, das er je getrunken habe.", "ok": true, "reply": {"face": "proud", "en": "Did he. Good. I built it to last.", "sl": "Res? Dobro. Zgradil sem ga, da bo trajal.", "it": "Davvero. Bene. L'ho costruita per durare.", "de": "So. Gut. Ich hab ihn für die Ewigkeit gebaut."}},
+          {"en": "He told to me the water was the best he'd ever tasted.", "sl": "Rekel mi je, da je voda najboljša, kar jih je kdaj pil.", "it": "Mi ha detto che l'acqua era la migliore che avesse mai bevuto.", "de": "Er hat mir gesagt, das Wasser sei das beste, das er je getrunken habe.", "grammar": "reported-speech", "why": {"en": "Tell takes who with no to: he told me. Said to me is right, told to me isn't.", "sl": "Tell zahteva komu brez to: he told me. Said to me je prav, told to me ni.", "it": "Tell vuole la persona senza to: he told me. Said to me va bene, told to me no.", "de": "Tell nimmt die Person ohne to: he told me. Said to me stimmt, told to me nicht."}, "reply": {"face": "confused", "en": "Told to you? Hm. Again, {m:lad|f:lass}.", "sl": "Told to you? Hm. Še enkrat.", "it": "Told to you? Mh. Di nuovo, {m:ragazzo|f:ragazza}.", "de": "Told to you? Hm. Noch mal, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "thinking", "en": "Some folk say it's too cold to drink in winter.", "sl": "Nekateri pravijo, da je pozimi premrzla za pitje.", "it": "Certa gente dice che d'inverno è troppo fredda da bere.", "de": "Manche sagen, im Winter ist es zu kalt zum Trinken."},
+        { "choices": [
+          {"en": "Despite the cold, I'd drink it every day.", "sl": "Kljub mrazu bi jo {m:pil|f:pila} vsak dan.", "it": "Nonostante il freddo, la berrei ogni giorno.", "de": "Trotz der Kälte würde ich es jeden Tag trinken.", "ok": true, "reply": {"en": "Aye. The cold keeps it clean.", "sl": "Ja. Mraz jo ohranja čisto.", "it": "Sì. Il freddo la tiene pulita.", "de": "Ja. Die Kälte hält es sauber."}},
+          {"en": "Despite it's cold, I'd drink it every day.", "sl": "Kljub mrazu bi jo {m:pil|f:pila} vsak dan.", "it": "Nonostante il freddo, la berrei ogni giorno.", "de": "Trotz der Kälte würde ich es jeden Tag trinken.", "grammar": "contrast-linkers", "why": {"en": "Despite + a noun or -ing: despite the cold. With a whole sentence: although it's cold.", "sl": "Despite + samostalnik ali -ing: despite the cold. S celim stavkom: although it's cold.", "it": "Despite + un nome o -ing: despite the cold. Con una frase intera: although it's cold.", "de": "Despite + Nomen oder -ing: despite the cold. Mit einem ganzen Satz: although it's cold."}, "reply": {"face": "cross", "en": "Despite it's? Doesn't fit together, {m:lad|f:lass}.", "sl": "Despite it's? To ne gre skupaj.", "it": "Despite it's? Non sta insieme, {m:ragazzo|f:ragazza}.", "de": "Despite it's? Passt nicht zusammen, {m:Junge|f:Mädchen}."}}
+        ] },
+        {"who": "dixon", "face": "happy", "en": "Have a drink, then. Cupped hands, not lips on the lion.", "sl": "Kar pij. Iz dlani, ne z ustnicami na levu.", "it": "Bevi, allora. Con le mani a coppa, non con le labbra sul leone.", "de": "Trink nur. Aus den Händen, nicht mit den Lippen am Löwen."}
+      ]
+    },
+    {
+      "id": "walkers-b2-boots", "level": "B2",
+      "memory": {"en": "the walker who tried Helvellyn in trainers", "sl": "pohodnika, ki je hotel na Helvellyn v supergah", "it": "l'escursionista che voleva salire sull'Helvellyn in scarpe da ginnastica", "de": "den Wanderer, der in Turnschuhen auf den Helvellyn wollte"},
+      "lines": [
+        {"who": "sam", "face": "worried", "en": "Now then, {learner}. That lad by the fountain wanted to walk Helvellyn in trainers. In this wind!", "sl": "Živijo, {learner}. Tisti fant ob vodnjaku je hotel na Helvellyn v supergah. V tem vetru!", "it": "Ehilà, {learner}. Quel ragazzo vicino alla fontana voleva salire sull'Helvellyn in scarpe da ginnastica. Con questo vento!", "de": "Na, {learner}. Der Junge am Brunnen wollte in Turnschuhen auf den Helvellyn. Bei dem Wind!"},
+        { "choices": [
+          {"en": "That's really irresponsible. The ridge is dangerous when it's windy.", "sl": "To je res neodgovorno. Greben je v vetru nevaren.", "it": "È davvero irresponsabile. La cresta è pericolosa quando c'è vento.", "de": "Das ist echt verantwortungslos. Der Grat ist bei Wind gefährlich.", "ok": true, "reply": {"en": "That's what I told him. Then I lent him my old boots.", "sl": "To sem mu tudi rekel. Potem sem mu posodil svoje stare čevlje.", "it": "È quello che gli ho detto. Poi gli ho prestato i miei vecchi scarponi.", "de": "Das hab ich ihm auch gesagt. Dann hab ich ihm meine alten Stiefel geliehen."}},
+          {"en": "That's really unresponsible. The ridge is dangerous when it's windy.", "sl": "To je res neodgovorno. Greben je v vetru nevaren.", "it": "È davvero irresponsabile. La cresta è pericolosa quando c'è vento.", "de": "Das ist echt verantwortungslos. Der Grat ist bei Wind gefährlich.", "grammar": "word-building", "why": {"en": "Before r, in- becomes ir-: irresponsible, irregular. Un- doesn't go with responsible.", "sl": "Pred r se in- spremeni v ir-: irresponsible, irregular. Un- ne gre z responsible.", "it": "Davanti a r, in- diventa ir-: irresponsible, irregular. Un- non va con responsible.", "de": "Vor r wird in- zu ir-: irresponsible, irregular. Un- passt nicht zu responsible."}, "reply": {"face": "laugh", "en": "Unresponsible? Is that a new word from your country?", "sl": "Unresponsible? Je to nova beseda iz tvoje dežele?", "it": "Unresponsible? È una parola nuova del tuo paese?", "de": "Unresponsible? Ist das ein neues Wort aus deinem Land?"}}
+        ] },
+        {"who": "sam", "face": "thinking", "en": "Mind you, he said if he'd bought proper boots in Keswick, he'd be up on the ridge by now.", "sl": "Sicer pa je rekel, da bi bil zdaj že na grebenu, če bi si bil v Keswicku kupil prave čevlje.", "it": "Comunque, ha detto che se avesse comprato degli scarponi veri a Keswick, ora sarebbe già sulla cresta.", "de": "Allerdings hat er gesagt, hätte er in Keswick richtige Stiefel gekauft, wäre er jetzt schon oben am Grat."},
+        {"who": "sam", "face": "curious", "en": "So, did he buy any, would you say?", "sl": "No, kaj praviš, si jih je kupil?", "it": "Allora, secondo te li ha comprati?", "de": "Und, hat er welche gekauft, was meinst du?"},
+        { "choices": [
+          {"en": "No, he didn't. That's why he's still down here.", "sl": "Ne, ni jih. Zato je še vedno tu spodaj.", "it": "No, non li ha comprati. Per questo è ancora qui sotto.", "de": "Nein, hat er nicht. Deshalb ist er noch hier unten.", "ok": true, "reply": {"face": "laugh", "en": "Still down here, drinking my ginger beer. There are worse places to be stuck!", "sl": "Še vedno tu spodaj, pije moje ingverjevo pivo. So hujši kraji, kjer obtičiš!", "it": "Ancora qui sotto, a bere la mia ginger beer. Ci sono posti peggiori dove restare bloccati!", "de": "Noch hier unten und trinkt mein Ingwerbier. Es gibt schlimmere Orte zum Festsitzen!"}},
+          {"en": "Yes, he did. That's why he's up on the ridge now.", "sl": "Ja, kupil jih je. Zato je zdaj na grebenu.", "it": "Sì, li ha comprati. Per questo adesso è sulla cresta.", "de": "Ja, hat er. Deshalb ist er jetzt oben am Grat.", "grammar": "mixed-conditionals", "why": {"en": "If he'd bought boots, he'd be up there: he didn't buy any, so he isn't up there now.", "sl": "If he'd bought boots, he'd be up there: ni jih kupil, zato zdaj ni gori.", "it": "If he'd bought boots, he'd be up there: non li ha comprati, quindi ora non è lassù.", "de": "If he'd bought boots, he'd be up there: Er hat keine gekauft, also ist er jetzt nicht oben."}, "reply": {"face": "surprised", "en": "Up on the ridge? He's sitting right there by the fountain!", "sl": "Na grebenu? Saj sedi tamle ob vodnjaku!", "it": "Sulla cresta? È seduto proprio lì vicino alla fontana!", "de": "Oben am Grat? Der sitzt doch da drüben am Brunnen!"}}
+        ] },
+        {"who": "sam", "face": "happy", "en": "Next time he'll come prepared. That's the fells for you: they only have to teach you once.", "sl": "Naslednjič bo pripravljen. Taki so hribi: naučijo te samo enkrat.", "it": "La prossima volta verrà preparato. I monti sono così: ti insegnano una volta sola.", "de": "Nächstes Mal kommt er vorbereitet. So sind die Berge: Sie bringen es dir nur einmal bei."}
+      ]
+    }
  ]
 }

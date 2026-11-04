@@ -449,6 +449,146 @@
               "de": "Also an die Arbeit! Bevor es dunkel wird, ist die Grube fertig."
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "davide",
+              "it": "Ho parlato con i vicini: sono tutti d'accordo. La casa dei pompieri verrà costruita proprio qui.",
+              "sl": "Govoril sem s sosedi: vsi se strinjajo. Gasilski dom bo zgrajen ravno tu.",
+              "en": "I've talked to the neighbours: everyone agrees. The fire station will be built right here.",
+              "de": "Ich habe mit den Nachbarn gesprochen: Alle sind einverstanden. Das Feuerwehrhaus wird genau hier gebaut."
+            },
+            {
+              "who": "bruno",
+              "it": "Questa terra è dura come il ferro. Con le mani non si va da nessuna parte.",
+              "sl": "Ta zemlja je trda kot železo. Z rokami ne prideš nikamor.",
+              "en": "This ground is as hard as iron. You won't get anywhere with your hands.",
+              "de": "Dieser Boden ist hart wie Eisen. Mit den Händen kommt man nicht weit."
+            },
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "{learner}, se fossi tu a decidere, che cosa prenderesti per primo?",
+              "sl": "{learner}, če bi {m:odločal|f:odločala} ti, kaj bi {m:vzel|f:vzela} najprej?",
+              "en": "{learner}, if it were up to you, what would you take first?",
+              "de": "{learner}, wenn du entscheiden würdest, was würdest du zuerst nehmen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Prenderei una pala per ognuno di noi.",
+                  "sl": "{m:Vzel|f:Vzela} bi lopato za vsakega od nas.",
+                  "en": "I'd take a spade for each of us.",
+                  "de": "Ich würde für jeden von uns eine Schaufel nehmen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ottima idea. Con le pale si fa presto.",
+                    "sl": "Odlična zamisel. Z lopatami gre hitro.",
+                    "en": "Great idea. With spades it goes quickly.",
+                    "de": "Gute Idee. Mit Schaufeln geht es schnell."
+                  }
+                },
+                {
+                  "it": "Prenderei una scopa per ognuno di noi.",
+                  "sl": "{m:Vzel|f:Vzela} bi metlo za vsakega od nas.",
+                  "en": "I'd take a broom for each of us.",
+                  "de": "Ich würde für jeden von uns einen Besen nehmen.",
+                  "why": {
+                    "sl": "Za kopanje potrebuješ lopato: la pala. Metla je za pometanje.",
+                    "en": "To dig you need a spade: la pala. A broom is for sweeping.",
+                    "de": "Zum Graben braucht man eine Schaufel: la pala. Ein Besen ist zum Kehren."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una scopa? Così puliamo prima di sporcare!",
+                    "sl": "Metlo? Da pometemo, preden umažemo!",
+                    "en": "A broom? So we sweep before we make a mess!",
+                    "de": "Einen Besen? Damit wir kehren, bevor wir Dreck machen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Il terreno è molle, vicino al pozzo. Prima che arrivi la pioggia, che cosa dovrebbe essere già fatto?",
+              "sl": "Tla so ob vodnjaku mehka. Preden pride dež, kaj bi moralo biti že narejeno?",
+              "en": "The ground's soft near the well. Before the rain comes, what ought to be done already?",
+              "de": "Am Brunnen ist der Boden weich. Bevor der Regen kommt, was sollte schon fertig sein?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Le fondamenta dovrebbero essere già state scavate.",
+                  "sl": "Temelji bi morali biti že izkopani.",
+                  "en": "The foundations ought to have been dug already.",
+                  "de": "Das Fundament sollte schon ausgehoben sein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Proprio così: pronte e profonde.",
+                    "sl": "Prav tako: gotovi in globoki.",
+                    "en": "Exactly: ready and deep.",
+                    "de": "Genau: fertig und tief."
+                  }
+                },
+                {
+                  "it": "Le fondamenta dovrebbero avere già state scavate.",
+                  "sl": "Temelji bi morali biti že izkopani.",
+                  "en": "The foundations ought to have been dug already.",
+                  "de": "Das Fundament sollte schon ausgehoben sein.",
+                  "grammar": "infinito-passato",
+                  "why": {
+                    "sl": "Pretekli nedoločnik trpnika se tvori z essere: essere state scavate.",
+                    "en": "The passive's past infinitive is made with essere: essere state scavate.",
+                    "de": "Der Infinitiv Perfekt im Passiv wird mit essere gebildet: essere state scavate."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Avere state? Mah, questa non suona proprio.",
+                    "sl": "Avere state? Hm, to pa res ne zveni.",
+                    "en": "Avere state? Hm, that really doesn't sound right.",
+                    "de": "Avere state? Hm, das klingt gar nicht."
+                  }
+                },
+                {
+                  "it": "Le campane dovrebbero essere già state scavate.",
+                  "sl": "Zvonovi bi morali biti že izkopani.",
+                  "en": "The bells ought to have been dug already.",
+                  "de": "Die Glocken sollten schon ausgehoben sein.",
+                  "why": {
+                    "sl": "Pred dežjem se izkoplje temelje: le fondamenta. Zvonovi visijo v stolpu.",
+                    "en": "What gets dug before the rain is the foundations: le fondamenta. Bells hang in a tower.",
+                    "de": "Vor dem Regen gräbt man das Fundament aus: le fondamenta. Glocken hängen in einem Turm."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le campane? Non costruiamo mica una chiesa!",
+                    "sl": "Zvonove? Saj ne gradimo cerkve!",
+                    "en": "The bells? We're not building a church!",
+                    "de": "Die Glocken? Wir bauen doch keine Kirche!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "face": "happy",
+              "it": "Allora al lavoro! Prima che faccia buio, la buca sarà finita.",
+              "sl": "Torej na delo! Preden se stemni, bo jama izkopana.",
+              "en": "To work, then! Before it gets dark, the pit will be done.",
+              "de": "Also an die Arbeit! Bevor es dunkel wird, ist die Grube fertig."
+            }
+          ]
         }
       }
     },
@@ -879,6 +1019,146 @@
               "de": "Alle haben mit angepackt, und das sieht man: Wir sind schon bei der Hälfte."
             }
           ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "davide",
+              "it": "Se ognuno portasse i pezzi dal carro da solo, ci vorrebbe una settimana.",
+              "sl": "Če bi vsak sam nosil kose z voza, bi trajalo teden dni.",
+              "en": "If everyone carried the pieces from the cart alone, it'd take a week.",
+              "de": "Wenn jeder die Teile allein vom Wagen trüge, bräuchten wir eine Woche."
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. E se si lavora di corsa, poi viene tutto storto.",
+              "sl": "Hm. Če pa se dela v naglici, je potem vse krivo.",
+              "en": "Hm. And if you work in a rush, everything comes out crooked.",
+              "de": "Hm. Und wenn man hastig arbeitet, wird alles schief."
+            },
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "{learner}, spiegalo tu ai vicini: dal carro fino a qui, come si fa?",
+              "sl": "{learner}, razloži ti sosedom: od voza do sem, kako se to naredi?",
+              "en": "{learner}, you explain to the neighbours: from the cart to here, how's it done?",
+              "de": "{learner}, erklär du es den Nachbarn: vom Wagen bis hierher, wie geht das?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ci mettiamo tutti in fila: in questo modo, i mattoni passano di mano in mano.",
+                  "sl": "Vsi se postavimo v vrsto: tako gredo opeke iz rok v roke.",
+                  "en": "We all line up: that way, the bricks pass from hand to hand.",
+                  "de": "Wir stellen uns alle in eine Reihe: So gehen die Ziegel von Hand zu Hand.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ecco! Così nessuno cammina per niente.",
+                    "sl": "Tako! Tako nihče ne hodi zastonj.",
+                    "en": "That's it! That way nobody walks for nothing.",
+                    "de": "Genau! So läuft keiner umsonst."
+                  }
+                },
+                {
+                  "it": "Ci mettiamo tutti in fila: tuttavia, i mattoni passano di mano in mano.",
+                  "sl": "Vsi se postavimo v vrsto: tako gredo opeke iz rok v roke.",
+                  "en": "We all line up: that way, the bricks pass from hand to hand.",
+                  "de": "Wir stellen uns alle in eine Reihe: So gehen die Ziegel von Hand zu Hand.",
+                  "grammar": "connettivi",
+                  "why": {
+                    "sl": "Tuttavia pomeni »vendar« in nekaj postavi nasproti; kako se kaj naredi, pove in questo modo.",
+                    "en": "Tuttavia means 'however' and sets one thing against another; to say how, use in questo modo.",
+                    "de": "Tuttavia heißt »jedoch« und stellt etwas entgegen; wie man es macht, sagt in questo modo."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Tuttavia? Ma allora la fila serve o no?",
+                    "sl": "Tuttavia? Pa vrsta potem pomaga ali ne?",
+                    "en": "Tuttavia? So is the line any use or not?",
+                    "de": "Tuttavia? Hilft die Reihe denn nun oder nicht?"
+                  }
+                },
+                {
+                  "it": "Ci mettiamo tutti in fila: in questo modo, le mele passano di mano in mano.",
+                  "sl": "Vsi se postavimo v vrsto: tako gredo jabolka iz rok v roke.",
+                  "en": "We all line up: that way, the apples pass from hand to hand.",
+                  "de": "Wir stellen uns alle in eine Reihe: So gehen die Äpfel von Hand zu Hand.",
+                  "why": {
+                    "sl": "Zidovi se gradijo iz opek: i mattoni. Jabolka hiše ne držijo.",
+                    "en": "The walls are built of bricks: i mattoni. Apples won't hold up a house.",
+                    "de": "Die Mauern baut man aus Ziegeln: i mattoni. Äpfel halten kein Haus."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le mele? Buone, ma la casa non sta su!",
+                    "sl": "Jabolka? Dobra, ampak hiša ne bo stala!",
+                    "en": "Apples? Tasty, but the house won't stand!",
+                    "de": "Äpfel? Lecker, aber das Haus hält nicht!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Prima che mettiamo il tetto, che cosa è importante?",
+              "sl": "Preden postavimo streho, kaj je pomembno?",
+              "en": "Before we put the roof on, what's important?",
+              "de": "Bevor wir das Dach draufsetzen, was ist wichtig?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "È importante che i muri siano dritti come un filo a piombo.",
+                  "sl": "Pomembno je, da so zidovi ravni kot svinčnica.",
+                  "en": "It's important that the walls are as straight as a plumb line.",
+                  "de": "Wichtig ist, dass die Mauern gerade sind wie ein Lot.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Proprio così: se sono storti, il tetto scivola.",
+                    "sl": "Prav tako: če so krivi, streha zdrsne.",
+                    "en": "Exactly: if they're crooked, the roof slides.",
+                    "de": "Genau: Wenn sie schief sind, rutscht das Dach."
+                  }
+                },
+                {
+                  "it": "È importante che i cavoli siano dritti come un filo a piombo.",
+                  "sl": "Pomembno je, da je zelje ravno kot svinčnica.",
+                  "en": "It's important that the cabbages are as straight as a plumb line.",
+                  "de": "Wichtig ist, dass der Kohl gerade ist wie ein Lot.",
+                  "why": {
+                    "sl": "Pred streho morajo biti ravni zidovi: i muri.",
+                    "en": "Before the roof, the walls must be straight: i muri.",
+                    "de": "Vor dem Dach müssen die Mauern gerade sein: i muri."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "I cavoli? Non stiamo mica facendo l'orto!",
+                    "sl": "Zelje? Saj ne delamo vrta!",
+                    "en": "The cabbages? We're not doing the vegetable patch!",
+                    "de": "Der Kohl? Wir machen doch keinen Gemüsegarten!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "happy",
+              "it": "Tutti hanno dato una mano, e si vede: siamo già a metà.",
+              "sl": "Vsi so priskočili na pomoč in to se vidi: smo že na pol poti.",
+              "en": "Everyone's lent a hand, and it shows: we're halfway already.",
+              "de": "Alle haben mit angepackt, und man sieht es: Wir sind schon halb fertig."
+            }
+          ]
         }
       }
     },
@@ -1307,6 +1587,146 @@
               "sl": "Če dobro preračunamo, bodo vrata v treh dneh nameščena.",
               "en": "With the sums done right, it'll be up in three days.",
               "de": "Wenn man richtig rechnet, hängt es in drei Tagen."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "davide",
+              "it": "Una porta normale costerebbe meno, ma il carro non ci passerebbe mai.",
+              "sl": "Navadna vrata bi bila cenejša, ampak voz ne bi nikoli šel skozi.",
+              "en": "An ordinary door would cost less, but the cart would never get through.",
+              "de": "Eine normale Tür wäre billiger, aber der Wagen käme nie durch."
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Bisogna che si apra bene, anche di notte, anche con il ghiaccio.",
+              "sl": "Hm. Dobro se morajo odpirati, tudi ponoči, tudi ob poledici.",
+              "en": "Hm. It must open well, at night too, in the ice too.",
+              "de": "Hm. Es muss gut aufgehen, auch nachts, auch bei Eis."
+            },
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "{learner}, tu che cosa proporresti?",
+              "sl": "{learner}, kaj bi {m:predlagal|f:predlagala} ti?",
+              "en": "{learner}, what would you suggest?",
+              "de": "{learner}, was würdest du vorschlagen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Proporrei un grande portone, largo quanto il carro e un po' di più.",
+                  "sl": "{m:Predlagal|f:Predlagala} bi velika vrata, široka kot voz in še malo več.",
+                  "en": "I'd suggest a big gate, as wide as the cart and a bit more.",
+                  "de": "Ich würde ein großes Tor vorschlagen, so breit wie der Wagen und ein bisschen mehr.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ottimo: abbastanza largo perché il carro passi.",
+                    "sl": "Odlično: dovolj široka, da gre voz skozi.",
+                    "en": "Great: wide enough for the cart to get through.",
+                    "de": "Prima: breit genug, dass der Wagen durchkommt."
+                  }
+                },
+                {
+                  "it": "Proporrei un grande balcone, largo quanto il carro e un po' di più.",
+                  "sl": "{m:Predlagal|f:Predlagala} bi velik balkon, širok kot voz in še malo več.",
+                  "en": "I'd suggest a big balcony, as wide as the cart and a bit more.",
+                  "de": "Ich würde einen großen Balkon vorschlagen, so breit wie der Wagen und ein bisschen mehr.",
+                  "why": {
+                    "sl": "Voz zapelje noter skozi velika vrata: il portone. Balkon je zgoraj na zidu.",
+                    "en": "The cart goes in through a big gate: il portone. A balcony is up on the wall.",
+                    "de": "Der Wagen fährt durch ein großes Tor hinein: il portone. Ein Balkon ist oben an der Wand."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Un balcone? Il carro dovrebbe imparare a volare!",
+                    "sl": "Balkon? Voz bi se moral naučiti leteti!",
+                    "en": "A balcony? The cart would have to learn to fly!",
+                    "de": "Ein Balkon? Der Wagen müsste fliegen lernen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "thinking",
+              "it": "Giusto. Il legno ce l'abbiamo, ma basterà?",
+              "sl": "Prav. Les imamo, ampak bo dovolj?",
+              "en": "Right. We've got the wood, but will it be enough?",
+              "de": "Richtig. Holz haben wir, aber reicht es?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Credevo che il legno bastasse, ma forse ne serve ancora un po'.",
+                  "sl": "{m:Mislil|f:Mislila} sem, da bo lesa dovolj, ampak morda ga je treba še malo.",
+                  "en": "I thought the wood would be enough, but maybe we need a bit more.",
+                  "de": "Ich dachte, das Holz reiche, aber vielleicht braucht es noch etwas mehr.",
+                  "ok": true,
+                  "reply": {
+                    "face": "thinking",
+                    "it": "D'accordo. Lo chiedo ai vicini del bosco.",
+                    "sl": "Prav. Vprašam sosede pri gozdu.",
+                    "en": "All right. I'll ask the neighbours by the wood.",
+                    "de": "In Ordnung. Ich frage die Nachbarn am Wald."
+                  }
+                },
+                {
+                  "it": "Credevo che il legno basterà, ma forse ne serve ancora un po'.",
+                  "sl": "{m:Mislil|f:Mislila} sem, da bo lesa dovolj, ampak morda ga je treba še malo.",
+                  "en": "I thought the wood would be enough, but maybe we need a bit more.",
+                  "de": "Ich dachte, das Holz reiche, aber vielleicht braucht es noch etwas mehr.",
+                  "grammar": "concordanza-tempi",
+                  "why": {
+                    "sl": "Za credevo (preteklost) gre glagol v nepretekli konjunktiv: che il legno bastasse.",
+                    "en": "After credevo, a past tense, the verb goes into the imperfect subjunctive: che il legno bastasse.",
+                    "de": "Nach credevo, einer Vergangenheit, steht der Congiuntivo imperfetto: che il legno bastasse."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Basterà? Prima credevi, adesso sai? Non si capisce.",
+                    "sl": "Basterà? Prej si mislil, zdaj veš? Ne razumem.",
+                    "en": "Basterà? First you thought, now you know? It doesn't make sense.",
+                    "de": "Basterà? Erst hast du gedacht, jetzt weißt du es? Das versteht man nicht."
+                  }
+                },
+                {
+                  "it": "Credevo che il ghiaccio bastasse, ma forse ne serve ancora un po'.",
+                  "sl": "{m:Mislil|f:Mislila} sem, da bo ledu dovolj, ampak morda ga je treba še malo.",
+                  "en": "I thought the ice would be enough, but maybe we need a bit more.",
+                  "de": "Ich dachte, das Eis reiche, aber vielleicht braucht es noch etwas mehr.",
+                  "why": {
+                    "sl": "Vrata so iz lesa: il legno. Led se stopi.",
+                    "en": "The gate is made of wood: il legno. Ice melts.",
+                    "de": "Das Tor ist aus Holz: il legno. Eis schmilzt."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il ghiaccio? D'estate ci resta solo una pozza!",
+                    "sl": "Led? Poleti nam ostane samo luža!",
+                    "en": "Ice? In summer we'd be left with a puddle!",
+                    "de": "Eis? Im Sommer bleibt uns nur eine Pfütze!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "Facendo bene i conti, in tre giorni sarà montato.",
+              "sl": "Če dobro preračunamo, bo v treh dneh postavljeno.",
+              "en": "If we do our sums properly, it'll be up in three days.",
+              "de": "Wenn wir richtig rechnen, steht es in drei Tagen."
             }
           ]
         }
@@ -1758,6 +2178,153 @@
               "sl": "Če bi delovala, kot pravijo, bi bile dovolj štiri osebe na ročajih.",
               "en": "If it worked as they say, four people on the handles would be enough.",
               "de": "Wenn sie so funktioniert, wie man sagt, würden vier Leute an den Griffen reichen."
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "surprised",
+              "it": "Sentite? Se non mi sbaglio, sono le ruote che aspettavamo da Gorizia.",
+              "sl": "Slišite? Če se ne motim, so to kolesa, ki smo jih čakali iz Gorice.",
+              "en": "Hear that? If I'm not mistaken, those are the wheels we've been waiting for from Gorizia.",
+              "de": "Hört ihr? Wenn ich mich nicht irre, sind das die Räder, auf die wir aus Görz gewartet haben.",
+              "fx": {
+                "cart-pump": 0.35
+              }
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. Avevano promesso che sarebbero arrivati prima di mezzogiorno.",
+              "sl": "Hm. Obljubili so, da bodo prišli pred poldnevom.",
+              "en": "Hm. They'd promised they'd be here before noon.",
+              "de": "Hm. Sie hatten versprochen, vor Mittag da zu sein."
+            },
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "{learner}, una cosa così pesante, come l'avranno portata fin qui?",
+              "sl": "{learner}, tako težko stvar, kako so jo neki pripeljali do sem?",
+              "en": "{learner}, something that heavy, how will they have got it all the way here?",
+              "de": "{learner}, so etwas Schweres, wie haben sie das wohl bis hierher gebracht?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "L'avranno caricata su un carro, con due cavalli.",
+                  "sl": "Gotovo so jo naložili na voz, z dvema konjema.",
+                  "en": "They'll have loaded it on a cart, with two horses.",
+                  "de": "Sie werden es auf einen Wagen geladen haben, mit zwei Pferden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Credo anch'io! Piano piano, per le curve.",
+                    "sl": "Tudi jaz mislim! Počasi, po ovinkih.",
+                    "en": "I think so too! Slowly, round the bends.",
+                    "de": "Glaube ich auch! Langsam, durch die Kurven."
+                  }
+                },
+                {
+                  "it": "L'avranno caricata su una barca, con due cavalli.",
+                  "sl": "Gotovo so jo naložili na čoln, z dvema konjema.",
+                  "en": "They'll have loaded it on a boat, with two horses.",
+                  "de": "Sie werden es auf ein Boot geladen haben, mit zwei Pferden.",
+                  "why": {
+                    "sl": "Čez griče se stvari vozijo z vozom: il carro. Čoln potrebuje vodo.",
+                    "en": "Over the hills things come by cart: il carro. A boat needs water.",
+                    "de": "Über die Hügel bringt man Dinge mit dem Wagen: il carro. Ein Boot braucht Wasser."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Su una barca? Qui l'acqua arriva al ginocchio!",
+                    "sl": "Na čoln? Tu voda sega do kolen!",
+                    "en": "On a boat? The water here comes up to your knee!",
+                    "de": "Auf ein Boot? Hier geht das Wasser bis zum Knie!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Eccola! Una vecchia macchina dei pompieri. A Gorizia, dicono, ha spento cento incendi.",
+              "sl": "Tu je! Stara gasilska naprava. V Gorici je, pravijo, pogasila sto požarov.",
+              "en": "Here it is! An old fire engine. In Gorizia, they say, it put out a hundred fires.",
+              "de": "Da ist sie! Eine alte Feuerwehrmaschine. In Görz, sagt man, hat sie hundert Brände gelöscht.",
+              "fx": {
+                "cart-pump": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "È questa la pompa della quale ci avevano parlato?",
+                  "sl": "Je to tista brizgalna, o kateri so nam pripovedovali?",
+                  "en": "Is this the pump they'd told us about?",
+                  "de": "Ist das die Pumpe, von der sie uns erzählt hatten?",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Proprio lei! E la terremo come una regina.",
+                    "sl": "Prav ta! In ravnali bomo z njo kot s kraljico.",
+                    "en": "That's her! And we'll keep her like a queen.",
+                    "de": "Genau die! Und wir halten sie wie eine Königin."
+                  }
+                },
+                {
+                  "it": "È questa la pompa del quale ci avevano parlato?",
+                  "sl": "Je to tista brizgalna, o kateri so nam pripovedovali?",
+                  "en": "Is this the pump they'd told us about?",
+                  "de": "Ist das die Pumpe, von der sie uns erzählt hatten?",
+                  "grammar": "relativi-il-quale",
+                  "why": {
+                    "sl": "Il quale se ujema s svojim samostalnikom: la pompa, torej della quale.",
+                    "en": "Il quale agrees with its noun: la pompa, so della quale.",
+                    "de": "Il quale richtet sich nach seinem Nomen: la pompa, also della quale."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Del quale? Suona strano, {learner}.",
+                    "sl": "Del quale? Čudno zveni, {learner}.",
+                    "en": "Del quale? That sounds odd, {learner}.",
+                    "de": "Del quale? Das klingt seltsam, {learner}."
+                  }
+                },
+                {
+                  "it": "È questa la pizza della quale ci avevano parlato?",
+                  "sl": "Je to tista pica, o kateri so nam pripovedovali?",
+                  "en": "Is this the pizza they'd told us about?",
+                  "de": "Ist das die Pizza, von der sie uns erzählt hatten?",
+                  "why": {
+                    "sl": "Iz Gorice je prišla gasilska brizgalna: la pompa.",
+                    "en": "From Gorizia came the fire pump: la pompa.",
+                    "de": "Aus Görz kam die Feuerwehrpumpe: la pompa."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La pizza? Da Gorizia, sarebbe fredda!",
+                    "sl": "Pica? Iz Gorice bi bila mrzla!",
+                    "en": "Pizza? From Gorizia it'd be cold!",
+                    "de": "Pizza? Aus Görz wäre die kalt!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "face": "thinking",
+              "it": "Se funzionasse come dicono, basterebbero quattro persone alle maniglie.",
+              "sl": "Če bi delovala, kot pravijo, bi bili dovolj štirje ljudje pri ročajih.",
+              "en": "If it works as they say, four people at the handles would be enough.",
+              "de": "Wenn sie so funktioniert, wie man sagt, reichen vier Leute an den Griffen."
             }
           ]
         }
@@ -2224,6 +2791,156 @@
               "sl": "Črpalka deluje. Če se ne bi zmočili, bi vaja uspela popolnoma.",
               "en": "The pump works. If we hadn't got wet, it would have been a perfect drill.",
               "de": "Die Pumpe funktioniert. Wären wir nicht nass geworden, wäre die Übung perfekt gewesen.",
+              "fx": {
+                "hose": 0
+              }
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "happy",
+              "it": "Prima prova dei pompieri! Non brucia niente: si impara soltanto. Meglio sbagliare oggi che il giorno dell'incendio.",
+              "sl": "Prva gasilska vaja! Nič ne gori: samo učimo se. Bolje se zmotiti danes kot na dan požara.",
+              "en": "The fire brigade's first drill! Nothing's burning: we're only learning. Better to get it wrong today than on the day of a fire.",
+              "de": "Die erste Übung der Feuerwehr! Nichts brennt: Wir lernen nur. Besser heute Fehler machen als am Tag des Brandes.",
+              "fx": {
+                "hose": 0
+              }
+            },
+            {
+              "who": "bruno",
+              "it": "Hm. L'acqua va portata alla pompa, prima che si cominci.",
+              "sl": "Hm. Vodo je treba pripeljati do brizgalne, preden začnemo.",
+              "en": "Hm. The water has to be brought to the pump before we start.",
+              "de": "Hm. Das Wasser muss zur Pumpe, bevor man anfängt."
+            },
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "{learner}, se toccasse a te, che cosa faresti per primo?",
+              "sl": "{learner}, če bi {m:bil|f:bila} na vrsti ti, kaj bi {m:naredil|f:naredila} najprej?",
+              "en": "{learner}, if it were your turn, what would you do first?",
+              "de": "{learner}, wenn du dran wärst, was würdest du zuerst tun?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Messo il tubo nel ruscello, comincerei subito a pompare.",
+                  "sl": "Ko bi bila cev v potoku, bi takoj {m:začel|f:začela} črpati.",
+                  "en": "With the hose in the stream, I'd start pumping straight away.",
+                  "de": "Ist der Schlauch im Bach, würde ich sofort anfangen zu pumpen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Detto, fatto! È dentro. Forza alle maniglie!",
+                    "sl": "Rečeno, storjeno! Notri je. Na ročaje!",
+                    "en": "No sooner said than done! It's in. Everyone on the handles!",
+                    "de": "Gesagt, getan! Er ist drin. Ran an die Griffe!"
+                  }
+                },
+                {
+                  "it": "Messa il tubo nel ruscello, comincerei subito a pompare.",
+                  "sl": "Ko bi bila cev v potoku, bi takoj {m:začel|f:začela} črpati.",
+                  "en": "With the hose in the stream, I'd start pumping straight away.",
+                  "de": "Ist der Schlauch im Bach, würde ich sofort anfangen zu pumpen.",
+                  "grammar": "participio-assoluto",
+                  "why": {
+                    "sl": "Samostojni deležnik se ujema s svojim samostalnikom: il tubo, torej messo.",
+                    "en": "The participle on its own agrees with its noun: il tubo, so messo.",
+                    "de": "Das Partizip allein richtet sich nach seinem Nomen: il tubo, also messo."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Messa? Il tubo è un lui, {learner}. Non suona bene.",
+                    "sl": "Messa? Cev je tu moškega spola, {learner}. Ne zveni prav.",
+                    "en": "Messa? Tubo is a he, {learner}. It doesn't sound right.",
+                    "de": "Messa? Tubo ist männlich, {learner}. Das klingt nicht gut."
+                  }
+                },
+                {
+                  "it": "Messo il cappello nel ruscello, comincerei subito a pompare.",
+                  "sl": "Ko bi bil klobuk v potoku, bi takoj {m:začel|f:začela} črpati.",
+                  "en": "With the hat in the stream, I'd start pumping straight away.",
+                  "de": "Ist der Hut im Bach, würde ich sofort anfangen zu pumpen.",
+                  "why": {
+                    "sl": "Voda pride do brizgalne po cevi: il tubo.",
+                    "en": "The water reaches the pump through the hose: il tubo.",
+                    "de": "Das Wasser kommt durch den Schlauch zur Pumpe: il tubo."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il cappello? E poi chi va a ripescarlo?",
+                    "sl": "Klobuk? Kdo ga bo potem lovil ven?",
+                    "en": "The hat? And then who fishes it out?",
+                    "de": "Den Hut? Und wer fischt ihn dann wieder raus?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "davide",
+              "face": "laugh",
+              "it": "Attenti, arriva! Ah ah! Avevo girato il tubo dalla parte sbagliata! {learner}, come siamo finiti?",
+              "sl": "Pozor, prihaja! Ha ha! Cev sem obrnil na napačno stran! {learner}, kako smo končali?",
+              "en": "Look out, here it comes! Ha ha! I'd turned the hose the wrong way! {learner}, how did we end up?",
+              "de": "Achtung, es kommt! Ha ha! Ich hatte den Schlauch falsch herum gedreht! {learner}, wie sehen wir aus?",
+              "fx": {
+                "hose": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "Siamo bagnati come pulcini.",
+                  "sl": "Mokri smo kot piščanci.",
+                  "en": "We're as wet as chicks.",
+                  "de": "Wir sind nass wie Küken.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Altro che pompieri: sembriamo una famiglia di papere!",
+                    "sl": "Kakšni gasilci: kot družina račk smo!",
+                    "en": "Firemen, my foot: we look like a family of ducklings!",
+                    "de": "Von wegen Feuerwehr: Wir sehen aus wie eine Entenfamilie!"
+                  }
+                },
+                {
+                  "it": "Siamo asciutti come pulcini.",
+                  "sl": "Suhi smo kot piščanci.",
+                  "en": "We're as dry as chicks.",
+                  "de": "Wir sind trocken wie Küken.",
+                  "why": {
+                    "sl": "Po takem curku vode nisi suh: bagnati, mokri.",
+                    "en": "After that jet of water you're anything but dry: bagnati, wet.",
+                    "de": "Nach so einem Wasserstrahl ist man alles andere als trocken: bagnati, nass."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Asciutti? E perché gocciolo come una grondaia?",
+                    "sl": "Suhi? Zakaj pa potem kapljam kot žleb?",
+                    "en": "Dry? Then why am I dripping like a gutter?",
+                    "de": "Trocken? Und warum tropfe ich dann wie eine Dachrinne?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "happy",
+              "it": "La pompa funziona. Se non ci fossimo bagnati, sarebbe stata una prova perfetta.",
+              "sl": "Brizgalna deluje. Ko se ne bi zmočili, bi bila vaja popolna.",
+              "en": "The pump works. If we hadn't got soaked, it would have been a perfect drill.",
+              "de": "Die Pumpe funktioniert. Wären wir nicht nass geworden, wäre es eine perfekte Übung gewesen.",
               "fx": {
                 "hose": 0
               }
@@ -2765,6 +3482,179 @@
               "sl": "Vsi plešejo, celo gasilci v škornjih. Res lepa veselica!",
               "en": "Everyone's dancing, even the firefighters in their boots. A fine party, really!",
               "de": "Alle tanzen, sogar die Feuerwehrleute in Stiefeln. Wirklich ein schönes Fest!"
+            }
+          ]
+        },
+        "B2": {
+          "lines": [
+            {
+              "who": "davide",
+              "face": "proud",
+              "it": "Se mi avessero detto che avremmo finito così presto, non ci avrei creduto! {learner}, come si potrebbe ringraziare il paese?",
+              "sl": "Ko bi mi rekli, da bomo tako hitro končali, ne bi verjel! {learner}, kako bi se lahko zahvalili vasi?",
+              "en": "If they'd told me we'd finish so soon, I wouldn't have believed it! {learner}, how could we thank the village?",
+              "de": "Hätte man mir gesagt, dass wir so schnell fertig werden, hätte ich es nicht geglaubt! {learner}, wie könnten wir dem Dorf danken?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Si potrebbe organizzare una festa in piazza.",
+                  "sl": "Lahko bi pripravili veselico na trgu.",
+                  "en": "We could organise a party in the square.",
+                  "de": "Man könnte ein Fest auf dem Platz veranstalten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto! Con frico, polenta e musica.",
+                    "sl": "Prav! S fricom, polento in glasbo.",
+                    "en": "Right! With frico, polenta and music.",
+                    "de": "Richtig! Mit Frico, Polenta und Musik."
+                  }
+                },
+                {
+                  "it": "Si potrebbe organizzare una verifica in piazza.",
+                  "sl": "Lahko bi pripravili preverjanje znanja na trgu.",
+                  "en": "We could organise a test in the square.",
+                  "de": "Man könnte eine Klassenarbeit auf dem Platz veranstalten.",
+                  "why": {
+                    "sl": "Za zahvalo pripraviš veselico: una festa. Preverjanje je za šolo.",
+                    "en": "To thank everyone you throw a party: una festa. A test, una verifica, is for school.",
+                    "de": "Zum Dank macht man ein Fest: una festa. Eine Prüfung, una verifica, gehört in die Schule."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Una verifica? Per ringraziare? Povero paese!",
+                    "sl": "Preverjanje? Za zahvalo? Uboga vas!",
+                    "en": "A test? To say thank you? Poor village!",
+                    "de": "Eine Klassenarbeit? Zum Danken? Armes Dorf!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "face": "happy",
+              "it": "Senti? Una villotta, la canzone del Friuli! Chi la suona?",
+              "sl": "Slišiš? Villotta, furlanska pesem! Kdo jo igra?",
+              "en": "Hear that? A villotta, Friuli's song! Who's playing it?",
+              "de": "Hörst du? Eine Villotta, das Lied des Friaul! Wer spielt das?",
+              "fx": {
+                "band": 1
+              }
+            },
+            {
+              "choices": [
+                {
+                  "it": "La suona la banda del paese.",
+                  "sl": "Igra jo vaška godba.",
+                  "en": "The village band's playing it.",
+                  "de": "Die Dorfkapelle spielt es.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì, e non hanno sbagliato una nota.",
+                    "sl": "Ja, in niti ene note niso zgrešili.",
+                    "en": "Yes, and they haven't missed a note.",
+                    "de": "Ja, und sie haben keinen Ton verfehlt."
+                  }
+                },
+                {
+                  "it": "La suona la radio del paese.",
+                  "sl": "Igra jo vaški radio.",
+                  "en": "The village radio's playing it.",
+                  "de": "Das Dorfradio spielt es.",
+                  "why": {
+                    "sl": "Toliko trobent: to je godba, la banda.",
+                    "en": "So many trumpets: that's the band, la banda.",
+                    "de": "So viele Trompeten: Das ist die Kapelle, la banda."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La radio? Con tutte quelle trombe?",
+                    "sl": "Radio? S vsemi temi trobentami?",
+                    "en": "The radio? With all those trumpets?",
+                    "de": "Das Radio? Mit all den Trompeten?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "davide",
+              "face": "curious",
+              "it": "{learner}, hai mangiato abbastanza? E adesso che cosa ti va di fare?",
+              "sl": "{learner}, si se dovolj {m:najedel|f:najedela}? Kaj bi pa zdaj {m:počel|f:počela}?",
+              "en": "{learner}, have you eaten enough? And now what do you feel like doing?",
+              "de": "{learner}, hast du genug gegessen? Und worauf hast du jetzt Lust?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Avrei voluto ballare già da un'ora!",
+                  "sl": "{m:Plesal|f:Plesala} bi že pred eno uro!",
+                  "en": "I'd have liked to be dancing an hour ago!",
+                  "de": "Ich hätte schon seit einer Stunde tanzen wollen!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "it": "E allora andiamo! Ballando, il frico scende meglio.",
+                    "sl": "Pa pojdimo! Ob plesu se frico bolje poleže.",
+                    "en": "Then let's go! Dancing, the frico goes down better.",
+                    "de": "Dann los! Beim Tanzen rutscht der Frico besser."
+                  }
+                },
+                {
+                  "it": "Sarei voluto ballare già da un'ora!",
+                  "sl": "{m:Plesal|f:Plesala} bi že pred eno uro!",
+                  "en": "I'd have liked to be dancing an hour ago!",
+                  "de": "Ich hätte schon seit einer Stunde tanzen wollen!",
+                  "grammar": "condizionale-passato",
+                  "why": {
+                    "sl": "Pri volere velja pomožnik naslednjega glagola: ballare ima avere, torej avrei voluto ballare.",
+                    "en": "With volere the auxiliary is the next verb's: ballare takes avere, so avrei voluto ballare.",
+                    "de": "Bei volere zählt das Hilfsverb des nächsten Verbs: ballare hat avere, also avrei voluto ballare."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sarei voluto? Forse volevi dire altro.",
+                    "sl": "Sarei voluto? Morda si {m:hotel|f:hotela} reči kaj drugega.",
+                    "en": "Sarei voluto? Maybe you meant something else.",
+                    "de": "Sarei voluto? Vielleicht wolltest du etwas anderes sagen."
+                  }
+                },
+                {
+                  "it": "Avrei voluto dormire già da un'ora!",
+                  "sl": "{m:Spal|f:Spala} bi že pred eno uro!",
+                  "en": "I'd have liked to be asleep an hour ago!",
+                  "de": "Ich hätte schon seit einer Stunde schlafen wollen!",
+                  "why": {
+                    "sl": "Ko igra godba, se pleše: ballare. Dormire je spati.",
+                    "en": "With the band playing, people dance: ballare. Dormire is to sleep.",
+                    "de": "Wenn die Kapelle spielt, wird getanzt: ballare. Dormire heißt schlafen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Dormire? Con la banda sotto il naso?",
+                    "sl": "Spati? Z godbo pod nosom?",
+                    "en": "Sleep? With the band under your nose?",
+                    "de": "Schlafen? Mit der Kapelle direkt vor der Nase?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "laugh",
+              "it": "Ballano tutti, perfino i pompieri con gli stivali. Bella festa, davvero!",
+              "sl": "Vsi plešejo, celo gasilci v škornjih. Res lepa veselica!",
+              "en": "Everyone's dancing, even the firemen in their boots. A fine party, really!",
+              "de": "Alle tanzen, sogar die Feuerwehrleute in Stiefeln. Ein schönes Fest, wirklich!"
             }
           ]
         }

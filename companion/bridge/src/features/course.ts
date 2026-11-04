@@ -2,7 +2,7 @@
 // where the learner is in it (the village state's course), with the pages they looked up on the cheat sheet of late.
 import { topicsLookedUp } from '../cards'
 import { badNote, fail, noteIn, ok } from '../tool'
-import { grammarNamed, LEVELS, validateWorksheet, type Homework, type ServedCourse, type Unit } from '../course'
+import { grammarNamed, heldBack, LEVELS, validateWorksheet, type Homework, type ServedCourse, type Unit } from '../course'
 import type { FeatureFactory } from '../feature'
 import { titleFor, type GrammarExample, type GrammarPage } from '../grammar'
 import { HttpError, json, type Route } from '../http'
@@ -31,13 +31,20 @@ homework id, kind: worksheet | test | homework, right, almost, of, passed?, unit
 session_end (lani-db-updater). When course.unit_done is true, congratulate in one short line and consider homework on
 what Jan got wrong (the results): publish_worksheet into that unit. Load lani-studio first; never write course files
 directly.
+A sheet's speaking and writing items (types speaking and writing, from B1; COURSE.md "Speaking and writing"): a result's
+answer is what the recognizer heard or what Jan wrote, its checks what it had to use (met or not) and to avoid; rated:
+true is a speaking item Jan rated themselves (no microphone or recognizer): practice, it doesn't count in a test. Persist
+speaking ones under skills_practiced speaking, writing under writing; a spoken form is never an error. A writing item's
+text also comes to you as an answer, for your feedback (see answer).
 `.trim()
 
 /** A sheet's best try in the village state (GameState.course: units[…].sheets[id], units[…].test). */
 type Try = { right?: number; almost?: number; of?: number; day?: string; tries?: number }
 /** A unit's place in the village state, by "<language>/<unit id>" (companion/COURSE.md, "The learner's progress"). */
-type UnitProgress = { started?: string; intro?: number; introDone?: boolean; sheets?: Record<string, Try>; test?: Try; done?: string | null; testedOut?: boolean }
-type CourseProgress = { classroom?: string | null; opened?: Record<string, string>; units?: Record<string, UnitProgress> }
+type UnitProgress = { started?: string; intro?: number; introDone?: boolean; sheets?: Record<string, Try>; test?: Try; done?: string | null; testedOut?: boolean; placed?: boolean }
+/** The placement test's result the learner took (the app's Placed: game/School.kt; companion/COURSE.md "The placement test"). */
+type Placed = { day?: string; from?: string; level?: string; start?: string | null; part?: number; parts?: number; units?: number; right?: number; almost?: number; of?: number; child?: boolean }
+type CourseProgress = { classroom?: string | null; opened?: Record<string, string>; units?: Record<string, UnitProgress>; placements?: Record<string, Placed> }
 
 const count = (v: unknown) => (Number.isInteger(v) && (v as number) > 0 ? (v as number) : 0)
 /** A try as "right/of" ("6/8, 1 almost"). */
@@ -46,9 +53,12 @@ const obj = <T>(v: unknown): T | undefined => (v && typeof v === 'object' && !Ar
 
 /** The module types of a sheet's exercises (and its intro's questions), as a module for the voice: what the app plays. */
 function voiced(ws: Homework): { modules: ModuleSpec[]; grammar: Pick<GrammarPage, 'id' | 'language' | 'examples'>[] } {
-  const own = new Set(['gaptext', 'table', 'transform', 'sort'])
+  const own = new Set(['gaptext', 'table', 'transform', 'sort', 'speaking', 'writing'])
   const asks = (ws.intro?.steps ?? []).flatMap(s => (s.ask ? [s.ask] : []))
-  const exercises = [...asks, ...ws.exercises.filter(e => !own.has(e.type))] as ModuleSpec['exercises']
+  // speaking and writing: what the teacher asks and the models said, as a speak exercise's (the child's version's too)
+  const said = ws.exercises.flatMap(e => (e.type === 'speaking' ? [e.ask, e.say, e.child?.ask, e.child?.say] : e.type === 'writing' ? [e.ask, e.child?.ask] : []))
+  const speaks = [...new Set(said.filter((t): t is string => !!t))].map(say => ({ type: 'speak', say, prompt: say, show: true }))
+  const exercises = [...asks, ...ws.exercises.filter(e => !own.has(e.type)), ...speaks] as ModuleSpec['exercises']
   const id = `course-${ws.unit}-${ws.id}`
   const examples = (ws.intro?.steps ?? []).flatMap(s => s.examples) as GrammarExample[]
   return {
@@ -57,7 +67,7 @@ function voiced(ws: Homework): { modules: ModuleSpec[]; grammar: Pick<GrammarPag
   }
 }
 
-export const course: FeatureFactory = ({ course: store, prints, grammar, game, events, voice, cfg, culture, addressee, villagers }) => {
+export const course: FeatureFactory = ({ course: store, prints, grammar, game, events, voice, cfg, culture, addressee, villagers, profile }) => {
   const langs = () => learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')
   const own = store.language
   const instructions = instructionsFor(schoolTeacher(villagers.all())?.name ?? 'the teacher', own)
@@ -78,7 +88,8 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
     const gender = (q.get('gender') ?? (who.gender === 'female' ? 'f' : 'm')) as PrintGender
     if (!['m', 'f', 'both'].includes(gender)) throw new HttpError(400, 'gender: m, f or both')
     const learner = (q.get('learner') ?? who.name).trim().slice(0, 40) || who.name
-    const doc = prints.doc(what, { base, learner, gender })
+    // a child's sheet: speaking and writing in their child's version
+    const doc = prints.doc(what, { base, learner, gender, child: profile.child })
     if (!doc) {
       const error = what.kind === 'sheet' ? `no unit "${what.unit}" of the course to print` : what.kind === 'booklet' ? `no units of level ${what.level} to print` : `no overview "${what.id}" to print`
       return json({ error }, 404)
@@ -110,7 +121,12 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
     const opened = obj<Record<string, string>>(p.opened) ?? {}
     const units = obj<Record<string, UnitProgress>>(p.units) ?? {}
     const school = (Array.isArray(state.buildings) ? state.buildings : []).find((b: any) => b?.type === 'SCHOOL') as { level?: number } | undefined
-    const head = { language: own, classroom: typeof p.classroom === 'string' ? p.classroom : null, school: school ? count(school.level) || 1 : null }
+    // the placement test the learner took in this language: when, where the school went on, the units it marked
+    const placed = obj<Placed>(obj<Record<string, Placed>>(p.placements)?.[own])
+    const placement = placed && typeof placed.day === 'string'
+      ? { placement: { day: placed.day, from: placed.from, level: placed.level, start: placed.start ? (count(placed.parts) > 1 ? `${placed.start} ${count(placed.part)}/${count(placed.parts)}` : placed.start) : null, units_marked: count(placed.units), ...(placed.child ? { child: true } : {}) } }
+      : {}
+    const head = { language: own, classroom: typeof p.classroom === 'string' ? p.classroom : null, school: school ? count(school.level) || 1 : null, ...placement }
     const topics = topicsLookedUp(state.sheet, own, localDate(new Date()), grammar.all())
     const looked = topics.length ? { looked_up: topics.map(t => ({ ...t, ...(c ? { units: c.units.filter(u => u.grammar.includes(t.page)).map(u => u.id) } : {}) })) } : {}
     if (!c) return { ...head, course: null, note: `no course in this village's language yet (companion/course/${own}/course.json)`, ...looked }
@@ -132,6 +148,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
           title: textIn(u.title, 'en'),
           done,
           ...(at.testedOut ? { tested_out: true } : {}),
+          ...(at.placed ? { placed: true } : {}),
           ...(at.started ? { started: at.started } : {}),
           intro: `${Math.min(count(at.intro), u.intro.steps.length)}/${u.intro.steps.length}`,
           intro_done: !!at.introDone,
@@ -155,9 +172,12 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
         path: '/course',
         areas: ['content'],
         addressed: true,
-        handle: () => {
+        // ?types=<n>: the school's item types the app plays (production.ts COURSE_TYPES); an app that doesn't say gets no
+        // speaking or writing (heldBack)
+        handle: ({ url }) => {
           const c = store.served()
-          return c ? json(c) : json({ error: 'no course' }, 404)
+          const types = Number.parseInt(url.searchParams.get('types') ?? '1', 10)
+          return c ? json(heldBack(c, Number.isFinite(types) ? types : 1)) : json({ error: 'no course' }, 404)
         },
       },
       ...printRoutes,
@@ -166,7 +186,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
       {
         name: 'publish_worksheet',
         description:
-          "Validate a lani.worksheet/v0 sheet of homework for a unit of the school's course and publish it to the app: it shows in the unit under \"📝 Domača naloga · Homework\", the newest first (companion/COURSE.md). unit: a unit of the course that isn't planned (get_course); id: kebab-case, not one of the unit's own worksheets (publishing the same id again replaces it); exercises: 1–8, the module types and the school's gaptext, table, transform, sort. Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+          "Validate a lani.worksheet/v0 sheet of homework for a unit of the school's course and publish it to the app: it shows in the unit under \"📝 Domača naloga · Homework\", the newest first (companion/COURSE.md). unit: a unit of the course that isn't planned (get_course); id: kebab-case, not one of the unit's own worksheets (publishing the same id again replaces it); exercises: 1–8, the module types, the school's gaptext, table, transform, sort, and speaking and writing (from B1: an older app gets the sheet without them). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
         inputSchema: {
           type: 'object',
           properties: {
@@ -214,7 +234,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
       {
         name: 'get_course',
         description:
-          `The school's course in this village's language and where Jan is in it: the classroom (the day the class began, with Zaselek; null: not yet, or a village whose school stood first), the school's level (null: not built), and per level (${LEVELS.slice(0, 4).join(', ')} …) whether it is open and its units done; per unit its intro (steps done/of, intro_done), its worksheets done/of and the best try of each sheet (right/of, almost), the test (pass mark, best try, tries), the day it was done (tested_out: passed without the worksheets) and your homework ids; next: the first unit to do. Planned units are listed, not playable yet. looked_up (left out when none): the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first (page, title, n answers given with one of its cards open, the last day, units: the course's units that teach it): work potential, suggest the unit or homework on it.`,
+          `The school's course in this village's language and where Jan is in it: the classroom (the day the class began, with Zaselek; null: not yet, or a village whose school stood first), the school's level (null: not built), and per level (${LEVELS.slice(0, 4).join(', ')} …) whether it is open and its units done; per unit its intro (steps done/of, intro_done), its worksheets done/of and the best try of each sheet (right/of, almost), the test (pass mark, best try, tries), the day it was done (tested_out: passed without the worksheets; placed: marked done by the placement test) and your homework ids; next: the first unit to do. placement (left out when none): the placement test the learner took (its day, the level before and the one it set, where the school went on, the units it marked). Planned units are listed, not playable yet. looked_up (left out when none): the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first (page, title, n answers given with one of its cards open, the last day, units: the course's units that teach it): work potential, suggest the unit or homework on it.`,
         inputSchema: { type: 'object', properties: {} },
         handle: () => ok(JSON.stringify(whereNow(store.served()), null, 2)),
       },

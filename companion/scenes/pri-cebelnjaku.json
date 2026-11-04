@@ -4,7 +4,7 @@
   "title": { "sl": "Pri čebelnjaku", "en": "At the apiary", "de": "Am Bienenhaus", "it": "All'apiario" },
   "emoji": "🐝",
   "level": "A2",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "apiary",
   "from": ["beehive"],
   "pack": "pri-cebelnjaku",
@@ -30,10 +30,10 @@
   ],
   "happenings": [
     { "id": "panji", "title": { "sl": "Anton pregleduje panje", "en": "Anton is checking the hives", "de": "Anton prüft die Bienenstöcke", "it": "Anton controlla le arnie" }, "who": "anton",
-      "when": ["morning"], "months": [3, 4, 5, 6, 7, 8, 9, 10], "chance": 0.6, "dialog": "panji", "dialogs": ["panji-stejem", "panji-matica", "panji"], "reward": { "food": 20 }, "marker": "🐝",
+      "when": ["morning"], "months": [3, 4, 5, 6, 7, 8, 9, 10], "chance": 0.6, "dialog": "panji", "dialogs": ["panji-b2-koncnica", "panji-b1-medved", "panji-stejem", "panji-matica", "panji"], "reward": { "food": 20 }, "marker": "🐝",
       "memory": { "sl": "končnica s hudičem, ki brusi babi jezik", "en": "the hive panel with the devil grinding an old woman's tongue", "de": "das Stirnbrett mit dem Teufel, der einer alten Frau die Zunge schleift", "it": "la tavoletta con il diavolo che affila la lingua a una vecchia" } },
     { "id": "roj", "title": { "sl": "Roj na lipi", "en": "A swarm on the linden", "de": "Ein Schwarm an der Linde", "it": "Uno sciame sul tiglio" }, "who": "janez",
-      "when": ["afternoon"], "months": [4, 5, 6, 7], "chance": 0.35, "dialog": "roj", "dialogs": ["roj-kosara", "roj"], "reward": { "wisdom": 15 }, "marker": "🌳",
+      "when": ["afternoon"], "months": [4, 5, 6, 7], "chance": 0.35, "dialog": "roj", "dialogs": ["roj-b2-zvizgat", "roj-b1-oce", "roj-kosara", "roj"], "reward": { "wisdom": 15 }, "marker": "🌳",
       "memory": { "sl": "roj, ki je sedel na lipo", "en": "the swarm that settled on the linden", "de": "den Schwarm, der sich auf der Linde niedergelassen hat", "it": "lo sciame che si è posato sul tiglio" } },
     { "id": "med", "title": { "sl": "Zala in med", "en": "Zala and the honey", "de": "Zala und der Honig", "it": "Zala e il miele" }, "who": "zala",
       "when": ["evening"], "chance": 0.5, "dialog": "med", "dialogs": ["med-zakaj", "med-pik", "med"], "reward": { "food": 20 }, "marker": "🍯",
@@ -295,6 +295,644 @@
             "reply": { "face": "confused", "sl": "Čez ena ura? Kako? Povej še enkrat, počasi.", "en": "Čez ena ura? What? Say it again, slowly.", "de": "Čez ena ura? Wie bitte? Sag es noch einmal, langsam.", "it": "Čez ena ura? Come? Ridillo, piano." } }
         ] },
         { "who": "zala", "face": "happy", "sl": "Hvala, {learner}. Ti si {m:dober zdravnik|f:dobra zdravnica}. Skoraj tako {m:dober|f:dobra} kot babica.", "en": "Thanks, {learner}. You're a good doctor. Almost as good as grandma.", "de": "Danke, {learner}. Du bist {m:ein guter Arzt|f:eine gute Ärztin}. Fast so gut wie Oma.", "it": "Grazie, {learner}. Sei {m:un bravo dottore|f:una brava dottoressa}. Quasi {m:bravo|f:brava} come la nonna." }
+      ]
+    },
+    {
+      "id": "panji-b1-medved",
+      "level": "B1",
+      "memory": {
+        "sl": "jutro, ko ste mi svetovali ograjo proti medvedu",
+        "en": "the morning you advised me to fence out the bear",
+        "de": "den Morgen, an dem Sie mir zum Zaun gegen den Bären geraten haben",
+        "it": "la mattina in cui mi ha consigliato il recinto contro l'orso"
+      },
+      "lines": [
+        {
+          "who": "anton",
+          "face": "worried",
+          "sl": "Dober dan, {learner}. … Ponoči je bil spet medved v sadovnjaku. … Prevrnil je dva panja.",
+          "en": "Good morning, {learner}. … The bear was in the orchard again last night. … It knocked over two hives.",
+          "de": "Guten Morgen, {learner}. … Heute Nacht war wieder der Bär im Obstgarten. … Er hat zwei Bienenstöcke umgeworfen.",
+          "it": "Buongiorno, {learner}. … Stanotte l'orso è tornato nel frutteto. … Ha rovesciato due arnie."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Joj! Vas ni bilo strah?",
+              "en": "Oh no! Weren't you scared?",
+              "de": "O je! Hatten Sie keine Angst?",
+              "it": "Oh no! Non ha avuto paura?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Malo. … Ampak medved je bil bolj lačen kot hud.",
+                "en": "A little. … But the bear was more hungry than fierce.",
+                "de": "Ein bisschen. … Aber der Bär war eher hungrig als böse.",
+                "it": "Un po'. … Ma l'orso era più affamato che cattivo."
+              }
+            },
+            {
+              "sl": "Joj! Niste bili strah?",
+              "en": "Oh no! Weren't you fear (vi as the subject)?",
+              "de": "O je! Waren Sie nicht Angst (vi als Subjekt)?",
+              "it": "Oh no! Non era paura (vi come soggetto)?",
+              "grammar": "custva",
+              "why": {
+                "en": "Fear has no subject in Slovene: strah me je. In the past it is neuter, and who is afraid is in the accusative: vas ni bilo strah?",
+                "de": "Angst hat im Slowenischen kein Subjekt: strah me je. In der Vergangenheit steht es im Neutrum, und wer Angst hat, im Akkusativ: vas ni bilo strah?",
+                "it": "In sloveno la paura non ha soggetto: strah me je. Al passato è neutro, e chi ha paura va all'accusativo: vas ni bilo strah?"
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Jaz, strah? … Ne, ne. Jaz sem Anton.",
+                "en": "Me, fear? … No, no. I'm Anton.",
+                "de": "Ich, Angst? … Nein, nein. Ich bin Anton.",
+                "it": "Io, paura? … No, no. Io sono Anton."
+              }
+            },
+            {
+              "sl": "Joj! Te ni bilo strah?",
+              "en": "Oh no! Weren't you (ti) scared?",
+              "de": "O je! Hattest du keine Angst?",
+              "it": "Oh no! Non hai avuto paura?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Anton says vi to you and expects vi back: vas ni bilo strah? Te is ti, for friends and children.",
+                "de": "Anton sagt vi zu dir und erwartet vi: vas ni bilo strah? Te ist ti, für Freunde und Kinder.",
+                "it": "Anton ti dà del vi e se lo aspetta: vas ni bilo strah? Te è il ti, per amici e bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Te? … Hm. Tako me tika samo Zala.",
+                "en": "Ti? … Hm. Only Zala calls me ti.",
+                "de": "Du? … Hm. So duzt mich nur Zala.",
+                "it": "Tu? … Mm. Del tu me lo dà solo Zala."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? … Tiše, prosim. In počasi.",
+            "en": "Hm? … Quieter, please. And slowly.",
+            "de": "Hm? … Leiser, bitte. Und langsam.",
+            "it": "Mm? … Più piano, per favore. E con calma."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Lovci pravijo, da se bo vrnil, ker je med že enkrat poskusil. … Kaj bi pa vi naredili?",
+          "en": "The hunters say it'll come back, because it's tasted the honey once already. … What would you do?",
+          "de": "Die Jäger sagen, er kommt wieder, weil er den Honig schon einmal gekostet hat. … Was würden Sie tun?",
+          "it": "I cacciatori dicono che tornerà, perché il miele l'ha già assaggiato una volta. … Lei cosa farebbe?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Postavite električno ograjo, da medved ne bi prišel do panjev.",
+              "en": "Put up an electric fence, so the bear can't get at the hives.",
+              "de": "Stellen Sie einen Elektrozaun auf, damit der Bär nicht an die Bienenstöcke kommt.",
+              "it": "Metta un recinto elettrico, così l'orso non arriva alle arnie.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Električno ograjo … Ja. Tako delajo tudi drugi čebelarji.",
+                "en": "An electric fence … Yes. That's what other beekeepers do too.",
+                "de": "Einen Elektrozaun … Ja. So machen es auch andere Imker.",
+                "it": "Un recinto elettrico … Sì. Fanno così anche gli altri apicoltori."
+              }
+            },
+            {
+              "sl": "Postavite električno ograjo, da medved ne bi pride do panjev.",
+              "en": "Put up an electric fence, so the bear wouldn't gets (present) at the hives.",
+              "de": "Stellen Sie einen Elektrozaun auf, damit der Bär nicht an die Bienenstöcke kommt (Präsens nach bi).",
+              "it": "Metta un recinto elettrico, così l'orso non arrivi (presente dopo bi) alle arnie.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Da bi (so that) takes the conditional's l-form, as every bi does: da medved ne bi prišel. Bi never goes with the present.",
+                "de": "Da bi (damit) verlangt die l-Form des Konditionals, wie jedes bi: da medved ne bi prišel. Bi steht nie beim Präsens.",
+                "it": "Da bi (affinché) vuole la forma in -l del condizionale, come ogni bi: da medved ne bi prišel. Bi non va mai col presente."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ne bi pride? … Hm. Medved tega ne bi razumel. Jaz tudi ne.",
+                "en": "Wouldn't gets? … Hm. The bear wouldn't understand that. Nor would I.",
+                "de": "Nicht kommt? … Hm. Das würde der Bär nicht verstehen. Ich auch nicht.",
+                "it": "Non arriva-bi? … Mm. L'orso non lo capirebbe. E nemmeno io."
+              }
+            },
+            {
+              "sl": "Dajte mu malo medu, da bo pustil čebele pri miru.",
+              "en": "Give it a little honey, so it'll leave the bees in peace.",
+              "de": "Geben Sie ihm ein bisschen Honig, damit er die Bienen in Ruhe lässt.",
+              "it": "Gli dia un po' di miele, così lascerà in pace le api.",
+              "why": {
+                "en": "A bear that gets honey learns to come back for more: Anton wants to keep it away from the hives.",
+                "de": "Ein Bär, der Honig bekommt, lernt, wiederzukommen: Anton will ihn von den Bienenstöcken fernhalten.",
+                "it": "Un orso che riceve miele impara a tornare: Anton vuole tenerlo lontano dalle arnie."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Medu? … Potem bo prihajal vsak dan. Z vso družino.",
+                "en": "Honey? … Then it'll come every day. With the whole family.",
+                "de": "Honig? … Dann kommt er jeden Tag. Mit der ganzen Familie.",
+                "it": "Miele? … Allora verrà tutti i giorni. Con tutta la famiglia."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? … Še enkrat, prosim. Počasi.",
+            "en": "Hm? … Once more, please. Slowly.",
+            "de": "Hm? … Noch einmal, bitte. Langsam.",
+            "it": "Mm? … Ancora una volta, per favore. Con calma."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Dobra misel. … Jutri jo postavim. … Čebele vam bodo hvaležne. In jaz tudi.",
+          "en": "A good idea. … I'll put it up tomorrow. … The bees will be grateful to you. And so will I.",
+          "de": "Eine gute Idee. … Morgen stelle ich ihn auf. … Die Bienen werden Ihnen dankbar sein. Und ich auch.",
+          "it": "Una buona idea. … Domani lo metto. … Le api Le saranno grate. E anch'io."
+        }
+      ]
+    },
+    {
+      "id": "panji-b2-koncnica",
+      "level": "B2",
+      "memory": {
+        "sl": "staro končnico s podstrešja, ki sem vam jo pokazal",
+        "en": "the old hive panel from the attic I showed you",
+        "de": "die alte Bienenstocktafel vom Dachboden, die ich Ihnen gezeigt habe",
+        "it": "la vecchia tavoletta d'arnia della soffitta che Le ho mostrato"
+      },
+      "lines": [
+        {
+          "who": "anton",
+          "face": "proud",
+          "sl": "Dober dan, {learner}. … To končnico sem našel na podstrešju, pod starim senom. … Stara je skoraj dvesto let.",
+          "en": "Good morning, {learner}. … I found this hive panel in the attic, under some old hay. … It's nearly two hundred years old.",
+          "de": "Guten Morgen, {learner}. … Diese Bienenstocktafel habe ich auf dem Dachboden gefunden, unter altem Heu. … Sie ist fast zweihundert Jahre alt.",
+          "it": "Buongiorno, {learner}. … Questa tavoletta d'arnia l'ho trovata in soffitta, sotto il fieno vecchio. … Ha quasi duecento anni."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kljub temu da je bila tako dolgo pozabljena, so barve še čisto žive.",
+              "en": "Despite its lying forgotten for so long, the colours are still quite bright.",
+              "de": "Obwohl sie so lange vergessen war, sind die Farben noch ganz lebendig.",
+              "it": "Nonostante sia rimasta dimenticata così a lungo, i colori sono ancora vivissimi.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Res je. … Kot da bi jo naslikali včeraj.",
+                "en": "That's true. … As if it had been painted yesterday.",
+                "de": "Das stimmt. … Als hätte man sie gestern gemalt.",
+                "it": "È vero. … Come se l'avessero dipinta ieri."
+              }
+            },
+            {
+              "sl": "Čeprav je bila tako dolgo pozabljena, so barve še čisto žive.",
+              "en": "Although it lay forgotten for so long, the colours are still quite bright.",
+              "de": "Obwohl sie so lange vergessen war, sind die Farben noch ganz frisch.",
+              "it": "Anche se è rimasta dimenticata così a lungo, i colori sono ancora vivi.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Res. … Les je star, barve pa mlade.",
+                "en": "True. … The wood is old, but the colours are young.",
+                "de": "Ja. … Das Holz ist alt, die Farben aber jung.",
+                "it": "Già. … Il legno è vecchio, ma i colori sono giovani."
+              }
+            },
+            {
+              "sl": "Ker je bila tako dolgo pozabljena, so barve še čisto žive.",
+              "en": "Because it lay forgotten for so long, the colours are still quite bright.",
+              "de": "Weil sie so lange vergessen war, sind die Farben noch ganz lebendig.",
+              "it": "Siccome è rimasta dimenticata così a lungo, i colori sono ancora vivi.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "The colours are fine despite the years, not because of them: kljub temu da or čeprav (although). Ker is the cause (because).",
+                "de": "Die Farben sind trotz der Jahre schön, nicht wegen ihnen: kljub temu da oder čeprav (obwohl). Ker ist der Grund (weil).",
+                "it": "I colori sono belli nonostante gli anni, non grazie a loro: kljub temu da o čeprav (anche se). Ker è la causa (perché)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ker? … Ne, ne. Na podstrešju barve ne postanejo lepše.",
+                "en": "Because? … No, no. Colours don't get prettier in an attic.",
+                "de": "Weil? … Nein, nein. Auf dem Dachboden werden Farben nicht schöner.",
+                "it": "Perché? … No, no. In soffitta i colori non diventano più belli."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? … Počasi, prosim.",
+            "en": "Hm? … Slowly, please.",
+            "de": "Hm? … Langsam, bitte.",
+            "it": "Mm? … Con calma, per favore."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "sad",
+          "sl": "Kdo jo je naslikal, ne vem. … Ded bi vedel. … Pa ga nisem nikoli vprašal, dokler je še živel.",
+          "en": "Who painted it, I don't know. … Grandfather would have known. … But I never asked him while he was still alive.",
+          "de": "Wer sie gemalt hat, weiß ich nicht. … Großvater hätte es gewusst. … Aber ich habe ihn nie gefragt, solange er noch lebte.",
+          "it": "Chi l'abbia dipinta, non lo so. … Il nonno l'avrebbe saputo. … Ma non gliel'ho mai chiesto, finché era vivo."
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Zdaj razmišljam, da bi jo dal v muzej v Radovljico. … Ampak potem je ne bi več videl vsako jutro.",
+          "en": "Now I'm thinking of giving it to the museum in Radovljica. … But then I wouldn't see it every morning any more.",
+          "de": "Jetzt überlege ich, sie dem Museum in Radovljica zu geben. … Aber dann sähe ich sie nicht mehr jeden Morgen.",
+          "it": "Adesso penso di darla al museo di Radovljica. … Ma poi non la vedrei più ogni mattina."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak tam bi jo videli vsi, ki imajo radi čebele. Tudi vaš ded bi bil ponosen.",
+              "en": "Of course, but there everyone who loves bees would see it. Your grandfather would be proud too.",
+              "de": "Natürlich, aber dort sähen sie alle, die Bienen lieben. Auch Ihr Großvater wäre stolz.",
+              "it": "Certo, ma lì la vedrebbero tutti quelli che amano le api. Anche Suo nonno ne sarebbe fiero.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Mogoče imate prav. … Tam bi imela veliko obiskovalcev.",
+                "en": "Perhaps you're right. … It would have a lot of visitors there.",
+                "de": "Vielleicht haben Sie recht. … Dort hätte sie viele Besucher.",
+                "it": "Forse ha ragione. … Lì avrebbe tanti visitatori."
+              }
+            },
+            {
+              "sl": "Res je, v muzeju jo bodo gotovo ukradli.",
+              "en": "True, at the museum they'll be sure to steal it.",
+              "de": "Stimmt, im Museum wird man sie bestimmt stehlen.",
+              "it": "È vero, al museo di sicuro la ruberanno.",
+              "why": {
+                "en": "Anton is weighing his own mornings against everyone's pleasure: grant his point (seveda) and give the museum's side, not a new fear.",
+                "de": "Anton wägt seine eigenen Morgen gegen die Freude aller ab: gib ihm recht (seveda) und nenne die Seite des Museums, keine neue Angst.",
+                "it": "Anton mette sulla bilancia le sue mattine e la gioia di tutti: dagli ragione (seveda) e mostra il lato del museo, non una nuova paura."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ukradli? … Hm. Tam jih imajo cel zid, pa so vse še tam.",
+                "en": "Steal it? … Hm. They've a whole wall of them there, and they're all still there.",
+                "de": "Stehlen? … Hm. Dort haben sie eine ganze Wand davon, und alle sind noch da.",
+                "it": "Rubarla? … Mm. Ne hanno una parete intera, e ci sono ancora tutte."
+              }
+            },
+            {
+              "sl": "Seveda, ampak tam bi jo videli vsi, ki imajo radi čebele. Tudi tvoj ded bi bil ponosen.",
+              "en": "Of course, but there everyone who loves bees would see it. Your (ti) grandfather would be proud too.",
+              "de": "Natürlich, aber dort sähen sie alle, die Bienen lieben. Auch dein Großvater wäre stolz.",
+              "it": "Certo, ma lì la vedrebbero tutti quelli che amano le api. Anche tuo nonno ne sarebbe fiero.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Anton says vi to you and expects vi back: vaš ded. Tvoj is ti, for friends and children.",
+                "de": "Anton sagt vi zu dir und erwartet vi: vaš ded. Tvoj ist ti, für Freunde und Kinder.",
+                "it": "Anton ti dà del vi e se lo aspetta: vaš ded. Tvoj è il ti, per amici e bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tvoj? … Hm. Midva sva še vedno na vi, {learner}.",
+                "en": "Your (ti)? … Hm. We're still on vi terms, {learner}.",
+                "de": "Dein? … Hm. Wir sind noch per Sie, {learner}.",
+                "it": "Tuo? … Mm. Ci diamo ancora del Lei, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? … Še enkrat, prosim. Počasi.",
+            "en": "Hm? … Once more, please. Slowly.",
+            "de": "Hm? … Noch einmal, bitte. Langsam.",
+            "it": "Mm? … Ancora una volta, per favore. Con calma."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Bom še premislil. … Počasi, kot vse pri čebelah.",
+          "en": "I'll think it over a little longer. … Slowly, like everything with bees.",
+          "de": "Ich überlege es mir noch. … Langsam, wie alles bei den Bienen.",
+          "it": "Ci penserò ancora. … Con calma, come tutto con le api."
+        }
+      ]
+    },
+    {
+      "id": "roj-b1-oce",
+      "level": "B1",
+      "memory": {
+        "sl": "dan, ko si mi {m:rekel|f:rekla}, naj ne hodim preblizu roja",
+        "en": "the day you told me not to go too close to the swarm",
+        "de": "den Tag, an dem du mir gesagt hast, ich soll dem Schwarm nicht zu nahe kommen",
+        "it": "il giorno in cui mi hai detto di non avvicinarmi troppo allo sciame"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "surprised",
+          "sl": "{learner}! Roj je spet na lipi. … Jaz bi ga kar sam ujel, kot včasih z očetom.",
+          "en": "{learner}! A swarm on the linden again. … I'd just catch it myself, like I used to with my father.",
+          "de": "{learner}! Wieder ein Schwarm auf der Linde. … Ich würde ihn glatt selbst fangen, wie früher mit meinem Vater.",
+          "it": "{learner}! Di nuovo uno sciame sul tiglio. … Lo prenderei da solo, come una volta con mio padre."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne hodite preblizu! Če jih razjezite, vas bodo pičile.",
+              "en": "Don't go too close! If you make them angry, they'll sting you.",
+              "de": "Gehen Sie nicht zu nah hin! Wenn Sie sie reizen, stechen sie Sie.",
+              "it": "Non si avvicini troppo! Se le fa arrabbiare, la pungeranno.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Prav imaš. … Stare roke, stare kosti. Počakam Antona.",
+                "en": "You're right. … Old hands, old bones. I'll wait for Anton.",
+                "de": "Recht hast du. … Alte Hände, alte Knochen. Ich warte auf Anton.",
+                "it": "Hai ragione. … Mani vecchie, ossa vecchie. Aspetto Anton."
+              }
+            },
+            {
+              "sl": "Ne pojdite preblizu! Če jih razjezite, vas bodo pičile.",
+              "en": "Don't go (once) too close! If you make them angry, they'll sting you.",
+              "de": "Gehen Sie (einmal) nicht zu nah hin! Wenn Sie sie reizen, stechen sie Sie.",
+              "it": "Non vada (una volta) troppo vicino! Se le fa arrabbiare, la pungeranno.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "Don't is said with the imperfective: ne hodite. Pojdite (go!) is the perfective, for going once, never with ne.",
+                "de": "Ein Verbot steht im unvollendeten Aspekt: ne hodite. Pojdite (geht!) ist vollendet, für einmal gehen, nie mit ne.",
+                "it": "Il divieto vuole l'imperfettivo: ne hodite. Pojdite (andate!) è perfettivo, per andare una volta, mai con ne."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ne pojdite? … Hm. Kam naj pa grem, {learner}?",
+                "en": "Don't go? … Hm. Then where am I to go, {learner}?",
+                "de": "Nicht gehen? … Hm. Wohin soll ich denn, {learner}?",
+                "it": "Non vada? … Mm. E allora dove vado, {learner}?"
+              }
+            },
+            {
+              "sl": "Ne hodi preblizu! Če jih razjeziš, te bodo pičile.",
+              "en": "Don't (ti) go too close! If you make them angry, they'll sting you.",
+              "de": "Geh nicht zu nah hin! Wenn du sie reizt, stechen sie dich.",
+              "it": "Non avvicinarti troppo! Se le fai arrabbiare, ti pungeranno.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older and expects vi: ne hodite, če jih razjezite, vas bodo. Ti is for friends and children.",
+                "de": "Janez ist älter und erwartet vi: ne hodite, če jih razjezite, vas bodo. Ti ist für Freunde und Kinder.",
+                "it": "Janez è più anziano e si aspetta il vi: ne hodite, če jih razjezite, vas bodo. Il ti è per amici e bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tikaš me? … Hm. No, čebele me tudi.",
+                "en": "You're saying ti to me? … Hm. Well, so do the bees.",
+                "de": "Du duzt mich? … Hm. Na, die Bienen auch.",
+                "it": "Mi dai del tu? … Mm. Be', anche le api."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kaj praviš?",
+            "en": "Hm? What's that?",
+            "de": "Hm? Was sagst du?",
+            "it": "Mm? Cosa dici?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Oče je pravil, da je roj enkrat odletel čez tri hribe. … Kaj misliš, zakaj gredo tako daleč?",
+          "en": "My father used to say a swarm once flew off over three hills. … Why do you think they go so far?",
+          "de": "Mein Vater erzählte, ein Schwarm sei einmal über drei Hügel geflogen. … Was meinst du, warum fliegen sie so weit?",
+          "it": "Mio padre raccontava che una volta uno sciame volò via oltre tre colline. … Secondo te, perché vanno così lontano?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mislim, da iščejo dom, v katerem bo dovolj prostora za vse.",
+              "en": "I think they're looking for a home with enough room for everyone.",
+              "de": "Ich glaube, sie suchen ein Zuhause, in dem genug Platz für alle ist.",
+              "it": "Credo che cerchino una casa in cui ci sia posto per tutte.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Tako je. … In midva jim ga bova dala: novo košaro.",
+                "en": "That's it. … And the two of us will give them one: a new basket.",
+                "de": "So ist es. … Und wir zwei geben ihnen eins: einen neuen Korb.",
+                "it": "Proprio così. … E noi due gliela daremo: un cesto nuovo."
+              }
+            },
+            {
+              "sl": "Mislim, da iščejo dom, v ki bo dovolj prostora za vse.",
+              "en": "I think they're looking for a home in which (ki) there'll be enough room for everyone.",
+              "de": "Ich glaube, sie suchen ein Zuhause, in das (ki) genug Platz für alle ist.",
+              "it": "Credo che cerchino una casa in cui (ki) ci sia posto per tutte.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "After a preposition the relative pronoun is kateri, never ki: v katerem (dom is masculine, in the locative).",
+                "de": "Nach einer Präposition heißt das Relativpronomen kateri, nie ki: v katerem (dom ist männlich, im Lokativ).",
+                "it": "Dopo una preposizione il pronome relativo è kateri, mai ki: v katerem (dom è maschile, al locativo)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "V ki? … Hm. Tega moj oče ni nikoli rekel.",
+                "en": "In ki? … Hm. My father never said that.",
+                "de": "In ki? … Hm. Das hat mein Vater nie gesagt.",
+                "it": "In ki? … Mm. Mio padre non l'ha mai detto."
+              }
+            },
+            {
+              "sl": "Mislim, da iščejo dom, v kateri bo dovolj prostora za vse.",
+              "en": "I think they're looking for a home in which (feminine) there'll be enough room for everyone.",
+              "de": "Ich glaube, sie suchen ein Zuhause, in der (weiblich) genug Platz für alle ist.",
+              "it": "Credo che cerchino una casa nella quale (femminile) ci sia posto per tutte.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "Kateri agrees with its noun: dom is masculine, so v katerem. V kateri is for a feminine one, a hiša.",
+                "de": "Kateri richtet sich nach seinem Nomen: dom ist männlich, also v katerem. V kateri ist für ein weibliches, eine hiša.",
+                "it": "Kateri concorda col suo nome: dom è maschile, quindi v katerem. V kateri è per un femminile, una hiša."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "V kateri? … V kateri hiši? Roj nima hiše, veš.",
+                "en": "In which? … Which house? A swarm hasn't got a house, you know.",
+                "de": "In welcher? … In welchem Haus? Ein Schwarm hat kein Haus, weißt du.",
+                "it": "In quale? … Quale casa? Uno sciame non ha una casa, sai."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, počasi.",
+            "en": "Hm? Once more, slowly.",
+            "de": "Hm? Noch einmal, langsam.",
+            "it": "Mm? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Pametno. … Zdaj pa tiho, Anton že gre.",
+          "en": "Wisely said. … Now hush, Anton's coming.",
+          "de": "Klug gesagt. … Jetzt still, Anton kommt schon.",
+          "it": "Saggio. … Adesso zitto, Anton sta arrivando."
+        }
+      ]
+    },
+    {
+      "id": "roj-b2-zvizgat",
+      "level": "B2",
+      "memory": {
+        "sl": "roj, ki je šel rakom žvižgat",
+        "en": "the swarm that came to nothing",
+        "de": "den Schwarm, der flöten gegangen ist",
+        "it": "lo sciame andato in fumo"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "Prepozno, {learner}. … Roj je odletel v gozd, preden sem prinesel košaro. Ves trud je šel rakom žvižgat.",
+          "en": "Too late, {learner}. … The swarm flew off into the forest before I brought the basket. All that effort has gone whistling to the crayfish, as we say.",
+          "de": "Zu spät, {learner}. … Der Schwarm ist in den Wald geflogen, bevor ich den Korb gebracht habe. Die ganze Mühe ist, wie wir sagen, zu den Krebsen pfeifen gegangen.",
+          "it": "Troppo tardi, {learner}. … Lo sciame è volato nel bosco prima che portassi il cesto. Tutta la fatica è andata, come diciamo noi, a fischiare ai gamberi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Škoda truda. Ampak čebele bodo vsaj v gozdu na svobodi.",
+              "en": "A pity about the effort. But at least the bees will be free in the forest.",
+              "de": "Schade um die Mühe. Aber wenigstens sind die Bienen im Wald frei.",
+              "it": "Peccato per la fatica. Ma almeno le api saranno libere nel bosco.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Res je. … Tudi čebela ima pravico do svoje poti.",
+                "en": "That's true. … A bee has a right to her own way too.",
+                "de": "Das stimmt. … Auch eine Biene hat ein Recht auf ihren eigenen Weg.",
+                "it": "È vero. … Anche un'ape ha diritto alla sua strada."
+              }
+            },
+            {
+              "sl": "Raki? Saj v lipi ni rakov.",
+              "en": "Crayfish? But there aren't any crayfish in the linden.",
+              "de": "Krebse? In der Linde gibt es doch keine Krebse.",
+              "it": "Gamberi? Ma sul tiglio non ci sono gamberi.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "Iti rakom žvižgat (to go whistling to the crayfish) is an idiom: it all came to nothing. Take an idiom as a whole, never word by word.",
+                "de": "Iti rakom žvižgat (zu den Krebsen pfeifen gehen) ist eine Redewendung: alles war umsonst. Nimm sie als Ganzes, nie Wort für Wort.",
+                "it": "Iti rakom žvižgat (andare a fischiare ai gamberi) è un modo di dire: tutto è andato in fumo. Prendilo intero, mai parola per parola."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Ne, ne. Raki žvižgajo samo v starih rekih.",
+                "en": "Ha! No, no. Crayfish only whistle in old sayings.",
+                "de": "Ha! Nein, nein. Krebse pfeifen nur in alten Sprüchen.",
+                "it": "Ah! No, no. I gamberi fischiano solo nei vecchi detti."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kaj praviš?",
+            "en": "Hm? What's that?",
+            "de": "Hm? Was sagst du?",
+            "it": "Mm? Cosa dici?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Moj oče bi ga bil ujel. … Vedno je imel košaro pri roki.",
+          "en": "My father would have caught it. … He always had a basket to hand.",
+          "de": "Mein Vater hätte ihn gefangen. … Er hatte immer einen Korb zur Hand.",
+          "it": "Mio padre l'avrebbe preso. … Aveva sempre un cesto a portata di mano."
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Imel je roke, kot da bi bile iz medu: čebele so mu kar same sedale nanje.",
+          "en": "He had hands as if they were made of honey: the bees just settled on them by themselves.",
+          "de": "Er hatte Hände, als wären sie aus Honig: die Bienen setzten sich ganz von allein darauf.",
+          "it": "Aveva mani come se fossero di miele: le api ci si posavano da sole."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Namesto da bi se jezili, raje počakajva na naslednji roj. Saj bo še kakšen.",
+              "en": "Instead of getting cross, let's wait for the next swarm. There'll be another.",
+              "de": "Statt uns zu ärgern, warten wir lieber auf den nächsten Schwarm. Es kommt schon noch einer.",
+              "it": "Invece di arrabbiarsi, aspettiamo il prossimo sciame. Ce ne sarà un altro.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Prav imaš. … Kdor čaka, dočaka.",
+                "en": "You're right. … Good things come to those who wait.",
+                "de": "Recht hast du. … Wer warten kann, dem kommt alles.",
+                "it": "Hai ragione. … Chi la dura la vince."
+              }
+            },
+            {
+              "sl": "Namesto da bi se jezite, raje počakajva na naslednji roj. Saj bo še kakšen.",
+              "en": "Instead of you get (present) cross, let's wait for the next swarm. There'll be another.",
+              "de": "Statt dass Sie sich ärgern (Präsens nach bi), warten wir lieber auf den nächsten Schwarm. Es kommt schon noch einer.",
+              "it": "Invece di arrabbiarsi (presente dopo bi), aspettiamo il prossimo sciame. Ce ne sarà un altro.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Namesto da bi (instead of) takes the conditional, bi and the l-form: namesto da bi se jezili. Jezite is the present.",
+                "de": "Namesto da bi (statt) verlangt den Konditional, bi und die l-Form: namesto da bi se jezili. Jezite ist das Präsens.",
+                "it": "Namesto da bi (invece di) vuole il condizionale, bi e la forma in -l: namesto da bi se jezili. Jezite è il presente."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Jezite? … Hm, saj se ne jezim. Vsaj ne zelo.",
+                "en": "Get cross? … Hm, I'm not cross. Not very, anyway.",
+                "de": "Ärgern? … Hm, ich ärgere mich doch gar nicht. Jedenfalls nicht sehr.",
+                "it": "Arrabbiarsi? … Mm, non sono arrabbiato. Non tanto, almeno."
+              }
+            },
+            {
+              "sl": "Namesto da bi se jezil, raje počakajva na naslednji roj. Saj bo še kakšen.",
+              "en": "Instead of getting (ti) cross, let's wait for the next swarm. There'll be another.",
+              "de": "Statt dich zu ärgern, warten wir lieber auf den nächsten Schwarm. Es kommt schon noch einer.",
+              "it": "Invece di arrabbiarti, aspettiamo il prossimo sciame. Ce ne sarà un altro.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older and expects vi: the plural l-form, namesto da bi se jezili. Jezil is ti.",
+                "de": "Janez ist älter und erwartet vi: die l-Form im Plural, namesto da bi se jezili. Jezil ist ti.",
+                "it": "Janez è più anziano e si aspetta il vi: la forma in -l al plurale, namesto da bi se jezili. Jezil è il ti."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tikaš me? … No, danes ti oprostim.",
+                "en": "You're saying ti to me? … Well, I'll forgive you today.",
+                "de": "Du duzt mich? … Na, heute verzeihe ich dir.",
+                "it": "Mi dai del tu? … Be', oggi te lo perdono."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, počasi.",
+            "en": "Hm? Once more, slowly.",
+            "de": "Hm? Noch einmal, langsam.",
+            "it": "Mm? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Tako je. … In naslednjič bo košara že pod lipo, preden pride roj.",
+          "en": "That's it. … And next time the basket will be under the linden before the swarm comes.",
+          "de": "So ist es. … Und nächstes Mal steht der Korb schon unter der Linde, bevor der Schwarm kommt.",
+          "it": "Proprio così. … E la prossima volta il cesto sarà già sotto il tiglio prima che arrivi lo sciame."
+        }
       ]
     }
   ]

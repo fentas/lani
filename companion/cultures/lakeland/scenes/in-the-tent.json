@@ -5,7 +5,7 @@
   "title": { "en": "In the tent", "sl": "V šotoru", "it": "Nella tenda", "de": "Im Zelt" },
   "emoji": "⛺",
   "level": "A1",
-  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not native-checked; B1, B2 variants too",
   "art": "tent",
   "from": ["tent"],
   "pack": "in-the-tent",
@@ -31,7 +31,7 @@
   "happenings": [
     {
       "id": "rain", "title": { "en": "Shepherd Jack shelters from the rain", "sl": "Pastir Jack se skrije pred dežjem", "it": "Il pastore Jack si ripara dalla pioggia", "de": "Schäfer Jack sucht Schutz vor dem Regen" }, "who": "jack",
-      "when": ["morning", "afternoon"], "chance": 0.3, "dialog": "rain", "dialogs": ["rain-thunder", "rain"], "reward": { "wood": 15 }, "marker": "🌧️",
+      "when": ["morning", "afternoon"], "chance": 0.3, "dialog": "rain", "dialogs": ["rain-b2-alfie", "rain-b1-forecast", "rain-thunder", "rain"], "reward": { "wood": 15 }, "marker": "🌧️",
       "memory": { "en": "the day you let me in out of the rain", "sl": "dan, ko si me {m:spustil|f:spustila} noter pred dežjem", "it": "il giorno in cui mi hai fatto entrare al riparo dalla pioggia", "de": "den Tag, an dem du mich vor dem Regen hereingelassen hast" }
     },
     {
@@ -46,7 +46,7 @@
     },
     {
       "id": "evening", "title": { "en": "A summer evening at the tent", "sl": "Poletni večer pri šotoru", "it": "Una sera d'estate alla tenda", "de": "Ein Sommerabend am Zelt" }, "who": "jack",
-      "when": ["evening"], "months": [5, 6, 7, 8, 9], "chance": 0.45, "dialog": "evening", "dialogs": ["evening-lantern", "evening"], "reward": { "wood": 15 }, "marker": "🏮",
+      "when": ["evening"], "months": [5, 6, 7, 8, 9], "chance": 0.45, "dialog": "evening", "dialogs": ["evening-b2-midges", "evening-b1-door", "evening-lantern", "evening"], "reward": { "wood": 15 }, "marker": "🏮",
       "memory": { "en": "the summer evening and the midges", "sl": "poletni večer in mušice", "it": "la sera d'estate e i moscerini", "de": "den Sommerabend und die Mücken" }
     }
   ],
@@ -239,6 +239,80 @@
             "why": { "en": "After did, the base form: did he use it? The past is in did already.", "sl": "Za did osnovna oblika: did he use it? Pretekli čas je že v did.", "it": "Dopo did la forma base: did he use it? Il passato è già in did.", "de": "Nach did die Grundform: did he use it? Die Vergangenheit steckt schon in did." }, "reply": { "face": "curious", "en": "Used it? Aye, he did! But ask me again, mate.", "sl": "Used it? Ja, je! Ampak vprašaj me še enkrat.", "it": "Used it? Sì, certo! Ma chiedimelo di nuovo, {m:amico|f:amica}.", "de": "Used it? Ja, hat er! Aber frag mich noch mal, Kumpel." } }
         ] },
         { "who": "jack", "en": "I'll leave it on for you tonight. Sleep well, mate.", "sl": "Nocoj ti jo pustim prižgano. Lepo spi, {m:prijatelj|f:prijateljica}.", "it": "Stanotte te la lascio accesa. Dormi bene, {m:amico|f:amica}.", "de": "Ich lasse sie heute Nacht für dich an. Schlaf gut, Kumpel.", "fx": { "lantern": 1 } }
+      ]
+    },
+    {
+      "id": "rain-b2-alfie", "level": "B2",
+      "memory": {"en": "the day Alfie was right about the rain", "sl": "dan, ko je imel Alfie prav glede dežja", "it": "il giorno in cui Alfie aveva ragione sulla pioggia", "de": "den Tag, an dem Alfie mit dem Regen recht hatte"},
+      "lines": [
+        {"who": "jack", "face": "worried", "en": "Phew! Thanks for letting me in. I was right up on the tops when it started.", "sl": "Uf! Hvala, da si me {m:spustil|f:spustila} noter. Bil sem čisto na vrhu, ko se je začelo.", "it": "Uff! Grazie di avermi fatto entrare. Ero proprio in cima quando è cominciato.", "de": "Puh! Danke, dass du mich reinlässt. Ich war ganz oben, als es anfing."},
+        {"who": "jack", "face": "laugh", "en": "And Alfie told me this morning: \"Don't go up, Jack! It's going to rain!\"", "sl": "Alfie mi je pa zjutraj rekel: »Ne hodi gor, Jack! Deževalo bo!«", "it": "E stamattina Alfie mi ha detto: »Non salire, Jack! Pioverà!«", "de": "Und Alfie hat mir heute Morgen gesagt: »Geh nicht rauf, Jack! Es wird regnen!«"},
+        {"who": "jack", "face": "curious", "en": "So what did Alfie do, then? Say it properly.", "sl": "Kaj je torej storil Alfie? Povej pravilno.", "it": "Allora, che cos'ha fatto Alfie? Dillo bene.", "de": "Was hat Alfie also getan? Sag's richtig."},
+        { "choices": [
+          {"en": "Alfie warned you not to go up.", "sl": "Alfie te je posvaril, naj ne greš gor.", "it": "Alfie ti ha avvertito di non salire.", "de": "Alfie hat dich gewarnt, nicht raufzugehen.", "ok": true, "reply": {"face": "laugh", "en": "He did. Six years old, and he was right.", "sl": "Res je. Šest let ima in imel je prav.", "it": "Proprio così. Sei anni, e aveva ragione.", "de": "Hat er. Sechs Jahre alt, und er hatte recht."}},
+          {"en": "Alfie warned you don't go up.", "sl": "Alfie te je posvaril, naj ne greš gor.", "it": "Alfie ti ha avvertito di non salire.", "de": "Alfie hat dich gewarnt, nicht raufzugehen.", "grammar": "reporting-verbs", "why": {"en": "Warn takes someone + not to: warned you not to go up.", "sl": "Warn zahteva nekoga + not to: warned you not to go up.", "it": "Warn vuole qualcuno + not to: warned you not to go up.", "de": "Warn nimmt jemanden + not to: warned you not to go up."}, "reply": {"face": "laugh", "en": "Don't go up? Bit late for that, mate!", "sl": "Don't go up? Malo pozno za to, prijatelj!", "it": "Don't go up? Un po' tardi, amico!", "de": "Don't go up? Etwas spät dafür, Kumpel!"}}
+        ] },
+        {"who": "jack", "face": "thinking", "en": "And I went up anyway. Daft.", "sl": "Pa sem vseeno šel gor. Neumno.", "it": "E sono salito lo stesso. Che sciocco.", "de": "Und ich bin trotzdem rauf. Dumm."},
+        { "choices": [
+          {"en": "You could have waited till the afternoon.", "sl": "Lahko bi počakal do popoldneva.", "it": "Avresti potuto aspettare fino al pomeriggio.", "de": "Du hättest bis zum Nachmittag warten können.", "ok": true, "reply": {"en": "Aye. Or brought a coat. Either would've done.", "sl": "Ja. Ali vzel plašč. Oboje bi zadostovalo.", "it": "Sì. O portare un cappotto. Sarebbe andata bene l'una o l'altra.", "de": "Ja. Oder einen Mantel mitnehmen. Beides hätte gereicht."}},
+          {"en": "You could waited till the afternoon.", "sl": "Lahko bi počakal do popoldneva.", "it": "Avresti potuto aspettare fino al pomeriggio.", "de": "Du hättest bis zum Nachmittag warten können.", "grammar": "past-modals", "why": {"en": "For a chance you didn't take: could have + the participle, could have waited.", "sl": "Za priložnost, ki je nisi izkoristil: could have + deležnik, could have waited.", "it": "Per un'occasione non colta: could have + il participio, could have waited.", "de": "Für eine Chance, die man nicht genutzt hat: could have + Partizip, could have waited."}, "reply": {"face": "laugh", "en": "Could waited? You've lost a word in the rain, mate.", "sl": "Could waited? V dežju si izgubil besedo, prijatelj.", "it": "Could waited? Hai perso una parola sotto la pioggia, amico.", "de": "Could waited? Du hast im Regen ein Wort verloren, Kumpel."}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Next time I'll listen to Alfie. Don't tell him I said that!", "sl": "Naslednjič bom poslušal Alfieja. Ampak mu ne povej, da sem to rekel!", "it": "La prossima volta ascolterò Alfie. Non dirgli che l'ho detto!", "de": "Nächstes Mal hör ich auf Alfie. Sag ihm nicht, dass ich das gesagt hab!"}
+      ]
+    },
+    {
+      "id": "rain-b1-forecast", "level": "B1",
+      "memory": {"en": "the sunny forecast and the pouring rain", "sl": "sončno napoved in nalivni dež", "it": "le previsioni di sole e la pioggia a dirotto", "de": "den sonnigen Wetterbericht und den Platzregen"},
+      "lines": [
+        {"who": "jack", "face": "worried", "en": "{learner}! It's pouring! Can I come in? The radio said it'd be sunny!", "sl": "{learner}! Lije kot iz škafa! Lahko pridem noter? Radio je rekel, da bo sončno!", "it": "{learner}! Piove a dirotto! Posso entrare? La radio diceva che ci sarebbe stato il sole!", "de": "{learner}! Es schüttet! Darf ich rein? Im Radio hieß es, es wird sonnig!"},
+        {"who": "jack", "face": "curious", "en": "You heard it too, didn't you? What did they tell us?", "sl": "Tudi ti si {m:slišal|f:slišala}, kajne? Kaj so nam povedali?", "it": "L'hai sentito anche tu, vero? Che cosa ci hanno detto?", "de": "Du hast es doch auch gehört, oder? Was haben sie uns gesagt?"},
+        { "choices": [
+          {"en": "They told us it would be dry all day.", "sl": "Rekli so nam, da bo ves dan suho.", "it": "Ci hanno detto che sarebbe stato asciutto tutto il giorno.", "de": "Sie haben uns gesagt, es bleibt den ganzen Tag trocken.", "ok": true, "reply": {"face": "laugh", "en": "Dry! Look at me, mate. I'm a puddle with boots on.", "sl": "Suho! Poglej me, prijatelj. Luža v čevljih sem.", "it": "Asciutto! Guardami, amico. Sono una pozzanghera con gli scarponi.", "de": "Trocken! Schau mich an, Kumpel. Ich bin eine Pfütze mit Stiefeln."}},
+          {"en": "They said us it would be dry all day.", "sl": "Rekli so nam, da bo ves dan suho.", "it": "Ci hanno detto che sarebbe stato asciutto tutto il giorno.", "de": "Sie haben uns gesagt, es bleibt den ganzen Tag trocken.", "grammar": "reported-speech", "why": {"en": "Say takes what was said, tell takes who: they told us, or they said it would be …", "sl": "Say pove, kaj je bilo rečeno, tell komu: they told us ali they said it would be …", "it": "Say regge ciò che si dice, tell la persona: they told us, oppure they said it would be …", "de": "Say nimmt das Gesagte, tell die Person: they told us oder they said it would be …"}, "reply": {"face": "confused", "en": "Said us? Said what, mate? I can't hear for the rain.", "sl": "Said us? Kaj, prijatelj? Zaradi dežja ne slišim.", "it": "Said us? Cosa, amico? Con la pioggia non sento.", "de": "Said us? Was, Kumpel? Ich hör nichts bei dem Regen."}}
+        ] },
+        {"who": "jack", "en": "Meg's coming in too, mind. She's dripping. And she smells a bit.", "sl": "Meg pride tudi noter, da veš. Vsa kaplja. In malo smrdi.", "it": "Viene dentro anche Meg, eh. Gocciola. E puzza un po'.", "de": "Meg kommt auch rein, nur dass du's weißt. Sie tropft. Und sie riecht ein bisschen."},
+        {"who": "jack", "face": "curious", "en": "You don't mind, do you?", "sl": "Saj ti ni nerodno, kajne?", "it": "Non ti dispiace, vero?", "de": "Das macht dir doch nichts aus, oder?"},
+        { "choices": [
+          {"en": "I don't mind sharing with a wet dog.", "sl": "Ne moti me, da si delim šotor z mokrim psom.", "it": "Non mi dispiace dividere la tenda con un cane bagnato.", "de": "Es macht mir nichts aus, mit einem nassen Hund zu teilen.", "ok": true, "reply": {"face": "laugh", "en": "Good, because she's already in your sleeping bag.", "sl": "Dobro, ker je že v tvoji spalni vreči.", "it": "Bene, perché è già nel tuo sacco a pelo.", "de": "Gut, sie liegt nämlich schon in deinem Schlafsack."}},
+          {"en": "I don't mind to share with a wet dog.", "sl": "Ne moti me, da si delim šotor z mokrim psom.", "it": "Non mi dispiace dividere la tenda con un cane bagnato.", "de": "Es macht mir nichts aus, mit einem nassen Hund zu teilen.", "grammar": "verb-patterns", "why": {"en": "Mind takes -ing: don't mind sharing. To + the base form goes after want, decide, hope.", "sl": "Mind zahteva -ing: don't mind sharing. To z osnovno obliko gre za want, decide, hope.", "it": "Mind vuole -ing: don't mind sharing. To + la forma base va dopo want, decide, hope.", "de": "Mind nimmt -ing: don't mind sharing. To + Grundform steht nach want, decide, hope."}, "reply": {"face": "confused", "en": "Mind to share? Say it again, mate. The rain's too loud.", "sl": "Mind to share? Še enkrat povej, dež je preglasen.", "it": "Mind to share? Ripeti, amico. La pioggia fa troppo rumore.", "de": "Mind to share? Sag's noch mal, Kumpel. Der Regen ist zu laut."}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Ten minutes, the rain stops, and we're off. Cheers, mate!", "sl": "Deset minut, dež poneha in gremo. Hvala, prijatelj!", "it": "Dieci minuti, smette di piovere e andiamo. Grazie, amico!", "de": "Zehn Minuten, der Regen hört auf, und wir sind weg. Danke, Kumpel!"}
+      ]
+    },
+    {
+      "id": "evening-b2-midges", "level": "B2",
+      "memory": {"en": "the still evening of a million midges", "sl": "miren večer z milijonom mušic", "it": "la sera senza vento con un milione di moscerini", "de": "den windstillen Abend mit einer Million Mücken"},
+      "lines": [
+        {"who": "jack", "en": "Evening, mate. Still as a pond tonight. Not a breath of wind, and that means one thing.", "sl": "Dober večer, prijatelj. Nocoj je mirno kot ribnik. Niti sapice in to pomeni samo eno.", "it": "Buonasera, amico. Stasera è calmo come uno stagno. Neanche un filo di vento, e questo vuol dire una cosa sola.", "de": "Abend, Kumpel. Still wie ein Teich heute. Kein Lüftchen, und das heißt nur eins."},
+        {"who": "jack", "face": "worried", "en": "Midges. Millions of them. And they're all hungry.", "sl": "Mušice. Milijoni. In vse so lačne.", "it": "I moscerini. Milioni. E tutti affamati.", "de": "Mücken. Millionen. Und alle hungrig."},
+        { "choices": [
+          {"en": "Every one of them is after us!", "sl": "Prav vsaka se je spravila na naju!", "it": "Ognuno di loro ce l'ha con noi!", "de": "Jede einzelne ist hinter uns her!", "ok": true, "reply": {"face": "laugh", "en": "Every one! Quick, over by the fire.", "sl": "Prav vsaka! Hitro, k ognju.", "it": "Ognuno! Presto, vicino al fuoco.", "de": "Jede einzelne! Schnell, rüber ans Feuer."}},
+          {"en": "Every of them is after us!", "sl": "Prav vsaka se je spravila na naju!", "it": "Ognuno di loro ce l'ha con noi!", "de": "Jede einzelne ist hinter uns her!", "grammar": "quantifiers", "why": {"en": "Before of you need one: every one of them. Every alone goes straight before a noun: every midge.", "sl": "Pred of potrebuješ one: every one of them. Sam every stoji tik pred samostalnikom: every midge.", "it": "Prima di of ci vuole one: every one of them. Every da solo va subito prima del nome: every midge.", "de": "Vor of braucht man one: every one of them. Every allein steht direkt vor dem Nomen: every midge."}, "reply": {"face": "laugh", "en": "Every of them? Mate, the midges have eaten your words.", "sl": "Every of them? Prijatelj, mušice so ti pojedle besede.", "it": "Every of them? Amico, i moscerini ti hanno mangiato le parole.", "de": "Every of them? Kumpel, die Mücken haben deine Wörter gefressen."}}
+        ] },
+        {"who": "jack", "face": "curious", "en": "What do you do about them where you come from?", "sl": "Kaj pa naredite proti njim tam, od koder prihajaš?", "it": "Che cosa fate contro di loro dalle tue parti?", "de": "Was macht ihr gegen die, wo du herkommst?"},
+        { "choices": [
+          {"en": "Living near a lake, we always burn citronella candles.", "sl": "Ker živimo ob jezeru, vedno prižigamo citronelne sveče.", "it": "Vivendo vicino a un lago, accendiamo sempre candele alla citronella.", "de": "Da wir an einem See wohnen, zünden wir immer Zitronellakerzen an.", "ok": true, "reply": {"face": "happy", "en": "Candles! I'll try that. Smoke's all I've got.", "sl": "Sveče! To bom poskusil. Jaz imam samo dim.", "it": "Candele! Proverò. Io ho solo il fumo.", "de": "Kerzen! Probier ich aus. Ich hab nur Rauch."}},
+          {"en": "Lived near a lake, we always burn citronella candles.", "sl": "Ker živimo ob jezeru, vedno prižigamo citronelne sveče.", "it": "Vivendo vicino a un lago, accendiamo sempre candele alla citronella.", "de": "Da wir an einem See wohnen, zünden wir immer Zitronellakerzen an.", "grammar": "participle-clauses", "why": {"en": "One subject, two clauses: the first gets -ing. Living near a lake, we burn …", "sl": "En osebek, dva stavka: prvi dobi -ing. Living near a lake, we burn …", "it": "Un soggetto, due frasi: la prima prende -ing. Living near a lake, we burn …", "de": "Ein Subjekt, zwei Sätze: Der erste bekommt -ing. Living near a lake, we burn …"}, "reply": {"face": "confused", "en": "Lived? When? Now? You've lost me, mate.", "sl": "Lived? Kdaj? Zdaj? Zmedel si me, prijatelj.", "it": "Lived? Quando? Adesso? Mi sono perso, amico.", "de": "Lived? Wann? Jetzt? Da komm ich nicht mit, Kumpel."}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Here, sit in the smoke. Smells like bacon, and the midges hate it.", "sl": "Na, sedi v dim. Diši po slanini in mušice ga sovražijo.", "it": "Tieni, siediti nel fumo. Sa di pancetta, e i moscerini lo odiano.", "de": "Hier, setz dich in den Rauch. Riecht nach Speck, und die Mücken hassen ihn."}
+      ]
+    },
+    {
+      "id": "evening-b1-door", "level": "B1",
+      "memory": {"en": "the tent door left open for the midges", "sl": "šotorska vrata, odprta za mušice", "it": "la porta della tenda lasciata aperta ai moscerini", "de": "die Zelttür, die für die Mücken offen stand"},
+      "lines": [
+        {"who": "jack", "face": "worried", "en": "Ow! The midges are out! It's a still summer evening.", "sl": "Av! Mušice so zunaj! Miren poletni večer je.", "it": "Ahi! Sono usciti i moscerini! È una sera d'estate senza vento.", "de": "Au! Die Mücken sind da! Ein windstiller Sommerabend."},
+        { "choices": [
+          {"en": "They're terrible tonight, aren't they?", "sl": "Nocoj so grozne, kajne?", "it": "Stasera sono terribili, vero?", "de": "Heute sind sie furchtbar, oder?", "ok": true, "reply": {"face": "laugh", "en": "Terrible. They love me. Always have.", "sl": "Grozne. Rade me imajo. Od nekdaj.", "it": "Terribili. Mi adorano. Da sempre.", "de": "Furchtbar. Sie lieben mich. Schon immer."}},
+          {"en": "They're terrible tonight, don't they?", "sl": "Nocoj so grozne, kajne?", "it": "Stasera sono terribili, vero?", "de": "Heute sind sie furchtbar, oder?", "grammar": "question-tags", "why": {"en": "Take the helping verb from the sentence: they're, so aren't they?", "sl": "Vzemi pomožni glagol iz stavka: they're, torej aren't they?", "it": "Prendi l'ausiliare dalla frase: they're, quindi aren't they?", "de": "Nimm das Hilfsverb aus dem Satz: they're, also aren't they?"}, "reply": {"face": "laugh", "en": "Don't they what, mate? Bite? Aye, they do!", "sl": "Don't they kaj, prijatelj? Grizejo? Ja, grizejo!", "it": "Don't they cosa, amico? Pungere? Sì, pungono!", "de": "Don't they was, Kumpel? Stechen? Ja, das tun sie!"}}
+        ] },
+        {"who": "jack", "face": "thinking", "en": "Last night they got into my tent. I woke up covered in bites.", "sl": "Sinoči so mi prišle v šotor. Zbudil sem se ves opikan.", "it": "Ieri sera sono entrati nella mia tenda. Mi sono svegliato pieno di punture.", "de": "Letzte Nacht sind sie in mein Zelt gekommen. Ich bin voller Stiche aufgewacht."},
+        {"who": "jack", "face": "curious", "en": "How did they get in, do you reckon?", "sl": "Kako so prišle noter, kaj misliš?", "it": "Come sono entrati, secondo te?", "de": "Wie sind sie wohl reingekommen?"},
+        { "choices": [
+          {"en": "You'd left the door open, I bet.", "sl": "Gotovo si pustil vrata odprta.", "it": "Scommetto che avevi lasciato la porta aperta.", "de": "Du hattest bestimmt die Tür offen gelassen.", "ok": true, "reply": {"face": "laugh", "en": "Wide open. Like a hotel for midges.", "sl": "Na stežaj. Kot hotel za mušice.", "it": "Spalancata. Come un albergo per moscerini.", "de": "Sperrangelweit. Wie ein Hotel für Mücken."}},
+          {"en": "You'd leaved the door open, I bet.", "sl": "Gotovo si pustil vrata odprta.", "it": "Scommetto che avevi lasciato la porta aperta.", "de": "Du hattest bestimmt die Tür offen gelassen.", "grammar": "past-perfect", "why": {"en": "Had + the participle: had left. Leave is irregular, with no -ed.", "sl": "Had + deležnik: had left. Leave je nepravilen, brez -ed.", "it": "Had + il participio: had left. Leave è irregolare, senza -ed.", "de": "Had + Partizip: had left. Leave ist unregelmäßig, ohne -ed."}, "reply": {"face": "curious", "en": "Leaved? Is that a word where you come from, mate?", "sl": "Leaved? Je to beseda tam, od koder prihajaš?", "it": "Leaved? È una parola dalle tue parti, amico?", "de": "Leaved? Ist das ein Wort, wo du herkommst, Kumpel?"}}
+        ] },
+        {"who": "jack", "face": "happy", "en": "Right, smoke from the fire. They hate smoke. Come and sit by it.", "sl": "Prav, dim od ognja. Dima ne marajo. Pridi, sedi zraven.", "it": "Bene, il fumo del fuoco. Lo odiano. Vieni a sederti vicino.", "de": "So, Rauch vom Feuer. Rauch hassen sie. Komm, setz dich dazu."}
       ]
     }
   ]

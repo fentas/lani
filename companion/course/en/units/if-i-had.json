@@ -965,6 +965,176 @@
           }
         }
       ]
+    },
+    {
+      "id": "if-i-had-4",
+      "title": {
+        "sl": "Povej in napiši",
+        "de": "Sprich und schreib",
+        "it": "Parla e scrivi",
+        "en": "Speak and write"
+      },
+      "exercises": [
+        {
+          "type": "speaking",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Say it aloud · Povej na glas",
+            "de": "Say it aloud · Sag es laut",
+            "it": "Say it aloud · Dillo ad alta voce",
+            "en": "Say it aloud"
+          },
+          "prompt": {
+            "sl": "Lije kot iz škafa in Jack te vpraša, ali greš z njim na fell (hrib). Povej: Če ne bi deževalo, bi {m:šel|f:šla} s tabo.",
+            "de": "Es schüttet, und Jack fragt, ob du mit ihm auf den Fell (den Berg) gehst. Sag: Wenn es nicht regnen würde, käme ich mit.",
+            "it": "Piove a dirotto e Jack ti chiede se sali con lui sul fell (il monte). Di': Se non piovesse, verrei con te.",
+            "en": "It's pouring, and Jack asks if you're coming up the fell with him. Tell him you'd come, but for the rain: if + the past, then would."
+          },
+          "say": "If it weren't raining, I would come with you.",
+          "accept": [
+            "I would come with you if it weren't raining.",
+            "If it weren't raining, I would come up the fell with you.",
+            "If it weren't raining, I would go with you.",
+            "I would go with you if it weren't raining.",
+            "If it stopped raining, I would come with you.",
+            "I would come with you if it stopped raining."
+          ],
+          "spoken": [
+            "If it wasn't raining, I'd come with you.",
+            "I'd come with you if it wasn't raining.",
+            "If it wasn't raining, I'd go with you."
+          ],
+          "show": false,
+          "explain": {
+            "sl": "**if + preteklik, nato would**: dežuje, zato je samo zamišljeno\n- If it weren't raining, I'd come with you.\n- If it wasn't raining · tako tudi govorijo, pisno were",
+            "de": "**if + Vergangenheit, dann would**: es regnet, also nur gedacht\n- If it weren't raining, I'd come with you.\n- If it wasn't raining · so sagt man es auch, geschrieben were",
+            "it": "**if + il passato, poi would**: piove, quindi è solo immaginato\n- If it weren't raining, I'd come with you.\n- If it wasn't raining · si dice anche così, per iscritto were",
+            "en": "**if + the past, then would**: it is raining, so it's only imagined\n- If it weren't raining, I'd come with you.\n- If it wasn't raining · what people say too, writing wants were"
+          }
+        },
+        {
+          "type": "speaking",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Answer aloud · Odgovori na glas",
+            "de": "Answer aloud · Antworte laut",
+            "it": "Answer aloud · Rispondi ad alta voce",
+            "en": "Answer aloud"
+          },
+          "prompt": {
+            "sl": "Mrs Hartley vpraša, kaj bi {m:naredil|f:naredila}, če bi na hribu {m:našel|f:našla} veliko denarja. Odgovori z would (I'd …).",
+            "de": "Mrs Hartley fragt, was du tun würdest, wenn du auf dem Fell viel Geld finden würdest. Antworte mit would (I'd …).",
+            "it": "Mrs Hartley ti chiede che cosa faresti se trovassi un sacco di soldi sul fell. Rispondi con would (I'd …).",
+            "en": "Mrs Hartley asks what you would do if you found a lot of money on the fell. Answer with would (I'd …)."
+          },
+          "ask": "What would you do if you found a lot of money on the fell?",
+          "say": "If I found a lot of money, I would take it to the police.",
+          "accept": [
+            "I would take it to the police."
+          ],
+          "must": [
+            {
+              "label": {
+                "sl": "would (ali could, might) + glagol: I'd …",
+                "de": "would (oder could, might) + Verb: I'd …",
+                "it": "would (o could, might) + verbo: I'd …",
+                "en": "would (or could, might) + a verb: I'd …"
+              },
+              "any": [
+                "would",
+                "could",
+                "might"
+              ]
+            }
+          ],
+          "min_words": 4,
+          "explain": {
+            "sl": "**would + glagol** v drugi polovici; 'd je would\n- I'd take it to the police.\n- I could buy a horse.",
+            "de": "**would + Verb** in der anderen Hälfte; 'd ist would\n- I'd take it to the police.\n- I could buy a horse.",
+            "it": "**would + verbo** nell'altra metà; 'd è would\n- I'd take it to the police.\n- I could buy a horse.",
+            "en": "**would + the verb** in the other half; 'd is would\n- I'd take it to the police.\n- I could buy a horse."
+          }
+        },
+        {
+          "type": "writing",
+          "grammar": "second-conditional",
+          "instruction": {
+            "sl": "Write · Napiši",
+            "de": "Write · Schreib",
+            "it": "Write · Scrivi",
+            "en": "Write"
+          },
+          "prompt": {
+            "sl": "Mrs Birkett razmišlja, da bi prodala gostilno Packhorse Inn. Napiši ji kratko sporočilo: kakšna bi bila vas brez gostilne in kaj bi na njenem mestu {m:naredil|f:naredila} ti?",
+            "de": "Mrs Birkett überlegt, das Packhorse Inn zu verkaufen. Schreib ihr eine kurze Nachricht: Wie wäre das Dorf ohne das Gasthaus, und was würdest du an ihrer Stelle tun?",
+            "it": "Mrs Birkett pensa di vendere il Packhorse Inn. Scrivile un breve messaggio: come sarebbe il paese senza la locanda, e che cosa faresti tu al suo posto?",
+            "en": "Mrs Birkett is thinking of selling the Packhorse Inn. Write her a short note: what would the village be like without the inn, and what would you do in her place?"
+          },
+          "model": "Dear Mrs Birkett, if you sold the inn, the village would be very quiet. We would have nowhere to meet on Friday nights, and the walkers would not stop here any more. If I were you, I would keep it and ask the young people to help. Please don't sell it! Best wishes, {learner}",
+          "must": [
+            {
+              "label": {
+                "sl": "if + preteklik (if you sold, if I were)",
+                "de": "if + Vergangenheit (if you sold, if I were)",
+                "it": "if + il passato (if you sold, if I were)",
+                "en": "if + the past (if you sold, if I were)"
+              },
+              "any": [
+                "if … *ed",
+                "if … were",
+                "if … was",
+                "if … had",
+                "if … could",
+                "if … did",
+                "if … knew",
+                "if … sold",
+                "if … won",
+                "if … went",
+                "if … found",
+                "if … got"
+              ]
+            },
+            {
+              "label": {
+                "sl": "dvakrat would (ali could, might)",
+                "de": "zweimal would (oder could, might)",
+                "it": "due volte would (o could, might)",
+                "en": "would (or could, might) twice"
+              },
+              "any": [
+                "would",
+                "could",
+                "might"
+              ],
+              "n": 2
+            }
+          ],
+          "avoid": [
+            {
+              "any": [
+                "if i would",
+                "if we would"
+              ],
+              "explain": {
+                "sl": "**If I knew**, ne *if I would know*: za if pride preteklik, would je v drugi polovici",
+                "de": "**If I knew**, nicht *if I would know*: nach if kommt die Vergangenheit, would steht in der anderen Hälfte",
+                "it": "**If I knew**, non *if I would know*: dopo if viene il passato, would va nell'altra metà",
+                "en": "**If I knew**, not *if I would know*: after if comes the past, would goes in the other half"
+              }
+            }
+          ],
+          "length": {
+            "min": 25,
+            "max": 60
+          },
+          "explain": {
+            "sl": "**if + preteklik, nato would**\n- If you sold the inn, the village would be quiet.\n- If I were you, I would keep it.",
+            "de": "**if + Vergangenheit, dann would**\n- If you sold the inn, the village would be quiet.\n- If I were you, I would keep it.",
+            "it": "**if + il passato, poi would**\n- If you sold the inn, the village would be quiet.\n- If I were you, I would keep it.",
+            "en": "**if + the past, then would**\n- If you sold the inn, the village would be quiet.\n- If I were you, I would keep it."
+          }
+        }
+      ]
     }
   ],
   "test": {
@@ -1190,9 +1360,109 @@
           "it": "**Un consiglio: If I were you, I'd …**\n- Take a coat. → If I were you, I'd take a coat.",
           "en": "**Advice: If I were you, I'd …**\n- Take a coat. → If I were you, I'd take a coat."
         }
+      },
+      {
+        "type": "speaking",
+        "grammar": "second-conditional",
+        "instruction": {
+          "sl": "Answer aloud · Odgovori na glas",
+          "de": "Answer aloud · Antworte laut",
+          "it": "Answer aloud · Rispondi ad alta voce",
+          "en": "Answer aloud"
+        },
+        "prompt": {
+          "sl": "Mrs Hartley vpraša, kaj bi {m:naredil|f:naredila}, če avtobus v Keswick ne bi prišel. Odgovori z would.",
+          "de": "Mrs Hartley fragt, was du tun würdest, wenn der Bus nach Keswick nicht käme. Antworte mit would.",
+          "it": "Mrs Hartley ti chiede che cosa faresti se l'autobus per Keswick non arrivasse. Rispondi con would.",
+          "en": "Mrs Hartley asks what you would do if the bus to Keswick didn't come. Answer with would."
+        },
+        "ask": "What would you do if the bus to Keswick didn't come?",
+        "say": "I would ring Sam and ask him for a lift.",
+        "accept": [
+          "If the bus didn't come, I would ring Sam and ask him for a lift."
+        ],
+        "must": [
+          {
+            "label": {
+              "sl": "would (ali could, might) + glagol: I'd …",
+              "de": "would (oder could, might) + Verb: I'd …",
+              "it": "would (o could, might) + verbo: I'd …",
+              "en": "would (or could, might) + a verb: I'd …"
+            },
+            "any": [
+              "would",
+              "could",
+              "might"
+            ]
+          }
+        ],
+        "min_words": 4
+      },
+      {
+        "type": "writing",
+        "grammar": "second-conditional",
+        "instruction": {
+          "sl": "Write · Napiši",
+          "de": "Write · Schreib",
+          "it": "Write · Scrivi",
+          "en": "Write"
+        },
+        "prompt": {
+          "sl": "Sam bi rad prodal svoj kombi in kupil konja. Napiši mu nekaj vrstic in mu svetuj z If I were you …",
+          "de": "Sam möchte seinen Lieferwagen verkaufen und ein Pferd kaufen. Schreib ihm ein paar Zeilen und gib ihm einen Rat mit If I were you …",
+          "it": "Sam vuole vendere il furgone e comprare un cavallo. Scrivigli qualche riga e dagli un consiglio con If I were you …",
+          "en": "Sam wants to sell his van and buy a horse. Write him a few lines, with some advice: If I were you …"
+        },
+        "model": "Hi Sam, if I were you, I would keep the van. If you had a horse, you couldn't drive to Keswick in the snow. A horse would be fun, but a van would be more useful! Cheers, {learner}",
+        "must": [
+          {
+            "label": {
+              "sl": "If I were you … (nasvet)",
+              "de": "If I were you … (ein Rat)",
+              "it": "If I were you … (un consiglio)",
+              "en": "If I were you … (advice)"
+            },
+            "any": [
+              "if i were you",
+              "if i was you"
+            ]
+          },
+          {
+            "label": {
+              "sl": "dvakrat would (ali could, might)",
+              "de": "zweimal would (oder could, might)",
+              "it": "due volte would (o could, might)",
+              "en": "would (or could, might) twice"
+            },
+            "any": [
+              "would",
+              "could",
+              "might"
+            ],
+            "n": 2
+          }
+        ],
+        "avoid": [
+          {
+            "any": [
+              "if i would",
+              "if we would"
+            ],
+            "explain": {
+              "sl": "**If I knew**, ne *if I would know*: za if pride preteklik, would je v drugi polovici",
+              "de": "**If I knew**, nicht *if I would know*: nach if kommt die Vergangenheit, would steht in der anderen Hälfte",
+              "it": "**If I knew**, non *if I would know*: dopo if viene il passato, would va nell'altra metà",
+              "en": "**If I knew**, not *if I would know*: after if comes the past, would goes in the other half"
+            }
+          }
+        ],
+        "length": {
+          "min": 20,
+          "max": 50
+        }
       }
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it)"
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); speaking and writing (sheet 4, the test's last two): machine-written, for the native check"
 }

@@ -76,7 +76,7 @@ class HearthsTest {
     }
 
     @Test fun `a culture without a charcoal burner feeds its forge wood`() {
-        Cultures.use("friuli")
+        Cultures.use("kaernten") // Friuli's pile has its cycle since village-b2-friuli
         val f = Hearths.of(village(Age.VAS, SMITHY)).first()
         assertFalse(f.charcoal)
         assertEquals(Catalog.FORGE_WOOD, f.wood)

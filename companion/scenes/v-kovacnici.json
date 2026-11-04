@@ -4,7 +4,7 @@
   "title": { "sl": "V kovačnici", "en": "In the smithy", "de": "In der Schmiede", "it": "Nella fucina" },
   "emoji": "⚒️",
   "level": "A1",
-  "review": "de, it: machine-written, not reviewed by a native speaker; reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it: machine-written, not reviewed by a native speaker; reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "smithy",
   "from": ["smithy"],
   "pack": "v-kovacnici",
@@ -37,10 +37,10 @@
       "when": ["afternoon"], "chance": 0.4, "dialog": "meh", "dialogs": ["meh-pazi", "meh"], "reward": { "stone": 15 }, "marker": "🔥", "needs": { "level": 2 },
       "memory": { "sl": "meh in iskre v kovačnici", "en": "the bellows and the sparks in the smithy", "de": "den Blasebalg und die Funken in der Schmiede", "it": "il mantice e le scintille nella fucina" } },
     { "id": "kolo", "title": { "sl": "Markov voz ima zlomljeno kolo", "en": "Marko's cart has a broken wheel", "de": "Markos Wagen hat ein gebrochenes Rad", "it": "Il carro di Marko ha una ruota rotta" }, "who": "marko",
-      "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "kolo", "dialogs": ["kolo-steklenice", "kolo-tvoj", "kolo"], "reward": { "wisdom": 15 }, "marker": "🛞", "needs": { "level": 3 },
+      "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "kolo", "dialogs": ["kolo-b2-meja", "kolo-b1-zenin", "kolo-steklenice", "kolo-tvoj", "kolo"], "reward": { "wisdom": 15 }, "marker": "🛞", "needs": { "level": 3 },
       "memory": { "sl": "kolo, ki si ga {m:čakal|f:čakala} z mano pri Tonetu", "en": "the wheel you waited for with me at Tone's", "de": "das Rad, auf das du mit mir bei Tone gewartet hast", "it": "la ruota che hai aspettato con me da Tone" } },
     { "id": "narocilo", "title": { "sl": "Naročilo iz Gorice", "en": "An order from Gorizia", "de": "Ein Auftrag aus Görz", "it": "Un ordine da Gorizia" }, "who": "tone",
-      "when": ["evening"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "narocilo", "dialogs": ["narocilo-sreda", "narocilo"], "reward": { "stone": 20 }, "marker": "📒",
+      "when": ["evening"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "narocilo", "dialogs": ["narocilo-b2-pismo", "narocilo-b1-ograja", "narocilo-sreda", "narocilo"], "reward": { "stone": 20 }, "marker": "📒",
       "memory": { "sl": "naročilo iz Gorice, ki sva ga napisala brez napake", "en": "the order from Gorizia we wrote without a mistake", "de": "den Auftrag aus Görz, den wir ohne Fehler geschrieben haben", "it": "l'ordine da Gorizia che abbiamo scritto senza errori" } }
   ],
   "dialogs": [
@@ -368,6 +368,590 @@
             "grammar": "kam-tozilnik", "why": { "en": "Where it goes is a direction: v + accusative, v Gorico. V Gorici (locative) is being there.", "de": "Wohin es geht, ist eine Richtung: v + Akkusativ, v Gorico. V Gorici (Lokativ) heißt, dort sein.", "it": "Dove va è una direzione: v + accusativo, v Gorico. V Gorici (locativo) è essere lì." },
             "reply": { "face": "confused", "sl": "V Gorici? Ne. Pismo je še tukaj. Pri meni.", "en": "V Gorici (in Gorizia)? No. The letter's still here. With me.", "de": "V Gorici (in Görz)? Nein. Der Brief ist noch hier. Bei mir.", "it": "V Gorici (a Gorizia)? No. La lettera è ancora qui. Da me." } }
         ] }
+      ]
+    },
+    {
+      "id": "narocilo-b1-ograja",
+      "level": "B1",
+      "memory": {
+        "sl": "ograjo za gospo iz Gorice",
+        "en": "the fence for the lady from Gorizia",
+        "de": "den Zaun für die Dame aus Gorizia",
+        "it": "la recinzione per la signora di Gorizia"
+      },
+      "lines": [
+        {
+          "who": "tone",
+          "face": "curious",
+          "sl": "Večer. Pismo iz Gorice. Neka gospa bi rada ograjo za vrt. Preberi do konca.",
+          "en": "Evening. A letter from Gorizia. A lady would like a fence for her garden. Read it to the end.",
+          "de": "Abend. Ein Brief aus Gorizia. Eine Dame möchte einen Zaun für ihren Garten. Lies ihn zu Ende.",
+          "it": "Sera. Una lettera da Gorizia. Una signora vorrebbe una recinzione per il giardino. Leggila fino in fondo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Sprašuje, ali jo lahko naredite do božiča.",
+              "en": "She asks whether you can make it by Christmas.",
+              "de": "Sie fragt, ob Sie ihn bis Weihnachten machen können.",
+              "it": "Chiede se può farla entro Natale.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Do božiča. Hm. Če Tončka ne bo spet hotela novega lonca, bo.",
+                "en": "By Christmas. Hm. If Tončka doesn't want a new pot again, it'll be done.",
+                "de": "Bis Weihnachten. Hm. Wenn Tončka nicht wieder einen neuen Topf will, wird's.",
+                "it": "Entro Natale. Mm. Se Tončka non vuole di nuovo una pentola nuova, si fa."
+              }
+            },
+            {
+              "sl": "Sprašuje, da jo lahko naredite do božiča.",
+              "en": "She asks that you can make it by Christmas.",
+              "de": "Sie fragt, dass Sie ihn bis Weihnachten machen können.",
+              "it": "Chiede che può farla entro Natale.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "In reported speech a yes/no question is joined with ali (or če): sprašuje, ali jo lahko naredite. Da passes on a statement.",
+                "de": "In der indirekten Rede wird eine Ja-Nein-Frage mit ali (oder če) angeschlossen: sprašuje, ali jo lahko naredite. Da gibt eine Aussage weiter.",
+                "it": "Nel discorso indiretto una domanda sì/no si introduce con ali (o če): sprašuje, ali jo lahko naredite. Da riferisce un'affermazione."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Da lahko? Kdo je to rekel? Jaz še nič.",
+                "en": "That I can? Who said so? Not me, not yet.",
+                "de": "Dass ich kann? Wer hat das gesagt? Ich noch nichts.",
+                "it": "Che posso? Chi l'ha detto? Io ancora niente."
+              }
+            },
+            {
+              "sl": "Sprašuje, ali jo lahko naredite do božič.",
+              "en": "She asks whether you can make it by Christmas.",
+              "de": "Sie fragt, ob Sie ihn bis Weihnachten machen können.",
+              "it": "Chiede se può farla entro Natale.",
+              "grammar": "rodilnik-predlogi",
+              "why": {
+                "en": "Do (until, by) takes the genitive: do božiča.",
+                "de": "Do (bis) verlangt den Genitiv: do božiča.",
+                "it": "Do (fino a, entro) vuole il genitivo: do božiča."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Do … česa? Govori jasno. Ali je prav, ali ni.",
+                "en": "By … what? Speak clearly. Either it's right, or it isn't.",
+                "de": "Bis … wann? Sprich deutlich. Entweder es stimmt, oder nicht.",
+                "it": "Entro … cosa? Parla chiaro. O è giusto, o non lo è."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Jasno.",
+            "en": "Hm? Again. Clearly.",
+            "de": "Hm? Noch mal. Deutlich.",
+            "it": "Mm? Di nuovo. Chiaro."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "curious",
+          "sl": "Napiši ji odgovor. Kratko. Kaj ji boš {m:napisal|f:napisala}?",
+          "en": "Write her an answer. Short. What will you write her?",
+          "de": "Schreib ihr eine Antwort. Kurz. Was schreibst du ihr?",
+          "it": "Scrivile una risposta. Breve. Cosa le scrivi?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Da bo ograja gotova do božiča, če bo poslala mere vrta.",
+              "en": "That the fence will be ready by Christmas, if she sends the garden's measurements.",
+              "de": "Dass der Zaun bis Weihnachten fertig ist, wenn sie die Maße des Gartens schickt.",
+              "it": "Che la recinzione sarà pronta per Natale, se manda le misure del giardino.",
+              "ok": true,
+              "reply": {
+                "sl": "Dobro. Kratko in prav. Tako bi pisal jaz, če bi znal.",
+                "en": "Good. Short and right. That's how I'd write, if I could.",
+                "de": "Gut. Kurz und richtig. So würde ich schreiben, wenn ich es könnte.",
+                "it": "Bene. Breve e giusto. Così scriverei io, se sapessi."
+              }
+            },
+            {
+              "sl": "Da bo ograja gotova do božiča, če bi poslala mere vrta.",
+              "en": "That the fence will be ready by Christmas, if she were to send the garden's measurements.",
+              "de": "Dass der Zaun bis Weihnachten fertig ist, wenn sie die Maße des Gartens schicken würde.",
+              "it": "Che la recinzione sarà pronta per Natale, se mandasse le misure del giardino.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "The fence will really be made: a likely condition takes the future, bo …, če bo poslala. Če bi is the conditional, for one only imagined.",
+                "de": "Der Zaun wird wirklich gemacht: eine wahrscheinliche Bedingung steht im Futur, bo …, če bo poslala. Če bi ist der Konditional, für eine nur gedachte.",
+                "it": "La recinzione si farà davvero: una condizione probabile vuole il futuro, bo …, če bo poslala. Če bi è il condizionale, per una solo immaginata."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Bi ali ne bi? Pri meni ni bi. Ali je prav, ali ni.",
+                "en": "Would she or wouldn't she? There's no would with me. Either it's right, or it isn't.",
+                "de": "Würde sie oder nicht? Bei mir gibt's kein würde. Entweder es stimmt, oder nicht.",
+                "it": "Manderebbe o no? Con me niente condizionali. O è giusto, o non lo è."
+              }
+            },
+            {
+              "sl": "Da bo ograja gotova do božiča, če bo pošiljala mere vrta.",
+              "en": "That the fence will be ready by Christmas, if she keeps sending the garden's measurements.",
+              "de": "Dass der Zaun bis Weihnachten fertig ist, wenn sie immer wieder die Maße des Gartens schickt.",
+              "it": "Che la recinzione sarà pronta per Natale, se continua a mandare le misure del giardino.",
+              "grammar": "vid-casi",
+              "why": {
+                "en": "One sending, done, is perfective: poslala. Pošiljala is imperfective, again and again.",
+                "de": "Einmal schicken, erledigt, ist vollendet: poslala. Pošiljala ist unvollendet, immer wieder.",
+                "it": "Un invio solo, compiuto, è perfettivo: poslala. Pošiljala è imperfettivo, ancora e ancora."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Vsak teden nove mere? Ne, hvala.",
+                "en": "New measurements every week? No, thanks.",
+                "de": "Jede Woche neue Maße? Nein, danke.",
+                "it": "Misure nuove ogni settimana? No, grazie."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Jasno.",
+            "en": "Hm? Again. Clearly.",
+            "de": "Hm? Noch mal. Deutlich.",
+            "it": "Mm? Di nuovo. Chiaro."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "proud",
+          "sl": "Podpiši: Kovač Tone, Trnovo. In ne pozabi: brez napake.",
+          "en": "Sign it: Tone the Smith, Trnovo. And don't forget: no mistakes.",
+          "de": "Unterschreib: Schmied Tone, Trnovo. Und vergiss nicht: ohne Fehler.",
+          "it": "Firma: il fabbro Tone, Trnovo. E non dimenticare: senza errori."
+        }
+      ]
+    },
+    {
+      "id": "narocilo-b2-pismo",
+      "level": "B2",
+      "memory": {
+        "sl": "pismo občini, ki sva ga napisala brez napake",
+        "en": "the letter to the council we wrote without a mistake",
+        "de": "den Brief an die Gemeinde, den wir ohne Fehler geschrieben haben",
+        "it": "la lettera al comune che abbiamo scritto senza errori"
+      },
+      "lines": [
+        {
+          "who": "tone",
+          "face": "worried",
+          "sl": "Večer. Iz občine v Novi Gorici so pisali. Hočejo ponudbo za ograjo pri šoli. Pismo mora biti lepo, jaz pa znam samo kovati.",
+          "en": "Evening. The council in Nova Gorica has written. They want a quote for the fence by the school. The letter has to be proper, and I can only forge.",
+          "de": "Abend. Die Gemeinde in Nova Gorica hat geschrieben. Sie wollen ein Angebot für den Zaun an der Schule. Der Brief muss schön sein, und ich kann nur schmieden.",
+          "it": "Sera. Ha scritto il comune di Nova Gorica. Vogliono un preventivo per la recinzione della scuola. La lettera dev'essere fatta bene, e io so solo forgiare."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Začnite takole: »Spoštovani, v zvezi z Vašim pismom Vam pošiljam ponudbo za ograjo.«",
+              "en": "Start like this: »Dear Sir or Madam, with regard to your letter, I am sending you a quote for the fence.«",
+              "de": "Fangen Sie so an: »Sehr geehrte Damen und Herren, bezüglich Ihres Schreibens sende ich Ihnen ein Angebot für den Zaun.«",
+              "it": "Cominci così: »Spettabile Comune, in riferimento alla Vostra lettera Vi invio il preventivo per la recinzione.«",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "»Spoštovani.« Hm. Zveni, kot bi pisal notar.",
+                "en": "»Spoštovani.« Hm. Sounds like a notary wrote it.",
+                "de": "»Spoštovani.« Hm. Klingt, als hätte ein Notar geschrieben.",
+                "it": "»Spoštovani.« Mm. Sembra scritto da un notaio."
+              }
+            },
+            {
+              "sl": "Začnite takole: »Draga občina, v zvezi z Vašim pismom Vam pošiljam ponudbo za ograjo.«",
+              "en": "Start like this: »Darling council, with regard to your letter, I am sending you a quote for the fence.«",
+              "de": "Fangen Sie so an: »Liebe Gemeinde, bezüglich Ihres Schreibens sende ich Ihnen ein Angebot für den Zaun.«",
+              "it": "Cominci così: »Cara Comune, in riferimento alla Vostra lettera Vi invio il preventivo per la recinzione.«",
+              "grammar": "uradno-pismo",
+              "why": {
+                "en": "A formal letter, to anyone you say vi to, opens with the polite Spoštovani; draga is for family and friends.",
+                "de": "Ein förmlicher Brief, an jemanden, den man siezt (vi), beginnt mit dem höflichen Spoštovani; draga ist für Familie und Freunde.",
+                "it": "Una lettera formale, a chi si dà del vi, comincia con il cortese Spoštovani; draga è per la famiglia e gli amici."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Draga? Občina ni moja žena, {learner}.",
+                "en": "Darling? The council isn't my wife, {learner}.",
+                "de": "Liebe? Die Gemeinde ist doch nicht meine Frau, {learner}.",
+                "it": "Cara? Il comune non è mia moglie, {learner}."
+              }
+            },
+            {
+              "sl": "Začnite takole: »Spoštovani, v zvezi z Vaše pismo Vam pošiljam ponudbo za ograjo.«",
+              "en": "Start like this: »Dear Sir or Madam, with regard to your letter, I am sending you a quote for the fence.«",
+              "de": "Fangen Sie so an: »Sehr geehrte Damen und Herren, bezüglich Ihres Schreibens sende ich Ihnen ein Angebot für den Zaun.«",
+              "it": "Cominci così: »Spettabile Comune, in riferimento alla Vostra lettera Vi invio il preventivo per la recinzione.«",
+              "grammar": "uradno-pismo",
+              "why": {
+                "en": "The formula v zvezi z takes the instrumental, as z always does: v zvezi z Vašim pismom.",
+                "de": "Die Formel v zvezi z verlangt den Instrumental, wie z immer: v zvezi z Vašim pismom.",
+                "it": "La formula v zvezi z vuole lo strumentale, come z sempre: v zvezi z Vašim pismom."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Z … kaj? Pismo mora biti brez napake, {learner}.",
+                "en": "With … what? The letter has to be without a mistake, {learner}.",
+                "de": "Mit … was? Der Brief muss fehlerlos sein, {learner}.",
+                "it": "Con … cosa? La lettera dev'essere senza errori, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Jasno.",
+            "en": "Hm? Again. Clearly.",
+            "de": "Hm? Noch mal. Deutlich.",
+            "it": "Mm? Di nuovo. Chiaro."
+          }
+        },
+        {
+          "who": "tone",
+          "sl": "Potem cena. Ni poceni, ampak moja ograja bo stala sto let.",
+          "en": "Then the price. It isn't cheap, but my fence will stand a hundred years.",
+          "de": "Dann der Preis. Billig ist er nicht, aber mein Zaun steht hundert Jahre.",
+          "it": "Poi il prezzo. Non è poco, ma la mia recinzione starà in piedi cent'anni."
+        },
+        {
+          "who": "tone",
+          "face": "sad",
+          "sl": "Lani sem jim ponudbo napisal sam. Delo je dobil kovač iz Ajdovščine, ker je bilo moje pismo polno napak.",
+          "en": "Last year I wrote them the quote myself. A smith from Ajdovščina got the job, because my letter was full of mistakes.",
+          "de": "Letztes Jahr habe ich ihnen das Angebot selbst geschrieben. Den Auftrag bekam ein Schmied aus Ajdovščina, weil mein Brief voller Fehler war.",
+          "it": "L'anno scorso il preventivo gliel'ho scritto io. Il lavoro l'ha preso un fabbro di Ajdovščina, perché la mia lettera era piena di errori."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Če bi bilo pismo brez napak, bi bili delo morda dobili vi. Letos ga boste.",
+              "en": "If the letter had been free of mistakes, you might have got the job. This year you will.",
+              "de": "Wäre der Brief fehlerlos gewesen, hätten vielleicht Sie den Auftrag bekommen. Dieses Jahr bekommen Sie ihn.",
+              "it": "Se la lettera fosse stata senza errori, forse il lavoro l'avrebbe avuto Lei. Quest'anno l'avrà.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Letos, ja. Ti pišeš, jaz kujem. Tako bova oba brez napake.",
+                "en": "This year, yes. You write, I forge. That way neither of us makes a mistake.",
+                "de": "Dieses Jahr, ja. Du schreibst, ich schmiede. So sind wir beide ohne Fehler.",
+                "it": "Quest'anno, sì. Tu scrivi, io forgio. Così nessuno dei due sbaglia."
+              }
+            },
+            {
+              "sl": "Če je bilo pismo brez napak, ste delo morda dobili vi. Letos ga boste.",
+              "en": "If the letter was free of mistakes, you perhaps got the job. This year you will.",
+              "de": "Wenn der Brief fehlerlos war, haben vielleicht Sie den Auftrag bekommen. Dieses Jahr bekommen Sie ihn.",
+              "it": "Se la lettera era senza errori, forse il lavoro l'ha avuto Lei. Quest'anno l'avrà.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "The letter was full of mistakes: what would have been is the past conditional, če bi bilo …, bi bili dobili (or bi dobili). Če je bilo treats it as perhaps so.",
+                "de": "Der Brief war voller Fehler: was gewesen wäre, ist der Konditional der Vergangenheit, če bi bilo …, bi bili dobili (oder bi dobili). Če je bilo tut so, als wäre es vielleicht so gewesen.",
+                "it": "La lettera era piena di errori: ciò che sarebbe stato è il condizionale passato, če bi bilo …, bi bili dobili (o bi dobili). Če je bilo lo tratta come se forse fosse così."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Brez napak? Saj ti pravim, da jih je bilo polno.",
+                "en": "Without mistakes? I'm telling you, it was full of them.",
+                "de": "Fehlerlos? Ich sag dir doch, er war voll davon.",
+                "it": "Senza errori? Ti dico che ne era pieno."
+              }
+            },
+            {
+              "sl": "Kovač iz Ajdovščine gotovo kuje bolje kot vi.",
+              "en": "The smith from Ajdovščina surely forges better than you.",
+              "de": "Der Schmied aus Ajdovščina schmiedet sicher besser als Sie.",
+              "it": "Il fabbro di Ajdovščina di sicuro forgia meglio di Lei.",
+              "why": {
+                "en": "Tone lost the job over the letter, not over his work: he tells you so. Speak to the letter, and to this year.",
+                "de": "Tone hat den Auftrag wegen des Briefes verloren, nicht wegen seiner Arbeit: das sagt er dir. Sprich vom Brief, und von diesem Jahr.",
+                "it": "Tone ha perso il lavoro per la lettera, non per il suo lavoro: te lo dice lui. Parla della lettera, e di quest'anno."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Bolje? Ta ne zna skovati niti žeblja.",
+                "en": "Better? He can't even forge a nail.",
+                "de": "Besser? Der kann nicht mal einen Nagel schmieden.",
+                "it": "Meglio? Quello non sa forgiare nemmeno un chiodo."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat. Jasno.",
+            "en": "Hm? Again. Clearly.",
+            "de": "Hm? Noch mal. Deutlich.",
+            "it": "Mm? Di nuovo. Chiaro."
+          }
+        },
+        {
+          "who": "tone",
+          "face": "happy",
+          "sl": "Napiši še: »S spoštovanjem, Kovač Tone.« Tončka bo rekla, da sem postal gospod.",
+          "en": "And write: »Yours faithfully, Tone the Smith.« Tončka will say I've become a gentleman.",
+          "de": "Schreib noch: »Hochachtungsvoll, Schmied Tone.« Tončka wird sagen, ich sei ein feiner Herr geworden.",
+          "it": "Scrivi ancora: »Distinti saluti, il fabbro Tone.« Tončka dirà che sono diventato un signore."
+        }
+      ]
+    },
+    {
+      "id": "kolo-b1-zenin",
+      "level": "B1",
+      "memory": {
+        "sl": "ženina, ki je prišel po poročno vino",
+        "en": "the groom who came for the wedding wine",
+        "de": "den Bräutigam, der den Hochzeitswein abgeholt hat",
+        "it": "lo sposo che è venuto a prendere il vino delle nozze"
+      },
+      "lines": [
+        {
+          "who": "marko",
+          "face": "worried",
+          "sl": "Ciao, {learner}! Tone pravi, da kolo ne bo gotovo pred nočjo. Jaz pa moram še danes v Gorico, z vinom za poroko!",
+          "en": "Ciao, {learner}! Tone says the wheel won't be ready before nightfall. And I have to get to Gorizia today, with the wine for a wedding!",
+          "de": "Ciao, {learner}! Tone sagt, das Rad ist vor der Nacht nicht fertig. Und ich muss heute noch nach Gorizia, mit dem Wein für eine Hochzeit!",
+          "it": "Ciao, {learner}! Tone dice che la ruota non sarà pronta prima di notte. E io devo andare oggi a Gorizia, col vino per un matrimonio!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kaj pa, če bi ženin prišel po vino sam?",
+              "en": "What if the groom came for the wine himself?",
+              "de": "Und wenn der Bräutigam den Wein selbst abholen würde?",
+              "it": "E se lo sposo venisse a prendere il vino lui?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ženin? Ha! Ta bo vesel, da lahko vino pokusi pred poroko.",
+                "en": "The groom? Ha! He'll be glad he can taste the wine before the wedding.",
+                "de": "Der Bräutigam? Ha! Der freut sich, dass er den Wein vor der Hochzeit probieren kann.",
+                "it": "Lo sposo? Ah! Sarà contento di assaggiare il vino prima delle nozze."
+              }
+            },
+            {
+              "sl": "Kaj pa, če ženin bi prišel po vino sam?",
+              "en": "What if the groom came for the wine himself?",
+              "de": "Und wenn der Bräutigam den Wein selbst abholen würde?",
+              "it": "E se lo sposo venisse a prendere il vino lui?",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words go right after če, before the rest: če bi ženin prišel.",
+                "de": "Die kurzen Wörter stehen gleich nach če, vor dem Rest: če bi ženin prišel.",
+                "it": "Le paroline vanno subito dopo če, prima del resto: če bi ženin prišel."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Allora, besede so se ti zapletle kot trta.",
+                "en": "Allora, your words got tangled like a vine.",
+                "de": "Allora, deine Wörter haben sich verheddert wie eine Rebe.",
+                "it": "Allora, le parole ti si sono aggrovigliate come una vite."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Allora, še enkrat, počasi.",
+            "en": "Hm? Allora, once more, slowly.",
+            "de": "Hm? Allora, noch einmal, langsam.",
+            "it": "Mm? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Prav, pokličem ga. Kdaj naj pride, kaj misliš?",
+          "en": "Right, I'll call him. When should he come, what do you think?",
+          "de": "Gut, ich ruf ihn an. Wann soll er kommen, was meinst du?",
+          "it": "Va bene, lo chiamo. Quando deve venire, secondo te?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Naj pride čez dve uri, ko bo Tone končal.",
+              "en": "Let him come in two hours, when Tone will be done.",
+              "de": "Er soll in zwei Stunden kommen, wenn Tone fertig ist.",
+              "it": "Che venga fra due ore, quando Tone avrà finito.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Čez dve uri. Perfetto. Do takrat pa kozarec, ne?",
+                "en": "In two hours. Perfetto. And till then a glass, right?",
+                "de": "In zwei Stunden. Perfetto. Und bis dahin ein Glas, oder?",
+                "it": "Fra due ore. Perfetto. E nel frattempo un bicchiere, no?"
+              }
+            },
+            {
+              "sl": "Naj pride pred dvema urama, ko bo Tone končal.",
+              "en": "Let him come two hours ago, when Tone will be done.",
+              "de": "Er soll vor zwei Stunden kommen, wenn Tone fertig ist.",
+              "it": "Che venga due ore fa, quando Tone avrà finito.",
+              "grammar": "cas-izrazi",
+              "why": {
+                "en": "Čez + the accusative is in (from now): čez dve uri. Pred + the instrumental is ago.",
+                "de": "Čez + Akkusativ ist in (von jetzt an): čez dve uri. Pred + Instrumental ist vor (zurück).",
+                "it": "Čez + l'accusativo è fra (da adesso): čez dve uri. Pred + lo strumentale è fa."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Pred dvema urama? Takrat je bilo kolo še celo!",
+                "en": "Two hours ago? The wheel was still whole then!",
+                "de": "Vor zwei Stunden? Da war das Rad noch ganz!",
+                "it": "Due ore fa? Allora la ruota era ancora intera!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Allora, še enkrat, počasi.",
+            "en": "Hm? Allora, once more, slowly.",
+            "de": "Hm? Allora, noch einmal, langsam.",
+            "it": "Mm? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Vidiš, {learner}: kolo se zlomi, prijatelj pa ostane. Allora, na zdravje!",
+          "en": "You see, {learner}: a wheel breaks, but a friend stays. Allora, cheers!",
+          "de": "Siehst du, {learner}: ein Rad bricht, aber ein Freund bleibt. Allora, Prost!",
+          "it": "Vedi, {learner}: la ruota si rompe, ma l'amico resta. Allora, salute!"
+        }
+      ]
+    },
+    {
+      "id": "kolo-b2-meja",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o očetu in meji, ki sem ti jo povedal",
+        "en": "the story about my father and the border I told you",
+        "de": "die Geschichte von meinem Vater und der Grenze, die ich dir erzählt habe",
+        "it": "la storia di mio padre e del confine che ti ho raccontato"
+      },
+      "lines": [
+        {
+          "who": "marko",
+          "face": "thinking",
+          "sl": "Medtem ko Tone popravlja kolo, ti nekaj povem. Ko je moj oče vozil vino v Gorico, so ga na meji vsakič ustavili.",
+          "en": "While Tone fixes the wheel, I'll tell you something. When my father took wine to Gorizia, they stopped him at the border every single time.",
+          "de": "Während Tone das Rad repariert, erzähle ich dir etwas. Als mein Vater Wein nach Gorizia fuhr, hielten sie ihn an der Grenze jedes Mal an.",
+          "it": "Mentre Tone ripara la ruota, ti racconto una cosa. Quando mio padre portava il vino a Gorizia, al confine lo fermavano ogni volta."
+        },
+        {
+          "who": "marko",
+          "face": "laugh",
+          "sl": "Če bi mu kdo takrat rekel, da bom jaz vozil čez mejo brez ustavljanja, bi se mu smejal.",
+          "en": "If anyone had told him then that I'd drive across the border without stopping, he'd have laughed at them.",
+          "de": "Hätte ihm damals jemand gesagt, dass ich ohne Anhalten über die Grenze fahren würde, hätte er ihn ausgelacht.",
+          "it": "Se allora qualcuno gli avesse detto che io avrei passato il confine senza fermarmi, gli avrebbe riso in faccia."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Gotovo bi se bil razveselil, če bi to doživel.",
+              "en": "He would surely have been glad, if he had lived to see it.",
+              "de": "Er hätte sich sicher gefreut, wenn er das erlebt hätte.",
+              "it": "Di sicuro ne sarebbe stato felice, se l'avesse visto.",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "sl": "Tega ni dočakal. Umrl je leto prej. Zdaj pa vozim jaz, za oba.",
+                "en": "He didn't live to see it. He died the year before. So now I drive, for both of us.",
+                "de": "Er hat es nicht mehr erlebt. Er starb ein Jahr davor. Jetzt fahre ich, für uns beide.",
+                "it": "Non ha fatto in tempo. È morto l'anno prima. Adesso guido io, per tutti e due."
+              }
+            },
+            {
+              "sl": "Gotovo se bo razveselil, ko bo to doživel.",
+              "en": "He will surely be glad when he lives to see it.",
+              "de": "Er wird sich sicher freuen, wenn er das erlebt.",
+              "it": "Di sicuro ne sarà felice, quando lo vedrà.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "Marko speaks of his father then, of what didn't happen: the past conditional, bi se bil razveselil (or bi se razveselil). Bo is the future, as if it were still to come.",
+                "de": "Marko spricht von seinem Vater damals, von etwas, das nicht geschah: der Konditional der Vergangenheit, bi se bil razveselil (oder bi se razveselil). Bo ist das Futur, als käme es noch.",
+                "it": "Marko parla di suo padre allora, di ciò che non è successo: il condizionale passato, bi se bil razveselil (o bi se razveselil). Bo è il futuro, come se dovesse ancora venire."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Bo? Oče je že dolgo na drugem svetu, kjer ni nobene meje.",
+                "en": "Will? Father has long been in the other world, where there's no border at all.",
+                "de": "Wird? Vater ist schon lange in der anderen Welt, wo es keine Grenze gibt.",
+                "it": "Sarà? Papà è da tempo nell'altro mondo, dove non c'è nessun confine."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Allora, še enkrat, počasi.",
+            "en": "Hm? Allora, once more, slowly.",
+            "de": "Hm? Allora, noch einmal, langsam.",
+            "it": "Mm? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "curious",
+          "sl": "Nekateri pravijo, da je bilo z mejo bolje: vsak je vedel, kje je doma. Kaj praviš ti?",
+          "en": "Some say it was better with the border: everyone knew where home was. What do you say?",
+          "de": "Manche sagen, mit der Grenze war es besser: jeder wusste, wo er zu Hause ist. Was meinst du?",
+          "it": "Alcuni dicono che col confine era meglio: ognuno sapeva dov'era casa sua. Tu che ne dici?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda je nekaj na tem, ampak dom je tam, kjer so ljudje, ki so ti dragi.",
+              "en": "There's something in that, of course, but home is where the people dear to you are.",
+              "de": "Da ist sicher etwas dran, aber zu Hause ist man dort, wo die Menschen sind, die einem lieb sind.",
+              "it": "C'è del vero, certo, ma casa è dove sono le persone che ti sono care.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Bravo. Zame sta Gorica in Nova Gorica eno samo mesto.",
+                "en": "Bravo. For me Gorizia and Nova Gorica are one and the same town.",
+                "de": "Bravo. Für mich sind Gorizia und Nova Gorica eine einzige Stadt.",
+                "it": "Bravo. Per me Gorizia e Nova Gorica sono una città sola."
+              }
+            },
+            {
+              "sl": "Res je. Mejo bi morali spet postaviti, z žico in vsem.",
+              "en": "That's true. They ought to put the border up again, wire and all.",
+              "de": "Stimmt. Man sollte die Grenze wieder aufbauen, mit Draht und allem.",
+              "it": "È vero. Bisognerebbe rimettere il confine, col filo spinato e tutto.",
+              "why": {
+                "en": "Marko tells you what some say, not what he thinks: his father waited for hours, and now he drives across freely. Grant their point, then give yours.",
+                "de": "Marko erzählt, was manche sagen, nicht was er denkt: sein Vater wartete stundenlang, jetzt fährt er frei hinüber. Gib ihnen ein Stück recht und sag dann deins.",
+                "it": "Marko riferisce ciò che dicono alcuni, non ciò che pensa: suo padre aspettava ore, e lui ora passa liberamente. Concedi il loro punto, poi di' il tuo."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Z žico? Potem bi moral vino tihotapiti, ha ha!",
+                "en": "With wire? Then I'd have to smuggle my wine, ha ha!",
+                "de": "Mit Draht? Dann müsste ich meinen Wein schmuggeln, ha ha!",
+                "it": "Col filo spinato? Allora dovrei contrabbandare il vino, ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Allora, še enkrat, počasi.",
+            "en": "Hm? Allora, once more, slowly.",
+            "de": "Hm? Allora, noch einmal, langsam.",
+            "it": "Mm? Allora, ancora una volta, piano."
+          }
+        },
+        {
+          "who": "marko",
+          "face": "happy",
+          "sl": "Allora, Tone je končal. Greva, {learner}: kozarec na meji, ki je ni več!",
+          "en": "Allora, Tone's done. Let's go, {learner}: a glass on the border that's no longer there!",
+          "de": "Allora, Tone ist fertig. Gehen wir, {learner}: ein Glas auf die Grenze, die es nicht mehr gibt!",
+          "it": "Allora, Tone ha finito. Andiamo, {learner}: un bicchiere sul confine che non c'è più!"
+        }
       ]
     }
   ]

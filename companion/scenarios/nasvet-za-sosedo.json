@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "nasvet-za-sosedo",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Nasvet za sosedo", "en": "Advice for the neighbour", "de": "Ein Rat für die Nachbarin", "it": "Un consiglio per la vicina" },
+  "emoji": "📱",
+  "level": "B1",
+  "setting": {
+    "en": "Your neighbour Zdenka calls you over to the fence. Her daughter in Munich has sent her a smartphone so that they can see each other when they call, but Zdenka is lost with it. She wants your advice.",
+    "de": "Deine Nachbarin Zdenka ruft dich an den Zaun. Ihre Tochter in München hat ihr ein Smartphone geschickt, damit sie sich beim Telefonieren sehen können, aber Zdenka kommt damit nicht zurecht. Sie möchte deinen Rat.",
+    "it": "La tua vicina Zdenka ti chiama alla recinzione. Sua figlia, che vive a Monaco, le ha mandato uno smartphone per potersi vedere quando si chiamano, ma Zdenka non ci capisce niente. Vuole un tuo consiglio."
+  },
+  "role": "Soseda Zdenka, the retired neighbour. Her daughter in Munich sent her a smartphone for video calls; she is lost: afraid to press the wrong thing, forgets passwords. Asks {learner} for advice, doubts each idea once, then tries it. Keeps her Primorska dialect simple. Says ti.",
+  "who": { "sl": "Soseda", "en": "The neighbour", "de": "Die Nachbarin", "it": "La vicina" },
+  "voice": "female",
+  "speaker": "grandma",
+  "goals": [
+    { "sl": "Vprašaj, kaj jo skrbi", "en": "Ask what is worrying her", "de": "Frag, was ihr Sorgen macht", "it": "Chiedile che cosa la preoccupa" },
+    { "sl": "Svetuj ji, kako naj se nauči", "en": "Advise her how to learn it", "de": "Rate ihr, wie sie es lernen kann", "it": "Consigliale come imparare" },
+    { "sl": "Predlagaj, kako si bo zapomnila gesla", "en": "Suggest how she can remember the passwords", "de": "Schlag vor, wie sie sich die Passwörter merken kann", "it": "Suggeriscile come ricordare le password" },
+    { "sl": "Pomiri jo, ko dvomi", "en": "Reassure her when she has doubts", "de": "Beruhige sie, wenn sie zweifelt", "it": "Rassicurala quando ha dei dubbi" },
+    { "sl": "Ponudi ji pomoč", "en": "Offer to help her", "de": "Biete ihr deine Hilfe an", "it": "Offrile il tuo aiuto" }
+  ],
+  "opener_sl": "Oj, {learner}, imaš minutko? Hči mi je poslala tale pametni telefon, jaz se ga pa bojim. Kaj bi ti {m:naredil|f:naredila}?",
+  "opener_en": {
+    "en": "Hey, {learner}, have you got a minute? My daughter sent me this smartphone, and I'm scared of it. What would you do?",
+    "de": "Du, {learner}, hast du kurz Zeit? Meine Tochter hat mir dieses Smartphone geschickt, und ich habe Angst davor. Was würdest du machen?",
+    "it": "Ehi, {learner}, hai un minuto? Mia figlia mi ha mandato questo smartphone e io ne ho paura. Tu che cosa faresti?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Česa se pravzaprav bojiš?", "en": { "en": "What exactly are you afraid of?", "de": "Wovor hast du eigentlich Angst?", "it": "Di che cosa hai paura, esattamente?" } },
+    { "sl": "Na tvojem mestu bi vsak dan malo {m:vadil|f:vadila}.", "en": { "en": "If I were you, I'd practise a little every day.", "de": "An deiner Stelle würde ich jeden Tag ein bisschen üben.", "it": "Al posto tuo mi eserciterei un po' ogni giorno." } },
+    { "sl": "Lahko bi si gesla zapisala v zvezek.", "en": { "en": "You could write the passwords down in a notebook.", "de": "Du könntest die Passwörter in ein Heft schreiben.", "it": "Potresti scrivere le password su un quaderno." } },
+    { "sl": "Zakaj ne bi vprašala vnuka?", "en": { "en": "Why not ask your grandson?", "de": "Warum fragst du nicht deinen Enkel?", "it": "Perché non chiedi a tuo nipote?" } },
+    { "sl": "Ne skrbi, ničesar ne moreš pokvariti.", "en": { "en": "Don't worry, you can't break anything.", "de": "Keine Sorge, du kannst nichts kaputt machen.", "it": "Non preoccuparti, non puoi rompere niente." } },
+    { "sl": "Pritisniti moraš samo zeleni gumb.", "en": { "en": "You only have to press the green button.", "de": "Du musst nur auf den grünen Knopf drücken.", "it": "Devi solo premere il pulsante verde." } },
+    { "sl": "V knjižnici imajo tečaj za starejše.", "en": { "en": "The library runs a course for older people.", "de": "Die Bibliothek hat einen Kurs für Senioren.", "it": "In biblioteca c'è un corso per anziani." } },
+    { "sl": "Če želiš, ti jutri pokažem.", "en": { "en": "If you like, I'll show you tomorrow.", "de": "Wenn du willst, zeige ich es dir morgen.", "it": "Se vuoi, domani ti faccio vedere." } }
+  ],
+  "packs": ["druzina", "glagoli-vsak-dan", "delo-in-pisarna", "telefon-in-splet", "mnenja"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

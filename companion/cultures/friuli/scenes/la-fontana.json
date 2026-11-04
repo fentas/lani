@@ -5,7 +5,7 @@
   "title": { "it": "La fontana", "sl": "Vodnjak", "en": "The fountain", "de": "Der Brunnen" },
   "emoji": "⛲",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker; place-life lines and variants too; B1, B2 variants too",
   "art": "square",
   "from": ["project:vodnjak_na_trgu"],
   "pack": "la-fontana",
@@ -40,7 +40,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "acqua",
-      "dialogs": ["acqua-ghiaccio", "acqua-cannelle", "acqua"],
+      "dialogs": ["acqua-b2-sorgente", "acqua-b1-cannella", "acqua-ghiaccio", "acqua-cannelle", "acqua"],
       "reward": { "stone": 20},
       "marker": "⛲",
       "memory": { "it": "l'acqua fresca della fontana", "sl": "svežo vodo iz vodnjaka", "en": "the fountain's cool water", "de": "das frische Wasser vom Brunnen" }
@@ -52,7 +52,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "notizie",
-      "dialogs": ["notizie-radio", "notizie"],
+      "dialogs": ["notizie-b2-mulino", "notizie-b1-circo", "notizie-radio", "notizie"],
       "reward": { "wisdom": 15},
       "marker": "📻",
       "memory": { "it": "le notizie della fontana", "sl": "novice pri vodnjaku", "en": "the news at the fountain", "de": "die Neuigkeiten am Brunnen" }
@@ -902,6 +902,105 @@
           "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
         },
         { "who": "giulia", "face": "proud", "it": "Domani facciamo un altro gioco. Io sono la maestra!", "sl": "Jutri se igrava drugo igro. Jaz sem učiteljica!", "en": "Tomorrow we'll play another game. I'm the teacher!", "de": "Morgen spielen wir ein anderes Spiel. Ich bin die Lehrerin!" }
+      ]
+    },
+    {
+      "id": "acqua-b1-cannella",
+      "level": "B1",
+      "memory": { "it": "la cannella lenta della fontana", "sl": "počasno pipo vodnjaka", "en": "the fountain's slow spout", "de": "das langsame Röhrchen am Brunnen" },
+      "lines": [
+        { "who": "bruno", "it": "Buongiorno. Senti? Tre cannelle cantano, una no. Una è più lenta delle altre. Quale, secondo te?", "sl": "Dober dan. Slišiš? Tri pipe pojejo, ena ne. Ena je počasnejša od drugih. Katera, misliš?", "en": "Good morning. Hear that? Three spouts sing, one doesn't. One's slower than the others. Which, do you think?", "de": "Guten Morgen. Hörst du? Drei Röhrchen singen, eins nicht. Eins ist langsamer als die anderen. Welches, meinst du?" },
+        { "choices": [
+          { "it": "È quella da cui esce meno acqua, la terza.", "sl": "Tista, iz katere priteče najmanj vode, tretja.", "en": "It's the one the least water comes out of, the third.", "de": "Das, aus dem am wenigsten Wasser kommt, das dritte.", "ok": true,
+            "reply": { "face": "proud", "it": "Giusto. Dentro c'è un sasso piccolo. Domani la smonto.", "sl": "Prav. Notri je majhen kamenček. Jutri jo razstavim.", "en": "Right. There's a little stone inside. Tomorrow I'll take it apart.", "de": "Richtig. Da steckt ein kleiner Stein drin. Morgen bau ich es auseinander." } },
+          { "it": "È quella in cui esce meno acqua, la terza.", "sl": "Tista, iz katere priteče najmanj vode, tretja.", "en": "It's the one the least water comes out of, the third.", "de": "Das, aus dem am wenigsten Wasser kommt, das dritte.",
+            "grammar": "relativi-cui", "why": { "sl": "Uscire gre z da (iz): esce da, zato da cui.", "en": "Uscire takes da (out of): esce da, so da cui.", "de": "Uscire steht mit da (aus): esce da, also da cui." },
+            "reply": { "face": "cross", "it": "In cui? L'acqua non entra. Esce. Pensa alla direzione.", "sl": "In cui? Voda ne teče noter. Teče ven. Pomisli na smer.", "en": "In cui? The water doesn't go in. It comes out. Think of the direction.", "de": "In cui? Das Wasser geht nicht hinein. Es kommt heraus. Denk an die Richtung." } }
+        ] },
+        { "who": "bruno", "it": "Per smontarla servono due mani piccole. Le mie sono troppo grandi.", "sl": "Da jo razstavim, potrebujem dve majhni roki. Moje so prevelike.", "en": "To take it apart you need two small hands. Mine are too big.", "de": "Zum Auseinanderbauen braucht man zwei kleine Hände. Meine sind zu groß." },
+        { "choices": [
+          { "it": "Mi insegna a smontarla, signor Bruno?", "sl": "Me naučite, kako se jo razstavi, gospod Bruno?", "en": "Will you teach me to take it apart, Signor Bruno?", "de": "Bringen Sie mir bei, es auseinanderzubauen, Herr Bruno?", "ok": true,
+            "reply": { "face": "happy", "it": "Sì. Domani alle sette. Porta le mani, non le chiacchiere.", "sl": "Ja. Jutri ob sedmih. Prinesi roke, ne klepeta.", "en": "Yes. Tomorrow at seven. Bring your hands, not chatter.", "de": "Ja. Morgen um sieben. Bring die Hände mit, nicht das Gerede." } },
+          { "it": "Mi insegna di smontarla, signor Bruno?", "sl": "Me naučite, kako se jo razstavi, gospod Bruno?", "en": "Will you teach me to take it apart, Signor Bruno?", "de": "Bringen Sie mir bei, es auseinanderzubauen, Herr Bruno?",
+            "grammar": "infinito-preposizioni", "why": { "sl": "Insegnare gre z a: insegnare a smontare.", "en": "Insegnare takes a: insegnare a smontare.", "de": "Insegnare steht mit a: insegnare a smontare." },
+            "reply": { "face": "cross", "it": "Di smontarla? No. Prima la frase, poi la cannella. Di nuovo.", "sl": "Di smontarla? Ne. Najprej stavek, potem pipa. Še enkrat.", "en": "Di smontarla? No. First the sentence, then the spout. Again.", "de": "Di smontarla? Nein. Zuerst der Satz, dann das Röhrchen. Nochmal." } }
+        ] },
+        { "who": "bruno", "it": "Bene. Adesso bevi, se hai sete. L'acqua è di tutti. Anche quella lenta.", "sl": "Dobro. Zdaj pa pij, če si {m:žejen|f:žejna}. Voda je od vseh. Tudi tista počasna.", "en": "Good. Now drink, if you're thirsty. The water's everyone's. Even the slow one.", "de": "Gut. Jetzt trink, wenn du Durst hast. Das Wasser gehört allen. Auch das langsame." }
+      ]
+    },
+    {
+      "id": "acqua-b2-sorgente",
+      "level": "B2",
+      "memory": { "it": "i tubi di ferro dalla sorgente alla fontana", "sl": "železne cevi od izvira do vodnjaka", "en": "the iron pipes from the spring to the fountain", "de": "die Eisenrohre von der Quelle zum Brunnen" },
+      "lines": [
+        { "who": "bruno", "it": "Quest'acqua viene dalla sorgente sopra il bosco. L'ho fatta arrivare fin qui con tubi di ferro, metro per metro.", "sl": "Ta voda priteče iz izvira nad gozdom. Pripeljal sem jo do sem z železnimi cevmi, meter za metrom.", "en": "This water comes from the spring above the wood. I brought it all the way here in iron pipes, metre by metre.", "de": "Dieses Wasser kommt von der Quelle über dem Wald. Ich hab es mit Eisenrohren hierher geleitet, Meter für Meter." },
+        { "who": "bruno", "face": "thinking", "it": "Prima, le donne andavano lassù con le brocche. Un'ora per andare, un'ora per tornare. Ogni giorno.", "sl": "Prej so ženske hodile tja gor z vrči. Uro tja, uro nazaj. Vsak dan.", "en": "Before, the women went up there with jugs. An hour to go, an hour to come back. Every day.", "de": "Früher gingen die Frauen mit Krügen hinauf. Eine Stunde hin, eine Stunde zurück. Jeden Tag." },
+        { "choices": [
+          { "it": "Senza i Suoi tubi, avrebbero camminato due ore al giorno ancora per anni!", "sl": "Brez vaših cevi bi še leta in leta hodile po dve uri na dan!", "en": "Without your pipes, they'd have walked two hours a day for years more!", "de": "Ohne Ihre Rohre wären sie noch jahrelang zwei Stunden am Tag gelaufen!", "ok": true,
+            "reply": { "face": "proud", "it": "Anni. E con la neve, anche di più. Il ferro serve a questo: a risparmiare fatica.", "sl": "Leta. S snegom pa še več. Železo je za to: da prihrani trud.", "en": "Years. And with snow, even more. That's what iron is for: saving effort.", "de": "Jahre. Und bei Schnee noch mehr. Dafür ist Eisen da: um Mühe zu sparen." } },
+          { "it": "Senza i Suoi tubi, sarebbero camminate due ore al giorno ancora per anni!", "sl": "Brez vaših cevi bi še leta in leta hodile po dve uri na dan!", "en": "Without your pipes, they'd have walked two hours a day for years more!", "de": "Ohne Ihre Rohre wären sie noch jahrelang zwei Stunden am Tag gelaufen!",
+            "grammar": "condizionale-passato", "why": { "sl": "Camminare ima avere: hanno camminato, zato avrebbero camminato.", "en": "Camminare takes avere: hanno camminato, so avrebbero camminato.", "de": "Camminare bildet mit avere: hanno camminato, also avrebbero camminato." },
+            "reply": { "face": "cross", "it": "Sarebbero camminate? No. Le gambe camminano con avere. Di nuovo.", "sl": "Sarebbero camminate? Ne. Noge hodijo z avere. Še enkrat.", "en": "Sarebbero camminate? No. Legs walk with avere. Again.", "de": "Sarebbero camminate? Nein. Beine laufen mit avere. Nochmal." } }
+        ] },
+        { "who": "bruno", "face": "curious", "it": "Adesso qualcuno vuole i tubi di plastica. Costano poco e non arrugginiscono. Tu che dici?", "sl": "Zdaj nekateri hočejo plastične cevi. Malo stanejo in ne zarjavijo. Kaj praviš ti?", "en": "Now some people want plastic pipes. They're cheap and don't rust. What do you say?", "de": "Jetzt wollen manche Plastikrohre. Die kosten wenig und rosten nicht. Was sagst du?" },
+        { "choices": [
+          { "it": "Forse sono pratici; tuttavia i Suoi tubi di ferro funzionano da anni senza un buco.", "sl": "Morda so praktične; vendar vaše železne cevi že leta delujejo brez ene same luknje.", "en": "Maybe they're practical; however, your iron pipes have worked for years without a single hole.", "de": "Vielleicht sind sie praktisch; trotzdem funktionieren Ihre Eisenrohre seit Jahren ohne ein einziges Loch.", "ok": true,
+            "reply": { "face": "proud", "it": "Hm. Giusto. Quello che funziona non si cambia.", "sl": "Hm. Prav. Kar deluje, se ne menja.", "en": "Hm. Right. What works isn't changed.", "de": "Hm. Richtig. Was funktioniert, wechselt man nicht." } },
+          { "it": "Allora i tubi di ferro vanno buttati subito, perché sono tutti arrugginiti.", "sl": "Potem je treba železne cevi takoj vreči stran, ker so vse zarjavele.", "en": "Then the iron pipes must be thrown out at once, because they're all rusty.", "de": "Dann müssen die Eisenrohre sofort weg, weil sie alle verrostet sind.",
+            "why": { "sl": "Bruno ni rekel, da so njegove cevi zarjavele: rekel je, da plastične ne rjavijo.", "en": "Bruno didn't say his pipes are rusty: he said plastic ones don't rust.", "de": "Bruno hat nicht gesagt, dass seine Rohre rostig sind: Er hat gesagt, Plastik rostet nicht." },
+            "reply": { "face": "cross", "it": "Arrugginiti? I miei? No. Li controllo ogni mese. Ascolta prima di rispondere.", "sl": "Zarjavele? Moje? Ne. Vsak mesec jih pregledam. Poslušaj, preden odgovoriš.", "en": "Rusty? Mine? No. I check them every month. Listen before you answer.", "de": "Verrostet? Meine? Nein. Ich prüfe sie jeden Monat. Hör zu, bevor du antwortest." } }
+        ] },
+        { "who": "bruno", "it": "Ferro o plastica, l'acqua è la stessa. Bevi, {learner}. È fresca.", "sl": "Železo ali plastika, voda je ista. Pij, {learner}. Sveža je.", "en": "Iron or plastic, the water's the same. Drink, {learner}. It's cool.", "de": "Eisen oder Plastik, das Wasser ist dasselbe. Trink, {learner}. Es ist frisch." }
+      ]
+    },
+    {
+      "id": "notizie-b1-circo",
+      "level": "B1",
+      "memory": { "it": "la notizia del circo con l'elefante", "sl": "novico o cirkusu s slonom", "en": "the news of the circus with the elephant", "de": "die Nachricht vom Zirkus mit dem Elefanten" },
+      "lines": [
+        { "who": "nives", "face": "surprised", "it": "{learner}! Notizia! Notizia! La radio ha detto che domani arriva un circo a Cormòns, con un elefante vero!", "sl": "{learner}! Novica! Novica! Radio je rekel, da jutri pride v Krmin cirkus, s pravim slonom!", "en": "{learner}! News! News! The radio said a circus is coming to Cormòns tomorrow, with a real elephant!", "de": "{learner}! Neuigkeit! Neuigkeit! Das Radio hat gesagt, morgen kommt ein Zirkus nach Cormòns, mit einem echten Elefanten!" },
+        { "who": "nives", "face": "curious", "it": "Lo dici tu a Giulia? A me non crede mai, dice che capisco tutto storto.", "sl": "Boš ti povedal Giulii? Meni nikoli ne verjame, pravi, da vse narobe razumem.", "en": "Will you tell Giulia? She never believes me, she says I get everything wrong.", "de": "Sagst du es Giulia? Mir glaubt sie nie, sie sagt, ich versteh alles verkehrt." },
+        { "choices": [
+          { "it": "Sì, zia, glielo dico subito!", "sl": "Ja, teta, takoj ji povem!", "en": "Yes, Zia, I'll tell her right away!", "de": "Ja, Tante, ich sag es ihr sofort!", "ok": true,
+            "reply": { "face": "happy", "it": "Grazie, tesoro! Lo ripeto: grazie! A te crede di sicuro.", "sl": "Hvala, srček! Ponovim: hvala! Tebi bo zagotovo verjela.", "en": "Thank you, sweetheart! I'll say it again: thank you! She'll believe you for sure.", "de": "Danke, Schatz! Ich sag's nochmal: danke! Dir glaubt sie bestimmt." } },
+          { "it": "Sì, zia, le lo dico subito!", "sl": "Ja, teta, takoj ji povem!", "en": "Yes, Zia, I'll tell her right away!", "de": "Ja, Tante, ich sag es ihr sofort!",
+            "grammar": "pronomi-combinati", "why": { "sl": "Le (njej) in lo (to) se združita v eno besedo: glielo.", "en": "Le (to her) and lo (it) join into one word: glielo.", "de": "Le (ihr) und lo (es) werden ein Wort: glielo." },
+            "reply": { "face": "confused", "it": "Le lo? Come? Cosa? Adesso sono io che capisco storto!", "sl": "Le lo? Kako? Kaj? Zdaj pa jaz narobe razumem!", "en": "Le lo? What? Now I'm the one who gets it wrong!", "de": "Le lo? Wie? Was? Jetzt versteh ich es verkehrt!" } }
+        ] },
+        { "who": "nives", "it": "E tu? Domani vai a vedere l'elefante, o resti a casa a fare i compiti?", "sl": "Pa ti? Greš jutri gledat slona, ali ostaneš doma in delaš domačo nalogo?", "en": "And you? Are you going to see the elephant tomorrow, or staying home to do homework?", "de": "Und du? Gehst du morgen den Elefanten anschauen, oder bleibst du zu Hause bei den Hausaufgaben?" },
+        { "choices": [
+          { "it": "Siccome il circo è domani, i compiti li faccio oggi!", "sl": "Ker je cirkus jutri, bom domačo nalogo {m:naredil|f:naredila} danes!", "en": "Since the circus is tomorrow, I'll do my homework today!", "de": "Weil der Zirkus morgen ist, mach ich die Hausaufgaben heute!", "ok": true,
+            "reply": { "face": "laugh", "it": "{m:Furbo|f:Furba}! Così domani hai tutta la giornata per l'elefante.", "sl": "{m:Zvitorepec|f:Zvitorepka}! Tako boš jutri {m:imel|f:imela} ves dan za slona.", "en": "Clever! That way tomorrow you've got the whole day for the elephant.", "de": "Schlau! Dann hast du morgen den ganzen Tag für den Elefanten." } },
+          { "it": "Perché il circo è domani, i compiti li faccio oggi!", "sl": "Ker je cirkus jutri, bom domačo nalogo {m:naredil|f:naredila} danes!", "en": "Since the circus is tomorrow, I'll do my homework today!", "de": "Weil der Zirkus morgen ist, mach ich die Hausaufgaben heute!",
+            "grammar": "congiunzioni", "why": { "sl": "Razlog na začetku stavka pove siccome; perché pride za drugim stavkom.", "en": "A reason at the start is siccome; perché comes after the other sentence.", "de": "Ein Grund am Satzanfang ist siccome; perché steht nach dem anderen Satz." },
+            "reply": { "face": "curious", "it": "Perché…? Prima il perché e poi il che cosa? Mmm, non ti seguo, {learner}!", "sl": "Ker …? Najprej zakaj, potem kaj? Hm, ne sledim ti, {learner}!", "en": "Because…? First the why and then the what? Hmm, I can't follow you, {learner}!", "de": "Weil …? Erst das Warum und dann das Was? Hm, ich komm nicht mit, {learner}!" } }
+        ] },
+        { "who": "nives", "face": "happy", "it": "{m:Bravo|f:Brava}! Lo dico due volte: {m:bravo|f:brava}! E domani mi racconti tutto dell'elefante.", "sl": "{m:Priden|f:Pridna}! Povem dvakrat: {m:priden|f:pridna}! Jutri mi pa vse poveš o slonu.", "en": "Well done! I'll say it twice: well done! And tomorrow you tell me all about the elephant.", "de": "Toll! Ich sag's zweimal: toll! Und morgen erzählst du mir alles vom Elefanten." }
+      ]
+    },
+    {
+      "id": "notizie-b2-mulino",
+      "level": "B2",
+      "memory": { "it": "il museo che avevo capito mulino", "sl": "muzej, ki sem ga razumela kot mlin", "en": "the museum I'd heard as a mill", "de": "das Museum, das ich als Mühle verstanden hatte" },
+      "lines": [
+        { "who": "nives", "face": "laugh", "it": "Sai che cosa ho combinato, {learner}? La radio aveva detto che a Cormòns aprivano un nuovo museo, e io avevo capito «un nuovo mulino»!", "sl": "Veš, kaj sem ušpičila, {learner}? Radio je rekel, da v Krminu odpirajo nov muzej, jaz pa sem razumela »nov mlin«!", "en": "Do you know what I did, {learner}? The radio had said a new museum was opening in Cormòns, and I'd heard «a new mill»!", "de": "Weißt du, was ich angestellt hab, {learner}? Das Radio hatte gesagt, in Cormòns öffne ein neues Museum, und ich hatte «eine neue Mühle» verstanden!" },
+        { "who": "nives", "it": "L'ho detto a tutti, due volte. Così il signor Franco è andato a Cormòns con il carro pieno di sacchi di mais.", "sl": "Povedala sem vsem, dvakrat. Tako je gospod Franco šel v Krmin z vozom, polnim vreč koruze.", "en": "I told everyone, twice. So Signor Franco went to Cormòns with his cart full of sacks of maize.", "de": "Ich hab's allen erzählt, zweimal. Also ist Herr Franco mit dem Wagen voller Maissäcke nach Cormòns gefahren." },
+        { "choices": [
+          { "it": "Quindi la radio aveva parlato di un museo, e il signor Franco ha trovato i quadri invece della macina!", "sl": "Torej je radio govoril o muzeju, gospod Franco pa je namesto mlinskega kamna našel slike!", "en": "So the radio had talked about a museum, and Signor Franco found paintings instead of a millstone!", "de": "Das Radio hatte also von einem Museum gesprochen, und Herr Franco fand Bilder statt eines Mühlsteins!", "ok": true,
+            "reply": { "face": "laugh", "it": "Proprio così! Adesso non mi parla da tre giorni. Ma dice che i quadri erano belli.", "sl": "Prav tako! Zdaj že tri dni ne govori z mano. Ampak pravi, da so bile slike lepe.", "en": "Exactly! Now he hasn't spoken to me for three days. But he says the paintings were nice.", "de": "Genau! Jetzt redet er seit drei Tagen nicht mit mir. Aber er sagt, die Bilder waren schön." } },
+          { "it": "Quindi a Cormòns hanno aperto davvero un nuovo mulino.", "sl": "Torej so v Krminu res odprli nov mlin.", "en": "So they really did open a new mill in Cormòns.", "de": "Dann haben sie in Cormòns wirklich eine neue Mühle eröffnet.",
+            "why": { "sl": "Radio je govoril o muzeju; mlin je teta Nives napačno slišala.", "en": "The radio talked about a museum; the mill is what Zia Nives misheard.", "de": "Das Radio sprach von einem Museum; die Mühle hat Zia Nives falsch gehört." },
+            "reply": { "face": "surprised", "it": "Davvero? No, no! Un museo! Con i quadri, non con le macine!", "sl": "Res? Ne, ne! Muzej! S slikami, ne z mlinskimi kamni!", "en": "Really? No, no! A museum! With paintings, not millstones!", "de": "Wirklich? Nein, nein! Ein Museum! Mit Bildern, nicht mit Mühlsteinen!" } }
+        ] },
+        { "who": "nives", "face": "curious", "it": "Da oggi, prima di dire una notizia, la faccio ripetere a te. Dimmi: che cosa fai, quando la radio ti dà una notizia?", "sl": "Od danes naprej bom novico, preden jo povem, dala ponoviti tebi. Povej: kaj narediš, ko ti radio da novico?", "en": "From today, before I tell any news, I'll have you repeat it. Tell me: what do you do when the radio gives you some news?", "de": "Ab heute lass ich jede Neuigkeit erst von dir wiederholen. Sag mal: Was machst du, wenn das Radio dir eine Neuigkeit gibt?" },
+        { "choices": [
+          { "it": "Sentita la notizia, prima la ripeto piano, e solo dopo la dico al paese!", "sl": "Ko novico slišim, jo najprej počasi ponovim, šele potem jo povem vasi!", "en": "Once I've heard the news, first I repeat it slowly, and only then tell the village!", "de": "Hab ich die Nachricht gehört, wiederhole ich sie erst langsam, und erst dann sag ich sie dem Dorf!", "ok": true,
+            "reply": { "face": "proud", "it": "Perfetto! Così niente più mulini a Cormòns. Lo dico due volte: niente mulini!", "sl": "Odlično! Tako ne bo več mlinov v Krminu. Povem dvakrat: nič mlinov!", "en": "Perfect! Then no more mills in Cormòns. I'll say it twice: no mills!", "de": "Perfekt! Dann keine Mühlen mehr in Cormòns. Ich sag's zweimal: keine Mühlen!" } },
+          { "it": "Sentito la notizia, prima la ripeto piano, e solo dopo la dico al paese!", "sl": "Ko novico slišim, jo najprej počasi ponovim, šele potem jo povem vasi!", "en": "Once I've heard the news, first I repeat it slowly, and only then tell the village!", "de": "Hab ich die Nachricht gehört, wiederhole ich sie erst langsam, und erst dann sag ich sie dem Dorf!",
+            "grammar": "participio-assoluto", "why": { "sl": "Deležnik na začetku se ujema s samostalnikom za njim: la notizia, sentita la notizia.", "en": "The participle at the start agrees with the noun after it: la notizia, sentita la notizia.", "de": "Das Partizip am Anfang richtet sich nach dem Nomen danach: la notizia, sentita la notizia." },
+            "reply": { "face": "confused", "it": "Sentito…? Come? Cosa? Mmm, la notizia è femmina, {learner}, come me e la radio!", "sl": "Sentito …? Kako? Kaj? Hm, novica je ženskega spola, {learner}, kot jaz in radio!", "en": "Sentito…? What? Hmm, news is feminine, {learner}, like me and the radio!", "de": "Sentito …? Wie? Was? Hm, die Nachricht ist weiblich, {learner}, wie ich und das Radio!" } }
+        ] },
+        { "who": "nives", "face": "happy", "it": "Allora affare fatto. Tu ripeti, io racconto. E Franco, forse, mi torna a parlare!", "sl": "Potem dogovorjeno. Ti ponoviš, jaz povem. Franco pa bo morda spet govoril z mano!", "en": "Then it's a deal. You repeat, I tell. And Franco might even talk to me again!", "de": "Dann abgemacht. Du wiederholst, ich erzähle. Und Franco redet vielleicht wieder mit mir!" }
       ]
     }
   ]

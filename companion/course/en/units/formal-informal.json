@@ -532,6 +532,133 @@
           }
         }
       ]
+    },
+    {
+      "id": "formal-informal-4",
+      "title": { "sl": "Povej in napiši", "de": "Sprich und schreib", "it": "Parla e scrivi", "en": "Speak and write" },
+      "exercises": [
+        {
+          "type": "speaking",
+          "grammar": "formal-informal",
+          "instruction": {
+            "sl": "Say it aloud · Povej na glas",
+            "de": "Say it aloud · Sag es laut",
+            "it": "Say it aloud · Dillo ad alta voce",
+            "en": "Say it aloud"
+          },
+          "prompt": {
+            "sl": "Po telefonu z občino (the council): vljudno prosi, naj ti pošljejo obrazec za avtobusno vozovnico (a bus pass).",
+            "de": "Am Telefon mit der Gemeinde (the council): bitte höflich darum, dass man dir ein Formular für einen Buspass (a bus pass) schickt.",
+            "it": "Al telefono con il comune (the council): chiedi con garbo che ti mandino un modulo per l'abbonamento del bus (a bus pass).",
+            "en": "On the phone to the council: ask politely whether they could send you a form for a bus pass."
+          },
+          "say": "Could you send me a form for a bus pass, please?",
+          "accept": [
+            "Could you please send me a form for a bus pass?",
+            "Would you send me a form for a bus pass, please?",
+            "Would you mind sending me a form for a bus pass?",
+            "Could you possibly send me a form for a bus pass?",
+            "I was wondering if you could send me a form for a bus pass.",
+            "Would you be able to send me a form for a bus pass?",
+            "Please could you send me a form for a bus pass?",
+            "Could you send me a bus pass form, please?"
+          ],
+          "spoken": ["Could you send us a form for a bus pass, please?"],
+          "show": false,
+          "explain": {
+            "sl": "**Could you …?** je vljudnejši od Can you, Would you mind + -ing še bolj\n- Could you send me a form, please?\n- send us · na severu tako rečejo za me",
+            "de": "**Could you …?** ist höflicher als Can you, Would you mind + -ing noch mehr\n- Could you send me a form, please?\n- send us · so sagt man im Norden für me",
+            "it": "**Could you …?** è più cortese di Can you, Would you mind + -ing ancora di più\n- Could you send me a form, please?\n- send us · al Nord si dice così per me",
+            "en": "**Could you …?** is politer than Can you, Would you mind + -ing more so\n- Could you send me a form, please?\n- send us · what the North says for me"
+          }
+        },
+        {
+          "type": "speaking",
+          "grammar": "formal-informal",
+          "instruction": {
+            "sl": "Answer aloud · Odgovori na glas",
+            "de": "Answer aloud · Antworte laut",
+            "it": "Answer aloud · Rispondi ad alta voce",
+            "en": "Answer aloud"
+          },
+          "prompt": {
+            "sl": "Uslužbenec občine te po telefonu vpraša, kako ti lahko pomaga. Odgovori vljudno: zakaj kličeš ali za kaj prosiš.",
+            "de": "Ein Mitarbeiter der Gemeinde fragt am Telefon, wie er dir helfen kann. Antworte höflich: warum du anrufst oder worum du bittest.",
+            "it": "Un impiegato del comune ti chiede al telefono come può aiutarti. Rispondi con garbo: perché chiami o che cosa chiedi.",
+            "en": "A council officer on the phone asks how he can help. Answer politely: why you're ringing, or what you'd like."
+          },
+          "ask": "Good morning, how can I help you?",
+          "say": "I would like some information about the bus to Keswick, please.",
+          "accept": ["I am ringing about the bus to Keswick."],
+          "must": [
+            {
+              "label": {
+                "sl": "vljudna prošnja ali razlog klica (I'd like …, Could you …, I'm ringing about …)",
+                "de": "eine höfliche Bitte oder warum du anrufst (I'd like …, Could you …, I'm ringing about …)",
+                "it": "una richiesta cortese o perché chiami (I'd like …, Could you …, I'm ringing about …)",
+                "en": "a polite request, or why you ring (I'd like …, Could you …, I'm ringing about …)"
+              },
+              "any": ["i would like", "could you", "would you", "i was wondering", "i would be grateful", "i would appreciate", "i am ringing", "i am calling", "i am phoning", "i am afraid"]
+            }
+          ],
+          "min_words": 5,
+          "explain": {
+            "sl": "**I'd like …, Could you …?, I'm ringing about …**: vljudno, kot na uradu\n- I'd like some information about the bus.\n- I'm ringing about my bus pass.",
+            "de": "**I'd like …, Could you …?, I'm ringing about …**: höflich, wie auf dem Amt\n- I'd like some information about the bus.\n- I'm ringing about my bus pass.",
+            "it": "**I'd like …, Could you …?, I'm ringing about …**: con garbo, come in un ufficio\n- I'd like some information about the bus.\n- I'm ringing about my bus pass.",
+            "en": "**I'd like …, Could you …?, I'm ringing about …**: polite, as to an office\n- I'd like some information about the bus.\n- I'm ringing about my bus pass."
+          }
+        },
+        {
+          "type": "writing",
+          "grammar": "formal-informal",
+          "instruction": { "sl": "Write · Napiši", "de": "Write · Schreib", "it": "Write · Scrivi", "en": "Write" },
+          "prompt": {
+            "sl": "Brv čez potok (the beck) je zaprta že mesec dni. Napiši uradno pismo g. Dixonu z občine: povej, kaj je narobe, in vljudno vprašaj, kdaj jo bodo popravili.",
+            "de": "Die Brücke über den Bach (the beck) ist seit einem Monat gesperrt. Schreib einen formellen Brief an Mr Dixon von der Gemeinde: Sag, was los ist, und frag höflich, wann sie repariert wird.",
+            "it": "La passerella sul torrente (the beck) è chiusa da un mese. Scrivi una lettera formale a Mr Dixon del comune: di' che cosa non va e chiedi con garbo quando la ripareranno.",
+            "en": "The footbridge over the beck has been closed for a month. Write a formal letter to Mr Dixon at the council: say what is wrong, and ask politely when it will be repaired."
+          },
+          "model": "Dear Mr Dixon, I am writing about the footbridge over the beck, which has been closed for a month. The children now have to walk along the main road to school, and I am afraid it is not safe. I would be grateful if you could tell me when the bridge will be repaired. Could you also put up a sign for walkers? I look forward to hearing from you. Yours sincerely, {learner}",
+          "must": [
+            {
+              "label": {
+                "sl": "nagovor in pozdrav (Dear Mr Dixon, Yours sincerely)",
+                "de": "Anrede und Gruß (Dear Mr Dixon, Yours sincerely)",
+                "it": "apertura e chiusura (Dear Mr Dixon, Yours sincerely)",
+                "en": "the opening and the close (Dear Mr Dixon, Yours sincerely)"
+              },
+              "any": ["dear mr", "dear mrs", "dear ms", "dear miss", "dear sir or madam", "dear sir", "dear madam", "yours sincerely", "yours faithfully", "yours truly"],
+              "n": 2
+            },
+            {
+              "label": {
+                "sl": "vljudna prošnja (I would be grateful if …, Could you …)",
+                "de": "eine höfliche Bitte (I would be grateful if …, Could you …)",
+                "it": "una richiesta cortese (I would be grateful if …, Could you …)",
+                "en": "a polite request (I would be grateful if …, Could you …)"
+              },
+              "any": ["would be grateful", "could you", "would you", "i was wondering", "i would appreciate"]
+            },
+            {
+              "label": {
+                "sl": "I am writing … ali I look forward to hearing from you",
+                "de": "I am writing … oder I look forward to hearing from you",
+                "it": "I am writing … o I look forward to hearing from you",
+                "en": "I am writing … or I look forward to hearing from you"
+              },
+              "any": ["i am writing", "look forward to hearing", "i look forward"]
+            }
+          ],
+          "length": { "min": 50, "max": 110 },
+          "explain": {
+            "sl": "**uradno pismo**: Dear …, I am writing about …, I would be grateful if …, Yours sincerely\n- Dear Mr Dixon … Yours sincerely\n- Dear Sir or Madam … Yours faithfully",
+            "de": "**ein formeller Brief**: Dear …, I am writing about …, I would be grateful if …, Yours sincerely\n- Dear Mr Dixon … Yours sincerely\n- Dear Sir or Madam … Yours faithfully",
+            "it": "**una lettera formale**: Dear …, I am writing about …, I would be grateful if …, Yours sincerely\n- Dear Mr Dixon … Yours sincerely\n- Dear Sir or Madam … Yours faithfully",
+            "en": "**a formal letter**: Dear …, I am writing about …, I would be grateful if …, Yours sincerely\n- Dear Mr Dixon … Yours sincerely\n- Dear Sir or Madam … Yours faithfully"
+          }
+        }
+      ]
     }
   ],
   "test": {
@@ -682,9 +809,80 @@
           "it": "**Britannico: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry",
           "en": "**British: lift, flat, lorry, petrol, holiday, autumn**\n- elevator → lift · apartment → flat · truck → lorry"
         }
+      },
+      {
+        "type": "speaking",
+        "grammar": "formal-informal",
+        "instruction": {
+          "sl": "Answer aloud · Odgovori na glas",
+          "de": "Answer aloud · Antworte laut",
+          "it": "Answer aloud · Rispondi ad alta voce",
+          "en": "Answer aloud"
+        },
+        "prompt": {
+          "sl": "Na avtobusni postaji te uslužbenec vpraša, kaj je narobe. Vljudno se pritoži: I'm afraid …, I'd like to complain about …",
+          "de": "Am Busbahnhof fragt dich ein Angestellter, was los ist. Beschwer dich höflich: I'm afraid …, I'd like to complain about …",
+          "it": "Alla stazione dei bus un impiegato ti chiede che cosa c'è che non va. Lamentati con garbo: I'm afraid …, I'd like to complain about …",
+          "en": "At the bus station the clerk asks what the problem is. Complain politely: I'm afraid …, I'd like to complain about …"
+        },
+        "ask": "What seems to be the problem?",
+        "say": "I am afraid the bus to Keswick was late again this morning.",
+        "accept": ["I would like to complain about the bus to Keswick."],
+        "must": [
+          {
+            "label": {
+              "sl": "slaba novica, vljudno (I'm afraid …, I'd like to complain about …)",
+              "de": "eine schlechte Nachricht, höflich (I'm afraid …, I'd like to complain about …)",
+              "it": "una brutta notizia, con garbo (I'm afraid …, I'd like to complain about …)",
+              "en": "bad news, politely (I'm afraid …, I'd like to complain about …)"
+            },
+            "any": ["afraid", "complain", "complain*", "unfortunately", "i would like", "sorry to say"]
+          }
+        ],
+        "min_words": 5
+      },
+      {
+        "type": "writing",
+        "grammar": "formal-informal",
+        "instruction": { "sl": "Write · Napiši", "de": "Write · Schreib", "it": "Write · Scrivi", "en": "Write" },
+        "prompt": {
+          "sl": "Napiši kratko e-sporočilo prijatelju Jacku: zahvali se mu za fotografije s pohoda in ga povabi na kviz v gostilni v petek. Sproščeno, kot prijatelju.",
+          "de": "Schreib deinem Freund Jack eine kurze Mail: Bedank dich für die Fotos von der Wanderung und lad ihn am Freitag zum Quiz im Pub ein. Locker, wie unter Freunden.",
+          "it": "Scrivi una breve mail al tuo amico Jack: ringrazialo per le foto della camminata e invitalo al quiz al pub venerdì. Alla buona, come tra amici.",
+          "en": "Write a short email to your friend Jack: thank him for the photos of the walk and invite him to the pub quiz on Friday. Keep it friendly."
+        },
+        "model": "Hi Jack, thanks for the photos of our walk up the fell! The one of the tarn is great. Are you free on Friday? There's a quiz at the Packhorse Inn, and we need a good team. Mrs Birkett says the prize is a big cake. Hope to see you there! Cheers, {learner}",
+        "must": [
+          {
+            "label": {
+              "sl": "prijateljski nagovor in pozdrav (Hi Jack, Cheers, See you soon)",
+              "de": "eine lockere Anrede und ein Gruß (Hi Jack, Cheers, See you soon)",
+              "it": "un saluto da amici, all'inizio e alla fine (Hi Jack, Cheers, See you soon)",
+              "en": "a friendly opening and close (Hi Jack, Cheers, See you soon)"
+            },
+            "any": ["hi", "hello", "hiya", "hey", "cheers", "see you", "all the best", "best wishes", "love", "take care"],
+            "n": 2
+          },
+          {
+            "label": { "sl": "Thanks for …", "de": "Thanks for …", "it": "Thanks for …", "en": "Thanks for …" },
+            "any": ["thanks for", "thank you for", "cheers for", "ta for"]
+          }
+        ],
+        "avoid": [
+          {
+            "any": ["yours faithfully", "yours sincerely", "dear sir or madam"],
+            "explain": {
+              "sl": "**Prijatelju: Hi Jack, Cheers, See you soon**\n- Dear Sir or Madam, Yours faithfully · za uradno pismo",
+              "de": "**An Freunde: Hi Jack, Cheers, See you soon**\n- Dear Sir or Madam, Yours faithfully · für einen formellen Brief",
+              "it": "**A un amico: Hi Jack, Cheers, See you soon**\n- Dear Sir or Madam, Yours faithfully · per una lettera formale",
+              "en": "**To a friend: Hi Jack, Cheers, See you soon**\n- Dear Sir or Madam, Yours faithfully · for a formal letter"
+            }
+          }
+        ],
+        "length": { "min": 40, "max": 80 }
       }
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker"
+  "review": "machine-written, not reviewed by a native speaker; speaking and writing (sheet 4, the test's last two): machine-written, for the native check"
 }

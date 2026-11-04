@@ -19,6 +19,10 @@ export type PExample = { sl: string; tr: string }
 export type PWatch = { wrong: string; right: string; why?: string; from: string }
 export type PWord = { word: string; lemma?: string; gender?: string; gloss: string; wiktionary?: boolean }
 export type PCheck = { task?: string; q: string; hint?: string; a: string; line: boolean; from: string }
+/** A speaking item as printed: what to say or answer (the base), what the teacher asks (the language learned), its model. */
+export type PSay = { task: string; ask?: string; a: string; from: string }
+/** A writing item as printed: the task, the line it answers, what it must use, how long, its model (with the answers). */
+export type PWrite = { task: string; ask?: string; must: string[]; min?: number; max?: number; a: string; from: string }
 
 export type Sheet = {
   id: string
@@ -35,6 +39,9 @@ export type Sheet = {
   watch: PWatch[]
   words: PWord[]
   check: PCheck[]
+  /** Speaking and writing (COURSE.md, "Speaking and writing"): to say aloud and to write on the sheet's lines. */
+  say: PSay[]
+  write: PWrite[]
   unreviewed: boolean
   wiktionary: boolean
   /** What couldn't be found (a word without a meaning …), for the generator's report. */
@@ -47,6 +54,8 @@ export type Options = {
   learner: string
   /** {m:…|f:…}: the learner's form, or both ("utrujen/utrujena") where they are short. */
   gender: 'm' | 'f' | 'both'
+  /** A child's sheet: speaking and writing in their child's version (production.ts forChild). */
+  child?: boolean
 }
 
 // --- text helpers ------------------------------------------------------------------------------------------------
@@ -518,9 +527,16 @@ export class Dictionary {
     // pack's early, not prestare's I lend); an Italian word listed without its article is not the noun (freddo, the
     // adjective, is the pack's kalt; il freddo the supplement's Kälte), an English word listed without its "to" not the
     // verb (warm, the pack's topel, not to warm; book, hammer, fish the packs' nouns) unless the course names it so (rain)
-    // … nor an adjective when the pack's word is a noun (piatto, the pack's Teller, not flach; buio its Dunkelheit)
+    // … nor an adjective when the pack's word is a noun (piatto, the pack's Teller, not flach; buio its Dunkelheit);
+    // an English verb the pack's word means is that word (can, the modal: moči, znati; was: war), not a tin
     const packNoun = (w: Json | undefined) => !!w && (!!w.gender || !!w.noun || typeof w.plural === 'string')
-    const shadowed = (x: { pos: string; named: boolean }) => ((this.language === 'it' && (x.pos === 'noun' || (x.pos === 'adj' && packNoun(this.packs.get(k))))) || (this.language === 'en' && x.pos === 'verb' && !x.named)) && !this.bare(word) && this.packs.has(k)
+    const parts = (s: string) => s.replace(/\([^)]*\)/g, ' ').split(/[,;]/).map(t => norm(t).replace(/^(?:to|the|an?) /, '')).filter(t => !!t)
+    const packMeans = (x: { gloss: string }) => {
+      const said = this.packs.get(k)?.[base]
+      return typeof said === 'string' && parts(x.gloss).some(t => parts(said).includes(t))
+    }
+    const shadowed = (x: { pos: string; named: boolean; gloss: string }) =>
+      ((this.language === 'it' && (x.pos === 'noun' || (x.pos === 'adj' && packNoun(this.packs.get(k))))) || (this.language === 'en' && x.pos === 'verb' && !x.named && !packMeans(x))) && !this.bare(word) && this.packs.has(k)
     const mine = sup.filter(x => x.inBase && x.self && !shadowed(x))
     if (mine.length) {
       const rank = (p: string) => (POS_RANK.indexOf(p) < 0 ? 50 : POS_RANK.indexOf(p))
@@ -685,6 +701,9 @@ export function buildSheet(c: Content, raw: Json, n: number, of: number, o: Opti
   // --- watch out ---
   const watch = chooseWatch(unit, pages, steps, base, corpus, used, o, L, based)
 
+  // --- speak and write: the worksheets' speaking and writing (the test stays the app's) ---
+  const { say, write } = chooseProduce(unit, base, o, based)
+
   // --- the words ---
   // the unit's own glosses: "**miza** (table)" in its intro; a word whose English bracket is a note ("**rad** (a man)",
   // "**oba** (masculine)") has none in any base (ein Mann, maschile)
@@ -763,6 +782,8 @@ export function buildSheet(c: Content, raw: Json, n: number, of: number, o: Opti
     watch,
     words,
     check,
+    say,
+    write,
     unreviewed: unit.machine_written !== false || !reviewed,
     wiktionary,
     notes,
@@ -1089,6 +1110,41 @@ function chooseCheck(unit: Json, base: string, o: Options, based = false): PChec
     return tasks.flatMap(t => xs.filter(x => (x.task ?? '') === t))
   }
   return [...group(picked.slice(0, 5)), ...group(picked.slice(5))].map(({ len: _len, ...item }) => item)
+}
+
+// --- speak and write --------------------------------------------------------------------------------------------
+
+/**
+ * The worksheets' speaking items (two at most) and writing item (one) as a sheet prints them (COURSE.md, "Speaking and
+ * writing"; the test's stay the app's, as its other items do): the task in the sheet's base, what the teacher asks, what
+ * the writing must use and how long, the models for the answers. A child's sheet ([Options.child]) prints the child's
+ * version; one whose task or model needs a gender the sheet doesn't have is left out.
+ */
+export function chooseProduce(unit: Json, base: string, o: Options, based = false): { say: PSay[]; write: PWrite[] } {
+  const say: PSay[] = []
+  const write: PWrite[] = []
+  const own = (e: Json) => (o.child && e.child ? { ...e, ...e.child } : e)
+  const ok = (...xs: (string | undefined)[]) => xs.every(x => x === undefined || !x.includes('\u0000'))
+  // a task said per base, or English only (the Slovene course's): on another base's sheet only when the unit gives it per base
+  const inBaseHere = based || base === 'en'
+  for (const w of unit.worksheets ?? []) {
+    for (const raw of w.exercises ?? []) {
+      if (raw.type !== 'speaking' && raw.type !== 'writing') continue
+      const e = own(raw)
+      if (!inBaseHere) continue
+      const task = fillLearner(e.prompt ?? '', o)
+      const ask = e.ask ? fillLearner(e.ask, o) : undefined
+      if (e.type === 'speaking' && say.length < 2) {
+        const a = fillLearner(e.say ?? '', o)
+        if (task && a && ok(task, ask, a)) say.push({ task, ...(ask ? { ask } : {}), a, from: `sheet:${w.id}` })
+      } else if (e.type === 'writing' && !write.length) {
+        const a = fillLearner(e.model ?? '', o)
+        const must = (e.must ?? []).map((m: Json) => fillLearner(String(m.label ?? ''), o)).filter(Boolean)
+        if (task && a && ok(task, ask, a, ...must)) write.push({ task, ...(ask ? { ask } : {}), must, ...(e.length?.min ? { min: e.length.min } : {}), ...(e.length?.max ? { max: e.length.max } : {}), a, from: `sheet:${w.id}` })
+      }
+    }
+  }
+  return { say, write }
 }
 
 // --- watch out ---------------------------------------------------------------------------------------------------
