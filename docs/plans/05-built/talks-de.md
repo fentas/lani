@@ -158,6 +158,9 @@ is the bridge's (`GET /scenarios`, `GET /scenarios/:id` 404s above, a scene's "k
 gets it at once. talks-it built the same rule under another name; on its merge into talks-de (73306bae1) one was kept,
 and its callers and checks point at `talkLevelOffered`.
 
+**The list's order.** `ScenarioStore.offered` sorts by level, easiest first, in every language: by file name an A2 learner's
+first row was a B1 talk. `talkLevelOffered` itself is unchanged.
+
 **Older apps.** No format change: the twelve are `lani.scenario/v0` as the eight German ones are, served as strings in
 the pair. Teo's tablet (0.2.698) is in an Italian village, which is served only Italian talks; a child is never offered
 a grown-up's.
@@ -210,7 +213,8 @@ the brief's level; an A1 or A2 talk keeps its Semmeln.
   `bun test/prompt-clashes.ts`: no new clash. `tutor-export --check`: 140 files match.
 - `lexicon-build --coverage --lang de`: the supplement 86.8 % of tokens, 85.3 % of words (was 86.7 / 85.1); with the
   packs and names 99.9 / 99.1 (as before); meant in sl, it and en 98.7 / 98.7 (as before); the same 51 words none
-  knows. Every German word of the twenty talks' goals, openers and phrases is known (0 of 160 left).
+  knows. Every German word of the twenty talks' goals, openers and phrases is known: the 160 of the twelve, and two the
+  older talks left (*gekostet*, *Pirker*), which an earlier version of this doc wrongly counted as known.
 - Android: `TalkTest` (twenty German files; the twelve above A2 in de · sl for a grown-up with packs; the mayor's in
   the pair; Stefan, Mitzi, Kathi, Florian and Inspektor Zankl as the characters; the storm in de · en) and `CastTest`,
   through lani-slot.sh: passed. The full unit suite after the merge with main: 4,125 tests in 523 classes, 0 failures (2

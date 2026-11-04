@@ -124,6 +124,7 @@ async function talksAbove(t: VillageTalks, files: string[], cast: Set<string>, g
       atB1.length === files.length && files.every(f => atB1.some((s: any) => `${s.id}.json` === f)) && /B1/.test(levels) && /B2/.test(levels) && atB1.every((s: any) => [s.title, s.who, ...s.goals].every(x => typeof x === 'string' && x.includes(' · '))),
       atB1.map((s: any) => [s.id, s.level]),
     )
+    check(`${v}: the talks are listed by level, easiest first (${levels}), not by file name`, atB1.map((s: any) => s.level).join() === [...atB1.map((s: any) => s.level)].sort().join(), atB1.map((s: any) => [s.id, s.level]))
     const one = await get(`/scenarios/${above.id}`)
     check(
       `${v}: a ${above.level} talk served in the learner's pair: "${above.title}", its goal and who in the pair, its setting and meanings in the base`,

@@ -343,7 +343,7 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   at Kathi's Gasthaus; the mayor and the village shop that closes, a job interview at a hotel on the Faaker See, a new
   family doctor's history, a second-hand car, a ski accident told to the Alpine police, Florian between a job and an
   Almhütte; docs/plans/05-built/talks-de.md). A curated talk is offered up to a level above the learner's: an A1 learner meets
-  A1 and A2 talks, never B1 or B2.
+  A1 and A2 talks, never B1 or B2. The list goes by level, easiest first.
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
 - A learner of German plays the same way in `kaernten` (`--target de --culture kaernten`), with the German packs of

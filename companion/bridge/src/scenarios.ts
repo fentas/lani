@@ -207,10 +207,12 @@ export class ScenarioStore {
   /**
    * The role-plays offered to the learner: a child ([child]) is never offered a grown-up's (audience adult); a learner at
    * [level] no curated one more than a level above theirs (talkLevelOffered). The tutor's are offered at any level: the
-   * tutor wrote them for this learner. Without [level], every level.
+   * tutor wrote them for this learner. Without [level], every level. Easiest first, so a list opens on what suits the
+   * learner, not on a talk above them that happens to have the first file name.
    */
   offered(child: boolean, level?: string): LoadedScenario[] {
     return this.all().filter(s => !(child && s.audience === 'adult') && (level === undefined || s.source === 'tutor' || talkLevelOffered(s.level, level)))
+      .sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level))
   }
 
   get(id: string): LoadedScenario | undefined {

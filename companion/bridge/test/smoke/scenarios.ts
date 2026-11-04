@@ -1,5 +1,5 @@
 // Smoke checks: role-play scenarios and the roleplay protocol.
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { ScenarioStore, talkLevelOffered, validateScenario } from '../../src/scenarios'
 import { talksOffered } from '../../src/scenes'
@@ -92,6 +92,7 @@ export default async function scenarios() {
         mayor.title === "Pri županji · At the mayor's office" && mayor.who === 'Županja · The mayor' && mayor.level === 'B2' && mayor.goals[0] === 'Predstavi se in na kratko povej, zakaj si prišel · Introduce yourself and say briefly why you have come' && mayor.setting.startsWith('Since the bus stop was moved') && mayor.vocabulary_hints.some((h: any) => h.sl === 'Otroci hodijo ob cesti, kjer ni pločnika.'),
         mayor,
       )
+      check('the talks are listed by level, easiest first, not by file name', atB1.map((s: any) => s.level).join() === [...atB1.map((s: any) => s.level)].sort().join() && atB1[0].level === 'A1' && atB1.at(-1).level === 'B2', atB1.map((s: any) => [s.id, s.level]))
       const marko = atB1.find((s: any) => s.id === 'vino-za-praznovanje')
       check("Marko's B1 talk names the cast's Vinar Marko, who plays it", marko?.role.startsWith('Vinar Marko,') && marko.level === 'B1', marko)
       const linked = { dialogs: [{ id: 'vino', talk: 'vino-za-praznovanje', lines: [] }] } as any
@@ -120,6 +121,10 @@ export default async function scenarios() {
     for (const [id, level] of [['na-posti-a1', 'A1'], ['na-posti-a2', 'A2'], ['na-posti-b1', 'B1'], ['na-posti-b2', 'B2']]) writeFileSync(join(curated, `${id}.json`), JSON.stringify({ ...postOffice, id, level }))
     writeFileSync(join(tutor, 'na-posti-tutor.json'), JSON.stringify({ ...postOffice, id: 'na-posti-tutor', level: 'B2' }))
     const store = new ScenarioStore(curated, tutor)
+    // a file name that sorts before the level: a-b1 comes first by name, after the A1 and A2 talks in the list
+    writeFileSync(join(curated, 'a-b1.json'), JSON.stringify({ ...postOffice, id: 'a-b1', level: 'B1' }))
+    check('a store lists its talks by level, a tutor\'s among them, a file name never first for it', store.offered(false, 'A2').map(s => s.id).join(' ') === 'na-posti-a1 na-posti-a2 a-b1 na-posti-b1 na-posti-tutor', store.offered(false, 'A2').map(s => s.id))
+    rmSync(join(curated, 'a-b1.json'))
     const ids = (level?: string) => store.offered(false, level).map(s => s.id).join(' ')
     check(
       'an A1 learner is offered the A1 and A2 talks and the tutor\'s B2 one, a B1 learner all, no level every one',
