@@ -92,18 +92,29 @@ its wood as Tone's does.
 
 - `bun test/check-culture.ts lakeland`: ok. `bun test/check-steps.ts lakeland`: ok, 13 files, 78 steps, 312 dialogs, 1,742 lines.
   `bun test/check-celebrations.ts lakeland`: 5 celebrations, 20 parties. `tsc`: clean. `tutor-export --check`: 140 files match.
-- Coverage (`bin/lexicon-build --coverage --lang en`): by the supplement 90.2 → 92.0 % of tokens, with the packs and names 99.7 → 99.8 %.
+- Coverage (`bin/lexicon-build --coverage --lang en --all`): by the supplement 90.2 → 92.0 % of tokens, with the packs and names 99.7 →
+  99.8 %. After the last merges of main, with the other new English in it, 91.6 % and 99.8 % (the two were not told apart).
   Of the new lines' words only "builded", "charcoals" and "newses" are unknown: wrong forms, left out on purpose. The supplement grew
   by about 400 entries and 140 forms, each with its meanings in sl, de and it.
 - Tests: `LakelandPitTest` (new), `LakelandProjectStepsLevelsTest` (new), `SceneCoherenceTest` (50 more done lines), `KopaCycleTest` (the
   Lake District left the list of piles without a cycle). The Friuli and Kärnten agents will touch the same two lines.
+- Smoke on the merged tree: all checks passed (3,846, none failed).
 - QA: the step `lakeland-b2` (only when named), a B2 step and Mr Dixon's B2 arrival: `make-learner.ts <dir> --name Alex --target en
   --base sl` (no `--level B2`: it reads companion/modules/en, which doesn't exist), `LANI_CULTURE=lakeland LANI_QA_SETUP_PAIR=en-sl`.
+  It passed: the mill's walls at B2 (the right and the wrong choice, the reaction, the walls drawn at the end) and Mr Dixon's arrival at
+  B2 ("Morali ste biti zelo potrpežljivi", "Must have be? Hm. That's a nail without its head"). Screenshots: `b2-*.png`.
+
+## Open: the room a B2 line has
+
+In the scene panel a B2 turn takes most of the room. The lines keep at least 72 dp (`DialogRoom.LINES_MIN_DP`), which is two lines of a
+bubble: on a 1080 x 2400 phone, with translations on and the first-time word hint showing, Mr Tyson's 94-character line shows as "The
+walls took the whole village a", and its translation and speaker button are out of sight. The arrival sheet has the room. This is the
+layout, not this content: any village's B2 step with long choices will meet it. Nothing was changed, and scrolling the lines was not tried.
 
 ## Voices (nothing spent)
 
 The new English, as voice-build would voice it (lines, the learner's choices, replies): arrivals 16,125 characters, steps 111,710, the
-pit 42,595: 170,430 in all. The voices are the cast's own and Ned's (`grandpa`); nothing new to cast.
+pit 42,599: 170,434 in all. The voices are the cast's own and Ned's (`grandpa`); nothing new to cast.
 
 ## The tools
 
