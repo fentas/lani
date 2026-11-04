@@ -29,8 +29,10 @@ rule: a form people say is never wrong, so a wrong choice that turns out to be s
    se* (Peter Klepec B2), *ležeč na dnu jezera* (Zvon želja B2), *sedeča za pečjo* (Pegam in Lambergar B2), *ne vedoč*
    (Jurij Kozjak B2); *čim lepša je bila, tem bolj je bila prevzetna* (Povodni mož B2); *biti kos komu*, *kakršen je bil*
    (Martin Krpan B2); *pameti je imela za tri* (Mojca Pokrajculja B2); *se je bil premagal / ni bil doživel* pluperfects.
-3. **Janez's humour and voice** in the replies to wrong choices (one per wrong choice, 2 to 3 sentences): that they sound
-   like an old man from the Trnovo plateau, not a textbook.
+3. **Janez's reactions to wrong choices** (one short line each, at most 80 characters, never the right form: the rule stays in
+   the choice's `why`). 200 of them were rewritten at the end to meet that rule, many on a few patterns (*Pomagamo koga ali
+   komu?*, *Nikalnice ni, zakaj pa rodilnik?*, *Hm, manjka mi besedica*): do they sound like an old man from the Trnovo
+   plateau, and are the patterns too samey heard evening after evening?
 4. **The readings:** *Osmica* (B1), *Dve mesti, en trg*, *Soška fronta*, *Pismo iz Cerknega* (B2): register, the radio
    piece's style, Mojca's letter. The grandfather's memories in *Soška fronta* are invented framing round the sourced facts.
 5. **Facts** (each from the sources below; worth a look): the osmica's 1784 decree; Nova Gorica built from 1948 to Ravnikar's
@@ -114,9 +116,22 @@ the first concrete bridges in Europe", and no source checked here calls Jurij Ko
 | zvrstiti se | Dve mesti, Soška fronta | SSKJ²: to occur one after another ([fran.si](https://fran.si/iskanje?View=1&Query=zvrstiti)) |
 | prekipeti komu | Peter Klepec B2 | Pravopis: "brezos., poud. prekipeti komu: Prekipelo mu je" ([fran.si](https://fran.si/iskanje?View=1&Query=prekipeti)) |
 | *biti ves ušesa* | (dropped) | not in SSKJ (only *sama ušesa so ga bila*): not used ([fran.si](https://fran.si/iskanje?View=1&Query=uho)) |
+| prekleti | Ajdovska deklica B1, B2 | SSKJ²: prekléti -kôlnem dov., preklél: *preklele*, not the *prekolnile* first written ([fran.si](https://fran.si/iskanje?View=1&Query=prekleti)) |
+| okamneti | Ajdovska deklica B1, B2 | SSKJ²: okamnéti in okamenéti, okamnél -éla: *okamnela* stands ([fran.si](https://fran.si/iskanje?View=1&Query=okamneti)) |
 
-Sloleks wasn't queried separately: the forms the turns test are the regular ones of the grammar book's pages. Worth a
-Sloleks pass with the native check: *lažjo* (laž), *ljudmi/ljudeh*, *nečem*, *dvajsetimi*.
+**Sloleks:** the 151 new supplement entries (below) and the forms this doc had flagged (*lažjo*, *ljudmi*, *ljudeh*, *nečem*,
+*dvajsetimi*) went through Sloleks's search and headword pages: 310 requests, one at a time, 4 s apart, every one answered
+(200). Every form an entry lists stands in its headword's paradigm. It corrected the entries in three ways: *bojni* is the
+definite form of **bojen** (the entry's lemma was wrong), *kakršen*, *marsikateri* and *nekakšen* are pronouns, *najbrž* a
+particle. Two have no headword: *laufarija* (Cerkno's own word; its source is sl.wikipedia) and *al* (Prešeren's old form).
+What this check is not: the forms were looked for on the headword's page, not case by case, so a form standing there in
+another case would pass; and it covers the supplement's words, not every sentence of the tellings.
+
+### The dictionary supplement (`companion/lexicon/sl.extra.json`, 1,449 → 1,600 entries)
+
+The new tellings and readings brought the words a tap and the case lens knew nothing of: 183 unknown forms, over the smoke's
+limit of 150, now 19. 151 entries, each with its meaning in en, de and it and its `source`. They list the forms the content
+uses, not whole paradigms as lens-unknown-forms's do, so a tap on another form of these words still finds nothing.
 
 ## Tests and checks
 
@@ -129,9 +144,21 @@ Sloleks pass with the native check: *lažjo* (laž), *ljudmi/ljudeh*, *nečem*, 
 - **StoriesTest:** all sixteen at A1–B2; tonight's story at B1, B2 and C1 (the highest there is: B2); Peter Klepec B2 for a C1
   learner; the A1/A2-only case and the retelling to a story's highest kept with a copy cut to A1/A2. **ReadingsTest:** the
   corner's B1 and B2 readings, their types, words and lengths, a B2 learner's corner starting with the B2 three.
-- **QA** (`bin/qa`): `story-faces` takes `LANI_QA_STORY_LEVEL` (the hook `level:<lv>` for the run, cleared after). Run:
-  `LANI_CULTURE=primorska LANI_QA_READING=soska-fronta LANI_QA_STORY_LEVEL=B1 companion/bin/qa-slot --steps
-  culture-reading,story-faces`; screenshots in the scratchpad's `ux-readings-primorska/`.
+- **What the first full run found.** `check-culture` passed on every story; the Android suite and the smoke, run on all 36
+  tellings at once, did not, and each find was real:
+  - DialogReactionsTest: 200 reactions said the right form or ran over 80 characters (my replies had been explaining the
+    rule and ending on the answer). Rewritten in the four languages. `check-culture` doesn't know this rule: a writer's
+    first run of `DialogReactionsTest` should come after one telling, not after thirty-six.
+  - The lens's unknown forms, 183 against the smoke's limit of 150. Going through them found a word that isn't Slovene:
+    *prekolnile* (Ajdovska deklica B1, B2) for *preklele*, prekleti's l-participle.
+  - SceneCoherenceTest: three looks at nothing, reworded (A2's own »Poglej ga« line left alone: its voice clip).
+  - NotebookTest and the smoke's list_stories held the old numbers.
+- **QA** (`bin/qa`): `story-faces` takes `LANI_QA_STORY_LEVEL` (the hook `level:<lv>` for the run, cleared after);
+  `culture-reading` looks down to 2350 px, since a harder reading is the corner's last row and the step's default stopped at
+  1850 (its first run failed on a reading that was on screen). Run: `LANI_CULTURE=primorska LANI_QA_READING=soska-fronta
+  LANI_QA_STORY_LEVEL=B1 companion/bin/qa-slot --steps culture-reading,story-faces`; screenshots in the scratchpad's
+  `ux-readings-primorska/`. The B1 telling played was a new one: Jurij Kozjak's third evening, tonight's story for the dev
+  learner (the screenshot's reply stands only in its B1 telling), not Zlatorog.
 
 ## Voice (nothing spent)
 
@@ -144,8 +171,8 @@ Jan's call. Until then the app speaks them with the phone's voice, as any line w
 
 - The native check above.
 - `about` of each story still describes its A1/A2 telling; the B2 sources are in this doc.
-- The emulator QA covers one B2 reading and Zlatorog at B1 (tonight's story for a new learner); the other new tellings are
-  covered by StoriesTest (every telling played through every wrong choice to its end) and the smoke.
+- The emulator QA covers one B2 reading and one B1 telling (Jurij Kozjak's third evening); the other new tellings are
+  covered by StoriesTest and DialogReactionsTest (every telling played through every wrong choice to its end) and the smoke.
 
 ## Commits
 
