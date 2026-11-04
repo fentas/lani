@@ -67,6 +67,7 @@ fun AppViewModel.nameOf(s: Screen): ScreenName {
         is Screen.TownQuestion -> named("❓", "townProgress.question")
         Screen.Treasure -> named("🗺️", "treasure.title")
         Screen.School -> named("🏫", "school.title")
+        Screen.Placement -> named("🧭", "placement.title")
         is Screen.CourseUnit -> unitName(s.id) ?: named("🏫", "school.title")
         is Screen.UnitIntro -> unitName(s.id) ?: named("🏫", "school.title")
         Screen.Numbers -> named("🔢", "numbers.title")

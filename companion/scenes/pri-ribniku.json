@@ -4,7 +4,7 @@
   "title": { "sl": "Pri ribniku", "en": "At the pond", "de": "Am Teich", "it": "Allo stagno" },
   "emoji": "🪷",
   "level": "A2",
-  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "review": "de, it, reactions, second right answers, variants, B1 and B2 variants: machine-written, not reviewed by a native speaker",
   "art": "pond",
   "from": ["spot:pond"],
   "pack": "ob-vodi",
@@ -31,13 +31,13 @@
   ],
   "happenings": [
     { "id": "megla", "title": { "sl": "Anton gleda čapljo", "en": "Anton is watching the heron", "de": "Anton beobachtet den Reiher", "it": "Anton guarda l'airone" }, "who": "anton",
-      "when": ["morning"], "chance": 0.45, "dialog": "megla", "dialogs": ["megla-race", "megla"], "reward": { "wisdom": 15 }, "marker": "🌫️",
+      "when": ["morning"], "chance": 0.45, "dialog": "megla", "dialogs": ["megla-b2-susa", "megla-b1-caplja", "megla-race", "megla"], "reward": { "wisdom": 15 }, "marker": "🌫️",
       "memory": { "sl": "jutro, ko se je megla dvignila z ribnika", "en": "the morning the fog lifted off the pond", "de": "den Morgen, an dem sich der Nebel vom Teich gehoben hat", "it": "la mattina in cui la nebbia si è alzata dallo stagno" } },
     { "id": "zaba", "title": { "sl": "Nejc lovi žabo", "en": "Nejc is after a frog", "de": "Nejc ist hinter einem Frosch her", "it": "Nejc dà la caccia a una rana" }, "who": "nejc",
       "when": ["afternoon"], "months": [3, 4, 5, 6, 7, 8, 9], "chance": 0.5, "dialog": "zaba", "dialogs": ["zaba-mreza", "zaba-paglavci", "zaba"], "reward": { "food": 15 }, "marker": "🐸",
       "memory": { "sl": "žabo, ki nama je ušla v vodo", "en": "the frog that got away from us into the water", "de": "den Frosch, der uns ins Wasser entwischt ist", "it": "la rana che ci è scappata in acqua" } },
     { "id": "ribe", "title": { "sl": "Janez lovi ribe", "en": "Janez is fishing", "de": "Janez angelt", "it": "Janez pesca" }, "who": "janez",
-      "when": ["afternoon"], "chance": 0.45, "dialog": "ribe", "dialogs": ["ribe-stejem", "ribe-scuka", "ribe"], "reward": { "wisdom": 20 }, "marker": "🎣",
+      "when": ["afternoon"], "chance": 0.45, "dialog": "ribe", "dialogs": ["ribe-b2-nos", "ribe-b1-burja", "ribe-stejem", "ribe-scuka", "ribe"], "reward": { "wisdom": 20 }, "marker": "🎣",
       "memory": { "sl": "dan, ko sva lovila ribe v dežju", "en": "the day we fished in the rain", "de": "den Tag, an dem wir im Regen geangelt haben", "it": "il giorno in cui abbiamo pescato sotto la pioggia" } },
     { "id": "zora", "title": { "sl": "Janez lovi ribe ob zori", "en": "Janez fishing at dawn", "de": "Janez angelt im Morgengrauen", "it": "Janez pesca all'alba" }, "who": "janez",
       "when": ["dawn"], "chance": 0.5, "dialog": "zora", "dialogs": ["zora-crvi", "zora-muri", "zora"], "reward": { "food": 20 }, "marker": "🎣",
@@ -418,6 +418,667 @@
             "reply": { "face": "worried", "sl": "Ga daš? Murija? Ne, ne, Muri ostane pri meni!", "en": "Give him away? Muri? No, no, Muri stays with me!", "de": "Ihn weggeben? Muri? Nein, nein, Muri bleibt bei mir!", "it": "Darlo via? Muri? No, no, Muri resta con me!" } }
         ] },
         { "who": "janez", "sl": "Glej, megla gre. Muri spi, ribe prijemajo.", "en": "Look, the fog's going. Muri's asleep, the fish are biting.", "de": "Schau, der Nebel geht. Muri schläft, die Fische beißen.", "it": "Guarda, la nebbia se ne va. Muri dorme, i pesci abboccano.", "sky": { "fog": 0 }, "fx": { "dog": 0, "fish": 1, "bite": 0.6 } }
+      ]
+    },
+    {
+      "id": "megla-b1-caplja",
+      "level": "B1",
+      "memory": {
+        "sl": "čapljo, ki sva jo gledala na kamnu",
+        "en": "the heron we watched on her stone",
+        "de": "den Reiher, den wir auf seinem Stein beobachtet haben",
+        "it": "l'airone che abbiamo guardato sul suo sasso"
+      },
+      "lines": [
+        {
+          "who": "anton",
+          "face": "curious",
+          "sl": "Dobro jutro, {learner}. … Vidite tisto na drugem bregu? Čaplja. … Vsako jutro stoji na istem kamnu.",
+          "en": "Good morning, {learner}. … Do you see that on the far bank? A heron. … Every morning she stands on the same stone.",
+          "de": "Guten Morgen, {learner}. … Sehen Sie das dort am anderen Ufer? Ein Reiher. … Jeden Morgen steht er auf demselben Stein.",
+          "it": "Buongiorno, {learner}. … Vede quello sull'altra riva? Un airone. … Ogni mattina sta sullo stesso sasso."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Je to ista čaplja, ki sva jo videla včeraj?",
+              "en": "Is that the same heron we saw yesterday?",
+              "de": "Ist das derselbe Reiher, den wir gestern gesehen haben?",
+              "it": "È lo stesso airone che abbiamo visto ieri?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ista. … Prepoznam jo po tem, kako stoji: vedno na levi nogi.",
+                "en": "The same. … I know her by the way she stands: always on her left leg.",
+                "de": "Derselbe. … Ich erkenne ihn daran, wie er steht: immer auf dem linken Bein.",
+                "it": "Lo stesso. … Lo riconosco da come sta: sempre sulla zampa sinistra."
+              }
+            },
+            {
+              "sl": "Je to ista čaplja, ki sva videla včeraj?",
+              "en": "Is that the same heron which we saw yesterday (without the pronoun)?",
+              "de": "Ist das derselbe Reiher, der wir gestern gesehen haben (ohne Pronomen)?",
+              "it": "È lo stesso airone che abbiamo visto ieri (senza pronome)?",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "The heron is what you saw, the object: ki is followed by a short pronoun, ki sva jo videla. Ki itself never changes.",
+                "de": "Der Reiher ist, was ihr gesehen habt, das Objekt: nach ki folgt ein kurzes Pronomen, ki sva jo videla. Ki selbst ändert sich nie.",
+                "it": "L'airone è ciò che avete visto, l'oggetto: dopo ki viene un pronome breve, ki sva jo videla. Ki di per sé non cambia mai."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? … Kdo je koga videl? … Počasi, prosim.",
+                "en": "Hm? … Who saw whom? … Slowly, please.",
+                "de": "Hm? … Wer hat wen gesehen? … Langsam, bitte.",
+                "it": "Mm? … Chi ha visto chi? … Con calma, per favore."
+              }
+            },
+            {
+              "sl": "Je to ista čaplja, ki sva jih videla včeraj?",
+              "en": "Is that the same heron, which (them, many) we saw yesterday?",
+              "de": "Ist das derselbe Reiher, die (viele) wir gestern gesehen haben?",
+              "it": "È lo stesso airone che (loro, molti) abbiamo visto ieri?",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "One heron, and čaplja is feminine: the pronoun after ki is jo, ki sva jo videla. Jih is for many.",
+                "de": "Ein Reiher, und čaplja ist weiblich: das Pronomen nach ki ist jo, ki sva jo videla. Jih ist für viele.",
+                "it": "Un airone solo, e čaplja è femminile: il pronome dopo ki è jo, ki sva jo videla. Jih è per molti."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Jih? … Včeraj je bila tu ena sama, {learner}.",
+                "en": "Them? … Yesterday there was only one here, {learner}.",
+                "de": "Sie, mehrere? … Gestern war hier nur einer, {learner}.",
+                "it": "Loro? … Ieri qui ce n'era uno solo, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? … Tiše, prosim. Ribe slišijo.",
+            "en": "Hm? … Quieter, please. The fish can hear.",
+            "de": "Hm? … Leiser, bitte. Die Fische hören mit.",
+            "it": "Mm? … Più piano, per favore. I pesci sentono."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Janez se jezi nanjo. … Pravi, da mu vsak dan ukrade najlepše ribe. … Kaj menite vi?",
+          "en": "Janez is cross with her. … He says she steals his best fish every day. … What do you think?",
+          "de": "Janez ärgert sich über ihn. … Er sagt, er stiehlt ihm jeden Tag die schönsten Fische. … Was meinen Sie?",
+          "it": "Janez ce l'ha con lui. … Dice che ogni giorno gli ruba i pesci più belli. … Lei che ne pensa?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne verjamem. V ribniku je dovolj rib za oba.",
+              "en": "I don't believe it. There are enough fish in the pond for both of them.",
+              "de": "Das glaube ich nicht. Im Teich gibt es genug Fische für beide.",
+              "it": "Non ci credo. Nello stagno ci sono abbastanza pesci per tutti e due.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tudi jaz tako mislim. … Ribnik je velik, čaplja pa skromna.",
+                "en": "I think so too. … The pond is big, and the heron is modest.",
+                "de": "Das denke ich auch. … Der Teich ist groß, und der Reiher bescheiden.",
+                "it": "Lo penso anch'io. … Lo stagno è grande, e l'airone è modesto."
+              }
+            },
+            {
+              "sl": "Ne verjamem. V ribniku je dovolj rib za obema.",
+              "en": "I don't believe it. There are enough fish in the pond behind (obema) both of them.",
+              "de": "Das glaube ich nicht. Im Teich gibt es genug Fische hinter (obema) beiden.",
+              "it": "Non ci credo. Nello stagno ci sono abbastanza pesci dietro (obema) tutti e due.",
+              "grammar": "dvojina-skloni",
+              "why": {
+                "en": "Za (for) takes the accusative, and the dual's accusative is like its nominative: za oba. Obema is the dative and the instrumental: za obema is behind both.",
+                "de": "Za (für) verlangt den Akkusativ, und der Akkusativ des Duals ist wie sein Nominativ: za oba. Obema ist Dativ und Instrumental: za obema heißt hinter beiden.",
+                "it": "Za (per) vuole l'accusativo, e l'accusativo del duale è come il nominativo: za oba. Obema è dativo e strumentale: za obema vuol dire dietro tutti e due."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Za obema? … Za njima je samo trstičje.",
+                "en": "Behind both? … There's only reeds behind them.",
+                "de": "Hinter beiden? … Hinter ihnen ist nur Schilf.",
+                "it": "Dietro tutti e due? … Dietro di loro c'è solo il canneto."
+              }
+            },
+            {
+              "sl": "Res je. Čaplji bi morali prepovedati lov.",
+              "en": "That's true. The heron ought to be banned from fishing.",
+              "de": "Stimmt. Man müsste dem Reiher das Fischen verbieten.",
+              "it": "È vero. All'airone bisognerebbe vietare la pesca.",
+              "why": {
+                "en": "Anton watches the heron with love: he wants your view with a reason, and a heron fishing is just nature.",
+                "de": "Anton schaut dem Reiher liebevoll zu: er will deine Meinung mit einem Grund, und ein fischender Reiher ist einfach Natur.",
+                "it": "Anton guarda l'airone con affetto: vuole la tua opinione con un motivo, e un airone che pesca è solo natura."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Prepovedati? … Čaplji? … Kdo ji bo pa to povedal?",
+                "en": "Ban her? … The heron? … And who's going to tell her?",
+                "de": "Verbieten? … Dem Reiher? … Und wer sagt ihm das?",
+                "it": "Vietare? … All'airone? … E chi glielo dice?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? … Tiše, prosim. Ribe slišijo.",
+            "en": "Hm? … Quieter, please. The fish can hear.",
+            "de": "Hm? … Leiser, bitte. Die Fische hören mit.",
+            "it": "Mm? … Più piano, per favore. I pesci sentono."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Čaplja in jaz sva si podobna. … Oba čakava in nikoli ne hitiva.",
+          "en": "The heron and I are alike. … We both wait and never hurry.",
+          "de": "Der Reiher und ich sind uns ähnlich. … Wir warten beide und eilen nie.",
+          "it": "L'airone e io ci somigliamo. … Tutti e due aspettiamo e non ci affrettiamo mai."
+        }
+      ]
+    },
+    {
+      "id": "megla-b2-susa",
+      "level": "B2",
+      "memory": {
+        "sl": "jutro, ko sva govorila o suši in žabah",
+        "en": "the morning we talked about the drought and the frogs",
+        "de": "den Morgen, an dem wir über die Dürre und die Frösche gesprochen haben",
+        "it": "la mattina in cui abbiamo parlato della siccità e delle rane"
+      },
+      "lines": [
+        {
+          "who": "anton",
+          "face": "worried",
+          "sl": "Dobro jutro, {learner}. … Ribnik je vsako poletje plitvejši. … Lani je čaplja stala v vodi samo do kolen.",
+          "en": "Good morning, {learner}. … The pond gets shallower every summer. … Last year the heron stood in water only up to her knees.",
+          "de": "Guten Morgen, {learner}. … Der Teich wird jeden Sommer flacher. … Letztes Jahr stand der Reiher nur bis zu den Knien im Wasser.",
+          "it": "Buongiorno, {learner}. … Lo stagno è ogni estate più basso. … L'anno scorso l'airone stava in acqua solo fino alle ginocchia."
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Nekateri bi radi vodo speljali na njive. … Razumem jih. … Ampak kaj bo potem z žabami?",
+          "en": "Some people would like to channel the water to the fields. … I understand them. … But what will become of the frogs then?",
+          "de": "Manche würden das Wasser gern auf die Felder leiten. … Ich verstehe sie. … Aber was wird dann aus den Fröschen?",
+          "it": "Qualcuno vorrebbe portare l'acqua nei campi. … Li capisco. … Ma poi che ne sarà delle rane?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda potrebujejo vodo, ampak brez ribnika ne bo ne žab ne čaplje.",
+              "en": "Of course they need water, but without the pond there'll be neither frogs nor heron.",
+              "de": "Natürlich brauchen sie Wasser, aber ohne den Teich gibt es weder Frösche noch Reiher.",
+              "it": "Certo che hanno bisogno d'acqua, ma senza lo stagno non ci saranno né rane né airone.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Tako je. … In tudi tišine ob jutrih ne.",
+                "en": "That's it. … And no quiet mornings either.",
+                "de": "So ist es. … Und auch keine Stille am Morgen.",
+                "it": "Proprio così. … E nemmeno il silenzio del mattino."
+              }
+            },
+            {
+              "sl": "Seveda potrebujejo vodo, ampak brez ribnika bodo ne žabe ne čaplja.",
+              "en": "Of course they need water, but without the pond there will be neither frogs nor heron (nominative).",
+              "de": "Natürlich brauchen sie Wasser, aber ohne den Teich werden weder Frösche noch Reiher sein (Nominativ).",
+              "it": "Certo che hanno bisogno d'acqua, ma senza lo stagno saranno né rane né airone (nominativo).",
+              "grammar": "rodilnik-nikalnica",
+              "why": {
+                "en": "Not being there is ne bo, with the genitive after a no, and ne … ne (neither … nor) too: ne bo ne žab ne čaplje.",
+                "de": "Nicht da sein heißt ne bo, mit dem Genitiv nach der Verneinung, auch bei ne … ne (weder … noch): ne bo ne žab ne čaplje.",
+                "it": "Non esserci è ne bo, col genitivo dopo la negazione, anche con ne … ne (né … né): ne bo ne žab ne čaplje."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bodo ali ne bodo? … Žabe bi rade vedele.",
+                "en": "Will they or won't they? … The frogs would like to know.",
+                "de": "Gibt es sie oder nicht? … Die Frösche wüssten es gern.",
+                "it": "Ci saranno o no? … Le rane vorrebbero saperlo."
+              }
+            },
+            {
+              "sl": "Res je, žabe niso pomembne.",
+              "en": "That's right, frogs don't matter.",
+              "de": "Stimmt, Frösche sind nicht wichtig.",
+              "it": "È vero, le rane non sono importanti.",
+              "why": {
+                "en": "Anton loves the pond's life: grant the fields their need (seveda) and give the pond's side, as he does.",
+                "de": "Anton liebt das Leben im Teich: gib den Feldern recht (seveda) und nenne die Seite des Teichs, wie er.",
+                "it": "Anton ama la vita dello stagno: concedi ai campi il loro bisogno (seveda) e mostra il lato dello stagno, come fa lui."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Niso? … Hm. Žabe bi rekle drugače.",
+                "en": "They don't? … Hm. The frogs would say otherwise.",
+                "de": "Nicht? … Hm. Die Frösche würden das anders sehen.",
+                "it": "Non lo sono? … Mm. Le rane direbbero di no."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? … Še enkrat, prosim. Počasi.",
+            "en": "Hm? … Once more, please. Slowly.",
+            "de": "Hm? … Noch einmal, bitte. Langsam.",
+            "it": "Mm? … Ancora una volta, per favore. Con calma."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "thinking",
+          "sl": "Moj oče je pravil, da je bil ribnik včasih dvakrat večji. … Mogoče bi ga lahko spet poglobili.",
+          "en": "My father used to say the pond was once twice as big. … Perhaps we could make it deeper again.",
+          "de": "Mein Vater erzählte, der Teich sei früher doppelt so groß gewesen. … Vielleicht könnten wir ihn wieder vertiefen.",
+          "it": "Mio padre raccontava che una volta lo stagno era due volte più grande. … Forse potremmo scavarlo di nuovo più a fondo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem ga poglobimo čim prej. Čim globlji bo, tem več vode bo ostalo poleti.",
+              "en": "Then let's deepen it as soon as we can. The deeper it is, the more water will be left in summer.",
+              "de": "Dann vertiefen wir ihn so bald wie möglich. Je tiefer er ist, desto mehr Wasser bleibt im Sommer.",
+              "it": "Allora scaviamolo al più presto. Più sarà profondo, più acqua resterà d'estate.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pametno. … Bom povedal na vaškem sestanku.",
+                "en": "Wise. … I'll bring it up at the village meeting.",
+                "de": "Klug. … Ich bringe es bei der Dorfversammlung vor.",
+                "it": "Saggio. … Lo dirò alla riunione del paese."
+              }
+            },
+            {
+              "sl": "Potem ga poglobimo čim prej. Čim globlji bo, tem bolj vode bo ostalo poleti.",
+              "en": "Then let's deepen it as soon as we can. The deeper it is, the more (bolj) water will be left in summer.",
+              "de": "Dann vertiefen wir ihn so bald wie möglich. Je tiefer er ist, desto mehr (bolj) Wasser bleibt im Sommer.",
+              "it": "Allora scaviamolo al più presto. Più sarà profondo, tanto più (bolj) acqua resterà d'estate.",
+              "grammar": "stopnjevanje",
+              "why": {
+                "en": "With an amount of something the comparative is več (more): tem več vode. Bolj makes adjectives and verbs comparative, bolj globok.",
+                "de": "Bei einer Menge heißt der Komparativ več (mehr): tem več vode. Bolj steigert Adjektive und Verben, bolj globok.",
+                "it": "Con una quantità il comparativo è več (più): tem več vode. Bolj fa il comparativo di aggettivi e verbi, bolj globok."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bolj vode? … Bo voda bolj mokra?",
+                "en": "More-ish water? … Will the water be wetter?",
+                "de": "Mehr-ig Wasser? … Wird das Wasser nasser?",
+                "it": "Più acqua-mente? … L'acqua sarà più bagnata?"
+              }
+            },
+            {
+              "sl": "Potem ga poglobimo čim prej. Čim globlji bo, tem več vode bo ostal poleti.",
+              "en": "Then let's deepen it as soon as we can. The deeper it is, the more water he (masculine) will be left in summer.",
+              "de": "Dann vertiefen wir ihn so bald wie möglich. Je tiefer er ist, desto mehr Wasser bleibt er (männlich) im Sommer.",
+              "it": "Allora scaviamolo al più presto. Più sarà profondo, più acqua resterà (maschile) d'estate.",
+              "grammar": "stevila-glagol",
+              "why": {
+                "en": "Več (more) is an amount: the verb goes singular and neuter, as if the subject were it, bo ostalo. Ostal is masculine.",
+                "de": "Več (mehr) ist eine Menge: das Verb steht im Singular Neutrum, als wäre das Subjekt es, bo ostalo. Ostal ist männlich.",
+                "it": "Več (più) è una quantità: il verbo va al singolare neutro, come se il soggetto fosse esso, bo ostalo. Ostal è maschile."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ostal? … Kdo bo ostal? … Jaz že, voda pa mogoče ne.",
+                "en": "Stay? … Who'll stay? … I will, but maybe not the water.",
+                "de": "Bleiben? … Wer bleibt? … Ich schon, das Wasser vielleicht nicht.",
+                "it": "Restare? … Chi resterà? … Io sì, l'acqua forse no."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? … Še enkrat, prosim. Počasi.",
+            "en": "Hm? … Once more, please. Slowly.",
+            "de": "Hm? … Noch einmal, bitte. Langsam.",
+            "it": "Mm? … Ancora una volta, per favore. Con calma."
+          }
+        },
+        {
+          "who": "anton",
+          "face": "happy",
+          "sl": "Hvala, {learner}. … Čeprav potem ponoči spet ne bomo spali. … Žabe so glasne.",
+          "en": "Thank you, {learner}. … Though then we won't sleep at night again. … Frogs are loud.",
+          "de": "Danke, {learner}. … Auch wenn wir dann nachts wieder nicht schlafen. … Frösche sind laut.",
+          "it": "Grazie, {learner}. … Anche se poi di notte non dormiremo di nuovo. … Le rane sono rumorose."
+        }
+      ]
+    },
+    {
+      "id": "ribe-b1-burja",
+      "level": "B1",
+      "memory": {
+        "sl": "dan, ko je pihala burja in ribe niso prijemale",
+        "en": "the day the burja blew and the fish wouldn't bite",
+        "de": "den Tag, an dem die Bora blies und die Fische nicht anbissen",
+        "it": "il giorno in cui soffiava la bora e i pesci non abboccavano"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Dober dan, {learner}. Danes ne prijemajo. … Veš, zakaj?",
+          "en": "Good afternoon, {learner}. They aren't biting today. … Do you know why?",
+          "de": "Guten Tag, {learner}. Heute beißen sie nicht an. … Weißt du, warum?",
+          "it": "Buongiorno, {learner}. Oggi non abboccano. … Sai perché?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mogoče jim je prevroče?",
+              "en": "Maybe they're too hot?",
+              "de": "Vielleicht ist ihnen zu heiß?",
+              "it": "Forse hanno troppo caldo?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Mogoče. … Ali pa so pametnejše od naju.",
+                "en": "Maybe. … Or they're cleverer than the two of us.",
+                "de": "Vielleicht. … Oder sie sind klüger als wir zwei.",
+                "it": "Forse. … O sono più furbi di noi due."
+              }
+            },
+            {
+              "sl": "Mogoče so prevroče?",
+              "en": "Maybe they are too hot (to the touch)?",
+              "de": "Vielleicht sind sie zu heiß (zum Anfassen)?",
+              "it": "Forse sono troppo calde (al tatto)?",
+              "grammar": "custva",
+              "why": {
+                "en": "How someone feels has no subject: who feels it is in the dative, vroče jim je. Prevroče so says the fish themselves are hot to the touch.",
+                "de": "Wie sich jemand fühlt, hat kein Subjekt: wer es fühlt, steht im Dativ, vroče jim je. Prevroče so sagt, die Fische selbst sind heiß.",
+                "it": "Come ci si sente non ha soggetto: chi lo sente va al dativo, vroče jim je. Prevroče so dice che i pesci stessi scottano."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Prevroče? Ribe? … Ne, ne, kuhane še niso.",
+                "en": "Too hot? The fish? … No, no, they're not cooked yet.",
+                "de": "Zu heiß? Die Fische? … Nein, nein, gekocht sind sie noch nicht.",
+                "it": "Troppo calde? I pesci? … No, no, non sono ancora cotti."
+              }
+            },
+            {
+              "sl": "Mogoče jih je prevroče?",
+              "en": "Maybe it's too hot them (accusative)?",
+              "de": "Vielleicht ist es sie (Akkusativ) zu heiß?",
+              "it": "Forse li (accusativo) fa troppo caldo?",
+              "grammar": "custva",
+              "why": {
+                "en": "Vroče (hot) takes the dative of who feels it: vroče jim je. Jih is the accusative, for boli, zebe, skrbi.",
+                "de": "Vroče (heiß) verlangt den Dativ dessen, der es fühlt: vroče jim je. Jih ist der Akkusativ, für boli, zebe, skrbi.",
+                "it": "Vroče (caldo) vuole il dativo di chi lo sente: vroče jim je. Jih è l'accusativo, per boli, zebe, skrbi."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Jih je? … Hm. Ribe in slovnica: obe sta spolzki.",
+                "en": "Them it is? … Hm. Fish and grammar: both are slippery.",
+                "de": "Sie ist? … Hm. Fische und Grammatik: beide sind glitschig.",
+                "it": "Li è? … Mm. I pesci e la grammatica: tutti e due sono scivolosi."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kaj praviš?",
+            "en": "Hm? What's that?",
+            "de": "Hm? Was sagst du?",
+            "it": "Mm? Cosa dici?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Moj oče je vedno rekel, da ribe ne prijemajo, kadar piha burja. … In danes piha.",
+          "en": "My father always said the fish don't bite when the burja blows. … And today it's blowing.",
+          "de": "Mein Vater hat immer gesagt, die Fische beißen nicht, wenn die Bora weht. … Und heute weht sie.",
+          "it": "Mio padre diceva sempre che i pesci non abboccano quando soffia la bora. … E oggi soffia."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potem pridiva jutri, ko bo burja pojenjala.",
+              "en": "Then let's come tomorrow, when the burja has died down.",
+              "de": "Dann kommen wir morgen, wenn die Bora nachgelassen hat.",
+              "it": "Allora veniamo domani, quando la bora si sarà calmata.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Pridiva. … Ti prineseš črve, jaz pa potrpljenje.",
+                "en": "Let's. … You bring the worms, and I'll bring the patience.",
+                "de": "Machen wir. … Du bringst die Würmer, ich die Geduld.",
+                "it": "Va bene. … Tu porti i vermi, io la pazienza."
+              }
+            },
+            {
+              "sl": "Potem pridiva jutri, ko burja bo pojenjala.",
+              "en": "Then let's come tomorrow, when the burja will (out of place) have died down.",
+              "de": "Dann kommen wir morgen, wenn die Bora nachgelassen haben wird (bo an falscher Stelle).",
+              "it": "Allora veniamo domani, quando la bora si sarà calmata (bo fuori posto).",
+              "grammar": "naslonke-red",
+              "why": {
+                "en": "The short words come right after ko, da, ker, če: ko bo burja pojenjala. Bo can't wait until after burja.",
+                "de": "Die kurzen Wörter stehen direkt nach ko, da, ker, če: ko bo burja pojenjala. Bo darf nicht erst nach burja kommen.",
+                "it": "Le parole brevi vengono subito dopo ko, da, ker, če: ko bo burja pojenjala. Bo non può aspettare dopo burja."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? … Burja ti je razpihala besede.",
+                "en": "Hm? … The burja's blown your words about.",
+                "de": "Hm? … Die Bora hat dir die Wörter durcheinandergeweht.",
+                "it": "Mm? … La bora ti ha sparpagliato le parole."
+              }
+            },
+            {
+              "sl": "Potem pridiva jutri, ko je burja pojenjala.",
+              "en": "Then let's come tomorrow, when the burja died down.",
+              "de": "Dann kommen wir morgen, als die Bora nachgelassen hat.",
+              "it": "Allora veniamo domani, quando la bora si è calmata.",
+              "grammar": "prihodnjik",
+              "why": {
+                "en": "The burja hasn't stopped yet: a ko about tomorrow takes the future, ko bo pojenjala. Je pojenjala is the past.",
+                "de": "Die Bora hat noch nicht aufgehört: ein ko über morgen steht im Futur, ko bo pojenjala. Je pojenjala ist die Vergangenheit.",
+                "it": "La bora non si è ancora calmata: un ko su domani vuole il futuro, ko bo pojenjala. Je pojenjala è il passato."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Je pojenjala? Kje? Jaz jo še čutim v kosteh.",
+                "en": "Died down? Where? I can still feel it in my bones.",
+                "de": "Nachgelassen? Wo denn? Ich spüre sie noch in den Knochen.",
+                "it": "Si è calmata? Dove? Io la sento ancora nelle ossa."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kaj praviš? Burja je glasna.",
+            "en": "Hm? What's that? The burja's loud.",
+            "de": "Hm? Was sagst du? Die Bora ist laut.",
+            "it": "Mm? Cosa dici? La bora fa rumore."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Tako je. Kdor ima potrpljenje, ima tudi ribe. … Vsaj včasih.",
+          "en": "That's it. Whoever has patience has fish too. … Sometimes, anyway.",
+          "de": "So ist es. Wer Geduld hat, hat auch Fische. … Jedenfalls manchmal.",
+          "it": "Proprio così. Chi ha pazienza ha anche i pesci. … Almeno qualche volta."
+        }
+      ]
+    },
+    {
+      "id": "ribe-b2-nos",
+      "level": "B2",
+      "memory": {
+        "sl": "ščuko, ki je ni nihče ujel",
+        "en": "the pike nobody ever caught",
+        "de": "den Hecht, den nie jemand gefangen hat",
+        "it": "il luccio che nessuno ha mai preso"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Dober dan, {learner}. Sedi. … Ti še nisem povedal, kako me je tukaj enkrat ščuka potegnila v vodo?",
+          "en": "Good afternoon, {learner}. Sit down. … Haven't I told you how a pike once pulled me into the water here?",
+          "de": "Guten Tag, {learner}. Setz dich. … Habe ich dir noch nicht erzählt, wie mich hier einmal ein Hecht ins Wasser gezogen hat?",
+          "it": "Buongiorno, {learner}. Siediti. … Non ti ho ancora raccontato di quando un luccio mi ha tirato in acqua, qui?"
+        },
+        {
+          "who": "janez",
+          "face": "laugh",
+          "sl": "Bila je tako močna, da me je vlekla čez ves ribnik. Kot čoln! Šele pri trstičju sem jo ujel.",
+          "en": "It was so strong it dragged me right across the pond. Like a boat! Only at the reeds did I catch it.",
+          "de": "Er war so stark, dass er mich über den ganzen Teich zog. Wie ein Boot! Erst am Schilf habe ich ihn gefangen.",
+          "it": "Era così forte che mi ha trascinato per tutto lo stagno. Come una barca! Solo al canneto l'ho preso."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Me vlečete za nos? Tako velike ščuke v tem ribniku ni.",
+              "en": "Are you pulling my leg? There's no pike that big in this pond.",
+              "de": "Sie nehmen mich auf den Arm? So einen großen Hecht gibt es in diesem Teich nicht.",
+              "it": "Mi prende in giro? Un luccio così grande in questo stagno non c'è.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Malo. … Ampak velika je pa res bila.",
+                "en": "Ha! A little. … But it really was a big one.",
+                "de": "Ha! Ein bisschen. … Aber groß war er wirklich.",
+                "it": "Ah! Un pochino. … Ma era grande davvero."
+              }
+            },
+            {
+              "sl": "Mi vlečete za nos? Tako velike ščuke v tem ribniku ni.",
+              "en": "Are you pulling (to me, dative) by the nose? There's no pike that big in this pond.",
+              "de": "Ziehen Sie mir (Dativ) an der Nase? So einen großen Hecht gibt es in diesem Teich nicht.",
+              "it": "Mi (dativo) tira per il naso? Un luccio così grande in questo stagno non c'è.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "In vleči koga za nos (to pull someone's leg) the one fooled is in the accusative: me vlečete za nos? Mi is the dative.",
+                "de": "In vleči koga za nos (jemanden auf den Arm nehmen) steht der Getäuschte im Akkusativ: me vlečete za nos? Mi ist der Dativ.",
+                "it": "In vleči koga za nos (prendere in giro qualcuno) chi è preso in giro va all'accusativo: me vlečete za nos? Mi è il dativo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Tebi? Ne, ne, ščuka je vlekla mene!",
+                "en": "For you? No, no, the pike was pulling me!",
+                "de": "Dir? Nein, nein, der Hecht hat mich gezogen!",
+                "it": "A te? No, no, era il luccio che tirava me!"
+              }
+            },
+            {
+              "sl": "Me vlečete za uho? Tako velike ščuke v tem ribniku ni.",
+              "en": "Are you pulling me by the ear? There's no pike that big in this pond.",
+              "de": "Ziehen Sie mich am Ohr? So einen großen Hecht gibt es in diesem Teich nicht.",
+              "it": "Mi tira per l'orecchio? Un luccio così grande in questo stagno non c'è.",
+              "grammar": "frazemi",
+              "why": {
+                "en": "The idiom is vleči koga za nos, by the nose: an idiom keeps its words as they are.",
+                "de": "Die Redewendung heißt vleči koga za nos, an der Nase: eine Redewendung behält ihre Wörter.",
+                "it": "Il modo di dire è vleči koga za nos, per il naso: un modo di dire tiene le sue parole."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Za uho? … Moja ušesa so pri miru, hvala.",
+                "en": "By the ear? … My ears are fine, thank you.",
+                "de": "Am Ohr? … Meine Ohren haben ihre Ruhe, danke.",
+                "it": "Per l'orecchio? … Le mie orecchie stanno bene, grazie."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kaj praviš?",
+            "en": "Hm? What's that?",
+            "de": "Hm? Was sagst du?",
+            "it": "Mm? Cosa dici?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "No, dobro. Ujel je ni nihče. … Ampak če bi bil tisti dan imel boljšo palico, bi jo bil ujel jaz.",
+          "en": "Well, all right. Nobody caught it. … But if I'd had a better rod that day, I'd have caught it.",
+          "de": "Na gut. Gefangen hat ihn keiner. … Aber hätte ich an dem Tag eine bessere Rute gehabt, hätte ich ihn gefangen.",
+          "it": "Va be'. Non l'ha preso nessuno. … Ma se quel giorno avessi avuto una canna migliore, l'avrei preso io."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda, ampak potem ne bi imeli zgodbe, ki jo lahko pripovedujete že petdeset let.",
+              "en": "Of course, but then you wouldn't have a story you've been able to tell for fifty years.",
+              "de": "Sicher, aber dann hätten Sie keine Geschichte, die Sie schon fünfzig Jahre erzählen können.",
+              "it": "Certo, ma allora non avrebbe una storia da raccontare già da cinquant'anni.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Prav praviš. Dobra zgodba je vredna več kot riba.",
+                "en": "Ha! Quite right. A good story's worth more than a fish.",
+                "de": "Ha! Recht hast du. Eine gute Geschichte ist mehr wert als ein Fisch.",
+                "it": "Ah! Dici bene. Una bella storia vale più di un pesce."
+              }
+            },
+            {
+              "sl": "Res je, slab ribič ste.",
+              "en": "That's true, you're a poor fisherman.",
+              "de": "Stimmt, Sie sind ein schlechter Angler.",
+              "it": "È vero, Lei è un pessimo pescatore.",
+              "why": {
+                "en": "Janez is teasing himself: agreeing that he's a poor fisherman would hurt. A B2 answer grants it (seveda) and turns the near miss into something good.",
+                "de": "Janez nimmt sich selbst auf den Arm: ihm zuzustimmen, er sei ein schlechter Angler, täte weh. Gib ihm recht (seveda) und mach aus dem Beinahe etwas Gutes.",
+                "it": "Janez si prende in giro da solo: dargli del pessimo pescatore lo ferirebbe. Dagli ragione (seveda) e fai del quasi qualcosa di bello."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Slab? … Petdeset let lovim tukaj, {learner}! Petdeset!",
+                "en": "Poor? … I've been fishing here fifty years, {learner}! Fifty!",
+                "de": "Schlecht? … Ich angle hier seit fünfzig Jahren, {learner}! Fünfzig!",
+                "it": "Pessimo? … Pesco qui da cinquant'anni, {learner}! Cinquanta!"
+              }
+            },
+            {
+              "sl": "Seveda, ampak potem ne bi imel zgodbe, ki jo lahko pripoveduješ že petdeset let.",
+              "en": "Of course, but then you (ti) wouldn't have a story you've been able to tell for fifty years.",
+              "de": "Sicher, aber dann hättest du keine Geschichte, die du schon fünfzig Jahre erzählen kannst.",
+              "it": "Certo, ma allora non avresti una storia da raccontare già da cinquant'anni.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older and expects vi: ne bi imeli, ki jo pripovedujete. Ti is for friends and children.",
+                "de": "Janez ist älter und erwartet vi: ne bi imeli, ki jo pripovedujete. Ti ist für Freunde und Kinder.",
+                "it": "Janez è più anziano e si aspetta il vi: ne bi imeli, ki jo pripovedujete. Il ti è per amici e bambini."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Tikaš me? … Hm. Ob vodi so vsi enaki, kajne?",
+                "en": "You're saying ti to me? … Hm. By the water everyone's equal, eh?",
+                "de": "Du duzt mich? … Hm. Am Wasser sind alle gleich, was?",
+                "it": "Mi dai del tu? … Mm. In riva all'acqua siamo tutti uguali, eh?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kaj praviš?",
+            "en": "Hm? What's that?",
+            "de": "Hm? Was sagst du?",
+            "it": "Mm? Cosa dici?"
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Veš kaj? Naslednjič bo ščuka še malo večja. … Zgodbe rastejo, ribe pa ne.",
+          "en": "You know what? Next time the pike will be a little bigger. … Stories grow, fish don't.",
+          "de": "Weißt du was? Nächstes Mal ist der Hecht noch ein bisschen größer. … Geschichten wachsen, Fische nicht.",
+          "it": "Sai una cosa? La prossima volta il luccio sarà un po' più grande. … Le storie crescono, i pesci no."
+        }
       ]
     }
   ]

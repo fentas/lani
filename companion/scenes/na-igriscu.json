@@ -4,7 +4,7 @@
   "title": { "sl": "Na igrišču", "en": "At the playground", "de": "Auf dem Spielplatz", "it": "Al parco giochi" },
   "emoji": "🎠",
   "level": "A1",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: ristanc, plezalo, hiška, lopatka, gugati se, porini me",
+  "review": "sl, de, it, reactions, variants, B1 and B2 variants: machine-written (Claude), not reviewed by a native speaker; to check: ristanc, plezalo, hiška, lopatka, gugati se, porini me",
   "art": "playground",
   "from": ["project:igrisce"],
   "pack": "na-igriscu",
@@ -138,7 +138,7 @@
       "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6],
       "chance": 0.5,
       "dialog": "ristanc",
-      "dialogs": ["ristanc-minute", "ristanc"],
+      "dialogs": ["ristanc-b2-telefoni", "ristanc-b1-izlet", "ristanc-minute", "ristanc"],
       "reward": { "wisdom": 20 },
       "marker": "🔢",
       "memory": {
@@ -161,7 +161,7 @@
       "months": [4, 5, 6, 7, 8, 9],
       "chance": 0.45,
       "dialog": "mehurcki",
-      "dialogs": ["mehurcki-oblak", "mehurcki"],
+      "dialogs": ["mehurcki-b2-milnica", "mehurcki-b1-vila", "mehurcki-oblak", "mehurcki"],
       "reward": { "wisdom": 15 },
       "marker": "🫧",
       "memory": {
@@ -1894,6 +1894,707 @@
           "en": "Lovely, isn't it? Tomorrow I'll bring soapy water for the children too.",
           "de": "Schön, nicht wahr? Morgen bringe ich auch für die Kinder Seifenlauge mit.",
           "it": "Bello, vero? Domani porto l'acqua saponata anche per i bambini."
+        }
+      ]
+    },
+    {
+      "id": "ristanc-b1-izlet",
+      "level": "B1",
+      "memory": {
+        "sl": "jutro, ko sva {m:načrtovala|f:načrtovali} izlet v Škocjanske jame",
+        "en": "the morning we planned the trip to the Škocjan Caves",
+        "de": "den Morgen, an dem wir den Ausflug in die Höhlen von Škocjan geplant haben",
+        "it": "la mattina in cui abbiamo organizzato la gita alle grotte di San Canziano"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Dobro jutro, {learner}. Otroci so me vprašali, ali gremo v petek na izlet v Škocjanske jame.",
+          "en": "Good morning, {learner}. The children asked me whether we're going on a trip to the Škocjan Caves on Friday.",
+          "de": "Guten Morgen, {learner}. Die Kinder haben mich gefragt, ob wir am Freitag einen Ausflug in die Höhlen von Škocjan machen.",
+          "it": "Buongiorno, {learner}. I bambini mi hanno chiesto se venerdì andiamo in gita alle grotte di San Canziano."
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Rekla sem jim, da gremo, če bo lepo vreme. Kaj pa vi mislite?",
+          "en": "I told them we'd go if the weather is fine. And what do you think?",
+          "de": "Ich habe ihnen gesagt, wir fahren, wenn das Wetter schön ist. Was meinen Sie?",
+          "it": "Ho detto loro che andiamo, se il tempo è bello. Lei cosa ne pensa?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mislim, da bi lahko šli tudi v dežju, ker je v jamah vreme vedno enako.",
+              "en": "I think you could go in the rain too, because in the caves the weather is always the same.",
+              "de": "Ich glaube, Sie könnten auch bei Regen fahren, weil in den Höhlen das Wetter immer gleich ist.",
+              "it": "Penso che potreste andare anche con la pioggia, perché nelle grotte il tempo è sempre uguale.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Imate prav. Spodaj je vedno dvanajst stopinj, dež ali sonce.",
+                "en": "You're right. Down there it's always twelve degrees, rain or shine.",
+                "de": "Sie haben recht. Unten hat es immer zwölf Grad, ob Regen oder Sonne.",
+                "it": "Ha ragione. Laggiù ci sono sempre dodici gradi, pioggia o sole."
+              }
+            },
+            {
+              "sl": "Mislim, da bi lahko šli tudi v dežju, čeprav je v jamah vreme vedno enako.",
+              "en": "I think you could go in the rain too, although in the caves the weather is always the same.",
+              "de": "Ich glaube, Sie könnten auch bei Regen fahren, obwohl in den Höhlen das Wetter immer gleich ist.",
+              "it": "Penso che potreste andare anche con la pioggia, anche se nelle grotte il tempo è sempre uguale.",
+              "grammar": "odvisniki",
+              "why": {
+                "en": "Ker is your reason (because): the weather down there never changes. Čeprav (although) would set it against going.",
+                "de": "Dass sich das Wetter dort unten nie ändert, ist dein Grund: ker (weil). Čeprav (obwohl) stellte es gegen den Ausflug.",
+                "it": "Che laggiù il tempo non cambi mai è il tuo motivo: ker (perché). Čeprav (anche se) lo metterebbe contro la gita."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Čeprav? Hm, potem razlog ni več razlog.",
+                "en": "Although? Hm, then the reason is no longer a reason.",
+                "de": "Obwohl? Hm, dann ist der Grund kein Grund mehr.",
+                "it": "Anche se? Mm, allora il motivo non è più un motivo."
+              }
+            },
+            {
+              "sl": "Mislim, da bi lahko šli tudi v dežju, ker je v jamah vedno sonce.",
+              "en": "I think you could go in the rain too, because in the caves it's always sunny.",
+              "de": "Ich glaube, Sie könnten auch bei Regen fahren, weil in den Höhlen immer die Sonne scheint.",
+              "it": "Penso che potreste andare anche con la pioggia, perché nelle grotte c'è sempre il sole.",
+              "why": {
+                "en": "Under the ground there's no sun at all; what stays the same is the weather, cool and damp.",
+                "de": "Unter der Erde gibt es gar keine Sonne; gleich bleibt das Wetter, kühl und feucht.",
+                "it": "Sottoterra il sole non c'è proprio; quello che resta uguale è il tempo, fresco e umido."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Sonce? V jami? To bi bil pa čudež, {learner}.",
+                "en": "Sun? In a cave? That would be a miracle, {learner}.",
+                "de": "Sonne? In einer Höhle? Das wäre ein Wunder, {learner}.",
+                "it": "Il sole? In una grotta? Sarebbe un miracolo, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Dobro. Ampak otroci me ves čas sprašujejo, kaj naj vzamejo s seboj.",
+          "en": "Good. But the children keep asking me what they should take with them.",
+          "de": "Gut. Aber die Kinder fragen mich ständig, was sie mitnehmen sollen.",
+          "it": "Bene. Ma i bambini mi chiedono di continuo cosa devono portare."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Povejte jim, naj vzamejo jopo in čevlje, v katerih lahko hodijo po mokrih kamnih.",
+              "en": "Tell them to take a cardigan and shoes they can walk in on wet stones.",
+              "de": "Sagen Sie ihnen, sie sollen eine Jacke mitnehmen und Schuhe, in denen sie auf nassen Steinen gehen können.",
+              "it": "Dica loro di portare un golf e delle scarpe con cui possano camminare sulle pietre bagnate.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pametno. Po mokrih kamnih se v copatih ne hodi.",
+                "en": "Sensible. You don't walk on wet stones in slippers.",
+                "de": "Vernünftig. Auf nassen Steinen geht man nicht in Hausschuhen.",
+                "it": "Giudizioso. Sulle pietre bagnate non si cammina in pantofole."
+              }
+            },
+            {
+              "sl": "Povejte jim, naj vzamejo jopo in čevlje, v ki lahko hodijo po mokrih kamnih.",
+              "en": "Tell them to take a cardigan and shoes (v ki) they can walk in on wet stones.",
+              "de": "Sagen Sie ihnen, sie sollen eine Jacke mitnehmen und Schuhe (v ki), in denen sie auf nassen Steinen gehen können.",
+              "it": "Dica loro di portare un golf e delle scarpe (v ki) con cui possano camminare sulle pietre bagnate.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "After a preposition the relative pronoun is kateri, in its case: čevlji are plural, so v katerih.",
+                "de": "Nach einer Präposition steht nie ki: kateri in seinem Fall, čevlji ist Plural, also v katerih.",
+                "it": "Dopo una preposizione ki non va: kateri nel suo caso, čevlji è plurale, quindi v katerih."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "V ki? … Hm, tako pa otrokom tega ne bom povedala.",
+                "en": "V ki? … Hm, I won't be telling the children it like that.",
+                "de": "V ki? … Hm, so sage ich das den Kindern aber nicht.",
+                "it": "V ki? … Mm, così ai bambini non lo dico."
+              }
+            },
+            {
+              "sl": "Povejte jim, naj vzamejo jopo in čevlje, v katerem lahko hodijo po mokrih kamnih.",
+              "en": "Tell them to take a cardigan and shoes, in which one (singular) they can walk on wet stones.",
+              "de": "Sagen Sie ihnen, sie sollen eine Jacke mitnehmen und Schuhe, in dem (Einzahl) sie auf nassen Steinen gehen können.",
+              "it": "Dica loro di portare un golf e delle scarpe, nella quale (singolare) possano camminare sulle pietre bagnate.",
+              "grammar": "oziralni-ki",
+              "why": {
+                "en": "The relative pronoun kateri takes the noun's number: čevlji are plural, so v katerih.",
+                "de": "Kateri richtet sich in der Zahl nach dem Nomen: čevlji ist Plural, also v katerih.",
+                "it": "Kateri prende il numero del nome: čevlji è plurale, quindi v katerih."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "V katerem? V enem čevlju? Bodo skakali po eni nogi?",
+                "en": "In which one? In one shoe? Will they hop on one leg?",
+                "de": "In welchem? In einem Schuh? Hüpfen sie dann auf einem Bein?",
+                "it": "In quale? In una scarpa sola? Salteranno su un piede?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "proud",
+          "sl": "Odlično. Vi bi bili {m:dober učitelj|f:dobra učiteljica}, {learner}.",
+          "en": "Excellent. You'd make a good teacher, {learner}.",
+          "de": "Ausgezeichnet. Sie wären {m:ein guter Lehrer|f:eine gute Lehrerin}, {learner}.",
+          "it": "Ottimo. Lei sarebbe {m:un bravo maestro|f:una brava maestra}, {learner}."
+        }
+      ]
+    },
+    {
+      "id": "ristanc-b2-telefoni",
+      "level": "B2",
+      "memory": {
+        "sl": "pogovor o odmoru brez telefonov",
+        "en": "our talk about a break without phones",
+        "de": "unser Gespräch über eine Pause ohne Handys",
+        "it": "la nostra chiacchierata sulla ricreazione senza telefoni"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Veste, {learner}, starši bi radi, da otroci med odmorom ne bi imeli telefonov. Kaj menite vi?",
+          "en": "You know, {learner}, the parents would like the children not to have phones during the break. What's your view?",
+          "de": "Wissen Sie, {learner}, die Eltern hätten gern, dass die Kinder in der Pause keine Handys haben. Was meinen Sie?",
+          "it": "Sa, {learner}, i genitori vorrebbero che i bambini durante la ricreazione non avessero il telefono. Lei che ne pensa?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda je ristanc boljši od zaslona, ampak prepoved sama ne bo pomagala.",
+              "en": "Of course hopscotch is better than a screen, but a ban on its own won't help.",
+              "de": "Natürlich ist Himmel und Hölle besser als ein Bildschirm, aber ein Verbot allein hilft nicht.",
+              "it": "Certo, la campana è meglio di uno schermo, ma un divieto da solo non servirà.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav pravite. Otroci morajo igro najprej spoznati, šele potem jo vzljubijo.",
+                "en": "Quite right. Children have to get to know a game first; only then do they come to love it.",
+                "de": "Ganz recht. Kinder müssen ein Spiel erst kennenlernen, erst dann lieben sie es.",
+                "it": "Giusto. I bambini devono prima conoscere un gioco, solo dopo se ne innamorano."
+              }
+            },
+            {
+              "sl": "Seveda je ristanc bolj dober od zaslona, ampak prepoved sama ne bo pomagala.",
+              "en": "Of course hopscotch is more good than a screen, but a ban on its own won't help.",
+              "de": "Natürlich ist Himmel und Hölle mehr gut als ein Bildschirm, aber ein Verbot allein hilft nicht.",
+              "it": "Certo, la campana è più buona di uno schermo, ma un divieto da solo non servirà.",
+              "grammar": "primernik",
+              "why": {
+                "en": "Dober compares on its own: boljši (better). Bolj goes with words that have no comparative of their own.",
+                "de": "Dober wird für sich gesteigert: boljši (besser). Bolj steht bei Wörtern ohne eigene Steigerung.",
+                "it": "Dober ha il suo comparativo: boljši (migliore). Bolj va con le parole che non ne hanno uno proprio."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bolj dober? Ha, tega moji učenci ne smejo slišati!",
+                "en": "More good? Ha, my pupils mustn't hear that!",
+                "de": "Mehr gut? Ha, das dürfen meine Schüler nicht hören!",
+                "it": "Più buono? Ah, i miei alunni non devono sentirlo!"
+              }
+            },
+            {
+              "sl": "Telefoni so pač prihodnost. Ristanc ni več za današnje otroke.",
+              "en": "Phones are simply the future. Hopscotch isn't for today's children any more.",
+              "de": "Handys sind halt die Zukunft. Himmel und Hölle ist nichts mehr für die Kinder von heute.",
+              "it": "I telefoni sono il futuro e basta. La campana non è più per i bambini di oggi.",
+              "why": {
+                "en": "Mojca asks your view of the break: weigh it (seveda …, ampak …) rather than brushing her game aside.",
+                "de": "Mojca fragt nach deiner Meinung zur Pause: wäg ab (seveda …, ampak …), statt ihr Spiel abzutun.",
+                "it": "Mojca ti chiede un parere sulla ricreazione: soppesa (seveda …, ampak …) invece di liquidare il suo gioco."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Prihodnost? Ristanc je pa preteklost, mislite?",
+                "en": "The future? And hopscotch is the past, you think?",
+                "de": "Die Zukunft? Und Himmel und Hölle ist die Vergangenheit, meinen Sie?",
+                "it": "Il futuro? E la campana è il passato, secondo Lei?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Ko sem bila majhna, smo skakali ristanc, dokler ni zazvonilo. Danes jih je pol med odmorom v zaslonih.",
+          "en": "When I was little, we played hopscotch until the bell rang. Today half of them spend the break in their screens.",
+          "de": "Als ich klein war, haben wir Himmel und Hölle gespielt, bis es läutete. Heute hängt die Hälfte in der Pause an den Bildschirmen.",
+          "it": "Quando ero piccola, giocavamo a campana finché non suonava la campanella. Oggi metà di loro passa la ricreazione davanti agli schermi."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Res je. Marsikdo preživi ves odmor, ne da bi se sploh premaknil.",
+              "en": "That's true. Many a child spends the whole break without moving at all.",
+              "de": "Das stimmt. So mancher verbringt die ganze Pause, ohne sich überhaupt zu bewegen.",
+              "it": "È vero. Più d'uno passa tutta la ricreazione senza muoversi per niente.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Žal. Zato bom jutri narisala nov ristanc, še večjega.",
+                "en": "Sadly. That's why tomorrow I'll draw a new hopscotch, an even bigger one.",
+                "de": "Leider. Darum male ich morgen ein neues Himmel und Hölle, ein noch größeres.",
+                "it": "Purtroppo. Per questo domani disegno una campana nuova, ancora più grande."
+              }
+            },
+            {
+              "sl": "Res je. Marsikdo preživi ves odmor, ne da se je sploh premaknil.",
+              "en": "That's true. Many a child spends the whole break, not that he moved at all.",
+              "de": "Das stimmt. So mancher verbringt die ganze Pause, nicht dass er sich überhaupt bewegt hätte.",
+              "it": "È vero. Più d'uno passa tutta la ricreazione, non che si sia mosso per niente.",
+              "grammar": "odvisniki-napredno",
+              "why": {
+                "en": "Ne da (without) is what doesn't happen: bi + the l-form, ne da bi se premaknil.",
+                "de": "Ne da (ohne dass) ist, was nicht geschieht: bi + l-Form, ne da bi se premaknil.",
+                "it": "Ne da (senza) è ciò che non succede: bi + la forma in -l, ne da bi se premaknil."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ne da se je? Torej se je ali se ni? Zdaj sem pa zmedena.",
+                "en": "Not that he did? So did he move or not? Now I'm confused.",
+                "de": "Nicht dass er sich bewegt hätte? Hat er nun oder nicht? Jetzt bin ich verwirrt.",
+                "it": "Non che si sia mosso? Allora si è mosso o no? Adesso sono confusa."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Mogoče bi otroke vprašali, kaj si želijo sami. Bi mi pri tem pomagali?",
+          "en": "Maybe we should ask the children what they want themselves. Would you help me with that?",
+          "de": "Vielleicht sollten wir die Kinder fragen, was sie selbst wollen. Würden Sie mir dabei helfen?",
+          "it": "Forse dovremmo chiedere ai bambini cosa vogliono loro. Mi aiuterebbe?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Z veseljem. Vprašajva jih jutri med odmorom.",
+              "en": "Gladly. Let's ask them tomorrow at break, the two of us.",
+              "de": "Gern. Fragen wir zwei sie morgen in der Pause.",
+              "it": "Volentieri. Chiediamoglielo domani durante la ricreazione, noi due.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično. Vi vprašate fante, jaz deklice.",
+                "en": "Excellent. You ask the boys, I'll ask the girls.",
+                "de": "Ausgezeichnet. Sie fragen die Buben, ich die Mädchen.",
+                "it": "Ottimo. Lei chiede ai maschi, io alle femmine."
+              }
+            },
+            {
+              "sl": "Z veseljem. Vprašajte jih jutri med odmorom.",
+              "en": "Gladly. Ask them tomorrow at break.",
+              "de": "Gern. Fragen Sie sie morgen in der Pause.",
+              "it": "Volentieri. Lo chieda loro domani durante la ricreazione.",
+              "grammar": "ukazi",
+              "why": {
+                "en": "She asked for your help, so it's the two of you: let's is vprašajva (-va, you and me). Vprašajte leaves it to her.",
+                "de": "Sie hat dich um Hilfe gebeten, also ihr beide: »lass uns« heißt vprašajva (-va, du und ich). Vprašajte überlässt es ihr.",
+                "it": "Ti ha chiesto aiuto, quindi siete in due: »facciamo« è vprašajva (-va, tu e io). Vprašajte lo lascia a lei."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Jaz sama? Saj sem vas prosila za pomoč, {learner}!",
+                "en": "Me on my own? But I asked you for help, {learner}!",
+                "de": "Ich allein? Ich habe Sie doch um Hilfe gebeten, {learner}!",
+                "it": "Io da sola? Ma Le avevo chiesto aiuto, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Hvala. Kdor posluša otroke, izve več kot iz vseh knjig.",
+          "en": "Thank you. Whoever listens to children learns more than from all the books.",
+          "de": "Danke. Wer Kindern zuhört, erfährt mehr als aus allen Büchern.",
+          "it": "Grazie. Chi ascolta i bambini impara più che da tutti i libri."
+        }
+      ]
+    },
+    {
+      "id": "mehurcki-b1-vila",
+      "level": "B1",
+      "memory": {
+        "sl": "vilo v mehurčku in vašega škrata",
+        "en": "the fairy in the bubble and your dwarf",
+        "de": "die Fee in der Seifenblase und Ihren Zwerg",
+        "it": "la fata nella bolla e il Suo gnomo"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Dober večer, {learner}. Ko sem bila majhna, sem verjela, da v vsakem mehurčku živi majhna vila.",
+          "en": "Good evening, {learner}. When I was little, I believed that a tiny fairy lived in every bubble.",
+          "de": "Guten Abend, {learner}. Als ich klein war, habe ich geglaubt, dass in jeder Seifenblase eine kleine Fee wohnt.",
+          "it": "Buonasera, {learner}. Da piccola credevo che in ogni bolla vivesse una piccola fata."
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Kaj pa ste verjeli vi, ko ste bili otrok?",
+          "en": "And what did you believe when you were a child?",
+          "de": "Und was haben Sie geglaubt, als Sie ein Kind waren?",
+          "it": "E Lei cosa credeva, quando era {m:bambino|f:bambina}?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Jaz sem {m:verjel|f:verjela}, da pod mostom živi škrat.",
+              "en": "I believed that a dwarf lived under the bridge.",
+              "de": "Ich habe geglaubt, dass unter der Brücke ein Zwerg wohnt.",
+              "it": "Io credevo che sotto il ponte vivesse uno gnomo.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Škrat! Vidite, vsak otrok ima svojo skrivnost.",
+                "en": "A dwarf! You see, every child has a secret of their own.",
+                "de": "Ein Zwerg! Sehen Sie, jedes Kind hat sein eigenes Geheimnis.",
+                "it": "Uno gnomo! Vede, ogni bambino ha il suo segreto."
+              }
+            },
+            {
+              "sl": "Jaz sem {m:verjel|f:verjela}, da je pod mostom živel škrat.",
+              "en": "I believed that a dwarf had lived under the bridge.",
+              "de": "Ich habe geglaubt, dass unter der Brücke ein Zwerg gewohnt hatte.",
+              "it": "Io credevo che sotto il ponte avesse vissuto uno gnomo.",
+              "grammar": "odvisni-govor",
+              "why": {
+                "en": "What you believed keeps its own tense: »Pod mostom živi škrat« → da pod mostom živi. Da je živel means he had lived there before.",
+                "de": "Was du geglaubt hast, behält seine Zeit: »Pod mostom živi škrat« → da pod mostom živi. Da je živel hieße, er hatte früher dort gewohnt.",
+                "it": "Ciò che credevi tiene il suo tempo: »Pod mostom živi škrat« → da pod mostom živi. Da je živel vorrebbe dire che ci aveva vissuto prima."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Je živel? Kam se je pa potem preselil?",
+                "en": "Had lived? So where did he move to?",
+                "de": "Hatte gewohnt? Und wohin ist er dann umgezogen?",
+                "it": "Aveva vissuto? E poi dove si è trasferito?"
+              }
+            },
+            {
+              "sl": "Jaz sem {m:verjel|f:verjela}, da pod mostom živi učiteljica.",
+              "en": "I believed that a teacher lived under the bridge.",
+              "de": "Ich habe geglaubt, dass unter der Brücke eine Lehrerin wohnt.",
+              "it": "Io credevo che sotto il ponte vivesse una maestra.",
+              "why": {
+                "en": "Mojca asks about a childish belief in magic: a škrat (dwarf), not a teacher.",
+                "de": "Mojca fragt nach einem kindlichen Zauberglauben: ein škrat (Zwerg), keine Lehrerin.",
+                "it": "Mojca chiede di una credenza magica da bambini: uno škrat (gnomo), non una maestra."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Učiteljica? Pod mostom? Jaz živim v šoli, {learner}!",
+                "en": "A teacher? Under the bridge? I live at the school, {learner}!",
+                "de": "Eine Lehrerin? Unter der Brücke? Ich wohne in der Schule, {learner}!",
+                "it": "Una maestra? Sotto il ponte? Io abito a scuola, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Otroci danes ne verjamejo več v vile. Ali ni to škoda?",
+          "en": "Children today don't believe in fairies any more. Isn't that a pity?",
+          "de": "Die Kinder heute glauben nicht mehr an Feen. Ist das nicht schade?",
+          "it": "I bambini oggi non credono più alle fate. Non è un peccato?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mogoče bi verjeli, če bi jim kdo pripovedoval pravljice.",
+              "en": "Maybe they would, if someone told them fairy tales.",
+              "de": "Vielleicht würden sie es, wenn ihnen jemand Märchen erzählen würde.",
+              "it": "Forse ci crederebbero, se qualcuno raccontasse loro le fiabe.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Dobra misel. Jutri jim preberem pravljico o vili iz mehurčka.",
+                "en": "A good thought. Tomorrow I'll read them a fairy tale about the fairy in the bubble.",
+                "de": "Ein guter Gedanke. Morgen lese ich ihnen ein Märchen von der Fee in der Seifenblase vor.",
+                "it": "Bella idea. Domani leggo loro una fiaba sulla fata della bolla."
+              }
+            },
+            {
+              "sl": "Mogoče bi verjeli, če jim bo kdo pripovedoval pravljice.",
+              "en": "Maybe they would, if someone will tell them fairy tales.",
+              "de": "Vielleicht würden sie es, wenn ihnen jemand Märchen erzählen wird.",
+              "it": "Forse ci crederebbero, se qualcuno racconterà loro le fiabe.",
+              "grammar": "pogojnik-ce-bi",
+              "why": {
+                "en": "It's only imagined: the conditional in both halves, bi verjeli, če bi jim kdo pripovedoval.",
+                "de": "Es ist nur gedacht: der Konditional in beiden Hälften, bi verjeli, če bi jim kdo pripovedoval.",
+                "it": "È solo immaginato: il condizionale in tutte e due le parti, bi verjeli, če bi jim kdo pripovedoval."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Bo? Kdo pa? Jaz pripovedujem že vsak dan.",
+                "en": "Will? Who, then? I tell them stories every day already.",
+                "de": "Wird? Wer denn? Ich erzähle doch schon jeden Tag.",
+                "it": "Racconterà? E chi? Io racconto già ogni giorno."
+              }
+            },
+            {
+              "sl": "Mogoče bi verjeli, če bi jim nihče pripovedoval pravljice.",
+              "en": "Maybe they would, if nobody told them fairy tales.",
+              "de": "Vielleicht würden sie es, wenn ihnen niemand Märchen erzählen würde.",
+              "it": "Forse ci crederebbero, se nessuno raccontasse loro le fiabe.",
+              "grammar": "nedolocni-zaimki",
+              "why": {
+                "en": "After če, plain kdo means anyone: če bi jim kdo pripovedoval. Nihče (nobody) doubles the no.",
+                "de": "Nach če heißt das bloße kdo »jemand«: če bi jim kdo pripovedoval. Nihče heißt niemand und braucht ein ne.",
+                "it": "Dopo če, il semplice kdo vuol dire qualcuno: če bi jim kdo pripovedoval. Nihče vuol dire nessuno e vuole il ne."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Nihče? Brez pravljic pa ne bo nobene vile.",
+                "en": "Nobody? Without fairy tales there won't be any fairies.",
+                "de": "Niemand? Ohne Märchen gibt es aber keine Feen.",
+                "it": "Nessuno? Senza fiabe non ci sarà nessuna fata."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Zdaj pa pihnite še enkrat. Morda je v tem mehurčku vaš škrat.",
+          "en": "Now blow once more. Maybe your dwarf is in this bubble.",
+          "de": "Jetzt pusten Sie noch einmal. Vielleicht ist Ihr Zwerg in dieser Blase.",
+          "it": "Adesso soffi ancora una volta. Forse in questa bolla c'è il Suo gnomo."
+        }
+      ]
+    },
+    {
+      "id": "mehurcki-b2-milnica",
+      "level": "B2",
+      "memory": {
+        "sl": "zgodbo o dečku z mehurčki, ki sem vam jo povedala",
+        "en": "the story of the boy with the bubbles I told you",
+        "de": "die Geschichte vom Jungen mit den Seifenblasen, die ich Ihnen erzählt habe",
+        "it": "la storia del bambino con le bolle che Le ho raccontato"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Moje prvo leto v šoli je bil v razredu deček, ki je ves čas pihal mehurčke, namesto da bi pisal.",
+          "en": "In my first year at the school there was a boy in the class who blew bubbles all the time instead of writing.",
+          "de": "In meinem ersten Schuljahr als Lehrerin war ein Junge in der Klasse, der ständig Seifenblasen machte, statt zu schreiben.",
+          "it": "Nel mio primo anno di scuola c'era in classe un bambino che faceva bolle tutto il tempo, invece di scrivere."
+        },
+        {
+          "who": "mojca",
+          "face": "sad",
+          "sl": "Bila sem stroga in sem mu jih vzela. Kasneje sem slišala, da ni nikoli več rad hodil v šolo.",
+          "en": "I was strict and took them away from him. Later I heard that he never liked going to school again.",
+          "de": "Ich war streng und habe sie ihm weggenommen. Später hörte ich, dass er nie wieder gern zur Schule ging.",
+          "it": "Ero severa e gliele tolsi. Più tardi seppi che a scuola non ci andò mai più volentieri."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda vam je žal, ampak takrat ste ravnali, kot ste znali.",
+              "en": "Of course you regret it, but back then you did what you knew how to do.",
+              "de": "Natürlich tut es Ihnen leid, aber damals haben Sie getan, was Sie konnten.",
+              "it": "Certo che Le dispiace, ma allora ha agito come sapeva.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Mogoče. Učiteljica se uči vse življenje, tudi iz svojih napak.",
+                "en": "Perhaps. A teacher learns all her life, from her own mistakes too.",
+                "de": "Vielleicht. Eine Lehrerin lernt ihr Leben lang, auch aus ihren Fehlern.",
+                "it": "Forse. Una maestra impara tutta la vita, anche dai propri errori."
+              }
+            },
+            {
+              "sl": "Seveda vas je žal, ampak takrat ste ravnali, kot ste znali.",
+              "en": "Of course you (accusative) regret it, but back then you did what you knew how to do.",
+              "de": "Natürlich tut es Sie (Akkusativ) leid, aber damals haben Sie getan, was Sie konnten.",
+              "it": "Certo che La (accusativo) dispiace, ma allora ha agito come sapeva.",
+              "grammar": "custva",
+              "why": {
+                "en": "Žal je takes the dative: žal vam je (komu?).",
+                "de": "Žal je steht mit dem Dativ: žal vam je (komu? wem?).",
+                "it": "Žal je vuole il dativo: žal vam je (komu? a chi?)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Vas je žal? … Komu, prosim? Zdaj sem pa zmedena.",
+                "en": "Vas je žal? … To whom, please? Now I'm confused.",
+                "de": "Vas je žal? … Wem, bitte? Jetzt bin ich verwirrt.",
+                "it": "Vas je žal? … A chi, scusi? Adesso sono confusa."
+              }
+            },
+            {
+              "sl": "Res ste bili prestrogi. To je bila velika napaka.",
+              "en": "You really were too strict. That was a big mistake.",
+              "de": "Sie waren wirklich zu streng. Das war ein großer Fehler.",
+              "it": "È stata davvero troppo severa. È stato un grosso errore.",
+              "why": {
+                "en": "Mojca is sharing a regret: grant it gently (seveda …, ampak …) instead of piling on.",
+                "de": "Mojca erzählt dir von etwas, das sie bereut: gib ihr behutsam recht (seveda …, ampak …), statt nachzulegen.",
+                "it": "Mojca ti confida un rimpianto: dalle ragione con garbo (seveda …, ampak …) invece di rincarare la dose."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "Napaka … ja. Hvala za odkritost, {learner}.",
+                "en": "A mistake … yes. Thank you for your frankness, {learner}.",
+                "de": "Ein Fehler … ja. Danke für Ihre Offenheit, {learner}.",
+                "it": "Un errore … sì. Grazie della franchezza, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "thinking",
+          "sl": "Pred leti sem ga srečala v Kopru. Bil je že odrasel in je imel trgovino z igračami.",
+          "en": "Years ago I met him in Koper. He was grown up and had a toy shop.",
+          "de": "Vor Jahren habe ich ihn in Koper getroffen. Er war schon erwachsen und hatte ein Spielzeuggeschäft.",
+          "it": "Anni fa l'ho incontrato a Capodistria. Era già adulto e aveva un negozio di giocattoli."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vidite? Če mu jih ne bi bili vzeli, morda ne bi nikoli odprl trgovine.",
+              "en": "You see? If you hadn't taken them away, he might never have opened the shop.",
+              "de": "Sehen Sie? Hätten Sie sie ihm nicht weggenommen, hätte er vielleicht nie das Geschäft eröffnet.",
+              "it": "Vede? Se non gliele avesse tolte, forse non avrebbe mai aperto il negozio.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Mogoče pa res. Pri njem sem kupila milnico. Tole, veste.",
+                "en": "Ha! Maybe so. I bought bubble liquid from him. This very one, you know.",
+                "de": "Ha! Vielleicht stimmt das. Bei ihm habe ich Seifenlauge gekauft. Genau diese, wissen Sie.",
+                "it": "Ah! Forse è vero. Ho comprato da lui il liquido per le bolle. Proprio questo, sa."
+              }
+            },
+            {
+              "sl": "Vidite? Če mu jih ne bi bili vzeli, morda ne bi nikoli odprl trgovino.",
+              "en": "You see? If you hadn't taken them away, he might never have opened the shop (accusative).",
+              "de": "Sehen Sie? Hätten Sie sie ihm nicht weggenommen, hätte er vielleicht nie das Geschäft (Akkusativ) eröffnet.",
+              "it": "Vede? Se non gliele avesse tolte, forse non avrebbe mai aperto il negozio (accusativo).",
+              "grammar": "rodilnik-nikalnica",
+              "why": {
+                "en": "After a no, the object goes into the genitive: ne bi odprl trgovine.",
+                "de": "Nach einer Verneinung steht das Objekt im Genitiv: ne bi odprl trgovine.",
+                "it": "Dopo una negazione l'oggetto va al genitivo: ne bi odprl trgovine."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Trgovino? Saj jo ima, {learner}. Kaj ste hoteli reči?",
+                "en": "The shop? But he has one, {learner}. What did you mean to say?",
+                "de": "Das Geschäft? Er hat doch eins, {learner}. Was wollten Sie sagen?",
+                "it": "Il negozio? Ma ce l'ha, {learner}. Cosa voleva dire?"
+              }
+            },
+            {
+              "sl": "Vidite? Če mu jih ne bi bili vzeli, morda ne bo nikoli odprl trgovine.",
+              "en": "You see? If you hadn't taken them away, he may never open the shop.",
+              "de": "Sehen Sie? Hätten Sie sie ihm nicht weggenommen, wird er vielleicht nie das Geschäft eröffnen.",
+              "it": "Vede? Se non gliele avesse tolte, forse non aprirà mai il negozio.",
+              "grammar": "pogojnik-pretekli",
+              "why": {
+                "en": "It's about what would have been: ne bi … odprl. Ne bo is the future.",
+                "de": "Es geht darum, was gewesen wäre: ne bi … odprl. Ne bo ist das Futur.",
+                "it": "Si parla di ciò che sarebbe stato: ne bi … odprl. Ne bo è il futuro."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Ne bo? Saj jo je že odprl, pred leti!",
+                "en": "Won't? But he opened it years ago!",
+                "de": "Wird nicht? Er hat es doch schon vor Jahren eröffnet!",
+                "it": "Non aprirà? Ma l'ha già aperto, anni fa!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Zdaj vsako poletje pihamo mehurčke z njegovo milnico. Življenje ima smisel za humor.",
+          "en": "Now every summer we blow bubbles with his bubble liquid. Life has a sense of humour.",
+          "de": "Jetzt machen wir jeden Sommer Seifenblasen mit seiner Lauge. Das Leben hat Sinn für Humor.",
+          "it": "Ora ogni estate facciamo le bolle col suo liquido. La vita ha senso dell'umorismo."
         }
       ]
     }
