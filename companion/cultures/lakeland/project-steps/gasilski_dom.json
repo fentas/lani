@@ -56,7 +56,7 @@
             "reply": { "face": "laugh", "en": "Then go gently, mate. I've only got the one left.", "sl": "Potem nežno. Ostal mi je samo še eden.", "it": "Allora piano. Me ne resta solo uno.", "de": "Dann sachte, Kumpel. Ich hab nur noch einen." } },
           { "en": "I've broken two handles already. A pancake won't last long in this ground.", "sl": "Dva ročaja sem že {m:zlomil|f:zlomila}. Palačinka v teh tleh ne bo dolgo zdržala.", "it": "Ho già rotto due manici. Una frittella non dura a lungo in questo terreno.", "de": "Ich habe schon zwei Stiele gebrochen. Ein Pfannkuchen hält in diesem Boden nicht lange.",
             "why": { "sl": "Pickaxe je kramp; pancake je palačinka.", "it": "Pickaxe è il piccone; pancake è la frittella.", "de": "Pickaxe ist die Spitzhacke; pancake ist der Pfannkuchen." },
-            "reply": { "face": "laugh", "en": "A pancake? I'd eat it before it got that far.", "sl": "Palačinka? Pojedel bi jo, preden pride do tja.", "it": "Una frittella? La mangerei prima.", "de": "Ein Pfannkuchen? Den würd ich vorher essen." } }
+            "reply": { "face": "laugh", "en": "A pancake? I'd eat it before it got that far.", "sl": "Palačinka? Pojedli bi jo, preden pride do tja.", "it": "Una frittella? La mangerei prima.", "de": "Ein Pfannkuchen? Den würd ich vorher essen." } }
         ] },
         { "who": "dixon", "en": "That'll hold. You could park a tractor on it.", "sl": "To bo držalo. Lahko bi nanj parkiral traktor.", "it": "Questo regge. Ci potresti parcheggiare un trattore.", "de": "Das hält. Da könnte man einen Traktor draufstellen." }
       ] }
@@ -91,7 +91,7 @@
         { "who": "sam", "en": "The mortar's drying out fast in this sun. It needs more water.", "sl": "Malta se na tem soncu hitro suši. Rabi več vode.", "it": "La malta si asciuga in fretta con questo sole. Serve più acqua.", "de": "Der Mörtel trocknet in dieser Sonne schnell. Er braucht mehr Wasser." },
         { "choices": [
           { "en": "I'll fetch another bucket before the mortar goes hard.", "sl": "Prinesem še eno vedro, preden se malta strdi.", "it": "Vado a prendere un altro secchio prima che la malta indurisca.", "de": "Ich hole noch einen Eimer, bevor der Mörtel hart wird.", "ok": true,
-            "reply": { "face": "happy", "en": "Cheers, mate. You're a good labourer.", "sl": "Hvala. Dober delavec si.", "it": "Grazie. Sei un buon manovale.", "de": "Danke, Kumpel. Du bist ein guter Arbeiter." } },
+            "reply": { "face": "happy", "en": "Cheers, mate. You're a good labourer.", "sl": "Hvala. {m:Dober delavec|f:Dobra delavka} si.", "it": "Grazie. Sei {m:un buon manovale|f:una brava manovale}.", "de": "Danke, Kumpel. Du bist {m:ein guter Arbeiter|f:eine gute Arbeiterin}." } },
           { "en": "I'll fetch another bucket before the mortgage goes hard.", "sl": "Prinesem še eno vedro, preden se hipoteka strdi.", "it": "Vado a prendere un altro secchio prima che il mutuo indurisca.", "de": "Ich hole noch einen Eimer, bevor die Hypothek hart wird.",
             "why": { "sl": "Mortar je malta; mortgage je hipoteka.", "it": "Mortar è la malta; mortgage è il mutuo.", "de": "Mortar ist der Mörtel; mortgage ist die Hypothek." },
             "reply": { "face": "laugh", "en": "The mortgage? There isn't one, mate. The village paid.", "sl": "Hipoteka? Te ni. Vas je plačala.", "it": "Il mutuo? Non c'è. Ha pagato il paese.", "de": "Die Hypothek? Gibt's nicht, Kumpel. Das Dorf hat bezahlt." } }
@@ -283,7 +283,7 @@
             "why": { "sl": "Practice je vaja; pasture je pašnik.", "it": "Practice è l'esercitazione; pasture è il pascolo.", "de": "Practice ist die Übung; pasture ist die Weide." },
             "reply": { "face": "confused", "en": "A pasture? Up here? There's only rock, mate.", "sl": "Pašnik? Tu gori? Tu je samo skala.", "it": "Un pascolo? Quassù? C'è solo roccia.", "de": "Eine Weide? Hier oben? Hier ist nur Fels, Kumpel." } }
         ] },
-        { "who": "tyson", "en": "Two walkers, half a mile of crag, and one dog. I've seen worse odds.", "sl": "Dva pohodnika, pol milje skalovja in en pes. Sem že videl slabše možnosti.", "it": "Due escursionisti, mezzo miglio di rocce e un cane. Ho visto probabilità peggiori.", "de": "Zwei Wanderer, eine halbe Meile Fels und ein Hund. Ich habe schon schlechtere Chancen gesehen." },
+        { "who": "tyson", "en": "Two walkers, half a mile of crag, and one dog. I've seen worse odds.", "sl": "Dva pohodnika, pol milje skalovja in en pes. Bile so že slabše možnosti.", "it": "Due escursionisti, mezzo miglio di rocce e un cane. Ho visto probabilità peggiori.", "de": "Zwei Wanderer, eine halbe Meile Fels und ein Hund. Ich habe schon schlechtere Chancen gesehen." },
         { "choices": [
           { "en": "If Meg hadn't been trained to search, we'd be out here till morning.", "sl": "Če Meg ne bi bila izurjena za iskanje, bi bili tukaj do jutra.", "it": "Se Meg non fosse addestrata a cercare, resteremmo qui fino al mattino.", "de": "Wäre Meg nicht zum Suchen ausgebildet, wären wir bis morgen hier draußen.", "ok": true,
             "reply": { "face": "happy", "en": "That's right. She's worth the lot of us.", "sl": "Tako je. Vredna je toliko kot vsi mi.", "it": "Esatto. Vale quanto tutti noi.", "de": "Richtig. Sie ist so viel wert wie wir alle." } },
@@ -319,7 +319,7 @@
             "reply": { "face": "happy", "en": "That's the doctor from Keswick. She plays better than she stitches.", "sl": "To je zdravnica iz Keswicka. Igra bolje, kot šiva rane.", "it": "È la dottoressa di Keswick. Suona meglio di come cuce.", "de": "Das ist die Ärztin aus Keswick. Sie spielt besser, als sie näht." } },
           { "en": "Who's the woman playing the cabbage? She's wonderful.", "sl": "Kdo je tista ženska, ki igra zelje? Čudovita je.", "it": "Chi è la donna che suona il cavolo? È bravissima.", "de": "Wer ist die Frau am Kohl? Sie ist wunderbar.",
             "why": { "sl": "Fiddle so gosli; cabbage je zelje.", "it": "Fiddle è il violino; cabbage è il cavolo.", "de": "Fiddle ist die Fiedel; cabbage ist der Kohl." },
-            "reply": { "face": "laugh", "en": "Cabbage? That's a good trick. I'd pay to see it!", "sl": "Zelje? To je dober trik. Za to bi plačal!", "it": "Cavolo? Bel trucco. Pagherei per vederlo!", "de": "Kohl? Guter Trick. Dafür würde ich zahlen!" } }
+            "reply": { "face": "laugh", "en": "Cabbage? That's a good trick. I'd pay to see it!", "sl": "Zelje? To je dober trik. Za to je vredno plačati!", "it": "Cavolo? Bel trucco. Pagherei per vederlo!", "de": "Kohl? Guter Trick. Dafür würde ich zahlen!" } }
         ] },
         { "who": "tyson", "en": "Two hundred pounds already, and it isn't nine o'clock.", "sl": "Že dvesto funtov, pa še ni devet.", "it": "Già duecento sterline, e non sono ancora le nove.", "de": "Schon zweihundert Pfund, und es ist noch nicht neun." },
         { "choices": [

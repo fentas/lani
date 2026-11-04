@@ -383,10 +383,10 @@
             },
             {
               "who": "maggie",
-              "en": "When I was a girl, you'd hear the scythes all down the dale in June.",
-              "sl": "Ko sem bila deklica, so se junija po vsej dolini slišale kose.",
-              "it": "Quando ero bambina, a giugno si sentivano le falci per tutta la valle.",
-              "de": "Als ich ein Mädchen war, hörte man im Juni die Sensen durchs ganze Tal."
+              "en": "In the old days you'd hear the scythes all down the dale in June.",
+              "sl": "Nekoč so se junija po vsej dolini slišale kose.",
+              "it": "Una volta, a giugno, si sentivano le falci per tutta la valle.",
+              "de": "Früher hörte man im Juni die Sensen durchs ganze Tal."
             },
             {
               "choices": [
@@ -846,8 +846,8 @@
             {
               "who": "harry",
               "en": "Can I throw some? I'm good at throwing!",
-              "sl": "Lahko jih malo vržem? Dober sem v metanju!",
-              "it": "Posso lanciarne un po'? Sono bravo!",
+              "sl": "Lahko jih malo vržem? Metati znam!",
+              "it": "Posso lanciarne un po'? So lanciare bene!",
               "de": "Darf ich welche werfen? Ich kann gut werfen!"
             },
             {
@@ -905,7 +905,7 @@
                   "reply": {
                     "face": "thinking",
                     "en": "I did, as a boy. You'd hear the bees from the road.",
-                    "sl": "Jaz sem jih, kot fant. Čebele si slišal že s ceste.",
+                    "sl": "Jaz sem jih, kot fant. Čebele so se slišale že s ceste.",
                     "it": "Io sì, da ragazzo. Le api si sentivano dalla strada.",
                     "de": "Ich schon, als Junge. Man hörte die Bienen von der Straße."
                   }
@@ -1714,7 +1714,8 @@
                     "de": "Ein Halsband? Auf einer Biene? Das wär ein sehr kleiner Hund."
                   }
                 }
-              ]
+              ],
+              "to": "arthur"
             },
             {
               "who": "arthur",
@@ -1811,7 +1812,8 @@
                     "de": "Ein Halsband? Hm … die müssten wir erst fangen."
                   }
                 }
-              ]
+              ],
+              "to": "arthur"
             },
             {
               "who": "arthur",
@@ -1824,7 +1826,7 @@
               "choices": [
                 {
                   "en": "My brush has gone stiff. I should have cleaned it last night.",
-                  "sl": "Moj čopič je trd. Sinoči bi ga moral očistiti.",
+                  "sl": "Moj čopič je trd. Sinoči bi ga {m:moral|f:morala} očistiti.",
                   "it": "Il mio pennello è diventato duro. Avrei dovuto pulirlo ieri sera.",
                   "de": "Mein Pinsel ist steif geworden. Ich hätte ihn gestern Abend säubern sollen.",
                   "ok": true,
@@ -1838,7 +1840,7 @@
                 },
                 {
                   "en": "My brother has gone stiff. I should have cleaned it last night.",
-                  "sl": "Moj brat je trd. Sinoči bi ga moral očistiti.",
+                  "sl": "Moj brat je trd. Sinoči bi ga {m:moral|f:morala} očistiti.",
                   "it": "Mio fratello è diventato duro. Avrei dovuto pulirlo ieri sera.",
                   "de": "Mein Bruder ist steif geworden. Ich hätte ihn gestern Abend säubern sollen.",
                   "why": {

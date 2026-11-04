@@ -31,7 +31,7 @@
           { "en": "Which of these rocks has got the best vest of the lake?", "sl": "Katera od teh skal ima najboljši telovnik jezera?", "it": "Quale di queste rocce ha il gilet migliore del lago?", "de": "Welcher dieser Felsen hat die beste Weste des Sees?",
             "why": { "sl": "View je razgled; vest je telovnik.", "it": "View è il panorama; vest è il gilet.", "de": "View ist die Aussicht; vest ist die Weste." },
             "reply": { "face": "laugh", "en": "A vest? You've been in the sun too long, love.", "sl": "Telovnik? Predolgo si {m:bil|f:bila} na soncu, srček.", "it": "Un gilet? Sei {m:stato|f:stata} troppo al sole, tesoro.", "de": "Eine Weste? Du warst zu lange in der Sonne, Schatz." } }
-        ] },
+        ], "to": "birkett" },
         { "who": "birkett", "en": "Show me the one you'd choose.", "sl": "Pokaži mi tisto, ki bi jo {m:izbral|f:izbrala}.", "it": "Fammi vedere quella che sceglieresti.", "de": "Zeig mir den, den du nehmen würdest." },
         { "choices": [
           { "en": "That big rock, because you can see the whole lake from it.", "sl": "Tisto veliko skalo, ker se z nje vidi vse jezero.", "it": "Quella grande roccia, perché da lì si vede tutto il lago.", "de": "Den großen Felsen, weil man von dort den ganzen See sieht.", "ok": true, "tap": "stone",
@@ -54,7 +54,7 @@
           { "en": "They must have been more interested in the vicar in the mirror than the real one!", "sl": "Gotovo jih je župnik v ogledalu zanimal bolj kot pravi!", "it": "Devono essere stati più interessati al parroco nello specchio che a quello vero!", "de": "Der Pfarrer im Spiegel muss sie mehr interessiert haben als der echte!",
             "why": { "sl": "View je razgled; vicar je župnik.", "it": "View è il panorama; vicar è il parroco.", "de": "View ist die Aussicht; vicar ist der Pfarrer." },
             "reply": { "face": "laugh", "en": "The vicar? I doubt that very much, love.", "sl": "Župnik? O tem zelo dvomim, srček.", "it": "Il parroco? Ne dubito molto, tesoro.", "de": "Der Pfarrer? Das bezweifle ich sehr, Schatz." } }
-        ] },
+        ], "to": "birkett" },
         { "who": "birkett", "en": "Now, which of these would you put a viewing station on? Show me.", "sl": "No, na katero od teh bi {m:postavil|f:postavila} razgledišče? Pokaži mi.", "it": "Allora, su quale di queste metteresti un belvedere? Fammi vedere.", "de": "So, auf welchen würdest du eine Aussichtsstation stellen? Zeig's mir." },
         { "choices": [
           { "en": "The big rock, since it's high enough to take in the whole of the lake.", "sl": "Na veliko skalo, ker je dovolj visoka, da zajame vse jezero.", "it": "La grande roccia, poiché è alta abbastanza da abbracciare tutto il lago.", "de": "Den großen Felsen, weil er hoch genug ist, um den ganzen See zu überblicken.", "ok": true, "tap": "stone",
@@ -116,7 +116,7 @@
             "why": { "sl": "Solid pomeni trden; sullen pomeni čemeren.", "it": "Solid vuol dire solido; sullen vuol dire imbronciato.", "de": "Solid heißt fest; sullen heißt mürrisch." },
             "reply": { "face": "laugh", "en": "Sullen? Stones don't sulk, mate.", "sl": "Čemerno? Kamni se ne kujajo.", "it": "Imbronciato? Le pietre non tengono il broncio.", "de": "Mürrisch? Steine schmollen nicht, Kumpel." } }
         ] },
-        { "who": "harry", "en": "I've slipped twice! This moss is a menace!", "sl": "Dvakrat mi je spodrsnilo! Ta mah je nevaren!", "it": "Sono scivolato due volte! Questo muschio è una minaccia!", "de": "Ich bin zweimal ausgerutscht! Dieses Moos ist gemein!" },
+        { "who": "harry", "en": "I've slipped twice! This moss is a menace!", "sl": "Dvakrat mi je spodrsnilo! Ta mah je nevaren!", "it": "Due scivoloni già! Questo muschio è una minaccia!", "de": "Ich bin zweimal ausgerutscht! Dieses Moos ist gemein!" },
         { "choices": [
           { "en": "That rock can't have been cleaned for a hundred years.", "sl": "Tista skala gotovo ni bila očiščena sto let.", "it": "Quella roccia non dev'essere stata pulita da cent'anni.", "de": "Der Fels kann seit hundert Jahren nicht gesäubert worden sein.", "ok": true,
             "reply": { "face": "laugh", "en": "A hundred years? More like a thousand!", "sl": "Sto let? Prej tisoč!", "it": "Cent'anni? Più che altro mille!", "de": "Hundert Jahre? Eher tausend!" } },
@@ -152,7 +152,7 @@
             "reply": { "face": "happy", "en": "The very best, {m:son|f:lass}. It'll see us all out.", "sl": "Najboljši, {m:sinko|f:dekle}. Vse nas bo preživel.", "it": "Il migliore, {m:figliolo|f:ragazza}. Ci sopravviverà.", "de": "Das allerbeste, {m:mein Junge|f:Mädel}. Das überlebt uns alle." } },
           { "en": "So larch is the best timer for a place like this?", "sl": "Macesen je torej najboljša ura za tak kraj?", "it": "Quindi il larice è il timer migliore per un posto così?", "de": "Lärche ist also die beste Eieruhr für so einen Ort?",
             "why": { "sl": "Timber je les za gradnjo; timer je ura, ki meri čas.", "it": "Timber è il legname; timer è il contaminuti.", "de": "Timber ist das Bauholz; timer ist die Eieruhr." },
-            "reply": { "face": "confused", "en": "A timer? For eggs? I've lost you, {m:son|f:lass}.", "sl": "Ura? Za jajca? Izgubil sem te.", "it": "Un timer? Per le uova? Ti ho perso, {m:figliolo|f:ragazza}.", "de": "Eine Eieruhr? Ich komm nicht mit, {m:mein Junge|f:Mädel}." } }
+            "reply": { "face": "confused", "en": "A timer? For eggs? I've lost you, {m:son|f:lass}.", "sl": "Ura? Za jajca? Ne sledim ti več.", "it": "Un timer? Per le uova? Ti ho perso, {m:figliolo|f:ragazza}.", "de": "Eine Eieruhr? Ich komm nicht mit, {m:mein Junge|f:Mädel}." } }
         ] },
         { "who": "jack", "en": "These planks are long. It'll take two of us to get each one up the path.", "sl": "Te deske so dolge. Dva bosta morala nesti vsako gor po poti.", "it": "Queste assi sono lunghe. Ci vorranno due di noi per ognuna.", "de": "Diese Bretter sind lang. Wir brauchen zwei Leute für jedes." },
         { "choices": [
@@ -166,7 +166,7 @@
       ] },
       "B2": { "lines": [
         { "who": "birkett", "en": "Every plank's got to come up that path on somebody's shoulder, love. There's no road, and there never will be.", "sl": "Vsaka deska mora gor po poti na nekih ramenih, srček. Ceste ni in je nikoli ne bo.", "it": "Ogni asse deve salire su quel sentiero sulla spalla di qualcuno, tesoro. Non c'è strada, e non ci sarà mai.", "de": "Jedes Brett muss auf jemandes Schulter den Pfad hoch, Schatz. Es gibt keine Straße und wird nie eine geben." },
-        { "who": "wilf", "en": "Larch doesn't rot, they say, and I've seen no reason to doubt it in eighty-four years.", "sl": "Pravijo, da macesen ne gnije, in v štiriinosemdesetih letih nisem imel razloga dvomiti.", "it": "Dicono che il larice non marcisce, e in ottantaquattro anni non ho avuto motivo di dubitarne.", "de": "Lärche fault nicht, heißt es, und in vierundachtzig Jahren hatte ich keinen Grund, daran zu zweifeln." },
+        { "who": "wilf", "en": "Larch doesn't rot, they say, and nobody's ever found a reason to doubt it.", "sl": "Pravijo, da macesen ne gnije, in nihče še ni našel razloga za dvom.", "it": "Dicono che il larice non marcisce, e nessuno ha mai trovato motivo di dubitarne.", "de": "Lärche fault nicht, heißt es, und noch niemand hat einen Grund gefunden, daran zu zweifeln." },
         { "choices": [
           { "en": "That's why they've been using this timber for gates and bridges for centuries.", "sl": "Zato ta les za vrata in mostove uporabljajo že stoletja.", "it": "Per questo usano questo legname per cancelli e ponti da secoli.", "de": "Deshalb nimmt man dieses Holz seit Jahrhunderten für Tore und Brücken.", "ok": true,
             "reply": { "face": "happy", "en": "Spot on. The oak gets the praise, but the larch does the work.", "sl": "Točno. Hvalo dobi hrast, delo pa opravi macesen.", "it": "Esatto. La quercia prende gli elogi, ma il lavoro lo fa il larice.", "de": "Genau. Die Eiche bekommt das Lob, aber die Lärche macht die Arbeit." } },
@@ -180,7 +180,7 @@
             "reply": { "face": "laugh", "en": "Don't say that to Mrs Birkett. She'll want longer ones.", "sl": "Tega ne reci gospe Birkett. Hotela bo daljše.", "it": "Non dirlo alla signora Birkett. Le vorrà più lunghe.", "de": "Sag das nicht Mrs Birkett. Sie will sonst längere." } },
           { "en": "If the planes were any longer, we'd never get them round that corner.", "sl": "Če bi bila letala še daljša, jih nikoli ne bi spravili okrog tistega ovinka.", "it": "Se gli aerei fossero più lunghi, non li faremmo mai passare da quella curva.", "de": "Wären die Flugzeuge noch länger, kämen wir nie um die Ecke.",
             "why": { "sl": "Plank je deska; plane je letalo.", "it": "Plank è l'asse; plane è l'aereo.", "de": "Plank ist das Brett; plane ist das Flugzeug." },
-            "reply": { "face": "laugh", "en": "Planes? On this path? I've not seen one yet.", "sl": "Letala? Na tej poti? Še nobenega nisem videl.", "it": "Aerei? Su questo sentiero? Non ne ho ancora visto uno.", "de": "Flugzeuge? Auf diesem Pfad? Ich hab noch keins gesehen." } }
+            "reply": { "face": "laugh", "en": "Planes? On this path? I've not seen one yet.", "sl": "Letala? Na tej poti? Še nobenega ni bilo.", "it": "Aerei? Su questo sentiero? Non ne ho ancora visto uno.", "de": "Flugzeuge? Auf diesem Pfad? Ich hab noch keins gesehen." } }
         ] },
         { "who": "birkett", "en": "Well done, the lot of you. There's pie at the inn when you're finished.", "sl": "Bravo, vsi. V gostilni je pita, ko končate.", "it": "Bravi tutti. C'è la torta alla locanda quando avete finito.", "de": "Gut gemacht, ihr alle. Wenn ihr fertig seid, gibt's Pastete im Gasthaus." }
       ] }
@@ -211,34 +211,34 @@
           { "en": "Why have you made the windows so wild, Mrs Birkett?", "sl": "Zakaj ste naredili okna tako divja, gospa Birkett?", "it": "Perché ha fatto le finestre così selvagge, signora Birkett?", "de": "Warum haben Sie die Fenster so wild gemacht, Mrs Birkett?",
             "why": { "sl": "Wide pomeni širok; wild pomeni divji.", "it": "Wide vuol dire largo; wild vuol dire selvaggio.", "de": "Wide heißt breit; wild heißt wild." },
             "reply": { "face": "laugh", "en": "Wild? They've been very well behaved so far, love.", "sl": "Divja? Doslej so se zelo lepo obnašala, srček.", "it": "Selvagge? Finora si sono comportate benissimo, tesoro.", "de": "Wild? Die haben sich bisher sehr gut benommen, Schatz." } }
-        ] },
+        ], "to": "birkett" },
         { "who": "harry", "en": "Can I have my birthday party in here?", "sl": "Lahko imam tukaj rojstnodnevno zabavo?", "it": "Posso fare qui la mia festa di compleanno?", "de": "Darf ich meine Geburtstagsfeier hier machen?" },
         { "choices": [
           { "en": "The room's big enough for the whole class, I think.", "sl": "Soba je dovolj velika za ves razred, mislim.", "it": "La stanza è abbastanza grande per tutta la classe, credo.", "de": "Der Raum ist groß genug für die ganze Klasse, glaube ich.", "ok": true,
             "reply": { "face": "happy", "en": "Yes! Ten of us, and a cake!", "sl": "Ja! Deset nas in torta!", "it": "Sì! Dieci di noi, e una torta!", "de": "Ja! Zehn von uns und ein Kuchen!" } },
           { "en": "The roof's big enough for the whole class, I think.", "sl": "Streha je dovolj velika za ves razred, mislim.", "it": "Il tetto è abbastanza grande per tutta la classe, credo.", "de": "Das Dach ist groß genug für die ganze Klasse, glaube ich.",
             "why": { "sl": "Room je soba; roof je streha.", "it": "Room è la stanza; roof è il tetto.", "de": "Room ist der Raum; roof ist das Dach." },
-            "reply": { "face": "laugh", "en": "On the roof? Mum would never let us!", "sl": "Na streho? Mami nam ne bi dovolila!", "it": "Sul tetto? La mamma non ce lo permetterebbe!", "de": "Auf dem Dach? Das würde Mama nie erlauben!" } }
+            "reply": { "face": "laugh", "en": "On the roof? We'd never be allowed!", "sl": "Na streho? Tega nam nikoli ne bi dovolili!", "it": "Sul tetto? Non ce lo permetterebbero mai!", "de": "Auf dem Dach? Das würde man uns nie erlauben!" } }
         ] },
         { "who": "birkett", "en": "The whole village helped. Now a little room with big windows stands on the rock.", "sl": "Pomagala je vsa vas. Zdaj na skali stoji sobica z velikimi okni.", "it": "Ha aiutato tutto il paese. Adesso una stanzetta con grandi finestre sta sulla roccia.", "de": "Das ganze Dorf hat geholfen. Jetzt steht ein kleiner Raum mit großen Fenstern auf dem Fels." }
       ] },
       "B2": { "lines": [
         { "who": "birkett", "en": "I wanted a room where people could sit and do nothing at all, and I've ended up working harder than ever.", "sl": "Hotela sem sobo, kjer lahko ljudje sedijo in ne delajo ničesar, pa delam bolj kot kdajkoli.", "it": "Volevo una stanza dove la gente potesse sedere e non fare niente, e ho finito per lavorare più che mai.", "de": "Ich wollte einen Raum, in dem man sitzen und gar nichts tun kann, und jetzt arbeite ich mehr denn je." },
-        { "who": "wilf", "en": "I've sat at some fine windows in my time, but none as wide as these.", "sl": "V svojem času sem sedel ob lepih oknih, a nobeno ni bilo tako široko.", "it": "Sono stato a belle finestre in vita mia, ma nessuna così larga.", "de": "Ich habe in meiner Zeit an schönen Fenstern gesessen, aber keins war so breit." },
+        { "who": "wilf", "en": "There are some fine windows in this dale, but none as wide as these.", "sl": "V tej dolini je nekaj lepih oken, a nobeno ni tako široko.", "it": "In questa valle ci sono belle finestre, ma nessuna così larga.", "de": "In diesem Tal gibt es schöne Fenster, aber keins ist so breit." },
         { "choices": [
           { "en": "The windows are so wide that the lake seems to come into the room.", "sl": "Okna so tako široka, da se zdi, da jezero prihaja v sobo.", "it": "Le finestre sono così larghe che il lago sembra entrare nella stanza.", "de": "Die Fenster sind so breit, dass der See ins Zimmer zu kommen scheint.", "ok": true,
             "reply": { "face": "happy", "en": "Oh, that's going on the sign, love.", "sl": "O, to gre na napis, srček.", "it": "Oh, questo va sul cartello, tesoro.", "de": "Oh, das kommt aufs Schild, Schatz." } },
           { "en": "The windows are so wise that the lake seems to come into the room.", "sl": "Okna so tako modra, da se zdi, da jezero prihaja v sobo.", "it": "Le finestre sono così sagge che il lago sembra entrare nella stanza.", "de": "Die Fenster sind so weise, dass der See ins Zimmer zu kommen scheint.",
             "why": { "sl": "Wide pomeni širok; wise pomeni moder.", "it": "Wide vuol dire largo; wise vuol dire saggio.", "de": "Wide heißt breit; wise heißt weise." },
             "reply": { "face": "laugh", "en": "Wise? They've never said anything to me, love.", "sl": "Modra? Meni še niso nič rekla, srček.", "it": "Sagge? A me non hanno mai detto niente, tesoro.", "de": "Weise? Mir haben sie noch nichts gesagt, Schatz." } }
-        ] },
-        { "who": "harry", "en": "Mum, what's it for, if nobody lives here?", "sl": "Mami, čemu je, če tukaj nihče ne živi?", "it": "Mamma, a cosa serve, se qui non ci vive nessuno?", "de": "Mama, wozu ist das, wenn hier keiner wohnt?" },
+        ], "to": "birkett" },
+        { "who": "harry", "en": "But what's it for, if nobody lives here?", "sl": "Ampak čemu je, če tukaj nihče ne živi?", "it": "Ma a cosa serve, se qui non ci vive nessuno?", "de": "Aber wozu ist das, wenn hier keiner wohnt?" },
         { "choices": [
           { "en": "It's a room for doing nothing, which is harder than it sounds.", "sl": "To je soba za nič delanja, kar je težje, kot se sliši.", "it": "È una stanza per non fare niente, che è più difficile di quanto sembri.", "de": "Das ist ein Raum zum Nichtstun, und das ist schwerer, als es klingt.", "ok": true,
-            "reply": { "face": "happy", "en": "That's the worst room I've ever heard of!", "sl": "To je najslabša soba, kar sem jih slišal!", "it": "È la stanza peggiore di cui abbia mai sentito!", "de": "Das ist der schlechteste Raum, von dem ich je gehört habe!" } },
+            "reply": { "face": "happy", "en": "That's the worst room I've ever heard of!", "sl": "To je najslabša soba, kar jih je!", "it": "È la stanza peggiore di cui abbia mai sentito!", "de": "Das ist der schlechteste Raum, von dem ich je gehört habe!" } },
           { "en": "It's a broom for doing nothing, which is harder than it sounds.", "sl": "To je metla za nič delanja, kar je težje, kot se sliši.", "it": "È una scopa per non fare niente, che è più difficile di quanto sembri.", "de": "Das ist ein Besen zum Nichtstun, und das ist schwerer, als es klingt.",
             "why": { "sl": "Room je soba; broom je metla.", "it": "Room è la stanza; broom è la scopa.", "de": "Room ist der Raum; broom ist der Besen." },
-            "reply": { "face": "laugh", "en": "A broom? That's for doing something! Ask my mum!", "sl": "Metla? Ta je za delo! Vprašaj mami!", "it": "Una scopa? Quella è per fare qualcosa! Chiedi a mamma!", "de": "Ein Besen? Der ist zum Arbeiten! Frag meine Mama!" } }
+            "reply": { "face": "laugh", "en": "A broom? That's for doing something! Ask Mrs Birkett!", "sl": "Metla? Ta je za delo! Vprašaj gospo Birkett!", "it": "Una scopa? Quella è per fare qualcosa! Chiedi alla signora Birkett!", "de": "Ein Besen? Der ist zum Arbeiten! Frag Frau Birkett!" } }
         ] },
         { "who": "birkett", "en": "Four walls, a roof, and the best view in Cumbria. Now to tell the walkers.", "sl": "Štirje zidovi, streha in najlepši razgled v Cumbrii. Zdaj pa povedati pohodnikom.", "it": "Quattro muri, un tetto e il panorama più bello della Cumbria. Adesso avvisiamo gli escursionisti.", "de": "Vier Wände, ein Dach und die beste Aussicht in Cumbria. Jetzt noch den Wanderern Bescheid sagen." }
       ] }
@@ -290,7 +290,7 @@
             "why": { "sl": "Step je stopnica; stripe je proga.", "it": "Step è il gradino; stripe è la striscia.", "de": "Step ist die Stufe; stripe ist der Streifen." },
             "reply": { "face": "confused", "en": "Stripes? On a path? We're not painting it.", "sl": "Proge? Na poti? Ne barvamo je.", "it": "Strisce? Su un sentiero? Non lo dipingiamo.", "de": "Streifen? Auf einem Pfad? Wir malen ihn nicht an." } }
         ] },
-        { "who": "wilf", "en": "The top bit's what'll stop them. I've seen strong men sit down halfway.", "sl": "Zgornji del jih bo ustavil. Videl sem močne može, ki so sedli na pol poti.", "it": "È la parte alta che li fermerà. Ho visto uomini forti sedersi a metà.", "de": "Der obere Teil wird sie stoppen. Ich habe starke Männer auf halber Strecke sitzen sehen." },
+        { "who": "wilf", "en": "The top bit's what'll stop them. I've seen strong men sit down halfway.", "sl": "Zgornji del jih bo ustavil. Močni možje so že sedli na pol poti.", "it": "È la parte alta che li fermerà. Ho visto uomini forti sedersi a metà.", "de": "Der obere Teil wird sie stoppen. Ich habe starke Männer auf halber Strecke sitzen sehen." },
         { "choices": [
           { "en": "The steeper it gets, the more they'll enjoy the view when they reach the top.", "sl": "Bolj strmo ko je, bolj bodo uživali v razgledu, ko pridejo na vrh.", "it": "Più diventa ripido, più si godranno il panorama quando arrivano in cima.", "de": "Je steiler es wird, desto mehr genießen sie die Aussicht, wenn sie oben ankommen.", "ok": true,
             "reply": { "face": "happy", "en": "That's the truth of every fell in the Lakes.", "sl": "To je resnica o vsakem hribu v Lake Districtu.", "it": "È la verità di ogni monte dei Laghi.", "de": "Das gilt für jeden Berg in den Lakes." } },
@@ -331,7 +331,7 @@
         { "who": "harry", "en": "The blue one makes it night, in the middle of the morning!", "sl": "Modro naredi noč, sredi jutra!", "it": "Quello blu fa la notte, a metà mattina!", "de": "Das blaue macht Nacht, mitten am Morgen!" },
         { "choices": [
           { "en": "It's amazing what a bit of coloured glass can do.", "sl": "Neverjetno je, kaj zmore malo barvnega stekla.", "it": "È incredibile cosa può fare un po' di vetro colorato.", "de": "Unglaublich, was ein bisschen farbiges Glas kann.", "ok": true,
-            "reply": { "face": "happy", "en": "Green for spring, and I want a go!", "sl": "Zelena za pomlad, jaz bi tudi rad!", "it": "Verde per la primavera, voglio provare!", "de": "Grün für den Frühling, ich will auch mal!" } },
+            "reply": { "face": "happy", "en": "Green for spring, and I want a go!", "sl": "Zelena za pomlad, daj še meni!", "it": "Verde per la primavera, voglio provare!", "de": "Grün für den Frühling, ich will auch mal!" } },
           { "en": "It's amazing what a bit of collared glass can do.", "sl": "Neverjetno je, kaj zmore malo steklo z ovratnico.", "it": "È incredibile cosa può fare un po' di vetro col collare.", "de": "Unglaublich, was ein bisschen Glas mit Halsband kann.",
             "why": { "sl": "Coloured pomeni barven; collared pomeni z ovratnico.", "it": "Coloured vuol dire colorato; collared vuol dire col collare.", "de": "Coloured heißt farbig; collared heißt mit Halsband." },
             "reply": { "face": "laugh", "en": "Collared? Like a dog? Ha!", "sl": "Z ovratnico? Kot pes? Ha!", "it": "Col collare? Come un cane? Ah!", "de": "Mit Halsband? Wie ein Hund? Ha!" } }
@@ -348,10 +348,10 @@
             "why": { "sl": "Pane je šipa; pan je ponev.", "it": "Pane è il vetro; pan è la padella.", "de": "Pane ist die Scheibe; pan ist die Pfanne." },
             "reply": { "face": "laugh", "en": "A pan? That's for the kitchen at the inn, mate.", "sl": "Ponev? To je za kuhinjo v gostilni.", "it": "Una padella? Quella è per la cucina della locanda.", "de": "Eine Pfanne? Die ist für die Küche im Gasthaus, Kumpel." } }
         ] },
-        { "who": "harry", "en": "Mum, the lake's gone orange! Is it going to stay like that?", "sl": "Mami, jezero je oranžno! Bo ostalo tako?", "it": "Mamma, il lago è diventato arancione! Resta così?", "de": "Mama, der See ist orange! Bleibt das so?" },
+        { "who": "harry", "en": "The lake's gone orange! Is it going to stay like that?", "sl": "Jezero je oranžno! Bo ostalo tako?", "it": "Il lago è diventato arancione! Resta così?", "de": "Der See ist orange! Bleibt das so?" },
         { "choices": [
           { "en": "It's only the coloured glass, and it won't stain your eyes.", "sl": "To je samo barvno steklo in ti ne obarva oči.", "it": "È solo il vetro colorato, e non ti macchia gli occhi.", "de": "Das ist nur das farbige Glas, und es färbt deine Augen nicht.", "ok": true,
-            "reply": { "face": "laugh", "en": "Oh. I wanted orange eyes!", "sl": "O. Hotel sem oranžne oči!", "it": "Oh. Volevo gli occhi arancioni!", "de": "Oh. Ich wollte orange Augen!" } },
+            "reply": { "face": "laugh", "en": "Oh. I wanted orange eyes!", "sl": "O. Oranžne oči bi bile boljše!", "it": "Oh. Volevo gli occhi arancioni!", "de": "Oh. Ich wollte orange Augen!" } },
           { "en": "It's only the cold glass, and it won't stain your eyes.", "sl": "To je samo mrzlo steklo in ti ne obarva oči.", "it": "È solo il vetro freddo, e non ti macchia gli occhi.", "de": "Das ist nur das kalte Glas, und es färbt deine Augen nicht.",
             "why": { "sl": "Coloured pomeni barven; cold pomeni mrzel.", "it": "Coloured vuol dire colorato; cold vuol dire freddo.", "de": "Coloured heißt farbig; cold heißt kalt." },
             "reply": { "face": "confused", "en": "Cold? But it's orange!", "sl": "Mrzlo? Ampak je oranžno!", "it": "Freddo? Ma è arancione!", "de": "Kalt? Aber es ist orange!" } }
