@@ -63,12 +63,18 @@ class Director(
         return when (verdict) {
             Verdict.CORRECT -> {
                 val pose = if (hints > 0 || dice("pose") < 0.5f) Pose.HAPPY else Pose.CHEER
-                Cue(pose, say("cheer", own(who.lines.cheer, Lines.cheer(who.register))), !quiet, holdMs = 2_400)
+                Cue(pose, say("cheer", if (whole(ex)) Lines.cheer(who.register) else own(who.lines.cheer, Lines.cheer(who.register))), !quiet, holdMs = 2_400)
             }
             Verdict.ALMOST -> Cue(Pose.HAPPY, say("almost", Lines.almost(who.register)), !quiet, holdMs = 2_400)
-            Verdict.WRONG -> Cue(Pose.SAD, say("comfort", own(who.lines.comfort, Lines.comfort(who.register))), !quiet, holdMs = 2_800)
+            Verdict.WRONG -> Cue(Pose.SAD, say("comfort", if (whole(ex)) Lines.comfort(who.register) else own(who.lines.comfort, Lines.comfort(who.register))), !quiet, holdMs = 2_800)
         }
     }
+
+    /**
+     * A text written or said whole: the built-in lines answer it, not a teacher's own, which may be about a gap's ("Pravilno!
+     * Končnica je prava").
+     */
+    private fun whole(ex: Exercise) = ex is Exercise.Writing || ex is Exercise.Speaking
 
     /** Jan asked for a hint: the companion thinks along, quietly (Jan is typing). */
     fun hint(): Cue = Cue(Pose.THINK, say("think", Lines.think(who.register)), voice = false, holdMs = 2_200)

@@ -17,6 +17,7 @@ export const SL = {
   produce: 'Povej in napiši',
   answers: 'Rešitve',
   notes: 'Zapiski',
+  back: 'Piši na hrbtno stran',
   unit: 'Enota',
   contents: 'Vsebina',
   continued: 'nadaljevanje',
@@ -37,6 +38,7 @@ const IT_HEADS: Heads = {
   produce: 'Parla e scrivi',
   answers: 'Soluzioni',
   notes: 'Appunti',
+  back: 'Scrivi sul retro',
   unit: 'Unità',
   contents: 'Indice',
   continued: 'continua',
@@ -57,6 +59,7 @@ const DE_HEADS: Heads = {
   produce: 'Sprich und schreib',
   answers: 'Lösungen',
   notes: 'Notizen',
+  back: 'Schreib auf der Rückseite weiter',
   unit: 'Lektion',
   contents: 'Inhalt',
   continued: 'Fortsetzung',
@@ -77,6 +80,7 @@ const EN_HEADS: Heads = {
   produce: 'Speak and write',
   answers: 'Answers',
   notes: 'Notes',
+  back: 'Go on on the back',
   unit: 'Unit',
   contents: 'Contents',
   continued: 'continued',
@@ -101,6 +105,7 @@ const EN = {
   produce: 'Speak and write',
   answers: 'Answers',
   notes: 'Notes',
+  back: 'Go on on the back',
   unit: 'Unit',
   contents: 'Contents',
   continued: 'continued',
@@ -128,6 +133,7 @@ const DE: Base = {
   produce: 'Sprich und schreib',
   answers: 'Lösungen',
   notes: 'Notizen',
+  back: 'Schreib auf der Rückseite weiter',
   unit: 'Lektion',
   contents: 'Inhalt',
   continued: 'Fortsetzung',
@@ -154,6 +160,7 @@ const IT: Base = {
   produce: 'Parla e scrivi',
   answers: 'Soluzioni',
   notes: 'Appunti',
+  back: 'Scrivi sul retro',
   unit: 'Unità',
   contents: 'Indice',
   continued: 'continua',
@@ -181,6 +188,7 @@ const SLB: Base = {
   produce: 'Povej in napiši',
   answers: 'Rešitve',
   notes: 'Zapiski',
+  back: 'Piši na hrbtno stran',
   unit: 'Enota',
   contents: 'Vsebina',
   continued: 'nadaljevanje',
@@ -343,7 +351,18 @@ function answers({ s, b, T }: Ctx, max: number): string {
   return items.length ? `<div class="answers" aria-label="${esc(b.answers)}"><span class="a-t">${esc(T.answers)} · ${esc(b.answers)}:</span> ${items.join(' ')}</div>` : ''
 }
 
-const notes = ({ b, T }: Ctx) => `<div class="notes"><span class="n-t">${esc(T.notes)} · ${esc(b.notes)}</span></div>`
+/** How many words of a writing task a ruled line holds, in handwriting: what fit.js counts a task's lines by. */
+const WORDS_A_LINE = 12
+
+/**
+ * The room left, ruled. With a writing task, the lines it takes ([WORDS_A_LINE]) and what to say when fewer are left: a full
+ * sheet leaves a B2 letter a line or two, and a sheet is two pages at most (bin/school-prints), so it goes on on the back.
+ */
+const notes = ({ s, b, T }: Ctx) => {
+  const need = Math.max(0, ...s.write.map(w => Math.ceil((w.min ?? 0) / WORDS_A_LINE)))
+  const room = need ? ` data-need="${need}" data-back="${esc(`✍️ ${T.back} · ${b.back}`)}"` : ''
+  return `<div class="notes"${room}><span class="n-t">${esc(T.notes)} · ${esc(b.notes)}</span></div>`
+}
 
 function footer({ s, b, level, language, T }: Ctx): string {
   const left = `Lani · ${esc(T.school)} · ${esc(LANGUAGE_NAMES[language] ?? language)} ${esc(level)} · ${esc(T.unit)} ${s.n}/${s.of}`

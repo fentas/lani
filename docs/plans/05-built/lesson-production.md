@@ -193,19 +193,14 @@ reading.
   that keeps an accent it is written with would need the bridge and the app both.
 - **The node's recognizer and Slovene sound-spellings:** `Production.asWritten` knows *u vasi*, *f šoli*; more come
   from real takes (tutor-live.md, "Speaking items").
-- **The print's room to write:** a full sheet of two pages leaves the writing task one or two ruled lines (formeller-brief
-  at B2: one, for a letter of 50–110 words); the learner writes on paper beside it. A third page, or the writing on the
-  back, would be the print's choice to make.
-- **The verdict's panel covers the checks.** After "Preveri" the panel takes the lower half of the screen and the checks
-  list runs under it: with one check not met ("Skoraj") the row that says which can be out of sight, the panel shows the
-  `explain`, not the check, and the learner has to scroll above the panel to see it, the model and the tutor's line. Seen
-  with the length row (a run whose text came out short). A fix is the app's: name what isn't met in the panel, or bring
-  the checks into view. Not done here.
+- **The print's room to write:** a full sheet of two pages leaves the writing task one or two ruled lines (formeller-brief at B2:
+  one, for a letter of 50–110 words). The label of those lines now says to go on on the back (`fit.js`, html.ts `notes`); a sheet
+  stays two pages at most, as `school-prints` holds it.
+- **The verdict's panel:** names what isn't met (`UnmetChecks`), so "Skoraj" no longer needs a scroll above it.
 - **QA for a child:** `friuli-school-unit` doesn't play speaking or writing yet (it raises on a type it doesn't know), so
   a child's path (a writing item said first, "Napiši še") is covered by `ProductionTest` and the smoke, not on the
   emulator or Teo's tablet layout.
-- **Mojca's cheer** after a right writing item may be "Pravilno! Končnica je prava" (one of her random cheers), which
-  fits a gap better than a text.
+- **Mojca's cheer:** a written or spoken text gets the built-in lines (`Director.whole`), not a teacher's own about an ending.
 - **Native check** (above) and the **voice build** (2,616 characters, Jan's credits).
 - **Deploy order:** this branch's bridge code before its content commit reaches main (an older bridge serves the 8
   units as planned).

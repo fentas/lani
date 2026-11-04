@@ -112,14 +112,8 @@ internal fun ChecksList(c: Production.Checked, show: CheckShow, modifier: Modifi
     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium, modifier = modifier.fillMaxWidth()) {
         Column(Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text("✅ ${bi("production.mustUse")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            for (m in c.must) {
-                val count = if (m.n > 1) " (${m.count.coerceAtMost(m.n)}/${m.n})" else ""
-                CheckRow(mark(m.met, show), inlineMarkdown(m.label + count))
-            }
-            if (c.min != null) {
-                val asked = c.max?.let { "${c.min}–$it" } ?: "${c.min}+"
-                CheckRow(mark(!c.short, show), AnnotatedString(bi("production.words", "n" to c.words, "asked" to asked)))
-            }
+            for (m in c.must) CheckRow(mark(m.met, show), inlineMarkdown(m.label + count(m)))
+            if (c.min != null) CheckRow(mark(!c.short, show), AnnotatedString(bi("production.words", "n" to c.words, "asked" to asked(c))))
             if (show == CheckShow.FINAL) for (a in c.avoid.filter { it.hits.isNotEmpty() }) {
                 CheckRow("✗" to TriglavRed, struck(a.hits.joinToString(", ")))
                 Markdown(ExplainFormat.format(a.explain))
@@ -127,6 +121,24 @@ internal fun ChecksList(c: Production.Checked, show: CheckShow, modifier: Modifi
         }
     }
 }
+
+/**
+ * What a speaking or writing item's text lacks, in the verdict's panel: the panel takes the lower half of the screen and the
+ * checks list runs under it, so with "Skoraj" the check not met could be out of sight, and the panel showed only the item's
+ * `explain`. Each must not met, a length not reached, each word it should have avoided; nothing when all is met.
+ */
+@Composable
+internal fun UnmetChecks(c: Production.Checked) {
+    for (m in c.must.filter { !it.met }) CheckRow(mark(false, CheckShow.FINAL), inlineMarkdown(m.label + count(m)))
+    if (c.min != null && c.short) CheckRow(mark(false, CheckShow.FINAL), AnnotatedString(bi("production.words", "n" to c.words, "asked" to asked(c))))
+    for (a in c.avoid.filter { it.hits.isNotEmpty() }) CheckRow("✗" to TriglavRed, struck(a.hits.joinToString(", ")))
+}
+
+/** How far a must that wants more than one has come: " (1/2)". */
+private fun count(m: Production.MustMark) = if (m.n > 1) " (${m.count.coerceAtMost(m.n)}/${m.n})" else ""
+
+/** The length asked: "50–110", "25+". */
+private fun asked(c: Production.Checked) = c.max?.let { "${c.min}–$it" } ?: "${c.min}+"
 
 private fun struck(s: String) = androidx.compose.ui.text.buildAnnotatedString {
     withStyle(androidx.compose.ui.text.SpanStyle(textDecoration = androidx.compose.ui.text.style.TextDecoration.LineThrough, color = TriglavRed)) { append(s) }
