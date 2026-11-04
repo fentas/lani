@@ -40,7 +40,7 @@ native eye, in this order:
   (Videm for Udine, Krmin for Cormòns, Čedad for Cividale, Nadiža for the Natisone, Karnija for Carnia), «Mlinska
   cesta» for via del Mulino, vi in the B2 settings' «ste prišli».
 - **English**: plain; «the family doctor's surgery», «Madam Mayor» (what a child would say?).
-- **Facts to keep true**: Cividale del Friuli is the Lombard town on the Natisone (the Tempietto Longobardo, the Ponte
+- **Facts to keep true** (from memory, not checked against a source): Cividale del Friuli is the Lombard town on the Natisone (the Tempietto Longobardo, the Ponte
   del Diavolo, UNESCO since 2011); the University of Udine has agriculture; Monte Sabotino is above Gorizia; Udinese is
   Udine's football club. The talks say no more than that: no train times, no line, no company's name.
 
@@ -78,7 +78,7 @@ learner reads, in the format scenarios-it left (`lani.scenario/v0`, no new field
 
 ## Offered by level
 
-`ScenarioStore.offered(child, level)` (bridge/src/scenarios.ts) keeps a curated talk when `talkFits(talk, learner)`: at
+`ScenarioStore.offered(child, level)` (bridge/src/scenarios.ts) keeps a curated talk when `talkLevelOffered(talk, learner)`: at
 the learner's level or below, or one level above. Two above never: an A1 learner meets A1 and A2 (as before: the two A2
 ones were offered to everyone), an A2 learner B1 as the next step, a B1 learner B2. A tutor's talk is always offered
 (the tutor wrote it for this learner). The level is the learner profile's `current_level`, as modules read it (A1 when
@@ -97,17 +97,19 @@ app gets the talks of its learner's level and reads them as it read the A2 ones.
 - `test/dev-bridge.ts`: `ROLEPLAY_LEVELS.it.B1` and `.B2`, canned lines that fit any of the six of their level (B1: «Ah,
   capisco. E poi che cosa è successo?», «Davvero? Hai fatto bene a dirmelo.»; B2: «Capisco perfettamente. Mi dispiace
   che sia andata così.», «Se l'avessimo saputo prima, avremmo trovato una soluzione.»), a correction at the level
-  (the imperfetto beside the passato prossimo; the unreal past) explained in de, sl and en, and practise points; neither
-  tu nor Lei, so they fit both. A talk of another level gets the language's A1 lines as before.
+  (the imperfetto beside the passato prossimo; the unreal past) explained in de, sl and en, and practise points. B1's
+  say tu, as every B1 talk does; B2's neither tu nor Lei, so they fit Davide and the counter alike. A talk of another
+  level gets the language's A1 lines as before.
 - `bin/qa`: `village_talk` takes the dev tutor's lines at the talk's level (`VILLAGE_TALKS.friuli.levels`), and says so
   when the named talk isn't offered to the learner's level.
 
 ## How to use
 
-- Teo at A2: Home's "🗣️ Conversazione · Gespräch" lists the B1 talks after the A1 and A2 ones, each with its level's tag;
+- Teo at A2: Home's "Conversazione · Gespräch" tile lists the B1 talks among the A1 and A2 ones, each with its level's
+  tag (the list is by file name, not by level: "Ahi, la caviglia!", B1, comes first; see What's left);
   a talk, "Inizia · Starten". At B1 the B2 ones too.
-- QA of a B1 talk: a synthetic Teo (`bun test/fixtures/make-learner.ts <dir> --target it --base de --name Teo`), its
-  `learner-profile.json`'s `learner.current_level` set to A2, then `LANI_DEV_DATA=<dir> LANI_CULTURE=friuli LANI_CHILD=1
+- QA of a B1 talk: a synthetic Teo at A2 (`bun test/fixtures/make-learner.ts <dir> --target it --base de --name Teo
+  --level A2`), then `LANI_DEV_DATA=<dir> LANI_CULTURE=friuli LANI_CHILD=1
   LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo LANI_QA_TALK=l-aquilone-rotto LANI_QA_TALK_SHOTS=<shots>
   companion/bin/qa-slot --steps friuli-talk`.
 - Count: `companion/bin/content-count` has a "role-plays" row now (it 21: A1 7 · A2 2 · B1 6 · B2 6).
@@ -117,11 +119,11 @@ app gets the talks of its learner's level and reads them as it read the A2 ones.
 | Journey | Before | After |
 |---|---|---|
 | Teo at A2, Home to talking in a B1 situation | not possible: no talk above A2 | 3: "🗣️ Conversazione · Gespräch", the talk, "Inizia · Starten" |
-| Teo at A1, Home to talking (the market) | 3 | 3 (unchanged; the list has no B1 or B2) |
+| Teo at A1, Home to talking (the market) | 3 | 3 (scenarios-it's count, not run again; the list has no B1 or B2) |
 
 ## Checks
 
-- Bridge: `bunx tsc --noEmit -p .`; the smoke (its port block 10750, LANI_SMOKE_DRAMA3_PORT 10768): `talkFits`; the 21
+- Bridge: `bunx tsc --noEmit -p .`; the smoke (its port block 10750, LANI_SMOKE_DRAMA3_PORT 10768): `talkLevelOffered`; the 21
   Italian files (9 A1/A2, 6 B1, 6 B2), each validating, B1 a child's and B2 without an audience, every text in it · de ·
   sl · en, "nothing personal" in each role; Friuli's child Tim at A1 served the nine A1 and A2 talks and a B2 one 404 by
   id, at A2 fifteen, at B1 all 21, a B2 one served in the pair; a B2 turn's brief with its level and the child line.
@@ -130,7 +132,14 @@ app gets the talks of its learner's level and reads them as it read the A2 ones.
   Davide's talks), `CastTest` (the five B1/B2 talks naming a villager are played by them; no stand-in takes a
   villager's look; the doctors' sprites).
 - Python: `companion/tests/test_content_count.py` (the role-plays row).
-- QA: below.
+- QA: `friuli-talk` on a synthetic Teo at A2 through `qa-slot` (slot 2), the talk `l-aquilone-rotto`: passed, 3 taps from
+  Home to talking. The list with B1 tags in it · de, the intro (the setting in German, the goals in the pair, Signora
+  Paola as "La negoziante di giocattoli · Die Spielzeughändlerin"), the opener, the B1 canned answers, a hint that is
+  the talk's first phrase, the correction in German, the goals, the debrief, the list and the debrief on the tablet.
+  One B1 talk only: no B2 talk ran on the emulator, and that a B2 talk stays off an A2 learner's list is the smoke's
+  check, not QA's. The step had been stale since Home became a grid: it looked for "🗣️ Conversazione · Gespräch" as one
+  text, found none, and reported "skipped" with exit code 0. It now finds the tile by its title (kaernten-talk and
+  lakeland-talk use the same code; neither was run).
 
 ## What's left
 
@@ -140,14 +149,18 @@ app gets the talks of its learner's level and reads them as it read the A2 ones.
   dropped for a learner the talk isn't offered to (`talksOffered`), so they are safe to add.
 - The packs above A2 don't exist in Italian (all A1/A2): the talks name the nearest the village has. The common-words
   and pack branches may give them better ones.
-- Voice: the twelve openers and 93 hints (105 lines, about 4,450 characters for one gender, about 4,600 with both forms
-  of the gendered lines) join the Italian voice corpus; Teo's node voices them ahead with its engine, which may spend
+- **The list's order** was by file name, so a learner's easiest talks didn't come first: at A2 the first row was a B1
+  talk. Done on talks-de: `ScenarioStore.offered` sorts by level, easiest first, for every language.
+- Voice: the twelve openers and 93 hints (105 lines, 4,454 characters for one gender; 109 lines and 4,691 characters
+  with both forms of the 4 gendered lines) join the Italian voice corpus; Teo's node voices them ahead with its engine, which may spend
   ElevenLabs credits: ask Jan before a voice build. Nothing was spent.
-- On its merge into talks-de (73306bae1) `talkFits` gave way to talks-sl's `talkLevelOffered` (the same rule), and the
-  dev bridge's levels became one table for every language. The other languages' talks (talks-sl, talks-de, talks-en) share the dev bridge's
-  `ROLEPLAY_LEVELS` (their language's key beside `it`) and content-count's row (97fa05fd7).
+- The other languages' talks: the offer by level is talks-sl's `talkLevelOffered` (this branch built the same rule in
+  2e75338dc under another name; on the merge into talks-de, 73306bae1, one was kept), the dev bridge's level lines are one
+  table for every language (`ROLEPLAY_LEVELS`, their language's key beside `it`), and content-count's row (97fa05fd7)
+  serves them all.
 
 ## Commits
 
 See the branch: 2e75338dc (offered by level), 16082fd3b (the twelve talks), 5a4f681ed (smoke, tests, dev tutor, QA),
-97fa05fd7 (content-count), the README and module-spec commit, this doc.
+97fa05fd7 (content-count), 19537f741 (README and module-spec), fd0d19af4 (this doc), c719420de (main merged), then the QA
+step's tile and this doc's corrections.

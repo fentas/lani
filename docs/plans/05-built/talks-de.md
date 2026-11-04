@@ -155,8 +155,8 @@ as a woman) or by their name and voice (Kommandant Ogris, Bürgermeister Wutti, 
 **Offered by level:** talks-sl's `talkLevelOffered` and `ScenarioStore.offered(child, level)`, unchanged: an A1 learner
 of German is offered the five A1 and three A2 talks, an A2 learner the B1 ones too, a B1 learner all twenty. The filter
 is the bridge's (`GET /scenarios`, `GET /scenarios/:id` 404s above, a scene's "keep talking"), so an app of any version
-gets it at once. talks-it built the same as `talkFits`; on its merge into talks-de (73306bae1) `talkFits` went and its
-callers and checks point at `talkLevelOffered`.
+gets it at once. talks-it built the same rule under another name; on its merge into talks-de (73306bae1) one was kept,
+and its callers and checks point at `talkLevelOffered`.
 
 **Older apps.** No format change: the twelve are `lani.scenario/v0` as the eight German ones are, served as strings in
 the pair. Teo's tablet (0.2.698) is in an Italian village, which is served only Italian talks; a child is never offered

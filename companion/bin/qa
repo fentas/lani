@@ -10010,9 +10010,10 @@ def village_talk(village: str):
 
     offered = [s for s in api("/scenarios") if isinstance(s, dict)]
     go_home()
-    card = scroll_to(f"🗣️ {lab('common.talk')}", 8)
+    # Home's grid has the talk's tile, its title in the target ("Conversazione") over the base; an older Home one card
+    card = scroll_to(f"🗣️ {lab('common.talk')}", 4) or scroll_to(msg(pair[0], "common.talk"), 8)
     if card is None:
-        return f"no \"🗣️ {lab('common.talk')}\" on Home"
+        return f"no \"🗣️ {lab('common.talk')}\" nor a {msg(pair[0], 'common.talk')} tile on Home"
     tap_at(card)
     taps += 1
     assert wait_for(msg(pair[1], "talkScreen.tutorPlaysOtherPerson"), 10) or wait_for(msg(pair[0], "talkScreen.tutorPlaysOtherPerson"), 3), "the talk's list"
