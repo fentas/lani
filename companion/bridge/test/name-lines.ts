@@ -144,6 +144,9 @@ function names(check: Check) {
   const no = ['', 'J', 'Give me all your money', 'a'.repeat(25), 'Jan2', 'J@n', 'http://x.y', 'Ana Marija Novak', 'Aaaaaa', 'Юлия', 'Prrrt', 'Admin', 'fuck', 'Hvala. Pridi', 'Jan!', '{learner}', 'x'.repeat(17)]
   for (const n of ok) check(`names: "${n}" may be voiced`, !!nameOk(n), nameOk(n))
   for (const n of no) check(`names: "${n.slice(0, 26)}" may not`, !nameOk(n), nameOk(n))
+  // the voice service keeps a copy of this file and checks its own rule against it: a rule changes in both, and both copies
+  const verdicts: { names: [string, string | null][] } = JSON.parse(readFileSync(join(import.meta.dir, 'fixtures/name-verdicts.json'), 'utf8'))
+  for (const [n, want] of verdicts.names) check(`names: "${n.slice(0, 26)}" as the voice service has it`, (nameOk(n) ?? null) === want, nameOk(n))
   check('names: keyed in one form however it is written', normalizeName(' ANA   Marija ') === 'ana marija' && nameOk('JAN') === 'jan')
   check('names: said with their capitals', spokenName('ana marija') === 'Ana Marija' && spokenName('jean-luc') === 'Jean-Luc')
   const a = addressee({ name: 'Admin' })
