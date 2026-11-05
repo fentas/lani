@@ -726,7 +726,14 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
         val got = urls.map { u ->
             val f = file(u)
             // the car's library may have it (one file, linked); one on its way for the car or the prefetch is waited for
-            if (!ClipFiles.get(f, listOf(File(files.roadClips, f.name))) { to -> a.download(u, to) }) throw IOException("no clip")
+            try {
+                if (!ClipFiles.get(f, listOf(File(files.roadClips, f.name))) { to -> a.download(u, to) }) throw IOException("no clip")
+            } catch (e: IOException) {
+                // a joined line that didn't join here and has no finished file (the voice service keeps none): the phone's voice
+                // says it now, and at once for a while, as a line the node can't make
+                if (LineJoin.isLine(u)) misses[missKey(text, voices.first())] = System.currentTimeMillis()
+                throw e
+            }
             f.setLastModified(System.currentTimeMillis())
             f
         }

@@ -49,7 +49,7 @@ type NameClip = {
   voice: string
   name: string          // normalized: NFC, lower case, single spaces: "jan", "ana marija"
   kind: string          // "arch" | "ending" | "rise" | "phrase:<12 hex>"
-  phrase?: string       // kind phrase only: what is voiced, with {n}: "Hvala, {n}. Zdaj vem."; the clip keeps it up to the pause after the name
+  phrase?: string       // kind phrase only: what is voiced, with {n}: "Hvala, {n}. Zdaj vem." (the phrase and the words that lead on from it)
   file: string          // <40 hex>.mp3, as a piece
   ms: number
   engine_voice: string
@@ -61,7 +61,23 @@ Its identity is `(language, voice, name, kind)`, and that is the whole key: **no
 log line.** The phrase id is `sha1("<language>|<phrase>")`, first 12 hex characters: the same phrase leading on and ending a line
 are two clips, because they are said differently. A name clip of kind `arch`, `ending` or `rise`
 is stored at one active level (`NAME_ACTIVE_DB`, −20 dB over the frames within 20 dB of its loudest), so that a line's one stored
-gain fits every name. A phrase clip is stored as it was voiced, levelled like any clip.
+gain fits every name.
+
+**A phrase clip.** `phrase` is what is voiced, and the id hashes that:
+
+- **A phrase that leads on** (`Hvala, {n}. Ti si zlat.`) is voiced with words after it, `Hvala, {n}. Zdaj vem.`, so that it is said as leading
+  on, and its take is **cut** to the pause after the name. Only what can cut can make one: a node.
+- **A phrase that ends its line** (`Lahko noč, {n}.`) is voiced as it is, `phrase` is the phrase itself, and nothing is cut. It is the only
+  kind the service can make, which it knows by the line's `said` ending with its `phrase`.
+- **Either is at the level of a clip** (−18 LUFS, `LEVEL` in `voice.ts`), because a line gives it gain 0 and it stands beside pieces at
+  that level. A node levels the take before the cut, so the cut keeps it.
+- **A phrase the service makes must be levelled too, and today isn't.** The contract is right and the service is short of it: it has no
+  ffmpeg, and a line like `Glasen? Kdo je glasen, {n}?` puts its phrase next to a levelled piece, a jump at a seam the phone can't
+  correct. A node brings any phrase from the library to the level as it takes it, which leaves one already there alone. What is left is
+  the phone joining on the service's own routes during a trial: until the service levels, it should make a phrase only for a line with
+  no pieces, where a difference is only one between lines, not inside one.
+- **`ms` must be known.** A part with no length joins to nothing, so the phone refuses one, and the phone's voice says the line. A node
+  measures what it takes.
 
 ### The line's manifest: shared, no name in it
 
@@ -119,7 +135,23 @@ gets when it is made again.
 | `GET /voice/line/<id>.mp3` | One finished MP3, joined on the node the first time it is asked for and then kept. An older app asks this, because to it the URL is any clip's. |
 
 A new app sees `/voice/line/` and asks for the manifest. Any other answer, or a join that fails on the phone, falls back to the
-finished MP3 at the same URL.
+finished MP3 at the same URL. The voice service keeps no finished file (a 404): there a join that fails ends with no clip, which is the
+phone's voice, with nothing said to the learner, and the line isn't asked again for ten minutes (`LineFallbackTest`).
+
+### The library
+
+With `GLAS_URL` and `GLAS_KEY` set as well as `LANI_VOICE_NAMES`, `NameStore` asks the service before it makes anything, and adds what it
+made, so a line or a name made once by anyone is there for every node:
+
+- **Asking is free.** It asks with `make: false`: the service voices nothing for it, whatever the key may do. What is spent stays what
+  this node's own settings allow, and a library hit costs neither the day's characters nor one of the month's new names.
+- **What goes with a name:** language, voice, name, kind and, adding, how it was made. Nothing of the learner, node or device; a request
+  carries the node's key in its header, as every request to the service does, and no row or log keeps it.
+- **Only in the voice this cast has now.** Something in another voice is left there and made here.
+- **Someone's own voice** (`@micka`) stays on the node, both ways.
+- **A line whose cut can't be trusted** is added too, as `whole`, so nobody pays for that take again.
+- **A key that may read but not add** reads: what it can't add is said once in the log.
+- **Out of reach** is no library: the node goes on alone, and nothing waits for what is being added.
 
 ## What it does
 
@@ -232,8 +264,10 @@ the project steps, which have few name lines.
 ## Tests
 
 - `bun test/name-lines.ts` (the smoke's section `name-lines`): the flags of every name line of all four villages, the name check, the cut,
-  the store against the fake ElevenLabs, the gate's turns, the caps, preloading, and the routes on a real bridge.
+  the store against the fake ElevenLabs, the gate's turns, the caps, preloading, the library against a fake of it, and the routes on a
+  real bridge.
 - `LineJoinTest`, `DialogAheadTest`: the manifest, the join, the WAV, the LAME header of a real ffmpeg file, a dialog's lines.
+- `LineFallbackTest`: a join that fails against the voice service, by each way it can, ending with no clip and no error.
 - QA: `companion/bin/qa-slot --steps name-join` with `LANI_DEV_FAKE_ELEVENLABS=1 LANI_VOICE_NAMES=on LANI_VOICE_PRELOAD=on` and a synthetic
   learner. See [what the device showed](#what-the-device-showed).
 
@@ -337,4 +371,6 @@ No screen changed: 0 taps before, 0 after. A new line may play sooner with prelo
 - **Declined names** (`{learner:dat}` and the others) are voiced whole: one voiced line today.
 - **Whole takes are kept** beside each line, with their timestamps, so a better cut later costs nothing. No tool re-cuts them yet.
 - **A piece that can't be written** after its take is paid for (ffmpeg failing at that moment) pays for the take again at the next ask.
-- **The hosted library** plugs in where `NameStore` makes a line or a name: built by `audio-service`.
+- **The service's name rule** is a copy of `nameOk` from before its vowels were read without their marks: "Gergő" passes here and fails there,
+  so that name is made on its node and not shared. One line to bring over.
+- **The service levelling its phrases:** see [a phrase clip](#a-name-clip).

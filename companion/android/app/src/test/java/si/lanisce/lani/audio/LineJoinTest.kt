@@ -41,6 +41,8 @@ class LineJoinTest {
         assertNull(LineJoin.parse("""{"v":1,"id":"x","parts":[{"kind":"name","ms":10}]}"""))
         assertNull(LineJoin.parse("""{"v":1,"id":"x","parts":[{"kind":"song","url":"/a","ms":10}]}"""))
         assertNull(LineJoin.parse("""{"v":1,"id":"x","parts":[{"kind":"gap","ms":999999}]}"""))
+        // a phrase whose length the service doesn't know: it would join to nothing, and the name would be gone
+        assertNull(LineJoin.parse("""{"v":1,"id":"x","parts":[{"kind":"name","url":"/a","ms":0,"gain":0}]}"""))
     }
 
     @Test fun `a part the manifest doesn't know the newer fields of still reads`() {

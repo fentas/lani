@@ -2537,6 +2537,14 @@ export class VoiceStore {
     return r ? { bytes: r.bytes, tempo: pace?.tempo ?? 1 } : null
   }
 
+  /**
+   * [bytes] at the level, nothing else: a clip that is there already comes back as it is, one that isn't is brought to it. Null
+   * when it can't be measured.
+   */
+  async atLevel(bytes: Uint8Array): Promise<Uint8Array | null> {
+    return (await this.leveller?.level(bytes, { edges: false }))?.bytes ?? null
+  }
+
   /** The local voice's pace (PACE; LANI_VOICE_GEPARD_TEMPO, LANI_VOICE_GEPARD_PAUSES); null: none, the worker's own. */
   get pace(): GepardPace | null {
     if (this.pacing === undefined) this.pacing = this.o.pace === undefined ? gepardPace(process.env, this.o.log) : this.o.pace

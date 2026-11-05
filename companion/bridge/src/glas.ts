@@ -63,6 +63,8 @@ export class Glas implements Engine {
   private library?: Library
   /** Not asked until then, and why (for the status). */
   private pause?: { until: number; why: string }
+  /** What the library's routes have refused, said once in the log. */
+  private readonly told = new Set<string>()
 
   constructor(private readonly o: GlasOptions = {}) {
     this.url = o.url?.trim().replace(/\/+$/, '') || undefined
@@ -183,11 +185,27 @@ export class Glas implements Engine {
       const r = await this.api('POST', path, body)
       if (r.ok) return (await r.json()) as T
       if (r.status >= 500) this.failed(r)
-      else this.o.log?.(`voice: glas: ${path}: HTTP ${r.status}`)
+      // once a route: a key that may read but not add would say so at every line
+      else if (!this.told.has(`${path} ${r.status}`)) {
+        this.told.add(`${path} ${r.status}`)
+        this.o.log?.(`voice: glas: ${path}: HTTP ${r.status}`)
+      }
     } catch (e) {
       this.stop(this.o.backoffMs ?? GLAS_BACKOFF_MS, `unreachable (${(e as Error).name})`)
     }
     return null
+  }
+
+  /** A clip of the library at its signed URL, a name clip's or a piece's; null when it can't be had. */
+  async bytesOf(url: string): Promise<Uint8Array | null> {
+    try {
+      const r = await this.get(url, { signal: AbortSignal.timeout(REQUEST_MS) })
+      if (!r.ok) return null
+      const bytes = new Uint8Array(await r.arrayBuffer())
+      return isMp3(bytes) ? bytes : null
+    } catch {
+      return null
+    }
   }
 
   /** Name clips, each ready with a signed URL, or why not; null when glas can't be asked now. */

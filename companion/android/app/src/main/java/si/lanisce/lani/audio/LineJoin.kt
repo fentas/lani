@@ -49,7 +49,8 @@ object LineJoin {
     /** A manifest this app can join (a later version of it: null, and the finished file comes instead); null when it isn't one. */
     fun parse(raw: String): LineManifest? {
         val m = runCatching { json.decodeFromString(LineManifest.serializer(), raw) }.getOrNull() ?: return null
-        val usable = m.v == VERSION && m.parts.isNotEmpty() && m.parts.all { p -> if (p.kind == "gap") p.ms in 0..MAX_GAP_MS else p.kind in SOUNDS && !p.url.isNullOrBlank() }
+        // a sound with no length would join to nothing: the voice service may not know a phrase's yet
+        val usable = m.v == VERSION && m.parts.isNotEmpty() && m.parts.all { p -> if (p.kind == "gap") p.ms in 0..MAX_GAP_MS else p.kind in SOUNDS && !p.url.isNullOrBlank() && p.ms > 0 }
         return m.takeIf { usable }
     }
 

@@ -4,11 +4,16 @@
 //
 // Off unless the node sets LANI_VOICE_NAMES: until then nothing here runs and every line is voiced whole, as before. A name
 // clip's row is its language, voice, normalized name and kind: no learner, node or device, here or in a log line.
+//
+// With the voice service set up too (GLAS_URL, GLAS_KEY) the shared library is asked first, and what the node makes is added to it,
+// so a line or a name made once by anyone is there for every node. Asking never has the service voice anything (make: false): what
+// is spent is what this node's own settings let it spend. What goes with a name is its language, voice and kind.
 import { createHash } from 'node:crypto'
 import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { Addressee } from './addressee'
 import { elevenlabsOf } from './cast'
+import type { Glas } from './glas'
 import { normalizeText } from './family'
 import { activeDb, cutLine, fades, medianPitch, nameCut, phraseCut, SR, slice, tracks, type Span } from './name-cut'
 import { FILLERS, NAME_MARK, nameOk, saysName, spokenName, type KnownLine, type LineType, type NameCatalogue, type Template } from './name-lines'
@@ -42,6 +47,9 @@ export const nameSettings = (env: Record<string, string | undefined> = process.e
   names: whole(env, 'LANI_VOICE_NAMES_PER_LEARNER', 3),
   takes: Math.max(1, whole(env, 'LANI_VOICE_NAME_TAKES', 2, 3)),
 })
+
+/** What the store uses of the voice service (glas.ts). */
+export type NameShelf = Pick<Glas, 'configured' | 'speakerOf' | 'lines' | 'nameClips' | 'addLine' | 'addNameClip' | 'bytesOf'>
 
 /** A part of a line's manifest: the name, a pause, or a shared piece. */
 export type LinePart = { kind: 'name' } | { kind: 'gap'; ms: number } | { kind: 'piece'; part: 'head' | 'tail'; text: string; file: string; ms: number }
@@ -91,7 +99,7 @@ export class NameStore {
 
   constructor(
     private readonly voice: VoiceStore,
-    private readonly o: { settings: NameSettings; catalogue: () => NameCatalogue | undefined; log?: (...a: unknown[]) => void; pcm?: PcmReader; mp3?: PcmWriter },
+    private readonly o: { settings: NameSettings; catalogue: () => NameCatalogue | undefined; log?: (...a: unknown[]) => void; pcm?: PcmReader; mp3?: PcmWriter; glas?: NameShelf },
   ) {
     if (!o.settings.on) return
     this.pcm = o.pcm ?? ffmpegPcm()
@@ -115,8 +123,24 @@ export class NameStore {
   }
 
   get on(): boolean {
-    return this.o.settings.on && !!this.pcm && !!this.mp3 && !!this.voice.eleven?.configured
+    return this.o.settings.on && !!this.pcm && !!this.mp3 && (!!this.voice.eleven?.configured || !!this.o.glas?.configured)
   }
+
+  /** The voice service for [voice], when it is set up and has the voice: someone's own voice stays on the node. */
+  private shelf(voice: VoiceName): NameShelf | undefined {
+    const g = this.o.glas
+    return g?.configured && g.speakerOf(voice) ? g : undefined
+  }
+
+  /** What is being added to the library, one after the other: nobody waits for it. */
+  private adding: Promise<unknown> = Promise.resolve()
+
+  private add(send: () => Promise<unknown>) {
+    this.adding = this.adding.then(send).catch(e => this.o.log?.(`voice: a name line wasn't added to the library: ${(e as Error).message}`))
+  }
+
+  /** Done once what was made so far has gone to the library. */
+  added(): Promise<unknown> { return this.adding }
 
   /** The node set LANI_VOICE_NAMES: the name is checked, whatever else can or can't run. */
   get guarding(): boolean { return this.o.settings.on }
@@ -232,9 +256,11 @@ export class NameStore {
     const id = lineId(this.language, voice, line.said)
     const row = this.db.query('SELECT * FROM name_lines WHERE line = ? AND engine_voice = ?').get(id, own) as (Omit<LineManifest, 'parts' | 'v'> & { parts: string }) | null
     if (row) return { ...row, v: 1, parts: JSON.parse(row.parts) as LinePart[] }
+    const shared = await this.lineFromLibrary(id, line, voice, own)
+    if (shared) return shared
     const base = { v: 1 as const, line: id, language: this.language, voice, said: line.said, type: line.type, template: line.template, kind: line.kind, ...(line.type === 'phrase' ? { phrase: line.carrier } : {}) }
     // the name or its phrase is the whole line: no take of it, nothing shared
-    if (!line.head && !line.tail) return this.keep({ ...base, gain: 0, parts: [{ kind: 'name' }] }, own)
+    if (!line.head && !line.tail) return this.publish(this.keep({ ...base, gain: 0, parts: [{ kind: 'name' }] }, own), voice)
     const filler = FILLERS[this.language]?.[line.woman ? 'f' : 'm']
     if (!filler) return null
     const said = line.said.replace(NAME_MARK, filler)
@@ -250,15 +276,18 @@ export class NameStore {
     const cut = cutLine(x, scaled(take.alignment, ready.tempo), line, filler, tr, !line.woman)
     if ('why' in cut) {
       this.o.log?.(`voice: "${line.said}" (${voice}) is voiced whole for each learner: ${cut.why}`)
-      return this.keep({ ...base, type: 'whole', kind: '', gain: 0, parts: [], why: cut.why }, own, take)
+      return this.publish(this.keep({ ...base, type: 'whole', kind: '', gain: 0, parts: [], why: cut.why }, own, take), voice)
     }
     const parts: LinePart[] = []
+    const made: Parameters<NameShelf['addLine']>[1] = []
     const piece = async (part: 'head' | 'tail', text: string, span: Span, fin: number, fout: number) => {
       const y = fades(slice(x, span[0], span[1]), fin, fout)
       const bytes = await this.mp3!(y)
       if (!bytes) throw new Error('ffmpeg could not write a piece')
       const file = this.write(`piece|${id}|${part}|${own}|${take.model}`, bytes)
-      parts.push({ kind: 'piece', part, text, file, ms: Math.round((y.length / SR) * 1000) })
+      const ms = Math.round((y.length / SR) * 1000)
+      parts.push({ kind: 'piece', part, text, file, ms })
+      made.push({ part, text, file, ms, engine_voice: own, model: take.model, audio: bytes })
     }
     const gap = (s: number) => {
       const ms = Math.round(s * 1000)
@@ -275,7 +304,36 @@ export class NameStore {
     }
     // the name where the filler stood in its own take; a phrase needs none
     const gain = line.type === 'phrase' ? 0 : Math.round(clamp(activeDb(slice(x, cut.filler[0], cut.filler[1])) - NAME_ACTIVE_DB, NAME_GAIN_MAX) * 10) / 10
-    return this.keep({ ...base, gain, parts }, own, take)
+    return this.publish(this.keep({ ...base, gain, parts }, own, take), voice, made)
+  }
+
+  /** [m], made here, for everyone: a line whose cut can't be trusted too, so nobody pays for that take again. Nobody waits for it. */
+  private publish(m: LineManifest, voice: VoiceName, pieces: Parameters<NameShelf['addLine']>[1] = []): LineManifest {
+    const g = this.shelf(voice)
+    if (g) this.add(() => g.addLine(m, pieces))
+    return m
+  }
+
+  /** Line [id] from the library, when someone has made it in the voice this cast has now: its pieces come here, as any of ours. */
+  private async lineFromLibrary(id: string, line: KnownLine, voice: VoiceName, own: string): Promise<LineManifest | null> {
+    const g = this.shelf(voice)
+    if (!g) return null
+    const a = (await g.lines([{ language: this.language, voice, line: id }]))?.items[0]
+    const m = a?.manifest as Partial<LineManifest> | undefined
+    if (a?.status !== 'ready' || !m || m.line !== id || m.said !== line.said) return null
+    const parts: LinePart[] = []
+    for (const p of m.parts ?? []) {
+      if (p.kind !== 'piece') {
+        parts.push(p)
+        continue
+      }
+      const piece = a.pieces?.find(x => x.part === p.part)
+      if (piece?.engine_voice !== own) return null
+      const bytes = await g.bytesOf(piece.url)
+      if (!bytes) return null
+      parts.push({ kind: 'piece', part: p.part, text: piece.text, file: this.write(`library|${id}|${p.part}|${piece.file}`, bytes), ms: piece.ms })
+    }
+    return this.keep({ v: 1, line: id, language: this.language, voice, said: line.said, type: m.type ?? 'whole', template: m.template ?? line.template, kind: m.kind ?? '', ...(m.phrase ? { phrase: m.phrase } : {}), gain: clamp(m.gain ?? 0, NAME_GAIN_MAX), parts, ...(m.why ? { why: m.why } : {}) }, own)
   }
 
   private keep(m: LineManifest, own: string, take?: TimedTake): LineManifest {
@@ -301,6 +359,8 @@ export class NameStore {
   private async nameClip(name: string, line: KnownLine, voice: VoiceName, speaker: VoiceName, own: string, turn: Turn): Promise<NameClip | 'cap' | null> {
     const had = this.db.query('SELECT * FROM name_clips WHERE language = ? AND voice = ? AND name = ? AND kind = ? AND engine_voice = ?').get(this.language, voice, name, line.kind, own) as NameClip | null
     if (had) return had
+    const shared = await this.nameFromLibrary(name, line, voice, own)
+    if (shared) return shared
     if (!this.nameAllowed(name)) return 'cap'
     const spoken = spokenName(name)
     const carrier = line.carrier.replace(NAME_MARK, spoken)
@@ -344,6 +404,7 @@ export class NameStore {
     // of the takes that cut, the lower: a voice said high stands out of the line around it
     const best = cuts.reduce<(typeof cuts)[number] | undefined>((b, c) => (!b || (c.pitch > 0 && (b.pitch === 0 || c.pitch < b.pitch)) ? c : b), undefined)
     const row: NameClip = { language: this.language, voice, name, kind: line.kind, ...(phrase ? { phrase: line.carrier } : {}), file: null, ms: 0, engine_voice: own, model }
+    let audio: Uint8Array | undefined
     if (best) {
       let y = fades(best.y)
       if (!phrase) {
@@ -354,11 +415,47 @@ export class NameStore {
       if (!bytes) return null
       row.file = this.write(`name|${this.language}|${voice}|${name}|${line.kind}|${own}|${model}`, bytes)
       row.ms = Math.round((y.length / SR) * 1000)
+      audio = bytes
     }
     if (!row.file) this.o.log?.(`voice: a name in "${line.carrier}" (${voice}) could not be cut: its lines are voiced whole`)
+    this.keepName(row, chars)
+    const g = this.shelf(voice)
+    if (g && audio) {
+      const clip = audio
+      const { language, kind, phrase: said, ms } = row
+      this.add(() => g.addNameClip({ language, voice, name, kind, ...(said ? { phrase: said } : {}), ms, engine_voice: own, model }, clip))
+    }
+    return row
+  }
+
+  private keepName(row: NameClip, chars: number) {
     this.db
       .query('INSERT OR REPLACE INTO name_clips (language, voice, name, kind, phrase, file, ms, chars, engine_voice, model, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-      .run(row.language, row.voice, row.name, row.kind, row.phrase ?? null, row.file, row.ms, chars, own, model, new Date().toISOString())
+      .run(row.language, row.voice, row.name, row.kind, row.phrase ?? null, row.file, row.ms, chars, row.engine_voice, row.model, new Date().toISOString())
+  }
+
+  /**
+   * [name] from the library, when it has it in the voice this cast has now. It never has the service voice one: what this asks
+   * costs nobody anything. A phrase the service voiced itself comes as it was voiced, one a node added at the level already: the
+   * level sees to the first and leaves the second alone. Its length is measured here, for what the phone reads it by.
+   */
+  private async nameFromLibrary(name: string, line: KnownLine, voice: VoiceName, own: string): Promise<NameClip | null> {
+    const g = this.shelf(voice)
+    if (!g) return null
+    const language = this.language
+    const a = (await g.nameClips([{ language, voice, name, kind: line.kind, make: false }]))?.items[0]
+    const c = a?.clip
+    if (a?.status !== 'ready' || !c || c.engine_voice !== own) return null
+    const got = await g.bytesOf(c.url)
+    const phrase = line.type === 'phrase'
+    const bytes = got && phrase ? await this.voice.atLevel(got) : got
+    const x = bytes ? await this.pcm!(bytes) : null
+    if (!bytes || !x?.length) return null
+    const row: NameClip = {
+      language, voice, name, kind: line.kind, ...(phrase ? { phrase: line.carrier } : {}), ms: Math.round((x.length / SR) * 1000), engine_voice: own, model: c.model,
+      file: this.write(`library|name|${language}|${voice}|${name}|${line.kind}|${c.file}`, bytes),
+    }
+    this.keepName(row, 0)
     return row
   }
 

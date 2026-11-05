@@ -19,6 +19,7 @@ import { cultureCelebrationFiles, partyTellings } from '../celebrations'
 import { readISpy } from '../ispy'
 import { localDate } from '../rhythm'
 import { NameCatalogue, PROBE_NAME } from '../name-lines'
+import type { Glas } from '../glas'
 import { nameSettings, NameStore } from '../name-store'
 import { Preload, PRELOAD_LINES, preloadSettings } from '../voice-preload'
 import { corpus, EXPLANATION_CHARS, fileUrl, LINE_CHARS, TURN, voiceInstructionsFor, type CorpusItem, type Redo, type VoiceStore } from '../voice'
@@ -144,6 +145,8 @@ export const voice: FeatureFactory = ctx => {
   const names = new NameStore(voice, {
     settings: nameSettings(),
     log: ctx.log,
+    // the voice service, when the node has it (GLAS_URL, GLAS_KEY): the shared library is asked first and added to
+    glas: voice.engines?.find(e => e.name === 'glas') as Glas | undefined,
     catalogue: () => {
       if (!catalogue || Date.now() - catalogue.at > CATALOGUE_MS) catalogue = { of: nameCatalogue(ctx, language), at: Date.now() }
       return catalogue.of

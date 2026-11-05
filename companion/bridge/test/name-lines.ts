@@ -19,8 +19,8 @@ import { DrillStore, drillsDir } from '../src/drills'
 import { grammarDir, GrammarStore } from '../src/grammar'
 import { readISpy } from '../src/ispy'
 import { clickDb, cutLine, rmsDb, SR, tracks } from '../src/name-cut'
-import { flagLine, LINE_TYPES, markName, NAME_CARRIERS, nameOk, NameCatalogue, PHRASE_TAILS, PROBE_NAME, saysName, TEMPLATES, FILLERS, spokenName, normalizeName } from '../src/name-lines'
-import { lineId, nameSettings, NameStore, type NameSettings } from '../src/name-store'
+import { flagLine, LINE_TYPES, markName, NAME_CARRIERS, nameOk, NameCatalogue, PHRASE_TAILS, phraseId, PROBE_NAME, saysName, TEMPLATES, FILLERS, spokenName, normalizeName } from '../src/name-lines'
+import { lineId, nameSettings, NameStore, type NameSettings, type NameShelf } from '../src/name-store'
 import { PackStore, packsDirs } from '../src/packs'
 import { cultureStepFiles, stepTellings } from '../src/project-steps'
 import { ScenarioStore } from '../src/scenarios'
@@ -28,7 +28,7 @@ import { SceneStore, scenesDirs } from '../src/scenes'
 import { ModuleStore } from '../src/store'
 import { StoryStore, storiesDirs } from '../src/stories'
 import { VillagerStore } from '../src/villagers'
-import { corpus, ElevenLabs, ffmpegPcm, Gate, Gepard, TURN, VoiceStore } from '../src/voice'
+import { corpus, ElevenLabs, ffmpegLoudness, ffmpegMp3Writer, ffmpegPcm, Gate, Gepard, TURN, VoiceStore } from '../src/voice'
 import { fakeEleven, speechTake } from './fakes/eleven'
 
 type Check = (name: string, cond: unknown, detail?: unknown) => void
@@ -406,6 +406,152 @@ async function revoice(check: Check) {
   check('caps: by default about a third of the cap is kept (30 of 100), a setting says otherwise', revoiceKeep(100, {}) === 30 && revoiceKeep(40, {}) === 12 && revoiceKeep(100, { LANI_VOICE_REVOICE_KEEP: '50' }) === 50 && revoiceKeep(10, { LANI_VOICE_REVOICE_KEEP: '50' }) === 10)
 }
 
+/** The voice service's name library, in memory: what /v1/lines and /v1/names keep, what was asked of it and what was added. */
+function fakeLibrary() {
+  const lines = new Map<string, { manifest: any; pieces: any[] }>()
+  const names = new Map<string, any>()
+  const files = new Map<string, Uint8Array>()
+  const st = { asked: [] as any[], added: [] as any[], configured: true, down: false, own: true }
+  const shelf: NameShelf = {
+    get configured() { return st.configured },
+    speakerOf: v => (st.own ? v : undefined),
+    lines: (async (items: any[]) => {
+      st.asked.push(...items)
+      if (st.down) return null
+      return { items: items.map((i, index) => { const l = lines.get(i.line); return l ? { index, status: 'ready', manifest: l.manifest, pieces: l.pieces } : { index, status: 'missing' } }) }
+    }) as NameShelf['lines'],
+    nameClips: (async (items: any[]) => {
+      st.asked.push(...items)
+      if (st.down) return null
+      return { items: items.map((i, index) => { const c = names.get(`${i.voice}|${i.name}|${i.kind}`); return c ? { index, status: 'ready', clip: c } : { index, status: 'missing' } }) }
+    }) as NameShelf['nameClips'],
+    addLine: (async (manifest: any, pieces: any[]) => {
+      st.added.push({ manifest, pieces })
+      if (st.down) return null
+      lines.set(manifest.line, { manifest, pieces: pieces.map(p => { files.set(`u:${p.file}`, p.audio); return { ...p, audio: undefined, url: `u:${p.file}` } }) })
+      return { status: 'added' }
+    }) as NameShelf['addLine'],
+    addNameClip: (async (clip: any, audio: Uint8Array) => {
+      st.added.push({ clip })
+      if (st.down) return null
+      files.set(`n:${clip.name}:${clip.kind}`, audio)
+      names.set(`${clip.voice}|${clip.name}|${clip.kind}`, { ...clip, file: `${'c'.repeat(40)}.mp3`, url: `n:${clip.name}:${clip.kind}` })
+      return { status: 'added' }
+    }) as NameShelf['addNameClip'],
+    bytesOf: async url => files.get(url) ?? null,
+  }
+  return { st, shelf, names, files }
+}
+
+async function library(check: Check) {
+  const line = 'Hvala, {n}. Ti si zlat.'
+  const lines = [line, '{n}! Pridi, juha je vroča.', 'Lahko noč, {n}.'].map(l => l.replace('{n}', PROBE_NAME))
+  const node = (shelf: NameShelf | undefined, o: Partial<NameSettings> = {}) => {
+    const fe = fakeEleven()
+    fe.st.speech = true
+    const vs = new VoiceStore({ appDir: temp('lani-names-library-'), engines: [new ElevenLabs({ key: 'test-key', base: fe.url, reserve: 0 })], queueDelayMs: 0, language: 'sl' })
+    return { fe, vs, ns: new NameStore(vs, { settings: settings(o), catalogue: () => new NameCatalogue('sl', lines, lines), glas: shelf }) }
+  }
+  const jan = addressee({ name: 'Jan' })
+  const lib = fakeLibrary()
+
+  // the first node reaches the line: asks, finds nothing, makes it, and everyone gets it
+  const a = node(lib.shelf)
+  const made = await a.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+  await a.ns.added()
+  check('library: nothing there: the node makes the line as ever', made.say === 'joined' && a.fe.st.tts.length === 3, made)
+  check('library: what it asks never has the service voice anything', lib.st.asked.filter(i => 'name' in i).every(i => i.make === false) && lib.st.asked.some(i => 'name' in i))
+  const clip = lib.st.added.find(x => x.clip)?.clip
+  const piece = lib.st.added.find(x => x.manifest)
+  check("library: what it made is added: the line's manifest with no name in it, its pieces", piece?.manifest.said === line && !JSON.stringify(piece.manifest).toLowerCase().includes('jan') && piece.pieces.length === 1 && piece.pieces[0].part === 'tail' && piece.pieces[0].audio.length > 0, piece?.manifest)
+  check('library: a name goes with its language, voice, kind and how it was made, nothing else', !!clip && Object.keys(clip).sort().join() === 'engine_voice,kind,language,model,ms,name,phrase,voice' && clip.name === 'jan' && clip.phrase === 'Hvala, {n}. Zdaj vem.', clip)
+  check('library: and the phrase id is the contract\'s, of what is voiced', clip?.kind === `phrase:${phraseId('sl', 'Hvala, {n}. Zdaj vem.')}`, clip?.kind)
+
+  // the next node: everything is there
+  const b = node(lib.shelf)
+  const got = await b.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+  const id = got.say === 'joined' ? got.url.match(/([a-f0-9]{40})/)![1] : ''
+  const m = b.ns.phone(id)
+  check('library: another node of the same line and name voices nothing', got.say === 'joined' && b.fe.st.tts.length === 0, { got, tts: b.fe.st.tts.length })
+  check("library: its manifest is the node's own, on files it has", !!m && m.parts.map(p => p.kind).join() === 'name,gap,piece' && m.parts.every(p => p.kind === 'gap' || !!b.vs.path(p.url.slice(p.url.lastIndexOf('/') + 1))), m)
+  const p = await b.ns.finished(id)
+  check('library: an older app of that node gets its finished file', !!p && (await ffmpegPcm()!(new Uint8Array(readFileSync(p!))))!.length > SR / 2)
+  await b.ns.line('Hvala, Ana. Ti si zlat.', 'grandma', addressee({ name: 'Ana', gender: 'female' }))
+  check('library: a new name on it: the line stays the shared one, only the name is voiced', b.fe.st.tts.length === 2 && b.fe.st.tts.every(t => t.body.text === 'Hvala, Ana. Zdaj vem.'), b.fe.st.tts.map(t => t.body.text))
+
+  // a library read costs nothing of the node's: not the day's characters, nor the month's bound on names
+  const bound = node(lib.shelf, { names: 0, daily: 0 })
+  check('library: a name it has needs no room on the node', (await bound.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)).say === 'joined' && bound.fe.st.tts.length === 0)
+
+  // the voice this cast has now, or none of it
+  {
+    const l = fakeLibrary()
+    const first = node(l.shelf)
+    await first.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+    await first.ns.added()
+    for (const c of l.names.values()) c.engine_voice = 'another'
+    const n = node(l.shelf)
+    await n.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+    check('library: a name in another voice than this cast has is left there, and made here', n.fe.st.tts.length === 2, n.fe.st.tts.map(t => t.body.text))
+  }
+
+  // a phrase the service voiced itself comes as it was voiced; a template's clip is at its level already
+  {
+    const l = fakeLibrary()
+    const first = node(l.shelf)
+    await first.ns.line('Lahko noč, Jan.', 'grandma', jan)
+    await first.ns.line('Jan! Pridi, juha je vroča.', 'grandma', jan)
+    await first.ns.added()
+    const pcm = ffmpegPcm()!
+    const kinds = [...l.names.values()]
+    const phrase = kinds.find(c => c.kind.startsWith('phrase:'))
+    const arch = kinds.find(c => c.kind === 'arch')
+    const quiet = (await pcm(l.files.get(phrase.url)!))!.map(v => v * 0.2)
+    l.files.set(phrase.url, (await ffmpegMp3Writer()!(quiet))!)
+    phrase.ms = null
+    const n = node(l.shelf)
+    await n.ns.line('Lahko noč, Jan.', 'grandma', jan)
+    await n.ns.line('Jan! Pridi, juha je vroča.', 'grandma', jan)
+    const rows = n.vs.database.query('SELECT kind, file, ms FROM name_clips').all() as { kind: string; file: string; ms: number }[]
+    const read = async (kind: string) => new Uint8Array(readFileSync(n.vs.path(rows.find(r => r.kind.startsWith(kind))!.file)!))
+    const loud = await ffmpegLoudness()!(await read('phrase:'))
+    check('library: a phrase the service voiced is brought to the level here', Math.abs((loud?.lufs ?? 0) + 18) < 1.5, loud)
+    check('library: its length is measured here, the service not knowing it', rows.find(r => r.kind.startsWith('phrase:'))!.ms > 100, rows)
+    check("library: a template's clip is taken as it is: its line's gain counts on its level", Buffer.compare(await read('arch'), l.files.get(arch.url)!) === 0)
+    check('library: neither was voiced here', n.fe.st.tts.filter(t => /Jan/.test(t.body.text)).length === 0, n.fe.st.tts.map(t => t.body.text))
+  }
+
+  // what keeps it off
+  {
+    const l = fakeLibrary()
+    l.st.configured = false
+    const n = node(l.shelf)
+    await n.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+    await n.ns.added()
+    check('library: without GLAS_URL and GLAS_KEY nothing is asked or added', l.st.asked.length === 0 && l.st.added.length === 0)
+    const k = fakeLibrary()
+    const off = node(k.shelf, { on: false })
+    await off.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+    check('library: with name lines off nothing is asked either', k.st.asked.length === 0 && off.fe.st.tts.length === 0)
+    const o = fakeLibrary()
+    o.st.own = false
+    const own = node(o.shelf)
+    await own.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+    await own.ns.added()
+    check("library: someone's own voice stays on the node", o.st.asked.length === 0 && o.st.added.length === 0)
+    const d = fakeLibrary()
+    d.st.down = true
+    const down = node(d.shelf)
+    const r = await down.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+    await down.ns.added()
+    check('library: out of reach: the node goes on as if there were none', r.say === 'joined' && down.fe.st.tts.length === 3, r)
+    const q = fakeLibrary()
+    const bad = node(q.shelf)
+    await bad.ns.line('Hvala, Admin. Ti si zlat.', 'grandma', addressee({ name: 'Admin' }))
+    check('library: a name that fails the check is never sent', q.st.asked.length === 0)
+  }
+}
+
 async function preloading(check: Check) {
   const { Preload, preloadSettings } = await import('../src/voice-preload')
   const { normalizeText } = await import('../src/family')
@@ -530,6 +676,7 @@ export default async function nameLines(check: Check, port: number) {
   await gate(check)
   await revoice(check)
   await preloading(check)
+  await library(check)
   await routes(check, port)
 }
 
