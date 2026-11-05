@@ -150,6 +150,20 @@ Nothing spent. Nothing new needs a clip: these are settings' lines, read by nobo
 - The bridge's smoke, `test/smoke/family-members.ts`: a real child's bridge refusing all of it; an id that's never shell text; what reaches the new bridge's environment; another adult's devices; what's left, with its command.
 - `companion/bin/qa`: `family-parent` with `family-child` (`LANI_QA_FAMILY_TABLET=1`), `family-computer-parent` with `family-computer-child`, on the two emulators at once. Between two emulators nothing multicasts, so QA gives the address (hook "family:peer:"): **`FamilyNsd`, the Wi-Fi's discovery, has run in no test and on no emulator.** The channel behind it has; finding the other device hasn't, and that's the first thing to try on two real phones.
 
+## What no device had seen (item 1)
+
+**`friuli-school-unit`.** The screen dump never failed. A scrolling column reports only the rows inside its viewport: the teacher's question and the word tip put "Senza microfono" at y 2318, below the column's edge at 2316, and the step gave up on it and scrolled for "Reveal", which only comes after that tap. A second stop lay behind it: the column ends above the verdict's panel, so swipes landed on the panel and "Write it too" stayed out of reach. `no_microphone()`, `over_panel()`, `column_end()`, `write_it_too()`, `page_down()`. The label is "✍️ Scrivilo anche", not "Scrivi anche".
+
+**`school-production` after `typed-turn`.** **Not reproduced as reported:** in 6 chain runs `typed-turn` never passed and `school-production` then failed, and no shot of the original survives, so what that one was can't be said. One failure in a chain did come: the tap on "⏩ Znam že" was lost and QA's `tap()` still said yes. A unit's page keeps its scroll on return, so the button can sit under the status bar. That mechanism is proven (the button moved to y 81 and tapped: the test didn't open; the page at its top: it did); where the button lay at that one failure is not. `test_out()` takes the page to its top first, in all 7 places.
+
+**The notification question.** The proven cause of `setup: home did not load`, and of the next step being blocked: the system's question comes a moment after Home, setup left its loop on Home, then took a fresh look at a screen holding only the question. The old setup failed 4 of 5 runs, the fixed one passed 18 of 18. It isn't shown to explain `school-production`: that step's first `go_home` clears the question with a Back, and the failed run's last shot has no question on it. **No `pm grant` at install:** setup now goes by what its loop saw and answers the question, which reaches every step that runs setup; `first-run` counts that question as a tap and asserts when it comes, so a grant there would take away what it measures. Steps that don't run setup (`hosted`, `first-run`, `setup-tour`, `family-*`) answer it themselves.
+
+**`make-learner --level`** wrote quests the app couldn't read, so a B1 learner fell through to the founding: a third way to the same message. Fixed.
+
+**`UnmetChecks`, "📨 Pošlji znova"**: steps `school-unmet` and `placement-again`, with hooks "placement:sent:", "placement:waiting:". The unconfirmed state is set by the hook, not a real failed delivery.
+
+**A child's test reading its prompts was broken, and no test could have told.** On a device it said nothing on the first exercise or at any change of kind: the stage's spoken lead-in stops `HintVoice`, which cancels the reading before it logs a piece. A run that reads its prompts now shows the lead-in and doesn't say it. Two more showed once it read: a line in both languages went to one voice whole, and a sentence with a gap went to the German voice. Step `placement-child`.
+
 ## What a device has shown
 
 Seen on emulators, each journey's steps green, at this branch's final code:
@@ -166,6 +180,10 @@ Seen on emulators, each journey's steps green, at this branch's final code:
 - **`tailscale serve` from a bridge.** QA's node has a stand-in for it and an address from `LANI_FAMILY_URL`. The smoke has the failing case.
 - **The tutor of a new member.** QA starts no tutor session.
 - **A real camera** reading the codes: QA hands the text over (hook "family:scan:").
+
+**Seen as far as a log can say:** a child's prompts reach `HintVoice` in the right language, but the log is written when a piece's sound is ready, before it plays. That they're heard is Jan's to check. Only the phone's voice (`tts:`) was seen, the node's never: the dev bridge has no ElevenLabs. "Not twice while one is queued", the reading with "🔊 Beri razlago" off or under a screen reader, and the limit of 16 prompts weren't shown on a device. `test_out()` ran in 2 of its 7 places.
+
+**Seen and left as they are, for Jan:** on a phone, with the question and a word tip showing, "Senza microfono" lies wholly below the fold with no cue to scroll, so a child with no microphone could miss it. A unit's page scrolls under a transparent status bar, its text over the icons.
 
 ## What needs Jan
 
