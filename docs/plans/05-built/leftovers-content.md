@@ -189,3 +189,60 @@ Without the Sloleks commits, so these hold if the lead drops them; ports 11280-1
 - Before them, at 214f3b902: `prompt-clashes` exit 0, no new clash; `tutor-export --check` 140 files; `check-culture` and `check-steps` exit 0 for the four cultures; Python 253 OK and 185 OK (11 skipped); `:app:testDebugUnitTest` 4,354 tests in 546 classes, 2 skipped, 1 failed:
   `PhoneBridgeNodeTest.aWordAndItsReview`, above, which passed when run again alone.
 - The full Android suite with the forms fix and the credit ran on the branch's tip, with the Sloleks commits on it. Without them it wasn't run again: those commits change `source` strings, one entry, citations and their own tool and test.
+
+## Sloleks
+
+**Commits of their own, last, so the lead can drop them; Jan may yet choose to ask CJVT instead.** Everything above holds without them.
+
+`viri.cjvt.si/sloleks`, which `sl_sources.py` read, is Sloleks 2.0, CC BY-NC-SA. The supplement is now rebuilt from the real 3.0 release (CC BY-SA 4.0, http://hdl.handle.net/11356/1745),
+read by `lexicon/tools/sloleks3.py` and never unpacked or committed.
+
+| `sl.extra.json` | |
+|---|---|
+| read from the 2.0 site, now citing a 3.0 entry by its key | 2,154 |
+| said Sloleks has no such word, now citing 3.0, which has it | 95 |
+| all forms of those 2,249 entries, each in the entry it cites (`sloleks3.py check`) | 26,065 |
+| of them kept by another source the entry names | 2 |
+| links to the 2.0 site left | 0 |
+| forms added | 0 |
+| forms lost | 1, *lignj*, below |
+
+The brief's count was 2,182 in full, 20 in part and 60 with no entry. It stands at 2,188, 14 and 60, since cleanup-code took out the page labels. "Citing Sloleks" there meant any mention: 108 of the 2,262 said "Not in Sloleks" and
+never came from the site.
+
+**Only `source` changes, and one entry.** A script compared the file before and after: 3,410 entries both, `source` differing in 2,252, `forms` and the lemma in one. Glosses and meanings don't move.
+
+**Labels stay as written.** Redoing them from 3.0's tags was the first plan, and I dropped it: it took 269 slots out of the tables. The labels aren't only tags: *kmečki*'s own lemma is what 3.0 calls definite, so its table lost `adj.m.sg`, and the animate
+accusatives (*parklja*) are written by hand. So each reading is checked instead: 491 read otherwise than 3.0's tags (`check --labels`). 444 are comparatives with their degree written once at the start, the
+rest hand-written ones such as a name's *name* or a plural-only noun's *nominative singular*.
+
+**The 74 settled by hand** (`tools/sloleks3-settled.json`):
+
+| What | Words | Result |
+|---|---|---|
+| 3.0 lists the verb without *se* | počutiti, splačati, prepirati, šaliti, zahvaljevati, izplačati, maščevati, obrestovati, ozreti, pojaviti, ponašati, zateči, znajti, znebiti | every form in 3.0 |
+| 3.0 has another class | dvojen (numeral), oba, oboje, takšen (pronoun), namreč (conjunction), vred (adverb), pozdravljen (adjective), gregorjevo, florjanovo (adjective) | every form in 3.0 |
+| a form of another lemma | premočan (premočen), mlinci (mlinec), natančneje (natančno), kasneje (kasno), Kosci (kosec), poldne (poldan), pojti (poiti), bančni … trajnostni (9 adjectives in -en), nosila … statve (7 plural-only nouns), zanj, zanjo, nanje, nanjo, ponj, ponje | every form in 3.0 |
+| a participle or possessive beside the word | prižgana, zložena, pokopani, sprejeta; prešernovih, cankarjevi, gregorčičeva; Ressel's *josef* | in 3.0's own entries, both keys cited |
+| **3.0 lacks it, another source names it** | *frtalj* and *bulina, bulinu*: the regular endings, confirmed by `checkNoun`; *nonovo*: a noun's regular possessive, as the case lens reads it; *pomogel, pomogla*: [SP2001](https://fran.si/iskanje?View=1&Query=pomo%C4%8Di&FilteredDictionaryIds=134), "neobč."; *soline*: the forms book's regular declension; *sladkosned*: SP2001, regular endings; *Črni Kal*: SP2001 | kept |
+| **Neither gives it** | *lignj*: the word is [ligenj](https://fran.si/iskanje?View=1&Query=ligenj&FilteredDictionaryIds=134), SP2001 and 3.0 | the form goes, the entry is *ligenj* now |
+| **No source, and they stay** | *lp, huu, uau, bee, mm, zzz, klek, tuuu* | the lead's call: they never came from 2.0, and a tap needs them |
+
+Two fran.si lookups by hand, *pomoči* and *ligenj*. The viewer wasn't touched.
+
+**What a learner would notice: nothing.** No word lost a form anyone can meet: *lignj* stood only in a pack's note, fixed on its own, and no card or module asks it. No table, card or lookup changes. The forms are the ones they were.
+
+**The citations.** The 13 forms-book tables cite 3.0 by key. What 3.0 lacks in them is SP2001's, as each note says (*zobema*, *vratmi*, *grobeh*), or a variant Wiktionary's table has (*moste*, *slapah*, 30 forms), and `meta.review`
+says so. `delezja` and `delezniki` cite 3.0: all 73 words of their two tables are in it, checked by a pass over the release. NOTICE.md has a row for the supplement, `meta.sloleks` in the file says the same,
+and `forms-tap.md` is corrected. Older plan docs stay as history. `test_sloleks_citations.py` fails on any link to the site or mention of 2.0 in those files.
+
+**For Jan:**
+- **The decision itself.** This or asking CJVT. Cleanup-code's point stands: 3.0's record says it keeps 2.0's entries and says nothing about relicensing them. This rebuild makes 3.0 the source of every form, it doesn't answer that question.
+- **3.1** (11356/2080, the same licence) replaces 3.0 and adds 7,001 spoken lexemes. Not used.
+
+**Voice:** none. No line changes.
+
+**Reproducible.** `sloleks3.py index` was run afresh from the release (`Sloleks.3.0.zip`, its MD5 checked): 365,340 entries read, 8,391 of 8,875 lemmas found, as `wanted` asks for the settled ones too. `check` on that index alone exits 0: 2,249 entries,
+26,065 forms, no key missing, 2 forms kept by another source. The index is in the kit's `sloleks-3.0/`, not in the repository.
+
+**Checks with both commits,** the whole branch, every item above in it: tsc clean, `prompt-clashes` exit 0, `tutor-export --check` 140 files, `check-culture` and `check-steps` exit 0 for all four cultures, the smoke all passed (4,284 lines), Python 253 OK and 188 OK (11 skipped), `:app:testDebugUnitTest` 4,355 tests in 546 classes, none failed, 2 skipped, `PhoneBridgeNodeTest` 26 of 26 among them.

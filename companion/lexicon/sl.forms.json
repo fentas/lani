@@ -3,7 +3,7 @@
     "language": "sl",
     "reviewed": false,
     "machine_written": true,
-    "review": "machine-written (Claude): the tables, the partners and the animate nouns; not reviewed by a native speaker. Checked against Fran (2026-10-30, docs/plans/05-built/native-check-sl.md): the noun tables by Slovenski pravopis 2001 (fran.si) and their full paradigms first on Sloleks 2.0's site (viri.cjvt.si/sloleks), then against the Sloleks 3.0 release (CC BY-SA 4.0, http://hdl.handle.net/11356/1745; 2026-11-04, docs/plans/05-built/cleanup-code.md): a note citing 3.0 holds no form it lacks, one still citing the site holds a form it lacks; the animate list by SP2001's labels (a person, an animal). For the native check: the spoken forms each table accepts (also) and those it leaves out because they are another case's form (the doc's list)",
+    "review": "machine-written (Claude): the tables, the partners and the animate nouns; not reviewed by a native speaker. Checked against Fran (2026-10-30, docs/plans/05-built/native-check-sl.md): the noun tables by Slovenski pravopis 2001 (fran.si) and their full paradigms by the Sloleks 3.0 release (CC BY-SA 4.0, http://hdl.handle.net/11356/1745; 2026-11-05, docs/plans/05-built/leftovers-content.md): a form it lacks is SP2001's, as the table's note says (zobema, vratmi, grobeh), or a variant Wiktionary's table has (moste, slapah); the animate list by SP2001's labels (a person, an animal). For the native check: the spoken forms each table accepts (also) and those it leaves out because they are another case's form (the doc's list)",
     "about": "The forms book of word forms (companion/README.md, \"Word forms\"; bridge/src/forms.ts). tables: hand-checked forms of everyday irregular verbs, by slot (pres.1sg … imp.2du), each replacing Wiktionary's forms of the word (sl.json merges homographs: biti, to be, carries biti, to beat's bijem, bije; hoteti's table has odd rows), standard Slovene in forms, the spoken forms a native speaker says too (bojo, grejo, jejo, vejo, reko, mam) in also: accepted, never shown as the answer. partners: verbs that pair, pf the one done once (a movement, a whole act), impf the one going on (a state, again and again); kind position for a movement and the state after it (sesti, sit down: sedeti, be sitting), aspect for the same act once or going on (kupiti, kupovati); gloss: a meaning where the dictionary has none, or says more. leave_out: words whose forms aren't asked (stati: to cost, stanem, and to stand, stojim, share one entry). Nouns: a table (with its gender) for each noun Wiktionary gets wrong (a wrong accusative, gender or plural, two words merged in one entry); every other noun's forms are checked against its regular declension (bridge/src/noun-paradigm.ts: the fitting forms standard, the dictionary's old or dialect ones variants, a slot that doesn't fit never asked as a form to produce). animate: the masculine nouns naming a person or an animal, whose accusative singular is the genitive (vidim brata, psa), which Wiktionary can't be trusted on. A noun table's also: the other variants and the spoken forms (accepted, never shown); its variants: the old or dialect forms the regular check had found (brati beside bratu: accepted, labelled, never shown)."
   },
   "tables": [
@@ -279,7 +279,7 @@
       },
       "also": { "dat.du": ["zoboma"], "ins.du": ["zoboma"] },
       "variants": { "dat.sg": ["zobi"], "loc.sg": ["zobi"], "nom.pl": ["zobi"], "ins.pl": ["zobi"] },
-      "note": "SP2001: zob zoba; du zoba zob zobema; pl zobje zob zobem zobe zobeh zobmi. Sloleks: also zoboma in the dual (https://fran.si/iskanje?View=1&Query=zob&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/99905)"
+      "note": "SP2001: zob zoba; du zoba zob zobema; pl zobje zob zobem zobe zobeh zobmi. Sloleks 3.0: also zoboma in the dual (https://fran.si/iskanje?View=1&Query=zob&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_zob))"
     },
     {
       "lemma": "otrok", "pos": "noun", "gender": "m", "gloss": ["child"],
@@ -315,7 +315,7 @@
         "nom.pl": "mostovi", "gen.pl": "mostov", "dat.pl": "mostovom", "acc.pl": "mostove", "loc.pl": "mostovih", "ins.pl": "mostovi"
       },
       "variants": { "dat.du": ["mostoma"], "loc.du": ["mostih"], "ins.du": ["mostoma"], "nom.pl": ["mosti"], "acc.pl": ["moste"], "loc.pl": ["mostih"], "ins.pl": ["mosti"] },
-      "note": "SP2001: most mostu and mosta; the plural on -ov-: mostovi, mostov. Sloleks the same (https://fran.si/iskanje?View=1&Query=most&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/70398)"
+      "note": "SP2001: most mostu and mosta; the plural on -ov-: mostovi, mostov. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=most&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_most))"
     },
     {
       "lemma": "zid", "pos": "noun", "gender": "m", "gloss": ["wall"],
@@ -326,7 +326,7 @@
       },
       "also": { "nom.du": ["zida"], "dat.du": ["zidoma"], "acc.du": ["zida"], "loc.du": ["zidih"], "ins.du": ["zidoma"], "loc.pl": ["zideh"] },
       "variants": { "dat.sg": ["zidi"], "loc.sg": ["zidi"], "dat.du": ["zidovama"], "ins.du": ["zidovama"], "dat.pl": ["zidovam"] },
-      "note": "SP2001: zid zida and zidu; the plural on -ov-: zidovi, zidov. Sloleks the same (https://fran.si/iskanje?View=1&Query=zid&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/99406)"
+      "note": "SP2001: zid zida and zidu; the plural on -ov-: zidovi, zidov. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=zid&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_zid))"
     },
     {
       "lemma": "slap", "pos": "noun", "gender": "m", "gloss": ["waterfall"],
@@ -337,7 +337,7 @@
       },
       "also": { "nom.du": ["slapa"], "dat.du": ["slapoma"], "acc.du": ["slapa"], "loc.du": ["slapih"], "ins.du": ["slapoma"], "nom.pl": ["slapi"], "dat.pl": ["slapom"], "acc.pl": ["slape"] },
       "variants": { "dat.sg": ["slapi"], "loc.sg": ["slapi"], "dat.du": ["slapama", "slapovama"], "loc.du": ["slapah"], "ins.du": ["slapama", "slapovama"], "dat.pl": ["slapam", "slapovam"], "loc.pl": ["slapah", "slapih"], "ins.pl": ["slapi"] },
-      "note": "SP2001: slap slapa, also slapu; the plural on -ov-: slapovi, slapov. Sloleks the same (https://fran.si/iskanje?View=1&Query=slap&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/89371)"
+      "note": "SP2001: slap slapa, also slapu; the plural on -ov-: slapovi, slapov. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=slap&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_slap))"
     },
     {
       "lemma": "grad", "pos": "noun", "gender": "m", "gloss": ["castle"],
@@ -347,7 +347,7 @@
         "nom.pl": "gradovi", "gen.pl": "gradov", "dat.pl": "gradovom", "acc.pl": "gradove", "loc.pl": "gradovih", "ins.pl": "gradovi"
       },
       "variants": { "dat.sg": ["gradi"], "loc.sg": ["gradi"], "dat.du": ["gradovama"], "ins.du": ["gradovama"], "dat.pl": ["gradovam"] },
-      "note": "SP2001: grad gradu and grada (castle); grad grada is another word (a unit). Sloleks: the plural gradovi (https://fran.si/iskanje?View=1&Query=grad&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/58272)"
+      "note": "SP2001: grad gradu and grada (castle); grad grada is another word (a unit). Sloleks 3.0: the plural gradovi (https://fran.si/iskanje?View=1&Query=grad&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_grad))"
     },
     {
       "lemma": "nebo", "pos": "noun", "gender": "n", "gloss": ["sky"],
@@ -362,7 +362,7 @@
         "nom.pl": "vrata", "gen.pl": "vrat", "dat.pl": "vratom", "acc.pl": "vrata", "loc.pl": "vratih", "ins.pl": "vrati"
       },
       "also": { "ins.pl": ["vratmi"] },
-      "note": "SP2001: vrata vrat, plural only; z vrati, vratmi marked less right (spoken: accepted). Sloleks the same (https://fran.si/iskanje?View=1&Query=vrata&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/96929)"
+      "note": "SP2001: vrata vrat, plural only; z vrati, vratmi marked less right (spoken: accepted). Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=vrata&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_vrata))"
     },
     {
       "lemma": "jaslice", "pos": "noun", "gender": "f", "gloss": ["crib, nativity scene"],
@@ -376,7 +376,7 @@
       "forms": {
         "nom.pl": "mlinci", "gen.pl": "mlincev", "dat.pl": "mlincem", "acc.pl": "mlince", "loc.pl": "mlincih", "ins.pl": "mlinci"
       },
-      "note": "The dish, plural only: Sloleks's mlinec, its plural (https://viri.cjvt.si/sloleks/slv/headword/69993); SP2001 has no entry. lens-unknown-forms, 2026-11-01"
+      "note": "The dish, plural only: Sloleks 3.0's mlinec, its plural (hdl.handle.net/11356/1745 (S_mlinec)); SP2001 has no entry. lens-unknown-forms, 2026-11-01"
     },
     {
       "lemma": "gostosevci", "pos": "noun", "gender": "m", "gloss": ["the Pleiades"],
@@ -679,7 +679,7 @@
         "nom.pl": ["bratje", "brati"], "gen.pl": "bratov", "dat.pl": "bratom", "acc.pl": "brate", "loc.pl": "bratih", "ins.pl": "brati"
       },
       "variants": { "dat.sg": ["brati"], "loc.sg": ["brati"], "dat.du": ["bratama"], "loc.du": ["bratah"], "ins.du": ["bratama"], "dat.pl": ["bratam"], "loc.pl": ["bratah"] },
-      "note": "SP2001: brat brata, a person, im. mn. bratje tudi brati. Sloleks the same (https://fran.si/iskanje?View=1&Query=brat&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/50157)"
+      "note": "SP2001: brat brata, a person, im. mn. bratje tudi brati. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=brat&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_brat))"
     },
     {
       "lemma": "kmet", "pos": "noun", "gender": "m", "gloss": ["farmer"],
@@ -734,7 +734,7 @@
         "nom.pl": ["bregovi", "bregi"], "gen.pl": "bregov", "dat.pl": ["bregovom", "bregom"], "acc.pl": ["bregove", "brege"], "loc.pl": ["bregovih", "bregeh"], "ins.pl": ["bregovi", "bregi"]
       },
       "variants": { "loc.du": ["bregih"], "loc.pl": ["bregih"] },
-      "note": "SP2001: breg brega, mn. bregovi -ov tudi bregi, mest. tudi bregeh. Sloleks the same (https://fran.si/iskanje?View=1&Query=breg&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/50224)"
+      "note": "SP2001: breg brega, mn. bregovi -ov tudi bregi, mest. tudi bregeh. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=breg&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_breg))"
     },
     {
       "lemma": "dom", "pos": "noun", "gender": "m", "gloss": ["home"],
@@ -755,7 +755,7 @@
         "nom.pl": ["grobovi", "grobi"], "gen.pl": "grobov", "dat.pl": ["grobovom", "grobom"], "acc.pl": ["grobove", "grobe"], "loc.pl": ["grobovih", "grobih", "grobeh"], "ins.pl": ["grobovi", "grobi"]
       },
       "also": { "nom.du": ["groba"], "dat.du": ["groboma"], "acc.du": ["groba"], "loc.du": ["grobih"], "ins.du": ["groboma"] },
-      "note": "SP2001: grob groba; dv. grobova grobov; mn. grobovi -ov tudi grobi. Sloleks the same (https://fran.si/iskanje?View=1&Query=grob&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/58633)"
+      "note": "SP2001: grob groba; dv. grobova grobov; mn. grobovi -ov tudi grobi. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=grob&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_grob))"
     },
     {
       "lemma": "kres", "pos": "noun", "gender": "m", "gloss": ["bonfire"],
@@ -785,7 +785,7 @@
       },
       "also": { "nom.du": ["zvona"], "dat.du": ["zvonoma"], "acc.du": ["zvona"], "loc.du": ["zvonih"], "ins.du": ["zvonoma"] },
       "variants": { "dat.sg": ["zvoni"], "loc.sg": ["zvoni"], "dat.du": ["zvonama", "zvonovama"], "loc.du": ["zvonah"], "ins.du": ["zvonama", "zvonovama"], "nom.pl": ["zvoni"], "dat.pl": ["zvonam", "zvonovam"], "acc.pl": ["zvone"], "loc.pl": ["zvonah", "zvonih"], "ins.pl": ["zvoni"] },
-      "note": "SP2001: zvon zvona, also zvonu; dv. zvonova zvonov; mn. zvonovi zvonov. Sloleks the same (https://fran.si/iskanje?View=1&Query=zvon&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/100474)"
+      "note": "SP2001: zvon zvona, also zvonu; dv. zvonova zvonov; mn. zvonovi zvonov. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=zvon&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_zvon))"
     },
     {
       "lemma": "rog", "pos": "noun", "gender": "m", "gloss": ["horn"],
@@ -796,7 +796,7 @@
       },
       "also": { "gen.du": ["rog"], "nom.pl": ["rogi"], "dat.pl": ["rogom"] },
       "variants": { "dat.sg": ["rogi"], "loc.sg": ["rogi"], "dat.du": ["rogama", "rogovama"], "ins.du": ["rogama", "rogovama"], "dat.pl": ["rogam", "rogovam"], "loc.pl": ["rogih"], "ins.pl": ["rogi"] },
-      "note": "SP2001: rog roga; dv. roga tudi rogova; mn. rogovi rogov, tož. tudi roge, mest. tudi rogeh, or. tudi rogmi. Sloleks the same (https://fran.si/iskanje?View=1&Query=rog&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/86550)"
+      "note": "SP2001: rog roga; dv. roga tudi rogova; mn. rogovi rogov, tož. tudi roge, mest. tudi rogeh, or. tudi rogmi. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=rog&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_rog))"
     },
     {
       "lemma": "les", "pos": "noun", "gender": "m", "gloss": ["wood (the material)"],
@@ -807,7 +807,7 @@
       },
       "also": { "nom.du": ["lesa"], "dat.du": ["lesoma"], "acc.du": ["lesa"], "loc.du": ["lesih"], "ins.du": ["lesoma"], "nom.pl": ["lesi"], "dat.pl": ["lesom"], "acc.pl": ["lese"], "loc.pl": ["lesih"], "ins.pl": ["lesi"] },
       "variants": { "dat.sg": ["lesi"], "loc.sg": ["lesi"], "dat.du": ["lesama", "lesovama"], "loc.du": ["lesah"], "ins.du": ["lesama", "lesovama"], "dat.pl": ["lesam", "lesovam"], "loc.pl": ["lesah"] },
-      "note": "SP2001: les lesa, a mass noun; dv. lesova lesov; mn. lesovi lesov. Sloleks the same (https://fran.si/iskanje?View=1&Query=les&FilteredDictionaryIds=134 https://viri.cjvt.si/sloleks/slv/headword/66969)"
+      "note": "SP2001: les lesa, a mass noun; dv. lesova lesov; mn. lesovi lesov. Sloleks 3.0 the same (https://fran.si/iskanje?View=1&Query=les&FilteredDictionaryIds=134 hdl.handle.net/11356/1745 (S_les))"
     },
     {
       "lemma": "kri", "pos": "noun", "gender": "f", "gloss": ["blood"],
