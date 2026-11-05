@@ -432,7 +432,7 @@ export function createRelay(cfg: Config): Relay {
     }
     if ((m = /^\/v1\/mail\/(m_[A-Za-z0-9_-]{16,40})\/(body|reply)$/.exec(path))) return mailRoute(req, url, m[1], m[2])
     if ((m = /^\/v1\/drop\/([0-9a-f]{64})$/.exec(path))) return drop(req, url, m[1], ip)
-    const b = await backup(req, url, timeout)
+    const b = await backup(req, url, ip, timeout)
     if (b) return b
     return fail(404, 'not_found', 'not found')
   }

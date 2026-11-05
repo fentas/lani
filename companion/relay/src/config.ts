@@ -61,8 +61,16 @@ export type Config = {
 
   /** All the relay keeps on disk at most (backups, mail and answers together): beyond it new ones are refused (507). */
   storeMaxBytes: number
-  /** Backup uploads at once. */
+  /** Backup uploads at once: on the relay, from one address (the client's: X-Forwarded-For's under RELAY_TRUST_PROXY). One key has one. */
   backupUploads: number
+  backupUploadsPerAddress: number
+  /**
+   * The slowest a backup's upload may be, on average, once [backupRateGraceMs] have passed: below it it is cut (408 too_slow), so a
+   * sender who trickles can't hold an upload's place for the whole window. 12,500 bytes a second is 0.1 Mbit/s, under the 0.23 the
+   * window asks of 50 MiB.
+   */
+  backupMinBytesPerSec: number
+  backupRateGraceMs: number
 
   /** Origins whose pages may call the family API (CORS); the relay's own family page needs none. */
   familyOrigins: string[]
@@ -122,6 +130,9 @@ export function configFromEnv(env: Record<string, string | undefined> = process.
     backupMaxCount: n('RELAY_BACKUP_MAX_COUNT', 100),
     storeMaxBytes: n('RELAY_STORE_MAX_BYTES', 4 * 1024 * MB),
     backupUploads: n('RELAY_BACKUP_UPLOADS', 4),
+    backupUploadsPerAddress: n('RELAY_BACKUP_UPLOADS_PER_ADDRESS', 2),
+    backupMinBytesPerSec: n('RELAY_BACKUP_MIN_BYTES_PER_S', 12_500),
+    backupRateGraceMs: n('RELAY_BACKUP_RATE_GRACE_MS', 60_000),
     familyOrigins: (env.RELAY_FAMILY_ORIGINS ?? '').split(',').map(s => s.trim().replace(/\/+$/, '')).filter(Boolean),
     dropMaxBytes: n('RELAY_DROP_MAX_BYTES', 4 * 1024),
     dropBoxMax: n('RELAY_DROP_BOX_MAX', 32),

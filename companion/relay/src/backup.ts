@@ -6,8 +6,10 @@
 //   DELETE /v1/backup/{name}                                       → {ok: true}
 // A PUT's body is streamed to a temp file and hashed on the way; its signature (over that hash) is checked before the
 // file takes the name. Its time counts from when the request starts, and the last byte has UPLOAD_WINDOW_MS after that, so
-// a slow connection isn't refused for being slow (docs/plans/05-built/last-small.md). Each key has a quota of bytes and a
-// number of backups. A hard stop leaves its temp file behind: the next start sweeps the old ones.
+// a slow connection isn't refused for being slow (docs/plans/05-built/last-small.md). The signature can't be checked before
+// the body, so what bounds a stranger's upload is checked as it comes: one at a time per key, a few per address, and a rate
+// below which it is cut. Each key has a quota of bytes and a number of backups. A hard stop leaves its temp file behind: the
+// next start sweeps the old ones.
 import { createHash, randomBytes } from 'node:crypto'
 import { closeSync, existsSync, mkdirSync, openSync, readdirSync, renameSync, statSync, unlinkSync, writeSync } from 'node:fs'
 import { join } from 'node:path'
@@ -63,6 +65,10 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
   const staging = join(root, '.incoming')
   sweepStaging(staging, cfg.now())
   let uploads = 0
+  /** Uploads running per client address, and the keys they claim (not checked yet: the signature needs the body). */
+  const byAddress = new Map<string, number>()
+  const byKey = new Set<string>()
+  const busy = (why: string) => new HttpError(429, 'busy', `${why}: try again in a minute`, { 'retry-after': '30' })
   const dirOf = (owner: string) => join(root, owner)
   const fileOf = (owner: string, name: string) => join(dirOf(owner), name)
 
@@ -74,8 +80,12 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     return check.signed
   }
 
-  /** Streams [req]'s body into a temp file under [dir], at most [max] bytes, until [deadline]: its path, size and SHA-256. */
-  async function spool(req: Request, dir: string, max: number, deadline: number, timeout?: SetTimeout): Promise<{ tmp: string; size: number; sha256: string }> {
+  /**
+   * Streams [req]'s body into a temp file under [dir], at most [max] bytes: its path, size and SHA-256. The upload started at
+   * [started]: it ends by UPLOAD_WINDOW_MS after that, and once the grace is over it keeps the configured rate on average.
+   */
+  async function spool(req: Request, dir: string, max: number, started: number, timeout?: SetTimeout): Promise<{ tmp: string; size: number; sha256: string }> {
+    const tooSlow = (what: string) => new HttpError(408, 'too_slow', what, { 'retry-after': '60' })
     if (Number(req.headers.get('content-length') ?? 0) > max) throw new HttpError(413, 'too_large', `a backup is at most ${max} bytes`)
     mkdirSync(dir, { recursive: true, mode: 0o700 })
     const tmp = join(dir, `.tmp-${randomBytes(8).toString('hex')}`)
@@ -87,14 +97,20 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
         const reader = req.body.getReader()
         for (;;) {
           const { done, value } = await reader.read()
-          if (cfg.now() > deadline) {
+          const now = cfg.now()
+          if (now > started + UPLOAD_WINDOW_MS) {
             await reader.cancel().catch(() => {})
-            // the retry-after: OkHttp repeats a plain 408 by itself, with a signature that is old by now
-            throw new HttpError(408, 'too_slow', `a backup's upload takes at most ${UPLOAD_WINDOW_MS / 60_000} minutes`, { 'retry-after': '60' })
+            // the retry-after: OkHttp repeats a plain 408 by itself, with a signature that is old by then
+            throw tooSlow(`a backup's upload takes at most ${UPLOAD_WINDOW_MS / 60_000} minutes`)
           }
           if (done) break
           timeout?.(UPLOAD_STALL_S)
           size += value.byteLength
+          const took = now - started
+          if (took > cfg.backupRateGraceMs && size * 1000 < cfg.backupMinBytesPerSec * took) {
+            await reader.cancel().catch(() => {})
+            throw tooSlow(`a backup's upload keeps at least ${cfg.backupMinBytesPerSec} bytes a second`)
+          }
           if (size > max) {
             await reader.cancel().catch(() => {})
             throw new HttpError(413, 'too_large', `a backup is at most ${max} bytes`)
@@ -112,7 +128,7 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     return { tmp, size, sha256: hash.digest('hex') }
   }
 
-  async function put(req: Request, url: URL, name: string, timeout?: SetTimeout): Promise<Response> {
+  async function put(req: Request, url: URL, name: string, ip: string, timeout?: SetTimeout): Promise<Response> {
     // what can be checked before the body: the headers' shape, the clock, the key's quota and the relay's room for what
     // it says it sends, and how many uploads run (the signature needs the whole body)
     const started = cfg.now()
@@ -125,13 +141,21 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     const kept = mine.reduce((n, b) => n + b.size, 0) - (mine.find(b => b.name === name)?.size ?? 0)
     if (kept + Math.min(announced, cfg.backupMaxBytes) > cfg.backupQuotaBytes) throw new HttpError(507, 'quota', `the backups of a key are at most ${cfg.backupQuotaBytes} bytes together: delete one first`)
     if (store.totalBytes() + Math.min(announced, cfg.backupMaxBytes) > cfg.storeMaxBytes) throw new HttpError(507, 'full', 'the relay is full: try again later')
-    if (uploads >= cfg.backupUploads) throw new HttpError(429, 'busy', 'too many backups are being uploaded: try again in a minute', { 'retry-after': '30' })
+    if (uploads >= cfg.backupUploads) throw busy('too many backups are being uploaded')
+    if ((byAddress.get(ip) ?? 0) >= cfg.backupUploadsPerAddress) throw busy('this address is uploading backups already')
+    if (byKey.has(claimed.fingerprint)) throw busy('a backup of this key is being uploaded')
     uploads++
+    byAddress.set(ip, (byAddress.get(ip) ?? 0) + 1)
+    byKey.add(claimed.fingerprint)
     let spooled: { tmp: string; size: number; sha256: string }
     try {
-      spooled = await spool(req, staging, cfg.backupMaxBytes, started + UPLOAD_WINDOW_MS, timeout)
+      spooled = await spool(req, staging, cfg.backupMaxBytes, started, timeout)
     } finally {
       uploads--
+      const left = (byAddress.get(ip) ?? 1) - 1
+      if (left > 0) byAddress.set(ip, left)
+      else byAddress.delete(ip)
+      byKey.delete(claimed.fingerprint)
     }
     const { tmp, size, sha256 } = spooled
     try {
@@ -179,8 +203,8 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     return json({ ok: true })
   }
 
-  /** The backup routes; undefined when [url] isn't one. */
-  return async (req: Request, url: URL, timeout?: SetTimeout): Promise<Response | undefined> => {
+  /** The backup routes; undefined when [url] isn't one. [ip]: the client's address. */
+  return async (req: Request, url: URL, ip: string, timeout?: SetTimeout): Promise<Response | undefined> => {
     if (url.pathname === '/v1/backup') {
       if (req.method !== 'GET') throw new HttpError(405, 'method', 'GET only')
       return list(req, url)
@@ -192,7 +216,7 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
       name = decodeURIComponent(m[1])
     } catch {}
     if (!BACKUP_NAME.test(name)) throw new HttpError(400, 'bad_name', 'a backup name is 1-128 letters, digits, ".", "_" or "-", starting with a letter or digit')
-    if (req.method === 'PUT') return put(req, url, name, timeout)
+    if (req.method === 'PUT') return put(req, url, name, ip, timeout)
     if (req.method === 'GET') return get(req, url, name)
     if (req.method === 'DELETE') return remove(req, url, name)
     throw new HttpError(405, 'method', 'PUT, GET or DELETE')

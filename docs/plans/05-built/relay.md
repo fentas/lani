@@ -138,7 +138,9 @@ the ones no write has touched for an hour.
 
 A `PUT`'s time counts from when the request starts, so a slow connection isn't refused for being slow: the last byte has
 30 minutes after that (`408 too_slow`, with a `Retry-After`: 50 MiB at 0.23 Mbit/s), and two minutes without a byte end the
-upload. Why that keeps a replay refused: [last-small.md](last-small.md).
+upload. Why that keeps a replay refused: [last-small.md](last-small.md). The signature needs the whole body, so a stranger could
+hold an upload's place with any key: one key has one upload at a time and one address two (`429 busy`), and once the first
+minute is over an upload slower than 0.1 Mbit/s on average is cut (`408 too_slow`).
 
 ## Signed requests
 
@@ -286,6 +288,8 @@ docker run -p 8080:8080 -v lani-relay:/data lani-relay
 | `RELAY_TUNNEL_WAIT_MS`, `RELAY_TUNNEL_WAIT_MAX_MS` | 8 s, 25 s | A tunnelled request's wait |
 | `RELAY_POLL_WAIT_MAX_MS`, `RELAY_ONLINE_MS`, `RELAY_LEASE_MS` | 30 s, 45 s, 60 s | The long poll; "there"; a message's lease |
 | `RELAY_BACKUP_MAX_BYTES`, `RELAY_BACKUP_QUOTA_BYTES`, `RELAY_BACKUP_MAX_COUNT`, `RELAY_BACKUP_UPLOADS` | 50 MB, 512 MB, 100, 4 | Backups; uploads at once |
+| `RELAY_BACKUP_UPLOADS_PER_ADDRESS` | 2 | Backup uploads at once from one address (one key always has one) |
+| `RELAY_BACKUP_MIN_BYTES_PER_S`, `RELAY_BACKUP_RATE_GRACE_MS` | 12500, 60000 | The slowest an upload may be on average (0.1 Mbit/s), once its first minute is over |
 | `RELAY_STORE_MAX_BYTES` | 4 GB | All the relay keeps (backups, mail, answers) |
 
 - **One process, one replica.** The rate limits, the long polls and the senders waiting for answers are in memory;

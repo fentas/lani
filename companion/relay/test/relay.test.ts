@@ -415,9 +415,14 @@ describe('a slow backup: the time counts from the start, a replay stays refused'
   const path = '/v1/backup/lani-20261105T120000Z.lbk'
   const body = new Uint8Array(4000).fill(7)
   const stagingOf = (dataDir: string) => join(dataDir, 'backup', '.incoming')
+  /**
+   * These tests move the clock minutes on with a few KB, so the rate floor (its own tests below) is off and each sees the one
+   * guard it is about. A copy of a large backup keeps the floor and takes as long, so the window and the memory still matter.
+   */
+  const windowOnly = (over: Partial<Config> = {}) => relayWith({ backupMinBytesPerSec: 0, ...over })
 
   test('the last byte may come long after the five minutes, and the backup is there whole', async () => {
-    const relay = relayWith()
+    const relay = windowOnly()
     const a = newKey()
     const r = await slowPut(relay, path, signed(a, 'PUT', path, body), body, () => {
       clock += UPLOAD_WINDOW_MS - 1000
@@ -428,7 +433,7 @@ describe('a slow backup: the time counts from the start, a replay stays refused'
   })
 
   test('a copy that starts at the last fresh moment and takes the whole window is refused, the memory swept just before its last byte', async () => {
-    const relay = relayWith()
+    const relay = windowOnly()
     const a = newKey()
     const time = clock
     const headers = signed(a, 'PUT', path, body, time)
@@ -444,14 +449,15 @@ describe('a slow backup: the time counts from the start, a replay stays refused'
     expect((await asJson(await slowPut(relay, path, headers, body, () => {}))).body.code).toBe('stale')
   })
 
-  test('two copies at once: the one that finishes first takes it, the one that started first is refused', async () => {
+  test('a copy while the first is still on its way is refused at once (one upload per key), and the first lands', async () => {
     const relay = relayWith()
     const a = newKey()
     const headers = signed(a, 'PUT', path, body)
-    const started = await slowPut(relay, path, headers, body, async () => {
-      expect((await slowPut(relay, path, headers, body, () => {})).status).toBe(200)
+    const first = await slowPut(relay, path, headers, body, async () => {
+      const copy = await asJson(await slowPut(relay, path, headers, body, () => {}))
+      expect([copy.status, copy.body.code]).toEqual([429, 'busy'])
     })
-    expect((await asJson(started)).body.code).toBe('replayed')
+    expect(first.status).toBe(200)
   })
 
   test('the time is still checked as the request starts: too old or too far ahead is refused before the body is read', async () => {
@@ -468,7 +474,7 @@ describe('a slow backup: the time counts from the start, a replay stays refused'
   })
 
   test('the signature is still checked: a changed body, slow or not, takes no name', async () => {
-    const relay = relayWith()
+    const relay = windowOnly()
     const a = newKey()
     const r = await slowPut(relay, path, signed(a, 'PUT', path, 'something else'), body, () => {
       clock += 10 * 60_000
@@ -480,7 +486,7 @@ describe('a slow backup: the time counts from the start, a replay stays refused'
   test('past the window it is cut: 408, nothing kept, the slot free, the same signature not spent', async () => {
     const dataDir = mkdtempSync(join(tmpdir(), 'lani-relay-test-'))
     temps.push(dataDir)
-    const relay = relayWith({ dataDir, backupUploads: 1 })
+    const relay = windowOnly({ dataDir, backupUploads: 1 })
     const a = newKey()
     const headers = signed(a, 'PUT', path, body)
     const r = await slowPut(relay, path, headers, body, () => {
@@ -550,6 +556,121 @@ describe('a slow backup: the time counts from the start, a replay stays refused'
       server.stop(true)
     }
   }, 20_000)
+})
+
+/** A PUT from [ip] whose body waits after its first piece until [release]: an upload that holds its place. [started]: it has. */
+function heldPut(relay: Relay, ip: string, key: Key, path: string) {
+  const body = new Uint8Array(2000).fill(5)
+  let release!: () => void
+  const go = new Promise<void>(r => (release = r))
+  let started!: () => void
+  const begun = new Promise<void>(r => (started = r))
+  let step = 0
+  const parts = new ReadableStream<Uint8Array>(
+    {
+      async pull(c) {
+        step++
+        if (step === 1) {
+          started()
+          c.enqueue(body.subarray(0, 1000))
+        } else if (step === 2) {
+          await go
+          c.enqueue(body.subarray(1000))
+        } else c.close()
+      },
+    },
+    { highWaterMark: 0 },
+  )
+  const response = relay.fetch(new Request(BASE + path, { method: 'PUT', headers: signed(key, 'PUT', path, body), body: parts, duplex: 'half' } as RequestInit), ip)
+  return { response, release, begun: Promise.race([begun, response.then(() => {})]) }
+}
+
+describe("a stranger can't hold the uploads: the signature needs the whole body, so the rest is checked as it comes", () => {
+  const path = '/v1/backup/lani-20261105T130000Z.lbk'
+
+  test('a sender that trickles is cut once the first minute is over: 408 too_slow, nothing kept, the place free', async () => {
+    const dataDir = mkdtempSync(join(tmpdir(), 'lani-relay-test-'))
+    temps.push(dataDir)
+    const relay = relayWith({ dataDir, backupUploads: 1 })
+    const a = newKey()
+    const two = new Uint8Array(2).fill(1)
+    const r = await slowPut(relay, path, signed(a, 'PUT', path, two), two, () => {
+      clock += UPLOAD_STALL_S * 1000 - 1000 // a byte, then the next just before the server's timer would end it
+    })
+    expect(r.status).toBe(408)
+    expect(r.headers.get('retry-after')).toBeTruthy()
+    expect(((await r.json()) as any).code).toBe('too_slow')
+    expect(readdirSync(join(dataDir, 'backup', '.incoming'))).toEqual([])
+    expect((await call(relay, a, 'PUT', path, { body: 'x' })).status).toBe(200)
+  })
+
+  test('the first minute is free: a slow start is not cut, if the rest keeps up', async () => {
+    const relay = relayWith()
+    const KiB = 1024
+    const body = new Uint8Array(2 * 1024 * KiB + 3 * KiB).fill(3)
+    // a KiB, 50 s of a radio waking slowly, a KiB (40 bytes a second so far), then two MiB, and a last KiB past the minute
+    const plan: [number, number][] = [[0, KiB], [50_000, KiB], [5_000, 2048 * KiB], [15_000, KiB]]
+    let at = 0
+    let step = 0
+    const parts = new ReadableStream<Uint8Array>(
+      {
+        pull(c) {
+          if (step === plan.length) return c.close()
+          const [wait, size] = plan[step++]
+          clock += wait
+          c.enqueue(body.subarray(at, (at += size)))
+        },
+      },
+      { highWaterMark: 0 },
+    )
+    const r = await relay.fetch(new Request(BASE + path, { method: 'PUT', headers: signed(newKey(), 'PUT', path, body), body: parts, duplex: 'half' } as RequestInit))
+    expect(r.status).toBe(200)
+  })
+
+  test('one address fills at most its share of the uploads; another address still gets one', async () => {
+    const relay = relayWith({ backupUploads: 4, backupUploadsPerAddress: 2 })
+    const held = [heldPut(relay, '203.0.113.7', newKey(), path), heldPut(relay, '203.0.113.7', newKey(), path)]
+    await Promise.all(held.map(h => h.begun))
+    const third = heldPut(relay, '203.0.113.7', newKey(), path)
+    const refused = await asJson(await third.response)
+    expect([refused.status, refused.body.code]).toEqual([429, 'busy'])
+    const other = heldPut(relay, '198.51.100.9', newKey(), path)
+    await other.begun
+    for (const h of [...held, other]) h.release()
+    expect(await Promise.all([...held, other].map(async h => (await h.response).status))).toEqual([200, 200, 200])
+  })
+
+  test('one key has one upload at a time, from any address', async () => {
+    const relay = relayWith()
+    const a = newKey()
+    const first = heldPut(relay, '203.0.113.7', a, path)
+    await first.begun
+    const again = await asJson(await heldPut(relay, '198.51.100.9', a, '/v1/backup/other.lbk').response)
+    expect([again.status, again.body.code]).toEqual([429, 'busy'])
+    first.release()
+    expect((await first.response).status).toBe(200)
+  })
+
+  test('a real slow phone still lands: 50 MiB at 0.25 Mbit/s, 28 minutes', async () => {
+    const relay = relayWith()
+    const MiB = 1024 * 1024
+    const blob = new Uint8Array(50 * MiB).fill(2)
+    const perPiece = Math.round((MiB * 8 * 1000) / 250_000) // ms for a MiB at 0.25 Mbit/s
+    let sent = 0
+    const parts = new ReadableStream<Uint8Array>(
+      {
+        pull(c) {
+          if (sent === 50) return c.close()
+          if (sent > 0) clock += perPiece
+          c.enqueue(blob.subarray(sent * MiB, ++sent * MiB))
+        },
+      },
+      { highWaterMark: 0 },
+    )
+    const r = await relay.fetch(new Request(BASE + path, { method: 'PUT', headers: signed(newKey(), 'PUT', path, blob), body: parts, duplex: 'half' } as RequestInit))
+    expect(r.status).toBe(200)
+    expect(((await r.json()) as any).size).toBe(50 * MiB)
+  }, 30_000)
 })
 
 describe('backups', () => {
