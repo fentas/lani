@@ -22039,6 +22039,10 @@ def hosted_home(timeout=60, found=False):
         ns = list(nodes())
         if (c := next((c for t, c in ns if t == "Allow"), None)) is not None:
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
+        elif any("Prenesi glas brez povezave" in t for t, _ in ns):
+            # the offline voice, offered once after a code paired this device (not after a typed token)
+            hosted_shot("offline-voice-offer")
+            assert tap("Ne zdaj · Not now", 4), "the offline voice's Not now"
         elif (c := next((c for t, c in ns if "Tu bo moja vas" in t), None)) is not None:
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
             founded = True

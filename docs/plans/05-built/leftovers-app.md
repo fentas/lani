@@ -142,3 +142,10 @@ All machine-written by Claude (`_note_leftovers_app` in the four tables, 53 stri
 ## Voice
 
 Nothing spent. Nothing new needs a clip: these are settings' lines, read by nobody but the page. **0 characters** for a voice build. No line that had a clip changed; `family.computerNot`, `family.newCode` and `family.anotherDevice` went, none of them ever voiced.
+
+## Tests
+
+- `data/FamilyLinkTest`, `data/FamilyPostTest`, `app/FamilyDevicesTest`, `data/FamilyMembersApiTest`, `data/HttpDropTest`, `tutor/live/LiveTutorTest`: the QR's fields, a relay that keeps every byte, a code used once on either way, a wrong proof, a note played back, a stranger on the Wi-Fi, a byte now and then, a child's device changing nothing, a key waiting for its check, the two ceilings.
+- `companion/relay/test`: the drop boxes' limits; none of a parent's routes through the relay.
+- The bridge's smoke, `test/smoke/family-members.ts`: a real child's bridge refusing all of it; an id that's never shell text; what reaches the new bridge's environment; another adult's devices; what's left, with its command.
+- `companion/bin/qa`: `family-parent` with `family-child` (`LANI_QA_FAMILY_TABLET=1`), `family-computer-parent` with `family-computer-child`, on the two emulators at once. Between two emulators nothing multicasts, so QA gives the address (hook "family:peer:"): **`FamilyNsd`, the Wi-Fi's discovery, has run in no test and on no emulator.** The channel behind it has; finding the other device hasn't, and that's the first thing to try on two real phones.
