@@ -121,8 +121,8 @@ class StageState(
     var finale by mutableStateOf<Cue?>(null)
         private set
 
-    fun prompt(index: Int, ex: Exercise, fast: Boolean = false) {
-        director.prompt(index, ex, prev, fast)?.let(::play)
+    fun prompt(index: Int, ex: Exercise, fast: Boolean = false, read: Boolean = false) {
+        director.prompt(index, ex, prev, fast, read)?.let(::play)
         prev = ex
     }
 

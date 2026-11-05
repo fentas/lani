@@ -265,7 +265,9 @@ fun ExerciseRun(
         LaunchedEffect(index, outcome == null) {
             val e = exercises.getOrNull(index)
             if (e != null && outcome == null && !vm.introVoice.screenReader) {
-                vm.hintVoice.play(si.lanisce.lani.game.PromptSpeech.of(e) { vm.speaker.looksIn(it, language) }, needsBase = false)
+                val pair = L10n.pair
+                val pieces = si.lanisce.lani.game.PromptSpeech.of(e, { vm.speaker.looksIn(it, language) }, { Spoken.looks(it, pair.base, pair.target) })
+                vm.hintVoice.play(pieces, needsBase = false)
             }
         }
         DisposableEffect(Unit) { onDispose { vm.hintVoice.stop() } }
@@ -380,7 +382,7 @@ fun ExerciseRun(
     LaunchedEffect(index, clock == Clock.RUNNING) {
         if (clock != Clock.RUNNING) return@LaunchedEffect
         if (index >= exercises.size && !stopped) { stopped = true; complete(outcomes.toList()) }
-        else if (index < exercises.size) stage?.prompt(index, exercises[index], fast)
+        else if (index < exercises.size) stage?.prompt(index, exercises[index], fast, read = readOut && !vm.introVoice.screenReader)
     }
     if (timeLimitSeconds != null) LaunchedEffect(Unit) {
         // every sound it asks about on the phone first (begun on the intro already): none waits for the node on the clock

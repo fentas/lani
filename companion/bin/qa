@@ -404,7 +404,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "placement-again" (only when named) "📨 Pošlji znova" on the test's page (QA's hooks "placement:
                        sent:<level>", "placement:waiting:<level>"): none the day the level went, from the day after the
                        line and the button, on the phone and Teo's tablet, a tap: the dev bridge's learner raised, one
-                       session, and both gone once the app has the level (pa-*.png);
+                       session, and both gone once the app has the level (pa-*.png); "placement-child" (only when named,
+                       LANI_CHILD=1, a synthetic Teo as "friuli-school") a child's test reading each prompt as it comes
+                       up: what the screen asks and never an option (tag HintVoice: placement-child.log, also in
+                       $LANI_QA_PLACEMENT_SHOTS with pc-*.png), on the phone and Teo's tablet;
                        "school-a2" an A2 unit end to end (QA's hook "school:reveal"): cigav from the school's levels,
                        its intro step by step (the summary card: the page cigav), its possessives' table and choice,
                        the gap text "Nered pri Micki" with one gap wrong (its correction), then its test straight away,
@@ -14008,6 +14011,149 @@ def placement_again():
     time.sleep(1.5)
 
 
+def tappable() -> list:
+    """What can be tapped in the exercise on screen, from the top: (its words, its centre). A button's node says nothing
+    itself: its words are the nodes inside it. Only what lies in the exercise's scrolling column (none: the whole screen),
+    so not the stage or the top bar."""
+    ns = []
+    for n in re.findall(r"<node [^>]*?>", screen_xml()):
+        b = list(map(int, re.findall(r"\d+", node_attr(n, "bounds")))) or [0, 0, 0, 0]
+        ns.append((node_attr(n, " text") or node_attr(n, "content-desc"), b, 'clickable="true"' in n and 'enabled="true"' in n, 'scrollable="true"' in n))
+    area = next((b for _, b, _, scrolls in ns if scrolls), None)
+    out = []
+    for t, b, click, _ in ns:
+        x, y = (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
+        if click and (area is None or area[1] <= y <= area[3]):
+            words = t or " ".join(w for w, c, _, _ in ns if w and b[0] <= c[0] and b[1] <= c[1] and c[2] <= b[2] and c[3] <= b[3])
+            if words:
+                out.append((words, (x, y)))
+    return out
+
+
+def hint_pieces(lines: list[str]) -> list[tuple]:
+    """[hint_voice_log]'s lines as pieces: (language, where its sound came from, its text, at most 60 letters)."""
+    return [m.groups() for l in lines if (m := re.search(r'\d+/\d+ (\w\w) (\S+) "(.*)"$', l))]
+
+
+def placement_child():
+    """A child's placement test reads each prompt as it comes up (game/PromptSpeech; docs/plans/05-built/cleanup-code.md
+    "Placement"), only when named: a child (LANI_CHILD=1, the same synthetic Teo as "friuli-school"), the test begun from its page
+    (QA's hook "placement:fresh"), each exercise of its first probe answered by taps, right or not, as a child's are. The log
+    (tag HintVoice) says each prompt as it comes up: what the screen asks, its instruction and its question, a gap a pause,
+    never an option; the base's in the base and the language learned's in that language. Then the same first prompt on Teo's
+    tablet on its side and upright. The pieces in placement-child.log (also in $LANI_QA_PLACEMENT_SHOTS, with
+    the shots pc-*.png)."""
+    if not os.environ.get("LANI_CHILD"):
+        return "skipped: a child's test (LANI_CHILD=1)"
+    out = Path(os.environ["LANI_QA_PLACEMENT_SHOTS"]) if os.environ.get("LANI_QA_PLACEMENT_SHOTS") else None
+    pair = pair_now()
+    begin, nxt, check, title = label("placement.begin"), label("common.next"), label("playerScreen.check"), label("placement.title")
+    leave = ("🔊", "🐢", "📖", "✕", label("common.listen"), label("common.close"))  # no answers
+    sorts = [x for f in sorted((ROOT / f"companion/course/{pair[0]}/units").glob("*.json"))
+             for x in based(json.loads(f.read_text()), pair[1])["test"]["exercises"] if x["type"] == "sort"]
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def said() -> list[tuple]:
+        """What the exercise on screen said as it came up: its pieces, once the log has them and they've stopped coming."""
+        got, end = [], time.time() + 25 * slow()
+        while time.time() < end:
+            now = hint_pieces(hint_voice_log())
+            if now and now == got:
+                return now
+            got = now
+            time.sleep(1.5)
+        return got
+
+    def proved(pieces: list[tuple], where: str) -> str:
+        """Each piece is on the screen, gaps as pauses, none an option; the log's lines for it."""
+        assert pieces, f"{where}: nothing said as it came up (HintVoice); the app said: {said_in_log()}"
+        screen = [t for t, _ in nodes()]
+        options = [t for t, _ in tappable()]
+        def on_screen(p: str) -> bool:
+            # the log has a piece's first 60 letters; the screen's gap is "____", the voice's a pause
+            return any(norm(p.rstrip("…")) in norm(re.sub(r"_{2,}", "…", t)) for t in screen)
+        for lang, source, text in pieces:
+            assert lang in pair, f"{where}: «{text}» in {lang}, not the pair's {pair}"
+            assert on_screen(text), f"{where}: «{text}» isn't what the screen asks"
+            assert "_" not in text, f"{where}: a gap said as letters in «{text}»"
+            assert "…" not in text or lang == pair[0], f"{where}: a sentence with a gap in the base's voice: «{text}»"
+            assert " · " not in text, f"{where}: both languages in one voice: «{text}»"
+            assert not any(norm(text) == norm(o) for o in options), f"{where}: an option said: «{text}»"
+        return "\n".join(f"{lang} {source} \"{text}\"" for lang, source, text in pieces)
+
+    def answered(where: str):
+        """The exercise on screen answered by taps, right or not: a child's are all by taps (LevelPlacement.asked): a choice's
+        option answers it, a word goes to its gap, a sort's to its column, and "Preveri · Check" once it asks."""
+        texts = [t for t, _ in nodes()]
+        e = next((e for e in sorts if all(c["label"] in texts for c in e["columns"])), None)
+        if e is not None:  # a column isn't a button: from the course's file, as a unit's test plays it
+            for col in e["columns"]:
+                for w in col["words"]:
+                    assert tap(unit_text(w), 4), f"{where}: the word «{w}»"
+                    assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
+            assert tap_above(check, 2400), f"{where}: check"
+        for k in range(16):
+            if find(nxt) is not None:
+                return
+            ts = tappable()
+            # under the run's title: an item that fits has no scrolling column, and "Finisci · Fertig" would end the test
+            top = next((b[3] for t, b in boxes() if title in t), 700)
+            picks = [(t, c) for t, c in ts if c[1] > top and t != check and not any(x in t for x in leave)]
+            assert picks, f"{where}: nothing to tap ({[t for t, _ in ts]})"
+            # the first and the last in turn: a word, then its column
+            tap_at(picks[0 if k % 2 == 0 else -1][1])
+            if find(nxt) is None and (c := find(check)) is not None:
+                tap_at(c)  # it does nothing until the exercise is whole
+        raise AssertionError(f"{where}: still not answered after 16 taps")
+
+    assert placement_ready(), "the school's card offering the test"
+    qa_hook("placement")
+    assert wait_for(begin, 12) or scroll_to(begin, 3), "the test's page"
+    time.sleep(1)
+    snap("pc-page")
+    adb("logcat", "-c")
+    assert tap(begin, 6), "▶️ begin"
+    log = []
+    for n in range(1, 4):
+        pieces = said()
+        log.append(f"## exercise {n}\n{proved(pieces, f'exercise {n}')}")
+        print(f"    exercise {n}: {pieces}")
+        snap(f"pc-prompt-{n}")
+        adb("logcat", "-c")
+        answered(f"exercise {n}")
+        assert tap(nxt, 6), f"exercise {n}: on"
+        time.sleep(1)
+    # the phone done: the test begun again on the tablet, its first prompt read there too
+    try:
+        adb("shell", "wm", "density", "320")
+        for size, side in (("2560x1600", "side"), ("1600x2560", "upright")):
+            adb("shell", "wm", "size", size)
+            time.sleep(5 * slow())
+            go_home()
+            qa_hook("placement")
+            assert wait_for(begin, 12) or scroll_to(begin, 3), f"the test's page on the tablet ({side})"
+            adb("logcat", "-c")
+            assert tap(begin, 6), f"▶️ begin on the tablet ({side})"
+            pieces = said()
+            log.append(f"## the first, on the tablet ({side})\n{proved(pieces, f'on the tablet ({side})')}")
+            print(f"    on the tablet ({side}): {pieces}")
+            snap(f"pc-prompt-tablet-{side}")
+    finally:
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+        time.sleep(4 * slow())
+    text = "\n".join(log) + "\n"
+    (OUT / "placement-child.log").write_text(text)
+    if out is not None:
+        (out / "placement-child.log").write_text(text)
+    go_home()
+
+
 def placement():
     """The placement test (COURSE.md "The placement test"; QA's hooks "placement:fresh" and "placement:answer:<part>"):
     the dev village's class readied with nothing of the course done; the school's card offering the test ("🧭 Nekaj že
@@ -21810,6 +21956,7 @@ def plan():
         # only when named: the placement test from the school's card to the school after its result (QA's hooks placement:…)
         ("placement", placement, go_home, False, ""),
         ("placement-again", placement_again, go_home, False, ""),
+        ("placement-child", placement_child, go_home, False, ""),
         ("first-cards", first_cards, go_home, False, ""),
         ("school-a2", school_a2, go_home, False, ""),
         ("school-cases", school_cases, go_home, False, ""),
@@ -22555,7 +22702,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "family-parent", "family-child", "family-computer-parent", "family-computer-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases", "placement-again", "school-unmet") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "family-parent", "family-child", "family-computer-parent", "family-computer-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases", "placement-again", "school-unmet", "placement-child") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
