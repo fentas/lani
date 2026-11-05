@@ -9485,6 +9485,28 @@ def over_panel(text: str, swipes=8):
     return None
 
 
+def write_it_too(too: str, check: str, e: dict, lang: str, snap, where: str):
+    """"✍️ Napiši še · Write it too" under a child's writing item once it is said ([too]; companion/COURSE.md, "A child's
+    version"): the field opens, the child's model typed into it, [check] tapped: what it must use ticked, just for practice."""
+    child = e.get("child") or e
+    c = over_panel(too)
+    assert c is not None, f"{where}: ✍️ write it too"
+    snap("fs-writing-too-offered")
+    tap_at(c)
+    time.sleep(1.5)
+    field = over_panel(plain_half("playerScreen.writeSlovene"))
+    assert field is not None, f"{where}: the field of ✍️ write it too"
+    tap_at(field)
+    type_letters(unit_text(child["model"]), lang)
+    c = over_panel(check)
+    assert c is not None, f"{where}: ✍️ write it too's check"
+    tap_at(c)
+    time.sleep(1.5)
+    must = child["must"][0]["label"]
+    assert over_panel(must[:24]) is not None, f"{where}: ✍️ write it too's checks: «{must}»"
+    snap("fs-writing-too")
+
+
 def production_exercise(e: dict, where: str, shots: str | None = None, text: str | None = None):
     """A speaking or writing item of a unit (companion/COURSE.md "Speaking and writing"), answered from the unit's file, in
     the pair the phone shows. Speaking: the emulator has no microphone to speak into, so "Brez mikrofona · Can't speak now"
@@ -9978,12 +10000,7 @@ def friuli_school(part: str = "scene"):
             time.sleep(2)
             snap(f"fs-{kind}-rated")
             if kind == "writing":
-                # "✍️ Napiši še · Write it too": the same few words written, just for practice
-                c = scroll_to(lab("production.writeToo"), 6, bottom=2300)
-                assert c is not None, f"{where}: ✍️ write it too"
-                tap_at(c)
-                time.sleep(1.5)
-                snap("fs-writing-too")
+                write_it_too(lab("production.writeToo"), check, e, "it", snap, where)
             return  # rated: on with Next
         else:
             raise AssertionError(f"{where}: QA doesn't play a {kind} here")
@@ -11069,12 +11086,7 @@ def course_unit_one(unit: str, shots_dir: str | None):
             time.sleep(2)
             snap(f"fs-{kind}-rated")
             if kind == "writing":
-                # "✍️ Napiši še · Write it too": the same few words written, just for practice
-                c = scroll_to(lab("production.writeToo"), 6, bottom=2300)
-                assert c is not None, f"{where}: ✍️ write it too"
-                tap_at(c)
-                time.sleep(1.5)
-                snap("fs-writing-too")
+                write_it_too(lab("production.writeToo"), check, e, lang, snap, where)
             return  # rated: on with Next
         else:
             raise AssertionError(f"{where}: QA doesn't play a {kind} here")
