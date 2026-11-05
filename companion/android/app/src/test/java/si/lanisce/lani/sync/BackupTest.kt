@@ -53,7 +53,10 @@ class FakeRelay : Dispatcher() {
     private val seen = HashSet<String>()
     val refused = mutableListOf<String>()
 
-    private fun no(code: Int, why: String) = MockResponse().setResponseCode(code).setBody("""{"error":"$why"}""").also { refused += why }
+    /** A refusal as the relay answers it: its code in the body, and its clock in Date (the app tells a clock that is off by it). */
+    private fun no(code: Int, why: String) = MockResponse().setResponseCode(code).setBody("""{"error":"$why","code":"$why"}""")
+        .setHeader("Date", java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME.format(Instant.ofEpochMilli(now()).atZone(java.time.ZoneOffset.UTC)))
+        .also { refused += why }
 
     override fun dispatch(request: RecordedRequest): MockResponse {
         val key = request.getHeader("X-Lani-Key") ?: return no(401, "unsigned")
@@ -192,20 +195,35 @@ class BackupTest {
         assertEquals("1760000000000", h["X-Lani-Time"])
         val msg = "PUT\n/v1/backup/x.lbk\n1760000000000\nba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
         assertTrue(Signature.getInstance("SHA256withECDSA").run { initVerify(key.publicKey); update(msg.toByteArray()); verify(Base64.getDecoder().decode(h["X-Lani-Sig"])) })
-        // a phone whose clock is 10 minutes off is refused
+        // a phone whose clock is 10 minutes off is refused, and told so: the relay's Date is 10 minutes from its own
         val off = RelayClient(relay.url, key, clock = { now.plusSeconds(600) })
-        assertEquals(BackupProblem.REFUSED, (runCatching { off.list() }.exceptionOrNull() as BackupError).problem)
+        assertEquals(BackupProblem.CLOCK_OFF, (runCatching { off.list() }.exceptionOrNull() as BackupError).problem)
         assertEquals("stale", relay.refused.last())
     }
 
-    /** The relay's 408 too_slow, through the client the app uses: OkHttp repeats a plain 408 by itself, the Retry-After stops it. */
-    @Test fun `an upload the relay found too slow is one attempt, and told as unreachable, not refused`() = runBlocking {
+    /** The relay's 408 too_slow, through the relay's client: OkHttp repeats a plain 408 by itself, the Retry-After stops it. */
+    @Test fun `an upload the relay found too slow is one attempt, and told as too slow`() = runBlocking {
         MockWebServer().use { server ->
             repeat(2) { server.enqueue(MockResponse().setResponseCode(408).setHeader("Retry-After", "60").setBody("""{"code":"too_slow"}""")) }
-            val client = RelayClient(server.url("/").toString(), BackupKeys.signingKey(ByteArray(32) { 3 }), GitHub.DEFAULT_CLIENT)
+            val client = RelayClient(server.url("/").toString(), BackupKeys.signingKey(ByteArray(32) { 3 }))
             val e = runCatching { client.put("x.lbk", ByteArray(10)) }.exceptionOrNull() as BackupError
-            assertEquals(BackupProblem.UNREACHABLE, e.problem)
+            assertEquals(BackupProblem.TOO_SLOW, e.problem)
             assertEquals("one attempt", 1, server.requestCount)
+        }
+    }
+
+    /** The relay's other refusals in plain words: busy, and a time grown old on the way though the clocks agree (a proxy holding the body). */
+    @Test fun `busy, and a stale time with the clocks agreeing, are told apart from a clock that is off`() = runBlocking {
+        MockWebServer().use { server ->
+            val date = java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME.format(now.atZone(java.time.ZoneOffset.UTC))
+            server.enqueue(MockResponse().setResponseCode(429).setHeader("Retry-After", "30").setBody("""{"code":"busy"}"""))
+            server.enqueue(MockResponse().setResponseCode(401).setHeader("Date", date).setBody("""{"code":"stale"}"""))
+            server.enqueue(MockResponse().setResponseCode(401).setBody("""{"code":"stale"}"""))
+            val client = RelayClient(server.url("/").toString(), BackupKeys.signingKey(ByteArray(32) { 3 }), clock = { now })
+            fun problem() = runBlocking { (runCatching { client.list() }.exceptionOrNull() as BackupError).problem }
+            assertEquals(BackupProblem.BUSY, problem())
+            assertEquals(BackupProblem.TOO_SLOW, problem())
+            assertEquals("no Date: not known why", BackupProblem.REFUSED, problem())
         }
     }
 

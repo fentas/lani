@@ -45,6 +45,7 @@ import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.sync.BackupError
 import si.lanisce.lani.sync.BackupKeys
 import si.lanisce.lani.sync.BackupProblem
+import si.lanisce.lani.sync.BackupRecord
 import si.lanisce.lani.sync.DataSync
 import si.lanisce.lani.sync.DeviceFlow
 import si.lanisce.lani.sync.GitHubRepo
@@ -157,8 +158,11 @@ fun DataContent(d: DataSync, banner: (String) -> Unit, modifier: Modifier = Modi
                 OutlinedButton(onClick = { dialog = Dialog.PASSPHRASE }) { Text(bi("dataSync.setUpPassphrase")) }
             }
             else -> {
+                // a backup's work writes the files in a DataSync of its own: read them again when one ends
+                LaunchedEffect(DataSync.revision) { d.refresh() }
                 Info("🕒", bi("dataSync.lastBackup"), d.settings.lastBackup?.let { whenText(Instant.parse(it)) } ?: bi("dataSync.never"))
-                Button(onClick = { act { backupText { d.backupNow().let { bi("dataSync.backedUp", "size" to mb(it.size)) } } } }, enabled = !d.busy) { Text("💾 ${bi("dataSync.backupNow")}") }
+                AutoBackupFailed(d.record)
+                Button(onClick = { act { backupText { d.backupNow().let { bi("dataSync.backedUp", "size" to mb(it.size)) } } } }, enabled = !d.busy && !DataSync.running) { Text("💾 ${bi("dataSync.backupNow")}") }
             }
         }
         if (d.relay.isNotBlank()) OutlinedButton(onClick = { dialog = Dialog.RESTORE }, enabled = !d.busy) { Text("♻️ ${bi("dataSync.restore")}") }
@@ -483,7 +487,11 @@ private suspend fun backupText(block: suspend () -> String): String = try {
     "⚠️ " + problemText(e)
 }
 
-internal fun problemText(e: Throwable): String = when ((e as? BackupError)?.problem) {
+internal fun problemText(e: Throwable): String = (e as? BackupError)?.problem?.let(::problemText)
+    ?: if (e is RateLimited) bi("dataSync.rateLimited", "time" to whenText(e.until)) else e.message ?: e.toString()
+
+/** A backup's [problem] in plain words. */
+internal fun problemText(problem: BackupProblem): String = when (problem) {
     BackupProblem.NOT_SET_UP -> bi("dataSync.backupNotSetUp")
     BackupProblem.NO_RELAY -> bi("dataSync.noRelay")
     BackupProblem.TOO_LARGE -> bi("dataSync.backupTooLarge")
@@ -492,5 +500,21 @@ internal fun problemText(e: Throwable): String = when ((e as? BackupError)?.prob
     BackupProblem.UNREACHABLE -> bi("dataSync.backupUnreachable")
     BackupProblem.REFUSED -> bi("dataSync.backupRefused")
     BackupProblem.NOT_A_BACKUP, BackupProblem.BROKEN -> bi("dataSync.backupBroken")
-    null -> if (e is RateLimited) bi("dataSync.rateLimited", "time" to whenText(e.until)) else e.message ?: e.toString()
+    BackupProblem.CLOCK_OFF -> bi("dataSync.backupClockOff")
+    BackupProblem.TOO_SLOW -> bi("dataSync.backupTooSlow")
+    BackupProblem.BUSY -> bi("dataSync.backupBusy")
+    BackupProblem.RUNNING -> bi("dataSync.backupRunning")
+}
+
+/**
+ * The automatic backup's last failure, when it hasn't succeeded since ([BackupRecord]): when, why in plain words, and that it tries
+ * again. A clock that is off has a line of its own: retrying can't heal it, the learner can.
+ */
+@Composable
+internal fun AutoBackupFailed(record: BackupRecord) {
+    val at = record.failedAt?.let { runCatching { Instant.parse(it) }.getOrNull() } ?: return
+    val problem = record.failedProblem ?: BackupProblem.BROKEN
+    Text("⚠️ ${bi("dataSync.autoFailed", "time" to whenText(at), "why" to problemText(problem))}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
+    if (problem == BackupProblem.CLOCK_OFF) Text("🕒 ${bi("dataSync.clockOffFix")}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+    else Text(bi("dataSync.autoRetries"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }

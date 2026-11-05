@@ -99,7 +99,7 @@ class MainActivity : ComponentActivity() {
             shadow = { base -> vm.shadow.showDeveloper(true); if (base.isNotBlank()) vm.shadow.update { it.copy(debugBaseUrl = base) }; vm.shadow.panelOpen = true },
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
-            data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
+            data = { vm.dataOpen = true }, backup = vm::qaBackup, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
             request = vm::qaRequest, word = vm::qaWord, sentence = vm::qaSentence, friends = { vm.openFriends() }, sheet = vm::qaSheet, grammar = { vm.grammar.show(it) }, talk = { vm.talkWithVillager(it) }, cases = vm::qaCases, tips = vm::qaTips, news = { vm.game.qaNews() },
             setupPhone = { code -> vm.setupFlow = si.lanisce.lani.app.SetupFlow.start(code) }, readOlder = vm::qaReadOlder, placement = vm::qaPlacement, firstRun = vm::qaFirstRun,
             family = { text -> vm.scanFamily(text) { gift -> vm.setupFlow = vm.setupFlow.fromFamily(gift) } }, familyQa = vm::qaFamily,

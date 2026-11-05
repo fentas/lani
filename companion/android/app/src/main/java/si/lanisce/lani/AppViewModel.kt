@@ -292,14 +292,17 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * until git is connected or a backup set up. The hosted mode's bridge calls [DataSync.touched] after its writes and
      * asks [DataSync.mayWrite].
      */
-    val data = si.lanisce.lani.sync.DataSync(
-        File(app.filesDir, "lani"), viewModelScope, si.lanisce.lani.sync.KeystoreBox(app),
-        deviceName = android.os.Build.MODEL ?: "Android",
-        clientId = si.lanisce.lani.BuildConfig.GITHUB_CLIENT_ID,
-        relayUrl = si.lanisce.lani.BuildConfig.RELAY_URL,
-        appVersion = "${si.lanisce.lani.BuildConfig.APPLICATION_ID} ${si.lanisce.lani.BuildConfig.VERSION_NAME}",
-        log = { android.util.Log.i("DataSync", it) },
-    )
+    val data = si.lanisce.lani.sync.appDataSync(app, viewModelScope)
+    /** QA's "backup:<relay url>": the relay set, the backup set up if it isn't, its record forgotten, the automatic backup planned as on going to the background. */
+    fun qaBackup(url: String) {
+        viewModelScope.launch {
+            data.setRelay(url)
+            if (!data.backupReady) data.setUpCode()
+            data.forgetBackupRecord()
+            data.planBackup()
+        }
+    }
+
     /** Whether the Data sheet is open (QA's "data"; the learner opens the same as the settings' page "💾 Podatki · Data"). */
     var dataOpen by mutableStateOf(false)
 

@@ -132,6 +132,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   entered in the panel, as the learner would.
  * - "data": the "💾 Podatki · Data" sheet open (ui/data/DataSheet, sync/DataSync), the same as the settings' page
  *   "💾 Podatki · Data".
+ * - "backup:<relay url>": the phone's relay set to <url> and the backup set up with a recovery code if it isn't; then the
+ *   automatic backup planned as the app going to the background plans it (sync/BackupWork, WorkManager), so it runs as
+ *   work, its failure kept for the Data sheet.
  * - "tutorlive:<url>": the tutor in the app's Messages API base URL set to <url> (QA's mock, http://10.0.2.2:8771);
  *   "tutorlive:" the API again (tutor/live/LiveTutor). The key is entered in the Tutor section, as the learner would.
  * - "friends": "🤝 Prijatelji · Friends" opened (the linked towns, their visits), as the scroll's people page opens it: a busy
@@ -404,7 +407,7 @@ object QaHooks {
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         schoolUnit: (String) -> Unit = {}, schoolReveal: () -> Unit = {}, meet: (String) -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
-        grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, tutorLive: (String) -> Unit = {},
+        grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {}, backup: (String) -> Unit = {}, tutorLive: (String) -> Unit = {},
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, sentence: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
@@ -445,6 +448,7 @@ object QaHooks {
             command.startsWith("pair:") -> pair(command.removePrefix("pair:").trim())
             command == "shadow" -> shadow("")
             command == "data" -> data()
+            command.startsWith("backup:") -> backup(command.removePrefix("backup:").trim())
             command == "review" -> review()
             command == "news" -> news()
             command == "friends" -> friends()

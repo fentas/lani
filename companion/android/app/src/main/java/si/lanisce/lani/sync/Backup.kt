@@ -23,6 +23,7 @@ import java.security.GeneralSecurityException
 import java.security.MessageDigest
 import java.security.SecureRandom
 import java.text.Normalizer
+import java.time.Duration
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -154,7 +155,12 @@ object BackupBox {
     }
 }
 
-enum class BackupProblem { NOT_SET_UP, NO_RELAY, TOO_LARGE, NOT_A_BACKUP, WRONG_KEY, NONE_FOUND, UNREACHABLE, REFUSED, BROKEN }
+/**
+ * Why a backup failed. [CLOCK_OFF]: the relay refused the request's time and its own clock differs from the phone's by more than
+ * [RelayClient.CLOCK_OFF_AFTER] (retrying can't help); [TOO_SLOW]: the upload took longer than the relay allows, or the request's time
+ * got old on the way (a proxy that holds the body); [BUSY]: the relay has too many uploads; [RUNNING]: a backup runs on this phone.
+ */
+enum class BackupProblem { NOT_SET_UP, NO_RELAY, TOO_LARGE, NOT_A_BACKUP, WRONG_KEY, NONE_FOUND, UNREACHABLE, REFUSED, BROKEN, CLOCK_OFF, TOO_SLOW, BUSY, RUNNING }
 
 class BackupError(val problem: BackupProblem, detail: String? = null) : IOException(detail ?: problem.name)
 
@@ -193,7 +199,8 @@ object BackupArchive {
         """.trimIndent(),
     ))
 
-    fun zip(dataDir: File, about: (files: Int, bytes: Long) -> BackupManifest): ByteArray {
+    /** The files a backup holds: (path in the data, file), by path. */
+    private fun included(dataDir: File): List<Pair<String, File>> {
         val files = mutableListOf<Pair<String, File>>()
         if (dataDir.isDirectory) Files.walk(dataDir.toPath()).use { paths ->
             for (p in paths) {
@@ -203,13 +210,35 @@ object BackupArchive {
                 files += rel to p.toFile()
             }
         }
+        return files.sortedBy { it.first }
+    }
+
+    /**
+     * What a backup of [dataDir] would hold, as a SHA-256 hex: each file's path, length and bytes, by path. The same data gives
+     * the same digest (a sealed backup never does: its salt and nonce are new each time), so the same data isn't sent again.
+     */
+    fun digest(dataDir: File): String {
+        val md = MessageDigest.getInstance("SHA-256")
+        val buf = ByteArray(64 * 1024)
+        for ((rel, f) in included(dataDir)) {
+            md.update(rel.toByteArray())
+            md.update(0)
+            md.update(f.length().toString().toByteArray())
+            md.update(0)
+            f.inputStream().use { s -> while (true) { val n = s.read(buf); if (n < 0) break; md.update(buf, 0, n) } }
+        }
+        return md.digest().joinToString("") { "%02x".format(it) }
+    }
+
+    fun zip(dataDir: File, about: (files: Int, bytes: Long) -> BackupManifest): ByteArray {
+        val files = included(dataDir)
         val out = ByteArrayOutputStream()
         ZipOutputStream(out).use { z ->
             val manifest = about(files.size, files.sumOf { it.second.length() })
             z.putNextEntry(ZipEntry("manifest.json"))
             z.write(syncJson.encodeToString(BackupManifest.serializer(), manifest).toByteArray())
             z.closeEntry()
-            for ((rel, f) in files.sortedBy { it.first }) {
+            for ((rel, f) in files) {
                 z.putNextEntry(ZipEntry("data/$rel").apply { time = f.lastModified() })
                 f.inputStream().use { it.copyTo(z) }
                 z.closeEntry()
@@ -314,15 +343,35 @@ class RelayClient(
                 it.code in expect -> bytes
                 it.code == 404 -> throw BackupError(BackupProblem.NONE_FOUND)
                 it.code == 413 -> throw BackupError(BackupProblem.TOO_LARGE)
+                it.code == 408 -> throw BackupError(BackupProblem.TOO_SLOW, bytes.decodeToString().take(200))
+                it.code == 429 -> throw BackupError(BackupProblem.BUSY, bytes.decodeToString().take(200))
+                it.code == 401 && codeOf(bytes) == "stale" -> throw BackupError(stale(it.headers.getDate("Date")?.toInstant()), bytes.decodeToString().take(200))
                 it.code == 401 || it.code == 403 -> throw BackupError(BackupProblem.REFUSED, bytes.decodeToString().take(200))
                 else -> throw BackupError(BackupProblem.UNREACHABLE, "HTTP ${it.code}: ${bytes.decodeToString().take(200)}")
             }
         }
     }
 
+    /** The relay's error code ({"error", "code"}), if it says one. */
+    private fun codeOf(body: ByteArray): String? = runCatching {
+        (syncRead.parseToJsonElement(body.decodeToString()) as? JsonObject)?.get("code")?.jsonPrimitive?.contentOrNull
+    }.getOrNull()
+
+    /**
+     * A time the relay found too old or too new: this phone's clock, when the relay's (its answer's Date) differs from it by more
+     * than [CLOCK_OFF_AFTER]; else the request got old on its way ([BackupProblem.TOO_SLOW]); else, with no Date, [BackupProblem.REFUSED].
+     */
+    private fun stale(server: Instant?): BackupProblem = when {
+        server == null -> BackupProblem.REFUSED
+        Duration.between(server, clock()).abs() > CLOCK_OFF_AFTER -> BackupProblem.CLOCK_OFF
+        else -> BackupProblem.TOO_SLOW
+    }
+
     companion object {
         /** The contract's limit for one backup. */
         const val MAX_BLOB = 50 * 1024 * 1024
+        /** The relay takes a time within 5 minutes of its own: beyond 4, with the answer's Date to second, the clock is off. */
+        val CLOCK_OFF_AFTER: Duration = Duration.ofMinutes(4)
         private val BLOB = "application/octet-stream".toMediaType()
         val DEFAULT_CLIENT: OkHttpClient = OkHttpClient.Builder().connectTimeout(15, TimeUnit.SECONDS).readTimeout(120, TimeUnit.SECONDS).writeTimeout(120, TimeUnit.SECONDS).build()
     }

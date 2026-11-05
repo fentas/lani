@@ -1,6 +1,7 @@
 package si.lanisce.lani.sync
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +16,6 @@ import okhttp3.OkHttpClient
 import java.io.File
 import java.io.IOException
 import java.security.SecureRandom
-import java.time.Duration
 import java.time.Instant
 import java.util.Base64
 
@@ -112,11 +112,16 @@ class DataSync(
     private val log: (String) -> Unit = {},
     quietMs: Long = 20_000,
     maxWaitMs: Long = 120_000,
+    /** The relay's backup requests: its own timeouts (a slow upload), not GitHub's. */
+    internal val relayHttp: OkHttpClient = RelayClient.DEFAULT_CLIENT,
+    /** Runs an automatic backup by its [BackupPlan] (the app: WorkManager, [BackupWork]); fromWork: asked by one that just failed. */
+    private val scheduleBackup: (plan: BackupPlan, fromWork: Boolean) -> Unit = { _, _ -> },
 ) {
     val dataDir = File(root, "data")
     private val syncDir = File(root, "sync")
     private val settingsFile = File(syncDir, "settings.json")
     private val stateFile = File(syncDir, "state.json")
+    private val recordFile = File(syncDir, "backup.json")
 
     var settings by mutableStateOf(loadSettings())
         private set
@@ -128,6 +133,9 @@ class DataSync(
     var lease by mutableStateOf<LeaseRead>(readLease())
         private set
     var busy by mutableStateOf(false)
+        private set
+    /** What the automatic backup did last. */
+    var record by mutableStateOf(loadRecord())
         private set
 
     /** Told the files a pull changed (the hosted mode's bridge reads them again). */
@@ -173,8 +181,31 @@ class DataSync(
      */
     fun setRelay(url: String?) = update { it.copy(relay = url?.trim()?.trimEnd('/')?.takeIf(String::isNotBlank)) }
 
-    private fun update(f: (DataSettings) -> DataSettings) {
-        settings = f(settings).also(::saveSettings)
+    /** The settings as the file has them now: a backup's work, in a DataSync of its own, may have written them. */
+    private fun readSettings(): DataSettings? = runCatching { syncRead.decodeFromString(DataSettings.serializer(), settingsFile.readText()) }.getOrNull()
+
+    private fun update(f: (DataSettings) -> DataSettings) = synchronized(FILES) {
+        settings = f(readSettings() ?: settings).also(::saveSettings)
+    }
+
+    private fun loadRecord(): BackupRecord = runCatching { syncRead.decodeFromString(BackupRecord.serializer(), recordFile.readText()) }.getOrNull() ?: BackupRecord()
+
+    private fun updateRecord(f: (BackupRecord) -> BackupRecord) = synchronized(FILES) {
+        record = f(loadRecord()).also { r ->
+            syncDir.mkdirs()
+            val tmp = File(recordFile.path + ".tmp")
+            tmp.writeText(syncJson.encodeToString(BackupRecord.serializer(), r))
+            tmp.renameTo(recordFile)
+        }
+    }
+
+    /** QA's "backup:": the automatic backup's record forgotten, so a backoff from an earlier try doesn't hold the next. */
+    internal fun forgetBackupRecord() = updateRecord { BackupRecord() }
+
+    /** The settings and the backup's record read again (the Data sheet, after a backup's work: [revision]). */
+    fun refresh() {
+        settings = readSettings() ?: settings
+        record = loadRecord()
     }
 
     private fun syncState(): SyncState? = runCatching { syncRead.decodeFromString(SyncState.serializer(), stateFile.readText()) }.getOrNull()
@@ -295,7 +326,15 @@ class DataSync(
             if (scheduler.pending) scheduler.flush()
             else if (leaseState == LeaseState.MINE) syncNow()
         }
-        if (backupDue()) scope.launch { runCatching { backupNow() }.onFailure { log("backup: ${it.message}") } }
+        planBackup()
+    }
+
+    /**
+     * The automatic backup planned, when one is due ([AutoBackupPolicy]) and none runs: as work of its own (BackupWork), which
+     * outlives the app's process, waits for its network and backs off.
+     */
+    fun planBackup() {
+        if (backupReady && !running) AutoBackupPolicy.plan(lastBackupAt(), record, clock())?.let { scheduleBackup(it, false) }
     }
 
     // --- the handover's QR code --------------------------------------------------------------------
@@ -318,8 +357,7 @@ class DataSync(
 
     val backupReady: Boolean get() = settings.backup != null && relay.isNotBlank()
 
-    private fun backupDue(): Boolean = backupReady && settings.lastBackup?.let { runCatching { Instant.parse(it) }.getOrNull() }
-        ?.let { Duration.between(it, clock()) > Duration.ofHours(20) } != false
+    private fun lastBackupAt(): Instant? = settings.lastBackup?.let { runCatching { Instant.parse(it) }.getOrNull() }
 
     /** Sets the backup up with a new recovery code; returns it, to show once. */
     suspend fun setUpCode(): String {
@@ -339,17 +377,78 @@ class DataSync(
 
     private fun backups(master: ByteArray): Backups {
         if (relay.isBlank()) throw BackupError(BackupProblem.NO_RELAY)
-        return Backups(dataDir, RelayClient(relay, BackupKeys.signingKey(master), http, clock), master, appVersion, deviceName, clock)
+        return Backups(dataDir, RelayClient(relay, BackupKeys.signingKey(master), relayHttp, clock), master, appVersion, deviceName, clock)
     }
 
-    suspend fun backupNow(): BackupEntry {
+    /** "💾 Back up now": on any network, whatever the data; [BackupProblem.RUNNING] while another backup runs. A success clears a failure. */
+    suspend fun backupNow(): BackupEntry = exclusive {
         busy = true
         try {
+            val digest = withContext(Dispatchers.IO) { BackupArchive.digest(dataDir) }
             val entry = withContext(Dispatchers.Default) { backups(master()).backup() }
-            update { it.copy(lastBackup = Lease.iso(clock()), lastBackupName = entry.name) }
-            return entry
+            succeeded(entry, digest)
+            entry
         } finally {
             busy = false
+        }
+    }
+
+    private fun succeeded(entry: BackupEntry, digest: String) {
+        update { it.copy(lastBackup = Lease.iso(clock()), lastBackupName = entry.name) }
+        updateRecord { BackupRecord(lastTry = it.lastTry, digest = digest) }
+    }
+
+    /** What an automatic backup did. */
+    enum class AutoOutcome { NOT_SET_UP, NOT_DUE, RUNNING, UNCHANGED, DONE, FAILED }
+
+    /**
+     * The automatic backup ([BackupWork], once [onBackground] planned it): when it is due ([AutoBackupPolicy]), the data is sent
+     * unless it is what the last backup sent. A failure is kept in [record], for the Data sheet, and the next try planned after its
+     * backoff.
+     */
+    suspend fun runAutoBackup(): AutoOutcome {
+        if (!backupReady) return AutoOutcome.NOT_SET_UP
+        val plan = AutoBackupPolicy.plan(lastBackupAt(), record, clock())
+        if (plan == null || plan.delayMs > LATE_MS) return AutoOutcome.NOT_DUE
+        return try {
+            exclusive {
+                val now = Lease.iso(clock())
+                val digest = withContext(Dispatchers.IO) { BackupArchive.digest(dataDir) }
+                if (digest == record.digest && settings.lastBackup != null) {
+                    updateRecord { it.copy(lastTry = now, checkedAt = now, failedAt = null, problem = null, failures = 0) }
+                    return@exclusive AutoOutcome.UNCHANGED
+                }
+                try {
+                    val entry = withContext(Dispatchers.Default) { backups(master()).backup() }
+                    succeeded(entry, digest)
+                    updateRecord { it.copy(lastTry = now) }
+                    log("backup: ${entry.name}, by itself")
+                    AutoOutcome.DONE
+                } catch (e: Exception) {
+                    if (e is kotlinx.coroutines.CancellationException) throw e
+                    val problem = (e as? BackupError)?.problem ?: BackupProblem.BROKEN
+                    updateRecord { it.copy(lastTry = now, failedAt = now, problem = problem.name, failures = it.failures + 1) }
+                    log("backup: failed by itself (${problem.name}): ${e.message}")
+                    AutoBackupPolicy.plan(lastBackupAt(), record, clock())?.let { scheduleBackup(it, true) }
+                    AutoOutcome.FAILED
+                }
+            }
+        } catch (e: BackupError) {
+            if (e.problem != BackupProblem.RUNNING) throw e
+            AutoOutcome.RUNNING
+        }
+    }
+
+    /** [block] alone: one backup or restore at a time in the process, whichever DataSync asks ([BackupProblem.RUNNING] else). */
+    private suspend fun <T> exclusive(block: suspend () -> T): T {
+        if (!BACKUP.tryLock()) throw BackupError(BackupProblem.RUNNING)
+        running = true
+        try {
+            return block()
+        } finally {
+            running = false
+            BACKUP.unlock()
+            revision++
         }
     }
 
@@ -369,7 +468,7 @@ class DataSync(
      * Restores the backup [name] (the newest when null) in place of the phone's data, which is kept beside it. With
      * [typed] (a new phone), the code or passphrase becomes this phone's backup key too. The sync starts anew after.
      */
-    suspend fun restore(name: String? = null, typed: String? = null): BackupManifest {
+    suspend fun restore(name: String? = null, typed: String? = null): BackupManifest = exclusive {
         busy = true
         try {
             val (m, how) = typed?.let { masterOf(it) ?: throw BackupError(BackupProblem.WRONG_KEY) } ?: (master() to (settings.backup ?: "code"))
@@ -379,7 +478,7 @@ class DataSync(
             lease = readLease()
             last = null
             log("backup: restored ${name ?: "the newest"} (${manifest.files} files, ${manifest.created})")
-            return manifest
+            manifest
         } finally {
             busy = false
         }
@@ -387,5 +486,17 @@ class DataSync(
 
     companion object {
         const val TICK_MS = 120_000L
+        /** Work that runs this much after its time still counts as on time (WorkManager's timing isn't exact). */
+        const val LATE_MS = 10 * 60_000L
+        /** One backup or restore at a time in the process: the app's DataSync and a [BackupWork]'s. */
+        private val BACKUP = kotlinx.coroutines.sync.Mutex()
+        /** The settings' and the record's files are written by one DataSync at a time. */
+        private val FILES = Any()
+        /** Whether a backup or restore runs, in any DataSync of the process. */
+        var running by mutableStateOf(false)
+            private set
+        /** Counts the backups and restores that ended: the Data sheet reads the files again on a change. */
+        var revision by mutableIntStateOf(0)
+            private set
     }
 }
