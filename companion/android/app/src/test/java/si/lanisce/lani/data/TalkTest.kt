@@ -48,23 +48,23 @@ class TalkTest {
     @Test fun `every curated scenario parses`() {
         val dir = listOf(File("../../scenarios"), File("../scenarios"), File("companion/scenarios")).first { it.isDirectory }
         val files = dir.listFiles { f -> f.extension == "json" }.orEmpty()
-        assertEquals(18, files.size)
+        assertEquals(21, files.size)
         for (f in files) {
             val s = parseScenario(f.readText())
             assertEquals(f.nameWithoutExtension, s.id)
             assertTrue(s.goals.size in 3..5)
             assertFalse(s.character.isBlank())
         }
-        // Jan's six at A1, and six talks each at B1 and B2 (docs/plans/05-built/talks-sl.md)
+        // Jan's six at A1, three at A2 (docs/plans/05-built/final-polish.md), six each at B1 and B2 (talks-sl.md)
         val levels = files.map { parseScenario(it.readText()).level }.groupingBy { it }.eachCount()
-        assertEquals(mapOf("A1" to 6, "B1" to 6, "B2" to 6), levels)
+        assertEquals(mapOf("A1" to 6, "A2" to 3, "B1" to 6, "B2" to 6), levels)
     }
 
-    @Test fun `Jan's B1 and B2 talks read in the pair, for a grown-up, with their packs`() {
+    @Test fun `Jan's talks above A1 read in the pair, for a grown-up, with their packs`() {
         val dir = listOf(File("../../scenarios"), File("../scenarios"), File("companion/scenarios")).first { it.isDirectory }
         val above = dir.listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
-            .filter { parseScenario(it.readText()).level in setOf("B1", "B2") }
-        assertEquals(12, above.size)
+            .filter { parseScenario(it.readText()).level in setOf("A2", "B1", "B2") }
+        assertEquals(15, above.size)
         inPair(si.lanisce.lani.l10n.Lang.SL, si.lanisce.lani.l10n.Lang.EN) {
             for (f in above) {
                 val s = parseScenario(f.readText())
@@ -82,6 +82,10 @@ class TalkTest {
             assertEquals("Prodajalec Gregor", boots.character)
             assertEquals("B1", boots.level)
             assertEquals("Vinar Marko", parseScenario(File(dir, "marko-na-razpotju.json").readText()).character)
+            val osmica = parseScenario(File(dir, "na-osmici.json").readText())
+            assertEquals("Na osmici · At the osmica", osmica.title)
+            assertEquals("Vinar Marko", osmica.character)
+            assertEquals("A2", osmica.level)
         }
         val mayor = inPair(si.lanisce.lani.l10n.Lang.SL, si.lanisce.lani.l10n.Lang.DE) { parseScenario(File(dir, "pri-zupanji.json").readText()) }
         assertEquals("Pri županji · Bei der Bürgermeisterin", mayor.title)
