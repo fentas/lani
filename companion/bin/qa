@@ -1407,6 +1407,15 @@ def intro_voice():
     assert any(t.startswith(today) for t, _ in nodes()), "back to Home"
 
 
+SWIPE_FROM = 1600  # where [page_down] swipes from: higher while a step has laid the emulator on its side (1600 px tall)
+
+
+def page_down():
+    """A swipe of 600 px down the page, for [scroll_to] and [tap_above]."""
+    adb("shell", "input", "swipe", "540", str(SWIPE_FROM), "540", str(SWIPE_FROM - 600), "400")
+    time.sleep(1)
+
+
 def scroll_to(text: str, swipes=5, exact=False, bottom=1850):
     """Scrolls down until [text] is on screen clear of the header and the tutor bar; its centre, or None. [exact]: only a
     label that is exactly [text] (Home's "Pogovor" tile, not a row that says "Pogovori se"). [bottom]: how low on the screen
@@ -1415,8 +1424,7 @@ def scroll_to(text: str, swipes=5, exact=False, bottom=1850):
         c = next((c for t, c in nodes() if t == text), None) if exact else find(text)
         if c is not None and 300 < c[1] < bottom:
             return c
-        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
-        time.sleep(1)
+        page_down()
     return None
 
 
@@ -9152,8 +9160,7 @@ def tap_above(text: str, bottom: int, swipes=4) -> bool:
             tap_at(c)
             return True
         if k < swipes:
-            adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
-            time.sleep(1)
+            page_down()
     return False
 
 
@@ -9427,6 +9434,23 @@ def sheet_exercise(e: dict, where: str):
         # right, never a mistake: the label under the spoken answer names the standard form
         assert scroll_to("Pogovorno, prav tako prav", 6) is not None, f"{where}: a spoken answer's label"
         shot(f"school-unit-spoken-{where.replace(' ', '').replace('#', '-')}")
+
+
+def no_microphone(cant: str):
+    """[cant] ("Brez mikrofona · Can't speak now") tapped on a speaking item, where the phone's recognizer offers the 🎤 at all.
+    It is the item's last row, and with what the teacher asks and the word tip above it, it lies below the fold: a scrolling
+    column's rows out of its viewport aren't in the screen's dump (a row a few px into it is, with those few px), so it is
+    scrolled to, clear of the column's edge. The item comes up a moment after Next, its rows still moving: looked at again until
+    it has gone, the self-rating's panel in its place."""
+    time.sleep(2 * slow())
+    for _ in range(3):
+        c = scroll_to(cant, 3, bottom=screen_size()[1] - 140)
+        if c is None:
+            return
+        tap_at(c)
+        time.sleep(slow())
+        if find(cant) is None:
+            return
 
 
 def production_exercise(e: dict, where: str, shots: str | None = None):
@@ -9831,14 +9855,7 @@ def friuli_school(part: str = "scene"):
         elif kind in ("speaking", "writing"):
             # a child's item (COURSE.md, "A child's version"; LANI_CHILD=1): a writing item is said first, as a speaking item of
             # its model; the emulator has no microphone, so "can't speak now", the model revealed, rated right
-            # the item comes up a moment after Next, its rows still moving: read again, until the self-rating's panel says so
-            wait_for(lab("speakExercise.cantSpeakNow"), 8)
-            for _ in range(4):
-                time.sleep(2 * slow())
-                c = find(lab("speakExercise.cantSpeakNow"))
-                if c is None:
-                    break
-                tap_at(c)
+            no_microphone(lab("speakExercise.cantSpeakNow"))
             c = scroll_to(lab("speakExercise.reveal"), 4, bottom=2300)
             snap(f"fs-{kind}-rate")
             if c is not None:
