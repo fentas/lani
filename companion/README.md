@@ -4634,8 +4634,22 @@ screens say "☁️ Lani na tej napravi · Lani on this device". The bridge runs
 - **Towns and the family page** go through the relay in this mode: the build's `lani.relayUrl` (or `LANI_RELAY_URL`),
   or Settings → 🔗 Povezava · Connection → "🛰️ Posrednik (relay)". Without one, towns aren't available on the phone, and Friends
   says so.
-- **What isn't there yet:** the tutor's settings (the tutor-live work), voices other than the phone's own
-  text-to-speech, the car's clips.
+- **The audio trial** (`data/AudioPlan.kt`, `data/AudioTrial.kt`, `app/AudioTrialController.kt`): with a voice service in the
+  build (`lani.glasUrl` or `LANI_GLAS_URL`, beside `lani.relayUrl`; empty until it is hosted, and then nothing below happens), a
+  learner on this device gets every voice of the village with no account and no card, for as long as the service says.
+  It starts in the background as soon as they are on this device, also on one set up before, never on a node. A failure or
+  being offline changes nothing and it is tried again later, without a word. All the service knows of the install is a
+  random id, kept in the device's preferences, so it is in no export, backup or git sync. How it stands is read at most once
+  a day, and a voice route's 403 `trial_ended` ends it at once. `AudioPlan.voices` is the one place that says who answers:
+  index, say, prepare and a clip's file follow it at every request (the app, the day's prefetch, the car's library), while the
+  voice profiles, a re-record, the offline voice, a voice's sample and a visit's routes stay on the connection. A paid plan
+  would go in its `addOn`; nothing sells one. After the end the phone's bridge answers an empty index: the entries whose files
+  are on the device stay and keep playing (`PreviousClips.heard`), and every other line goes the usual way to Piper or the phone's
+  voice. The learner reads of it twice: a card on Home with what it is and when it ends, one after its end, each
+  once and with one button (`ui/home/AudioTrialCard`; never over the first moment, and one card at a time with the minutes and
+  the aim). The settings' "🔊 Zvok in glas · Sound and voice" has a quiet line with the state and the name library's rule.
+- **What isn't there yet:** the tutor's settings (the tutor-live work), voices other than the phone's own text-to-speech
+  without a voice service, the car's clips.
 
 ## Im Auto · In the car
 
@@ -5000,7 +5014,8 @@ the village's ages lead to, "Zdaj: A1 → A2 · Now: A1 → A2", a raise waiting
 learner's to choose: a higher aim starts with the village's next age, a lower one at once, `POST /learner/target`; a
 parent's on a child's device: [The target level](#learners)), 🔊 Zvok in glas · Sound
 and voice ("🗣️ Moj glas · My voice" first: the voice of the learner's own lines, [Voice](#voice); the background sounds, the
-explanations read aloud, the offline audio), 💡 Namigi · Tips (on or off, "🔁 Pokaži jih spet · Show them again"; a
+explanations read aloud, the offline audio; on this device during and after the audio trial, a quiet line with until when
+every voice is free, or that it ended, and the name library's rule: [Lani on this phone](#lani-on-this-phone-no-node)), 💡 Namigi · Tips (on or off, "🔁 Pokaži jih spet · Show them again"; a
 parent's on a child's device: [Tips](#tips)), 🔗 Povezava · Connection (the node, pairing again, Lani on this phone), and
 🛠️ Razvijalec · Developer once the version line was tapped seven times.
 
@@ -5306,6 +5321,7 @@ LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/qa
 companion/bin/qa --steps visit-voices,visit-voices-silent,visit-sky   # a visit's voices on a tablet without Slovene (a synthetic Italian learner from German, the Slovene fixture town with its own clips, a fake ElevenLabs; LANI_DEV_TOWN_PORT of your own): the town's clip, one voiced on the node, the offer, Ne zdaj, the 🔇 note, the download, Piper; the moon's card on the visit in sl · de
 LANI_DEV_DATA=<a synthetic learner> LANI_QA_MILL_SHOTS=<dir> companion/bin/qa-slot --steps mill-turning   # the mill's wheels turning: in from the stream's mill, closer up, the waterwheel in the middle, a burst of screenshots a fraction of a second apart, the wheel's frames side by side; LANI_QA_MILL_HOUR=22.5 at night (docs/plans/05-built/mill-mechanics.md)
 LANI_QA_FIRSTRUN_SHOTS=<dir> companion/bin/qa-slot --steps first-run   # the first run timed on a phone, alone (no node): the taps and seconds to the first line and the map (firstrun.txt); LANI_QA_SETUP_PAIR=it-de LANI_QA_FIRSTRUN_CHILD=1 LANI_QA_FIRSTRUN_TABLET=1 a child on Teo's tablet (docs/plans/05-built/first-minutes.md)
+LANI_QA_GLAS_DIR=<the voice service's checkout> GLAS_DEV_CLIPS=<a directory of MP3s> LANI_QA_TRIAL_SHOTS=<dir> companion/bin/qa-slot --steps audio-trial   # the audio trial on this device, alone (no node), against the voice service's dev server on LANI_QA_GLAS_PORT (11272) and the next port (QA's hook "audio:trial:url:<url>" gives the build its address): the start in the background, the first moment's greeting and a line from the service, each card once, the settings' line, the end by a 403, then with the server gone the clip heard still plays and a new line is the phone's voice; each card and the settings on a phone and on Teo's tablet both ways; LANI_QA_SETUP_PAIR=it-de LANI_QA_TRIAL_CHILD=1 for Teo
 companion/bin/qa-slot --steps first-cards        # what the first run leaves for later, each once: the voice's card after the first dialog, the minutes and the aim on Home, the school's card put away
 LANI_QA_FAMILY_DIR=<dir> companion/bin/qa-slot --slot 1 --steps family-parent & LANI_QA_FAMILY_DIR=<dir> companion/bin/qa-slot --slot 2 --steps family-child   # add a family member on both emulators at once: a parent's key (QA's mock), the code through a forwarded port, the hold, a child's device, a second scan refused
 LANI_QA_SETUP_PAIR=it-de LANI_QA_TOUR_SHOTS=<dir> companion/bin/qa-slot --steps setup-tour   # the first launch on Teo's tablet (2560 × 1600, on its side and upright), alone (no node): a child learning Italian from German on this device, each step's shots, what it said (tour-speech.txt), Back, the aim, the voice, the founding; the taps counted (docs/plans/05-built/setup-refresh.md)

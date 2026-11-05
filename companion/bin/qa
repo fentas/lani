@@ -559,7 +559,13 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        member: the code, the parent's hold, the key on a child's device, a second scan refused;
                        "first-run" (alone, --steps first-run: no node) the first run timed, to the village and a line said
                        aloud (firstrun.txt, firstrun-*.png in $LANI_QA_FIRSTRUN_SHOTS; LANI_QA_FIRSTRUN_CHILD=1,
-                       LANI_QA_FIRSTRUN_TABLET=1)
+                       LANI_QA_FIRSTRUN_TABLET=1);
+                       "audio-trial" (alone, --steps audio-trial: no node) the audio trial on this device against the
+                       voice service's dev server (LANI_QA_GLAS_DIR its checkout, LANI_QA_GLAS_PORT, 11272 and the next;
+                       GLAS_DEV_CLIPS its MP3s): the start in the background, a line from the service then from the
+                       phone, each card once, the settings' line, the end by a 403, the server gone: the clip heard still
+                       plays and a new line is the phone's voice (trial-*.png in $LANI_QA_TRIAL_SHOTS, each on a phone and
+                       on Teo's tablet both ways; LANI_QA_SETUP_PAIR, LANI_QA_TRIAL_CHILD=1)
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -21423,6 +21429,8 @@ def plan():
         ("setup-tour", setup_tour, None, False, ""),
         # only with --steps first-run: no node, the first run timed, to the village and a line said aloud
         ("first-run", first_run, None, False, ""),
+        # only with --steps audio-trial: no node, the audio trial against the voice service's dev server
+        ("audio-trial", audio_trial, None, False, ""),
         # only by name, each alone on its own emulator at the same time: "Add a family member"
         ("family-parent", family_parent, None, False, ""),
         ("family-child", family_child, None, False, ""),
@@ -21717,6 +21725,229 @@ def first_run():
             time.sleep(3 * slow())
 
 
+GLAS_PORT = int(os.environ.get("LANI_QA_GLAS_PORT", "11272"))
+# per language learned, a line the voice service has and one nobody voiced (after the trial the phone's voice says it)
+TRIAL_HEARD_LINE = {"sl": "Lepo te je videti.", "it": "Che bello vederti.", "de": "Schön, dich zu sehen.", "en": "It is good to see you."}
+TRIAL_NEW_LINE = {"sl": "Danes je lep dan.", "it": "Oggi è una bella giornata.", "de": "Heute ist ein schöner Tag.", "en": "It is a fine day today."}
+
+
+def glas_call(path: str, body=None):
+    """The voice service's dev server: GET [path], or POST [body]; its JSON."""
+    data = None if body is None else json.dumps(body).encode()
+    req = urllib.request.Request(f"http://127.0.0.1:{GLAS_PORT}{path}", data=data, headers={"content-type": "application/json"}, method="GET" if data is None else "POST")
+    with urllib.request.urlopen(req, timeout=10) as r:
+        return json.loads(r.read())
+
+
+def glas_start() -> subprocess.Popen:
+    """The voice service's dev server (test/support/dev-server.ts) of the checkout $LANI_QA_GLAS_DIR on $LANI_QA_GLAS_PORT and
+    the next port, its fake store, with the MP3s of $GLAS_DEV_CLIPS as its clips: real routes, nothing paid, nothing kept."""
+    home = Path(os.environ.get("LANI_QA_GLAS_DIR") or ROOT.parent / "glas")
+    assert (home / "test/support/dev-server.ts").exists(), f"no dev server in {home}: LANI_QA_GLAS_DIR"
+    assert not listeners(GLAS_PORT), f"{GLAS_PORT} is in use: LANI_QA_GLAS_PORT"
+    log = open(OUT / "glas.log", "w")
+    server = subprocess.Popen(["bun", "test/support/dev-server.ts"], cwd=home, env={**os.environ, "GLAS_DEV_PORT": str(GLAS_PORT)}, stdout=log, stderr=log)
+    end = time.time() + 40
+    while time.time() < end:
+        try:
+            glas_call("/dev/state")
+            return server
+        except OSError:
+            time.sleep(0.5)
+    server.terminate()
+    raise AssertionError("the voice service's dev server didn't start: glas.log")
+
+
+def glas_stop(server: subprocess.Popen):
+    """The dev server gone, as the voice service out of reach."""
+    if server.poll() is None:
+        server.terminate()
+        try:
+            server.wait(10)
+        except subprocess.TimeoutExpired:
+            server.kill()
+
+
+def audio_trial():
+    """The audio trial on this device (data/AudioPlan.kt), alone like first-run (no node), against the voice service's dev
+    server (glas_start), which QA's hook "audio:trial:url:<url>" gives this build: the first run with the voice service set,
+    so the trial starts in the background and the first moment's greeting is the voice service's clip; the card on Home once,
+    and not after the app starts anew; a line played from the voice service, then from the phone; the settings' quiet line; every trial ended on the server, the next read's 403 ending it
+    here; the card of the end once; the server gone: the clip heard before still plays, a new line is the phone's voice.
+    LANI_QA_SETUP_PAIR the pair, LANI_QA_TRIAL_CHILD=1 a child, LANI_QA_TRIAL_SHOTS a directory for trial-*.png: each card and
+    the settings on a phone, then on Teo's tablet on its side and upright."""
+    target, base = SETUP_PAIR
+    child = os.environ.get("LANI_QA_TRIAL_CHILD") == "1"
+    name = "Teo" if child else "Ana"
+    d = os.environ.get("LANI_QA_TRIAL_SHOTS")
+    ok = say("myVoice.keep")
+    greeting = l10n(target).get("firstRun.greeting")
+    line = TRIAL_HEARD_LINE[target]
+    fresh = TRIAL_NEW_LINE[target]
+
+    def snap(what: str):
+        shot(f"trial-{what}")
+        if d:
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / f"trial-{what}.png")
+
+    def every_size(what: str, ready):
+        """[what] on the phone, then on the tablet on its side and upright; back on the phone."""
+        snap(f"{what}-phone")
+        try:
+            adb("shell", "wm", "density", "320")
+            for size, side in TOUR_SIZES:
+                adb("shell", "wm", "size", size)
+                time.sleep(3 * slow())
+                assert ready(), f"{what} on the tablet ({side})"
+                snap(f"{what}-tablet-{side}")
+        finally:
+            adb("shell", "wm", "size", "reset")
+            adb("shell", "wm", "density", "reset")
+            time.sleep(3 * slow())
+
+    def on_home(text: str):
+        """[text], a card on Home: at the top of it."""
+        tour_top()
+        return wait_for(text, 6) or tour_find(text, 3)
+
+    def spoken(text: str) -> str:
+        """How the app said [text] asked now: the Speaker's last word on it."""
+        norm = re.sub(r"[^\w\s]", "", text).strip().lower()
+        adb("logcat", "-c")
+        qa_hook(f"'audio:say:{text}'")
+        end = time.time() + 20 * slow()
+        while time.time() < end:
+            ways = [how for what, *rest in said_in_log() if what == "said" and rest and rest[0] == norm for how in rest[1:]]
+            if ways:
+                return ways[-1]
+            time.sleep(1)
+        return ""
+
+    def status() -> str:
+        got = [l for l in adb("logcat", "-d", "-v", "raw", "-s", "AudioTrial:I", check=False).splitlines() if "status=" in l]
+        return got[-1] if got else ""
+
+    def restart():
+        adb("shell", "am", "force-stop", PKG)
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+        assert wait_home(40), "Home after the app started anew"
+
+    server = glas_start()
+    try:
+        wait_out_anr(20)
+        clip = glas_call("/dev/clip", {"lang": target, "text": line, "voice": "female"})["url"].rsplit("/", 1)[-1]
+        glas_call("/dev/clip", {"lang": target, "text": greeting, "voice": "female"})
+        end = time.time() + 40 * slow()
+        while time.time() < end and tour_find(OWN_NAMES[target], swipes=2) is None:
+            time.sleep(2)
+        assert find(OWN_NAMES[target]), "the first screen's languages"
+        qa_hook(f"audio:trial:url:http://10.0.2.2:{GLAS_PORT}")
+        assert glas_call("/dev/state")["trials"] == 0, "nothing asked before the learner is on this device"
+        if base != "en":
+            qa_hook(f"setup:phone:{base}")
+            tour_top()
+            time.sleep(1.5 * slow())
+        tap_at(tour_find(OWN_NAMES[target]) or tour_wait(OWN_NAMES[target], 10))
+        field = say("hosted.name", 0)
+        assert tour_wait(field, 10), "the name"
+        tap_at(find(field))
+        time.sleep(1.2 * slow())
+        adb("shell", "input", "text", name)
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        if child:
+            tap_at(tour_find(say("hosted.forChild", 0)) or tour_wait(say("hosted.forChild", 0), 10))
+        tap_at(tour_find(say("hosted.found", 0)) or tour_wait(say("hosted.found", 0), 10))
+        founding = say("founding.title", 0)
+        end = time.time() + 60 * slow()
+        while time.time() < end and not find(founding):
+            if (c := next((c for t, c in nodes() if t == "Allow"), None)) is not None:
+                tap_at(c)
+            time.sleep(0.5)
+        assert find(founding), "the founding"
+        assert glas_call("/dev/state")["trials"] == 1, "the trial started in the background, before the first moment"
+        assert say("audioTrial.startTitle", 0).split("{")[0] not in " ".join(t for t, _ in nodes()), "no card over the founding"
+        adb("logcat", "-c")
+        tap_at(tour_find(say("founding.here", 0)) or tour_wait(say("founding.here", 0), 10))
+        pieces = wait_hint_voice(4, 40)
+        (OUT / "trial-first-moment.log").write_text("\n".join(pieces) + "\n" + adb("logcat", "-d", "-v", "raw", "-s", "Speaker:I", "AudioTrial:I", check=False))
+        assert any(f"{target} clip" in p and greeting in p for p in pieces), f"the first moment's greeting, the voice service's clip: {pieces}"
+        snap("first-moment")
+        end = time.time() + 40 * slow()
+        while time.time() < end and not is_home(t for t, _ in nodes()):
+            if not first_moment():
+                time.sleep(1)
+        assert wait_home(20), "Home after the first moment"
+
+        title = say("audioTrial.startTitle", 0).split("{")[0]
+        assert on_home(title), "the trial's card on Home"
+        text = say("audioTrial.startTextChild" if child else "audioTrial.startText", 0).split("{")[0]
+        assert find(text), "its text"
+        every_size("start", lambda: on_home(title))
+        assert tap(ok, 6), "its one button"
+        time.sleep(2 * slow())
+        assert not on_home(title), "gone once closed"
+        restart()
+        assert not on_home(title), "never again"
+        snap("start-gone")
+
+        first = spoken(line)
+        assert "node clip" in first, f"the line from the voice service: {first}"
+        end = time.time() + 15 * slow()
+        while time.time() < end and clip not in run_as("ls", "files/voice-clips"):
+            time.sleep(1)
+        assert clip in run_as("ls", "files/voice-clips"), f"the voice service's clip {clip} on the phone"
+        again = spoken(line)
+        assert "clip on the phone" in again, f"the line again, from the phone: {again}"
+
+        qa_hook("audio:refresh", "settings:sound")
+        until = say("audioTrial.until", 0).split("{")[0]
+        assert wait_for(say("settings.sound", 0), 8) and tour_find(until, 8), "the settings' line, until when"
+        names = say("audioTrial.names", 0)[:30]
+        assert tour_find(names, 3), "the name library's rule"
+        every_size("settings", lambda: tour_find(names, 5))
+        go_home()
+
+        ended = glas_call("/dev/trial/end", {})["ended"]
+        assert ended == 1, f"one trial on the server: {ended}"
+        adb("logcat", "-c")
+        qa_hook("audio:refresh")
+        end = time.time() + 20 * slow()
+        while time.time() < end and "status=ended" not in status():
+            time.sleep(1)
+        assert "status=ended" in status(), f"the 403 ended it here: {status()}"
+        over = say("audioTrial.endTitle", 0)
+        assert on_home(over), "the card of the end on Home"
+        assert find(say("audioTrial.endText", 0)), "its text"
+        every_size("end", lambda: on_home(over))
+        assert tap(ok, 6), "its one button"
+        time.sleep(2 * slow())
+        assert not on_home(over), "gone once closed"
+        restart()
+        assert not on_home(over), "never again"
+
+        qa_hook("audio:refresh", "settings:sound")
+        ended_line = say("audioTrial.over", 0).split("{")[0]
+        assert wait_for(say("settings.sound", 0), 8) and tour_find(ended_line, 8), "the settings' line, ended"
+        every_size("settings-ended", lambda: tour_find(ended_line, 5))
+        go_home()
+
+        glas_stop(server)
+        qa_hook("audio:refresh")
+        time.sleep(3 * slow())
+        kept = spoken(line)
+        assert "clip on the phone" in kept, f"the clip heard before, the server gone: {kept}"
+        new = spoken(fresh)
+        assert "clip" not in new and new, f"a new line, the phone's voice: {new}"
+        (OUT / "trial-speech.txt").write_text(f"{line}: {first}, then {again}, after the end {kept}\n{fresh}: {new}\n")
+        print(f"    «{line}»: {first}, then {again}; after the end {kept}. «{fresh}»: {new}")
+        if d:
+            shutil.copy(OUT / "trial-speech.txt", Path(d) / "trial-speech.txt")
+    finally:
+        glas_stop(server)
+
+
 HOSTED_TITLE = "Lani na tej napravi"  # l10n hosted.title: the onboarding, the splash, the settings' connection
 HOSTED_NAME = "Ana"
 
@@ -21999,7 +22230,7 @@ HOSTED: dict = {}
 
 
 # The steps that run alone, with no node: the hosted mode, the tablet's first launch on this device alone.
-ALONE = {"hosted", "setup-tour", "first-run", "family-parent", "family-child"}
+ALONE = {"hosted", "setup-tour", "first-run", "audio-trial", "family-parent", "family-child"}
 
 
 def hosted_only(steps) -> bool:
@@ -22014,13 +22245,13 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "audio-trial", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
     if names & ALONE:
         if len(names) != 1:
-            sys.exit("the hosted step, setup-tour and first-run run alone (no node): --steps hosted, --steps setup-tour or --steps first-run")
+            sys.exit("the hosted step, setup-tour, first-run and audio-trial run alone (no node): --steps hosted, --steps setup-tour, --steps first-run or --steps audio-trial")
         return [s for s in steps if s[0] in names]
     return [s for s in steps if s[0] == "setup" or s[0] in names or s[4] in names]
 
