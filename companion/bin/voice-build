@@ -33,6 +33,7 @@
 //        companion/bin/voice-build --restore-gepard SNAPSHOT [--max N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --narrators [--max N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --upgrade-model [--max N] [--max-chars N] [--run] [--json] [--data DIR]
+//        companion/bin/voice-build --glas-corpus [--run] --data DIR   (DIR: an empty learner)
 //   --upgrade        also replace local (Gepard) clips with ElevenLabs ones while the quota lasts
 //   --revoice S      make every clip of speaker S again with ElevenLabs (after swapping its voice in companion/voice-cast.json)
 //   --max-chars N    spend at most N ElevenLabs characters in this run
@@ -118,9 +119,9 @@
 //                    their LANI_CULTURE)
 // Without --run, a dry run. The key comes from ELEVENLABS_API_KEY, else ~/.config/lani/keys.env (LANI_KEYS_FILE).
 import '../bridge/src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
-import { existsSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
-import { addresseeOf } from '../bridge/src/addressee'
+import { addressee, addresseeOf } from '../bridge/src/addressee'
 import { ArrivalStore, cultureArrivals } from '../bridge/src/arrivals'
 import { cast, castVoiced, denoiseVoices, isLearnerVoice, isSpeaker, PERSON_VOICE, personVoice, tempoVoices, useCastFile, usePersonVoices } from '../bridge/src/cast'
 import { CourseStore, courseDir } from '../bridge/src/course'
@@ -843,7 +844,10 @@ const familyIndex = (() => {
 })()
 // the learner's own languages the course's explanations are read in: --base, else the learner profile's
 const courseBases = bases.length ? bases : [learnerLangs(dirname(appDir), language).base]
-const everything = corpus({
+// the name a line that holds the learner's says, in --glas-corpus: no word of any language
+const STAND_IN = 'Zqxvnem'
+// what the content says, for whoever learns it
+const content = {
   packs: packs.all(),
   modules: modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? []),
   scenarios: scenarios.all(),
@@ -865,12 +869,63 @@ const everything = corpus({
   arrivals,
   // «Vidim, vidim»: what a child says playing I spy in the scenes (companion/ispy, the app bundles it)
   ispy: readISpy(process.env.LANI_ISPY_DIR ?? join(root, 'companion/ispy')),
-  ownVoice: id => !!personVoice(`@${id}`),
+  ownVoice: (id: string) => !!personVoice(`@${id}`),
+  language,
+}
+
+if (flag('--glas-corpus')) {
+  // our own content's lines into glas's corpus (GLAS_URL, GLAS_KEY with `curate`): what may be made for the app's routes. Nothing is
+  // voiced and nothing spent. Never a learner's own: a tutor's work in this data, or a line with a name in it. So it runs on an
+  // empty learner, for each gender, and a line that said the stand-in name stays out.
+  const made = ['modules', 'packs', 'scenes', 'scenarios', 'stories', 'villagers', 'grammar', 'course', 'arrivals'].filter(d => {
+    const dir = join(appDir, d)
+    return existsSync(dir) && readdirSync(dir).some(f => f.endsWith('.json'))
+  })
+  if (made.length) {
+    console.error(`--glas-corpus: this learner has content of their own (${made.join(', ')}), which must not go into the shared corpus: run it with --data on an empty learner`)
+    process.exit(2)
+  }
+  const said = (gender: string) => corpus({ ...content, cards: [], learner: addressee({ name: STAND_IN, gender }, language) })
+  const lines = new Map<string, { lang: string; text: string; source: string }>()
+  for (const i of [...said('male'), ...said('female')]) {
+    if (i.text.includes(STAND_IN.slice(0, -1))) continue
+    const lang = i.lang ?? language
+    lines.set(`${lang}|${normalizeText(i.text)}`, { lang, text: i.text, source: i.source.replace(/\s/g, '-').slice(0, 100) })
+  }
+  const all = [...lines.values()]
+  console.log(`${all.length.toLocaleString('en-US')} lines of ${culture} (${language}), no name in any.`)
+  if (!flag('--run')) {
+    console.log('Dry run: nothing sent. --run sends them; it voices nothing and spends nothing.')
+    process.exit(0)
+  }
+  const url = process.env.GLAS_URL?.trim().replace(/\/+$/, '')
+  const key = process.env.GLAS_KEY?.trim()
+  if (!url || !key) {
+    console.error('--glas-corpus: GLAS_URL and GLAS_KEY are not set')
+    process.exit(2)
+  }
+  let curated = 0
+  let skipped = 0
+  for (let at = 0; at < all.length; at += 2_000) {
+    const r = await fetch(`${url}/v1/corpus`, { method: 'POST', headers: { authorization: `Bearer ${key}`, 'content-type': 'application/json' }, body: JSON.stringify({ items: all.slice(at, at + 2_000) }) })
+    if (!r.ok) {
+      console.error(`--glas-corpus: HTTP ${r.status}: ${(await r.text()).slice(0, 200)}`)
+      process.exit(1)
+    }
+    const b = (await r.json()) as { curated: number; skipped: number }
+    curated += b.curated
+    skipped += b.skipped
+  }
+  console.log(`In the corpus: ${curated.toLocaleString('en-US')}${skipped ? `; ${skipped} left out (too long, or a language glas hasn't)` : ''}.`)
+  process.exit(0)
+}
+
+const everything = corpus({
+  ...content,
   cards: (() => {
     const sr = join(appDir, '..', 'spaced-repetition.json')
     return existsSync(sr) ? cardTexts(JSON.parse(readFileSync(sr, 'utf8')).items ?? {}) : []
   })(),
-  language,
   // rendered for the learner ({learner}, {m:…|f:…}: addressee.ts), as the app says it
   learner: addresseeOf(join(appDir, '..'), language),
   // the learner's own lines (the dialogs' choices) in their voice (my-voice.ts: their choice in learner-profile.json, else

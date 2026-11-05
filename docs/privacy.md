@@ -3,7 +3,7 @@
 Lani runs on your machine. The learner's data (their profile, mistakes, progress, reviews, the village, what the tutor
 made for them, the family's recordings, the session results) stays in `~/.local/share/lani/<id>` on that machine. This
 page lists everything that leaves it, where it goes, and how to turn it off. There is no telemetry and no analytics:
-Lani itself sends nothing to us.
+Lani itself sends nothing to us, but for what the voice service needs to speak, when you use it ([below](#the-voice-service-the-audio-trial-and-the-add-on)).
 
 ## Always: Anthropic, through Claude Code
 
@@ -37,6 +37,37 @@ With `ELEVENLABS_API_KEY` in `keys.env`, the bridge asks ElevenLabs to speak tex
 
 The texts only: not the learner's name, data, recordings or answers (unless the tutor wrote them into a line). The
 bridge also reads the account's remaining characters. Without a key nothing goes to ElevenLabs, and the phone speaks.
+
+## The voice service: the audio trial and the add-on
+
+Lani's own voice service speaks the villagers' lines for a phone with no computer behind it, and for a node that asks it to.
+It is off until you use it: an app that has no trial running and a node without `GLAS_URL` send it nothing.
+
+**On a phone, in the trial.** A new learner on this device hears every voice for a while, with no account and no card. Then the phone's
+own voices speak, and the clips already on the phone stay there. Nothing else is asked for and nothing is charged.
+
+- **What is sent:** the text of a line the app wants said, the voice to say it in, and a random number the app made when it was
+  first set up. That number is how a trial is told from another. It says nothing about you, and it is the only thing the service
+  knows about the phone: no name, no account, no device details, no advertising id. The service keeps a hash of it, and removes
+  it 90 days after the trial ends.
+- **What is kept:** a line of Lani's own content is voiced once and kept for everyone, with nothing that says who asked. Any other
+  line (a tutor's reply, say) is neither voiced nor kept: the phone says it. What a phone listened to is not recorded.
+- **A line with your name in it** goes there with the name in it, and comes back from the name library, below.
+
+**On a node.** With `GLAS_URL` and `GLAS_KEY` in `keys.env` the bridge asks the service first, with the text of each line and the
+speaker. A line of Lani's own content is kept for everyone. Any other line, a line with the learner's name in it among them, goes
+into the key's private namespace, is never in the shared library, and is deleted with the key's data. Someone's own designed voice
+is never sent.
+
+### The name library
+
+When a voice says a name, that clip goes into a library shared by everyone. **It is kept for every other learner of that name, and it
+is never tied to an account.** What is kept is the name, the voice and how it is said: no learner, no account, no node, no device,
+on the clip or in any log. So the fifty samples of Jonas made for one Jonas are there for the next one, and nothing says who the
+first one was.
+
+That also means a name can't be deleted as *yours*, because nothing says it is. Ask, and that name goes out of the library for
+everyone. A name that isn't one (too long, more than three words, anything but letters) is never voiced: the phone says the line.
 
 ## If you use Tailscale: Tailscale
 
@@ -157,6 +188,8 @@ app's own files (`<filesDir>/lani/data`), which only the app can read, and Andro
 
 - **The tutor's provider**, once the learner sets one up (the in-app tutor, on the learner's own key): what the tutor
   needs for a turn.
+- **The voice service**, only while the audio trial runs ([above](#the-voice-service-the-audio-trial-and-the-add-on)): the text of a
+  line, its voice and the app's random number. Not in the export: the number is the device's, not the learner's.
 - **The relay**, only when one is set (the build's, or the one set in ⚙️ Nastavitve · Settings → 🔗 Povezava · Connection: "🛰️ Posrednik (relay)"): the town's
   public state, its mail with other towns and the family page, and the encrypted backup. Without one, nothing.
 - **GitHub**, only when git is connected in 💾 Podatki · Data (above).

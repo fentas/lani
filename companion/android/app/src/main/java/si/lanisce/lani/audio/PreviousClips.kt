@@ -135,6 +135,22 @@ object PreviousClips {
         return Settled(s.previous, s.delete + passed)
     }
 
+    /**
+     * The index when the store that gave [olds] (newest first) is gone and [new] doesn't know its clips (the audio trial
+     * ended: the phone's own bridge answers an empty index, [si.lanisce.lani.data.AudioPlan]): [new], and every line and voice
+     * with a file on the phone ([has]), from [olds] and then [previous] (an earlier clip standing in plays on, as this line's
+     * clip now), so they keep playing and aren't a re-voice for [swap]. What isn't on the phone goes: the phone's voice says
+     * it. [new] itself when nothing stays.
+     */
+    fun heard(olds: List<ClipIndex>, new: ClipIndex, previous: ClipIndex, has: (String) -> Boolean): ClipIndex {
+        val out = LinkedHashMap<String, MutableMap<String, String>>()
+        for ((key, voices) in new) out[key] = LinkedHashMap(voices)
+        for (old in olds + listOf(previous)) for ((key, voices) in old) for ((voice, url) in voices) {
+            if (out[key]?.containsKey(voice) != true && has(fileOf(url))) out.getOrPut(key) { LinkedHashMap() }[voice] = url
+        }
+        return if (out == new) new else out
+    }
+
     /** [previous] without the entries whose files are [gone] (the cap dropped them). */
     fun without(previous: ClipIndex, gone: Set<String>): ClipIndex =
         previous.mapValues { (_, v) -> v.filterValues { fileOf(it) !in gone } }.filterValues { it.isNotEmpty() }

@@ -178,6 +178,8 @@ private fun Page(vm: AppViewModel, s: SettingsSection) {
                     si.lanisce.lani.ui.talk.BySelfSetting(vm)
                     // Lani on this phone has no node's clips nor its offline voice yet: the phone's text-to-speech speaks
                     if (!vm.hosted.active) OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 8.dp))
+                    // until when every voice is free, or that it ended; a quiet line, on this device only
+                    if (vm.audioTrial.said) AudioTrialLine(vm.audioTrial.state, Modifier.padding(top = 8.dp))
                 }
                 SettingsSection.CONNECTION -> Connection(vm)
                 SettingsSection.DEVELOPER -> Developer(vm)

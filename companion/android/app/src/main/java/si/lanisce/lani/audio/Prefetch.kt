@@ -17,6 +17,7 @@ import androidx.work.workDataOf
 import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
+import si.lanisce.lani.data.AudioPlan
 import si.lanisce.lani.data.ClipIndex
 import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.ClipsApi
@@ -149,7 +150,8 @@ object DayPlans {
 class PrefetchWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
         val app = applicationContext
-        LangSetting(app).apply() // the target language: the offline voice's
+        LangSetting(app).apply() // the target language: the offline voice's, and the audio trial's routes
+        AudioPlan.open(app)
         val settings = AudioSettings(app)
         val config = Prefs(app).config() ?: return Result.success()
         val files = AudioFiles(app.filesDir)
@@ -190,13 +192,15 @@ class PrefetchWorker(context: Context, params: WorkerParameters) : CoroutineWork
         }.getOrNull()
         val days = DayPlans.days(DayPlans.read(files), today, cards)
         val raw = api.index()
-        val index = Clips.parseIndex(raw)
+        val told = Clips.parseIndex(raw)
         // the phone's index before this one: the lines re-voiced since keep their earlier clips until the new ones are here
         val before = runCatching { Clips.parseIndex(File(files.clips, Clips.INDEX).readText()) }.getOrNull()
+        // after the audio trial the connection knows nothing of the clips it left: those on the phone stay
+        val index = if (api.keepsHeard) PreviousClips.heard(listOfNotNull(before), told, PreviousClips.read(files.clips), PreviousClips.onPhone(files)) else told
         val run = PrefetchRun(files, cap, index, prepare = { api.prepareAll(it) }, download = { url, to -> api.download(url, to) }, before = before)
         val status = run.run(days)
         // the app's index (the clip cache's copy) with what the node voiced meanwhile: those play offline too
-        runCatching { File(files.clips, Clips.INDEX).writeText(if (run.updated === index) raw else encodeIndex(run.updated)) }
+        runCatching { File(files.clips, Clips.INDEX).writeText(if (run.updated === told) raw else encodeIndex(run.updated)) }
         return status
     }
 

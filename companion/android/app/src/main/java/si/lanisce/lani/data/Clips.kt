@@ -27,6 +27,7 @@ import si.lanisce.lani.audio.ClipFiles
 import si.lanisce.lani.audio.DayAudio
 import si.lanisce.lani.audio.JoinPart
 import si.lanisce.lani.audio.LineJoin
+import si.lanisce.lani.audio.PrefetchWorker
 import si.lanisce.lani.audio.PreviousClips
 import java.io.File
 import java.io.IOException
@@ -79,31 +80,38 @@ data class ClipRoutes(val index: String, val say: String, val profiles: String, 
     }
 }
 
-/** HTTP for the node's voice store (companion/bridge/src/voice.ts), with the app token; on a visit the town's ([ClipRoutes.visit]). */
 /**
- * The audio service's one place in the app (docs/plans/05-built/first-minutes.md, "What this leaves for the audio trial"): who
- * makes the villagers' clips. Today the connection the learner has: the family's computer, or on this device its own bridge,
- * whose /voice/say answers 204 so that the phone's voice speaks. The trial (every voice, no account, no card) and the paid
- * add-on answer the same routes ([ClipRoutes.OWN]): they go here, as another [BridgeConfig] while they last. When they end this
- * gives the connection back, the clips already on the device stay and the lines fall back to the phone's voice: nothing is
- * lost and nothing else in the app changes.
+ * HTTP for the node's voice store (companion/bridge/src/voice.ts), with the app token; on a visit the town's
+ * ([ClipRoutes.visit]). [connection] answers what is the learner's own: their voice profiles, a re-record, a visit's routes.
+ * The routes that make or fetch clips ask [plan] at every request ([AudioPlan]: the connection, or while it lasts the audio
+ * trial), so everything that builds one of these follows it: the app's [Clips], the day's prefetch, the car's library.
  */
-object AudioPlan {
-    fun voices(connection: BridgeConfig): BridgeConfig = connection
-}
+class ClipsApi(val connection: BridgeConfig, private val routes: ClipRoutes = ClipRoutes.OWN, private val plan: VoicePlan = AudioPlan) {
+    /** A voice route's 403 trial_ended ends the trial at once ([AudioTrial.ended]); the caller gets the failure as any other. */
+    private val http = Http.client(connectSeconds = 3, readSeconds = 90).newBuilder().addInterceptor { chain ->
+        chain.proceed(chain.request()).also { r ->
+            if (r.code == 403 && planned && AudioTrial.endedBy(r.peekBody(2048).string())) plan.ended()
+        }
+    }.build()
 
-class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes = ClipRoutes.OWN) {
-    private val http = Http.client(connectSeconds = 3, readSeconds = 90)
+    /** Who answers index, say, prepare and a clip's file for this request. */
+    val voices: BridgeConfig get() = if (routes == ClipRoutes.OWN) plan.voices(connection) else connection
 
-    suspend fun index(): String = http.text(config.request(routes.index).build())
+    /** Someone else than the connection answers them now: it knows no "player" ([Clips.ask]). */
+    val planned: Boolean get() = voices != connection
+
+    /** The index came from the connection, and the clips the phone got elsewhere stay ([PreviousClips.heard]). */
+    val keepsHeard: Boolean get() = routes == ClipRoutes.OWN && plan.keepsHeard(connection)
+
+    suspend fun index(): String = http.text(voices.request(routes.index).build())
 
     /**
      * The index asked with the ETag of the one the phone has ([etag]): null when it is the same (a bridge with ETags
      * answers 304, nothing sent), else its text and its own ETag (null from a bridge without them). An [IOException]
-     * for another status or when the node can't be reached.
+     * for another status or when the node can't be reached. [from]: who is asked ([voices]).
      */
-    suspend fun indexIfChanged(etag: String?): Pair<String, String?>? {
-        val a = http.raw(config.request(routes.index).apply { etag?.let { header("If-None-Match", it) } }.build())
+    suspend fun indexIfChanged(etag: String?, from: BridgeConfig = voices): Pair<String, String?>? {
+        val a = http.raw(from.request(routes.index).apply { etag?.let { header("If-None-Match", it) } }.build())
         if (a.code == 304 && etag != null) return null
         if (a.code !in 200..299) throw IOException("HTTP ${a.code}: ${a.text.take(200)}")
         return a.text to a.etag
@@ -116,7 +124,7 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
      */
     suspend fun say(text: String, voice: String, lang: String? = null): Pair<String, String>? {
         val body = sayBody(text, voice, lang).toString().toRequestBody(Http.jsonType)
-        val (code, raw) = http.exchange(config.request(routes.say).post(body).build())
+        val (code, raw) = http.exchange(voices.request(routes.say).post(body).build())
         if (code == 204) return null
         if (code == 400) throw VoiceRefused(voice)
         if (code !in 200..299) throw IOException("HTTP $code")
@@ -132,7 +140,7 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
     suspend fun redo(text: String, voice: String): RedoAnswer {
         val path = routes.redo ?: throw IOException("no re-record on a visit")
         val body = buildJsonObject { put("text", text); put("voice", voice); put("client_id", UUID.randomUUID().toString()) }.toString().toRequestBody(Http.jsonType)
-        val (_, raw) = http.exchange(config.request(path).post(body).build())
+        val (_, raw) = http.exchange(connection.request(path).post(body).build())
         return RedoAnswer.parse(raw, voice, text)
     }
 
@@ -152,7 +160,7 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
                 for (t in texts) add(buildJsonObject { put("text", t.text); put("voice", t.voice); t.lang?.let { put("lang", it) } })
             })
         }.toString().toRequestBody(Http.jsonType)
-        val (code, raw) = http.exchange(config.request(path).post(body).build())
+        val (code, raw) = http.exchange(voices.request(path).post(body).build())
         if (code == 404) return null
         if (code !in 200..299) throw IOException("HTTP $code")
         val clips = json.parseToJsonElement(raw).jsonObject["clips"] as? kotlinx.serialization.json.JsonArray ?: return texts.map { null }
@@ -166,17 +174,17 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
      */
     suspend fun download(url: String, to: File) {
         if (LineJoin.isLine(url) && runCatching { join(url, to) }.onFailure { Log.w("Clips", "a line wasn't joined here: ${it.javaClass.name}: ${it.message}") }.getOrDefault(false)) return
-        http.downloadTo(config.request(url).build(), to)
+        http.downloadTo(voices.request(url).build(), to)
     }
 
     /** Line [url] joined into [to]: false when the node gives no manifest this app can read. */
     private suspend fun join(url: String, to: File): Boolean {
-        val (code, raw) = http.exchange(config.request(LineJoin.manifestUrl(url)).build())
+        val (code, raw) = http.exchange(voices.request(LineJoin.manifestUrl(url)).build())
         if (code !in 200..299) return false
         val m = LineJoin.parse(raw) ?: return false
         val dir = to.parentFile ?: return false
         val files = m.parts.map { p ->
-            p.url?.let { u -> File(dir, DayAudio.fileOf(u)).also { f -> if (!ClipFiles.get(f, emptyList()) { t -> http.downloadTo(config.request(u).build(), t) }) throw IOException("no part") } }
+            p.url?.let { u -> File(dir, DayAudio.fileOf(u)).also { f -> if (!ClipFiles.get(f, emptyList()) { t -> http.downloadTo(voices.request(u).build(), t) }) throw IOException("no part") } }
         }
         withContext(Dispatchers.IO) {
             val now = System.currentTimeMillis()
@@ -198,7 +206,7 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
             put("id", id)
             put("lines", kotlinx.serialization.json.buildJsonArray { for (t in lines) add(buildJsonObject { put("text", t.text); put("voice", t.voice) }) })
         }.toString().toRequestBody(Http.jsonType)
-        http.exchange(config.request(path).post(body).build())
+        http.exchange(connection.request(path).post(body).build())
     }
 
     /**
@@ -213,7 +221,7 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
                 for (t in texts) add(buildJsonObject { put("text", t.text); put("voice", t.voice) })
             })
         }.toString().toRequestBody(Http.jsonType)
-        val (code, raw) = http.exchange(config.request(path).post(body).build())
+        val (code, raw) = http.exchange(connection.request(path).post(body).build())
         if (code == 404) return null
         if (code !in 200..299) throw IOException("HTTP $code")
         return parseAhead(raw, texts.size)
@@ -238,7 +246,7 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
 
     /** Everyone's voice profile; null from an older bridge without them. */
     suspend fun profiles(people: List<PersonVoice>? = null): String? {
-        val req = if (people == null) config.request(routes.profiles).build() else {
+        val req = if (people == null) connection.request(routes.profiles).build() else {
             val body = buildJsonObject {
                 put("people", kotlinx.serialization.json.buildJsonArray {
                     for (p in people) add(buildJsonObject {
@@ -247,7 +255,7 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
                     })
                 })
             }.toString().toRequestBody(Http.jsonType)
-            config.request(routes.profiles).post(body).build()
+            connection.request(routes.profiles).post(body).build()
         }
         val (code, raw) = http.exchange(req)
         return if (code in 200..299) raw else null
@@ -267,7 +275,7 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
  * cap) with the learner's own, under their own names; nothing of the learner's own index, earlier clips or re-records is
  * touched, and a long press records nothing again.
  */
-class Clips(context: Context, private val scope: CoroutineScope, private val visit: Boolean = false) {
+class Clips(context: Context, private val scope: CoroutineScope, private val visit: Boolean = false, private val plan: VoicePlan = AudioPlan) {
     private val files = AudioFiles(context.filesDir)
     private val settings = AudioSettings(context)
     val dir: File = files.clips.also { moveOldCache(File(context.cacheDir, AudioFiles.CLIPS), it) }.apply { mkdirs() }
@@ -361,7 +369,7 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     val online: Boolean get() = api != null
 
     fun connect(config: BridgeConfig, routes: ClipRoutes = ClipRoutes.OWN) {
-        api = ClipsApi(AudioPlan.voices(config), routes)
+        api = ClipsApi(config, routes, plan)
     }
 
     /** [person]'s voice profile, when the node has one. */
@@ -382,11 +390,14 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     }
 
     /**
-     * The ETag of the index the phone read last from [indexOf] (this run of the app; the copy on disk is read whole once):
-     * asked with it, the same index costs a 304 and nothing else (2026-10-30, docs/plans/05-built/nav-perf.md: reading,
-     * parsing and writing it again on every Back to Home made tens of MB for the collector).
+     * The ETag of the index the phone read last ([etag], this run of the app; the copy on disk is read whole once), of [api]
+     * and of who answered ([from]: the trial's or the connection's own): asked with it, the same index costs a 304 and
+     * nothing else (2026-10-30, docs/plans/05-built/nav-perf.md: reading, parsing and writing it again on every Back to Home
+     * made tens of MB for the collector).
      */
-    private var indexTag: Pair<ClipsApi, String>? = null
+    private class IndexTag(val api: ClipsApi, val from: BridgeConfig, val etag: String)
+
+    private var indexTag: IndexTag? = null
 
     /** Reloads the index from the node (on start and when content was published or voiced); the same as before, nothing. */
     fun refresh() {
@@ -398,10 +409,11 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
         scope.launch {
             // A bad index must not crash the app: parse inside the catch, write the file off the main thread. The same index
             // as the last one read (a 304): nothing to do.
-            val tag = indexTag?.takeIf { it.first === a }?.second
-            val got = withContext(Dispatchers.IO) { runCatching { a.indexIfChanged(tag) } }.getOrElse { return@launch } ?: return@launch
+            val from = a.voices
+            val tag = indexTag?.takeIf { it.api === a && it.from == from }?.etag
+            val got = withContext(Dispatchers.IO) { runCatching { a.indexIfChanged(tag, from) } }.getOrElse { return@launch } ?: return@launch
             val (raw, parsed) = withContext(Dispatchers.IO) { runCatching { got.first to parseIndex(got.first) }.getOrNull() } ?: return@launch
-            indexTag = got.second?.let { a to it }
+            indexTag = got.second?.let { IndexTag(a, from, it) }
             if (visit) {
                 // a visit's index: in memory only, with what was voiced for it meanwhile
                 index = parsed + index.filterKeys { it !in parsed }
@@ -410,13 +422,15 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
                 return@launch
             }
             val before = index
-            withContext(Dispatchers.IO) {
+            index = withContext(Dispatchers.IO) {
                 val disk = loadIndex()
-                runCatching { File(dir, INDEX).writeText(raw) }
+                // after the audio trial the connection knows nothing of the clips it left: those on the phone stay
+                val now = if (a.keepsHeard) PreviousClips.heard(listOf(disk, before), parsed, PreviousClips.read(dir), PreviousClips.onPhone(files)) else parsed
+                runCatching { File(dir, INDEX).writeText(if (now === parsed) raw else PrefetchWorker.encodeIndex(now)) }
                 // the lines re-voiced since: their earlier clips on the phone play until the new ones are here
-                runCatching { PreviousClips.swapIn(files, listOf(disk, before), parsed, referenced = emptySet()) }
+                runCatching { PreviousClips.swapIn(files, listOf(disk, before), now, referenced = emptySet()) }
+                now
             }
-            index = parsed
             fresh = true
             misses.clear()
             renewFailed.clear()
@@ -735,10 +749,11 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
 
     /**
      * Asks the node to voice [phrase] in the first of [voices] it knows: a voice it refuses (an older
-     * bridge has only female and male) tries the next. Null when no engine can make it now.
+     * bridge has only female and male) tries the next. Null when no engine can make it now. Only a node knows
+     * [PLAYER]: the audio trial is asked in the voice the learner's lines are in ([known]), and for none when they have none.
      */
     private suspend fun ask(a: ClipsApi, phrase: String, voices: List<String>): Pair<String, String>? {
-        for (v in voices) {
+        for (v in if (a.planned) known(voices) - NONE else voices) {
             try {
                 return a.say(phrase, v)
             } catch (_: VoiceRefused) {

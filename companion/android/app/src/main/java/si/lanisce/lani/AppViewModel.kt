@@ -301,6 +301,12 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     var dataOpen by mutableStateOf(false)
 
     /**
+     * The audio trial (app/AudioTrialController, data/AudioPlan.kt): every voice of the village for a learner on this device,
+     * no account and no card, then the phone's voices with nothing lost. When it begins or ends the clips' index is read anew.
+     */
+    val audioTrial = si.lanisce.lani.app.AudioTrialController(app, viewModelScope, hosted = { hosted.isHosted(connected) }) { clips.refresh() }
+
+    /**
      * "☁️ Lani na tem telefonu · Lani on this phone" (hosted/HostedController, docs/plans/05-built/hosted-mode.md): no node,
      * the bridge in the app's process (QuickJS), the learner's data in <filesDir>/lani/data. The connection is then the
      * phone's own address, so everything below talks to it as to a node (phone/PhoneTransport). Opt-in, at setup or by
@@ -565,6 +571,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     private val networkBack = si.lanisce.lani.app.NetworkBack(viewModelScope, si.lanisce.lani.tutor.live.AndroidOnline.of(app)) {
         if (foreground && bridge != null) events.restart()
         flushOutbox()
+        audioTrial.check(again = true)
     }
     /** The app is on screen; the event stream only runs then. */
     private var foreground = false
@@ -894,6 +901,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         clips.connect(c)
         myVoice.connect(c)
         stt.connect(c)
+        audioTrial.check() // on this device: the voices are the village's before the first moment
         // Home, or the screens the learner was on before the process died (the stack saved, Nav.kt)
         val back = restoring
         restoring = null
@@ -1353,6 +1361,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         shadow.onForeground() // a digest when the app was away two hours or more
         data.onForeground() // the data repository pulled (git connected only)
         live.onForeground() // the live tutor's long poll of the bridge's inbox (when it's on)
+        audioTrial.check() // how the audio trial stands, at most once a day (on this device, with a voice service)
     }
 
     /**
@@ -1793,7 +1802,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * clips got now, "voice" the offline voice downloaded, "say:<text>" / "slow:<text>" a text said as a 🔊 says it
      * ("say:<text>|<voice>|<person>": as that person says it in that voice, as a villager's line),
      * "revoice:<text>|<url>" its narrator clip re-voiced on the phone's side to <url> (else one the node hasn't got), as the
-     * node's re-voice swaps it ([Clips.qaRevoice]), "refresh" the node's index again.
+     * node's re-voice swaps it ([Clips.qaRevoice]), "refresh" the node's index again, "trial:<what>" the audio trial
+     * ([si.lanisce.lani.app.AudioTrialController.qa]).
      */
     fun qaAudio(what: String) {
         when {
@@ -1805,6 +1815,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             what.startsWith("slow:") -> speaker.say(what.removePrefix("slow:"), slow = true)
             what.startsWith("revoice:") -> what.removePrefix("revoice:").split('|', limit = 2).let { clips.qaRevoice(it[0], it.getOrNull(1)?.takeIf(String::isNotBlank)) }
             what == "refresh" -> (visitClips ?: clips).refresh()
+            what.startsWith("trial:") -> audioTrial.qa(what.removePrefix("trial:"))
             // the phone's text-to-speech as if it had no voice for any language (a tablet without the town's), and back
             what == "tts:off" -> speaker.qaNoTts = true
             what == "tts:" -> speaker.qaNoTts = false
@@ -1927,7 +1938,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             if (p.language != target.code) continue
             words += p.words.filter { it.id !in p.learned }.map { id to it }
         }
-        val index = Clips.parseIndex(a.index())
+        // after the audio trial the phone's own bridge has none: the clips the trial left on the phone are the ones there are
+        val index = if (a.keepsHeard) clips.index else Clips.parseIndex(a.index())
         // the car's drills: the node's (an older one has none: 404), else the app's own; those of a rule not introduced
         // to the learner yet are left out (the grammar book's pages, in the book's language)
         val drills = si.lanisce.lani.data.Drills.merge(si.lanisce.lani.data.Drills.bundled(target.code), runCatching { b.drills() }.getOrNull())

@@ -18,6 +18,7 @@ import { tutorOf } from './cultures'
 import { appApi, buildBridge as build, type BuiltBridge as Built, type Platform, type Voicing, type VoiceSetting } from './build'
 import type { FeatureFactory } from './feature'
 import { router, serve } from './http'
+import { glasFromEnv } from './glas'
 import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, lazyModelUpgrade, redoDaily, revoiceDaily, sloveneNarrators, voiceMonthly, VoiceStore } from './voice'
 import { Profiles } from './profiles'
 import { voiceDir } from './paths'
@@ -41,8 +42,11 @@ export type BuiltBridge = Built<Channel>
  */
 export function nodeVoices({ env, language, culture }: VoiceSetting): Voicing {
   const { eleven, gepard } = enginesFromEnv(env, log, language)
-  const engines = language === 'sl' ? [eleven, gepard] : castVoiced() ? [eleven] : []
-  if (!engines.length) log(`voice: the ${culture.id} voice cast has no voices yet: the app speaks with the phone's text-to-speech`)
+  const local = language === 'sl' ? [eleven, gepard] : castVoiced() ? [eleven] : []
+  if (!local.length) log(`voice: the ${culture.id} voice cast has no voices yet: the app speaks with the phone's text-to-speech`)
+  // the hosted voice service, asked first when GLAS_URL and GLAS_KEY are set; the node's own engines and the phone after it
+  const glas = glasFromEnv(env, log, language)
+  const engines = glas.configured && local.length ? [glas, ...local] : local
   return {
     store: ({ appDir, ctx }) =>
       new VoiceStore({
@@ -81,7 +85,7 @@ export function nodeVoices({ env, language, culture }: VoiceSetting): Voicing {
         onVoiceChanged: voice => ctx.voice.dropVoice(voice),
         onUpdated: person => ctx.events.emit({ type: 'voice_updated', clips: 0, person }),
       }),
-    ready: ctx => log(`voice: elevenlabs ${eleven.configured ? 'configured' : 'not configured'}, local worker checked on demand, clips in ${ctx.voice.dir}`),
+    ready: ctx => log(`voice: ${glas.configured ? 'glas first, ' : ''}elevenlabs ${eleven.configured ? 'configured' : 'not configured'}, local worker checked on demand, clips in ${ctx.voice.dir}`),
     // a visited town's lines in its own cast's voices (features/visit-voices.ts): ElevenLabs in any language, the local
     // worker for a Slovene town; the same engines as the village's (one quota guard, one gate)
     engines: () => ({ eleven, gepard }),

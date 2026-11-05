@@ -128,7 +128,7 @@ family and not for resale (Anthropic's terms allow a key for the owner's own aut
 
 ### What this leaves for the audio trial
 
-`data/Clips.kt` `AudioPlan.voices`: the one place that says who makes the villagers' clips. The trial (all voices, no account,
+`data/AudioPlan.kt` `AudioPlan.voices` (in `data/Clips.kt` until [audio-service](audio-service.md) built it): the one place that says who makes the villagers' clips. The trial (all voices, no account,
 no card) and the paid add-on answer the same routes, so they go there as another `BridgeConfig`; when they end it gives the
 connection back, the clips on the device stay and lines fall back to Piper and the phone's voices.
 
@@ -205,5 +205,5 @@ answer in four languages and `firstRun.won` in four, about 150 characters togeth
   know about sockets, and what they carry is already sealed.
 - **A key can't be checked offline:** a new device without the internet gets "the family's key doesn't work here", and the code is
   spent. A parent shows a new one.
-- **The audio trial**, at `AudioPlan`; the family key's audio plan with it.
+- **The audio trial**: built ([audio-service](audio-service.md)). The family key's audio plan waits for the paid add-on.
 - A Gemini key doesn't cross.

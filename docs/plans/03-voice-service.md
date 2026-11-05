@@ -398,11 +398,12 @@ clips only** (live lines stay ElevenLabs' or Gepard's): `companion/voice-drama3`
 | Kind of text | Where it goes |
 |---|---|
 | Curated and published content: packs, modules, scenes, villager lines, festival words | The **shared** library: made once, cached for everyone, and part of the corpus. |
-| A learner's name, in clips of its own ([audio-names](05-built/audio-names.md)), and the shared pieces of the lines around it | The **shared** name library: keyed by language, voice, name and kind, tied to nobody, reused for everyone of that name. |
-| Personal lines: the tutor's role-play replies, anything from a chat | A **private** namespace per node or tenant: cached for that node, never in the shared corpus, and deleted with the tenant. |
+| Personal lines: the tutor's role-play replies, anything from a chat, a line voiced whole with the learner's name in it | A **private** namespace per node or tenant: cached for that node, never in the shared corpus, and deleted with the tenant. |
+| A name's own clips, and the shared pieces of the lines around it ([audio-names](05-built/audio-names.md)) | The **name library** (Jan's decision, 2026-11-04): keyed by language, voice, name and kind, kept for every other learner of that name, tied to no account, node, key or device. |
 
-The node marks each request as `shared` or `private`; glas defaults to private. GDPR applies to the private
-namespace (export and deletion).
+The node doesn't mark a line (built 2026-11-05): a line of our own content goes to the library whoever asks, any other to the key's
+private namespace, so a line with a learner's name in it can't reach the library from a node. GDPR applies to the private namespace
+(export and deletion).
 
 ## Tech stack
 
@@ -453,15 +454,20 @@ Chosen to match what the hosting platform already runs, and what the bridge is w
 | `GET` | `/v1/usage` | The key's usage and quota. |
 | `GET` | `/healthz`, `/metrics` | |
 
+Built since (2026-11-05, [audio-service](05-built/audio-service.md)): `/v1/trial`, `/v1/corpus`, the name library's routes and
+`/v1/app/<lang>/voice/…`, the routes an app uses with no computer behind it.
+
 ## How the bridge changes
 
-- `VoiceStore` gets a glas backend. It asks glas first and keeps its local cache (SQLite plus files) as it
-  does now. With glas unreachable, it falls back to local engines (Gepard), then the phone, as today.
+- `VoiceStore` gets a glas backend (built 2026-11-05: `companion/bridge/src/glas.ts`, `GLAS_URL` and `GLAS_KEY`). It asks glas first
+  and keeps its local cache (SQLite plus files) as it does now. With glas unreachable, it falls back to local engines (Gepard), then
+  the phone, as today.
 - `voice-cast.json` and the profiles move to glas characters. A node keeps only the mapping of its people to
   glas characters.
 - The prebuild (`bin/voice-build`) becomes `POST /v1/clips/resolve` for the content's texts. glas decides
   what's new.
-- The app doesn't change at first: it keeps talking to its bridge. Later it could fetch signed URLs directly.
+- The app doesn't change on a node: it keeps talking to its bridge. A device with no node has no voices of its own, so there it
+  asks glas directly during a trial (`AudioPlan`, [audio-service](05-built/audio-service.md)).
 
 ## Phases
 
