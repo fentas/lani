@@ -296,7 +296,7 @@ URL is any clip's to it (`Clips.file`, `ClipsApi.download`), which the code at t
 ## Samples to listen to
 
 Built by `bun test/name-samples.ts <the test's folder> <folder>`: `<id>-joined.mp3` beside `<id>-whole.mp3`, the same line voiced whole.
-Play the whole one first. The rating is the table above, not an ear.
+The folder needs the test's `takes/` and its whole lines in `store/`. Play the whole one first. The rating is the table above, not an ear.
 
 | Sample | Line | Listen for |
 |---|---|---|
