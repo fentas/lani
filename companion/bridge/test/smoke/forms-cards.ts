@@ -201,7 +201,7 @@ export default async function formsCards() {
     "GET /forms-cards: each word's tables as its card would have them (delati's future joined, dober's cases), tested left empty, none of a word the dictionary lacks; nothing written, no card made",
     tv.ok && tb.language === 'sl' && tDelati?.lemma === 'delati' && tDelati.pos === 'verb' && tDelati.slots.some((x: any) => x.key === 'fut.1sg' && x.composed) &&
       same(tDelati.tested, []) && !tDelati.asked && tDober?.slots?.some((x: any) => x.key === 'adj.gen.m.sg') && same(tb.words?.[2]?.tables, []) &&
-      String(tb.attribution).includes('Wiktionary') && readFileSync(join(dataDir, 'spaced-repetition.json'), 'utf8') === unread,
+      String(tb.attribution).includes('Wiktionary') && String(tb.attribution).includes('Sloleks 3.0') && readFileSync(join(dataDir, 'spaced-repetition.json'), 'utf8') === unread,
     { delati: tDelati?.slots?.length, dober: tDober?.slots?.length, words: tb.words?.map((w: any) => [w.word, w.tables.length]) },
   )
   const tbad = await Promise.all([get(''), get(`?${Array.from({ length: 11 }, (_, i) => `w=a${i}`).join('&')}`), get(`?w=${'x'.repeat(41)}`)])

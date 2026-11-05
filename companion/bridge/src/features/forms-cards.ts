@@ -9,14 +9,14 @@ import { z } from 'zod'
 import { renderDeep } from '../addressee'
 import { learnedItem } from '../counting'
 import type { FeatureFactory } from '../feature'
-import { adjectiveForms, contentLines, formsOf, LineIndex, type LemmaForms } from '../forms'
+import { adjectiveForms, contentLines, formsAttribution, formsOf, LineIndex, type LemmaForms } from '../forms'
 import { bareWord, isParadigmLanguage } from '../paradigms'
 import {
   cardOfItem, formsCardOf, formsCardVocabulary, formsItemId, isCard, MIN_TESTED, MIN_TESTED_ASKED, resurfacePlan,
   testedOf, usefulness, usesOf, type CardContext, type FormsCardData,
 } from '../forms-cards'
 import { json, readJson } from '../http'
-import { ATTRIBUTION, normalizeForm } from '../lexicon'
+import { normalizeForm } from '../lexicon'
 import { LANGUAGES } from '../learners'
 import { itemId, normWord, wordOf } from '../packs'
 
@@ -276,8 +276,7 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
       })
       return { word, tables }
     })
-    const wiktionary = out.some(w => w.tables.some(t => t.table === 'wiktionary'))
-    return json({ language, words: out, attribution: wiktionary ? ATTRIBUTION : null })
+    return json({ language, words: out, attribution: formsAttribution(language, out.flatMap(w => w.tables)) })
   }
 
   return {

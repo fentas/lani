@@ -3882,7 +3882,7 @@ adjective; `lep` is an adjective, nice, and a noun, glue):
         "lines": [{ "sl": "Lahko sedem na zapeček?", "en": "May I sit down on the stove bench?", "form": "sedem", "from": "scene:v-hisi" }] },
       { "key": "pres.1du", "forms": ["sedeva"], "grammar": "first-person dual present", "page": "dvojina", "needs": ["glagoli-sedanjik"] },
       … ] }] }],
-  "attribution": "Wiktionary (CC BY-SA 4.0) via kaikki.org" }
+  "attribution": "Wiktionary (CC BY-SA 4.0) via kaikki.org; Sloleks 3.0, CJVT UL (CC BY-SA 4.0)" }
 ```
 
 - **Slots**, in this order: a verb's present (`pres.1sg` … `pres.3pl`, then the dual `pres.1du` …), negative present
@@ -3967,6 +3967,10 @@ language has its own slots (`LANG_KEYS` in `bridge/src/paradigms.ts`), each on a
 - **Forms cards** for the three as well (below, "Forms cards"): `POST` and `GET /forms-cards` with `v: 2`; `GET /state`
   says `forms-cards-v2` in their villages. An older app is sent none of their cards: `GET /state` leaves the review items
   that are another language's forms cards out unless the app asks with `forms=2` (`withoutOtherFormsCards`).
+
+**Whose a table is.** A table credits its sources under it, as CC BY-SA 4.0 asks: Wiktionary for the forms that are its, Sloleks 3.0 for any Slovene
+table, a hand-checked one too, since the order file below reads every one (`formsAttribution`, in GET /forms' and GET /forms-cards' `attribution`; the
+app's `FormsCard.credit` says the same where no answer came: a table after a forms card, one from the phone's cache).
 
 **Which form a slot shows.** A slot with more than one form shows its first, the others right too: the hand-checked table's order,
 else the regular check's forms (below), else what `lexicon/sl.forms-order.json` names, made from Sloleks 3.0 by

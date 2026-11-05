@@ -11,9 +11,21 @@ import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
 import type { Log } from './config'
-import { englishWords, enScore, glossCoverage, normalizeForm, PREPOSITIONS, wordsOf, type Aspect, type Lexicon, type Partner, type WordGender } from './lexicon'
+import { ATTRIBUTION, englishWords, enScore, glossCoverage, normalizeForm, PREPOSITIONS, wordsOf, type Aspect, type Lexicon, type Partner, type WordGender } from './lexicon'
 import { checkNoun } from './noun-paradigm'
 import { isParadigmLanguage, otherFormsOf, type Paradigms } from './paradigms'
+
+/** Sloleks 3.0's credit (NOTICE.md): which form a Slovene table shows first and the nouns it asks in the singular only are its (sl.forms-order.json). */
+export const SLOLEKS_ATTRIBUTION = 'Sloleks 3.0, CJVT UL (CC BY-SA 4.0)'
+
+/**
+ * What an answer of [tables] of [language] credits, CC BY-SA 4.0 asking for it: Wiktionary for the forms that are its, Sloleks
+ * for any Slovene table, whichever source its forms are from. Null without a table.
+ */
+export function formsAttribution(language: string, tables: { table?: string }[]): string | null {
+  const parts = [...(tables.some(t => t.table === 'wiktionary') ? [ATTRIBUTION] : []), ...(language === 'sl' && tables.length ? [SLOLEKS_ATTRIBUTION] : [])]
+  return parts.length ? parts.join('; ') : null
+}
 
 // --- slots -------------------------------------------------------------------------------------------------------
 

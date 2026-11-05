@@ -80,7 +80,7 @@ class FormsController(
     /** The cached entries of [lemma]; null when the phone hasn't asked yet. */
     fun entriesOf(lemma: String): List<LemmaForms>? = cache[WordFormsWire.key(lemma)]?.takeIf { it.current }?.entries
 
-    /** What the tables of [lemma] carry as their source (Wiktionary's attribution); null when none. */
+    /** What the tables of [lemma] carry as their source (the bridge's attribution); null when none. */
     fun attributionOf(lemma: String): String? = cache[WordFormsWire.key(lemma)]?.takeIf { it.current }?.attribution
 
     /** The entry of [lemma] a word card's entry of part of speech [pos] meaning [gloss] is about. */

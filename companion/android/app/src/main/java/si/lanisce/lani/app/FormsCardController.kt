@@ -207,7 +207,7 @@ class FormsCardController(
     /** After a forms card ([d]: its word's table), from its end: the whole table to read. */
     fun open(d: FormsCardData) {
         viewJob?.cancel()
-        view = FormsView(d.lemma, d.pos, meaning = d.meaning, emoji = d.emoji, gloss = d.gloss, inRun = true, look = FormsLook.Ready(d))
+        view = FormsView(d.lemma, d.pos, meaning = d.meaning, emoji = d.emoji, gloss = d.gloss, inRun = true, look = FormsLook.Ready(d, FormsCard.credit(d.table, d.language)))
     }
 
     /** The overview's "↻": its table asked for again. */
@@ -260,7 +260,7 @@ class FormsCardController(
             WordFormsWire.entryFor(all.filter { e -> v.pos == null || e.pos == v.pos }.ifEmpty { all }, v.gloss.joinToString(", "))
         } ?: return null
         val d = FormsCard.fromForms(entry, v.meaning, v.emoji) ?: return null
-        return FormsLook.Ready(d, if (entry.table == "wiktionary") ATTRIBUTION else null)
+        return FormsLook.Ready(d, FormsCard.credit(entry.table, entry.language))
     }
 
     /**
@@ -319,8 +319,5 @@ class FormsCardController(
     private companion object {
         /** The longest the note waits for the news on screen before it. */
         const val NEWS_WAIT_MS = 12_000L
-
-        /** Whose forms the dictionary's are (the bridge says the same with GET /forms). */
-        const val ATTRIBUTION = "Wiktionary (CC BY-SA 4.0) via kaikki.org"
     }
 }

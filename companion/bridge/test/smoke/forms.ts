@@ -4,7 +4,7 @@
 import { mkdtempSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { contentLines, FormsBook, formsOf, LineIndex, moodInEnglish, slotsOf, validateFormsBook, type LemmaForms } from '../../src/forms'
+import { contentLines, FormsBook, formsAttribution, formsOf, LineIndex, moodInEnglish, slotsOf, validateFormsBook, type LemmaForms } from '../../src/forms'
 import { withFormsInOrder } from '../../src/features/reviews'
 import { cardInOrder, type FormsCardData } from '../../src/forms-cards'
 import { checkNoun } from '../../src/noun-paradigm'
@@ -31,6 +31,12 @@ export default async function formsSection() {
       same(slotsOf('noun', 'nominative/accusative dual; genitive singular'), { keys: ['nom.du', 'acc.du', 'gen.sg'], other: false }) &&
       same(slotsOf('noun', 'genitive dual/plural'), { keys: ['gen.du', 'gen.pl'], other: false }),
     [slotsOf('verb', 'feminine singular l-participle; masculine dual l-participle; neuter plural l-participle'), slotsOf('noun', 'nominative/accusative dual; genitive singular')],
+  )
+  check(
+    "a table's credit: Wiktionary for its forms, Sloleks for any Slovene table, a hand-checked one too; another language's Wiktionary alone; none without a table",
+    formsAttribution('sl', [{ table: 'checked' }]) === 'Sloleks 3.0, CJVT UL (CC BY-SA 4.0)' && formsAttribution('it', [{ table: 'wiktionary' }]) === 'Wiktionary (CC BY-SA 4.0) via kaikki.org' &&
+      formsAttribution('sl', []) === null && formsAttribution('it', []) === null,
+    formsAttribution('sl', [{ table: 'checked' }]),
   )
   check(
     "slotsOf: the supplement's degree, said once at a label's start, holds for each of its readings: a comparative is no plain adjective's plural",
@@ -66,7 +72,7 @@ export default async function formsSection() {
       same(slot(s0, 'past.f.sg')?.forms, ['sedla']) && slot(s0, 'past.f.sg')?.page === 'pretekli-cas' &&
       same(slot(s0, 'imp.2pl')?.forms, ['sedite']) && slot(s0, 'imp.2pl')?.page === 'velelnik' &&
       slot(s0, 'pres.1du')?.page === 'dvojina' && same(slot(s0, 'pres.1du')?.needs, ['glagoli-sedanjik']) &&
-      r.body.attribution === 'Wiktionary (CC BY-SA 4.0) via kaikki.org',
+      r.body.attribution === 'Wiktionary (CC BY-SA 4.0) via kaikki.org; Sloleks 3.0, CJVT UL (CC BY-SA 4.0)',
     { status: r.status, sesti: s0?.slots.slice(0, 3) },
   )
   const h0 = hisa?.entries?.[0] as LemmaForms | undefined

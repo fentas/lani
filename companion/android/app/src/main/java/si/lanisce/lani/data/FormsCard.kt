@@ -195,6 +195,20 @@ data class FormsGap(
  *   secure (a fresh part chosen still); graded as the app grades a cloze ([grade]); a wrong one has its [kind].
  */
 object FormsCard {
+    /** Wiktionary's credit (CC BY-SA 4.0), as the bridge's answers carry it. */
+    const val WIKTIONARY = "Wiktionary (CC BY-SA 4.0) via kaikki.org"
+
+    /** Sloleks 3.0's (CC BY-SA 4.0): which form a Slovene table shows first and the nouns it asks in the singular only are its. */
+    const val SLOLEKS = "Sloleks 3.0, CJVT UL (CC BY-SA 4.0)"
+
+    /**
+     * What a table credits, whichever way it came (the bridge's forms.ts `formsAttribution` says the same of its answers):
+     * Wiktionary for a [table] of its forms, Sloleks for any Slovene one ([language] null, or sl). Null when there's nothing to
+     * credit.
+     */
+    fun credit(table: String?, language: String?): String? =
+        listOfNotNull(WIKTIONARY.takeIf { table == "wiktionary" }, SLOLEKS.takeIf { language == null || language == "sl" }).joinToString("; ").ifEmpty { null }
+
     /** The card's type in spaced-repetition.json. */
     const val KIND = "forms"
     /** What GET /state's `features` says of a bridge that makes forms cards (POST /forms-cards). */
