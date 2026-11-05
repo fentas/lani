@@ -266,13 +266,14 @@ class EnglishHintTest {
             var formTurns = 0
             var triggered = 0
             val report = mutableListOf<String>()
+            val silent = mutableListOf<String>()
             val byLine = sortedMapOf<String, Int>()
             for ((where, line) in curatedTurns()) {
                 turns++
                 val h = TurnHints.of(line, "en", cast, page) ?: continue
                 hints++
                 val t = TurnHints.text(h, page)
-                if (t.lines.isNotEmpty()) said++
+                if (t.lines.isNotEmpty()) said++ else silent += "${h.pages.first()} | ${h.right} | ${line.choices.firstOrNull { it.ok }?.sl} | ${h.forms}"
                 for (s in t.lines + t.rows + t.links.mapNotNull { it.second }) assertTrue("$where: «$s» gives away ${h.right}", TurnHints.fair(s, h))
                 for (m in h.models) assertFalse("$where: the model «$m» shows one of ${h.forms}", h.forms.any { TurnHints.shows(m, it, stem = true) })
                 for (s in HintSpeech.lines(h)) assertTrue("$where: the 🔊 «$s» gives away ${h.right}", TurnHints.fair(HintSpeech.plain(s), h))
@@ -291,6 +292,7 @@ class EnglishHintTest {
                 }
             }
             if (base == Lang.SL) File("build/reports/hints").apply { mkdirs() }.resolve("en.txt").writeText(report.sorted().joinToString("\n") + "\n")
+            File("build/reports/hints").apply { mkdirs() }.resolve("en-silent-${base.code}.txt").writeText(silent.sorted().joinToString("\n") + "\n")
             println("English (${base.code}): $turns turns, $hints with a hint, $said with a rule or a trigger; $triggered of $formTurns form turns name what decides: $byLine")
             assertTrue("turns with a hint: $hints", hints > 700)
             // (Lakeland has many turns of two right choices or of another length, "I'm fine, thank you." and "Very well,
