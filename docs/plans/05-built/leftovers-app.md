@@ -99,3 +99,46 @@ A new device with no internet got "the family's key doesn't work here", and the 
 - **After a claim:** a check that couldn't run, on any provider, says nothing of the key. It's kept sealed (`FamilyBook.keyWaiting`), tried again
   each round once there's a network, and the learner is told. Only the provider's no is "the family's key doesn't work here" (`FamilyKey`).
   A key the learner set meanwhile stays theirs.
+
+## The hard limits, and how each is held
+
+| Limit | Held by |
+|---|---|
+| The QR holds no key and works once | `Offer` carries an address, a one-time code, a public key, an expiry and the relay's address, and tests pin the fields; `Sender.claim` is one claim across both ways. A family computer's code is the same: `lani://pair`, five fields, one use, 10 minutes |
+| What crosses stays sealed end to end | ECDH with the code as salt for the exchange; a key each way from the bond after it; a test keeps every byte a relay is given and looks for the key, the name, the public key and the code |
+| A child's device can't add a member or change a budget | the page isn't there, `FamilyDevices` and `FamilyShareController` do nothing, its bridge answers `403 child` whatever it's sent, and it has no list to send to |
+| A parent's hold, everywhere | a new member, a new code, another device, a budget, a removal, taking a device off the list, leaving: each behind `HoldToOpen`. It's a two-second press in the app, not a proof: the bridge can't see it, so limit 3 doesn't rest on it |
+
+**An independent review** of this branch, against those four limits, found two breaks and both are fixed: "new code" and "another device" minted a pairing code on one tap, and `leave()` lifted a limit on a child's device. It also found a removed device getting the family's key from a check still waiting, the computer's "no rule" wiping a limit that came over the bond, a device forgetting the relay its code named, a multicast discovery left running by every find, a crash on a QR with an unusable relay address, sockets held open by a byte now and then, a device listed when nothing went, `FLUENT_*` tokens and a data remote that could reach a new learner's bridge, and drop boxes one address could fill. All fixed, each with a test.
+
+**Left as it is, on purpose:** a device's name isn't covered by the proof and crosses the Wi-Fi in the clear, so an on-path neighbour could read it, or swap the name a parent reads before holding; they still can't take the key. Covering it would break pairing with an older app. A hello played back on the Wi-Fi can move "last in touch" and nothing else. A budget is kept by the child's own app, so it's as strong as that app. Someone who floods the office with connections can delay a note, a visit at a time; nothing leaks.
+
+## How
+
+- `companion/relay/src/drop.ts`; `Store` `putDrop`, `takeDrops`.
+- `companion/bridge/src/family-members.ts`, `features/family-members.ts`; `learners.ts` `addLearner`, `tailnetHost`; `features/town-requests.ts` `ctx.linkLocalChild`.
+- `data/FamilyLink` (`Way`, `Listener`, `RelayWay`, `Drop`, `bondKey`, `Offer.relay`), `data/FamilyPost` (`FamilyBook`, `FamilyNote`, `Keys`, `Office`, `visit`), `data/FamilyDrop` (`HttpDrop`, `FamilyNsd`), `data/FamilyMembersApi`.
+- `app/FamilyDevices` (`FamilyCourier`, `FamilyHome`), `app/FamilyComputer`, `app/FamilyShareController`; `ui/settings/FamilyShare`; `LiveTutor` `receiveFamily`, `forgetFamily`; `LiveSettings` `ceiling`, `capNow`.
+
+## Tap counts
+
+| Journey | Before | After |
+|---|---|---|
+| A new member on a computer | three commands on the computer (`lani-profile add`, `tailscale serve`, `lani-pair`), then 3 taps on the new device | none on the computer where `tailscale serve` is allowed; on the parent's device ⚙️, 👪, the name, "for a child" if so, the hold; 3 taps on the new device |
+| A device's daily budget | on that device: ⚙️, Tutor, a hold on a child's, the chip | on the parent's device: ⚙️, 👪, the row, the chip, the hold; nothing on the device |
+| Stopping a device on a computer | `lani-pair --revoke` on the computer | ⚙️, 👪, the row, the hold |
+| Stopping a device with the family's key | change the key at the provider, for everyone | ⚙️, 👪, the row, the hold; it forgets the key when it's next in reach. A copy needs the provider, as before |
+| A new device with no internet | the code spent, a parent shows a new one | scan again once online, or one tap to take it now |
+
+## Native check
+
+All machine-written by Claude (`_note_leftovers_app` in the four tables, 53 strings and the 4 after it):
+
+- **sl** (Jan's wife): `family.addWhat`, `family.leaving`, `family.reachWifi` ("Druge poti do nje še ni: do takrat ostane, kar ima": is it clear?), `family.capWhat`, `family.capHere`, `family.offline`, `family.takeAnyway`, `family.leaveWhat`. "Učenec" for a learner on a computer, and `family.memberAdded`, which has no gender but may read oddly; `family.townLinked` says "njihova vas" for one person.
+- **de**: `family.addWhat` says "Profil" where the Slovene says "učenec"; `family.capHere`, `family.offline`.
+- **it**: `family.addWhat`, `family.leaving` ("In uscita"), `family.offline`, `family.leaveWhat`.
+- **en**: British English, as elsewhere.
+
+## Voice
+
+Nothing spent. Nothing new needs a clip: these are settings' lines, read by nobody but the page. **0 characters** for a voice build. No line that had a clip changed; `family.computerNot`, `family.newCode` and `family.anotherDevice` went, none of them ever voiced.

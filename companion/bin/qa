@@ -13678,10 +13678,9 @@ def family_computer_parent():
         adb("shell", "input", "text", "Mia")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
-        assert scroll_to(say("hosted.forChild", 0), 5), "for a child"
-        switch = next((c for t, c in nodes() if say("hosted.forChild", 0) in t), None)
-        width = int(adb("shell", "wm", "size").split()[-1].split("x")[0])
-        adb("shell", "input", "tap", str(min(width - 90, 1020 if not FAMILY_TABLET else 1700)), str(switch[1]))
+        row = scroll_to(say("hosted.forChild", 0), 5)
+        assert row, "for a child"
+        tap_at(row)  # the whole row
         time.sleep(1)
         shot("fc-form")
         adb("logcat", "-c")
@@ -13689,6 +13688,7 @@ def family_computer_parent():
         family_hold("family.holdAdd", 5, mints=True)
         added = say("family.memberAdded", 0).replace("{name}", "Mia")
         assert wait_for(added[:20], 45), "the member added"
+        assert not find(say("family.leftStart", 0)), "the member's bridge didn't start: see its log"
         code = family_log(r"member code (lani://pair\S+)", 10)
         assert code, "the code for their device"
         for secret in ("sk-", "fd_", "token"):
@@ -13770,6 +13770,11 @@ def family_computer_child():
     qa_hook("family:scan:" + urllib.parse.quote(text, safe=""))
     hosted_home(timeout=90, found=True)
     shot("fc-child-home")
+    # paired as a child: the family's page isn't on this device
+    open_settings()
+    assert not find(say("family.title", 0)), "the family's page on a child's device"
+    shot("fc-child-settings")
+    go_home()
     (FAMILY_DIR / "paired").touch()
     family_wait("cap-set", FAMILY_WAIT)
     # the app reads what a parent set as it comes back to the screen

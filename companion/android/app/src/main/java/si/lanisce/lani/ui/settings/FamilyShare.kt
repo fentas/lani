@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -156,9 +158,10 @@ private fun AddMember(vm: AppViewModel, f: FamilyComputer) {
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         for (l in Lang.entries) FilterChip(selected = base == l.code, onClick = { if (l.code == target) target = base; base = l.code }, label = { Text(l.ownName) })
     }
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    // the whole row: on a tablet the switch alone is a small target at the far end of the line
+    Row(Modifier.fillMaxWidth().toggleable(value = child, role = Role.Switch, onValueChange = { child = it }), verticalAlignment = Alignment.CenterVertically) {
         Text("🧒 ${bi("hosted.forChild")}", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
-        Switch(checked = child, onCheckedChange = { child = it })
+        Switch(checked = child, onCheckedChange = null)
     }
     if (f.busy) Text("⏳ ${bi("family.adding")}", style = MaterialTheme.typography.bodyMedium)
     else if (name.isNotBlank()) HoldToOpen("🔒 ${bi("family.holdAdd")}", onLight = true) { f.add(name, target, base, child) }
