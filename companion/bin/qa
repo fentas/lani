@@ -5271,6 +5271,12 @@ def typed_buttons():
                     wrong.append(f"{form} {pair}: {why}")
                     continue
                 time.sleep(1.5)  # the person's line types in
+                # the tip of a learner's very first dialog: gone with that dialog, which has no typed turn but through QA's hook
+                bs = list(boxes())
+                if (tip := box_of(bs, label("sceneDialog.tapWordHint", half=True))) is not None:
+                    if (x := next((b for t, b in bs if t == label("common.close") and tip[1] <= (b[1] + b[3]) // 2 <= tip[3]), None)) is not None:
+                        tap_at(((x[0] + x[2]) // 2, (x[1] + x[3]) // 2))
+                        time.sleep(1)
                 field = label("playerScreen.typeAnswer", half=True)
                 top = None
                 taps = 0  # below the fold on a small phone, the further for a tall header: the "▾" brings it up

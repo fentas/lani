@@ -304,7 +304,9 @@ glas runs on Jan's lok8s cluster; the relay fits beside it:
 2. Apply `companion/relay/deploy/k8s.yaml` (a PVC of 5 Gi, one replica with `Recreate`, a Service), with the image set.
 3. An ingress with TLS for its host (e.g. `relay.lani.team`), at the root, with `RELAY_TRUST_PROXY=1`. Long polls need
    the ingress's read timeout above 30 s (nginx: `proxy-read-timeout: "60"`), and a body limit of 51 MB for backups
-   (`proxy-body-size: 51m`).
+   (`proxy-body-size: 51m`). **A backup's body has to pass through as it comes** (`proxy-request-buffering: "off"`): a
+   proxy that buffers it opens the request to the relay only after the last byte, so the time is checked then, and a
+   slow upload gets `401 stale` after five minutes however long the relay allows ([last-small.md](last-small.md)).
 4. Set `LANI_RELAY_URL` on the nodes that should use it, and in the phone's runtime.
 
 ## How it was tested
