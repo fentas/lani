@@ -333,8 +333,9 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   `at-the-b-and-b`, `asking-the-way`, `at-the-fete`, `weather-and-garden`); a scene of theirs leads into them after a
   dialog (Kathi's Gasthaus, Stefan's Most, the Kirchtag; Mrs Birkett's inn, the fête, Shepherd Jack on the fell), and a
   child's scene never into a grown-up's role-play. Jan's six read in German and Italian too
-  (docs/plans/05-built/scenarios-de-en.md). Jan's village has twelve more for a grown-up at B1 and B2
-  (`companion/scenarios/`: a complaint at the shop, wine for a party with Vinar Marko, a call to the surgery that goes
+  (docs/plans/05-built/scenarios-de-en.md). Jan's village has three for a grown-up at A2 (`companion/scenarios/`: Marko's
+  first osmica, the bus from Koper to Piran, a room in Izola by phone; docs/plans/05-built/final-polish.md) and twelve at
+  B1 and B2 (`companion/scenarios/`: a complaint at the shop, wine for a party with Vinar Marko, a call to the surgery that goes
   wrong, the night of the bora, advice for the neighbour, a job at a tourist farm; the mayor's office hours, a job
   interview, a new doctor's history, a stone house to rent, reporting a car accident, Marko at a crossroads;
   docs/plans/05-built/talks-sl.md). The Carinthian village has twelve more at B1 and B2 (`companion/scenarios/de/`: a
@@ -2331,8 +2332,10 @@ exercise types (`gaptext`, `table`, `transform`, `sort`, and `speaking` and `wri
 **Speaking and writing in a unit** ([COURSE.md](COURSE.md#speaking-and-writing), docs/plans/05-built/lesson-production.md).
 A speaking item (`ui/school/ProductionExercises.kt` `SpeakingEx`) plays as a module's speak exercise with the teacher's
 question in her bubble and voice; its takes are graded by the item (`data/Production.kt`: a form people say right aloud,
-the grading table's nonstandard too, a recognizer's *u vasi* the standard, an open answer by what it must use). A writing
-item (`WritingEx`) shows what the text must use (ticked as it is met on a worksheet, a list in the test), checks it at
+the grading table's nonstandard too, a recognizer's *u vasi* the standard, an open answer by what it must use). Under what
+the teacher asks and a word tip its "Senza microfono" can lie below the fold on a phone, so the player keeps a "▾" in the
+corner while any exercise's item goes on below (`MoreBelow`; a tap brings the rest up, the keyboard up hides it), and each
+item opens at its top. A writing item (`WritingEx`) shows what the text must use (ticked as it is met on a worksheet, a list in the test), checks it at
 once by its rules on "Preveri · Check", then the checks, a model text and the tutor's feedback, which comes as the reply
 to an `answer` (conversation `exw…`), under the text and into the chat, offline from the outbox: nothing waits for it.
 A child says a writing item first. In a test a speaking item rated by the learner (no microphone) doesn't count. The app
@@ -5399,6 +5402,7 @@ companion/bin/qa --steps storm                   # the storm: the map in the rai
 LANI_DEV_DATA=<a synthetic learner> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en LANI_QA_ZOOM_SHOTS=<dir> companion/bin/qa --minified --steps zoom-frames   # the map's frames on Teo's tablet's screen (2560 × 1600): at home, at 1.5, 2.5 and 3 × the fitted zoom, at rest and panned, and pinched; every frame's time and the main thread's (gfxinfo framestats), the map's render time; a table, frames.tsv and screenshots (docs/plans/05-built/zoom-frames.md)
 LANI_DEV_DATA=<a synthetic learner> LANI_QA_HOME_SHOTS=<dir> LANI_QA_HOME_TRIES=2 companion/bin/qa --steps home-return   # going back to Home: from the village and from Settings, and the village opened, for 3 s from the key or the tap the main thread's messages besides the frames (QA's hook main:watch: their sum, the longest), the frames (gfxinfo framestats), the garbage collections; LANI_QA_TRACE=<dir> traces the first Back by method; a table, home-return.tsv (docs/plans/05-built/home-return.md)
 LANI_DEV_DATA=<a synthetic learner> companion/bin/qa-slot --no-town --steps read-aloud,feedback-tablet,story-faces   # the news sheet's 🔊 (QA's hook "news"; the founding is read where setup founds a village), an answer's card beside the question on the tablet on its side and under it upright and on the phone (feedback-tablet.txt), the evening story's teller and the faces he tells it with (story-faces.txt)
+LANI_DEV_DATA=<a synthetic Teo> LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo LANI_QA_POLISH_SHOTS=<dir> companion/bin/qa-slot --no-town --steps long-pages   # what a long page shows of itself on a phone, a small phone, a phone on its side and Teo's tablet both ways: a speaking item's "Senza microfono" in view or one tap on the player's "▾" away, and a unit's page clear of the status bar (the bar's pixels read, docs/plans/05-built/final-polish.md)
 LANI_DEV_DATA=<a synthetic Teo> LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo companion/bin/qa-slot --no-town --steps story-faces,culture-reading   # tonight's story by Bepi's fire played to its end (a Teo who has heard the ten older ones hears I benandanti), then a reading of the corner read to its end, every question answered right and the score (LANI_QA_READING, by default i-pesci-di-aquileia; reading.txt, reading-*.png also in $LANI_QA_READING_SHOTS; docs/plans/05-built/stories-friuli.md)
 companion/bin/qa --steps coast                   # Teo's coast: the founding's preview, the sea and the beach after founding, dragged to the beach, an animal's Italian word, a villager talk's goals in it · de, a village and a town (a synthetic Friuli learner: LANI_DEV_DATA, LANI_CULTURE=friuli, LANI_LANDSCAPE=coast, LANI_QA_PAIR=sl-en, LANI_QA_FOUND_SEED=551323397)
 LANI_DEV_DATA=<an Italian synthetic learner> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en LANI_QA_FRIULI_SHOTS=<dir> companion/bin/qa --no-town --steps friuli-looks   # Friuli's outdoor scenes in its look (SCENES.md "Culture looks"): the village as a Vas, Nel campo's fienile, Nel bosco's ancona, the stream's and the pond's poplars, the sea's halyard, by day, closer and at night (make-learner.ts <dir> --target it)
