@@ -2,6 +2,7 @@ package si.lanisce.lani.ui.scene
 
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -13,8 +14,10 @@ import kotlinx.coroutines.delay
 import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.app.SceneTalk
 import si.lanisce.lani.data.Clips
+import si.lanisce.lani.data.LineAhead
 import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.data.Voice
+import si.lanisce.lani.game.scene.Dialog
 
 /**
  * A dialog's lines said aloud as it goes on (companion/SCENES.md, "The learner's voice"). A step of the dialog (a pick, a
@@ -99,6 +102,35 @@ class DialogVoice {
     }
 }
 
+/** What a dialog will say, in the order it says it, for the node to get ready (docs/plans/05-built/audio-names.md). */
+object DialogAhead {
+    /**
+     * [d]'s lines in play order: each person's in their voice ([voiceOf]), and at a turn the right answer, the learner's own,
+     * and the reply to it, by [partner] when the line doesn't say who. A wrong answer's reaction stays on demand: most are
+     * never heard. [d] is the dialog as this learner plays it: their level's, said to them.
+     */
+    fun lines(d: Dialog, partner: String, voiceOf: (String) -> Spoken): List<LineAhead> {
+        var last = partner
+        val out = mutableListOf<LineAhead>()
+        fun said(text: String?, who: String) {
+            if (text.isNullOrBlank()) return
+            val v = voiceOf(who)
+            out += LineAhead(text, v.voice, v.fallback, v.person)
+        }
+        for (l in d.lines) {
+            if (l.choices.isEmpty()) {
+                last = l.who ?: last
+                said(l.sl, last)
+                continue
+            }
+            val right = l.choices.firstOrNull { it.ok } ?: continue
+            out += LineAhead(right.sl, Clips.PLAYER)
+            said(right.reply?.sl, l.to ?: last)
+        }
+        return out
+    }
+}
+
 /**
  * [talk]'s lines said aloud as it goes on ([DialogVoice]): the learner's in their voice ([Clips.PLAYER]), each of the
  * others' in theirs ([voiceOf]: who is drawn talking for a line's speaker, and the voice it is read in). Returns whose line
@@ -109,6 +141,11 @@ class DialogVoice {
 fun rememberDialogVoice(speaker: Speaker, talk: SceneTalk?, voiceOf: (String) -> Pair<String, Spoken>): String? {
     val voice = remember(talk?.key, talk?.run?.seed) { DialogVoice() }
     val of by rememberUpdatedState(voiceOf)
+    // what it will say, got ready while its first line is read; leaving it stops that
+    DisposableEffect(talk?.key, talk?.run?.seed) {
+        talk?.let { t -> speaker.aheadOf(DialogAhead.lines(t.dialog, t.person.id) { who -> of(who).second }) }
+        onDispose { speaker.leftLines() }
+    }
     LaunchedEffect(talk?.key, talk?.run?.said?.size) {
         val run = talk?.run ?: return@LaunchedEffect
         voice.say(

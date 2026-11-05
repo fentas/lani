@@ -25,6 +25,9 @@ import si.lanisce.lani.l10n.Lang
 import java.io.File
 import java.util.Locale
 
+/** A line about to be said: its text, and the voice [Speaker.say] says it in. */
+data class LineAhead(val text: String, val voice: String = Clips.FEMALE, val fallback: String? = null, val person: String? = null)
+
 /**
  * Speaks the learner's target language (Slovene for Jan): a family recording, else a node clip ([Clips]), else the phone's
  * offline voice ([offline]: Piper, when its voice of the target language is on the phone), else text-to-speech. [available]
@@ -189,6 +192,21 @@ class Speaker(private val context: Context) {
                 }
             }.awaitAll()
         }
+    }
+
+    /**
+     * The learner has just opened something that will say [lines], in this order: the node gets ready what it lacks, while they
+     * read the first of it ([Clips.queue]). A line with a family recording is left out. [leftLines] when they leave it.
+     */
+    fun aheadOf(lines: List<LineAhead>) {
+        val c = clips ?: return
+        if (!c.online) return
+        c.queue(lines.filter { voice?.ready(it.text) != true }.map { ClipAsk(it.text, voicesFor(it.voice, it.fallback, it.person).voices.first()) })
+    }
+
+    /** They left what [aheadOf] was for. */
+    fun leftLines() {
+        clips?.unqueue()
     }
 
     private val tts: TextToSpeech = TextToSpeech(context.applicationContext) { status ->

@@ -24,6 +24,9 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import si.lanisce.lani.audio.AudioFiles
 import si.lanisce.lani.audio.AudioSettings
 import si.lanisce.lani.audio.ClipFiles
+import si.lanisce.lani.audio.DayAudio
+import si.lanisce.lani.audio.JoinPart
+import si.lanisce.lani.audio.LineJoin
 import si.lanisce.lani.audio.PreviousClips
 import java.io.File
 import java.io.IOException
@@ -67,9 +70,9 @@ class VoiceRefused(voice: String) : IOException("voice $voice refused")
  * ([redo], [prepare] null: the node's prepare voices what it hasn't); [ahead]: a visit's first lines got ahead, the town's
  * own clips only, never voiced for it (null at home).
  */
-data class ClipRoutes(val index: String, val say: String, val profiles: String, val redo: String?, val prepare: String?, val ahead: String? = null) {
+data class ClipRoutes(val index: String, val say: String, val profiles: String, val redo: String?, val prepare: String?, val ahead: String? = null, val queue: String? = null) {
     companion object {
-        val OWN = ClipRoutes("/voice/index", "/voice/say", "/voice/profiles", "/voice/redo", "/voice/prepare")
+        val OWN = ClipRoutes("/voice/index", "/voice/say", "/voice/profiles", "/voice/redo", "/voice/prepare", queue = "/voice/queue")
 
         /** The visited town [town]'s voices, through the node. */
         fun visit(town: String) = ClipRoutes("/towns/$town/voice/index", "/towns/$town/voice/say", "/towns/$town/voice/profiles", null, null, "/towns/$town/voice/prepare")
@@ -156,7 +159,47 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
         return texts.indices.map { i -> (clips.getOrNull(i) as? JsonObject)?.get("url")?.let { runCatching { it.jsonPrimitive.contentOrNull }.getOrNull() } }
     }
 
-    suspend fun download(url: String, to: File) = http.downloadTo(config.request(url).build(), to)
+    /**
+     * The clip at [url] into [to]. A line joined from pieces ([LineJoin]: its manifest and its parts, kept beside it as clips of
+     * their own, which other lines use too) is joined here; anything that goes wrong doing that gets the line's finished file
+     * from the node at the same URL, as an older app does.
+     */
+    suspend fun download(url: String, to: File) {
+        if (LineJoin.isLine(url) && runCatching { join(url, to) }.onFailure { Log.w("Clips", "a line wasn't joined here: ${it.javaClass.name}: ${it.message}") }.getOrDefault(false)) return
+        http.downloadTo(config.request(url).build(), to)
+    }
+
+    /** Line [url] joined into [to]: false when the node gives no manifest this app can read. */
+    private suspend fun join(url: String, to: File): Boolean {
+        val (code, raw) = http.exchange(config.request(LineJoin.manifestUrl(url)).build())
+        if (code !in 200..299) return false
+        val m = LineJoin.parse(raw) ?: return false
+        val dir = to.parentFile ?: return false
+        val files = m.parts.map { p ->
+            p.url?.let { u -> File(dir, DayAudio.fileOf(u)).also { f -> if (!ClipFiles.get(f, emptyList()) { t -> http.downloadTo(config.request(u).build(), t) }) throw IOException("no part") } }
+        }
+        withContext(Dispatchers.IO) {
+            val now = System.currentTimeMillis()
+            val parts = m.parts.zip(files).map { (p, f) ->
+                if (f == null) JoinPart.Gap(p.ms) else JoinPart.Sound(LineJoin.samplesOf(f, p.ms), p.gain).also { f.setLastModified(now) }
+            }
+            LineJoin.write(parts, to)
+        }
+        return true
+    }
+
+    /**
+     * Tells the node what the learner has just opened ([id]), its [lines] in play order, so it gets those it lacks ready ahead;
+     * no lines: they left it. Best effort: nothing comes of an older bridge, a node that doesn't preload, or none at all.
+     */
+    suspend fun queue(id: String, lines: List<ClipAsk>) {
+        val path = routes.queue ?: return
+        val body = buildJsonObject {
+            put("id", id)
+            put("lines", kotlinx.serialization.json.buildJsonArray { for (t in lines) add(buildJsonObject { put("text", t.text); put("voice", t.voice) }) })
+        }.toString().toRequestBody(Http.jsonType)
+        http.exchange(config.request(path).post(body).build())
+    }
 
     /**
      * A visit's first lines got ahead ([ClipRoutes.ahead]: POST /towns/<id>/voice/prepare, at most 20): each one's clip URL
@@ -595,6 +638,29 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
         return fetchOnce(text, voices).await() != null
     }
 
+    /** What the node is getting ready for what the learner has open ([queue]); null: nothing. */
+    private var queued: String? = null
+
+    /**
+     * What the learner has just opened says its [lines] (each as [Speaker] would ask for it), in play order: the node gets those
+     * the phone lacks ready ahead. Anything before is left.
+     */
+    fun queue(lines: List<ClipAsk>) {
+        val a = api ?: return
+        val left = lines.filter { Voice.normalize(it.text).isNotEmpty() && onDevice(it.text, listOf(it.voice)) == null }.take(QUEUE_MAX)
+        if (left.isEmpty()) return unqueue()
+        val id = UUID.randomUUID().toString().also { queued = it }
+        scope.launch(Dispatchers.IO) { runCatching { a.queue(id, left) } }
+    }
+
+    /** The learner left what was opened: what is left of it isn't made. */
+    fun unqueue() {
+        val a = api ?: return
+        val id = queued ?: return
+        queued = null
+        scope.launch(Dispatchers.IO) { runCatching { a.queue(id, emptyList()) } }
+    }
+
     /** The clips of a line on their way (downloading, or being voiced by the node): a second ask waits for the first. */
     private val fetching = HashMap<String, Deferred<List<File>?>>()
 
@@ -735,6 +801,9 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
 
         /** At most this many of a visit's first lines are got ahead ([ahead]); a greeting's clip is a few KB. */
         const val AHEAD_MAX = 40
+
+        /** The most lines one start asks the node to get ready ([queue]; its route takes as many). */
+        const val QUEUE_MAX = 60
 
         /** The lines one ask of [ahead] takes (the node's route takes at most 20). */
         private const val AHEAD_AT_ONCE = 20

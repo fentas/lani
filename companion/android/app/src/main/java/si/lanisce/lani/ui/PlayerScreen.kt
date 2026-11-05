@@ -375,6 +375,11 @@ fun ExerciseRun(
         }
     }
     BackHandler(onBack = stop)
+    // a test's or a module's lines, got ready as it starts, in the order they come; leaving it stops that
+    DisposableEffect(exercises) {
+        vm.speaker.aheadOf(exercises.mapNotNull { it.heard }.map { t -> si.lanisce.lani.data.LineAhead(t, heardVoice(stage, vm.speaker, t)) })
+        onDispose { vm.speaker.leftLines() }
+    }
     // back hides the text shown again first
     BackHandler(enabled = peeking) { peeking = false }
     LaunchedEffect(index, clock == Clock.RUNNING) {
