@@ -132,7 +132,7 @@ A new device with no internet got "the family's key doesn't work here", and the 
 
 ## Native check
 
-All machine-written by Claude (`_note_leftovers_app` in the four tables, 53 strings and the 4 after it):
+All machine-written by Claude (`_note_leftovers_app` in the four tables, 55 strings in each):
 
 - **sl** (Jan's wife): `family.addWhat`, `family.leaving`, `family.reachWifi` ("Druge poti do nje še ni: do takrat ostane, kar ima": is it clear?), `family.capWhat`, `family.capHere`, `family.offline`, `family.takeAnyway`, `family.leaveWhat`. "Učenec" for a learner on a computer, and `family.memberAdded`, which has no gender but may read oddly; `family.townLinked` says "njihova vas" for one person.
 - **de**: `family.addWhat` says "Profil" where the Slovene says "učenec"; `family.capHere`, `family.offline`.
@@ -145,6 +145,8 @@ Nothing spent. Nothing new needs a clip: these are settings' lines, read by nobo
 
 ## Tests
 
+The last run, at this branch's end: bridge tsc clean; the smoke's 4,307 checks; the relay's 26 tests; 4,420 Android tests, 0 failures; 185 + 253 Python tests.
+
 - `data/FamilyLinkTest`, `data/FamilyPostTest`, `app/FamilyDevicesTest`, `data/FamilyMembersApiTest`, `data/HttpDropTest`, `tutor/live/LiveTutorTest`: the QR's fields, a relay that keeps every byte, a code used once on either way, a wrong proof, a note played back, a stranger on the Wi-Fi, a byte now and then, a child's device changing nothing, a key waiting for its check, the two ceilings.
 - `companion/relay/test`: the drop boxes' limits; none of a parent's routes through the relay.
 - The bridge's smoke, `test/smoke/family-members.ts`: a real child's bridge refusing all of it; an id that's never shell text; what reaches the new bridge's environment; another adult's devices; what's left, with its command.
@@ -156,7 +158,7 @@ Nothing spent. Nothing new needs a clip: these are settings' lines, read by nobo
 
 **`school-production` after `typed-turn`.** **Not reproduced as reported:** in 6 chain runs `typed-turn` never passed and `school-production` then failed, and no shot of the original survives, so what that one was can't be said. One failure in a chain did come: the tap on "⏩ Znam že" was lost and QA's `tap()` still said yes. A unit's page keeps its scroll on return, so the button can sit under the status bar. That mechanism is proven (the button moved to y 81 and tapped: the test didn't open; the page at its top: it did); where the button lay at that one failure is not. `test_out()` takes the page to its top first, in all 7 places.
 
-**The notification question.** The proven cause of `setup: home did not load`, and of the next step being blocked: the system's question comes a moment after Home, setup left its loop on Home, then took a fresh look at a screen holding only the question. The old setup failed 4 of 5 runs, the fixed one passed 18 of 18. It isn't shown to explain `school-production`: that step's first `go_home` clears the question with a Back, and the failed run's last shot has no question on it. **No `pm grant` at install:** setup now goes by what its loop saw and answers the question, which reaches every step that runs setup; `first-run` counts that question as a tap and asserts when it comes, so a grant there would take away what it measures. Steps that don't run setup (`hosted`, `first-run`, `setup-tour`, `family-*`) answer it themselves.
+**The notification question.** The proven cause of `setup: home did not load`, and of the next step being blocked: the system's question comes a moment after Home, setup left its loop on Home, then took a fresh look at a screen holding only the question. The old setup failed 4 of 5 runs, the fixed one passed 18 of 18. It isn't shown to explain `school-production`: that step's first `go_home` clears the question with a Back, and the failed run's last shot has no question on it. **No `pm grant` at install:** setup now goes by what its loop saw and answers the question, which reaches every step that runs setup; `first-run` counts that question as a tap and asserts when it comes, so a grant there would take away what it measures. Steps that don't run setup (`hosted`, `first-run`, `setup-tour`, `family-parent`, `family-child`, `family-computer-child`) answer it themselves. `family-computer-parent` does run it, and shows the fix directly: the same journey failed `setup` with the question over a loaded Home, and passed once setup answered it.
 
 **`make-learner --level`** wrote quests the app couldn't read, so a B1 learner fell through to the founding: a third way to the same message. Fixed.
 
@@ -172,6 +174,8 @@ Seen on emulators, each journey's steps green, at this branch's final code:
 |---|---|---|---|
 | A family on devices | phone | tablet, on its side, a child's | the code unspent with no internet here; "take it now"; the parent's hold, a tap doing nothing; the key waiting, then checked once online; the budget on its way, then there on both; a ceiling behind the child's hold, higher chips off, no way out; no family's page on a child's device; the removal, leaving, then gone, the key gone there; a second scan refused |
 | A family on a computer | tablet, on its side | phone, a child's | a new member by a hold, a tap doing nothing; a **real second bridge** by the real `lani-bridge start`; another code by a hold; the code read by "Someone in my family already uses Lani", paired with that bridge; the child's town linked to the parent's as its guardian; no family's page on it; the device on the parent's list; its budget through the computer, read by the device; its removal, and "Ni več seznanjen · Not paired any more" on Home |
+
+Seen on an emulator on this branch, after they were brought in from the helper's: `setup`, `typed-turn`, `school-production`, `school-unmet` (sl, and an adult's it-de), `placement`, `placement-again`, `friuli-school-unit` (a child's path, its second speaking item and "✍️ Scrivilo anche") and `placement-child`, whose log has each prompt in the language learned: `it tts:it "Maestra, Lei … tedesco? (parlare)"`, a line that went to the German voice before. "se andrei", what a text should have avoided, is struck through in the panel. `school-unmet` and `placement-again` also ran on a tablet, on its side and upright; `placement-child` too.
 
 **Only tested in code, not on a device:**
 
