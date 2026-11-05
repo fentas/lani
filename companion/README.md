@@ -2537,6 +2537,15 @@ its own language only), then Android TTS, which is only the last fallback. On a 
 come first ([Voices on a visit](#voices-on-a-visit)). 🐢 plays clips at 0.75×. The village's background sounds duck under every voice, and stop while the microphone
 records ([GAME.md](GAME.md#background-sounds)).
 
+**Lines with the learner's name** are built from shared pieces when the node sets `LANI_VOICE_NAMES`
+([audio-names](../docs/plans/05-built/audio-names.md)); until then they are voiced whole per learner, like any line. A line is voiced
+once with a filler name and cut, a name clip is made the first time anyone of that name needs it, and the phone joins the two
+into one file. Each line's type and template come from its text, in any of the four languages: `bun test/name-lines.ts --table` in
+`companion/bridge` shows them, the smoke fails a line without them, and `--cost` says what building them would take.
+
+**Getting lines ready.** With `LANI_VOICE_PRELOAD` set, a dialog, a test or a module opened tells the node what it will say, in play
+order (`POST /voice/queue`), and the node makes what it lacks at a turn between a live line and the background. Leaving cancels it.
+
 **The voice cast.** Who speaks is in `voice-cast.json`: each speaker has an ElevenLabs voice, a
 Gepard voice for when ElevenLabs can't, and a gender. The narrators `female` (default) and `male`
 read every generic text (words, examples, exercises, role-play characters by their scenario's
@@ -5360,6 +5369,7 @@ companion/bin/qa --no-town --steps school-reveal  # a level a bit at a time (QA'
 companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export, the effort per task and within the thread
 companion/bin/qa --steps shadow-matrix           # the shadow's matrix on QA's mock: the Matrix tab on (nine lanes), a chat answered by every lane at its model and effort, the event's lane runs, today's spend per lane
 companion/bin/qa --steps dev-upload              # the developer's data on the node: a chat, the app to the background, app/dev/ in the dev bridge's copy (no key, no token), the panel's button, nothing with the setting off
+LANI_DEV_FAKE_ELEVENLABS=1 LANI_VOICE_NAMES=on LANI_VOICE_PRELOAD=on LANI_DEV_DATA=<a make-learner.ts dir> companion/bin/qa --steps name-join  # a line with the learner's name joined on the phone, measured from the file it plays
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --minified --steps voice-node-clip  # a new line a villager says plays the node's clip (not the phone's voice), also with the cap full
 companion/bin/qa --minified                      # the same on the qa build: the release build's R8 and rules, with QA's hooks
 companion/bin/qa --apk <file>                    # an APK built before (a debug or qa build), nothing built

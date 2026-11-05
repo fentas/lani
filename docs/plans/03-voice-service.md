@@ -250,6 +250,11 @@ check a new voice's loudness and peak-to-loudness ratio before it is saved.
 
 ### Proposed: lines with the learner's name, a filler name cut out (2026-10-14)
 
+*Built, behind a setting that is off: [audio-names](05-built/audio-names.md), which holds the shapes of a piece, a name clip and a
+manifest. What changed from this proposal, from the splice test of 2026-11-04: a plain filler cut alone isn't enough, so a line is
+built by where its name stands; no pitch match; the phone joins the line, and a node joins it only for an older app; and a name
+clip belongs to the shared library, not to a private namespace.*
+
 Jan's question: a line with `{learner}` ("Lahko noč, {learner}!") is voiced as the app renders it, with the name in
 it, so every learner needs their own clip of it. In Jan's store on 2026-10-14:
 
@@ -393,7 +398,8 @@ clips only** (live lines stay ElevenLabs' or Gepard's): `companion/voice-drama3`
 | Kind of text | Where it goes |
 |---|---|
 | Curated and published content: packs, modules, scenes, villager lines, festival words | The **shared** library: made once, cached for everyone, and part of the corpus. |
-| Personal lines: the tutor's role-play replies, the learner's name (its short clips, [a filler name cut out](#proposed-lines-with-the-learners-name-a-filler-name-cut-out-2026-10-14); the rest of the line is shared), anything from a chat | A **private** namespace per node or tenant: cached for that node, never in the shared corpus, and deleted with the tenant. |
+| A learner's name, in clips of its own ([audio-names](05-built/audio-names.md)), and the shared pieces of the lines around it | The **shared** name library: keyed by language, voice, name and kind, tied to nobody, reused for everyone of that name. |
+| Personal lines: the tutor's role-play replies, anything from a chat | A **private** namespace per node or tenant: cached for that node, never in the shared corpus, and deleted with the tenant. |
 
 The node marks each request as `shared` or `private`; glas defaults to private. GDPR applies to the private
 namespace (export and deletion).

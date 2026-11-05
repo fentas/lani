@@ -113,6 +113,8 @@ export function fakeEleven(o: { tones?: boolean; port?: number } = {}) {
     // /with-timestamps says it as speech a cut can read ([speechTake]); [runThrough]: with no pause at a comma; [pitches]: each
     // take's pitch in turn (the next takes at the default)
     speech: false, runThrough: false, pitches: [] as number[],
+    // /with-timestamps gives what this says for a voice's text (recorded takes, test/name-samples.ts); undefined: a 404
+    script: undefined as undefined | ((voice: string, text: string) => { audio: Uint8Array; alignment: unknown } | undefined),
   }
   /** A text-to-speech request at work for its time, within the plan's concurrency: null when it may go on, else the 429. */
   const admit = (): Response | null => {
@@ -180,6 +182,11 @@ export function fakeEleven(o: { tones?: boolean; port?: number } = {}) {
           st.inFlight--
         }
         st.used += body.text.length
+        if (st.script) {
+          const take = st.script(ts[1], body.text)
+          if (!take) return new Response('{"detail":"no such take"}', { status: 404 })
+          return Response.json({ audio_base64: Buffer.from(take.audio).toString('base64'), alignment: take.alignment, normalized_alignment: take.alignment })
+        }
         if (st.speech) {
           const take = speechTake(body.text, { runThrough: st.runThrough, pitch: st.pitches.shift() })
           st.takes.push(take.audio)

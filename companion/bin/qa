@@ -17530,7 +17530,7 @@ def name_join():
     while time.time() < end and f"clip end {file}" not in log:
         log = adb("logcat", "-d", "-s", "Voice:I", "LineJoin:I", check=False)
         time.sleep(1)
-    print("\n".join(f"    {l.split(': ', 1)[-1]}" for l in log.splitlines() if file in l))
+    print("\n".join(f"    {l.split(': ', 1)[-1]}" for l in log.splitlines() if file in l or "decoded " in l))
     assert f"joined {file}" in log, "the phone didn't join it"
     assert f"clip start {file}" in log and f"clip end {file}" in log, "the joined line didn't play to its end"
 

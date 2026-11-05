@@ -283,16 +283,16 @@ export class NameStore {
     if (had) return had
     if (!this.nameAllowed(name)) return 'cap'
     const spoken = spokenName(name)
-    const said = line.carrier.replace(NAME_MARK, spoken)
+    const carrier = line.carrier.replace(NAME_MARK, spoken)
     const takes = this.o.settings.takes
-    const room = await this.room(said.length * takes, turn)
+    const room = await this.room(carrier.length * takes, turn)
     if (room !== true) return room === 'cap' ? 'cap' : null
     const phrase = line.type === 'phrase'
     const cuts: { y: Float32Array; pitch: number; model: string }[] = []
     let chars = 0
     let model = this.voice.eleven!.model
     for (let i = 0; i < takes; i++) {
-      const take = await this.voice.eleven!.timed(said, speaker, turn)
+      const take = await this.voice.eleven!.timed(carrier, speaker, turn)
       if (!take) break
       this.spend(take.chars)
       chars += take.chars
@@ -302,13 +302,15 @@ export class NameStore {
       if (!ready || !x?.length) continue
       const tr = tracks(x)
       const a = scaled(take.alignment, ready.tempo)
-      const span = phrase ? phraseCut(x, a, spoken, tr) : nameCut(x, a, spoken, tr)
-      if (!span) continue
+      const said = nameCut(x, a, spoken, tr)
+      const span = phrase ? phraseCut(x, a, spoken, tr) : said
+      if (!span || !said) continue
       const y = slice(x, span[0], span[1])
       const secs = y.length / SR
       const long = phrase ? line.phrase.length - NAME_MARK.length + spoken.length : spoken.length
       if (secs < 0.1 + 0.02 * long || secs > 0.5 + 0.16 * long) continue
-      cuts.push({ y, pitch: medianPitch(y), model: take.model })
+      // how high the name is said, not the phrase around it: the words before it would decide otherwise
+      cuts.push({ y, pitch: medianPitch(slice(x, said[0], said[1])), model: take.model })
     }
     if (!chars) return null
     // of the takes that cut, the lower: a voice said high stands out of the line around it

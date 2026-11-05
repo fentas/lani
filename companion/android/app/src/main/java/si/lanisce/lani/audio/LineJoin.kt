@@ -89,6 +89,7 @@ object LineJoin {
         val all = Mp3Decoder.decode(file)
         val delay = Mp3Gapless.delay(file)
         val want = (ms.toLong() * RATE / 1000).toInt()
+        if (BuildConfig.QA) Log.i(TAG, "decoded ${file.name}: ${all.size} samples, delay $delay, wanted $want, first sound at ${all.indexOfFirst { kotlin.math.abs(it.toInt()) > 200 }}")
         return all.copyOfRange(delay.coerceAtMost(all.size), (delay + want).coerceAtMost(all.size))
     }
 
