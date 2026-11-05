@@ -37,13 +37,18 @@ import { allLines, type Villager } from './villagers'
 
 /** A speaker of the voice cast: the narrators "female" and "male", or a character voice ("grandma"). */
 export type VoiceName = string
-export type EngineName = 'elevenlabs' | 'gepard' | 'drama3'
+export type EngineName = 'elevenlabs' | 'gepard' | 'drama3' | 'glas'
 /**
  * The engines in the order their clips are preferred: ElevenLabs, then Drama 3 (batch clips, voice-build --drama3), then
  * Gepard. An existing clip is replaced only by a take of an engine ranked as high or higher: a Gepard take never replaces
  * a Drama 3 clip, and ElevenLabs replaces either (--upgrade, --elevenlabs, a re-record).
  */
-export const ENGINE_RANK: Record<EngineName, number> = { elevenlabs: 3, drama3: 2, gepard: 1 }
+export const ENGINE_RANK: Record<EngineName, number> = { glas: 3, elevenlabs: 3, drama3: 2, gepard: 1 }
+/**
+ * Whether [e] is one of [wanted]: glas (glas.ts) makes what the node's ElevenLabs would, in the same voices, so it stands wherever
+ * ElevenLabs is asked for (an explanation, a replacement of a local clip).
+ */
+export const engineIn = (e: EngineName, wanted: EngineName[]) => wanted.includes(e) || (e === 'glas' && wanted.includes('elevenlabs'))
 /** Whether a take of [engine] may replace [have], a clip there (ENGINE_RANK; an engine from another version ranks lowest). */
 export const outranks = (engine: string, have: { engine: string }) => (ENGINE_RANK[engine as EngineName] ?? 0) >= (ENGINE_RANK[have.engine as EngineName] ?? 0)
 /**
@@ -516,7 +521,8 @@ export function gepardPace(env: Record<string, string | undefined> = process.env
  */
 export function clipPace(voice: VoiceName, engine: EngineName, local: GepardPace | null): GepardPace | null {
   const own = engine === 'gepard' ? local : null
-  const tempo = Math.round(tempoOf(voice, engine) * (own?.tempo ?? 1) * 10_000) / 10_000
+  // a clip from glas has its pace when it is stored (save), never again
+  const tempo = Math.round(tempoOf(voice, engine === 'glas' ? 'drama3' : engine) * (own?.tempo ?? 1) * 10_000) / 10_000
   const pause = own?.pause ?? null
   return tempo === 1 && pause === null ? null : { tempo, pause }
 }
@@ -805,7 +811,15 @@ export function ffmpegRecordingLeveller(bin?: string, spec: LevelSpec = LEVEL): 
  * What an engine made: the MP3, how (a carrier cut), the characters it cost, and the engine's own voice that said it (the
  * ElevenLabs voice id, the Gepard voice: "nina").
  */
-export type Take = { bytes: Uint8Array; method?: ClipMethod; chars?: number; voice?: string; model?: string }
+export type Take = {
+  bytes: Uint8Array
+  method?: ClipMethod
+  chars?: number
+  voice?: string
+  model?: string
+  /** A glas clip as ElevenLabs made it: it goes through the voice's filter and pace here; one imported from a node has been. */
+  raw?: boolean
+}
 
 export interface Engine {
   readonly name: EngineName
@@ -2193,6 +2207,11 @@ export class VoiceStore {
     return this.o.engines.find((e): e is ElevenLabs => e instanceof ElevenLabs)
   }
 
+  /** The hosted voice service, when the store has it (glas.ts). */
+  private get glas(): (Engine & { configured: boolean }) | undefined {
+    return this.o.engines.find((e): e is Engine & { configured: boolean } => e.name === 'glas')
+  }
+
   /** The local Gepard worker, when the store has one. */
   private get gepard(): Gepard | undefined {
     return this.o.engines.find((e): e is Gepard => e instanceof Gepard)
@@ -2417,13 +2436,15 @@ export class VoiceStore {
     // a voice that hisses (the cast's `denoise`): filtered; a local clip: paced when a pace is set; every clip: its edges
     // trimmed (a single word asked for as it is: up to its first long pause; a carrier cut is the word already; never an
     // explanation, which may well be one word) and brought to the level
-    const f = await this.processed(bytes, voice, engine, text, take.method !== 'carrier' && !explanationLang(norm) && isOneWord(text))
+    // a clip from glas: as ElevenLabs' while it is raw; one imported from a node has its filter and pace, and is only levelled
+    const as = engine === 'glas' ? (take.raw ? 'elevenlabs' : 'drama3') : engine
+    const f = await this.processed(bytes, voice, as, text, take.method !== 'carrier' && !explanationLang(norm) && isOneWord(text))
     // A clip's name carries the engine's voice (the ElevenLabs voice id, the Gepard voice), so a swapped voice's clips get
     // new names (the app caches by name); a carrier cut is a new take of the same text, so it gets a new name too and the
     // app downloads it; so does a re-record, and so does a filtered, paced, trimmed or levelled clip; and a take by another
     // ElevenLabs model (one from before the model was recorded keeps its name).
     const own = take.voice ?? (engine === 'elevenlabs' ? (elevenlabsOf(voice) ?? '') : undefined)
-    const model = engine === 'elevenlabs' ? (take.model ?? null) : null
+    const model = engine === 'elevenlabs' || engine === 'glas' ? (take.model ?? null) : null
     const tag = own !== undefined ? `|${own}` : ''
     const how = take.method === 'carrier' ? '|carrier' : ''
     const salt = take.salt ? `|${take.salt}` : ''
@@ -2483,10 +2504,10 @@ export class VoiceStore {
     if (!normalizeText(text) || !isVoice(voice)) return null
     const norm = this.normOf(text, lang)
     // the local worker speaks only Slovene
-    if (lang) opt = { ...opt, lang, engines: (opt.engines ?? ['elevenlabs']).filter(e => e === 'elevenlabs') }
+    if (lang) opt = { ...opt, lang, engines: (opt.engines ?? ['elevenlabs']).filter(e => engineIn(e, ['elevenlabs'])) }
     if (this.sloveneNarrator(voice)) return this.narratorVoice(norm, text, voice, source, opt)
     const have = this.get(norm, voice)
-    if (have && !opt.force && !(opt.replace && opt.engines && !opt.engines.includes(have.engine))) return have
+    if (have && !opt.force && !(opt.replace && opt.engines && !engineIn(have.engine, opt.engines))) return have
     const waits = this.waitsForElevenLabs(norm, voice)
     const key = clipKey(norm, voice)
     const busy = this.running.get(key)
@@ -2494,8 +2515,8 @@ export class VoiceStore {
     const job = (async () => {
       const t = text.trim()
       for (const e of this.o.engines) {
-        if (opt.engines && !opt.engines.includes(e.name)) continue
-        if (waits && e.name !== 'elevenlabs') continue
+        if (opt.engines && !engineIn(e.name, opt.engines)) continue
+        if (waits && !engineIn(e.name, ['elevenlabs'])) continue
         // a clip there is replaced only by an engine ranked as high: never a Drama 3 clip by a Gepard take
         if (have && !outranks(e.name, have)) continue
         try {
@@ -2527,8 +2548,8 @@ export class VoiceStore {
     const sl = this.slVoiceOf(voice)
     // each engine's clip: ElevenLabs' in the narrator's Slovene voice, the worker's in the narrator's key
     const as = (e: EngineName): VoiceName | undefined => (e === 'gepard' ? voice : sl)
-    const order: EngineName[] = this.o.narrators === 'elevenlabs' ? ['elevenlabs', 'gepard'] : ['gepard', 'elevenlabs']
-    const engines = order.filter(e => (!opt.engines || opt.engines.includes(e)) && !!as(e))
+    const order: EngineName[] = this.o.narrators === 'elevenlabs' ? ['glas', 'elevenlabs', 'gepard'] : ['gepard', 'glas', 'elevenlabs']
+    const engines = order.filter(e => (!opt.engines || engineIn(e, opt.engines)) && !!as(e))
     if (!opt.force) {
       for (const e of engines) {
         const c = this.get(norm, as(e)!)
@@ -2674,13 +2695,13 @@ export class VoiceStore {
    * the lazy re-voice makes it in that voice as the app asks for it ([upgradeLocal]).
    */
   wantsElevenLabsVoice(c: Clip): boolean {
-    return !this.o.readonly && !!this.eleven?.configured && c.engine === 'gepard' && !isNarrator(c.voice) && !LANGUAGE_VOICE.test(c.voice) &&
+    return !this.o.readonly && (!!this.eleven?.configured || !!this.glas?.configured) && c.engine === 'gepard' && !isNarrator(c.voice) && !LANGUAGE_VOICE.test(c.voice) &&
       !explanationLang(c.norm) && !!elevenlabsOf(c.voice)
   }
 
   /** The characters' local clips waiting for their ElevenLabs voice ([wantsElevenLabsVoice]), most asked for first; [asked]: only those the app asked for. */
   localUpgradeQueue(asked = true): Clip[] {
-    if (!this.eleven?.configured) return []
+    if (!this.eleven?.configured && !this.glas?.configured) return []
     return (this.db.query("SELECT * FROM clips WHERE engine = 'gepard' AND voice NOT IN ('female', 'male')").all() as Clip[])
       .filter(c => (!asked || (c.hits ?? 0) > 0) && this.wantsElevenLabsVoice(c))
       .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
@@ -2703,7 +2724,7 @@ export class VoiceStore {
     if (!this.wantsElevenLabsVoice(c) || this.revoiceDaily <= 0 || this.lazyToday() >= this.revoiceDaily) return undefined
     if ((await this.remake(c, true)) !== 'made') return undefined
     const now = this.get(c.norm, c.voice)
-    if (!now || now.engine !== 'elevenlabs') return undefined
+    if (!now || !engineIn(now.engine, ['elevenlabs'])) return undefined
     this.o.log?.(`voice: "${c.text}" (${c.voice}) made in its ElevenLabs voice as the app asked for it, the local clip replaced (${this.lazyToday()}/${this.revoiceDaily} today)`)
     this.o.onUpdated?.(1)
     return now
@@ -2809,6 +2830,15 @@ export class VoiceStore {
     if (this.o.readonly || !el || this.running.has(c.key)) return 'stop'
     if (!elevenlabsOf(c.voice)) return 'skip'
     const lang = explanationLang(c.norm)
+    // glas first, as for a new clip: what it has costs the node nothing, and nothing counts for the day
+    const g = this.glas
+    if (g && (await g.ready(c.text.length, false))) {
+      const take = await g.synth(c.text, c.voice, { lang })
+      if (take) {
+        await this.save(c.norm, c.text, c.voice, 'glas', take.bytes, c.source, take)
+        return 'made'
+      }
+    }
     if (!(await el.ready(el.cost(c.text, c.voice, lang), false))) return 'stop'
     const before = el.remaining()
     const job = (async () => {
@@ -3571,6 +3601,7 @@ export class VoiceStore {
    * encode).
    */
   paceDue(c: Clip): GepardPace | undefined {
+    if (c.engine === 'glas') return undefined
     const want = clipPace(c.voice, c.engine, this.pace)
     const target = want?.tempo ?? null
     const has = c.tempo ?? null
