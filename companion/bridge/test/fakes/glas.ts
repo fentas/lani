@@ -1,5 +1,5 @@
-// A fake glas for the smoke: enough of its API for the bridge's backend (src/glas.ts), and the failures the real one can't be asked
-// for. Its own tests are in the glas repository; this answers as those pin it down: resolve, say, the library, /v1/usage.
+// A fake voice service for the smoke: enough of its API for the bridge's backend (src/glas.ts), and the failures the real one can't
+// be asked for: resolve, say, the library, /v1/usage.
 import { cast, elevenlabsOf } from '../../src/cast'
 import { normalizeText } from '../../src/family'
 
@@ -15,12 +15,14 @@ export type FakeGlasState = {
   refuse?: { code: string }
   /** speaker → another voice id than the cast's. */
   voices: Record<string, string>
+  /** The names the fake's library has. */
+  names: Set<string>
   calls: { path: string; body?: Record<string, unknown>; items?: Record<string, unknown>[] }[]
   downloads: number
 }
 
 export function fakeGlas(o: { bytes: (text: string) => Uint8Array }) {
-  const st: FakeGlasState = { clips: new Map(), imported: new Set(), generate: true, voices: {}, calls: [], downloads: 0 }
+  const st: FakeGlasState = { clips: new Map(), imported: new Set(), generate: true, voices: {}, names: new Set(), calls: [], downloads: 0 }
   const of = (i: Record<string, unknown>) => `${normalizeText(String(i.text))}|${i.voice}`
   const result = (url: string, i: Record<string, unknown>) => {
     if (st.refuse) return { status: 'rejected', error: { code: st.refuse.code, message: 'refused' } }
@@ -55,6 +57,11 @@ export function fakeGlas(o: { bytes: (text: string) => Uint8Array }) {
       if (u.pathname === '/v1/usage') return Response.json({ key: { scopes: ['read-shared', ...(st.generate ? ['generate'] : [])] } })
       if (u.pathname === '/v1/clips/resolve') return Response.json({ items: (body!.items as Record<string, unknown>[]).map(i => result(url, i)) })
       if (u.pathname === '/v1/clips/say') return Response.json(result(url, body!))
+      if (u.pathname === '/v1/names/resolve') return Response.json({ items: (body!.items as { name: string }[]).map((i, index) => ({ index, status: st.names.has(i.name) ? 'ready' : 'missing' })) })
+      if (u.pathname === '/v1/names') {
+        st.names.add(String(body!.name))
+        return Response.json({ status: 'added' })
+      }
       return new Response(null, { status: 404 })
     },
   })

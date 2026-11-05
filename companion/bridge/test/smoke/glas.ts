@@ -1,6 +1,5 @@
 // Smoke checks: the hosted voice service as the voice store's first engine (src/glas.ts): off unless set, asked first and kept in
-// the store, and every way it can fail going on to the node's own engines, then the phone. Against a fake glas (test/fakes/glas.ts):
-// glas's own suite pins the real answers.
+// the store, and every way it can fail going on to the node's own engines, then the phone. Against a fake (test/fakes/glas.ts).
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { elevenlabsOf } from '../../src/cast'
@@ -101,6 +100,14 @@ export default async function glas() {
     check('a character\'s local clip wants its voice through glas too', before?.engine === 'gepard' && vs.wantsElevenLabsVoice(before), before)
     const up = before ? await vs.upgradeLocal(before) : undefined
     check('…and is replaced by glas\'s', up?.engine === 'glas', up)
+  }
+
+  // --- the name library ---
+  {
+    const e = engine()
+    const key = { language: 'sl', voice: 'grandma', name: 'jan', kind: 'ending' }
+    check('a name clip the library lacks: asked by its key and nothing else', (await e.nameClips([key]))?.items[0].status === 'missing' && Object.keys(fg.st.calls.at(-1)?.items?.[0] ?? {}).sort().join() === 'kind,language,name,voice', fg.st.calls.at(-1))
+    check('…made here, it goes there for everyone of that name', (await e.addNameClip({ ...key, ms: 640, engine_voice: 'x', model: 'm' }, tone(1)))?.status === 'added' && (await e.nameClips([key]))?.items[0].status === 'ready')
   }
 
   // --- what goes wrong ---

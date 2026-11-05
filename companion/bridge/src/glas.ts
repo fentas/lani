@@ -32,6 +32,20 @@ type Result = {
   error?: { code: string; message: string }
 }
 
+export type GlasNameAnswer = {
+  index: number
+  status: 'ready' | 'pending' | 'missing' | 'rejected'
+  clip?: { name: string; kind: string; phrase?: string; file: string; ms: number | null; engine_voice: string; model: string; url: string; expires_at: string }
+  error?: { code: string; message: string }
+}
+export type GlasLineAnswer = {
+  index: number
+  status: 'ready' | 'missing' | 'rejected'
+  manifest?: Record<string, unknown>
+  pieces?: { part: string; text: string; file: string; ms: number; engine_voice: string; model: string; url: string; expires_at: string }[]
+  error?: { code: string; message: string }
+}
+
 type Library = { at: number; speakers: Map<string, string>; generate: boolean }
 
 export type GlasOptions = { url?: string; key?: string; language?: string; log?: Log; fetch?: typeof fetch; backoffMs?: number }
@@ -156,6 +170,44 @@ export class Glas implements Engine {
     const bytes = new Uint8Array(await res.arrayBuffer())
     if (!isMp3(bytes)) return null
     return { bytes, chars: 0, voice, model: r.clip?.model, method: 'plain', raw: r.clip?.engine !== 'import' }
+  }
+
+  // --- the shared name library (docs/plans/05-built/audio-names.md, "The contract"): what a node reads and adds -----------------
+  //
+  // The whole key of a name clip is (language, voice, name, kind), so what is sent here says who asks no more than the key does.
+  // Someone's own voice stays on the node: glas refuses it.
+
+  private async shelf<T>(path: string, body: unknown): Promise<T | null> {
+    if (!(await this.ready(0, false))) return null
+    try {
+      const r = await this.api('POST', path, body)
+      if (r.ok) return (await r.json()) as T
+      if (r.status >= 500) this.failed(r)
+      else this.o.log?.(`voice: glas: ${path}: HTTP ${r.status}`)
+    } catch (e) {
+      this.stop(this.o.backoffMs ?? GLAS_BACKOFF_MS, `unreachable (${(e as Error).name})`)
+    }
+    return null
+  }
+
+  /** Name clips, each ready with a signed URL, or why not; null when glas can't be asked now. */
+  nameClips(items: { language: string; voice: string; name: string; kind: string; make?: boolean }[]) {
+    return this.shelf<{ items: GlasNameAnswer[] }>('/v1/names/resolve', { items })
+  }
+
+  /** Lines' shared manifests and pieces; null when glas can't be asked now. */
+  lines(items: { language: string; voice: string; line: string }[]) {
+    return this.shelf<{ items: GlasLineAnswer[] }>('/v1/lines/resolve', { items })
+  }
+
+  /** A name clip made here, for everyone of that name (a key with `publish`). */
+  addNameClip(clip: { language: string; voice: string; name: string; kind: string; phrase?: string; ms: number; engine_voice: string; model: string }, audio: Uint8Array) {
+    return this.shelf<{ status: 'added' | 'kept' }>('/v1/names', { ...clip, audio: Buffer.from(audio).toString('base64') })
+  }
+
+  /** A line's manifest and pieces made here, for everyone (a key with `publish`). */
+  addLine(manifest: unknown, pieces: { part: 'head' | 'tail'; text: string; file: string; ms: number; engine_voice: string; model: string; audio: Uint8Array }[]) {
+    return this.shelf<{ status: 'added' }>('/v1/lines', { manifest, pieces: pieces.map(p => ({ ...p, audio: Buffer.from(p.audio).toString('base64') })) })
   }
 
   async status() {
