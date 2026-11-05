@@ -17,6 +17,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
@@ -31,10 +32,12 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
+import si.lanisce.lani.ui.scene.TypedTurnButtons
 
 /**
- * The two buttons under an answer ([AnswerButtons]) in every pair of the four languages, on rows from a very small phone's to a
- * phone's, in real text (the native graphics mode measures it): "Avanti · Weiter" broke inside its words on a small phone.
+ * The two rows of a [WayOnRow], under an answer ([AnswerButtons]) and under a dialog's typed turn ([TypedTurnButtons]), in every pair of
+ * the four languages, on rows from a very small phone's to a phone's, in real text (the native graphics mode measures it): "Avanti ·
+ * Weiter" broke inside its words on a small phone, and "Preveri · Check" in all twelve pairs, in six down to a letter a line.
  */
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -45,11 +48,16 @@ class AnswerButtonsTest {
     private var row by mutableIntStateOf(320)
     private var fontScale by mutableFloatStateOf(1f)
     private var labels by mutableStateOf("" to "")
+    private var typed by mutableStateOf(false)
+    private var chose = 0
 
     private fun show() = compose.setContent {
         val density = LocalDensity.current
         CompositionLocalProvider(LocalDensity provides Density(density.density, fontScale)) {
-            Box(Modifier.width(row.dp)) { AnswerButtons(labels.first, labels.second, Color.Green, {}, {}) }
+            Box(Modifier.width(row.dp)) {
+                if (typed) TypedTurnButtons(labels.first, labels.second, true, { chose++ }, {})
+                else AnswerButtons(labels.first, labels.second, Color.Green, {}, {})
+            }
         }
     }
 
@@ -70,24 +78,68 @@ class AnswerButtonsTest {
     /** Whether [label] is on the screen: the row keeps the other Ask composed, unplaced. */
     private fun shows(label: String) = compose.onAllNodesWithText(label, useUnmergedTree = true).fetchSemanticsNodes().any { it.layoutInfo.isPlaced }
 
-    @Test fun `no word of the two labels breaks, in any pair of the languages, on any row, in large text too`() {
+    /** Every pair on every row: no word of [emoji] + the first key's label, or of the second's, in pieces; the first's name still there. */
+    private fun wholeEverywhere(firstKey: String, secondKey: String, emoji: String) {
         assertEquals("twelve pairs", 12, pairs().size)
         show()
-        for ((target, base) in pairs()) for (width in listOf(200, 240, 288, 320, 340, 380)) for (scale in listOf(1f, 1.3f, 1.6f)) {
-            val ask = text("playerScreen.ask", target, base)
-            val next = text("common.next", target, base)
-            labels = ask to next
+        for ((target, base) in pairs()) for (width in listOf(200, 240, 288, 320, 328, 340, 379, 380)) for (scale in listOf(1f, 1.3f, 1.6f)) {
+            val first = text(firstKey, target, base)
+            val second = text(secondKey, target, base)
+            labels = first to second
             row = width
             fontScale = scale
             compose.waitForIdle()
-            for (label in listOf("💬 $ask", next).filter(::shows)) {
+            for (label in listOf("$emoji $first", second).filter(::shows)) {
                 val words = label.split(' ').filter { it.isNotBlank() }
                 val broken = lines(label).flatMap { it.split(' ') }.filter { it.isNotBlank() && it !in words }
                 assertTrue("$label on a row of $width dp at ${scale}x: ${lines(label)}", broken.isEmpty())
             }
-            assertTrue("the way on is there", shows(next))
-            compose.onNodeWithContentDescription(ask, useUnmergedTree = true).let { if (!shows("💬 $ask")) it.assertExists() }
+            assertTrue("the way on is there", shows(second))
+            compose.onNodeWithContentDescription(first, useUnmergedTree = true).let { if (!shows("$emoji $first")) it.assertExists() }
         }
+    }
+
+    @Test fun `no word of the two labels breaks, in any pair of the languages, on any row, in large text too`() =
+        wholeEverywhere("playerScreen.ask", "common.next", "💬")
+
+    @Test fun `no word under a typed turn breaks, in any pair of the languages, on any row, in large text too`() {
+        typed = true
+        wholeEverywhere("adaptive.letMeChoose", "playerScreen.check", "✋")
+    }
+
+    @Test fun `on a small phone a typed turn keeps Check whole on one line, its hand beside it, in the longest pair`() {
+        typed = true
+        show()
+        labels = text("adaptive.letMeChoose", Lang.IT, Lang.DE) to text("playerScreen.check", Lang.IT, Lang.DE)
+        row = 328
+        compose.waitForIdle()
+        assertFalse("no words on the hand", shows("✋ ${labels.first}"))
+        assertEquals("on one line", 1, lines(labels.second).size)
+        val hand = compose.onNodeWithContentDescription(labels.first, useUnmergedTree = true).assertExists().getBoundsInRoot()
+        val check = bounds(labels.second)
+        assertTrue("in the row: $hand, $check", check.left >= hand.right && check.top < hand.bottom)
+    }
+
+    @Test fun `the hand alone still brings the choices back`() {
+        typed = true
+        show()
+        labels = "Fammi scegliere · Lass mich wählen" to "Controlla · Prüfen"
+        row = 328
+        compose.waitForIdle()
+        compose.onNodeWithContentDescription(labels.first).performClick()
+        compose.waitForIdle()
+        assertEquals(1, chose)
+    }
+
+    @Test fun `where there is room a typed turn keeps the words of Let me choose`() {
+        typed = true
+        show()
+        labels = "Fammi scegliere · Lass mich wählen" to "Controlla · Prüfen"
+        row = 600
+        compose.waitForIdle()
+        val choose = bounds("✋ ${labels.first}")
+        val check = bounds(labels.second)
+        assertTrue("beside it: $choose, $check", check.left >= choose.right && check.top < choose.bottom)
     }
 
     @Test fun `a short pair keeps both labels side by side on a phone, the way on taking the room left`() {

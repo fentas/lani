@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -164,8 +163,6 @@ import si.lanisce.lani.ui.words.TextParts
 import si.lanisce.lani.ui.words.WordText
 import si.lanisce.lani.ui.words.WordToken
 import si.lanisce.lani.ui.words.lookUpIn
-import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.unit.Constraints
 
 /** The outcome of one exercise, as shown in feedback and reported afterwards. */
 data class Outcome(
@@ -1387,44 +1384,13 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
     }
 }
 
-/**
- * Under an answer: "💬 Vprašaj · Ask" and the way on, side by side, the way on taking the room left. Its label wraps between its
- * words; where that room is less than its longest word (a small phone, large text, a pair like "Avanti · Weiter") a word would break,
- * so Ask gives up its words for its 💬 and stays in the row: one above the other would take the answer's room in the card. Only where
- * even that is too wide do they stand one above the other. By the labels' measure, so it holds for any two languages.
- */
+/** Under an answer: "💬 Vprašaj · Ask" and the way on, by [WayOnRow]. */
 @Composable
-internal fun AnswerButtons(ask: String, next: String, color: Color, onAsk: () -> Unit, onNext: () -> Unit) {
-    Layout({
-        OutlinedButton(onClick = onAsk, modifier = Modifier.heightIn(min = 56.dp), shape = MaterialTheme.shapes.medium) { Text("💬 $ask") }
-        OutlinedButton(onClick = onAsk, modifier = Modifier.heightIn(min = 56.dp), shape = MaterialTheme.shapes.medium, contentPadding = PaddingValues(horizontal = 12.dp)) {
-            EmojiLabel("💬", ask)
-        }
-        BigButton(next, onClick = onNext, color = color)
-    }) { (words, icon, way), c ->
-        val gap = 10.dp.roundToPx()
-        val longestWord = way.minIntrinsicWidth(Constraints.Infinity)
-        val beside = listOf(words, icon).firstOrNull { it.maxIntrinsicWidth(Constraints.Infinity) + gap + longestWord <= c.maxWidth }
-        fun wide(width: Int) = c.copy(minWidth = width, maxWidth = width, minHeight = 0)
-        if (beside != null) {
-            val width = beside.maxIntrinsicWidth(Constraints.Infinity)
-            val a = beside.measure(wide(width))
-            val n = way.measure(wide(c.maxWidth - width - gap))
-            val height = maxOf(a.height, n.height)
-            layout(c.maxWidth, height) {
-                a.place(0, (height - a.height) / 2)
-                n.place(width + gap, (height - n.height) / 2)
-            }
-        } else {
-            val a = words.measure(wide(c.maxWidth))
-            val n = way.measure(wide(c.maxWidth))
-            layout(c.maxWidth, a.height + gap + n.height) {
-                a.place(0, 0)
-                n.place(0, a.height + gap)
-            }
-        }
-    }
-}
+internal fun AnswerButtons(ask: String, next: String, color: Color, onAsk: () -> Unit, onNext: () -> Unit) = WayOnRow(
+    words = { OutlinedButton(onClick = onAsk, modifier = Modifier.heightIn(min = 56.dp), shape = MaterialTheme.shapes.medium) { Text("💬 $ask") } },
+    icon = { EmojiButton("💬", ask, onAsk) },
+    way = { BigButton(next, onClick = onNext, color = color) },
+)
 
 /** The Slovene to hear in the feedback box: the full answer sentence, whatever the exercise type. */
 /**

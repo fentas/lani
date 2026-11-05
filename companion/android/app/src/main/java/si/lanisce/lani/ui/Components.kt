@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -40,6 +41,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -62,6 +64,8 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
@@ -347,6 +351,51 @@ fun BigButton(
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(containerColor = color, disabledContainerColor = disabledColor),
     ) { Text(text, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(horizontal = 8.dp)) }
+}
+
+/**
+ * A button and the way on, side by side, the way on taking the room left. Its label wraps between its words; where that room is less than
+ * its longest word (a small phone, large text, a pair like "Avanti · Weiter") a word would break, so the button gives up its [words] for
+ * its [icon] and stays in the row: one above the other would take the room of what stands over them. Only where even that is too wide do
+ * they stand one above the other. By the labels' measure, so it holds for any two languages.
+ */
+@Composable
+internal fun WayOnRow(words: @Composable () -> Unit, icon: @Composable () -> Unit, way: @Composable () -> Unit) {
+    Layout({
+        words()
+        icon()
+        way()
+    }) { (withWords, withIcon, wayOn), c ->
+        val gap = 10.dp.roundToPx()
+        val longestWord = wayOn.minIntrinsicWidth(Constraints.Infinity)
+        val beside = listOf(withWords, withIcon).firstOrNull { it.maxIntrinsicWidth(Constraints.Infinity) + gap + longestWord <= c.maxWidth }
+        fun wide(width: Int) = c.copy(minWidth = width, maxWidth = width, minHeight = 0)
+        if (beside != null) {
+            val width = beside.maxIntrinsicWidth(Constraints.Infinity)
+            val a = beside.measure(wide(width))
+            val n = wayOn.measure(wide(c.maxWidth - width - gap))
+            val height = maxOf(a.height, n.height)
+            layout(c.maxWidth, height) {
+                a.place(0, (height - a.height) / 2)
+                n.place(width + gap, (height - n.height) / 2)
+            }
+        } else {
+            val a = withWords.measure(wide(c.maxWidth))
+            val n = wayOn.measure(wide(c.maxWidth))
+            layout(c.maxWidth, a.height + gap + n.height) {
+                a.place(0, 0)
+                n.place(0, a.height + gap)
+            }
+        }
+    }
+}
+
+/** A [WayOnRow]'s button that has given up its words: its [emoji], and its [name] for TalkBack. */
+@Composable
+internal fun EmojiButton(emoji: String, name: String, onClick: () -> Unit) {
+    OutlinedButton(onClick = onClick, modifier = Modifier.heightIn(min = 56.dp), shape = MaterialTheme.shapes.medium, contentPadding = PaddingValues(horizontal = 12.dp)) {
+        EmojiLabel(emoji, name)
+    }
 }
 
 /** Whole minutes on screen since [started] (ScreenClock.app.now()), rounded up: a session's duration_minutes (at least 1). */

@@ -112,7 +112,9 @@ import si.lanisce.lani.game.scene.StoryTonight
 import si.lanisce.lani.ui.AnswerKeyboard
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.DiacriticChips
+import si.lanisce.lani.ui.EmojiButton
 import si.lanisce.lani.ui.EmojiLabel
+import si.lanisce.lani.ui.WayOnRow
 import si.lanisce.lani.ui.NoSuggestions
 import si.lanisce.lani.ui.Labels
 import si.lanisce.lani.ui.NodeMic
@@ -764,9 +766,17 @@ private fun rememberAnswering(
 
 /** "✋ Izberi raje · Let me choose": the turn's choices, never a wall. */
 @Composable
-private fun LetMeChoose(onClick: () -> Unit) {
-    TextButton(onClick = onClick, modifier = Modifier.heightIn(min = 48.dp)) { Text("✋ ${bi("adaptive.letMeChoose")}") }
+private fun LetMeChoose(onClick: () -> Unit, label: String = bi("adaptive.letMeChoose")) {
+    TextButton(onClick = onClick, modifier = Modifier.heightIn(min = 48.dp)) { Text("✋ $label") }
 }
+
+/** Under a typed turn: "✋ Izberi raje · Let me choose" and "Preveri · Check", by [WayOnRow]. */
+@Composable
+internal fun TypedTurnButtons(choose: String, check: String, enabled: Boolean, onChoose: () -> Unit, onCheck: () -> Unit) = WayOnRow(
+    words = { LetMeChoose(onChoose, choose) },
+    icon = { EmojiButton("✋", choose, onChoose) },
+    way = { BigButton(check, onClick = onCheck, enabled = enabled) },
+)
 
 /** What the turn means, for typing or saying it: "Hočeš reči · You want to say: Ten eggs, please." */
 @Composable
@@ -808,10 +818,7 @@ private fun TypeTurn(vm: AppViewModel, run: DialogRun, onType: (String) -> Unit,
         )
     }
     DiacriticChips(value, { value = it })
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        LetMeChoose(onLetMeChoose)
-        BigButton(bi("playerScreen.check"), onClick = submit, enabled = value.text.isNotBlank(), modifier = Modifier.weight(1f))
-    }
+    TypedTurnButtons(bi("adaptive.letMeChoose"), bi("playerScreen.check"), value.text.isNotBlank(), onLetMeChoose, submit)
 }
 
 /**

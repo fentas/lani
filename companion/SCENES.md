@@ -473,7 +473,8 @@ and adaptive turns"): chosen while they learn it; once it is secure, typed into 
 Type the missing word", "Hočeš reči · You want to say: Ten eggs, please.", "Deset ____, prosim." with the letter chips);
 once it is mastered, said whole ("🎤 Povej cel stavek · Say the whole sentence"). "✋ Izberi raje · Let me choose" and a
 wrong answer bring back the choices (`DialogRun.letMeChoose`, `type`, `say`); a form typed that is a wrong choice is that
-choice picked, with its reaction. A turn whose rule isn't introduced to the learner yet isn't asked for at all: its form's
+choice picked, with its reaction. Where a typed turn's row can't hold both labels, "Let me choose" gives up its words for its ✋
+and Check keeps its own whole (`WayOnRow`, as under an answer; TalkBack still says the name). A turn whose rule isn't introduced to the learner yet isn't asked for at all: its form's
 wrong choices go (see [Rules not yet](#rules-not-yet-what-the-learner-is-asked-grows-with-the-grammar)).
 
 While the keyboard is up for a typed turn, the panel keeps above it and takes the picture's room (`ui/scene/DialogRoom.kt`;

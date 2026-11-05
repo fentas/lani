@@ -2336,7 +2336,7 @@ the grading table's nonstandard too, a recognizer's *u vasi* the standard, an op
 the teacher asks and a word tip its "Senza microfono" can lie below the fold on a phone, so the player keeps a "▾" in the
 corner while any exercise's item goes on below (`MoreBelow`; a tap brings the rest up, the keyboard up hides it), and each
 item opens at its top. Under an answer the way on's label never breaks inside a word: where the row can't hold its longest word,
-Ask shrinks to its 💬 (`AnswerButtons`). A writing item (`WritingEx`) shows what the text must use (ticked as it is met on a worksheet, a list in the test), checks it at
+Ask shrinks to its 💬 (`AnswerButtons`, by `WayOnRow`; a dialog's typed turn does the same with its ✋). A writing item (`WritingEx`) shows what the text must use (ticked as it is met on a worksheet, a list in the test), checks it at
 once by its rules on "Preveri · Check", then the checks, a model text and the tutor's feedback, which comes as the reply
 to an `answer` (conversation `exw…`), under the text and into the chat, offline from the outbox: nothing waits for it.
 A child says a writing item first. In a test a speaking item rated by the learner (no microphone) doesn't count. The app
