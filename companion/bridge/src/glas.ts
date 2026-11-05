@@ -46,7 +46,7 @@ export type GlasLineAnswer = {
   error?: { code: string; message: string }
 }
 
-type Library = { at: number; speakers: Map<string, string>; generate: boolean }
+type Library = { at: number; speakers: Map<string, { id: string; provider: string }>; generate: boolean }
 
 export type GlasOptions = { url?: string; key?: string; language?: string; log?: Log; fetch?: typeof fetch; backoffMs?: number }
 
@@ -89,20 +89,19 @@ export class Glas implements Engine {
     })
   }
 
-  /** What glas says of the speakers of the language (speaker → the ElevenLabs voice it is in) and of the key. */
-  private async known(lang: string): Promise<Library | null> {
-    if (this.library && lang === this.language && Date.now() - this.library.at < LIBRARY_MS) return this.library
-    const [voices, characters, usage] = await Promise.all([this.api('GET', '/v1/voices'), this.api('GET', `/v1/characters?lang=${lang}`), this.api('GET', '/v1/usage')])
+  /** What glas says of the village's speakers (speaker → the voice it is in, its ElevenLabs id) and of the key. */
+  private async known(): Promise<Library | null> {
+    if (this.library && Date.now() - this.library.at < LIBRARY_MS) return this.library
+    const [voices, characters, usage] = await Promise.all([this.api('GET', '/v1/voices'), this.api('GET', `/v1/characters?lang=${this.language}`), this.api('GET', '/v1/usage')])
     if (!voices.ok || !characters.ok || !usage.ok) {
       this.failed(voices.ok ? (characters.ok ? usage : characters) : voices)
       return null
     }
     const ids = new Map(((await voices.json()) as { voices: { id: string; provider_id: string }[] }).voices.map(v => [v.id, v.provider_id]))
-    const speakers = new Map(((await characters.json()) as { characters: { archetype: string; voice: string }[] }).characters.map(c => [c.archetype, ids.get(c.voice) ?? '']))
+    const speakers = new Map(((await characters.json()) as { characters: { archetype: string; voice: string }[] }).characters.map(c => [c.archetype, { id: c.voice, provider: ids.get(c.voice) ?? '' }]))
     const generate = ((await usage.json()) as { key: { scopes: string[] } }).key.scopes.includes('generate')
-    const library = { at: Date.now(), speakers, generate }
-    if (lang === this.language) this.library = library
-    return library
+    this.library = { at: Date.now(), speakers, generate }
+    return this.library
   }
 
   private failed(r: Response) {
@@ -127,20 +126,21 @@ export class Glas implements Engine {
     if (!speaker || !this.configured) return null
     const lang = o.lang ?? this.language
     try {
-      const lib = await this.known(lang)
+      const lib = await this.known()
       if (!lib) return null
       // the voice this node's cast has for the speaker, and glas's, must be one: a line is never said by someone else
       const theirs = lib.speakers.get(speaker)
-      if (!theirs || theirs !== elevenlabsOf(voice)) return null
+      if (!theirs || theirs.provider !== elevenlabsOf(voice)) return null
       // a lone word is said right only inside a carrier sentence, which glas doesn't make: it gives one it has, and the node's
       // own engines make the rest
       const make = lib.generate && !(isShortText(text) && (o.carrier || carrierVoice(voice)))
-      const item = { lang, text, voice: speaker, ...(make ? {} : { make: false }) }
+      // an explanation is in the village's voice, whoever that speaker is in its language: so asked by the voice
+      const item = { lang, text, voice: o.lang ? theirs.id : speaker, ...(make ? {} : { make: false }) }
       const wait = o.live && make ? GLAS_WAIT_SECONDS : 0
       const r = await this.ask(item, wait)
       if (r?.status === 'rejected') this.refused(r)
       if (r?.status !== 'ready' || !r.url) return null
-      return await this.take(r, theirs)
+      return await this.take(r, theirs.provider)
     } catch (e) {
       this.stop(this.o.backoffMs ?? GLAS_BACKOFF_MS, `unreachable (${(e as Error).name})`)
       return null
