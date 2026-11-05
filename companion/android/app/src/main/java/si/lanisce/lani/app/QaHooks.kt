@@ -138,7 +138,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   cards of the learner's ([withRequest]: the cards a request was made from, a grammar card among them) and its challenge
  *   starts, as from its bubble: what the challenge asks of each card (companion/GAME.md, "Cards in a challenge").
  * - "firstrun:device", "firstrun:paired", "firstrun:": app/FirstRun as after a first run on this device or with a computer, or
- *   none; "family:scan:<text, URL-encoded>": a family's code as if the camera had read it.
+ *   none; "family:scan:<text, URL-encoded>": a family's code as if the camera had read it; "family:peer:<host>:<port>": where the
+ *   parent's device answers (two emulators can't find each other on a Wi-Fi); "family:offline", "family:online": as if this device
+ *   had no internet for what the family's key needs, and back.
  * - "setup:phone:<code>": the first launch from its welcome as on a phone in that language ("setup:phone:de": Teo's
  *   German tablet on an English emulator).
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the settings' languages page
@@ -404,7 +406,7 @@ object QaHooks {
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
         cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {}, icon: (String) -> Unit = {}, notify: (String) -> Unit = {},
         setupPhone: (String) -> Unit = {}, readOlder: (Long) -> Unit = {}, placement: (String) -> Unit = {},
-        firstRun: (String) -> Unit = {}, family: (String) -> Unit = {},
+        firstRun: (String) -> Unit = {}, family: (String) -> Unit = {}, familyQa: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -416,6 +418,7 @@ object QaHooks {
             command.startsWith("firstrun:") -> firstRun(command.removePrefix("firstrun:").trim())
             // "family:scan:<the code's text>": as if the camera had read it (the emulator's camera can't)
             command.startsWith("family:scan:") -> family(java.net.URLDecoder.decode(command.removePrefix("family:scan:").trim(), "UTF-8"))
+            command.startsWith("family:") -> familyQa(command.removePrefix("family:").trim())
             // "icon:<alias>": the launcher shows that alias a few seconds after the app goes to the background, as the
             // developer's "Try the next icon" does; "icon:" the day's icon again (data/AppIconWork.kt)
             command.startsWith("icon:") -> icon(command.removePrefix("icon:"))

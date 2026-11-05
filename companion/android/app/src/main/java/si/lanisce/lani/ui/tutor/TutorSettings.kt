@@ -162,10 +162,14 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier, heading: Bool
         // --- the cap and the spend ------------------------------------------------------------------------------------
         Text(bi("tutorLive.cap"), style = MaterialTheme.typography.bodySmall, color = muted)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (cap in CAPS) FilterChip(selected = s.dailyCap == cap, onClick = { live.update { it.copy(dailyCap = cap) } }, label = { Text(money(cap)) })
+            // a parent's limit is a ceiling here: this device chooses under it, and only their device raises it
+            for (cap in CAPS) FilterChip(selected = s.capNow == cap, enabled = s.familyCap == null || cap <= s.familyCap!!, onClick = { live.update { it.copy(dailyCap = cap) } }, label = { Text(money(cap)) })
+        }
+        s.familyCap?.let { cap ->
+            Text("👪 " + bi("family.capHere", "cap" to money(cap), "device" to s.familyCapBy.orEmpty()), style = MaterialTheme.typography.bodySmall, color = muted, modifier = Modifier.testTag("family-cap"))
         }
         Text(
-            "💶 " + bi("tutorLive.spend", "today" to money(si.lanisce.lani.tutor.Meter.spend(live.today.calls)), "cap" to money(s.dailyCap), "month" to money(month ?: 0.0)),
+            "💶 " + bi("tutorLive.spend", "today" to money(si.lanisce.lani.tutor.Meter.spend(live.today.calls)), "cap" to money(s.capNow), "month" to money(month ?: 0.0)),
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.testTag("tutor-spend"),
         )
@@ -220,7 +224,7 @@ private fun taskLabel(t: Task): String = when (t) {
 
 private fun money(d: Double) = "$" + "%.2f".format(d)
 
-private val CAPS = listOf(0.5, 1.0, 2.0, 5.0, 10.0)
+internal val CAPS = listOf(0.5, 1.0, 2.0, 5.0, 10.0)
 
 /** The Claude API key: entered once, checked with GET /v1/models (not a model call), then only "kept". */
 @Composable

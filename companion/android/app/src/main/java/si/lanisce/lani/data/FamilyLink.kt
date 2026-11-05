@@ -36,8 +36,9 @@ import javax.crypto.spec.SecretKeySpec
 /**
  * "Add a family member" (docs/plans/05-built/first-minutes.md, "A family member from a phone that's set up"): a device that is
  * set up shows a QR code, a new device scans it and gets what the family shares, device to device over the Wi-Fi they are
- * both on. No relay, no node and no internet are needed; the relay isn't hosted yet, and a family on "just this device"
- * has no other place the two could meet.
+ * both on, or through the relay when one is set ([Offer.relay], [RelayWay]; docs/plans/05-built/leftovers-app.md): the same
+ * exchange, sealed the same way, so a relay carries bytes it can't open. On one Wi-Fi no relay, no node and no internet are
+ * needed.
  *
  * The rules, because a key travels:
  * - The QR ([Offer.text]) holds where to connect, a one-time code and the sender's public key for this one exchange: never a
@@ -48,8 +49,10 @@ import javax.crypto.spec.SecretKeySpec
  * - One claim: the first device with a good proof claims the code, every other gets nothing ([Sender.claim]); after
  *   [TTL_MS] nobody does.
  * - Nothing goes before a parent has seen what will be shared and to which device, and held the button ([Sender.confirm]).
+ * - The two keep a bond ([bondKey]): a key both can work out from this exchange and nobody else can, the channel for what a
+ *   parent sends the device later ([FamilyPost]). It never crosses, so it's in no QR and in no frame.
  *
- * Pure but for [Listener] and [fetch], the sockets. Nothing here logs what it carries.
+ * Pure but for [Listener] and [fetch], the sockets, and a [Drop]. Nothing here logs what it carries.
  */
 object FamilyLink {
     const val VERSION = 1
@@ -66,9 +69,14 @@ object FamilyLink {
     private fun b64(b: ByteArray): String = Base64.getUrlEncoder().withoutPadding().encodeToString(b)
     private fun unb64(s: String): ByteArray? = runCatching { Base64.getUrlDecoder().decode(s) }.getOrNull()
 
-    /** What the QR code says. [host] and [port]: where the sender listens; [code]: the one-time code; [publicKey]: its key for this exchange. */
-    data class Offer(val host: String, val port: Int, val code: String, val publicKey: String, val expires: Long) {
-        fun text(): String = "lani://family?v=$VERSION&h=${URLEncoder.encode(host, "UTF-8")}&p=$port&c=$code&k=$publicKey&e=$expires"
+    /**
+     * What the QR code says. [host] and [port]: where the sender listens (blank and 0 when it has no Wi-Fi and only the relay
+     * reaches it); [code]: the one-time code; [publicKey]: its key for this exchange; [relay]: the relay both can meet at, if
+     * one is set. An older app reads what it knows of it and leaves the relay.
+     */
+    data class Offer(val host: String, val port: Int, val code: String, val publicKey: String, val expires: Long, val relay: String? = null) {
+        fun text(): String = "lani://family?v=$VERSION&h=${URLEncoder.encode(host, "UTF-8")}&p=$port&c=$code&k=$publicKey&e=$expires" +
+            (relay?.let { "&r=${URLEncoder.encode(it, "UTF-8")}" } ?: "")
     }
 
     /** [text] as an [Offer]; null when it isn't one of ours, or of a version this app doesn't read. */
@@ -77,13 +85,20 @@ object FamilyLink {
         if (!t.startsWith("lani://family?")) return null
         val q = t.substringAfter('?').split('&').associate { it.substringBefore('=') to it.substringAfter('=', "") }
         if (q["v"] != VERSION.toString()) return null
-        val port = q["p"]?.toIntOrNull()?.takeIf { it in 1..65535 } ?: return null
         val expires = q["e"]?.toLongOrNull() ?: return null
         val code = q["c"]?.takeIf { unb64(it)?.size == CODE_BYTES } ?: return null
         val key = q["k"]?.takeIf { unb64(it) != null } ?: return null
-        val host = q["h"]?.let { URLDecoder.decode(it, "UTF-8") }?.takeIf { it.isNotBlank() } ?: return null
-        return Offer(host, port, code, key, expires)
+        val relay = q["r"]?.let { runCatching { URLDecoder.decode(it, "UTF-8") }.getOrNull() }?.takeIf(::relayLike)
+        val host = q["h"]?.let { runCatching { URLDecoder.decode(it, "UTF-8") }.getOrNull() }.orEmpty()
+        val port = q["p"]?.toIntOrNull() ?: return null
+        // somewhere to go: an address on the Wi-Fi, or only the relay
+        if (host.isBlank() && relay == null) return null
+        if (host.isNotBlank() && port !in 1..65535) return null
+        return Offer(host, if (host.isBlank()) 0 else port, code, key, expires, relay)
     }
+
+    /** An http(s) address with nothing but a host and a path, as the relay's setting is. */
+    private fun relayLike(url: String): Boolean = Regex("^https?://[^\\s/?#@]+(/[^\\s?#]*)?$").matches(url)
 
     fun newKeys(): KeyPair = KeyPairGenerator.getInstance("EC").apply { initialize(ECGenParameterSpec(CURVE), random) }.generateKeyPair()
 
@@ -110,6 +125,12 @@ object FamilyLink {
         return hmac(prk, INFO, byteArrayOf(1))
     }
 
+    /**
+     * What the sender and the device keep after the exchange: a key from this exchange's session key, which only those two can
+     * work out and which never crosses. It opens the channel for what a parent sends later ([FamilyPost]).
+     */
+    fun bondKey(session: ByteArray): ByteArray = hmac(session, "lani-family-bond-v1".toByteArray())
+
     /** [plain] sealed with AES-GCM under [key]: its 12-byte IV, then the ciphertext and its tag; base64. */
     fun seal(key: ByteArray, plain: ByteArray): String {
         val iv = ByteArray(IV).also(random::nextBytes)
@@ -125,32 +146,40 @@ object FamilyLink {
 
     /**
      * What the family shares ([json], sealed in transit): the tutor's [provider], its [key] and [preset] (a ChatGPT sign-in is one
-     * person's and never comes), the languages as a suggestion. Learning progress, names and notebooks never do.
+     * person's and never comes), the languages as a suggestion. Learning progress, names and notebooks never do. [family],
+     * [member] and [from]: who the new device is in the sender's list, and what it calls the sender ([FamilyBook]); an
+     * older sender has none of them, and an older device leaves them.
      */
-    data class Gift(val provider: String? = null, val key: String? = null, val preset: String? = null, val target: String? = null, val base: String? = null) {
+    data class Gift(
+        val provider: String? = null, val key: String? = null, val preset: String? = null, val target: String? = null, val base: String? = null,
+        val family: String? = null, val member: String? = null, val from: String? = null,
+    ) {
         fun json(): String = buildJsonObject {
             provider?.let { put("provider", it) }
             key?.let { put("key", it) }
             preset?.let { put("preset", it) }
             target?.let { put("target", it) }
             base?.let { put("base", it) }
+            family?.let { put("family", it) }
+            member?.let { put("member", it) }
+            from?.let { put("from", it) }
         }.toString()
 
         /** Never the key itself: a [Gift] printed by accident stays harmless. */
-        override fun toString(): String = "Gift(provider=$provider, key=${if (key != null) "‹key›" else "none"}, preset=$preset, target=$target, base=$base)"
+        override fun toString(): String = "Gift(provider=$provider, key=${if (key != null) "‹key›" else "none"}, preset=$preset, target=$target, base=$base, member=$member)"
 
         companion object {
             fun parse(raw: String): Gift? = runCatching {
                 val o = json.parseToJsonElement(raw).jsonObject
                 fun s(k: String) = o[k]?.jsonPrimitive?.contentOrNull
-                Gift(s("provider"), s("key"), s("preset"), s("target"), s("base"))
+                Gift(s("provider"), s("key"), s("preset"), s("target"), s("base"), s("family"), s("member"), s("from"))
             }.getOrNull()
         }
     }
 
     /** The sending device's side of one exchange: the state, without the sockets. Its keys live and die with it. */
-    class Sender(host: String, port: Int, now: Long, private val keys: KeyPair = newKeys(), private val code: String = newCode()) {
-        val offer = Offer(host, port, code, publicOf(keys), now + TTL_MS)
+    class Sender(host: String, port: Int, now: Long, private val keys: KeyPair = newKeys(), private val code: String = newCode(), relay: String? = null) {
+        val offer = Offer(host, port, code, publicOf(keys), now + TTL_MS, relay)
 
         enum class State { WAITING, CLAIMED, SENT, REFUSED, EXPIRED }
 
@@ -161,6 +190,10 @@ object FamilyLink {
         var device: String? = null
             private set
         private var session: ByteArray? = null
+
+        /** The key kept with the device once the gift is sealed ([bondKey]); null before that, and after a no. */
+        var bond: ByteArray? = null
+            private set
 
         /**
          * A new device with [publicKey], named [device], proving the code by [proof]: true when it's the one. A used or expired
@@ -185,6 +218,7 @@ object FamilyLink {
             if (state != State.CLAIMED || k == null) return null
             state = State.SENT
             session = null
+            bond = bondKey(k)
             return seal(k, gift.json().toByteArray())
         }
 
@@ -222,17 +256,27 @@ object FamilyLink {
     private fun JsonObject.str(k: String) = this[k]?.jsonPrimitive?.contentOrNull
 
     /**
-     * The sender's listener on [address], for one exchange: it waits for a good claim, tells [onClaimed], and holds that
-     * connection until the parent decides ([Sender.confirm] or [Sender.refuse]: [send]). Bad claims are answered and dropped.
-     * It closes with [close], after its exchange, or at the expiry.
+     * A way a claim reaches the sender, for one exchange: [serve] waits for a good claim and tells [onClaimed], then [send] takes
+     * the parent's decision back the way the claim came. It ends with [close], after its exchange, or at the expiry.
      */
-    class Listener(address: InetAddress?, private val clock: () -> Long = System::currentTimeMillis) : Closeable {
+    interface Way : Closeable {
+        /** Runs until the code is claimed or closed; meant for a background thread. */
+        fun serve(sender: Sender, onClaimed: (String) -> Unit)
+
+        /** The parent decided: [sealed] to the device that waits, or no ([sealed] null). */
+        fun send(sealed: String?)
+    }
+
+    /**
+     * The sender's listener on [address]: it holds a claim's connection until the parent decides ([Sender.confirm] or
+     * [Sender.refuse]: [send]). Bad claims are answered and dropped.
+     */
+    class Listener(address: InetAddress?, private val clock: () -> Long = System::currentTimeMillis) : Way {
         private val server = ServerSocket(0, 4, address)
         val port: Int get() = server.localPort
         @Volatile private var claimed: Socket? = null
 
-        /** Runs until the code is claimed or closed; meant for a background thread. */
-        fun serve(sender: Sender, onClaimed: (String) -> Unit) {
+        override fun serve(sender: Sender, onClaimed: (String) -> Unit) {
             server.soTimeout = 1_000
             while (!server.isClosed) {
                 sender.expire(clock())
@@ -260,8 +304,7 @@ object FamilyLink {
             }
         }
 
-        /** The parent decided: [sealed] to the device that waits, or no ([sealed] null). */
-        fun send(sealed: String?) {
+        override fun send(sealed: String?) {
             val s = claimed ?: return
             claimed = null
             runCatching { s.reply(if (sealed != null) buildJsonObject { put("sealed", sealed) }.toString() else """{"refused":true}""") }
@@ -282,9 +325,86 @@ object FamilyLink {
         }
     }
 
+    /**
+     * Where two devices meet when they aren't on one Wi-Fi: boxes on the relay, each named by a hash only the two can work out
+     * (companion/relay/src/drop.ts). [put] leaves a note for [ttlS] seconds; [take] takes what waits in [box], waiting up to
+     * [waitS] seconds for something to come. Either throws an [IOException] when the relay can't be reached.
+     */
+    interface Drop {
+        fun put(box: String, note: String, ttlS: Int)
+        fun take(box: String, waitS: Int): List<String>
+    }
+
+    private fun hex(b: ByteArray) = b.joinToString("") { "%02x".format(it) }
+    private fun fromCode(code: String, what: String, vararg more: ByteArray): ByteArray = hmac(unb64(code) ?: ByteArray(0), what.toByteArray(), *more)
+
+    /** The box claims come to, and the key they're sealed under: the relay reads neither a public key nor a device's name. */
+    internal fun claimBox(code: String): String = hex(fromCode(code, "claim-box"))
+    private fun claimKey(code: String): ByteArray = fromCode(code, "claim-key")
+
+    /** The box the answer to the claim of [publicKey] comes to. */
+    internal fun giftBox(code: String, publicKey: String): String = hex(fromCode(code, "gift-box", publicKey.toByteArray()))
+
+    private const val REFUSED = "refused"
+    private const val DROP_POLL_S = 10
+
+    private fun claimLine(pub: String, code: String, device: String) =
+        buildJsonObject { put("v", VERSION); put("pub", pub); put("proof", proof(code, pub)); put("device", device.take(MAX_DEVICE)) }.toString()
+
+    /**
+     * The same exchange through a relay ([drop]): a claim comes sealed under a key from the code, the answer goes back sealed under
+     * the session's key, or a "no" under the code's. Each exchange has boxes of its own, so a used code's are empty.
+     */
+    class RelayWay(private val drop: Drop, private val offer: Offer, private val clock: () -> Long = System::currentTimeMillis) : Way {
+        @Volatile private var closed = false
+        @Volatile private var claimant: String? = null
+
+        override fun serve(sender: Sender, onClaimed: (String) -> Unit) {
+            val box = claimBox(offer.code)
+            val key = claimKey(offer.code)
+            while (!closed) {
+                sender.expire(clock())
+                if (sender.state != Sender.State.WAITING) return
+                val notes = try {
+                    drop.take(box, DROP_POLL_S)
+                } catch (_: IOException) {
+                    runCatching { Thread.sleep(2_000) }
+                    continue
+                }
+                for (note in notes) {
+                    if (closed) return
+                    val o = open(key, note)?.let { runCatching { json.parseToJsonElement(it.decodeToString()).jsonObject }.getOrNull() } ?: continue
+                    val pub = o.str("pub").orEmpty()
+                    if (sender.claim(pub, o.str("proof").orEmpty(), o.str("device").orEmpty(), clock())) {
+                        claimant = pub
+                        onClaimed(sender.device.orEmpty())
+                        return
+                    }
+                    // a code that's used or ran out says so; a wrong proof proved nothing and gets nothing
+                    if (o.str("proof") == proof(offer.code, pub)) runCatching { drop.put(giftBox(offer.code, pub), seal(key, REFUSED.toByteArray()), ANSWER_TTL_S) }
+                }
+            }
+        }
+
+        override fun send(sealed: String?) {
+            val pub = claimant ?: return
+            claimant = null
+            runCatching { drop.put(giftBox(offer.code, pub), sealed ?: seal(claimKey(offer.code), REFUSED.toByteArray()), ANSWER_TTL_S) }
+        }
+
+        override fun close() {
+            closed = true
+            send(null)
+        }
+    }
+
+    /** How long a note of an exchange waits on the relay: the code's own time, and no longer. */
+    private const val ANSWER_TTL_S = (TTL_MS / 1000).toInt()
+
     /** How a fetch ended, for the new device's words. */
     sealed interface Fetched {
-        data class Got(val gift: Gift) : Fetched
+        /** [bond]: the key kept with the sender ([bondKey]). */
+        class Got(val gift: Gift, val bond: ByteArray) : Fetched
         /** Used already, expired or not ours: the code gives nothing. */
         data object Refused : Fetched
         /** Nothing answers there: not on the same Wi-Fi, or the sender left. */
@@ -293,28 +413,55 @@ object FamilyLink {
 
     /**
      * The new device's side: [offer] scanned, its proof and its own public key sent, then it waits while the parent looks ([waitMs]);
-     * the gift opened with the session's key.
+     * the gift opened with the session's key. Over the Wi-Fi when the sender answers there; through the relay ([drop]) when it
+     * doesn't and the offer names one. Only a failed connection goes on to the relay: once a claim has gone, the code is taken.
      */
-    fun fetch(offer: Offer, device: String, now: Long = System.currentTimeMillis(), waitMs: Int = TTL_MS.toInt(), keys: KeyPair = newKeys(), connectMs: Int = 5_000): Fetched {
+    fun fetch(offer: Offer, device: String, now: Long = System.currentTimeMillis(), waitMs: Int = TTL_MS.toInt(), keys: KeyPair = newKeys(), connectMs: Int = 5_000, drop: Drop? = null): Fetched {
         if (now >= offer.expires) return Fetched.Refused
         val session = sessionKey(keys, offer.publicKey, offer.code) ?: return Fetched.Refused
         val pub = publicOf(keys)
+        val viaRelay = { if (drop != null && offer.relay != null) fetchRelay(offer, drop, session, pub, device, waitMs) else Fetched.Unreachable }
+        if (offer.host.isBlank()) return viaRelay()
         return try {
             Socket().use { s ->
-                s.connect(InetSocketAddress(offer.host, offer.port), connectMs)
+                try {
+                    s.connect(InetSocketAddress(offer.host, offer.port), connectMs)
+                } catch (_: IOException) {
+                    return viaRelay()
+                }
                 s.soTimeout = waitMs
                 val out = BufferedWriter(OutputStreamWriter(s.getOutputStream(), Charsets.UTF_8))
-                out.write(buildJsonObject { put("v", VERSION); put("pub", pub); put("proof", proof(offer.code, pub)); put("device", device.take(MAX_DEVICE)) }.toString())
+                out.write(claimLine(pub, offer.code, device))
                 out.write("\n")
                 out.flush()
                 val o = json.parseToJsonElement(BufferedReader(InputStreamReader(s.getInputStream(), Charsets.UTF_8)).line().orEmpty()).jsonObject
                 val plain = o.str("sealed")?.let { open(session, it) } ?: return Fetched.Refused
-                Gift.parse(plain.decodeToString())?.let { Fetched.Got(it) } ?: Fetched.Refused
+                Gift.parse(plain.decodeToString())?.let { Fetched.Got(it, bondKey(session)) } ?: Fetched.Refused
             }
         } catch (_: IOException) {
             Fetched.Unreachable
         } catch (_: IllegalArgumentException) {
             Fetched.Refused
+        }
+    }
+
+    /** [fetch] through the relay: the claim left in its box, then the answer waited for, up to [waitMs]. */
+    private fun fetchRelay(offer: Offer, drop: Drop, session: ByteArray, pub: String, device: String, waitMs: Int, clock: () -> Long = System::currentTimeMillis): Fetched {
+        val key = claimKey(offer.code)
+        val box = giftBox(offer.code, pub)
+        return try {
+            drop.put(claimBox(offer.code), seal(key, claimLine(pub, offer.code, device).toByteArray()), ANSWER_TTL_S)
+            // a used code's boxes stay empty: past the code's own time nothing can come
+            val until = minOf(clock() + waitMs, offer.expires)
+            while (clock() < until) {
+                for (note in drop.take(box, DROP_POLL_S)) {
+                    open(session, note)?.let { plain -> return Gift.parse(plain.decodeToString())?.let { Fetched.Got(it, bondKey(session)) } ?: Fetched.Refused }
+                    if (open(key, note)?.decodeToString() == REFUSED) return Fetched.Refused
+                }
+            }
+            Fetched.Refused
+        } catch (_: IOException) {
+            Fetched.Unreachable
         }
     }
 }
