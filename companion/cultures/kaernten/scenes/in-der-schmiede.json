@@ -53,7 +53,7 @@
     },
     {
       "id": "bestellung", "title": { "de": "Eine Bestellung für Toni", "sl": "Naročilo za Tonija", "en": "An order for Toni", "it": "Un ordine per Toni" }, "who": "toni",
-      "when": ["afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "bestellung", "dialogs": ["bestellung-b2-gitter", "bestellung-b1-haken", "bestellung-brief", "bestellung"], "reward": { "stone": 20 }, "marker": "📒",
+      "when": ["afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "bestellung", "dialogs": ["bestellung-b2-gitter", "bestellung-b1-haken", "bestellung-hammer", "bestellung-brief", "bestellung"], "reward": { "stone": 20 }, "marker": "📒",
       "memory": { "de": "die Bestellung in meinem schwarzen Heft", "sl": "naročilo v mojem črnem zvezku", "en": "the order in my black notebook", "it": "l'ordine nel mio quaderno nero" }
     }
   ],
@@ -291,6 +291,22 @@
             "reply": { "face": "cross", "de": "In dem Kübel? Es ist ja noch gar nicht drin. Hm.", "sl": "V vedru? Saj še sploh ni notri. Hm.", "en": "In the bucket? It isn't in there yet. Hm.", "it": "Dentro il secchio? Ma non c'è ancora dentro. Mm." } }
         ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
         { "who": "toni", "face": "happy", "de": "Gut. Der, die, das, dem, den. Morgen wieder.", "sl": "Dobro. Der, die, das, dem, den. Jutri spet.", "en": "Good. Der, die, das, dem, den. Again tomorrow.", "it": "Bene. Der, die, das, dem, den. Domani di nuovo." }
+      ]
+    },
+    {
+      "id": "bestellung-hammer",
+      "memory": {"de": "den Hammer für deinen Onkel", "sl": "kladivo za tvojega strica", "en": "the hammer for your uncle", "it": "il martello per tuo zio"},
+      "lines": [
+        {"who": "toni", "de": "Grüß dich. Zwei Hämmer sind fertig. Welchen nimmst du?", "sl": "Živjo. Dve kladivi sta gotovi. Katero vzameš?", "en": "Hello. Two hammers are ready. Which one will you take?", "it": "Ciao. Due martelli sono pronti. Quale prendi?"},
+        { "choices": [
+          {"de": "Ich nehme den schweren Hammer.", "sl": "Vzamem težko kladivo.", "en": "I'll take the heavy hammer.", "it": "Prendo il martello pesante.", "ok": true, "reply": {"face": "happy", "de": "Gut. Der liegt gut in der Hand.", "sl": "Dobro. To dobro leži v roki.", "en": "Good. That one sits well in the hand.", "it": "Bene. Quello sta bene in mano."}},
+          {"de": "Ich nehme den schwere Hammer.", "sl": "Vzamem težko kladivo.", "en": "I'll take the heavy hammer.", "it": "Prendo il martello pesante.", "grammar": "adjektiv-der", "why": {"de": "Nach den endet das Adjektiv auf -en: den schweren Hammer. Auf -e endet es nur im Nominativ und bei die und das.", "sl": "Za den se pridevnik konča na -en: den schweren Hammer. Na -e se konča samo v imenovalniku ter za die in das.", "en": "After den the adjective ends in -en: den schweren Hammer. It ends in -e only in the nominative and after die and das.", "it": "Dopo den l'aggettivo finisce in -en: den schweren Hammer. Finisce in -e solo al nominativo e dopo die e das."}, "reply": {"face": "thinking", "de": "Schwere? Da fehlt noch was. Wie bei einem Hammer ohne Stiel.", "sl": "Schwere? Nekaj še manjka. Kot pri kladivu brez ročaja.", "en": "Schwere? Something's missing. Like a hammer with no handle.", "it": "Schwere? Manca ancora qualcosa. Come un martello senza manico."}}
+        ] },
+        {"who": "toni", "de": "Für wen ist er?", "sl": "Za koga je?", "en": "Who's it for?", "it": "Per chi è?"},
+        { "choices": [
+          {"de": "Für meinen Onkel.", "sl": "Za mojega strica.", "en": "For my uncle.", "it": "Per mio zio.", "ok": true, "reply": {"face": "happy", "de": "Schön. Grüß ihn von mir.", "sl": "Lepo. Pozdravi ga od mene.", "en": "Nice. Say hello to him from me.", "it": "Bello. Salutalo da parte mia."}},
+          {"de": "Für meinem Onkel.", "sl": "Za mojega strica.", "en": "For my uncle.", "it": "Per mio zio.", "grammar": "praepositionen-akkusativ", "why": {"de": "Für will immer den Akkusativ: für meinen Onkel.", "sl": "Für vedno zahteva tožilnik: für meinen Onkel.", "en": "Für always takes the accusative: für meinen Onkel.", "it": "Für vuole sempre l'accusativo: für meinen Onkel."}, "reply": {"face": "confused", "de": "Für meinem? Hm. Das klingt schief. Noch einmal.", "sl": "Für meinem? Hm. To zveni krivo. Še enkrat.", "en": "Für meinem? Hm. That sounds crooked. Once more.", "it": "Für meinem? Mah. Suona storto. Ancora una volta."}}
+        ] }
       ]
     },
     {

@@ -186,6 +186,12 @@ class GermanHintTest {
         assertEquals("weakNoun", key("Haben Sie mit dem Experten selber geredet?", "n-deklination", "Haben Sie mit dem Experte selber geredet?"))
     }
 
+    @Test fun `whose it is picks the word, the noun its ending`() {
+        assertNull(hint("Ja, das ist ihr Heft.", "possessiv", "Ja, das ist sein Heft.").trigger)
+        assertTrue(line(hint("Ja, das ist ihr Heft.", "possessiv", "Ja, das ist sein Heft.")).single(), "ihr" in line(hint("Ja, das ist ihr Heft.", "possessiv", "Ja, das ist sein Heft.")).single())
+        assertEquals("Tasche", word("Meine Tasche ist hier.", "possessiv", "Mein Tasche ist hier."))
+    }
+
     @Test fun `more than one, kein or nicht, du or Sie`() {
         assertEquals("za «Zwei»: več kot eno", line(hint("Zwei Mütter.", "plural", "Zwei Mutter."))[0])
         assertEquals("Wie viele", word("Wie viele Schafe hast du, Florian?", "plural", "Wie viele Schaf hast du, Florian?"))
@@ -372,6 +378,19 @@ class GermanHintTest {
         }
         is JsonArray -> e.flatMap { turnsIn(it) }
         else -> emptyList()
+    }
+
+    @Test fun `every page of the book has a curated turn, and a wrong choice one word off its right one`() {
+        val turns = curatedTurns().map { it.second }
+        assertEquals(emptyList<String>(), pages.map { it.id }.filter { id -> turns.none { id in TurnHints.pagesOf(it) } })
+        val form = turns.flatMap { line ->
+            val right = line.choices.indexOfFirst { it.ok }.takeIf { line.choices.count { c -> c.ok } == 1 } ?: return@flatMap emptyList()
+            val t = Forms.turn(line, right) ?: return@flatMap emptyList()
+            t.wrong.mapNotNull { line.choices[it].rule(line) }
+        }.toSet()
+        // a place is no word: any other order changes two words at the least, so these two pages' turns are of word order, which
+        // the chip reads apart (GermanHints.order); a time has its two sayings, Viertel drei and Viertel nach zwei, both right
+        assertEquals(setOf("satzbau", "uhrzeit", "wortstellung"), pages.map { it.id }.toSet() - form)
     }
 
     @Test fun `over the curated German turns the hint never gives the answer away, nearly all say a rule, and many name a trigger`() {

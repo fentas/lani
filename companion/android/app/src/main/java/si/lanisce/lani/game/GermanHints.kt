@@ -744,6 +744,9 @@ object GermanHints {
     /** One determiner's forms of gender at the gap (der, die; ein, eine; deine, dein) and its noun, past its adjectives; a pronoun's noun in a sentence of its own before it (Ein Fuchs! Er ist rot.). */
     private fun gender(s: Said, i: Int, gap: String, forms: Set<String>): Trigger? {
         if (forms.size < 2) return null
+        // ihr against sein: whose it is picks the word, and no noun's gender says that (possessiv's rule does)
+        val owners = forms.mapNotNull { f -> OWNERS.firstOrNull { f.startsWith(it) } }
+        if (owners.size == forms.size && owners.toSet().size > 1) return null
         if (gap in T.determiners && forms.all { it in T.determiners }) {
             val n = nounFrom(s, i + 1) ?: return null
             return asks(s, n, n, "hint.de.gender", "hintSay.with")
@@ -877,6 +880,9 @@ object GermanHints {
     }
 
     private val TITLES = set("herr frau oma opa tante onkel fräulein doktor")
+
+    /** What each owner's word starts with, whatever its ending (mein, meine, meinen; euer, eure). */
+    private val OWNERS = listOf("mein", "dein", "sein", "ihr", "unser", "euer", "eur")
 
     /**
      * Who is spoken to: a clause of a name or a title and a name (Herr Toni, Opa Sepp, Florian, Feuerwehr), set off by a

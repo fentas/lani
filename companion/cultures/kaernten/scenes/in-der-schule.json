@@ -59,7 +59,7 @@
     {
       "id": "hausuebung", "title": { "de": "Jakob macht Hausübung", "sl": "Jakob dela domačo nalogo", "en": "Jakob is doing his homework", "it": "Jakob fa i compiti" }, "who": "jakob",
       "when": ["afternoon"], "chance": 0.4,
-      "dialog": "hausuebung", "dialogs": ["hausuebung-stifte", "hausuebung"], "reward": { "wisdom": 15 }, "marker": "📓",
+      "dialog": "hausuebung", "dialogs": ["hausuebung-hefte", "hausuebung-stifte", "hausuebung"], "reward": { "wisdom": 15 }, "marker": "📓",
       "memory": { "de": "meine Hausübung, bei der du mir geholfen hast", "sl": "mojo domačo nalogo, pri kateri si mi {m:pomagal|f:pomagala}", "en": "my homework you helped me with", "it": "i compiti in cui mi hai aiutato" }
     },
     {
@@ -370,6 +370,22 @@
             "reply": { "face": "laugh", "de": "Einen Brot? Hihi, Brot ist doch kein Er!", "sl": "Einen Brot? Hihi, kruh vendar ni on!", "en": "Einen Brot? Hee hee, bread isn't a he!", "it": "Einen Brot? Ih ih, il pane mica è un lui!" } }
         ], "puzzled": { "face": "confused", "de": "Hä? Wie bitte?", "sl": "Ha? Kako, prosim?", "en": "Huh? Sorry?", "it": "Eh? Come?" } },
         { "who": "lena", "face": "happy", "de": "Am liebsten esse ich Kirschen. Auf Slowenisch: češnje!", "sl": "Najraje jem češnje. Po nemško: Kirschen!", "en": "I like cherries best. In Slovene: češnje!", "it": "Le cose che preferisco sono le ciliegie. In sloveno: češnje!" }
+      ]
+    },
+    {
+      "id": "hausuebung-hefte",
+      "memory": {"de": "das Heft, das die Lena liegen gelassen hat", "sl": "zvezek, ki ga je Lena pustila", "en": "the exercise book Lena left behind", "it": "il quaderno che Lena ha lasciato"},
+      "lines": [
+        {"who": "jakob", "face": "curious", "de": "Hallo, {learner}! Da liegt ein Heft. Gehört es der Lena?", "sl": "Živjo, {learner}! Tu leži zvezek. Je Lenin?", "en": "Hi, {learner}! There's an exercise book here. Is it Lena's?", "it": "Ciao, {learner}! Qui c'è un quaderno. È di Lena?"},
+        { "choices": [
+          {"de": "Ja, das ist ihr Heft.", "sl": "Ja, to je njen zvezek.", "en": "Yes, that's her exercise book.", "it": "Sì, è il quaderno di lei.", "ok": true, "reply": {"face": "happy", "de": "Gut! Ich gebe es ihr morgen.", "sl": "Dobro! Jutri ji ga dam.", "en": "Good! I'll give it to her tomorrow.", "it": "Bene! Glielo do domani."}},
+          {"de": "Ja, das ist sein Heft.", "sl": "Ja, to je njegov zvezek.", "en": "Yes, that's his exercise book.", "it": "Sì, è il quaderno di lui.", "grammar": "possessiv", "why": {"de": "Lena ist ein Mädchen: ihr Heft. Sein Heft sagt man, wenn es einem Buben gehört.", "sl": "Lena je deklica: ihr Heft. Sein Heft rečeš, kadar je zvezek fantov.", "en": "Lena is a girl: ihr Heft. You say sein Heft when it belongs to a boy.", "it": "Lena è una bambina: ihr Heft. Sein Heft si dice quando è di un bambino."}, "reply": {"face": "confused", "de": "Sein Heft? Aber Lena ist doch kein Bub!", "sl": "Sein Heft? Saj Lena ni fant!", "en": "Sein Heft? But Lena isn't a boy!", "it": "Sein Heft? Ma Lena non è un maschio!"}}
+        ] },
+        {"who": "jakob", "de": "Und wo ist deine Tasche, {learner}?", "sl": "Pa kje je tvoja torba, {learner}?", "en": "And where's your bag, {learner}?", "it": "E dov'è la tua borsa, {learner}?"},
+        { "choices": [
+          {"de": "Meine Tasche ist hier.", "sl": "Moja torba je tukaj.", "en": "My bag is here.", "it": "La mia borsa è qui.", "ok": true, "reply": {"face": "happy", "de": "Gut. Dann gehen wir nach Hause!", "sl": "Dobro. Potem pa greva domov!", "en": "Good. Then let's go home!", "it": "Bene. Allora andiamo a casa!"}},
+          {"de": "Mein Tasche ist hier.", "sl": "Moja torba je tukaj.", "en": "My bag is here.", "it": "La mia borsa è qui.", "grammar": "possessiv", "why": {"de": "Tasche ist weiblich: meine Tasche, wie eine Tasche.", "sl": "Tasche je ženskega spola: meine Tasche, kot eine Tasche.", "en": "Tasche is feminine: meine Tasche, like eine Tasche.", "it": "Tasche è femminile: meine Tasche, come eine Tasche."}, "reply": {"face": "confused", "de": "Mein? Hm, das klingt bei einer Tasche komisch.", "sl": "Mein? Hm, pri torbi to zveni čudno.", "en": "Mein? Hm, that sounds funny with a bag.", "it": "Mein? Mah, con una borsa suona strano."}}
+        ] }
       ]
     },
     {
