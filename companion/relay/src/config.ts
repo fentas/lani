@@ -71,9 +71,10 @@ export type Config = {
   dropMaxBytes: number
   dropBoxMax: number
   dropDays: number
-  /** All the notes kept at once, and how many writes an address may do in a minute. */
+  /** All the notes kept at once, how many writes an address may do in a minute, and how many bytes (a note counts as at least 1 KB). */
   dropTotalBytes: number
   dropRatePerMin: number
+  dropBytesPerMin: number
 
   /** The clock (tests move it). */
   now: () => number
@@ -122,11 +123,12 @@ export function configFromEnv(env: Record<string, string | undefined> = process.
     storeMaxBytes: n('RELAY_STORE_MAX_BYTES', 4 * 1024 * MB),
     backupUploads: n('RELAY_BACKUP_UPLOADS', 4),
     familyOrigins: (env.RELAY_FAMILY_ORIGINS ?? '').split(',').map(s => s.trim().replace(/\/+$/, '')).filter(Boolean),
-    dropMaxBytes: n('RELAY_DROP_MAX_BYTES', 16 * 1024),
+    dropMaxBytes: n('RELAY_DROP_MAX_BYTES', 4 * 1024),
     dropBoxMax: n('RELAY_DROP_BOX_MAX', 32),
     dropDays: n('RELAY_DROP_DAYS', 14),
     dropTotalBytes: n('RELAY_DROP_TOTAL_BYTES', 256 * MB),
-    dropRatePerMin: n('RELAY_DROP_RATE_PER_MIN', 120),
+    dropRatePerMin: n('RELAY_DROP_RATE_PER_MIN', 30),
+    dropBytesPerMin: n('RELAY_DROP_BYTES_PER_MIN', 16 * 1024),
     now: Date.now,
   }
 }

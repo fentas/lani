@@ -72,7 +72,10 @@ class FamilyComputer(private val scope: CoroutineScope, private val api: () -> F
 
     /** Another code for [profile]. */
     fun newCode(profile: String) {
-        step { a -> code = a.code(profile) }
+        step { a ->
+            code = a.code(profile)
+            if (BuildConfig.QA) Log.i(TAG, "member code ${code?.pair}")
+        }
     }
 
     fun unpair(profile: String, device: String) {

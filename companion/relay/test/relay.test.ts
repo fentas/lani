@@ -486,8 +486,17 @@ describe("a family's drop boxes", () => {
     }
   })
 
+  test('what one address may leave is counted in bytes too, and a tiny note costs as much as a small one', async () => {
+    const relay = relayWith({ dropRatePerMin: 1000, dropBytesPerMin: 1024 })
+    const answers = []
+    for (let i = 0; i < 8; i++) answers.push((await put(relay, 'ee'.repeat(32), 'x', {}, '10.0.0.20')).status)
+    expect(answers.filter(s => s === 202).length).toBe(4)
+    expect(answers.filter(s => s === 429).length).toBe(4)
+    expect((await put(relay, 'ee'.repeat(32), 'x', {}, '10.0.0.21')).status).toBe(202)
+  })
+
   test('the limits: an empty note, too large, a full box, a full relay, too many writes, a bad name, a wrong method', async () => {
-    const relay = relayWith({ dropMaxBytes: 100, dropBoxMax: 2, dropTotalBytes: 250 })
+    const relay = relayWith({ dropMaxBytes: 100, dropBoxMax: 2, dropTotalBytes: 250, dropBytesPerMin: 1_000_000 })
     expect((await put(relay, box, '')).status).toBe(400)
     expect((await put(relay, box, 'x'.repeat(101))).status).toBe(413)
     await put(relay, box, 'x'.repeat(100))
@@ -497,7 +506,7 @@ describe("a family's drop boxes", () => {
     expect((await put(relay, 'ab'.repeat(31), 'x')).status).toBe(404)
     expect((await put(relay, box.toUpperCase(), 'x')).status).toBe(404)
     expect((await relay.fetch(new Request(`${BASE}/v1/drop/${box}`, { method: 'DELETE' }))).status).toBe(405)
-    const slow = relayWith({ dropRatePerMin: 10 })
+    const slow = relayWith({ dropRatePerMin: 10, dropBytesPerMin: 1_000_000 })
     const answers = []
     for (let i = 0; i < 12; i++) answers.push((await put(slow, other, 'x', {}, '10.0.0.9')).status)
     expect(answers.filter(s => s === 429).length).toBeGreaterThan(0)

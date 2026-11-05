@@ -66,10 +66,14 @@ export function memberUrl(e: Pick<ProfileEntry, 'port' | 'https_port'>, env: Rec
 const serveCommand = (e: ProfileEntry) => `tailscale serve --bg --https=${e.https_port} http://127.0.0.1:${e.port}`
 const binOf = (projectDir: string, env: Record<string, string | undefined>) => env.LANI_FAMILY_BIN?.trim() || join(projectDir, 'companion/bin')
 
-/** What decides whose bridge it is: a parent's must not leak into the new learner's (their lani-bridge sets their own). */
-const LEARNER_ENV = /^(LANI_PROFILE|LANI_DATA_DIR|LANI_RESULTS_DIR|LANI_BRIDGE_PORT|LANI_BRIDGE_SOCKET|LANI_BRIDGE_TOKEN|LANI_FAMILY_TOKEN|LANI_CHILD|LANI_CULTURE|LANI_LANDSCAPE|LANI_PUBLIC_URL|LANI_TOWN_URL|LANI_VOICE_CACHE|LANI_BRIDGE_SUPERVISOR|INVOCATION_ID)$/
+/**
+ * What decides whose bridge it is, by either name (lani-env.sh turns a FLUENT_* name back into its LANI_* one): a parent's must not
+ * reach the new learner's, whose lani-bridge sets their own. Their data's remote is here too, or their data would be pushed to the
+ * parent's. The learner's settings of bin/lani-env.sh, the tokens, and what says who started this process.
+ */
+const LEARNER_ENV = /^(?:(?:LANI|FLUENT)_(?:PROFILE|DATA_DIR|RESULTS_DIR|VOICE_CACHE|CULTURE|LANDSCAPE|BRIDGE_PORT|BRIDGE_SOCKET|BRIDGE_TOKEN|FAMILY_TOKEN|BRIDGE_SUPERVISOR|PUBLIC_URL|TOWN_URL|DATA_AUTOCOMMIT|DATA_REMOTE|DATA_PUSH|CHILD)|INVOCATION_ID)$/
 
-function cleanEnv(env: Record<string, string | undefined>): Record<string, string> {
+export function cleanEnv(env: Record<string, string | undefined>): Record<string, string> {
   return Object.fromEntries(Object.entries(env).filter((e): e is [string, string] => e[1] !== undefined && !LEARNER_ENV.test(e[0])))
 }
 

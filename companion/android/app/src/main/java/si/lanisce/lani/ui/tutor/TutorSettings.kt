@@ -163,12 +163,13 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier, heading: Bool
         Text(bi("tutorLive.cap"), style = MaterialTheme.typography.bodySmall, color = muted)
         FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             // a parent's limit is a ceiling here: this device chooses under it, and only their device raises it
-            for (cap in CAPS) FilterChip(selected = s.capNow == cap, enabled = s.familyCap == null || cap <= s.familyCap!!, onClick = { live.update { it.copy(dailyCap = cap) } }, label = { Text(money(cap)) })
+            for (cap in CAPS) FilterChip(selected = s.capNow == cap, enabled = s.ceiling.let { it == null || cap <= it }, onClick = { live.update { it.copy(dailyCap = cap) } }, label = { Text(money(cap)) })
         }
-        s.familyCap?.let { cap ->
-            Text("👪 " + bi("family.capHere", "cap" to money(cap), "device" to s.familyCapBy.orEmpty()), style = MaterialTheme.typography.bodySmall, color = muted, modifier = Modifier.testTag("family-cap"))
-            // never a wall: if the device that set it is gone, this one can leave, and the family's key goes with the limit
-            if (vm.familyDevices.book.parent != null) {
+        s.ceiling?.let { cap ->
+            Text("👪 " + bi("family.capHere", "cap" to money(cap), "device" to s.ceilingBy.orEmpty()), style = MaterialTheme.typography.bodySmall, color = muted, modifier = Modifier.testTag("family-cap"))
+            // if the device that set it is gone an adult can leave, and the family's key goes with the limit; a child's device never
+            // changes a budget, so it has no such way
+            if (s.familyCap != null && !vm.child && vm.familyDevices.book.parent != null) {
                 Text(bi("family.leaveWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
                 si.lanisce.lani.ui.setup.HoldToOpen("🔒 ${bi("family.holdLeave")}", onLight = true, onOpen = vm.familyDevices::leave)
             }

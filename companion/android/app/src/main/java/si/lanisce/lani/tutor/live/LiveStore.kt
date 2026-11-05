@@ -24,6 +24,8 @@ import java.io.File
  * @property dailyCap a day's spend in dollars that stops the tutor (it says so in the chat).
  * @property familyCap a ceiling on it a parent set from their own device, and [familyCapBy] who ([capNow] is what counts): the
  *   device keeps its own choice under it, and can't go over it. Null: no limit of the family's.
+ * @property computerCap the same, set through the family's computer, and [computerCapBy] who. Kept apart: a device can have both, and
+ *   the computer answering "none" says nothing of what came over the bond.
  * @property reactAtOnce reviews and session ends get their reaction right away instead of in the digest.
  * @property debugBaseUrl debug and qa builds only (BuildConfig.QA): the Messages API's base URL (QA's mock).
  * @property listed the models the credential in use listed at its check, and whose ([listedWith]: anthropic, or an
@@ -49,6 +51,8 @@ data class LiveSettings(
     val dailyCap: Double = 1.0,
     val familyCap: Double? = null,
     val familyCapBy: String? = null,
+    val computerCap: Double? = null,
+    val computerCapBy: String? = null,
     val reactAtOnce: Boolean = false,
     val debugBaseUrl: String? = null,
     val listed: List<ModelInfo> = emptyList(),
@@ -73,8 +77,14 @@ data class LiveSettings(
 ) {
     val limit: Int get() = threadLimit ?: preset.threadLimit
 
+    /** The lowest limit a parent set here; null: none. */
+    val ceiling: Double? get() = listOfNotNull(familyCap, computerCap).minOrNull()
+
+    /** Who set [ceiling]. */
+    val ceilingBy: String? get() = if (familyCap != null && familyCap == ceiling) familyCapBy else computerCapBy
+
     /** The day's limit that counts: this device's own, under the family's when a parent set one. */
-    val capNow: Double get() = familyCap?.let { minOf(it, dailyCap) } ?: dailyCap
+    val capNow: Double get() = ceiling?.let { minOf(it, dailyCap) } ?: dailyCap
 }
 
 /**

@@ -68,6 +68,19 @@ class FamilyPostTest {
         assertNull("an older one, recorded and played back", once.took(FamilyNote(2, FamilyNote.FORGET)))
     }
 
+    @Test fun `a removed device doesn't get a key that was still waiting for its check`() {
+        val b = FamilyBook().joined(gift, bond).copy(keyWaiting = FamilyKeyWaiting("anthropic", gift.key!!))
+        val gone = b.took(FamilyNote(1, FamilyNote.FORGET))!!
+        assertNull(gone.parent)
+        assertNull(gone.keyWaiting)
+        assertNull(b.left().keyWaiting)
+    }
+
+    @Test fun `the relay a code named stays the way to the parent`() {
+        assertEquals("https://relay.example", FamilyBook().joined(gift, bond, "https://relay.example").parent?.relay)
+        assertNull(FamilyBook().joined(gift, bond).parent?.relay)
+    }
+
     @Test fun `what an older sender gave is no bond`() {
         assertNull(FamilyBook().joined(gift.copy(family = null, member = null), bond).parent)
     }
@@ -213,6 +226,32 @@ class FamilyPostTest {
             assertNull(got)
         }
         assertEquals("no word of theirs settled the limit", before, p.book)
+    }
+
+    @Test fun `someone sending a byte now and then doesn't hold the office`() {
+        val p = parent()
+        val c = child()
+        p.book = p.book.setCap("m1", 0.5)
+        FamilyPost.Office(InetAddress.getLoopbackAddress(), p.courier, visitMs = 300).use { o ->
+            thread { o.serve() }
+            val drip = thread {
+                runCatching {
+                    java.net.Socket("127.0.0.1", o.port).use { s ->
+                        repeat(40) {
+                            s.getOutputStream().write('x'.code)
+                            s.getOutputStream().flush()
+                            Thread.sleep(50)
+                        }
+                    }
+                }
+            }
+            Thread.sleep(50)
+            val at = System.currentTimeMillis()
+            assertTrue(c.courier.visit("127.0.0.1", o.port))
+            assertTrue("it waited for the visit's deadline, not the dripper", System.currentTimeMillis() - at < 1_500)
+            drip.join(3_000)
+        }
+        assertEquals(listOf(0.5 to "Pixel"), c.caps)
     }
 
     @Test fun `a word that isn't the device's doesn't take its place in the book`() {

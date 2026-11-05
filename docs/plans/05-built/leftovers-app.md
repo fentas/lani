@@ -53,9 +53,15 @@ device has nobody to tell anything.
 
 ### The daily budget
 
-A budget from a parent's device is a **ceiling** on that device (`LiveSettings.familyCap`, `capNow`): it chooses under it and can't go over
-it, and only the parent's device raises it. A ceiling rather than the device's own setting, because the bill is the parent's: an adult on
-the family's key could otherwise raise it back. "Tutor" there says whose limit it is.
+A budget from a parent's device is a **ceiling** on that device (`LiveSettings.familyCap`, `computerCap`, `capNow`): it chooses under it and
+can't go over it, and only the parent's device raises it. A ceiling rather than the device's own setting, because the bill is the parent's: an
+adult on the family's key could otherwise raise it back. "Tutor" there says whose limit it is. What came over the bond and what came through
+a computer are kept apart, and the lower counts, so a computer answering "none" takes nothing away.
+
+**If the parent's device is lost.** An adult's device can leave the family: "🔒 Drži za izhod iz družine" in its tutor's settings. It costs what
+the limit protects: the family's key goes with it. **A child's device has no such way, on purpose:** a child's device can't change a budget,
+and a two-second press there proves nothing. So a child's device under a limit from a lost phone stays under it until it's set up again with a new
+code. A limit is a lower ceiling, not a stop: the tutor goes on under it.
 
 ### Removing a device
 

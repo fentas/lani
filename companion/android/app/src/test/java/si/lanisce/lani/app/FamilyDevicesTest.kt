@@ -107,6 +107,25 @@ class FamilyDevicesTest {
         assertEquals("Pixel", forgot?.name)
     }
 
+    @Test fun `a child's device can't leave its family, or it would lift its own limit`() {
+        val d = devices()
+        d.joined(FamilyLink.Gift(key = key, provider = "anthropic", family = "fam", member = "m1", from = "Pixel"), bond)
+        child = true
+        d.leave()
+        runBlocking { delay(100) }
+        assertNotNull(d.book.parent)
+        assertNull(forgot)
+    }
+
+    @Test fun `leaving takes a key still waiting for its check with it`() {
+        val d = devices()
+        d.joined(FamilyLink.Gift(key = key, provider = "anthropic", family = "fam", member = "m1", from = "Pixel"), bond)
+        d.keyWaits(FamilyLink.Gift(provider = "anthropic", key = key))
+        d.leave()
+        until("gone") { d.book.parent == null }
+        assertNull(d.book.keyWaiting)
+    }
+
     @Test fun `a family id is made once`() {
         val d = devices()
         runBlocking { assertEquals(d.familyId(), d.familyId()) }

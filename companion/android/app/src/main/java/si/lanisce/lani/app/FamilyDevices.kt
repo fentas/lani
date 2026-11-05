@@ -187,9 +187,9 @@ class FamilyDevices(
         change { it.added(family, member, name, bond, System.currentTimeMillis()) }
     }
 
-    /** What the family shared arrived here. */
-    fun joined(gift: FamilyLink.Gift, bond: ByteArray?) {
-        if (bond != null) change { it.joined(gift, bond) }
+    /** What the family shared arrived here; [relay]: the one the code named. */
+    fun joined(gift: FamilyLink.Gift, bond: ByteArray?, relay: String? = null) {
+        if (bond != null) change { it.joined(gift, bond, relay) }
     }
 
     /** A key that crossed but couldn't be checked: kept sealed, and tried again each round until it can be. */
@@ -217,14 +217,16 @@ class FamilyDevices(
     }
 
     /**
-     * This device leaves by itself: the way out when the device that set a limit is gone, since only that one could raise it. What it
-     * costs is what the limit protects: the family's key goes with it. On a child's device it stands behind a parent's hold.
+     * This device leaves by itself: an adult's way out when the device that set a limit is gone, since only that one could raise it. It
+     * costs what the limit protects: the family's key goes with it, and one still waiting for its check. Never on a child's device:
+     * a child's device can't change a budget, and a two-second press there is no proof of a parent.
      */
     fun leave() {
+        if (child()) return
         val p = synchronized(lock) { current.parent } ?: return
         scope.launch(Dispatchers.IO) {
             home.forget(p)
-            change { it.copy(parent = null) }
+            change { it.left() }
         }
     }
 
@@ -261,7 +263,8 @@ class FamilyDevices(
     private suspend fun round() {
         val b = synchronized(lock) { current }
         b.keyWaiting?.let { k -> checkKey(k) }
-        val drop = relay().takeIf { it.isNotBlank() }?.let(::HttpDrop)
+        val own = relay()
+        val drop = own.takeIf { it.isNotBlank() }?.let(::HttpDrop)
         val saying = b.members.isNotEmpty() && (pageOpen || b.members.any { it.pending != null })
         if (saying) b.family?.let(::openOffice) else closeOffice()
         if (drop != null && b.members.isNotEmpty()) try {
@@ -270,8 +273,10 @@ class FamilyDevices(
             // the relay isn't there now: the next round tries
         }
         val p = b.parent ?: return
-        if (drop != null) try {
-            courier.collectRelay(drop)
+        // the relay the two met at, whatever this device's own setting says
+        val theirs = (p.relay ?: own).takeIf { it.isNotBlank() }?.let(::HttpDrop)
+        if (theirs != null) try {
+            courier.collectRelay(theirs)
         } catch (_: IOException) {
         }
         val at = peer ?: FamilyShareController.wifiAddress(context)?.let { nsd.find(FamilyPost.serviceName(p.family), FIND_MS) }

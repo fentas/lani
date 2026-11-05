@@ -91,12 +91,15 @@ class FamilyShareController(
             val family = devices.familyId()
             val member = FamilyPost.newId()
             val sealed = s.confirm(gift().copy(family = family, member = member, from = android.os.Build.MODEL ?: "Android"), System.currentTimeMillis())
-            withContext(Dispatchers.IO) { way.send(sealed) }
             val bond = s.bond
-            if (sealed != null && bond != null) {
-                devices.added(family, member, device, bond)
-                phase = Phase.Sent(device)
-            } else over()
+            // on the list before it goes: a device with a bond the parent can't see is worse than a row that never hears
+            if (sealed != null && bond != null) devices.added(family, member, device, bond)
+            val went = withContext(Dispatchers.IO) { way.send(sealed) }
+            if (sealed != null && went) phase = Phase.Sent(device)
+            else {
+                if (sealed != null) devices.drop(member)
+                over()
+            }
             stop()
         }
     }

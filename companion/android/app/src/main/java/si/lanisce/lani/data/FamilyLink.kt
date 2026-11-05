@@ -6,6 +6,7 @@ import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.Closeable
@@ -97,8 +98,8 @@ object FamilyLink {
         return Offer(host, if (host.isBlank()) 0 else port, code, key, expires, relay)
     }
 
-    /** An http(s) address with nothing but a host and a path, as the relay's setting is. */
-    private fun relayLike(url: String): Boolean = Regex("^https?://[^\\s/?#@]+(/[^\\s?#]*)?$").matches(url)
+    /** An http(s) address with nothing but a host and a path, as the relay's setting is, and one a request can be made to. */
+    private fun relayLike(url: String): Boolean = Regex("^https?://[^\\s/?#@]+(/[^\\s?#]*)?$").matches(url) && url.toHttpUrlOrNull() != null
 
     fun newKeys(): KeyPair = KeyPairGenerator.getInstance("EC").apply { initialize(ECGenParameterSpec(CURVE), random) }.generateKeyPair()
 
@@ -240,13 +241,16 @@ object FamilyLink {
     }
 
     private const val MAX_DEVICE = 60
+    /** A claim's whole line. */
+    private const val CLAIM_MS = 5_000L
     private const val MAX_LINE = 16 * 1024
 
-    private fun BufferedReader.line(): String? {
+    /** A line, by [until]: a read's timeout starts again with every byte, so someone sending one now and then would hold the code's listener. */
+    private fun BufferedReader.line(until: Long = Long.MAX_VALUE): String? {
         val b = StringBuilder()
         while (b.length < MAX_LINE) {
             val c = read()
-            if (c < 0) return null
+            if (c < 0 || System.currentTimeMillis() > until) return null
             if (c == '\n'.code) return b.toString()
             b.append(c.toChar())
         }
@@ -263,15 +267,15 @@ object FamilyLink {
         /** Runs until the code is claimed or closed; meant for a background thread. */
         fun serve(sender: Sender, onClaimed: (String) -> Unit)
 
-        /** The parent decided: [sealed] to the device that waits, or no ([sealed] null). */
-        fun send(sealed: String?)
+        /** The parent decided: [sealed] to the device that waits, or no ([sealed] null). False when it couldn't go. */
+        fun send(sealed: String?): Boolean
     }
 
     /**
      * The sender's listener on [address]: it holds a claim's connection until the parent decides ([Sender.confirm] or
      * [Sender.refuse]: [send]). Bad claims are answered and dropped.
      */
-    class Listener(address: InetAddress?, private val clock: () -> Long = System::currentTimeMillis) : Way {
+    class Listener(address: InetAddress?, private val clock: () -> Long = System::currentTimeMillis, private val claimMs: Long = CLAIM_MS) : Way {
         private val server = ServerSocket(0, 4, address)
         val port: Int get() = server.localPort
         @Volatile private var claimed: Socket? = null
@@ -290,7 +294,7 @@ object FamilyLink {
                 }
                 runCatching {
                     s.soTimeout = 10_000
-                    val line = BufferedReader(InputStreamReader(s.getInputStream(), Charsets.UTF_8)).line()
+                    val line = BufferedReader(InputStreamReader(s.getInputStream(), Charsets.UTF_8)).line(System.currentTimeMillis() + claimMs)
                     val o = json.parseToJsonElement(line.orEmpty()).jsonObject
                     if (sender.claim(o.str("pub").orEmpty(), o.str("proof").orEmpty(), o.str("device").orEmpty(), clock())) {
                         claimed = s
@@ -304,11 +308,12 @@ object FamilyLink {
             }
         }
 
-        override fun send(sealed: String?) {
-            val s = claimed ?: return
+        override fun send(sealed: String?): Boolean {
+            val s = claimed ?: return false
             claimed = null
-            runCatching { s.reply(if (sealed != null) buildJsonObject { put("sealed", sealed) }.toString() else """{"refused":true}""") }
+            val went = runCatching { s.reply(if (sealed != null) buildJsonObject { put("sealed", sealed) }.toString() else """{"refused":true}""") }.isSuccess
             runCatching { s.close() }
+            return went
         }
 
         private fun Socket.reply(line: String) {
@@ -386,10 +391,10 @@ object FamilyLink {
             }
         }
 
-        override fun send(sealed: String?) {
-            val pub = claimant ?: return
+        override fun send(sealed: String?): Boolean {
+            val pub = claimant ?: return false
             claimant = null
-            runCatching { drop.put(giftBox(offer.code, pub), sealed ?: seal(claimKey(offer.code), REFUSED.toByteArray()), ANSWER_TTL_S) }
+            return runCatching { drop.put(giftBox(offer.code, pub), sealed ?: seal(claimKey(offer.code), REFUSED.toByteArray()), ANSWER_TTL_S) }.isSuccess
         }
 
         override fun close() {
@@ -462,6 +467,8 @@ object FamilyLink {
             Fetched.Refused
         } catch (_: IOException) {
             Fetched.Unreachable
+        } catch (_: IllegalArgumentException) {
+            Fetched.Refused
         }
     }
 }

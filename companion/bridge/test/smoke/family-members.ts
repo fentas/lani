@@ -7,7 +7,7 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { chmodSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { addRefusal, cultureOfTarget, looksAfter, memberId, memberUrl } from '../../src/family-members'
+import { addRefusal, cleanEnv, cultureOfTarget, looksAfter, memberId, memberUrl } from '../../src/family-members'
 import { addLearner, entryDataDir, readRegistry, type ProfileEntry } from '../../src/learners'
 import { Devices, redeemCode } from '../../src/pairing'
 import { auth, base, check, culturesDir, dataDir, familyBin, familyToken, italianPacksDir, port, profilesDir, token } from './harness'
@@ -30,6 +30,9 @@ export default async function familyMembers() {
   check('a member: the id is never shell text', /^[a-z][a-z0-9-]{0,23}$/.test(memberId('$(rm -rf ~); `x` "y"', () => false)), memberId('$(rm -rf ~); `x` "y"', () => false))
   check('a member: the village of the language they learn', cultureOfTarget(culturesDir, 'it') === 'friuli' && cultureOfTarget(culturesDir, 'sl') === 'primorska' && cultureOfTarget(culturesDir, 'de') === 'kaernten' && cultureOfTarget(culturesDir, 'en') === 'lakeland')
   check("a member's address: the tailnet's, or what the node says, or none", memberUrl({ port: 8792, https_port: 8443 }, { LANI_TAILNET_HOST: 'node.example.ts.net' }) === 'https://node.example.ts.net:8443' && memberUrl({ port: 8792, https_port: 8443 }, { LANI_FAMILY_URL: 'https://lani.home.example:{https_port}/' }) === 'https://lani.home.example:8443' && memberUrl({ port: 8792, https_port: 8443 }, { LANI_FAMILY_URL: 'http://10.0.2.2:{port}' }) === 'http://10.0.2.2:8792')
+
+  const passed = cleanEnv({ PATH: '/bin', LANI_KEYS_FILE: 'k', LANI_PROFILES_DIR: 'p', LANI_BRIDGE_TOKEN: 't', FLUENT_BRIDGE_TOKEN: 't', FLUENT_FAMILY_TOKEN: 't', LANI_DATA_REMOTE: 'r', LANI_DATA_PUSH: '1', LANI_DATA_AUTOCOMMIT: '1', FLUENT_DATA_DIR: 'd', LANI_CHILD: '1' })
+  check("a parent's token, data, remote or child flag reaches the new bridge by neither name", Object.keys(passed).sort().join() === 'LANI_KEYS_FILE,LANI_PROFILES_DIR,PATH', passed)
 
   // --- fakes of what the computer has ------------------------------------------------------------------------------------
   const log = join(familyBin, 'calls.log')

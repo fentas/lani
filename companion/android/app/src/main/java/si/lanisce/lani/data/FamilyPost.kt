@@ -78,6 +78,8 @@ data class FamilyParent(
     val keySha: String? = null,
     val provider: String? = null,
     val said: Long? = null,
+    /** The relay the exchange named: the two meet there, whatever this device's own setting says. */
+    val relay: String? = null,
 ) {
     override fun toString(): String = "FamilyParent($family, $member, $name, seen=$seen)"
 }
@@ -137,18 +139,21 @@ data class FamilyBook(
 
     fun posted(id: String, now: Long): FamilyBook = with(id) { it.copy(posted = now) }
 
-    /** This device came from a family: [gift] says who it is there, [bond] is the key the two keep. An older sender has none. */
-    fun joined(gift: FamilyLink.Gift, bond: ByteArray): FamilyBook {
+    /** This device came from a family: [gift] says who it is there, [bond] is the key the two keep, [relay] the offer's. An older sender has none. */
+    fun joined(gift: FamilyLink.Gift, bond: ByteArray, relay: String? = null): FamilyBook {
         val family = gift.family ?: return this
         val member = gift.member ?: return this
-        return copy(parent = FamilyParent(family, member, gift.from.orEmpty(), FamilyPost.b64(bond), keySha = gift.key?.let(FamilyPost::sha), provider = gift.provider))
+        return copy(parent = FamilyParent(family, member, gift.from.orEmpty(), FamilyPost.b64(bond), keySha = gift.key?.let(FamilyPost::sha), provider = gift.provider, relay = relay))
     }
+
+    /** This device is out of its family. A key still waiting for its check goes too: it must not arrive after the device has left. */
+    fun left(): FamilyBook = copy(parent = null, keyWaiting = null)
 
     /** A note taken: [FamilyParent.seen] moves on; a note seen before is nothing new (null). */
     fun took(note: FamilyNote): FamilyBook? {
         val p = parent ?: return null
         if (note.seq <= p.seen) return null
-        return if (note.kind == FamilyNote.FORGET) copy(parent = null) else copy(parent = p.copy(seen = note.seq))
+        return if (note.kind == FamilyNote.FORGET) left() else copy(parent = p.copy(seen = note.seq))
     }
 
     override fun toString(): String = "FamilyBook(family=$family, members=${members.size}, parent=${parent?.name})"
@@ -186,6 +191,8 @@ object FamilyPost {
 
     private const val MAX_LINE = 16 * 1024
     private const val ID_BYTES = 12
+    /** A whole visit to the office. */
+    private const val VISIT_MS = 8_000L
     private val random = SecureRandom()
 
     internal fun b64(b: ByteArray): String = Base64.getUrlEncoder().withoutPadding().encodeToString(b)
@@ -238,11 +245,12 @@ object FamilyPost {
         json.parseToJsonElement(FamilyLink.open(k.up, sealed)!!.decodeToString()).jsonObject["seen"]!!.jsonPrimitive.content.toLong()
     }.getOrNull()
 
-    private fun BufferedReader.line(): String? {
+    /** A line, by [until]: a read's timeout starts again with every byte, so someone sending one now and then would hold the office. */
+    private fun BufferedReader.line(until: Long): String? {
         val b = StringBuilder()
         while (b.length < MAX_LINE) {
             val c = read()
-            if (c < 0) return null
+            if (c < 0 || System.currentTimeMillis() > until) return null
             if (c == '\n'.code) return b.toString()
             b.append(c.toChar())
         }
@@ -270,7 +278,7 @@ object FamilyPost {
      * The parent's device, answering on its Wi-Fi while it has something to say or the family's page is open. Each device comes
      * by, says what it has seen, gets what waits and says it has it. Anyone else gets a closed connection.
      */
-    class Office(address: InetAddress?, private val desk: Desk) : Closeable {
+    class Office(address: InetAddress?, private val desk: Desk, private val visitMs: Long = VISIT_MS) : Closeable {
         private val server = ServerSocket(0, 8, address)
         val port: Int get() = server.localPort
 
@@ -291,8 +299,9 @@ object FamilyPost {
 
         private fun visit(s: Socket) {
             s.soTimeout = 5_000
+            val until = System.currentTimeMillis() + visitMs
             val input = BufferedReader(InputStreamReader(s.getInputStream(), Charsets.UTF_8))
-            val hello = json.parseToJsonElement(input.line().orEmpty()).jsonObject
+            val hello = json.parseToJsonElement(input.line(until).orEmpty()).jsonObject
             val id = hello["m"]?.jsonPrimitive?.contentOrNull ?: return
             val k = desk.keys(id) ?: return
             val seen = hello["s"]?.jsonPrimitive?.contentOrNull?.let { openSeen(k, it) } ?: return
@@ -302,7 +311,7 @@ object FamilyPost {
                 return
             }
             s.say(buildJsonObject { put("s", sealNote(k, note)) }.toString())
-            val answer = json.parseToJsonElement(input.line().orEmpty()).jsonObject
+            val answer = json.parseToJsonElement(input.line(until).orEmpty()).jsonObject
             answer["s"]?.jsonPrimitive?.contentOrNull?.let { openSeen(k, it) }?.let { desk.heard(id, it) }
         }
 
@@ -321,7 +330,7 @@ object FamilyPost {
             s.soTimeout = 5_000
             s.say(buildJsonObject { put("v", VERSION); put("m", member); put("s", sealSeen(k, seen)) }.toString())
             val input = BufferedReader(InputStreamReader(s.getInputStream(), Charsets.UTF_8))
-            val o = json.parseToJsonElement(input.line().orEmpty()).jsonObject
+            val o = json.parseToJsonElement(input.line(System.currentTimeMillis() + VISIT_MS).orEmpty()).jsonObject
             o["s"]?.jsonPrimitive?.contentOrNull?.let { openNote(k, it) }?.let { note -> s.say(buildJsonObject { put("s", sealSeen(k, take(note))) }.toString()) }
             o.containsKey("s") || o.containsKey("none")
         }

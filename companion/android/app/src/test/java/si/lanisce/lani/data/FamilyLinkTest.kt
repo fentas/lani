@@ -203,6 +203,49 @@ class FamilyLinkTest {
         assertEquals(Fetched.Refused, FamilyLink.fetch(s.offer, "late", now = t0 + FamilyLink.TTL_MS))
     }
 
+    @Test fun `someone sending a byte now and then doesn't hold the listener past a claim's time`() {
+        val loop = InetAddress.getLoopbackAddress()
+        FamilyLink.Listener(loop, claimMs = 300).use { l ->
+            val s = Sender(loop.hostAddress!!, l.port, System.currentTimeMillis())
+            val serving = thread { l.serve(s) { l.send(s.confirm(gift, System.currentTimeMillis())) } }
+            val drip = thread {
+                runCatching {
+                    java.net.Socket(loop, l.port).use { c ->
+                        repeat(40) {
+                            c.getOutputStream().write('x'.code)
+                            c.getOutputStream().flush()
+                            Thread.sleep(50)
+                        }
+                    }
+                }
+            }
+            Thread.sleep(50)
+            val at = System.currentTimeMillis()
+            assertTrue(FamilyLink.fetch(s.offer, "Teo's tablet") is Fetched.Got)
+            assertTrue(System.currentTimeMillis() - at < 1_500)
+            serving.join(2_000)
+            drip.join(3_000)
+        }
+    }
+
+    @Test fun `a send says when nothing went`() {
+        val loop = InetAddress.getLoopbackAddress()
+        FamilyLink.Listener(loop).use { assertFalse("nobody claimed it", it.send("sealed")) }
+        assertFalse(FamilyLink.RelayWay(SeenDrop(), relaySender().offer).send("sealed"))
+    }
+
+    @Test fun `a relay's address no request can go to is no relay, and nothing crashes on it`() {
+        val good = relaySender().offer.text()
+        val bad = good.replace("relay.test", "a%3Ab")
+        assertNull(FamilyLink.parse(bad))
+        val hand = Sender("", 0, System.currentTimeMillis(), relay = "http://a:b").offer
+        val odd = object : FamilyLink.Drop {
+            override fun put(box: String, note: String, ttlS: Int) = throw IllegalArgumentException("bad url")
+            override fun take(box: String, waitS: Int) = throw IllegalArgumentException("bad url")
+        }
+        assertEquals(Fetched.Refused, FamilyLink.fetch(hand, "Teo's tablet", drop = odd))
+    }
+
     // --- through a relay: what it sees, and that the rules are the same ---------------------------------------------------
 
     /** A relay on this machine that keeps every byte it was given, as an honest but curious one could. */

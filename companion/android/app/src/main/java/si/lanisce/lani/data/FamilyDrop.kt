@@ -3,7 +3,7 @@ package si.lanisce.lani.data
 import android.content.Context
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
-import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -14,7 +14,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.Closeable
 import java.io.IOException
 import java.util.Base64
-import kotlin.coroutines.resume
 
 /**
  * The relay's boxes for a family (companion/relay/src/drop.ts): a note in, what waits out. What goes through here was
@@ -75,40 +74,43 @@ class FamilyNsd(context: Context) {
         return Closeable { runCatching { m.unregisterService(listener) } }
     }
 
-    /** Where [name] answers now, looking for at most [timeoutMs]; null when nobody does. */
+    /**
+     * Where [name] answers now, looking for at most [timeoutMs]; null when nobody does. The discovery always stops: the system allows
+     * an app only so many at once, and one left running would end the Wi-Fi's post until the app restarts.
+     */
     suspend fun find(name: String, timeoutMs: Long): Pair<String, Int>? {
         val m = nsd ?: return null
-        return withTimeoutOrNull(timeoutMs) {
-            suspendCancellableCoroutine { go ->
-                var resolved = false
-                val finding = object : NsdManager.DiscoveryListener {
-                    override fun onDiscoveryStarted(type: String) = Unit
-                    override fun onDiscoveryStopped(type: String) = Unit
-                    override fun onStartDiscoveryFailed(type: String, code: Int) {
-                        if (go.isActive) go.resume(null)
-                    }
-                    override fun onStopDiscoveryFailed(type: String, code: Int) = Unit
-                    override fun onServiceLost(info: NsdServiceInfo) = Unit
-                    override fun onServiceFound(info: NsdServiceInfo) {
-                        // the system adds " (2)" when two claim a name
-                        if (resolved || !info.serviceName.startsWith(name)) return
-                        resolved = true
-                        @Suppress("DEPRECATION")
-                        m.resolveService(info, object : NsdManager.ResolveListener {
-                            override fun onResolveFailed(info: NsdServiceInfo, code: Int) {
-                                resolved = false
-                            }
-                            override fun onServiceResolved(info: NsdServiceInfo) {
-                                @Suppress("DEPRECATION")
-                                val host = info.host?.hostAddress
-                                if (go.isActive) go.resume(host?.let { it to info.port })
-                            }
-                        })
-                    }
-                }
-                runCatching { m.discoverServices(FamilyPost.SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, finding) }.onFailure { if (go.isActive) go.resume(null) }
-                go.invokeOnCancellation { runCatching { m.stopServiceDiscovery(finding) } }
+        val found = CompletableDeferred<Pair<String, Int>?>()
+        var resolving = false
+        val finding = object : NsdManager.DiscoveryListener {
+            override fun onDiscoveryStarted(type: String) = Unit
+            override fun onDiscoveryStopped(type: String) = Unit
+            override fun onStartDiscoveryFailed(type: String, code: Int) {
+                found.complete(null)
             }
+            override fun onStopDiscoveryFailed(type: String, code: Int) = Unit
+            override fun onServiceLost(info: NsdServiceInfo) = Unit
+            override fun onServiceFound(info: NsdServiceInfo) {
+                // the system adds " (2)" when two claim a name
+                if (resolving || !info.serviceName.startsWith(name)) return
+                resolving = true
+                @Suppress("DEPRECATION")
+                m.resolveService(info, object : NsdManager.ResolveListener {
+                    override fun onResolveFailed(info: NsdServiceInfo, code: Int) {
+                        resolving = false
+                    }
+                    override fun onServiceResolved(info: NsdServiceInfo) {
+                        @Suppress("DEPRECATION")
+                        found.complete(info.host?.hostAddress?.let { it to info.port })
+                    }
+                })
+            }
+        }
+        if (runCatching { m.discoverServices(FamilyPost.SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, finding) }.isFailure) return null
+        return try {
+            withTimeoutOrNull(timeoutMs) { found.await() }
+        } finally {
+            runCatching { m.stopServiceDiscovery(finding) }
         }
     }
 }

@@ -181,10 +181,9 @@ private fun MemberCode(f: FamilyComputer, c: FamilyMembersApi.Code) {
             SelectionContainer { Text(l.command, fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall) }
         }
     }
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        OutlinedButton(onClick = { f.newCode(c.profile) }, enabled = !f.busy) { Text("🔄 ${bi("family.newCode")}") }
-        Button(onClick = f::done) { Text("✓ ${bi("family.done")}") }
-    }
+    // a code pairs a device onto this learner's account, a child's too: minted by a parent's hold, as the first one was
+    HoldToOpen("🔒 ${bi("family.holdNewCode")}", onLight = true) { f.newCode(c.profile) }
+    Button(onClick = f::done, modifier = Modifier.fillMaxWidth()) { Text("✓ ${bi("family.done")}") }
 }
 
 @Composable
@@ -206,7 +205,7 @@ private fun MemberCard(f: FamilyComputer, m: FamilyMembersApi.Member) {
                     removeLabel = bi("family.holdUnpair"), removeNote = bi("family.unpairWhat"), onRemove = { f.unpair(m.profile, d.id) },
                 )
             }
-            if (!m.self) TextButton(onClick = { f.newCode(m.profile) }, enabled = !f.busy) { Text("➕ ${bi("family.anotherDevice")}") }
+            if (!m.self) HoldToOpen("🔒 ${bi("family.holdAnotherDevice")}", onLight = true) { f.newCode(m.profile) }
         }
     }
 }

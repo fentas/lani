@@ -754,7 +754,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         viewModelScope.launch {
             val r = runCatching { si.lanisce.lani.data.FamilyMembersApi(c).rules() }.getOrNull() ?: return@launch
             if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("Family", "rule cap=${r.cap}")
-            if (r.cap != live.settings.familyCap || r.by != live.settings.familyCapBy) live.update { it.copy(familyCap = r.cap, familyCapBy = r.by) }
+            if (r.cap != live.settings.computerCap || r.by != live.settings.computerCapBy) live.update { it.copy(computerCap = r.cap, computerCapBy = r.by) }
         }
     }
 
@@ -781,6 +781,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** What the family shared, in memory only until the tutor's vault has it ([takeFamilyGift]), and the key the two keep. */
     private var familyGift: si.lanisce.lani.data.FamilyLink.Gift? = null
     private var familyBond: ByteArray? = null
+    private var familyRelay: String? = null
 
     /** A code read with no internet here, not claimed yet: it stays good for the other device until [familyTakeAnyway] or a new scan. */
     private var familyHeld: Pair<si.lanisce.lani.data.FamilyLink.Offer, (si.lanisce.lani.data.FamilyLink.Gift) -> Unit>? = null
@@ -844,6 +845,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
                 is si.lanisce.lani.data.FamilyLink.Fetched.Got -> {
                     familyGift = r.gift
                     familyBond = r.bond
+                    familyRelay = offer.relay
                     got(r.gift)
                     null
                 }
@@ -859,7 +861,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         val bond = familyBond
         familyGift = null
         familyBond = null
-        familyDevices.joined(g, bond)
+        familyDevices.joined(g, bond, familyRelay)
+        familyRelay = null
         if (g.key == null) return
         viewModelScope.launch {
             val r = if (familyOnline) live.receiveFamily(g) else si.lanisce.lani.tutor.live.FamilyKey.NOT_CHECKED

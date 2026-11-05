@@ -407,6 +407,22 @@ class LiveTutorTest {
         assertEquals(TurnStatus.DONE, t.today.turns.single().status)
     }
 
+    @Test fun `a limit from the computer and one from a parent's device stay apart, and the lower counts`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(dailyCap = 5.0, familyCap = 0.5, familyCapBy = "Mama", computerCap = 2.0, computerCapBy = "Jan") }.join()
+        assertEquals(0.5, t.settings.capNow, 0.0)
+        assertEquals("Mama", t.settings.ceilingBy)
+        // the computer says it has none: what came over the bond stands
+        t.update { it.copy(computerCap = null, computerCapBy = null) }.join()
+        assertEquals(0.5, t.settings.capNow, 0.0)
+        t.update { it.copy(familyCap = 2.0, computerCap = 1.0, computerCapBy = "Jan") }.join()
+        assertEquals(1.0, t.settings.capNow, 0.0)
+        assertEquals("Jan", t.settings.ceilingBy)
+        // leaving the family leaves the computer's
+        t.forgetFamily(null, null)
+        assertEquals(1.0, t.settings.capNow, 0.0)
+    }
+
     @Test fun `the family's key is kept, refused, or a check that couldn't run, which says nothing of it`() = runBlocking {
         val t = tutor()
         t.refreshCredentials()

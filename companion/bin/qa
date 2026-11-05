@@ -13401,6 +13401,7 @@ def family_hold(key: str, swipes=8):
     time.sleep(1)
     hold = find(text)
     assert hold, f"a tap did it: {text}"
+    assert not family_log(r"(member code)", 0.1), f"a tap minted a code: {text}"
     adb("shell", "input", "swipe", str(hold[0]), str(hold[1]), str(hold[0]), str(hold[1]), "2800")
     time.sleep(1.5)
 
@@ -13454,7 +13455,7 @@ def family_devices_parent():
         assert find(say("family.capIs", 0).replace("{cap}", "$0.50")), "the budget it has, on the list"
         shot("family-budget-there")
         (FAMILY_DIR / "cap-there").touch()
-        family_wait("cap-seen", 200)
+        family_wait("cap-seen", FAMILY_WAIT)
         # the removal: a parent's hold, on the list until the device hears, then gone
         row = family_device_row()
         if row and not find(say("family.removeWhat", 0)[:30]):
@@ -13479,9 +13480,9 @@ def family_devices_parent():
 def family_devices_child():
     """The other half: the budget arrives and is a ceiling here, behind the parent's hold; the family's page isn't on a child's device;
     the removal arrives, and the family's key is gone."""
-    family_wait("post", 400)
+    family_wait("post", FAMILY_WAIT)
     qa_hook(f"family:peer:10.0.2.2:{FAMILY_POST_PORT}")
-    family_wait("cap-there", 150)
+    family_wait("cap-there", FAMILY_WAIT)
     open_settings("tutor")
     gate = wait_for("Drži za starše", 6)
     assert gate, "a child's tutor settings behind the parent's hold"
@@ -13489,6 +13490,7 @@ def family_devices_child():
     time.sleep(2 * slow())
     line = say("family.capHere", 0).split("{")[0]
     assert scroll_to(line, 10), "the family's limit on this device"
+    assert not find(say("family.holdLeave", 0)), "a way out of a parent's limit on a child's device"
     shot("family-cap-here")
     go_home()
     open_settings()
@@ -13496,7 +13498,7 @@ def family_devices_child():
     shot("family-child-settings")
     go_home()
     (FAMILY_DIR / "cap-seen").touch()
-    family_wait("remove-set", 200)
+    family_wait("remove-set", FAMILY_WAIT)
     adb("logcat", "-c")
     qa_hook(f"family:peer:10.0.2.2:{FAMILY_POST_PORT}")
     assert wait_for(say("family.goneKey", 0)[:24], 30), "this device told it left, and the key gone"
@@ -13549,7 +13551,7 @@ def family_parent():
     adb("forward", f"tcp:{FAMILY_PORT}", f"tcp:{port}")
     (FAMILY_DIR / "offer.txt").write_text(re.sub(r"p=\d+", f"p={FAMILY_PORT}", re.sub(r"h=[^&]+", "h=10.0.2.2", text)))
     try:
-        family_wait("read-offline", 400)
+        family_wait("read-offline", FAMILY_WAIT)
         assert not find("Deliš z napravo"), "a device with no internet claimed the code"
         assert find(say("family.lasts", 0)[:20]), "the code still showing, unspent"
         shot("family-code-unspent")
@@ -13567,7 +13569,7 @@ def family_parent():
         shot("family-sent")
         (FAMILY_DIR / "sent").touch()
         family_devices_parent()
-        family_wait("done", 400)
+        family_wait("done", FAMILY_WAIT)
     finally:
         adb("forward", "--remove", f"tcp:{FAMILY_PORT}", check=False)
 
@@ -13616,7 +13618,7 @@ def family_child_run():
     assert not find("Zdaj potrdijo"), "it went on to the parent"
     shot("family-offline")
     (FAMILY_DIR / "read-offline").touch()
-    family_wait("unspent", 120)
+    family_wait("unspent", FAMILY_WAIT)
     # "take it now": it comes over the Wi-Fi, and is checked later
     assert tap(say("family.takeAnyway", 0), 6), "take it now"
     assert wait_for("Zdaj potrdijo", 15), "the wait for the parent"
@@ -13693,9 +13695,15 @@ def family_computer_parent():
         assert sorted(k for k, _ in urllib.parse.parse_qsl(code.split("?", 1)[1])) == ["c", "f", "p", "u", "v"], f"the QR's fields: {code}"
         time.sleep(1)
         shot("fc-code")
+        # another code is a credential too: a tap makes none, a parent's hold does
+        adb("logcat", "-c")
+        family_hold("family.holdNewCode", 6)
+        second = family_log(r"member code (lani://pair\S+)", 15)
+        assert second and second != code, "another code by a parent's hold"
+        code = second
         print(f"    the code, for a real bridge: {urllib.parse.urlsplit(urllib.parse.parse_qs(code.split('?', 1)[1])['u'][0]).netloc}")
         (FAMILY_DIR / "pair.txt").write_text(code)
-        family_wait("paired", 300)
+        family_wait("paired", FAMILY_WAIT)
         assert tap(say("family.done", 0), 6), "done"
         time.sleep(1)
         device = None
@@ -13716,7 +13724,7 @@ def family_computer_parent():
         assert wait_for(say("family.capIs", 0).replace("{cap}", "$0.50"), 15), "the budget, through the computer"
         shot("fc-budget")
         (FAMILY_DIR / "cap-set").touch()
-        family_wait("cap-seen", 200)
+        family_wait("cap-seen", FAMILY_WAIT)
         row = family_device_row()
         if row and not find(say("family.unpairWhat", 0)[:20]):
             tap_at(row[1])
@@ -13725,7 +13733,7 @@ def family_computer_parent():
         assert wait_for(say("family.noDeviceYet", 0), 15), "its removal, at once"
         shot("fc-removed")
         (FAMILY_DIR / "unpaired").touch()
-        family_wait("done", 120)
+        family_wait("done", FAMILY_WAIT)
     finally:
         family_tablet(False)
         stop_family_bridge()
@@ -13762,14 +13770,14 @@ def family_computer_child():
     hosted_home(timeout=90, found=True)
     shot("fc-child-home")
     (FAMILY_DIR / "paired").touch()
-    family_wait("cap-set", 200)
+    family_wait("cap-set", FAMILY_WAIT)
     # the app reads what a parent set as it comes back to the screen
     adb("shell", "input", "keyevent", "KEYCODE_HOME")
     time.sleep(2)
     adb("shell", "monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1")
     assert family_log(r"rule cap=(0\.5)", 20) == "0.5", "the budget, read from the computer"
     (FAMILY_DIR / "cap-seen").touch()
-    family_wait("unpaired", 200)
+    family_wait("unpaired", FAMILY_WAIT)
     adb("shell", "input", "keyevent", "KEYCODE_HOME")
     time.sleep(2)
     adb("shell", "monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1")

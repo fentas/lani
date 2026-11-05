@@ -111,7 +111,7 @@ no town yet, and a town's mailbox needs a key and a router on the other side, so
 
 | Method | Path | |
 |---|---|---|
-| `PUT` | `/v1/drop/{box}` | The body as it is, at most 16 KB (`RELAY_DROP_MAX_BYTES`). `x-lani-drop-ttl`: seconds, a day by default, at most 14 days (`RELAY_DROP_DAYS`) → `202 {ok, expires}`. `507 box_full` past 32 notes (`RELAY_DROP_BOX_MAX`), `507 full` past 256 MB (`RELAY_DROP_TOTAL_BYTES`), `429` past 120 writes a minute from an address (`RELAY_DROP_RATE_PER_MIN`). |
+| `PUT` | `/v1/drop/{box}` | The body as it is, at most 4 KB (`RELAY_DROP_MAX_BYTES`; the largest note, a gift with its key, is under 1 KB). `x-lani-drop-ttl`: seconds, a day by default, at most 14 days (`RELAY_DROP_DAYS`) → `202 {ok, expires}`. `507 box_full` past 32 notes (`RELAY_DROP_BOX_MAX`), `507 full` past 256 MB (`RELAY_DROP_TOTAL_BYTES`), `429` past 30 writes (`RELAY_DROP_RATE_PER_MIN`) or 16 KB (`RELAY_DROP_BYTES_PER_MIN`, a note counting as at least 1 KB) a minute from an address. |
 | `GET` | `/v1/drop/{box}?wait=<s>` | `{items: [base64]}`: every note that waits, oldest first, and gone; at once, or a long poll of up to 30 s. |
 
 `{box}` is 64 hex digits only the two devices can work out, and what's in it was sealed on one and is opened on the other. No account and
