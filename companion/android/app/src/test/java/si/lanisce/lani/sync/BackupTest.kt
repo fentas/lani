@@ -198,6 +198,17 @@ class BackupTest {
         assertEquals("stale", relay.refused.last())
     }
 
+    /** The relay's 408 too_slow, through the client the app uses: OkHttp repeats a plain 408 by itself, the Retry-After stops it. */
+    @Test fun `an upload the relay found too slow is one attempt, and told as unreachable, not refused`() = runBlocking {
+        MockWebServer().use { server ->
+            repeat(2) { server.enqueue(MockResponse().setResponseCode(408).setHeader("Retry-After", "60").setBody("""{"code":"too_slow"}""")) }
+            val client = RelayClient(server.url("/").toString(), BackupKeys.signingKey(ByteArray(32) { 3 }), GitHub.DEFAULT_CLIENT)
+            val e = runCatching { client.put("x.lbk", ByteArray(10)) }.exceptionOrNull() as BackupError
+            assertEquals(BackupProblem.UNREACHABLE, e.problem)
+            assertEquals("one attempt", 1, server.requestCount)
+        }
+    }
+
     @Test fun `the newest ten are kept`() = runBlocking {
         val data = phone("p")
         val b = backups(data, ByteArray(32) { 4 })
