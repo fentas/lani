@@ -205,6 +205,7 @@ programs' environments, so a process of another learner (`lani-profile`) never g
 | `LANI_STT_URL` | `http://127.0.0.1:8796` | The local speech recognition worker. |
 | `LANI_BACKUP_DIR` | `~/.local/share/lani/backups` | `lani-backup`'s snapshots. |
 | `LANI_BRIDGE_HOST` | `127.0.0.1` | Keep it: Tailscale Serve or your proxy is in front. |
+| `LANI_FAMILY_ADD`, `LANI_FAMILY_MAX`, `LANI_FAMILY_URL` | on, 8, the tailnet's | A parent's device adding a member on this computer ([companion/README.md, "A family on a computer"](../companion/README.md#a-family-on-a-computer)). |
 | `LANI_RELAY_URL` | off | The relay for towns and the family page without a node ([companion/README.md, "Through the relay"](../companion/README.md#through-the-relay)). Unset: nothing goes to a relay. |
 | `LANI_RELAY_FAMILY` | `relay` towns only | `on`: the family page goes through the relay too; `off`: never. |
 | `LANI_DICTIONARY_CONSENT` | empty | The hosts of the tutor's outside dictionaries the node has written consent for, comma-separated: `fran.si` ([tutor-reach.md](plans/05-built/tutor-reach.md)). |

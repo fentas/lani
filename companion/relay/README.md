@@ -1,6 +1,6 @@
 # lani-relay
 
-Towns and the family page without a node, and the encrypted backups (plan 5, phase D). One Bun process, SQLite on disk,
+Towns and the family page without a node, a family's sealed drop boxes, and the encrypted backups (plan 5, phase D). One Bun process, SQLite on disk,
 configured by the environment. The API, the security model, the settings and how to host it:
 [docs/plans/05-built/relay.md](../../docs/plans/05-built/relay.md).
 

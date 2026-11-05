@@ -191,6 +191,10 @@ answer in four languages and `firstRun.won` in four, about 150 characters togeth
 
 ## What's left
 
+*Since 2026-11-05 [leftovers-app.md](leftovers-app.md) built the family's items below: a member on a computer, the town link, the devices
+with a remove, a budget from a parent's device, the relay as a second way, and a code no longer spent on a check that couldn't run.
+The list stays as it was written.*
+
 - **A native check** of the strings at the top.
 - **The family computer's pairing and the town link in "Add a family member".** Each family member on a node is a learner with a
   bridge of their own (`lani-profile add`), and a running bridge can't make one: the parent's bridge could only mint a code for its

@@ -1234,6 +1234,12 @@ newcomer|birth}`) tells the tutor someone moved in, so they can give them lines 
 | `GET` | `/family/api/words` | words and phrases to record (pack words, examples, vocabulary cards) |
 | `GET`, `POST` | `/family/api/challenges` | partner challenges `{type: question\|translate\|say, text, hint?}` with answers and feedback |
 | `POST` | `/family/api/challenges/:id/answer` | `{text, spoken}`: Jan's answer (app token only) → `partner_answer` to Claude |
+| `GET` | `/family/members` | a parent's device: the members this learner looks after (themselves, a child of this computer, someone they added), each with `up` and their `devices`, each device's `daily_cap_usd`; `can_add`, `why_not` (`off`, `full`). A child's bridge: `403 child`. See [A family on a computer](#a-family-on-a-computer) |
+| `POST` | `/family/members` | `{name, target, base, child}`: a new member; `{profile, name, child, up, pair: {uri, url, expires_at} \| null, left: [{what, command}], town_linked?}`. `409 full`, `409 off`; a child's bridge `403 child` |
+| `POST` | `/family/members/:profile/pair` | another one-time code for a member: `{profile, up, pair, left}` |
+| `DELETE` | `/family/members/:profile/devices/:id` | a device unpaired, at its next request. `409 this_device` for the device asking |
+| `PUT` | `/family/members/:profile/devices/:id/budget` | `{daily_cap_usd}`: the device's daily budget, `null` for none |
+| `GET` | `/family/rules` | what a parent set for the device asking: `{daily_cap_usd, by}`, any learner's |
 
 ### Bridge code
 
@@ -4478,6 +4484,33 @@ to record glossed in the base. Its texts live in `web/family/app.js` (`STRINGS`,
 machine-written, not reviewed by a native speaker). The Slovene "from" form is asked only of a family helping with
 Slovene; a page opened without its key speaks the browser's language, else English.
 
+### A family on a computer
+
+A parent's device adds a member from the app: "⚙️ Nastavitve · Settings → 👪 Dodaj člana družine · Add a family member" asks a name,
+the two languages and whether it's for a child, and a parent's hold does what `lani-profile add`, `tailscale serve` and `lani-pair`
+do on the computer (`src/family-members.ts`):
+
+1. the profile, by the code `lani-profile add` uses (`addLearner`), at level A1 with the app's defaults, in the village of the language
+   they learn; the id comes from the name, so nothing a device sends reaches a shell;
+2. their bridge: `companion/bin/lani-bridge start --profile <id>`, with none of the parent's learner, tokens or port;
+3. the tailnet's way to it: `tailscale serve --bg --https=<port> http://127.0.0.1:<port>`, as `lani-profile` prints it, never Funnel;
+4. a one-time code in their own `app/`, as `lani-pair --profile <id>` makes it: the page shows it as a QR code, read on the new device
+   by "Someone in my family already uses Lani" or "With my family's computer". It works once, for 10 minutes.
+
+What it can't do from there it says with the command (`left`): the owner may have to allow `tailscale serve` once (`sudo tailscale
+set --operator=$USER`), and where nothing starts a tutor by itself (`lani-watchdog --install`) the tutor needs `lani-session
+--profile <id>`. A child added by the node's owner has their town linked with the owner's as its parent's.
+
+The same page lists the members a parent looks after and each device, with its daily budget (read by the device from `GET
+/family/rules` as it comes to the screen, and a ceiling there) and a remove (a real one: the token stops at the next request).
+Another adult's devices are theirs. A child's bridge refuses all of it, whatever it's sent; none of it goes through the relay.
+
+| Setting (`lani.env`) | | |
+|---|---|---|
+| `LANI_FAMILY_ADD` | on | `off`: only the computer adds learners. |
+| `LANI_FAMILY_MAX` | 8 | At most this many learners from the app. `lani-profile add` has no limit. |
+| `LANI_FAMILY_URL` | the tailnet's | A member's address when it isn't the tailnet's, with `{port}` and `{https_port}`: `https://lani.home.example:{https_port}`, for a proxy of your own. Nothing is published then. |
+
 ### Give the partner access
 
 1. Tailscale admin console → **Machines** → the tutor's node → **Share…**. Send the partner the invite link.
@@ -4596,6 +4629,10 @@ screens say "☁️ Lani na tej napravi · Lani on this device". The bridge runs
   tutor opens ("💬 Nadaljuj s ChatGPT · Continue with ChatGPT", OpenRouter's sign-in, "🔑 Claude (svoj ključ)", "Pozneje ·
   Later"; on a child's device "👪 To nastavi starš · A parent sets this up" and a two-second hold). "📥 Uvozi izvoz · Import
   an export", behind the first screen's small link, takes a file `lani export` made.
+- **The family's devices** (docs/plans/05-built/leftovers-app.md): under the code, the devices this one shared with, each with a daily
+  budget and a remove, each a parent's hold. They reach a device when Lani is open on both on one Wi-Fi, or through the relay when
+  one is set; until then the page says so. A budget is a ceiling on the device; a removal makes it forget the family's key when it
+  hears, and only changing the key at the provider stops a copy. With a relay set the code works off the Wi-Fi too.
 - **Add a family member:** ⚙️ Nastavitve → "👪 Dodaj člana družine" shows a QR code (once, three minutes, both devices on the same
   Wi-Fi); on the new device the first screen's small link → "Someone in my family already uses Lani" scans it. A parent sees
   which device claimed it and what it gets, and a two-second hold sends it: the tutor's provider, key and preset, and the
@@ -5306,7 +5343,7 @@ companion/bin/qa --steps visit-voices,visit-voices-silent,visit-sky   # a visit'
 LANI_DEV_DATA=<a synthetic learner> LANI_QA_MILL_SHOTS=<dir> companion/bin/qa-slot --steps mill-turning   # the mill's wheels turning: in from the stream's mill, closer up, the waterwheel in the middle, a burst of screenshots a fraction of a second apart, the wheel's frames side by side; LANI_QA_MILL_HOUR=22.5 at night (docs/plans/05-built/mill-mechanics.md)
 LANI_QA_FIRSTRUN_SHOTS=<dir> companion/bin/qa-slot --steps first-run   # the first run timed on a phone, alone (no node): the taps and seconds to the first line and the map (firstrun.txt); LANI_QA_SETUP_PAIR=it-de LANI_QA_FIRSTRUN_CHILD=1 LANI_QA_FIRSTRUN_TABLET=1 a child on Teo's tablet (docs/plans/05-built/first-minutes.md)
 companion/bin/qa-slot --steps first-cards        # what the first run leaves for later, each once: the voice's card after the first dialog, the minutes and the aim on Home, the school's card put away
-LANI_QA_FAMILY_DIR=<dir> companion/bin/qa-slot --slot 1 --steps family-parent & LANI_QA_FAMILY_DIR=<dir> companion/bin/qa-slot --slot 2 --steps family-child   # add a family member on both emulators at once: a parent's key (QA's mock), the code through a forwarded port, the hold, a child's device, a second scan refused
+LANI_QA_FAMILY_DIR=<dir> companion/bin/qa-slot --slot 1 --steps family-parent & LANI_QA_FAMILY_DIR=<dir> LANI_QA_FAMILY_TABLET=1 companion/bin/qa-slot --slot 2 --steps family-child   # add a family member on both emulators at once: a parent's key (QA's mock), the code through a forwarded port, no internet and the code unspent, the hold, a child's device, the budget, the removal, a second scan refused
 LANI_QA_SETUP_PAIR=it-de LANI_QA_TOUR_SHOTS=<dir> companion/bin/qa-slot --steps setup-tour   # the first launch on Teo's tablet (2560 × 1600, on its side and upright), alone (no node): a child learning Italian from German on this device, each step's shots, what it said (tour-speech.txt), Back, the aim, the voice, the founding; the taps counted (docs/plans/05-built/setup-refresh.md)
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes; on a synthetic learner with LANI_DEV_FAKE_ELEVENLABS=1 (its clips made first)
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
