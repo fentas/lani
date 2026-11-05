@@ -8911,7 +8911,7 @@ def school():
     assert tap("Naprej · Next", 6), "on"
     assert tap("Naprej · Continue", 10), "back to the unit"
     # the test straight away: passed, the unit done
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     assert wait_for("Dopolni", 10), "the test's first sheet"
     for label, answer in [("jaz, biti", "sem"), ("vidva, biti", "sta"), ("oni, biti", "so"), ("ti (ne), biti", "nisi")]:
         assert fill(label, answer), f"the test's cell {label}"
@@ -9175,6 +9175,19 @@ def tap_above(text: str, bottom: int, swipes=4) -> bool:
         if k < swipes:
             page_down()
     return False
+
+
+def test_out(text: str):
+    """[text] ("⏩ Znam že: kar na test") on a unit's page tapped, and the test open: the button gone. The page keeps its
+    scroll from the sheet below it, and what QA's swipes moved it by varies with the machine's load: the button can end
+    under the status bar, which takes the tap, and the step then fails looking for the test's first item. So the page to its
+    top first."""
+    to_top()
+    assert tap(text, 8), "⏩ the test"
+    end = time.time() + 8 * slow()
+    while time.time() < end and find(text) is not None:
+        time.sleep(1)
+    assert find(text) is None, "⏩ the test: it didn't open"
 
 
 def check_sheet() -> bool:
@@ -9596,7 +9609,7 @@ def school_production():
     first = next((i for i, e in enumerate(tests) if e["type"] == "speaking"), None)
     if first is None:
         return
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     for n, e in enumerate(tests[: first + 1], 1):
         time.sleep(1.5)
         if e["type"] == "speaking":
@@ -9768,7 +9781,7 @@ def school_unit():
     shot("school-unit-sheet-done")
     assert tap("Naprej · Continue", 4), "back to the unit"
     # the test straight away: passed, the unit done
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     tests = u["test"]["exercises"]
     for n, e in enumerate(tests, 1):
         time.sleep(1.5)
@@ -10233,7 +10246,7 @@ def friuli_school(part: str = "scene"):
             assert wait_for(lab("common.continue"), 10), "the worksheet's end"
             snap("fs-sheet-done")
             assert tap(lab("common.continue"), 4), "back to the unit"
-            assert tap(half("school.testOut"), 8), "⏩ the test"
+            test_out(half("school.testOut"))
             tests = u["test"]["exercises"]
             for n, e in enumerate(tests, 1):
                 time.sleep(1.5)
@@ -11166,7 +11179,7 @@ def course_unit_one(unit: str, shots_dir: str | None):
         assert wait_for(lab("common.continue"), 10), "the worksheet's end"
         snap("cu-sheet-done")
         assert tap(lab("common.continue"), 4), "back to the unit"
-        assert tap(half("school.testOut"), 8), "⏩ the test"
+        test_out(half("school.testOut"))
         tests = u["test"]["exercises"]
         for n, e in enumerate(tests, 1):
             time.sleep(1.5)
@@ -14338,7 +14351,7 @@ def school_a2():
     assert press("Naprej · Next", 6), "on"
     assert press("Naprej · Continue", 10), "back to the unit"
     # the test straight away: passed, the unit done
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     assert wait_for("Dopolni tabelo", 10), "the test's table"
     for label, answer in [("ona, moški · masculine", "njen"), ("ona, ženski · feminine", "njena"),
                           ("France, moški · masculine", "Francetov"), ("France, srednji · neuter", "Francetovo")]:
@@ -14472,7 +14485,7 @@ def school_cases():
     assert wait_for("Naprej · Continue", 10), "the worksheet's end"
     assert tap("Naprej · Continue", 4), "back to the unit"
     # the test straight away: passed, the unit done
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     assert wait_for("Dopolni sklone", 10), "the test's table"
     for row, answer in [("2. koga? česa?", "mame"), ("3. komu? čemu?", "mami"), ("4. koga? kaj?", "mamo"), ("6. z …", "mamo")]:
         assert fill(f"{row}, mama · mum", answer), f"the test's cell {row}"
