@@ -484,7 +484,8 @@ away. The turn takes the room it needs and the lines keep the rest, at least the
 `DialogRoom.linesFor`, up to 55 % of the panel; a turn of choices gives way to it and scrolls, down to 140 dp, a typed one keeps its 248); on a small screen (or
 with large fonts) the turn scrolls instead, kept down at the sentence with the gap, the field, the letter chips and
 "Preveri · Check". The panel's header keeps the person in view meanwhile: their live portrait with their face
-([Faces](#faces-the-person-you-talk-to-and-their-expressions)). Once the keyboard is down, the picture comes back; a tap turn, with no keyboard, keeps it. The
+([Faces](#faces-the-person-you-talk-to-and-their-expressions)). Where the header's title would have less than 80 dp beside the
+translations' chip, the chip gives up its word for its 👁 (`TitleAndToggle`, by `WayOnRow`), so a long title can't take the turn's room. Once the keyboard is down, the picture comes back; a tap turn, with no keyboard, keeps it. The
 keyboard is an answer's (README.md, "Answer fields and the keyboard"): no suggestion strip and no auto-correct. It
 opens in the scene's language (Slovene at home, the town's language on a visit), and the learner can switch it.
 

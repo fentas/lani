@@ -271,11 +271,10 @@ fun DialogPanel(
                     Text(facing.emoji, style = MaterialTheme.typography.titleLarge, modifier = Modifier.clearAndSetSemantics { })
                 }
                 Spacer(Modifier.width(10.dp))
-                Column(Modifier.weight(1f)) {
-                    Text(facing.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                    Text(talk.happening.title, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Box(Modifier.weight(1f)) {
+                    if (run.step == DialogRun.Step.END) DialogTitle(facing.name, talk.happening.title)
+                    else TitleAndToggle(facing.name, talk.happening.title, prefs.translations, prefs::showTranslations)
                 }
-                if (run.step != DialogRun.Step.END) TranslationsToggle(prefs.translations, prefs::showTranslations)
                 if (vm.caseColours.available) DialogMore(vm)
                 CloseButton(onClose)
             }
@@ -353,13 +352,13 @@ internal fun whoIs(talk: SceneTalk, speakers: Map<String, Speaking>, id: String?
  * TalkBack hears both.
  */
 @Composable
-internal fun TranslationsToggle(on: Boolean, onChange: (Boolean) -> Unit) {
+internal fun TranslationsToggle(on: Boolean, onChange: (Boolean) -> Unit, compact: Boolean = false) {
     FilterChip(
         selected = on,
         onClick = { onChange(!on) },
         label = {
             Text(
-                "👁 ${inTarget("reading.translation")}",
+                if (compact) "👁" else "👁 ${inTarget("reading.translation")}",
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier.clearAndSetSemantics { contentDescription = bi("reading.translation") },
             )
@@ -368,6 +367,32 @@ internal fun TranslationsToggle(on: Boolean, onChange: (Boolean) -> Unit) {
         modifier = Modifier.padding(end = 6.dp),
     )
 }
+
+/** Who the learner faces and what's on: the header's title. */
+@Composable
+private fun DialogTitle(name: String, title: String) {
+    Column {
+        Text(name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+        Text(title, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
+/**
+ * The header's title and the translations' chip, by [WayOnRow]: the chip gives up its word for its 👁 where it would leave the title
+ * less than [TITLE_LEAST_DP]. Beside "👁 Übersetzung", ⋯ and ✕ on a small phone a title had 40 dp: thirteen lines, and with the keyboard
+ * up it took the whole panel, the field of a typed turn out of sight. A screen with room for both shows what it always did.
+ */
+@Composable
+internal fun TitleAndToggle(name: String, title: String, on: Boolean, onChange: (Boolean) -> Unit) = WayOnRow(
+    words = { TranslationsToggle(on, onChange) },
+    icon = { TranslationsToggle(on, onChange, compact = true) },
+    way = { DialogTitle(name, title) },
+    wayFirst = true,
+    wayAtLeast = TITLE_LEAST_DP.dp,
+    gap = 0.dp,
+)
+
+private const val TITLE_LEAST_DP = 80
 
 /**
  * The header's ⋯: "🎨 Skloni · Cases" (the case lens): each noun of the lines underlined in its case's colour, with the

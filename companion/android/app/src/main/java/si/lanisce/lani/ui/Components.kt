@@ -357,34 +357,42 @@ fun BigButton(
  * A button and the way on, side by side, the way on taking the room left. Its label wraps between its words; where that room is less than
  * its longest word (a small phone, large text, a pair like "Avanti · Weiter") a word would break, so the button gives up its [words] for
  * its [icon] and stays in the row: one above the other would take the room of what stands over them. Only where even that is too wide do
- * they stand one above the other. By the labels' measure, so it holds for any two languages.
+ * they stand one above the other. By the labels' measure, so it holds for any two languages. [wayFirst]: the way on at the start of the
+ * row; [wayAtLeast]: what it needs besides its longest word, for a text a word wide would run to a dozen lines.
  */
 @Composable
-internal fun WayOnRow(words: @Composable () -> Unit, icon: @Composable () -> Unit, way: @Composable () -> Unit) {
+internal fun WayOnRow(
+    words: @Composable () -> Unit,
+    icon: @Composable () -> Unit,
+    way: @Composable () -> Unit,
+    wayFirst: Boolean = false,
+    wayAtLeast: Dp = 0.dp,
+    gap: Dp = 10.dp,
+) {
     Layout({
         words()
         icon()
         way()
     }) { (withWords, withIcon, wayOn), c ->
-        val gap = 10.dp.roundToPx()
-        val longestWord = wayOn.minIntrinsicWidth(Constraints.Infinity)
-        val beside = listOf(withWords, withIcon).firstOrNull { it.maxIntrinsicWidth(Constraints.Infinity) + gap + longestWord <= c.maxWidth }
+        val space = gap.roundToPx()
+        val least = maxOf(wayOn.minIntrinsicWidth(Constraints.Infinity), wayAtLeast.roundToPx())
+        val beside = listOf(withWords, withIcon).firstOrNull { it.maxIntrinsicWidth(Constraints.Infinity) + space + least <= c.maxWidth }
         fun wide(width: Int) = c.copy(minWidth = width, maxWidth = width, minHeight = 0)
         if (beside != null) {
             val width = beside.maxIntrinsicWidth(Constraints.Infinity)
             val a = beside.measure(wide(width))
-            val n = wayOn.measure(wide(c.maxWidth - width - gap))
+            val n = wayOn.measure(wide(c.maxWidth - width - space))
             val height = maxOf(a.height, n.height)
             layout(c.maxWidth, height) {
-                a.place(0, (height - a.height) / 2)
-                n.place(width + gap, (height - n.height) / 2)
+                a.place(if (wayFirst) c.maxWidth - width else 0, (height - a.height) / 2)
+                n.place(if (wayFirst) 0 else width + space, (height - n.height) / 2)
             }
         } else {
             val a = withWords.measure(wide(c.maxWidth))
             val n = wayOn.measure(wide(c.maxWidth))
-            layout(c.maxWidth, a.height + gap + n.height) {
-                a.place(0, 0)
-                n.place(0, a.height + gap)
+            layout(c.maxWidth, a.height + space + n.height) {
+                a.place(0, if (wayFirst) n.height + space else 0)
+                n.place(0, if (wayFirst) 0 else a.height + space)
             }
         }
     }
