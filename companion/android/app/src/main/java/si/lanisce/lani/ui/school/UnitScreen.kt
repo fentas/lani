@@ -7,6 +7,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -19,6 +20,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,6 +47,7 @@ import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.GradientHeader
+import si.lanisce.lani.ui.StatusBarScrim
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
 
@@ -60,7 +64,6 @@ internal fun bestText(b: SheetBest): String {
  * tutor, one tap away too. Back leads where it was opened (the school, Today, Napredek, a notification: Home); opened
  * elsewhere than the school, "🏫 Šola ›" leads to its other units.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun UnitScreen(vm: AppViewModel, id: String) {
     val unit = vm.school.unit(id) ?: run {
@@ -71,11 +74,21 @@ fun UnitScreen(vm: AppViewModel, id: String) {
         } else androidx.compose.runtime.LaunchedEffect(id) { vm.back() }
         return
     }
+    val list = rememberLazyListState()
+    Box(Modifier.fillMaxSize()) {
+        UnitContent(vm, unit, list)
+        StatusBarScrim(list, Modifier.align(Alignment.TopCenter), overHeader = true)
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun UnitContent(vm: AppViewModel, unit: CourseUnit, list: LazyListState) {
     val s = vm.game.state
     val p = s?.let { School.progress(it, unit.language, unit.id) }
     val step = School.nextStep(unit, p)
     val base = L10n.pair.base.code
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+    LazyColumn(Modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
         item {
             GradientHeader(
                 "${unit.emoji} ${unit.titleShown(L10n.pair)}",

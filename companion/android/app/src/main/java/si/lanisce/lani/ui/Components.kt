@@ -387,11 +387,12 @@ fun greeting(hour: Int, lang: Lang = L10n.pair.target): String = L10n.text(
 
 /**
  * A bar behind the status bar that fades in once [list] scrolls past its first item (an edge-to-edge
- * header), so the clock and icons never sit on top of card text.
+ * header), so the clock and icons never sit on top of card text. [overHeader]: as soon as it scrolls at
+ * all, for a header whose own text would pass under them (a unit's goal runs to several lines).
  */
 @Composable
-fun StatusBarScrim(list: LazyListState, modifier: Modifier = Modifier) {
-    val scrolled by remember { derivedStateOf { list.firstVisibleItemIndex > 0 } }
+fun StatusBarScrim(list: LazyListState, modifier: Modifier = Modifier, overHeader: Boolean = false) {
+    val scrolled by remember(overHeader) { derivedStateOf { list.firstVisibleItemIndex > 0 || (overHeader && list.firstVisibleItemScrollOffset > 0) } }
     val alpha by animateFloatAsState(if (scrolled) 0.96f else 0f, label = "scrim")
     Box(
         modifier
