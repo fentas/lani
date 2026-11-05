@@ -266,6 +266,8 @@ anyone else.
    `companion/bin/lani-setup --elevenlabs-key-file -` reads it from standard input. It goes to
    `~/.config/lani/keys.env` (mode 600) as `ELEVENLABS_API_KEY`, never onto a command line; `lani-session` hands it
    to the tutor's bridge.
+   With a key of Lani's voice service instead, `GLAS_URL` and `GLAS_KEY` in the same file: the bridge asks it first and needs no
+   ElevenLabs key of its own for what the service has (docs/plans/03-voice-service.md).
 3. **What it costs.** Every line of a new learner's village, voiced once (measured in October 2026):
 
    | Village | Lines | Characters | ElevenLabs credits (≈) |
