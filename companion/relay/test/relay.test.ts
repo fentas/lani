@@ -2,7 +2,7 @@
 // Run: cd companion/relay && bun test
 import { afterAll, beforeEach, describe, expect, test } from 'bun:test'
 import { generateKeyPairSync, sign, type KeyObject } from 'node:crypto'
-import { mkdtempSync, rmSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readdirSync, rmSync, utimesSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { configFromEnv, type Config } from '../src/config'
@@ -424,6 +424,33 @@ describe('backups', () => {
     expect((await call(relay, a, 'PUT', '/v1/backup/two', { body: new Uint8Array(1000) })).status).toBe(200)
     expect((await call(relay, a, 'PUT', '/v1/backup/-x', { body: 'x' })).status).toBe(400)
     expect((await call(relay, a, 'PUT', '/v1/backup/.hidden', { body: 'x' })).status).toBe(400)
+  })
+
+  test('a hard stop leaves a half upload in .incoming: the next start sweeps the old ones, and only those', async () => {
+    const dataDir = mkdtempSync(join(tmpdir(), 'lani-relay-test-'))
+    temps.push(dataDir)
+    const staging = join(dataDir, 'backup', '.incoming')
+    mkdirSync(staging, { recursive: true })
+    const file = (name: string, ageMs: number) => {
+      const path = join(staging, name)
+      writeFileSync(path, 'half a backup')
+      utimesSync(path, new Date(clock - ageMs), new Date(clock - ageMs))
+      return path
+    }
+    const stale = file('.tmp-stale', 2 * 3600_000)
+    const justOld = file('.tmp-just-old', 3600_000)
+    const writing = file('.tmp-writing', 60_000) // another relay's, in a restart
+    const other = file('not-ours', 2 * 3600_000)
+    const relay = relayWith({ dataDir })
+    expect([existsSync(stale), existsSync(justOld)]).toEqual([false, false])
+    expect([existsSync(writing), existsSync(other)]).toEqual([true, true])
+    // the relay takes uploads as before, and one that's done leaves nothing behind
+    expect((await call(relay, newKey(), 'PUT', '/v1/backup/after', { body: 'x' })).status).toBe(200)
+    expect(readdirSync(staging).sort()).toEqual(['.tmp-writing', 'not-ours'])
+  })
+
+  test('a first start, with no upload yet, has nothing to sweep', () => {
+    expect(() => relayWith()).not.toThrow()
   })
 })
 

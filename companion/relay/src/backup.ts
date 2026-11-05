@@ -5,9 +5,10 @@
 //   GET    /v1/backup          [{name, size, time}]                (time: unix ms of the PUT)
 //   DELETE /v1/backup/{name}                                       → {ok: true}
 // A PUT's body is streamed to a temp file and hashed on the way; its signature (over that hash) is checked before the
-// file takes the name. Each key has a quota of bytes and a number of backups.
+// file takes the name. Each key has a quota of bytes and a number of backups. A hard stop leaves its temp file behind:
+// the next start sweeps the old ones.
 import { createHash, randomBytes } from 'node:crypto'
-import { closeSync, existsSync, mkdirSync, openSync, renameSync, unlinkSync, writeSync } from 'node:fs'
+import { closeSync, existsSync, mkdirSync, openSync, readdirSync, renameSync, statSync, unlinkSync, writeSync } from 'node:fs'
 import { join } from 'node:path'
 import type { Config } from './config'
 import { HttpError, json } from './http'
@@ -16,10 +17,38 @@ import type { Store } from './store'
 
 export const BACKUP_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/
 
+/** A temp file no write has touched for this long is no upload's: Bun closes a stalled request after two minutes. */
+const STALE_UPLOAD_MS = 60 * 60_000
+
 export type Admit = (signed: Signed) => void
+
+/** Removes what a hard stop left in [staging], where no cleanup ran. Only old files go: during a restart another relay may be writing there. */
+function sweepStaging(staging: string, now: number): void {
+  let names: string[] = []
+  try {
+    names = readdirSync(staging)
+  } catch {
+    return // nothing was ever uploaded
+  }
+  let gone = 0
+  for (const name of names) {
+    if (!name.startsWith('.tmp-')) continue
+    const path = join(staging, name)
+    try {
+      if (now - statSync(path).mtimeMs < STALE_UPLOAD_MS) continue
+      unlinkSync(path)
+      gone++
+    } catch (e) {
+      console.error(`[lani-relay] backups: ${name} stays: ${(e as Error).message}`)
+    }
+  }
+  if (gone) console.error(`[lani-relay] backups: ${gone} unfinished upload(s) gone`)
+}
 
 export function backups(cfg: Config, store: Store, admit: Admit) {
   const root = join(cfg.dataDir, 'backup')
+  const staging = join(root, '.incoming')
+  sweepStaging(staging, cfg.now())
   let uploads = 0
   const dirOf = (owner: string) => join(root, owner)
   const fileOf = (owner: string, name: string) => join(dirOf(owner), name)
@@ -78,7 +107,6 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     if (store.totalBytes() + Math.min(announced, cfg.backupMaxBytes) > cfg.storeMaxBytes) throw new HttpError(507, 'full', 'the relay is full: try again later')
     if (uploads >= cfg.backupUploads) throw new HttpError(429, 'busy', 'too many backups are being uploaded: try again in a minute', { 'retry-after': '30' })
     uploads++
-    const staging = join(root, '.incoming')
     let spooled: { tmp: string; size: number; sha256: string }
     try {
       spooled = await spool(req, staging, cfg.backupMaxBytes)

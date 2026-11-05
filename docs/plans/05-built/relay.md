@@ -133,7 +133,8 @@ A name is 1 to 128 of `A-Z a-z 0-9 . _ -`, starting with a letter or digit (`400
 and 512 MB together (`507 quota`). A `PUT` with the same name replaces it. The body is streamed to a temp file and
 hashed on the way; the signature over that hash is checked before the file takes the name. Before the body is read:
 the headers' shape and time, the claimed key's quota and the relay's room for the length it announces (`507 full`),
-and at most 4 uploads at once (`429 busy`).
+and at most 4 uploads at once (`429 busy`). A hard stop leaves the temp file in `backup/.incoming`: each start removes
+the ones no write has touched for an hour.
 
 ## Signed requests
 
@@ -332,8 +333,8 @@ glas runs on Jan's lok8s cluster; the relay fits beside it:
   ```
 - **The bridge's smoke** stays green with the relay off (`LANI_RELAY_URL` unset): the towns, friendship, questions,
   guests and family sections unchanged.
-- **The image** builds (103 MB, `oven/bun:1.3-alpine`), runs as the `bun` user, and answers `/health` and the family
-  page.
+- **The image** builds (110 MB, `oven/bun:1.3.13-alpine` by its digest, the Bun the CI runs), runs as the `bun` user, and
+  answers `/health` and the family page.
 
 ## What's left
 
