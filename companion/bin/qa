@@ -100,7 +100,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        named; the same learner) the status bar read at every stop of the scroll on School, Settings and the other pages
                        whose header scrolls away (fp-page-*.png); "answer-buttons" (only when named; a learner in their village) the buttons
                        under an answer on a small phone, in the village's language with each base (fp-buttons-*.png); "typed-buttons" (only when
-                       named; the same) the buttons under a dialog's typed turn on a small phone and a phone (ls-typed-*.png); "table-credit" (only when
+                       named; the same) the buttons under a dialog's typed turn on a small phone and a phone (ls-typed-*.png); "backup-failed" (only when
+                       named; any learner) the Data sheet after an automatic backup failed, the clock off and the relay away (ls-backup-*.png); "table-credit" (only when
                        named; a Slovene learner) a word card's table credits Wiktionary and Sloleks, and točen's holds no comparative;
                        "hint-de-cases" (only when named; the same learner) a case line from a preposition and from a verb,
                        on turns asked typed (QA's hook "turns:type") (hint-de-case-*.png);
@@ -5319,6 +5320,77 @@ def typed_buttons():
         adb("shell", "wm", "size", "reset")
         adb("shell", "wm", "density", "reset")
         time.sleep(3 * slow())
+    assert not wrong, "; ".join(wrong)
+
+
+# A relay whose clock is an hour ahead: every signed request is refused as stale, with its Date, as the relay refuses a phone whose
+# clock is off (bun <file> <port>).
+STALE_RELAY = """
+const port = Number(process.argv[2])
+Bun.serve({ hostname: '127.0.0.1', port, fetch: () => new Response(JSON.stringify({ error: "the request's time is more than 5 minutes off", code: 'stale' }),
+  { status: 401, headers: { 'content-type': 'application/json', 'x-lani-relay': 'error', date: new Date(Date.now() + 3600_000).toUTCString() } }) })
+"""
+
+
+def free_port() -> int:
+    import socket
+    with socket.socket() as s:
+        s.bind(("127.0.0.1", 0))
+        return s.getsockname()[1]
+
+
+def backup_failed():
+    """The Data sheet's line for an automatic backup that failed (docs/plans/05-built/last-small.md, "The app's backup"), only when
+    named, on any learner. The phone's relay is pointed at a stand-in whose clock is an hour ahead, the backup set up with a recovery
+    code and planned as going to the background plans it (QA's hook "backup:<url>"), so it runs as WorkManager work (its log line
+    "backup work: FAILED") and fails; the sheet says why, and that the clock is off on a line of its own. Then a relay that isn't
+    there: the reason, and that it tries again by itself. ls-backup-*.png in $LANI_QA_POLISH_SHOTS."""
+    out = Path(os.environ["LANI_QA_POLISH_SHOTS"]) if os.environ.get("LANI_QA_POLISH_SHOTS") else None
+    port = free_port()
+    script = Path(tempfile.mkdtemp(prefix="lani-qa-stale-")) / "stale-relay.ts"
+    script.write_text(STALE_RELAY)
+    relay = subprocess.Popen(["bun", str(script), str(port)], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+    wrong: list[str] = []
+    try:
+        time.sleep(1.5)
+        cases = (("clock", f"http://10.0.2.2:{port}", "dataSync.backupClockOff", "dataSync.clockOffFix"),
+                 ("unreachable", f"http://10.0.2.2:{free_port()}", "dataSync.backupUnreachable", "dataSync.autoRetries"))
+        for name, url, why, then in cases:
+            go_home()
+            adb("logcat", "-c")
+            qa_hook(f"backup:{url}")
+            ran = None
+            for _ in range(int(45 * slow())):
+                ran = next((l for l in reversed(adb("logcat", "-d", "-s", "DataSync:I", check=False).splitlines()) if "backup work:" in l), None)
+                if ran:
+                    break
+                time.sleep(1)
+            said = ran.split("backup work:", 1)[-1].strip() if ran else "no work ran in 45 s"
+            print(f"    {name}: the work says {said}", flush=True)
+            if said != "FAILED":
+                wrong.append(f"{name}: the work says {said}")
+            qa_hook("data")
+            if not wait_for(label("dataSync.backup", half=True), 8):
+                wrong.append(f"{name}: no data sheet")
+                continue
+            # up to the backup (a drag down would close the sheet: only up)
+            for _ in range(3):
+                if find(label(then, half=True)) is not None:
+                    break
+                adb("shell", "input", "swipe", "540", "1800", "540", "900", "500")
+                time.sleep(1.2)
+            for key in ("dataSync.autoFailed", why, then):
+                text = label(key, half=True).split("{")[0].strip()
+                if find(text) is None:
+                    wrong.append(f"{name}: «{text}» not on the sheet")
+            shot(f"ls-backup-{name}")
+            if out is not None:
+                out.mkdir(parents=True, exist_ok=True)
+                shutil.copy(shots[-1], out / f"ls-backup-{name}.png")
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the sheet
+            time.sleep(1)
+    finally:
+        relay.terminate()
     assert not wrong, "; ".join(wrong)
 
 
@@ -22697,6 +22769,7 @@ def plan():
         ("scrim-pages", scrim_pages, go_home, False, ""),
         ("answer-buttons", answer_buttons, go_home, False, ""),
         ("typed-buttons", typed_buttons, go_home, False, ""),
+        ("backup-failed", backup_failed, go_home, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("player-voice", player_voice, v, False, ""),
         # "🗣️ Moj glas · My voice": the offer at the first line, a ▶, the pick, the next line in it, the settings' page
@@ -23748,7 +23821,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "audio-trial", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases", "family-computer-parent", "family-computer-child", "placement-again", "school-unmet", "placement-child", "kaernten-leftovers", "table-credit", "long-pages", "scrim-pages", "answer-buttons", "typed-buttons") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "audio-trial", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases", "family-computer-parent", "family-computer-child", "placement-again", "school-unmet", "placement-child", "kaernten-leftovers", "table-credit", "long-pages", "scrim-pages", "answer-buttons", "typed-buttons", "backup-failed") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
