@@ -126,40 +126,64 @@ Measured: the new relay, the same 5 minute 19 second upload at the same moment, 
 
 A buffering proxy opens the request to the relay only once it holds the whole body, so "the start" is the end, and five minutes is the limit however long the relay allows. **This is the brief's `401 stale`, and the relay can't fix it from its side.** relay.md's hosting steps now say `proxy-request-buffering: "off"`. Whoever hosts the relay has to set it: nothing in this repository can.
 
-### What the app does when an upload fails
+### What the app did when an upload failed
 
-Read from the code (`DataSync`, `Backup.kt`, `DataSheet`), not watched on a device. This hasn't changed.
+Read from the code, as it was on main:
 
-**Does the learner see it? Not the daily backup.** The only automatic trigger is the app going to the background (`DataSync.onBackground`), and a failure goes to `log`, which is logcat. Settings' data row and the Data page show the last backup's date, with no warning however old it gets. Only "💾 Back up now" says anything: "⚠️ The server can't be reached." for a cut upload or a 408, "⚠️ The server refused the request." for a 401.
+- **The learner didn't see it.** The daily backup ran as the app went to the background, and a failure went to logcat. The Data page showed the last backup's date with no warning however old it got. Only "💾 Back up now" said anything.
+- **It retried without end.** Every trip to the background started the whole blob again, with no backoff and no check of the network (so on mobile data too), and two could run at once: `onBackground` didn't read `busy`.
+- **Two more limits on a slow upload.** The relay upload used `GitHub.DEFAULT_CLIENT`, whose write timeout is OkHttp's 10 s; `RelayClient.DEFAULT_CLIENT`, with the 120 s meant for it, was never used. And nothing kept the process alive for the upload.
 
-**Does it retry forever? Yes.** `lastBackup` moves only on success, so while the last good backup is over 20 hours old, every trip to the background starts again:
+## The app's backup
 
-- from the first byte, the whole blob, under a new name;
-- with no backoff and no limit on attempts;
-- with no check of the network, so on mobile data too: up to 50 MiB per attempt, silently;
-- with nothing to stop two at once: `busy` greys the button, `onBackground` doesn't read it, so leaving the app, coming back and leaving again runs a second upload beside the first.
+The coordinator decided all five; each is done.
 
-It stops when one succeeds. A phone whose clock is over five minutes off gets `401 stale` each time, so that loop never ends either, and says nothing.
+| | Before | Now |
+|---|---|---|
+| Where it runs | a coroutine on going to the background | `BackupWork`, one-time WorkManager work with a network constraint: it outlives the app's process |
+| A failure | logcat | the Data sheet: when, why in plain words, that it tries again by itself |
+| A clock that is off | "The server refused the request.", on "Back up now" only | a line of its own: retrying can't help, turn on the automatic date and time |
+| Retries | every trip to the background, whole | after a failure 1 h, then 2, 4, 8, 16, then once a day |
+| Two at once | possible | one backup or restore at a time in the process; the button says one runs |
+| Unchanged data | sent again | not sent; it counts as backed up |
+| Mobile data | always | an unmetered network, unless the last good backup is over a week old or there is none; "Back up now" on any |
+| Write timeout | 10 s | 120 s, the relay client's |
 
-**Two more things that limit a slow upload, in the app:**
+**How.** `AutoBackupPolicy` decides when and on which network, as a pure function of the last backup and the record. `DataSync.runAutoBackup` runs it: the data's digest first (each file's path, length and bytes, with the archive's own filter), and nothing is sent if it's the last backup's. A failure is kept in `sync/backup.json` with its reason, and the work plans its own next try after the backoff. It never uses WorkManager's retry, whose backoff stops at five hours. On going to the background, the app plans the work when one is due (`planBackup`): unmetered or any network, after the backoff's delay, replacing one that waits, since the plan is worked out from the record each time.
 
-- `AppViewModel` passes no client to `DataSync`, so `RelayClient` gets `GitHub.DEFAULT_CLIENT`: read timeout 60 s and OkHttp's default write timeout of 10 s. `RelayClient.DEFAULT_CLIENT`, with the 120 s meant for this, is never used. Ten seconds with no room in the socket's buffer ends the upload, and a radio that stalls for ten seconds is ordinary on the connections this item is about. It's one line, and it's left for whoever takes the list below because this branch was asked to report the app, not change it.
-- The upload starts as the app goes to the background and nothing keeps the process alive for it (no foreground service, no WorkManager job), so Android may freeze or end it first. A long upload is the one this hits. No device has shown how often.
+**Two DataSyncs.** The work runs in a DataSync of its own (`appDataSync` builds the app's and the work's alike), while the app's holds the settings in memory. Each write of the settings now re-reads the file under a lock, so a write of the app's keeps what the work wrote. The record has a file of its own. When a backup ends, the Data sheet reads both again (`DataSync.revision`).
 
-**The honest summary:** the relay no longer refuses a slow upload, if the proxy streams. Whether a slow phone now finishes one depends on those two, so this isn't "fixed for slow connections" yet.
+**Telling the clock.** The relay refuses a time more than 5 minutes off as `stale`, and its answer carries its own clock in `Date`. More than 4 minutes from the phone's is the phone's clock. Less is a request that got old on the way, a proxy holding the body, told as "too slow". With no `Date`, it stays "refused". The relay's 408 and 429 are now "too slow" and "busy", not "can't be reached".
 
-Left for a decision, in order of what they cost a learner:
+**Left:** a learner whose only network is mobile, with a backup under a week old, waits for Wi-Fi up to a week, and then any network will do. A failure isn't announced outside the Data sheet: no notification, no badge on Settings' data row. And the first backup after setting it up goes on any network, by the rule "none yet", which can be 50 MiB on mobile data.
 
-1. Let the learner see that backups are failing (a line on the Data page once the last good one is, say, three days old).
-2. The client: `RelayClient.DEFAULT_CLIENT`'s timeouts for the relay.
-3. Back off after a failure, skip it on a metered connection unless asked, and don't start one while one runs.
-4. Run the upload as a WorkManager job, which brings the backoff and the network check with it, and answers the freezing above.
+No real backup's size is known here: learner data isn't read on this branch, and a synthetic learner's says nothing.
 
-No real backup's size is known here: learner data isn't read on this branch, and a synthetic learner's says nothing. If real ones are a few MiB, all of this bites far less, so that's worth looking at first.
+### Native check
+
+Machine-written, in all four languages: `dataSync.autoFailed`, `autoRetries`, `backupClockOff`, `clockOffFix`, `backupTooSlow`, `backupBusy`, `backupRunning` (companion/android/app/src/main/resources/l10n/*.json). For a native eye:
+
+1. sl: *Samodejna varnostna kopija ni uspela*, *Ura tega telefona se od prave razlikuje za več kot pet minut.*, *v nastavitvah Androida vklopi samodejni datum in čas* (Android's own Slovene wording for the setting may differ: "Samodejni datum in ura"?).
+2. de: *Die Uhr dieses Telefons geht um mehr als fünf Minuten falsch.*, *Datum und Uhrzeit automatisch*.
+3. it: *L'orologio di questo telefono sbaglia di più di cinque minuti.*, *data e ora automatiche*.
+4. Whether "tries again by itself" reads right with the backup as its subject: sl *Znova poskusi sama*, de *Sie versucht es von selbst wieder*, it *Riprova da solo*.
+
+### On a device
+
+`backup-failed`, on a synthetic Jan in sl · en, on the final build. QA's hook `backup:<url>` sets the phone's relay, sets the backup up with a recovery code and plans the backup as going to the background does. It runs as WorkManager work (its log says "backup work: FAILED"), and then the Data sheet shows:
+
+| Relay | The sheet (`ls-backup-*.png`) |
+|---|---|
+| A stand-in whose clock is an hour ahead: every request `401 stale`, with its `Date` | ⚠️ when; "This phone's clock is more than five minutes off."; 🕒 what to do, in bold: turn on the automatic date and time |
+| A port with nothing on it | ⚠️ when; "The server can't be reached."; that it tries again by itself, at most once a day, and that "Back up now" tries at once |
+
+**The first build said the reason twice, and QA passed it.** The reason is in both languages already, and `bi()` put it into each half of the line. The shot showed it; the step only looked for each line's text. Now the reason has a line of its own, the unit test counts it inside every node's text, and the step counts each line's text: once each. On the first build's shot, that count is 2.
+
+Tap counts: to see that a backup failed, before: none, since it was in logcat only. Now it's on the Data sheet, under the last backup's date, where the learner already looks.
 
 ## Tests
 
-On the final code: the bridge's and the relay's `tsc` clean; the smoke 4,571 checks, none failed (`prompt-clashes` within its baseline of 343); the relay's tests 38, 10 of them new, on Bun 1.4.4 and on 1.3.13, the image's; the relay smoke 45 checks, none failed, its backup round trip among them; Python `companion/tests` 188 (11 skipped) and `tests` 253, with `/usr/bin` first in `PATH`; the Android suite 4,526 tests, 2 skipped, 0 failures, 8 of them new (`AnswerButtonsTest` 4, `DialogHeaderTest` 3, `BackupTest` 1).
+On the final code: the bridge's and the relay's `tsc` clean; the smoke 4,571 checks, none failed (`prompt-clashes` within its baseline of 343); the relay's tests 43, 15 of them new, on Bun 1.4.4 and on 1.3.13, the image's; the relay smoke 45 checks, none failed, its backup round trip among them; Python `companion/tests` 188 (11 skipped) and `tests` 253, with `/usr/bin` first in `PATH`; the Android suite 4,537 tests, 2 skipped, 0 failures, 19 of them new (`AnswerButtonsTest` 4, `DialogHeaderTest` 3, `AutoBackupTest` 8, `BackupWorkTest` 1, `BackupTest` 2, `AutoBackupFailedTest` 1).
 
 Each new safeguard was taken out once to see that a test catches it:
 
@@ -175,6 +199,20 @@ Each new safeguard was taken out once to see that a test catches it:
 | `WayOnRow` under a typed turn (the old `Row`) | three of `AnswerButtonsTest` |
 | The chip giving up its word | `DialogHeaderTest`: the title at seven lines |
 | (QA) the header on the build with only the row fixed | `typed-buttons` fails on all three German pairs |
+| One upload per key | a copy refused while the first uploads, one key one upload |
+| Two per address | one address can't fill the places |
+| The rate floor | the trickler, cut |
+| Its first minute's grace | a slow start, forgiven |
+| The floor three times higher | 50 MiB at 0.25 Mbit/s, and the slow start |
+| An address's count never freed | a later upload from it refused |
+| The background planning while a backup runs | one backup at a time |
+| The same data not sent again | sent once, not again while the same |
+| The backoff | the policy, and a failure kept and backed off |
+| Unmetered unless a week has passed | the policy, and going to the background |
+| The relay client for the relay (GitHub's instead) | a relay that takes the body slowly, waited for past 10 s |
+| Reading a stale time as the clock | the clock off, through the client and through DataSync |
+| Settings re-read before a write | the work's DataSync and the app's |
+| One backup at a time (the lock taken, its answer ignored) | one backup at a time: the work's ran beside the button's |
 
 Measured on a socket, not in the tests: the relay as it was and as it is, on Bun 1.3.13, the same 1 MiB over 5 minutes 19 seconds. Before: cut at 120 s with no answer, and the copy sent after it took the backup (`200`), since the first never landed. After: `200` at 319 s; a sender that stops after its first piece cut at 120 s; a copy sent at once after a 150 s upload `401 replayed`, and after the 319 s one `401 stale`.
 
@@ -185,3 +223,5 @@ Measured on a socket, not in the tests: the relay as it was and as it is, on Bun
 - **TalkBack** on the ✋ and the 👁. Their names are in the tree, and no screen reader has said them.
 - **Teo's tablet** and **large text on a device**: the row and the header are held there by the unit tests only.
 - **The Lake District on a phone** (the small phone only), and **`ISpyPanel`'s header**, which has the same chip and wasn't looked at.
+- **The backup's work on a real phone**: under Doze, after the app's process is gone, and on a real metered network (the emulator's is unmetered, and the runs planned "any network", since none had succeeded). The work ran and failed on the emulator; a success through it was shown in the unit tests only.
+- **The relay's per-address limit behind its proxy**: the address is `X-Forwarded-For`'s right-most entry, as the relay's other limits take it, and no proxy was in front for it here.
