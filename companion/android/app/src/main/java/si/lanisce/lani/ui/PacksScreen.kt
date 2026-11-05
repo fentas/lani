@@ -57,6 +57,7 @@ import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inTarget
+import androidx.compose.foundation.lazy.rememberLazyListState
 
 /** "Nove besede · New words": every word pack with its progress, and the learner's words a tap away. */
 @Composable
@@ -72,7 +73,8 @@ fun PacksScreen(vm: AppViewModel) {
     val feasts = PackSession.feasts(all) { id -> Calendar.byId(id)?.let { Calendar.occurrence(it, today) ?: Calendar.next(it, today) } }
     // the village projects' packs of the ages reached, in a section of their own: their steps ask for these words
     val projects = PackSession.projects(all, vm.game.state?.let { s -> si.lanisce.lani.game.Projects.open(s).map { it.id }.toSet() }.orEmpty())
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+    val list = rememberLazyListState()
+    LazyColumn(Modifier.fillMaxSize().statusBarScrim(list), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
         item {
             GradientHeader(
                 "📚 ${bi("homeScreen.newWords")}",

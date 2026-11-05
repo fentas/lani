@@ -70,6 +70,8 @@ import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.ui.game.NextAgeRow
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
+import androidx.compose.foundation.lazy.rememberLazyListState
+import si.lanisce.lani.ui.statusBarScrim
 
 // "🏫 Šola · School" (companion/GAME.md, "The school"): the class from the hamlet on, the course's levels and units a bit
 // at a time (School.reveal: the rest folded), the unit suggested next (★), what opens the next level; and the school on the
@@ -122,7 +124,8 @@ internal fun WhoTeaches(vm: AppViewModel, s: GameState) {
 fun SchoolScreen(vm: AppViewModel) {
     val s = vm.game.state
     val course = vm.school.course
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+    val list = rememberLazyListState()
+    LazyColumn(Modifier.fillMaxSize().statusBarScrim(list), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
         item {
             GradientHeader(
                 "🏫 ${schoolTitle(s)}",

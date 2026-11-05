@@ -50,6 +50,8 @@ import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.ui.home.OfflineAudioSettings
 import si.lanisce.lani.ui.home.linkLabel
 import si.lanisce.lani.ui.theme.TriglavRed
+import androidx.compose.foundation.lazy.rememberLazyListState
+import si.lanisce.lani.ui.statusBarScrim
 
 /**
  * The sections of "⚙️ Nastavitve · Settings", in their order on its page: what a learner looks for most first (the tutor,
@@ -96,7 +98,8 @@ fun SettingsScreen(vm: AppViewModel, section: String?) {
 @Composable
 private fun Sections(vm: AppViewModel) {
     val shown = SettingsSection.entries.filter { (it != SettingsSection.DEVELOPER || vm.shadow.settings.developer) && (it != SettingsSection.FAMILY || !vm.child) }
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+    val list = rememberLazyListState()
+    LazyColumn(Modifier.fillMaxSize().statusBarScrim(list), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
         item("header") {
             GradientHeader("⚙️ ${bi("common.settings")}", linkLabel(vm.link, vm.unpaired, vm.hosted.active), vm.backLabel, vm::back)
         }
@@ -154,7 +157,8 @@ private fun SectionRow(s: SettingsSection, summary: String, locked: Boolean, onC
 /** A section's page: "‹ Nastavitve · Settings", its name, what it holds. */
 @Composable
 private fun Page(vm: AppViewModel, s: SettingsSection) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).navigationBarsPadding()) {
+    val scroll = rememberScrollState()
+    Column(Modifier.fillMaxSize().statusBarScrim(scroll).verticalScroll(scroll).navigationBarsPadding()) {
         GradientHeader("${s.emoji} ${bi(s.key)}", null, vm.backLabel, vm::back, bottom = 20.dp)
         Column(Modifier.fillMaxWidth().wrapContentWidth().widthIn(max = 720.dp).padding(horizontal = 20.dp, vertical = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             when (s) {

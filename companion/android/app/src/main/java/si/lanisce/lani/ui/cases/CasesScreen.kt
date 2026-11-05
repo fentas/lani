@@ -68,6 +68,8 @@ import si.lanisce.lani.ui.stage.Run
 import si.lanisce.lani.ui.stage.rememberStage
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
+import androidx.compose.foundation.lazy.rememberLazyListState
+import si.lanisce.lani.ui.statusBarScrim
 
 /**
  * "🧩 Skloni · Cases" (companion/README.md "Case trainer"): closed, what opens it (the first case unit's intro, the
@@ -83,7 +85,8 @@ fun CasesScreen(vm: AppViewModel, focus: String?) {
     val p = vm.caseTrainer.progress
     val due = CaseTrainer.due(p, LocalDate.now()).size
     val assigned = vm.caseTrainer.assigned
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+    val list = rememberLazyListState()
+    LazyColumn(Modifier.fillMaxSize().statusBarScrim(list), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
         item { GradientHeader("🧩 ${bi("cases.title")}", bi("cases.about"), vm.backLabel, onBack = vm::back) }
         if (!open) {
             item { Locked(vm) }

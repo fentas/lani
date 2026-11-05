@@ -61,6 +61,8 @@ import si.lanisce.lani.ui.stage.rememberStage
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.XpGold
 import java.time.LocalDate
+import androidx.compose.foundation.lazy.rememberLazyListState
+import si.lanisce.lani.ui.statusBarScrim
 
 /**
  * "🔢 Števila · Numbers" (companion/README.md, "Numbers"): closed, what opens it (its unit's intro: stevila, numeri) with the way
@@ -79,7 +81,8 @@ fun NumbersScreen(vm: AppViewModel) {
     val open = NumbersPractice.ranges(p, introDone)
     val passed = NumbersPractice.passed(p, introDone)
     val due = NumbersPractice.due(p, LocalDate.now()).size
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+    val list = rememberLazyListState()
+    LazyColumn(Modifier.fillMaxSize().statusBarScrim(list), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
         item { GradientHeader("🔢 ${bi("numbers.title")}", bi("numbers.about"), vm.backLabel, onBack = vm::back) }
         if (lock != null) {
             item { Locked(vm, lock, tongue.unit, unitNamed(unit, tongue.unit)) }

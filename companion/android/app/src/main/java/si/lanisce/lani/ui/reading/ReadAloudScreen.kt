@@ -86,6 +86,7 @@ import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.ui.villagers.VillagerLogic
+import si.lanisce.lani.ui.statusBarScrim
 
 /** The spoken lines of reading [r] in the target language, the text read aloud: its intro, steps and lines (not the ingredients). */
 fun readAloudLines(r: ReadingFile): List<String> =
@@ -139,7 +140,8 @@ fun ReadAloudScreen(vm: AppViewModel, readingId: String) {
     val speak: @Composable (String) -> Unit = { text ->
         SpeakButton(vm.speaker, text, voiceName = reader?.speakerVoice ?: Clips.FEMALE, fallback = reader?.let { VillagerLogic.voiceOf(it) }, person = reader?.id)
     }
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).navigationBarsPadding()) {
+    val scroll = rememberScrollState()
+    Column(Modifier.fillMaxSize().statusBarScrim(scroll).verticalScroll(scroll).navigationBarsPadding()) {
         GradientHeader(
             "🎤 ${bi("readAloud.title")}",
             "${r.title.target} · ${bi("readAloud.part", "n" to at + 1, "of" to passages.size)}",

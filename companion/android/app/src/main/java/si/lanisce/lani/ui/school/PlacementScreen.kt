@@ -45,6 +45,7 @@ import si.lanisce.lani.ui.setup.ParentGated
 import si.lanisce.lani.ui.stage.Run
 import si.lanisce.lani.ui.stage.rememberStage
 import si.lanisce.lani.ui.theme.TriglavRed
+import si.lanisce.lani.ui.statusBarScrim
 
 /**
  * "🧭 Uvrstitveni test · Placement test" (game/LevelPlacement, app/PlacementController; companion/COURSE.md "The
@@ -75,7 +76,8 @@ private fun PlacementIntro(vm: AppViewModel) {
     val begun = s?.course?.units?.any { (k, u) -> k.startsWith("${p.language}/") && u.done != null } == true
     val last = p.last()
     BackHandler { vm.leavePlacement() }
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+    val scroll = rememberScrollState()
+    Column(Modifier.fillMaxSize().statusBarScrim(scroll).verticalScroll(scroll)) {
         GradientHeader("🧭 ${bi("placement.title")}", bi("placement.about"), vm.backLabel, onBack = vm::leavePlacement)
         Column(
             Modifier.fillMaxWidth().widthIn(max = 640.dp).padding(16.dp).align(Alignment.CenterHorizontally),

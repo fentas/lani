@@ -82,6 +82,9 @@ import si.lanisce.lani.ui.theme.SloBlueDeep
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.bi
+import androidx.compose.foundation.ScrollState
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Size
 
 /** Lani's page in the system settings: after "don't ask again", only there can a permission be allowed. */
 fun openAppSettings(context: Context) = runCatching {
@@ -387,12 +390,11 @@ fun greeting(hour: Int, lang: Lang = L10n.pair.target): String = L10n.text(
 
 /**
  * A bar behind the status bar that fades in once [list] scrolls past its first item (an edge-to-edge
- * header), so the clock and icons never sit on top of card text. [overHeader]: as soon as it scrolls at
- * all, for a header whose own text would pass under them (a unit's goal runs to several lines).
+ * header), so the clock and icons never sit on top of card text.
  */
 @Composable
-fun StatusBarScrim(list: LazyListState, modifier: Modifier = Modifier, overHeader: Boolean = false) {
-    val scrolled by remember(overHeader) { derivedStateOf { list.firstVisibleItemIndex > 0 || (overHeader && list.firstVisibleItemScrollOffset > 0) } }
+fun StatusBarScrim(list: LazyListState, modifier: Modifier = Modifier) {
+    val scrolled by remember { derivedStateOf { list.firstVisibleItemIndex > 0 } }
     val alpha by animateFloatAsState(if (scrolled) 0.96f else 0f, label = "scrim")
     Box(
         modifier
@@ -400,4 +402,32 @@ fun StatusBarScrim(list: LazyListState, modifier: Modifier = Modifier, overHeade
             .windowInsetsTopHeight(WindowInsets.statusBars)
             .background(MaterialTheme.colorScheme.background.copy(alpha = alpha)),
     )
+}
+
+/**
+ * [StatusBarScrim] drawn over a list whose [GradientHeader] scrolls away with it, so the screen needs nothing around the list.
+ * It comes with the first pixel of scroll: the header's own text would pass under the clock too (a unit's goal runs to several lines).
+ */
+@Composable
+fun Modifier.statusBarScrim(list: LazyListState): Modifier {
+    val scrolled by remember(list) { derivedStateOf { list.firstVisibleItemIndex > 0 || list.firstVisibleItemScrollOffset > 0 } }
+    return statusBarScrim(scrolled)
+}
+
+/** [statusBarScrim] of a page that scrolls as a column: before its verticalScroll, so that it stays where it is. */
+@Composable
+fun Modifier.statusBarScrim(scroll: ScrollState): Modifier {
+    val scrolled by remember(scroll) { derivedStateOf { scroll.value > 0 } }
+    return statusBarScrim(scrolled)
+}
+
+@Composable
+private fun Modifier.statusBarScrim(scrolled: Boolean): Modifier {
+    val alpha by animateFloatAsState(if (scrolled) 0.96f else 0f, label = "scrim")
+    val color = MaterialTheme.colorScheme.background
+    val top = WindowInsets.statusBars.getTop(LocalDensity.current).toFloat()
+    return drawWithContent {
+        drawContent()
+        drawRect(color.copy(alpha = alpha), size = Size(size.width, top))
+    }
 }

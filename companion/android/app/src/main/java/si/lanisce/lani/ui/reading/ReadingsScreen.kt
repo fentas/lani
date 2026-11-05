@@ -54,6 +54,8 @@ import si.lanisce.lani.ui.game.ReadingSheet
 import si.lanisce.lani.ui.notebook.NotebookRow
 import si.lanisce.lani.ui.notebook.rememberNotebook
 import si.lanisce.lani.ui.theme.AlpineGreen
+import androidx.compose.foundation.lazy.rememberLazyListState
+import si.lanisce.lani.ui.statusBarScrim
 
 /**
  * "📖 Branje · Reading" (companion/GAME.md, "The reading corner"): the readings of the learner's village, the culture
@@ -73,7 +75,8 @@ fun ReadingsScreen(vm: AppViewModel) {
     // the story notebook, where the village has a storyteller: one row
     val notebook = rememberNotebook(vm)
     val tells = remember(vm.scenes.all) { StoryBooks.stories(vm.scenes.all).isNotEmpty() }
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+    val scroll = rememberLazyListState()
+    LazyColumn(Modifier.fillMaxSize().statusBarScrim(scroll), state = scroll, contentPadding = PaddingValues(bottom = 32.dp)) {
         item("header") {
             GradientHeader(
                 "📗 ${bi("readings.title")}",
