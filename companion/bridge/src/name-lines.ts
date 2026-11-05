@@ -149,6 +149,8 @@ export function flagLine(said: string, language: string, others = false): NameLi
   const template = templateOf(before, punct, language)
   if (at < 0) return whole(said, template, 'no name')
   if (!NAME_CARRIERS[language]) return whole(said, template, `no carrier sentences in ${language}`)
+  // someone in the village is called what the filler is: a cut would find them instead ("Dobro jutro, {n}! Marko je v vinogradu.")
+  if (Object.values(FILLERS[language] ?? {}).some(f => new RegExp(`(?<![${WORD}])${f}`, 'iu').test(said))) return whole(said, template, 'the filler is in the line')
   if (others) return whole(said, template, 'another form of the name')
   if (said.indexOf(NAME_MARK, at + 1) >= 0) return whole(said, template, 'the name twice')
   if (!punct && post.trim()) return whole(said, template, 'a word right after the name')
@@ -205,7 +207,7 @@ export function nameOk(name: string): string | undefined {
   if (n.length < NAME_LIMITS.min || n.length > NAME_LIMITS.chars || words.length > NAME_LIMITS.words) return undefined
   for (const w of words) {
     if (w.length > NAME_LIMITS.word || !NAME_WORD.test(w) || STUTTER.test(w) || NOT_NAMES.has(w)) return undefined
-    if (!/[aeiouyàáâäãåæèéêëìíîïòóôöõøùúûüýÿ]/u.test(w)) return undefined
+    if (!/[aeiouyæøœ]/u.test(w.normalize('NFD'))) return undefined
   }
   return n
 }

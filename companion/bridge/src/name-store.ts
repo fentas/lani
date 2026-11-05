@@ -132,16 +132,20 @@ export class NameStore {
     this.db.query('INSERT INTO spend (month, chars) VALUES (?, ?) ON CONFLICT (month) DO UPDATE SET chars = chars + excluded.chars').run(`names:${today()}`, chars)
   }
 
-  /** Whether [chars] more may be spent now: within the day's characters, and the engine can take them. */
-  private async room(chars: number, turn: Turn): Promise<boolean> {
+  /**
+   * Whether [chars] more may be spent now: 'cap' when the day's characters are gone (voiced whole, the line would spend them all
+   * the same, so the phone's voice says it); 'engine' when ElevenLabs can't take them, which leaves the line to what else can
+   * say it, the local worker first, as ever.
+   */
+  private async room(chars: number, turn: Turn): Promise<true | 'cap' | 'engine'> {
     if (this.spentToday() + chars > this.o.settings.daily) {
       if (this.capLogged !== today()) {
         this.capLogged = today()
         this.o.log?.(`voice: the day's characters for name lines are spent (${this.spentToday()} of ${this.o.settings.daily}): the phone's voice says the rest`)
       }
-      return false
+      return 'cap'
     }
-    return (await this.voice.eleven?.ready(chars, turn === TURN.live)) === true
+    return (await this.voice.eleven?.ready(chars, turn === TURN.live)) === true || 'engine'
   }
 
   /** Whether another name may be voiced this month, on this node: a name already counted may, and so may a few new ones. */
@@ -214,7 +218,8 @@ export class NameStore {
     const filler = FILLERS[this.language]?.[line.woman ? 'f' : 'm']
     if (!filler) return null
     const said = line.said.replace(NAME_MARK, filler)
-    if (!(await this.room(said.length, turn))) return 'cap'
+    const room = await this.room(said.length, turn)
+    if (room !== true) return room === 'cap' ? 'cap' : null
     const take = await this.voice.eleven!.timed(said, speaker, turn)
     if (!take) return null
     this.spend(take.chars)
@@ -280,7 +285,8 @@ export class NameStore {
     const spoken = spokenName(name)
     const said = line.carrier.replace(NAME_MARK, spoken)
     const takes = this.o.settings.takes
-    if (!(await this.room(said.length * takes, turn))) return 'cap'
+    const room = await this.room(said.length * takes, turn)
+    if (room !== true) return room === 'cap' ? 'cap' : null
     const phrase = line.type === 'phrase'
     const cuts: { y: Float32Array; pitch: number; model: string }[] = []
     let chars = 0

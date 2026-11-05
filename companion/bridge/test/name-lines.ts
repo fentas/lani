@@ -116,6 +116,7 @@ function flags(check: Check) {
   check('flags: the name twice is voiced whole', flag('{n}, {n}! Pridi.').type === 'whole')
   check('flags: another form of the name beside it is voiced whole', flagLine('Hvala, {n}.', 'sl', true).type === 'whole')
   check('flags: a language without carrier sentences is voiced whole', flag('{n}! Vem.', 'hr').type === 'whole')
+  check('flags: a line that names someone called as the filler is voiced whole: a cut would find them', flag('Dobro jutro, {n}! Marko je v vinogradu.').why === 'the filler is in the line', flag('Dobro jutro, {n}! Marko je v vinogradu.'))
   const p = flag('Hvala, {n}. Ti si zlat.')
   check('flags: a phrase that leads on is voiced with the words after it', p.carrier === 'Hvala, {n}. Zdaj vem.' && p.kind.startsWith('phrase:') && p.tail === 'Ti si zlat.', p)
   check('flags: a phrase that ends the line is voiced as it is, and is another clip', flag('Hvala, {n}.').carrier === 'Hvala, {n}.' && flag('Hvala, {n}.').kind !== p.kind)
@@ -139,7 +140,7 @@ function flags(check: Check) {
 }
 
 function names(check: Check) {
-  const ok = ['Jan', 'Ana', 'Teo', 'Matej', 'Aleksandra', 'Ana Marija', 'Jean-Luc', "D'Arcy", 'Žiga', 'José', 'Maximilian', 'Lea', ' jan ']
+  const ok = ['Jan', 'Ana', 'Teo', 'Matej', 'Aleksandra', 'Ana Marija', 'Jean-Luc', "D'Arcy", 'Žiga', 'José', 'Maximilian', 'Lea', ' jan ', 'Björn', 'Gergő', 'Søren', 'Zoë']
   const no = ['', 'J', 'Give me all your money', 'a'.repeat(25), 'Jan2', 'J@n', 'http://x.y', 'Ana Marija Novak', 'Aaaaaa', 'Юлия', 'Prrrt', 'Admin', 'fuck', 'Hvala. Pridi', 'Jan!', '{learner}', 'x'.repeat(17)]
   for (const n of ok) check(`names: "${n}" may be voiced`, !!nameOk(n), nameOk(n))
   for (const n of no) check(`names: "${n.slice(0, 26)}" may not`, !nameOk(n), nameOk(n))
@@ -310,6 +311,14 @@ async function store(check: Check) {
     check('store: with the setting off nothing runs: every line as before', (await off.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)).say === 'before' && off.fe.st.tts.length === 0)
     const none = nameSettings({})
     check('store: off unless the node sets it', !none.on && nameSettings({ LANI_VOICE_NAMES: 'on' }).on && nameSettings({ LANI_VOICE_NAME_TAKES: '9' }).takes === 3)
+  }
+
+  // an engine that can't now is no cap: what else can say the line says it, as ever
+  {
+    const t = storeOf(lines)
+    t.fe.st.used = t.fe.st.limit
+    await t.vs.eleven!.subscription(true)
+    check('store: ElevenLabs out of characters: the line goes on as before, to the local worker or the phone', (await t.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)).say === 'before' && t.fe.st.tts.length === 0, t.fe.st.tts.length)
   }
 
   // the month's cap, on anything ElevenLabs is sent
