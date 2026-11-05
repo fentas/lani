@@ -13392,8 +13392,9 @@ def family_name(name: str, child=False):
     hosted_home(found=True)
 
 
-def family_hold(key: str, swipes=8):
-    """A parent's hold on the button of [key]: a tap first, which must do nothing, then the two seconds."""
+def family_hold(key: str, swipes=8, mints=False):
+    """A parent's hold on the button of [key]: a tap first, which must do nothing, then the two seconds. [mints]: it makes a
+    pairing code, and the log (cleared just before) must have none after the tap."""
     text = say(key, 0)
     hold = scroll_to(text, swipes) or find(text)
     assert hold, f"the parent's hold: {text}"
@@ -13401,7 +13402,7 @@ def family_hold(key: str, swipes=8):
     time.sleep(1)
     hold = find(text)
     assert hold, f"a tap did it: {text}"
-    assert not family_log(r"(member code)", 0.1), f"a tap minted a code: {text}"
+    assert not (mints and family_log(r"(member code)", 0.1)), f"a tap minted a code: {text}"
     adb("shell", "input", "swipe", str(hold[0]), str(hold[1]), str(hold[0]), str(hold[1]), "2800")
     time.sleep(1.5)
 
@@ -13685,7 +13686,7 @@ def family_computer_parent():
         shot("fc-form")
         adb("logcat", "-c")
         family_wait("ready", FAMILY_WAIT)
-        family_hold("family.holdAdd", 5)
+        family_hold("family.holdAdd", 5, mints=True)
         added = say("family.memberAdded", 0).replace("{name}", "Mia")
         assert wait_for(added[:20], 45), "the member added"
         code = family_log(r"member code (lani://pair\S+)", 10)
@@ -13697,7 +13698,7 @@ def family_computer_parent():
         shot("fc-code")
         # another code is a credential too: a tap makes none, a parent's hold does
         adb("logcat", "-c")
-        family_hold("family.holdNewCode", 6)
+        family_hold("family.holdNewCode", 6, mints=True)
         second = family_log(r"member code (lani://pair\S+)", 15)
         assert second and second != code, "another code by a parent's hold"
         code = second
