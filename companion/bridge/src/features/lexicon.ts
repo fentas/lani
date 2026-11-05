@@ -19,9 +19,9 @@ import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { languageParam, type SrItem } from '../learner'
 import { LANGUAGES, learnerFacts, learnerLangs } from '../learners'
-import { ATTRIBUTION, glossIn, Lexicon, lookup, normalizeForm, wordItemId, type LookupEntry, type LookupResult, type Person } from '../lexicon'
+import { glossIn, Lexicon, lookup, normalizeForm, wordItemId, type LookupEntry, type LookupResult, type Person } from '../lexicon'
 import { OutsideDictionaries } from '../dictionaries'
-import { contentLines, formsOf, FORMS_LANGUAGES, LineIndex, partnerOf } from '../forms'
+import { contentLines, formsAttribution, formsOf, FORMS_LANGUAGES, LineIndex, partnerOf } from '../forms'
 import { isParadigmLanguage } from '../paradigms'
 import { fetchLexicon, lexiconCacheDir, parseLexicon } from '../lexicon-download'
 import { homonymCard, itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wordOf, type LoadedPack } from '../packs'
@@ -682,8 +682,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
           const { index, pages } = content()
           const c = { dict, book, pages, lines: index, language, paradigms: dictionary.paradigms }
           const out = words.map(word => ({ word, entries: formsOf(c, word) }))
-          const wiktionary = out.some(w => w.entries.some(e => e.table === 'wiktionary'))
-          return json({ language, words: out, attribution: wiktionary ? ATTRIBUTION : null })
+          return json({ language, words: out, attribution: formsAttribution(language, out.flatMap(w => w.entries)) })
         },
       },
       // what POST /words takes as its `from`: the app sends "reading" only when it is here

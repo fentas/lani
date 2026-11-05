@@ -3898,7 +3898,7 @@ adjective; `lep` is an adjective, nice, and a noun, glue):
         "lines": [{ "sl": "Lahko sedem na zapeček?", "en": "May I sit down on the stove bench?", "form": "sedem", "from": "scene:v-hisi" }] },
       { "key": "pres.1du", "forms": ["sedeva"], "grammar": "first-person dual present", "page": "dvojina", "needs": ["glagoli-sedanjik"] },
       … ] }] }],
-  "attribution": "Wiktionary (CC BY-SA 4.0) via kaikki.org" }
+  "attribution": "Wiktionary (CC BY-SA 4.0) via kaikki.org; Sloleks 3.0, CJVT UL (CC BY-SA 4.0)" }
 ```
 
 - **Slots**, in this order: a verb's present (`pres.1sg` … `pres.3pl`, then the dual `pres.1du` …), negative present
@@ -3984,12 +3984,18 @@ language has its own slots (`LANG_KEYS` in `bridge/src/paradigms.ts`), each on a
   says `forms-cards-v2` in their villages. An older app is sent none of their cards: `GET /state` leaves the review items
   that are another language's forms cards out unless the app asks with `forms=2` (`withoutOtherFormsCards`).
 
+**Whose a table is.** A table credits its sources under it, as CC BY-SA 4.0 asks: Wiktionary for the forms that are its, Sloleks 3.0 for any Slovene
+table, a hand-checked one too, since the order file below reads every one (`formsAttribution`, in GET /forms' and GET /forms-cards' `attribution`; the
+app's `FormsCard.credit` says the same where no answer came: a table after a forms card, one from the phone's cache).
+
 **Which form a slot shows.** A slot with more than one form shows its first, the others right too: the hand-checked table's order,
 else the regular check's forms (below), else what `lexicon/sl.forms-order.json` names, made from Sloleks 3.0 by
 `lexicon/tools/sl-forms-order.ts` (*aktualizirate* before *aktualiziraste*, *mesecu* before *mescu*; 1,127 slots), never the alphabet. The same
 file lists the nouns Sloleks has no dual or plural of (*grozdje*): their tables ask neither. A forms card keeps its slots from the day it
 was made, so GET /state serves each Slovene card as a new one would be (`cardInOrder`): only what's read changes, the deck and its
-history stay as they are.
+history stay as they are. A comparative or a superlative is no form of the plain adjective: the supplement says the degree once, at a
+label's start, and it holds for each of the label's readings (`readingsOf`, which `slotsOf` and `adjectiveForms` read), so *točnejše* isn't
+*točen*'s neuter. A card made while such forms stood in its slots serves without them (`degreeForms`), and a slot of nothing else goes.
 
 **The forms book.** `lexicon/sl.forms.json` is written by hand (machine-written, not reviewed by a native speaker:
 `"reviewed": false`, `"machine_written": true`):

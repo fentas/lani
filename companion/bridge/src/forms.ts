@@ -11,9 +11,21 @@ import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
 import type { Log } from './config'
-import { englishWords, enScore, glossCoverage, normalizeForm, PREPOSITIONS, wordsOf, type Aspect, type Lexicon, type Partner, type WordGender } from './lexicon'
+import { ATTRIBUTION, englishWords, enScore, glossCoverage, normalizeForm, PREPOSITIONS, wordsOf, type Aspect, type Lexicon, type Partner, type WordGender } from './lexicon'
 import { checkNoun } from './noun-paradigm'
 import { isParadigmLanguage, otherFormsOf, type Paradigms } from './paradigms'
+
+/** Sloleks 3.0's credit (NOTICE.md): which form a Slovene table shows first and the nouns it asks in the singular only are its (sl.forms-order.json). */
+export const SLOLEKS_ATTRIBUTION = 'Sloleks 3.0, CJVT UL (CC BY-SA 4.0)'
+
+/**
+ * What an answer of [tables] of [language] credits, CC BY-SA 4.0 asking for it: Wiktionary for the forms that are its, Sloleks
+ * for any Slovene table, whichever source its forms are from. Null without a table.
+ */
+export function formsAttribution(language: string, tables: { table?: string }[]): string | null {
+  const parts = [...(tables.some(t => t.table === 'wiktionary') ? [ATTRIBUTION] : []), ...(language === 'sl' && tables.length ? [SLOLEKS_ATTRIBUTION] : [])]
+  return parts.length ? parts.join('; ') : null
+}
 
 // --- slots -------------------------------------------------------------------------------------------------------
 
@@ -79,6 +91,17 @@ function readingOf(text: string): Reading | null {
 }
 
 /**
+ * A grammar string's readings, each on its own. The supplement writes an adjective's degree once, at its start
+ * ("comparative genitive feminine singular; nominative feminine plural"), and it holds for every reading: alone, those after
+ * it would read as the plain adjective's, and *točnejše* would be *točen*'s neuter. Wiktionary's strings say it in each.
+ */
+function readingsOf(grammar: string): string[] {
+  const degree = /^(comparative|superlative) /.exec(grammar)?.[1]
+  const parts = grammar.split('; ')
+  return degree ? parts.map(p => (p.includes(degree) ? p : `${degree} ${p}`)) : parts
+}
+
+/**
  * The slots one of Wiktionary's grammar strings of a form of a [pos] says ("feminine singular l-participle; masculine
  * dual l-participle; neuter plural l-participle" → past.f.sg, past.m.du), and whether it also has a reading no slot
  * stands for (an infinitive, a supine, a participle, a definite form, a case of a gender the adjective's slots leave out):
@@ -88,7 +111,7 @@ export function slotsOf(pos: string, grammar: string | null): { keys: string[]; 
   const keys: string[] = []
   let other = false
   if (!grammar) return { keys, other: true }
-  for (const text of grammar.split('; ')) {
+  for (const text of readingsOf(grammar)) {
     const r = readingOf(text)
     if (!r) continue
     const got = readingSlots(pos, r)
@@ -773,7 +796,7 @@ export function adjectiveForms(c: FormsContext, lemma: string): Map<string, stri
     if (NOT_FORMS.has(form) || !grammar) continue
     const f = norm(form)
     if (!f || left.has(f)) continue
-    for (const text of grammar.split('; ')) {
+    for (const text of readingsOf(grammar)) {
       const r = readingOf(text)
       if (!r || r.vocative || r.persons.length || !r.cases.length || !r.numbers.length || [...r.words].some(w => w !== 'indefinite')) continue
       const genders = r.genders.length ? r.genders : ['m', 'f', 'n']
@@ -794,6 +817,23 @@ export function adjectiveForms(c: FormsContext, lemma: string): Map<string, stri
     out.set(key, shownFirst(list, first[key]))
   }
   return out
+}
+
+/**
+ * The forms of the adjective [lemma] that are only its comparative or superlative. No slot of the plain adjective holds one
+ * now, but a forms card made before keeps what its slots held then ([cardInOrder] leaves them out of what's served).
+ */
+export function degreeForms(dict: Pick<Lexicon, 'lemmasOf' | 'paradigm'>, lemma: string, language: string): Set<string> {
+  const degree = new Set<string>()
+  const plain = new Set<string>()
+  for (const l of dict.lemmasOf(lemma)) {
+    if (l.pos !== 'adj') continue
+    for (const [form, grammar] of dict.paradigm(l.index, l.lemma, 'adj')) {
+      const f = normalizeForm(form, language)
+      for (const text of grammar ? readingsOf(grammar) : []) (/\b(comparative|superlative)\b/.test(text) ? degree : plain).add(f)
+    }
+  }
+  return new Set([...degree].filter(f => !plain.has(f)))
 }
 
 /**

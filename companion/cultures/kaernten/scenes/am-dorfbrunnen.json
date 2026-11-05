@@ -68,7 +68,7 @@
       "when": ["morning"],
       "chance": 0.5,
       "dialog": "neuigkeiten",
-      "dialogs": ["neuigkeiten-b2-film", "neuigkeiten-b1-winter", "neuigkeiten-bello", "neuigkeiten"],
+      "dialogs": ["neuigkeiten-b2-leiter", "neuigkeiten-b2-film", "neuigkeiten-b1-winter", "neuigkeiten-bello", "neuigkeiten"],
       "reward": { "wisdom": 15 },
       "marker": "📻",
       "memory": {
@@ -1888,6 +1888,156 @@
           "sl": "Poznaš star rek? »Sveti Florijan, prizanesi moji hiši, zažgi druge!« Haha! Ne, ne: gasilci pomagajo vsem.",
           "en": "Do you know the old saying? 'Saint Florian, spare my house, set the others alight!' Haha! No, no: the fire brigade helps everyone.",
           "it": "Conosci il vecchio detto? «San Floriano, risparmia la mia casa, brucia le altre!» Ahah! No, no: i pompieri aiutano tutti."
+        }
+      ]
+    },
+    {
+      "id": "neuigkeiten-b2-leiter",
+      "level": "B2",
+      "memory": {
+        "de": "den Sepp auf seiner Leiter",
+        "sl": "Seppa na njegovi lestvi",
+        "en": "Sepp on his ladder",
+        "it": "Sepp sulla sua scala"
+      },
+      "lines": [
+        {
+          "who": "mitzi",
+          "face": "surprised",
+          "de": "{learner}! Der Sepp war beim Doktor. Du warst doch gestern bei ihm. Was hat er gesagt?",
+          "sl": "{learner}! Sepp je bil pri zdravniku. Včeraj si {m:bil|f:bila} pri njem, ne? Kaj je rekel?",
+          "en": "{learner}! Sepp's been to the doctor. You were at his place yesterday, weren't you? What did he say?",
+          "it": "{learner}! Sepp è stato dal dottore. Ieri eri da lui, no? Che cosa ha detto?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Er sagt, er dürfe heuer nicht mehr auf die Leiter.",
+              "sl": "Pravi, da letos ne sme več na lestev.",
+              "en": "He says he mustn't go up a ladder again this year.",
+              "it": "Dice che quest'anno non può più salire sulla scala.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "de": "Der Sepp? Der steigt doch auf jede Leiter, wenn keiner hinschaut.",
+                "sl": "Sepp? Saj spleza na vsako lestev, če nihče ne gleda.",
+                "en": "Sepp? He'd climb any ladder when nobody's looking.",
+                "it": "Sepp? Ma quello sale su ogni scala, appena nessuno guarda."
+              }
+            },
+            {
+              "de": "Er sagt, er durfe heuer nicht mehr auf die Leiter.",
+              "sl": "Pravi, da letos ne sme več na lestev.",
+              "en": "He says he mustn't go up a ladder again this year.",
+              "it": "Dice che quest'anno non può più salire sulla scala.",
+              "grammar": "indirekte-rede",
+              "why": {
+                "de": "Der Konjunktiv I kommt vom Infinitiv: dürfen, er dürfe. Das ü bleibt.",
+                "sl": "Konjunktiv I nastane iz nedoločnika: dürfen, er dürfe. ü ostane.",
+                "en": "The Konjunktiv I comes from the infinitive: dürfen, er dürfe. The ü stays.",
+                "it": "Il Konjunktiv I viene dall'infinito: dürfen, er dürfe. La ü resta."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Durfe? Wie bitte? Ich höre schlecht, aber das Wort gibt es nicht.",
+                "sl": "Durfe? Kako, prosim? Slabo slišim, ampak te besede ni.",
+                "en": "Durfe? Come again? I'm hard of hearing, but that's no word.",
+                "it": "Durfe? Come? Ci sento poco, ma questa parola non esiste."
+              }
+            }
+          ]
+        },
+        {
+          "who": "mitzi",
+          "face": "worried",
+          "de": "Heute früh ist er schon wieder oben gestanden! Und wenn man ihn fragt?",
+          "sl": "Danes zjutraj je že spet stal zgoraj! Kaj pa, če ga kdo vpraša?",
+          "en": "This morning he was up there again! And if you ask him?",
+          "it": "Stamattina era di nuovo lassù! E se glielo chiedi?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Dann tut er, als wüsste er von nichts.",
+              "sl": "Potem se dela, kot da ne ve ničesar.",
+              "en": "Then he acts as if he knew nothing about it.",
+              "it": "Allora fa finta di non saperne niente.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Genau! Einundachtzig Jahre alt und noch immer ein Lausbub.",
+                "sl": "Točno! Enainosemdeset let in še vedno paglavec.",
+                "en": "Exactly! Eighty-one years old and still a rascal.",
+                "it": "Esatto! Ottantun anni e ancora un monello."
+              }
+            },
+            {
+              "de": "Dann tut er, als wusste er von nichts.",
+              "sl": "Potem se dela, kot da ne ve ničesar.",
+              "en": "Then he acts as if he knew nothing about it.",
+              "it": "Allora fa finta di non saperne niente.",
+              "grammar": "als-ob",
+              "why": {
+                "de": "Als steht hier für als ob: Es ist nicht wirklich so, also der Konjunktiv II: als wüsste er.",
+                "sl": "Als tu pomeni als ob: v resnici ni tako, zato konjunktiv II: als wüsste er.",
+                "en": "Als stands for als ob here: it isn't really so, so the Konjunktiv II: als wüsste er.",
+                "it": "Qui als sta per als ob: non è davvero così, quindi il Konjunktiv II: als wüsste er."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Wusste? Gewusst hat er es, ja. Aber dein Satz wackelt wie seine Leiter.",
+                "sl": "Wusste? Vedel je že, ja. Ampak tvoj stavek se maje kot njegova lestev.",
+                "en": "Wusste? He knew, all right. But your sentence wobbles like his ladder.",
+                "it": "Wusste? Lo sapeva, sì. Ma la tua frase traballa come la sua scala."
+              }
+            }
+          ]
+        },
+        {
+          "who": "mitzi",
+          "face": "curious",
+          "de": "Hast du wenigstens den Schlüssel vom Stadel eingesteckt, wie ich gesagt habe?",
+          "sl": "Si vsaj {m:vzel|f:vzela} ključ od skednja, kot sem rekla?",
+          "en": "Did you at least pocket the key to the barn, as I told you?",
+          "it": "Hai almeno preso la chiave del fienile, come ti ho detto?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Nein, auf den Schlüssel habe ich vergessen.",
+              "sl": "Ne, na ključ sem {m:pozabil|f:pozabila}.",
+              "en": "No, I forgot about the key.",
+              "it": "No, mi sono {m:dimenticato|f:dimenticata} della chiave.",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "de": "Typisch! Dann geht sich das heute nicht mehr aus.",
+                "sl": "Tipično! Potem se to danes ne izide več.",
+                "en": "Typical! Then it won't work out today.",
+                "it": "Tipico! Allora oggi non ce la facciamo più."
+              }
+            },
+            {
+              "de": "Nein, auf dem Schlüssel habe ich vergessen.",
+              "sl": "Ne, na ključ sem {m:pozabil|f:pozabila}.",
+              "en": "No, I forgot about the key.",
+              "it": "No, mi sono {m:dimenticato|f:dimenticata} della chiave.",
+              "grammar": "oesterreichisch",
+              "why": {
+                "de": "In Österreich vergisst man auf etwas, und das mit dem Akkusativ: auf den Schlüssel.",
+                "sl": "V Avstriji pozabiš na nekaj, in to s tožilnikom: auf den Schlüssel.",
+                "en": "In Austria you forget on something, and with the accusative: auf den Schlüssel.",
+                "it": "In Austria ci si dimentica su qualcosa, e con l'accusativo: auf den Schlüssel."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Auf dem Schlüssel? Hast du ihn als Sessel benutzt?",
+                "sl": "Na ključu? Si ga {m:imel|f:imela} za stol?",
+                "en": "On the key? Were you using it as a chair?",
+                "it": "Sopra la chiave? L'hai usata come sedia?"
+              }
+            }
+          ]
         }
       ]
     },

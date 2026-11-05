@@ -159,6 +159,13 @@ class FormsCardTest {
 
     // --- the table ---------------------------------------------------------------------------------------------------
 
+    @Test fun `a table credits its sources - Wiktionary for its forms, Sloleks for any Slovene table`() {
+        assertEquals("Wiktionary (CC BY-SA 4.0) via kaikki.org; Sloleks 3.0, CJVT UL (CC BY-SA 4.0)", FormsCard.credit("wiktionary", null))
+        assertEquals("a hand-checked Slovene table", "Sloleks 3.0, CJVT UL (CC BY-SA 4.0)", FormsCard.credit("checked", "sl"))
+        assertEquals("Wiktionary (CC BY-SA 4.0) via kaikki.org", FormsCard.credit("wiktionary", "it"))
+        assertNull(FormsCard.credit("checked", "de"))
+    }
+
     @Test fun `a noun's table - its six cases by number, the word itself given, every form the dictionary's`() {
         val plans = FormsCard.layout(hisa)
         assertEquals(1, plans.size)

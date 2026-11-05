@@ -55,7 +55,7 @@
     },
     {
       "id": "glockner", "title": { "de": "Opa Sepp erzählt vom Großglockner", "sl": "Opa Sepp pripoveduje o Velikem Kleku", "en": "Opa Sepp talks about the Großglockner", "it": "Opa Sepp racconta del Grossglockner" }, "who": "sepp",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "glockner", "dialogs": ["glockner-lied", "glockner"], "reward": { "wisdom": 15 }, "marker": "🏔️",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "glockner", "dialogs": ["glockner-gestern", "glockner-lied", "glockner"], "reward": { "wisdom": 15 }, "marker": "🏔️",
       "memory": { "de": "den Großglockner, von dem ich dir erzählt habe", "sl": "Veliki Klek, o katerem sem ti pripovedoval", "en": "the Großglockner I told you about", "it": "il Grossglockner di cui ti ho raccontato" }
     }
   ],
@@ -346,6 +346,26 @@
             "reply": { "face": "laugh", "de": "Da liegt Bello, nicht ich! Hihi!", "sl": "Tam leži Bello, ne jaz! Hihi!", "en": "That's Bello lying there, not me! Hee hee!", "it": "Lì c'è Bello, non io! Ih ih!", "act": { "lena": { "pose": "peek" } } } }
         ] },
         { "who": "lena", "face": "proud", "de": "Morgen verstecke ich mich besser. Ganz bestimmt!", "sl": "Jutri se bolje skrijem. Čisto zagotovo!", "en": "Tomorrow I'll hide better. Definitely!", "it": "Domani mi nascondo meglio. Di sicuro!" }
+      ]
+    },
+    {
+      "id": "glockner-gestern",
+      "lines": [
+        {"who": "sepp", "de": "Servus, {learner}! Gestern habe ich dich gar nicht gesehen.", "sl": "Živjo, {learner}! Včeraj te sploh nisem videl.", "en": "Hello, {learner}! I didn't see you at all yesterday.", "it": "Ciao, {learner}! Ieri non ti ho proprio visto."},
+        { "choices": [
+          {"de": "Ich hatte keine Zeit, Opa Sepp.", "sl": "Nisem {m:imel|f:imela} časa, Opa Sepp.", "en": "I had no time, Opa Sepp.", "it": "Non avevo tempo, Opa Sepp.", "ok": true, "reply": {"face": "happy", "de": "Ja, ja. Wer jung ist, hat keine Zeit. Langsam, langsam.", "sl": "Ja, ja. Kdor je mlad, nima časa. Počasi, počasi.", "en": "Yes, yes. The young have no time. Slowly, slowly.", "it": "Sì, sì. Chi è giovane non ha tempo. Piano, piano."}},
+          {"de": "Ich hattest keine Zeit, Opa Sepp.", "sl": "Nisem {m:imel|f:imela} časa, Opa Sepp.", "en": "I had no time, Opa Sepp.", "it": "Non avevo tempo, Opa Sepp.", "grammar": "praeteritum-kurz", "why": {"de": "Bei ich heißt es hatte: ich hatte, du hattest.", "sl": "Pri ich je hatte: ich hatte, du hattest.", "en": "With ich it's hatte: ich hatte, du hattest.", "it": "Con ich si dice hatte: ich hatte, du hattest."}, "reply": {"face": "confused", "de": "Ich hattest? Ich, du, wer denn jetzt?", "sl": "Ich hattest? Jaz, ti, kdo zdaj?", "en": "Ich hattest? I, you, which is it?", "it": "Ich hattest? Io, tu, chi dei due?"}}
+        ] },
+        {"who": "sepp", "de": "Der Franz und ich waren früher oft am Berg. Wir waren jung.", "sl": "S Franzem sva včasih pogosto hodila v hribe. Mlada sva bila.", "en": "Franz and I often went up the mountain. We were young.", "it": "Franz e io andavamo spesso in montagna. Eravamo giovani."},
+        { "choices": [
+          {"de": "Wart ihr auch auf dem Großglockner?", "sl": "Sta bila tudi na Velikem Kleku?", "en": "Were you on the Großglockner too?", "it": "Siete stati anche sul Grossglockner?", "ok": true, "reply": {"face": "happy", "de": "Einmal, ja! Danach hatte der Franz eine Woche lang müde Beine.", "sl": "Enkrat, ja! Potem je imel Franz ves teden utrujene noge.", "en": "Once, yes! After that Franz had tired legs for a week.", "it": "Una volta, sì! Poi Franz ha avuto le gambe stanche per una settimana."}},
+          {"de": "Waren ihr auch auf dem Großglockner?", "sl": "Sta bila tudi na Velikem Kleku?", "en": "Were you on the Großglockner too?", "it": "Siete stati anche sul Grossglockner?", "grammar": "praeteritum-kurz", "why": {"de": "Bei ihr heißt es wart: ihr wart, wir waren.", "sl": "Pri ihr je wart: ihr wart, wir waren.", "en": "With ihr it's wart: ihr wart, wir waren.", "it": "Con ihr si dice wart: ihr wart, wir waren."}, "reply": {"face": "confused", "de": "Waren ihr? Ihr, wir … Ich bin alt, aber das höre ich noch.", "sl": "Waren ihr? Vidva, mi … Star sem, ampak to še slišim.", "en": "Waren ihr? You, we … I'm old, but I can still hear that.", "it": "Waren ihr? Voi, noi … Sono vecchio, ma questo lo sento ancora."}}
+        ] },
+        {"who": "sepp", "de": "Morgen bin ich unter der Linde. Kommst du auch?", "sl": "Jutri bom pod lipo. Prideš tudi ti?", "en": "Tomorrow I'll be under the linden. Will you come too?", "it": "Domani sono sotto il tiglio. Vieni anche tu?"},
+        { "choices": [
+          {"de": "Ja, ich komme gern, denn ich habe Zeit.", "sl": "Ja, {m:rad|f:rada} pridem, ker imam čas.", "en": "Yes, I'd like to come, because I have time.", "it": "Sì, vengo volentieri, perché ho tempo.", "ok": true, "reply": {"face": "happy", "de": "Schön. Wie man so sagt: Wer Zeit hat, hat alles.", "sl": "Lepo. Kot se reče: kdor ima čas, ima vse.", "en": "Lovely. As they say: who has time has everything.", "it": "Bello. Come si dice: chi ha tempo ha tutto."}},
+          {"de": "Ja, ich komme gern, deshalb ich habe Zeit.", "sl": "Ja, {m:rad|f:rada} pridem, zato imam čas.", "en": "Yes, I'd like to come, so I have time.", "it": "Sì, vengo volentieri, perciò ho tempo.", "grammar": "konnektoren", "why": {"de": "Denn sagt den Grund und nimmt keinen Platz: denn ich habe Zeit. Deshalb sagt die Folge, und das Verb kommt gleich danach.", "sl": "Denn pove razlog in ne zasede mesta: denn ich habe Zeit. Deshalb pove posledico, glagol pa pride takoj za njim.", "en": "Denn gives the reason and takes no place: denn ich habe Zeit. Deshalb gives the result, and the verb comes right after it.", "it": "Denn dice il motivo e non occupa posto: denn ich habe Zeit. Deshalb dice la conseguenza, e il verbo viene subito dopo."}, "reply": {"face": "confused", "de": "Deshalb ich habe? Der Satz hinkt ja mehr als ich.", "sl": "Deshalb ich habe? Ta stavek šepa bolj kot jaz.", "en": "Deshalb ich habe? That sentence limps worse than I do.", "it": "Deshalb ich habe? Questa frase zoppica più di me."}}
+        ] }
       ]
     },
     {

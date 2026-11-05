@@ -8,9 +8,9 @@
 import { mkdtempSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
-import { adjectiveForms, FormsBook, formsOf, LineIndex } from '../../src/forms'
+import { adjectiveForms, degreeForms, FormsBook, formsOf, LineIndex } from '../../src/forms'
 import {
-  FORMS_PATTERNS, formsCardOf, formsCardsNote, formsErrors, formsRuns, isCard, resurfacePlan, testedOf,
+  cardInOrder, FORMS_PATTERNS, formsCardOf, formsCardsNote, formsErrors, formsRuns, isCard, resurfacePlan, testedOf,
   type CardContext, type FormsCardData,
 } from '../../src/forms-cards'
 import { Lexicon } from '../../src/lexicon'
@@ -81,6 +81,41 @@ export default async function formsCards() {
     { biti: slot(b, 'fut.3pl'), iti: slot(iti, 'fut.1sg'), clovek: slot(clovek, 'nom.pl') },
   )
   const dober = card('dober', 'adj') as FormsCardData
+  // the supplement says a comparative's degree once, at its label's start: its other readings aren't the plain adjective's
+  const degree = (l: string) => degreeForms(dict, l, 'sl')
+  const adjectives = (JSON.parse(readFileSync(join(repo, 'sl.extra.json'), 'utf8')).entries as { lemma: string; pos: string; forms: Record<string, string | null> }[])
+    .filter(e => e.pos === 'adj' && Object.values(e.forms).some(g => g && /^(comparative|superlative) /.test(g)))
+  const misplaced = adjectives.flatMap(e => {
+    const gone = degree(e.lemma)
+    const held = (key: string, forms: string[]) => (key.startsWith('adj.') ? forms.filter(f => gone.has(f)).map(f => `${e.lemma} ${key}: ${f}`) : [])
+    const entries = formsOf(c, e.lemma).filter(x => x.pos === 'adj')
+    const cards = entries.map(x => formsCardOf(x, k)).filter(isCard)
+    return [...entries.flatMap(x => x.slots.flatMap(s => held(s.key, s.forms))), ...cards.flatMap(x => x.slots.flatMap(s => held(s.key, s.forms)))]
+  })
+  check(
+    "no table and no forms card of the supplement's adjectives holds a comparative or a superlative as the plain adjective (točnejši, najšibkejši)",
+    adjectives.length >= 20 && degree('točen').has('točnejši') && degree('točen').has('najtočnejše') && !degree('točen').has('točni') && misplaced.length === 0,
+    { adjectives: adjectives.length, misplaced: misplaced.slice(0, 8) },
+  )
+  const tocen = card('točen', 'adj') as FormsCardData
+  check("… točen's card: the neuter is točno, the plural točni, and its cases have no others", same(slot(tocen, 'adj.n.sg')?.forms, ['točno']) && same(slot(tocen, 'adj.m.pl')?.forms, ['točni']) && same(slot(tocen, 'adj.dat.f.sg')?.forms, ['točni']), tocen.slots.slice(0, 4))
+  // a card made while they stood there: GET /state serves it without them, and nothing is written to the deck
+  const madeThen: FormsCardData = {
+    ...tocen, tested: ['adj.m.pl', 'adj.n.sg', 'adj.loc.f.pl'], fresh: ['adj.loc.f.pl'],
+    slots: [
+      { key: 'adj.m.pl', forms: ['najtočnejši', 'točnejši', 'točni'], page: 'pridevniki-ujemanje' },
+      { key: 'adj.n.sg', forms: ['točno'], also: ['točnejše'], page: 'pridevniki-ujemanje' },
+      { key: 'adj.loc.f.pl', forms: ['točnejših'], page: 'pridevniki-ujemanje' },
+    ],
+  }
+  const asOld = JSON.stringify(madeThen)
+  const served = cardInOrder(madeThen, book, degree)
+  check(
+    "… a card made before, as GET /state serves it: the plain form is the answer, the comparative neither shown nor accepted, a slot of nothing else gone with what tested it, the deck's own card untouched",
+    same(served.slots.map(s => s.key), ['adj.m.pl', 'adj.n.sg']) && same(served.slots[0].forms, ['točni']) && !served.slots[0].also && same(served.slots[1].forms, ['točno']) && !served.slots[1].also &&
+      same(served.tested, ['adj.m.pl', 'adj.n.sg']) && same(served.fresh, []) && JSON.stringify(madeThen) === asOld,
+    served.slots,
+  )
   check(
     "formsCardOf: an adjective's genders, then its cases from the dictionary (dobrega, dobri), the accusative masculine singular left out (animacy), no comparative",
     same(slot(dober, 'adj.f.sg')?.forms, ['dobra']) && same(slot(dober, 'adj.n.pl')?.forms, ['dobra']) && same(slot(dober, 'adj.f.du')?.forms, ['dobri']) &&
@@ -166,7 +201,7 @@ export default async function formsCards() {
     "GET /forms-cards: each word's tables as its card would have them (delati's future joined, dober's cases), tested left empty, none of a word the dictionary lacks; nothing written, no card made",
     tv.ok && tb.language === 'sl' && tDelati?.lemma === 'delati' && tDelati.pos === 'verb' && tDelati.slots.some((x: any) => x.key === 'fut.1sg' && x.composed) &&
       same(tDelati.tested, []) && !tDelati.asked && tDober?.slots?.some((x: any) => x.key === 'adj.gen.m.sg') && same(tb.words?.[2]?.tables, []) &&
-      String(tb.attribution).includes('Wiktionary') && readFileSync(join(dataDir, 'spaced-repetition.json'), 'utf8') === unread,
+      String(tb.attribution).includes('Wiktionary') && String(tb.attribution).includes('Sloleks 3.0') && readFileSync(join(dataDir, 'spaced-repetition.json'), 'utf8') === unread,
     { delati: tDelati?.slots?.length, dober: tDober?.slots?.length, words: tb.words?.map((w: any) => [w.word, w.tables.length]) },
   )
   const tbad = await Promise.all([get(''), get(`?${Array.from({ length: 11 }, (_, i) => `w=a${i}`).join('&')}`), get(`?w=${'x'.repeat(41)}`)])

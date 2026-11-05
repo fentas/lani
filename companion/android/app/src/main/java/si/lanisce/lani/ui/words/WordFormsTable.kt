@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
+import si.lanisce.lani.data.FormsCard
 import si.lanisce.lani.data.WordFormsWire
 import si.lanisce.lani.game.WordForms
 import si.lanisce.lani.l10n.bi
@@ -63,8 +64,9 @@ fun WordFormsTable(vm: AppViewModel, word: String, pos: String?, gloss: List<Str
         }
         if (locked.isNotEmpty()) Text(bi("wordForms.lockedNote"), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (entry.table == "checked") Text("🤖 ${bi("words.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        // Italian's, German's and English's tables are Wiktionary's (CC BY-SA 4.0), whatever the lookup above came from
-        if (entry.language != null) vm.forms.attributionOf(lemma)?.let {
+        // whose a table is (CC BY-SA 4.0), whatever the lookup above came from: Italian's, German's and English's the bridge says,
+        // Slovene's the table itself, a hand-checked one too (FormsCard.credit)
+        (if (entry.language != null) vm.forms.attributionOf(lemma) else FormsCard.credit(entry.table, null))?.let {
             Text("📖 $it", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
