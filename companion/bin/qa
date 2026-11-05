@@ -5215,10 +5215,19 @@ def answer_buttons():
     assert not wrong, "; ".join(wrong)
 
 
-def typed_row_wrong(pair: str, dpi: int) -> list[str]:
-    """What is wrong with the row under a dialog's typed turn. Two lines of Check are a wrap between words; a third has a word in pieces."""
+def typed_row_wrong(pair: str, dpi: int, keyboard: int | None) -> list[str]:
+    """What is wrong with the row under a dialog's typed turn. Two lines of Check are a wrap between words; a third has a word in pieces.
+    With the keyboard up (its top: [keyboard]) the field and Check stand whole above it: a tall header can leave them a sliver of the panel."""
     check, choose = label("playerScreen.check"), label("adaptive.letMeChoose")
     bs = list(boxes())
+    if keyboard is not None:
+        field = box_of(bs, label("playerScreen.typeAnswer", half=True))
+        seen = box_of(bs, check, exact=True)
+        short = 15 * dpi / 160  # a line of the label is 20 dp: less is a line cut off
+        if field is None or field[3] > keyboard or field[3] - field[1] < short:
+            return [f"{pair}: the answer field out of sight with the keyboard up: {field}"]
+        if seen is None or seen[3] > keyboard or seen[3] - seen[1] < short:
+            return [f"{pair}: «{check}» out of sight with the keyboard up: {seen}"]
     box = box_of(bs, check, exact=True)
     if box is None:
         return [f"{pair}: no «{check}» under the typed turn"]
@@ -5263,16 +5272,25 @@ def typed_buttons():
                     continue
                 time.sleep(1.5)  # the person's line types in
                 field = label("playerScreen.typeAnswer", half=True)
-                if (c := find(field)) is None:  # below the fold on a small phone: the "▾" brings it up
-                    tap(label("progressScreen.more"), 3)
-                    c = find(field)
-                if c is None:
+                top = None
+                taps = 0  # below the fold on a small phone, the further for a tall header: the "▾" brings it up
+                while (b := box_of(boxes(), field)) is None and taps < 6 and tap(label("progressScreen.more"), 3):
+                    taps += 1
+                    time.sleep(0.8)
+                if taps:
+                    print(f"    {form} {pair}: {taps} tap(s) of the ▾ to the field", flush=True)
+                if b is None:
                     wrong.append(f"{form} {pair}: no answer field")
                 else:
-                    tap_at(c)  # as the learner meets the row: the field focused, the keyboard up, Check kept in view
-                    keyboard_settled()
+                    # as the learner meets the row: the field focused, the keyboard up, Check kept in view. Left of its
+                    # middle: the "▾" stands in the middle at the panel's foot, and a tap there only scrolls
+                    tap_at((b[0] + (b[2] - b[0]) // 4, (b[1] + b[3]) // 2))
+                    top = keyboard_settled()
+                    print(f"    {form} {pair}: {f'the keyboard up, its top at {top} px' if top else 'no keyboard came up'}", flush=True)
+                    if top is None:
+                        wrong.append(f"{form} {pair}: no keyboard came up")
                     time.sleep(1)
-                wrong.extend(typed_row_wrong(f"{form} {pair}", dpi))
+                wrong.extend(typed_row_wrong(f"{form} {pair}", dpi, top))
                 shot(f"ls-typed-{form}-{pair}")
                 if out is not None:
                     out.mkdir(parents=True, exist_ok=True)
