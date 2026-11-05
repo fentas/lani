@@ -1318,7 +1318,7 @@ def setup(url=None, token=None):
         qa_hook(f"pair:{pair}")
     # the learner's own pair from here (the profile's, or LANI_QA_PAIR's): Home's and the founding's labels in it
     today, where, here = (f"{say(k, 0)}" for k in ("common.today", "founding.title", "founding.here"))
-    end = time.time() + 30
+    end, home = time.time() + 30, False
     while time.time() < end:  # Home, and the notification permission whenever it comes
         ns = list(nodes())
         c = next((c for t, c in ns if t == "Allow"), None)
@@ -1343,9 +1343,19 @@ def setup(url=None, token=None):
                 time.sleep(3 * slow())
             end = max(end, time.time() + 30)  # Home's time to come, after the founding's reading
         elif any(t.startswith(f"{today} · ") for t, _ in ns):
+            home = True
             break
         time.sleep(1)
-    assert any(t.startswith(f"{today} · ") for t, _ in nodes()), "home did not load"
+    assert home, "home did not load"
+    # the system's question about notifications comes a moment after Home: answered here, or it lies over the next step's
+    # first screen, which its hook opens under it (a step that begins with go_home takes it away with a Back, others wait);
+    # Home isn't looked for again: under that question a dump has only the question
+    end = time.time() + 5 * slow()
+    while time.time() < end:
+        if (c := next((c for t, c in nodes() if t == "Allow"), None)) is not None:
+            tap_at(c)
+            break
+        time.sleep(0.5)
 
 
 def intro_voice():
