@@ -212,6 +212,19 @@ export function nameOk(name: string): string | undefined {
   return n
 }
 
+/**
+ * Whether [text] says the learner's [name] or a form of it: whole words, in any case, the possessive's stem with whatever ending
+ * follows it. Any text, of the content or not: what a name check guards isn't only the name lines.
+ */
+export function saysName(text: string, name: string, forms: Partial<Record<string, string>> = {}): boolean {
+  const esc = (s: string) => s.normalize('NFC').trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const { poss, ...cases } = forms
+  const whole = [name, ...Object.values(cases)].filter((f): f is string => !!f?.trim()).map(esc)
+  const t = text.normalize('NFC')
+  if (whole.length && new RegExp(`(?<![${WORD}])(?:${whole.join('|')})(?![${WORD}])`, 'iu').test(t)) return true
+  return !!poss && poss.trim().length >= 3 && new RegExp(`(?<![${WORD}])${esc(poss)}`, 'iu').test(t)
+}
+
 // --- the content's name lines ------------------------------------------------------------------------------------------
 
 /** The name the content is rendered with to find its name lines: no word of any language, and no learner's. */

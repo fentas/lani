@@ -2169,6 +2169,8 @@ export class VoiceStore {
   private liveCalls: number[] = []
   private revoicing = false
   private revoiceSoon?: ReturnType<typeof setTimeout>
+  /** A text not to voice ahead, though the content has it: it says a name that may not be voiced (name-store.ts). */
+  holdBack?: (text: string) => boolean
   private denoiser?: Denoiser | null
   private noDenoiserLogged = false
   private levelling?: Leveller | null
@@ -4074,7 +4076,7 @@ export class VoiceStore {
     const queued = new Set(this.queue.map(i => clipKey(this.normOf(i.text, i.lang), i.voice)))
     for (const i of this.missing(items)) {
       const k = clipKey(this.normOf(i.text, i.lang), i.voice)
-      if (!queued.has(k)) {
+      if (!queued.has(k) && !this.holdBack?.(i.text)) {
         queued.add(k)
         this.queue.push(i)
       }

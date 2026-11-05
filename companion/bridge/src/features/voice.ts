@@ -149,6 +149,10 @@ export const voice: FeatureFactory = ctx => {
       return catalogue.of
     },
   })
+  // a name that fails the check isn't voiced at all, while the node builds name lines: not in the learner's own lines, a
+  // re-record, a text ahead of time. Unset, every path is as before
+  const badName = (text: string) => names.guarding && names.refuses(text, ctx.addressee())
+  if (names.guarding) voice.holdBack = badName
   // the learner's own voice: their choice (learner-profile.json preferences.my_voice), else the default of their gender
   // (the profile's learner.gender; the female one's while it says none) and age (the profile's child flag, LANI_CHILD)
   const mine = () => myVoice({ gender: voicedGender(ctx.addressee()), child: ctx.profile.child, choice: choiceOf(ctx.cfg.dataDir) })
@@ -177,7 +181,8 @@ export const voice: FeatureFactory = ctx => {
     log: ctx.log,
     done: ({ text, voice: asked }) => {
       const v = voiceOf(asked)
-      return !isVoice(v) || !!refusal(text, undefined) || !!voice.best(voice.normOf(text), v)
+      // it spends with nobody waiting: the name is checked whether name lines are on or not
+      return !isVoice(v) || !!refusal(text, undefined) || names.refuses(text, ctx.addressee()) || !!voice.best(voice.normOf(text), v)
     },
     make: async ({ text, voice: asked }) => {
       const v = voiceOf(asked)
@@ -190,6 +195,7 @@ export const voice: FeatureFactory = ctx => {
   const handleRedo = async (req: Request) => {
     const r = redoIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+    if (badName(r.data.text)) return json({ status: 'failed', message: 'this line cannot be re-recorded' }, 503)
     const v = voiceOf(r.data.voice)
     if (!v && r.data.voice === PLAYER) return json({ status: 'failed', message: "no voice of the cast may say the learner's lines" }, 503)
     if (!isVoice(v)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
@@ -211,7 +217,7 @@ export const voice: FeatureFactory = ctx => {
     const clips: Prepared[] = []
     for (const { text, voice: asked, lang } of r.data.texts) {
       // another language's text: no clip of it in this village's voice (the app says it otherwise)
-      if (refusal(text, lang)) {
+      if (refusal(text, lang) || badName(text)) {
         clips.push({ text, voice: asked, url: null })
         continue
       }
@@ -311,7 +317,7 @@ export const voice: FeatureFactory = ctx => {
           const long = tooLong(voice, r.data)
           if (long) return json({ error: long }, 400)
           // another language's text: nothing voiced, the app speaks it (204, as a line no voice of the cast may say)
-          if (refusal(r.data.text, r.data.lang)) return new Response(null, { status: 204 })
+          if (refusal(r.data.text, r.data.lang) || badName(r.data.text)) return new Response(null, { status: 204 })
           const v = voiceOf(r.data.voice)
           // the learner's own line when the cast has no voice that may say it: the phone speaks it
           if (!v && r.data.voice === PLAYER) return new Response(null, { status: 204 })

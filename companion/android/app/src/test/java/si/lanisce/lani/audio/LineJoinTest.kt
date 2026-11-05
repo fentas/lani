@@ -105,6 +105,13 @@ class LineJoinTest {
         assertEquals(100, LineJoin.soundStart(25_898, 25_798, 576))
     }
 
+    @Test fun `a part decoded short is no part, so a line isn't kept with a hole where the name was`() {
+        assertTrue(LineJoin.whole(25_799, 25_798))
+        assertTrue(LineJoin.whole(25_790, 25_798))
+        assertFalse(LineJoin.whole(0, 25_798))
+        assertFalse(LineJoin.whole(24_000, 25_798))
+    }
+
     // the first bytes of an MP3 as the node's ffmpeg writes a piece: an ID3 tag, then the frame with its LAME header
     private val ffmpegHead = Base64.getDecoder().decode(
         "SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYzLjEuMTAyAAAAAAAAAAAAAAD/+5DAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAADwAAABEAAB1iABwcHBwcKioqKioqODg4ODg4R0dHR0dHVVVVVVVVY2NjY2NjcXFxcXFxf39/f39/jo6Ojo6cnJycnJyqqqqqqqq4uLi4uLjHx8fHx8fV1dXV1dXj4+Pj4+Px8fHx8fH//////wAAAABMYXZjNjMuMS4AAAAAAAAAAAAAAAAkBVgAAAAAAAAdYnB4i9QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",

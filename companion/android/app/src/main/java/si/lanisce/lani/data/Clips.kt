@@ -641,6 +641,18 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     /** What the node is getting ready for what the learner has open ([queue]); null: nothing. */
     private var queued: String? = null
 
+    /** The last of what was told the node about it: each waits for the one before, or a cancel could overtake its start. */
+    private var telling: kotlinx.coroutines.Job? = null
+
+    /** Tells the node [lines] for [id], after whatever was told it before. */
+    private fun tell(a: ClipsApi, id: String, lines: List<ClipAsk>) {
+        val before = telling
+        telling = scope.launch(Dispatchers.IO) {
+            before?.join()
+            runCatching { a.queue(id, lines) }
+        }
+    }
+
     /**
      * What the learner has just opened says its [lines] (each as [Speaker] would ask for it), in play order: the node gets those
      * the phone lacks ready ahead. Anything before is left.
@@ -650,7 +662,7 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
         val left = lines.filter { Voice.normalize(it.text).isNotEmpty() && onDevice(it.text, listOf(it.voice)) == null }.take(QUEUE_MAX)
         if (left.isEmpty()) return unqueue()
         val id = UUID.randomUUID().toString().also { queued = it }
-        scope.launch(Dispatchers.IO) { runCatching { a.queue(id, left) } }
+        tell(a, id, left)
     }
 
     /** The learner left what was opened: what is left of it isn't made. */
@@ -658,7 +670,7 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
         val a = api ?: return
         val id = queued ?: return
         queued = null
-        scope.launch(Dispatchers.IO) { runCatching { a.queue(id, emptyList()) } }
+        tell(a, id, emptyList())
     }
 
     /** The clips of a line on their way (downloading, or being voiced by the node): a second ask waits for the first. */

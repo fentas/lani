@@ -19,7 +19,7 @@ import { DrillStore, drillsDir } from '../src/drills'
 import { grammarDir, GrammarStore } from '../src/grammar'
 import { readISpy } from '../src/ispy'
 import { clickDb, cutLine, rmsDb, SR, tracks } from '../src/name-cut'
-import { flagLine, LINE_TYPES, markName, NAME_CARRIERS, nameOk, NameCatalogue, PHRASE_TAILS, PROBE_NAME, TEMPLATES, FILLERS, spokenName, normalizeName } from '../src/name-lines'
+import { flagLine, LINE_TYPES, markName, NAME_CARRIERS, nameOk, NameCatalogue, PHRASE_TAILS, PROBE_NAME, saysName, TEMPLATES, FILLERS, spokenName, normalizeName } from '../src/name-lines'
 import { lineId, nameSettings, NameStore, type NameSettings } from '../src/name-store'
 import { PackStore, packsDirs } from '../src/packs'
 import { cultureStepFiles, stepTellings } from '../src/project-steps'
@@ -146,6 +146,9 @@ function names(check: Check) {
   for (const n of no) check(`names: "${n.slice(0, 26)}" may not`, !nameOk(n), nameOk(n))
   check('names: keyed in one form however it is written', normalizeName(' ANA   Marija ') === 'ana marija' && nameOk('JAN') === 'jan')
   check('names: said with their capitals', spokenName('ana marija') === 'Ana Marija' && spokenName('jean-luc') === 'Jean-Luc')
+  const a = addressee({ name: 'Admin' })
+  check('names: a text says a name in any form: the name, a case, the possessive with its ending', saysName('Dober dan, Admin!', a.name, a.forms) && saysName('Sveža voda za admina.', a.name, a.forms) && saysName('To je Adminova hiša.', a.name, a.forms))
+  check('names: and not inside another word, nor where a short name is only letters', !saysName('Administracija je zaprta.', a.name, a.forms) && !saysName('Jaz grem.', 'J', {}))
 }
 
 async function cut(check: Check) {
@@ -177,7 +180,7 @@ async function cut(check: Check) {
 const settings = (o: Partial<NameSettings> = {}): NameSettings => ({ on: true, daily: 3_000, names: 3, takes: 2, ...o })
 
 /** A store with the fake ElevenLabs, its catalogue of [lines] (the name as PROBE_NAME). */
-function storeOf(lines: string[], o: Partial<NameSettings> = {}, voice: { monthly?: number } = {}) {
+function storeOf(lines: string[], o: Partial<NameSettings> = {}, voice: { monthly?: number; liveLimit?: { max: number; windowMs: number } } = {}) {
   const fe = fakeEleven()
   fe.st.speech = true
   const vs = new VoiceStore({ appDir: temp('lani-names-store-'), engines: [new ElevenLabs({ key: 'test-key', base: fe.url, reserve: 0 })], queueDelayMs: 0, language: 'sl', ...voice })
@@ -237,6 +240,10 @@ async function store(check: Check) {
   const bad = storeOf([say(PROBE_NAME, 'Lahko noč, {n}.')])
   check("store: a name that is no name, in a line of the content: the phone's voice, silently", (await bad.ns.line('Lahko noč, Admin.', 'grandma', addressee({ name: 'Admin' }))).say === 'phone' && bad.fe.st.tts.length === 0)
 
+  const badOut = storeOf([say(PROBE_NAME, 'Lahko noč, {n}.')])
+  const admin = addressee({ name: 'Admin' })
+  check("store: a name that is no name, in a text the catalogue doesn't know, or a declined form: the phone's voice", (await badOut.ns.line('Kako si, Admin, danes?', 'grandma', admin)).say === 'phone' && (await badOut.ns.line('Sveža voda za admina.', 'grandma', admin)).say === 'phone' && badOut.fe.st.tts.length === 0)
+  check('store: a text without the name goes on as before, whatever the name', (await badOut.ns.line('Dober dan vsem.', 'grandma', admin)).say === 'before')
   const badWhole = storeOf([say(PROBE_NAME, 'Danes je {n} doma.')])
   check("store: a name that is no name, in a line voiced whole: the phone's voice too: a whole take would say it", (await badWhole.ns.line('Danes je Admin doma.', 'grandma', addressee({ name: 'Admin' }))).say === 'phone' && badWhole.fe.st.tts.length === 0)
 
@@ -270,6 +277,7 @@ async function store(check: Check) {
   vs.database.query("UPDATE name_lines SET engine_voice = 'old'").run()
   vs.database.query("UPDATE name_clips SET engine_voice = 'old'").run()
   vs.database.query("UPDATE name_joined SET engine_voice = 'old'").run()
+  check('store: a voice swapped under a line takes it out of the index, or the app would never ask for it again', !ns.withLines({})['hvala jan ti si zlat'], ns.withLines({})['hvala jan ti si zlat'])
   const s0 = sent().length
   await ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
   check('store: a voice swapped under a line: made again in the voice now', sent().length === s0 + 3, sent().slice(s0))
@@ -283,6 +291,27 @@ async function store(check: Check) {
     const row = t.vs.database.query('SELECT type, why FROM name_lines WHERE line = ?').get(lineId('sl', 'grandma', 'Oho? Še enkrat, {n}, in na glas.')) as { type: string; why: string } | null
     check("store: a line whose cut can't be trusted is voiced whole, and says why", r.say === 'before' && row?.type === 'whole' && !!row.why && paid === 1, { r, row })
     check('store: … and the take is not paid for again', (await t.ns.line('Oho? Še enkrat, Ana, in na glas.', 'grandma', ana)).say === 'before' && t.fe.st.tts.length === paid)
+  }
+
+  // ffmpeg failing for a moment is no verdict on a name: it is tried again, and then it cuts
+  {
+    const t = storeOf(lines)
+    await t.ns.line('Oho? Še enkrat, Jan, in na glas.', 'grandma', jan)
+    const down = new NameStore(t.vs, { settings: settings(), catalogue: () => new NameCatalogue('sl', lines, lines), pcm: async () => null })
+    const r = await down.line('Lahko noč, Ana.', 'grandma', ana)
+    const rows = (t.vs.database.query("SELECT COUNT(*) AS n FROM name_clips WHERE name = 'ana'").get() as { n: number }).n
+    check('store: a name take ffmpeg failed on leaves no verdict', r.say === 'before' && rows === 0, { r, rows })
+    check('store: … and it is made once ffmpeg is back', (await t.ns.line('Lahko noč, Ana.', 'grandma', ana)).say === 'joined')
+  }
+
+  // the live lines' rate limit is on what is voiced
+  {
+    const t = storeOf(lines, {}, { liveLimit: { max: 1, windowMs: 600_000 } })
+    await t.ns.line('Lahko noč, Jan.', 'grandma', jan)
+    t.vs.database.query('DELETE FROM name_joined').run()
+    while (t.vs.liveSlot()) {}
+    check('store: over the live limit, a line whose parts are all here is still joined', (await t.ns.line('Lahko noč, Jan.', 'grandma', jan)).say === 'joined')
+    check('store: … and one that would be voiced waits for the phone', (await t.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)).say === 'phone')
   }
 
   // a name's two takes: the lower is kept
@@ -472,10 +501,21 @@ async function routes(check: Check, port: number) {
     check('routes: voice_status says what there is', st.names?.on === true && st.names.lines >= 1 && st.names.name_clips >= 1, st.names)
     const q = await fetch(`${base}/voice/queue`, { method: 'POST', headers: auth, body: JSON.stringify({ id: 'x', lines: [{ text, voice: 'grandma' }] }) })
     check('routes: POST /voice/queue answers, with nothing queued while the setting is off', q.status === 200 && ((await q.json()) as { queued: number }).queued === 0)
-    // a name changed to something that isn't one: the phone's voice, silently
-    writeFileSync(join(data, 'learner-profile.json'), JSON.stringify({ learner: { name: 'Buy Coins Now Please', gender: 'male' } }))
-    const said = await say(line.said.replace('{n}', 'Buy Coins Now Please'))
+    // a name changed to something that isn't one: the phone's voice, silently, whichever way the text comes
+    const bad = 'Buy Coins Now Please'
+    writeFileSync(join(data, 'learner-profile.json'), JSON.stringify({ learner: { name: bad, gender: 'male' } }))
+    const paid = fe.st.tts.length
+    const said = await say(line.said.replace('{n}', bad))
     check("routes: a name that fails the check: 204, the phone's voice, no error", said.status === 204, said.status)
+    const own = await say(`Ime mi je ${bad}.`, 'player')
+    check("routes: … in the learner's own line too", own.status === 204, own.status)
+    const free2 = await say(`Kaj pa zdaj, ${bad}?`)
+    check("routes: … in a text the content doesn't have", free2.status === 204, free2.status)
+    const redo = await fetch(`${base}/voice/redo`, { method: 'POST', headers: auth, body: JSON.stringify({ text: `Ime mi je ${bad}.`, voice: 'grandma', client_id: 'x' }) })
+    check('routes: … in a re-record', redo.status === 503, redo.status)
+    const prep2 = (await (await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: `Ime mi je ${bad}.`, voice: 'grandma' }] }) })).json()) as { clips: { url: string | null }[] }
+    check('routes: … and in the day\'s audio', prep2.clips[0].url === null, prep2)
+    check('routes: nothing of it reached ElevenLabs', fe.st.tts.length === paid, fe.st.tts.slice(paid).map(t => t.body.text))
   } finally {
     await client.close()
     fe.stop()

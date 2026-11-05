@@ -89,6 +89,9 @@ object LineJoin {
      */
     fun soundStart(decoded: Int, want: Int, delay: Int): Int = if (decoded - want <= TRIMMED_SLACK) 0 else delay.coerceAtMost(decoded - want)
 
+    /** A decoder gave all of a part: else the line would be kept with a hole in it, the name maybe, and the finished file comes instead. */
+    fun whole(decoded: Int, want: Int): Boolean = decoded >= want - TRIMMED_SLACK
+
     /** The MP3 [file] as the samples its encoder was given: [ms] of what the decoder gives, from [soundStart]. */
     fun samplesOf(file: File, ms: Int): ShortArray {
         val all = Mp3Decoder.decode(file)
@@ -96,6 +99,7 @@ object LineJoin {
         val delay = Mp3Gapless.delay(file)
         val from = soundStart(all.size, want, delay)
         if (BuildConfig.QA) Log.i(TAG, "decoded ${file.name}: ${all.size} samples, wanted $want, from $from")
+        if (!whole(all.size, want)) throw IOException("${file.name} decoded to ${all.size} samples of $want")
         return all.copyOfRange(from, (from + want).coerceAtMost(all.size))
     }
 
@@ -125,7 +129,11 @@ object Mp3Gapless {
      */
     const val LAME_DELAY = 576
 
-    fun delay(file: File): Int = file.inputStream().use { delayIn(it.readNBytes(HEAD)) ?: LAME_DELAY }
+    fun delay(file: File): Int = file.inputStream().use { s ->
+        val b = ByteArray(HEAD)
+        val n = s.read(b).coerceAtLeast(0)
+        delayIn(b.copyOf(n)) ?: LAME_DELAY
+    }
 
     /** The delay the LAME header in [b] (a file's first bytes) says; null when it has none. */
     fun delayIn(b: ByteArray): Int? {

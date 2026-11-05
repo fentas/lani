@@ -166,7 +166,10 @@ the frame. Nothing else was tuned. A plain join, no pitch match, one stored gain
 
 **The name is the learner's own text.** At most 24 characters and two words, Latin letters with their marks, a hyphen or an apostrophe
 inside a word, a vowel, no letter four times running, a short list of words no voice says as a name. At most 3 new names a calendar
-month on a node (`name_seen` holds the month and the name, nobody's). A name already counted goes on.
+month on a node (`name_seen` holds the month and the name, nobody's). A name already counted goes on. With `LANI_VOICE_NAMES` set, a name
+that fails is voiced nowhere, not only in name lines: any text that says it or a form of it goes to the phone's voice (204), the learner's
+own lines, a text the content doesn't have, the day's audio and what a publish queues among them. A re-record of such a text fails
+plainly. Preloading checks the name whether `LANI_VOICE_NAMES` is set or not, because it spends with nobody waiting.
 
 **The join on the phone** (`audio/LineJoin.kt`). The manifest's parts are downloaded as clips of their own, decoded with the phone's
 decoder, the encoder's delay taken off by the LAME header, and written sample against sample into one WAV under the line's name
@@ -176,7 +179,8 @@ in the clip cache. There is no seam a player could open a gap in: the player get
 **Lazy preloading** (`voice-preload.ts`, `DialogAhead`). As a dialog, a test or a module opens, the app sends its lines in play order to
 `POST /voice/queue`: each person's line in their voice, the right answer and the reply to it, never a wrong answer's reaction. The
 lines are as this learner plays them: their level, gender and name. The node makes what it lacks one at a time at the gate's middle turn.
-A new start replaces the last, and leaving cancels what is left. Older apps send nothing, and a bridge without the route costs nothing.
+A new start replaces the last, and leaving cancels what is left; a take already at work ends and is kept, so a quick leave can cost one line.
+The app sends a start and its cancel in order. Older apps send nothing, and a bridge without the route costs nothing.
 
 **The redo.** A long press on a joined line voices it whole, as plan 3 says: the whole clip then stays that line's clip.
 
@@ -193,7 +197,7 @@ All in `lani.env` or `keys.env`. What is off stays off until the node sets it.
 | `LANI_VOICE_PRELOAD` | off | Lines got ready as a dialog, a test or a module opens. Most it can spend a day: `LANI_VOICE_PRELOAD_DAILY`. |
 | `LANI_VOICE_PRELOAD_DAILY` | 4,000 | Characters that may cost a day, whatever they are spent on. |
 | `LANI_VOICE_MONTHLY` | none | Characters ElevenLabs may be sent in a calendar month, for anything, live lines too. Past it the local worker, then the phone's voice. Every character is counted from now on, set or not. `voice-build` counts in it and isn't held to it: a person asked. |
-| `LANI_VOICE_REVOICE_KEEP` | 30 % of the cap | Of `LANI_VOICE_REVOICE_DAILY`, what an older model's upgrades leave for clips in the wrong voice. |
+| `LANI_VOICE_REVOICE_KEEP` | 30 % of the cap | Of `LANI_VOICE_REVOICE_DAILY`, what an older model's upgrades leave for clips in the wrong voice. **On for every node, with no setting:** it spends less, never more, and what is kept stays unused on a day nothing in the wrong voice is asked for. |
 
 Both daily caps count the same characters when a preload makes a name line: the name lines' cap holds first.
 
@@ -283,7 +287,11 @@ are speech-like), measured from the file the phone plays:
 
 The measurement found a bug no unit test would have: this emulator's decoder honours the gapless header and gives each part its true
 length, so taking the encoder's delay off as well cut 13 ms from the start of every part. A part now starts where the decoder leaves
-it, read from the manifest's length (`LineJoin.soundStart`).
+it, read from the manifest's length (`LineJoin.soundStart`). A part decoded short is refused, and the finished file comes instead.
+
+**An app with no join code** on the same bridge (a build from this branch's base, `LANI_QA_OLDER_APP=1 qa-slot --apk <it> --steps name-join`)
+asks as ever and gets the line's URL: one finished MP3 of 61,483 bytes, `clip start` to `clip end`. Not the 0.2.698 on Teo's tablet itself: the
+URL is any clip's to it (`Clips.file`, `ClipsApi.download`), which the code at that version shows, but no device has run it here.
 
 ## Samples to listen to
 
@@ -328,4 +336,5 @@ No screen changed: 0 taps before, 0 after. A new line may play sooner with prelo
   edge on. A filler with one (Marta has the same shape as Marko) would bring them in, but no take of it has been measured.
 - **Declined names** (`{learner:dat}` and the others) are voiced whole: one voiced line today.
 - **Whole takes are kept** beside each line, with their timestamps, so a better cut later costs nothing. No tool re-cuts them yet.
+- **A piece that can't be written** after its take is paid for (ffmpeg failing at that moment) pays for the take again at the next ask.
 - **The hosted library** plugs in where `NameStore` makes a line or a name: built by `audio-service`.

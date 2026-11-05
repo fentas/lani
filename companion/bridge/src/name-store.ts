@@ -11,7 +11,7 @@ import type { Addressee } from './addressee'
 import { elevenlabsOf } from './cast'
 import { normalizeText } from './family'
 import { activeDb, cutLine, fades, medianPitch, nameCut, phraseCut, SR, slice, tracks, type Span } from './name-cut'
-import { FILLERS, NAME_MARK, nameOk, spokenName, type KnownLine, type LineType, type NameCatalogue, type Template } from './name-lines'
+import { FILLERS, NAME_MARK, nameOk, saysName, spokenName, type KnownLine, type LineType, type NameCatalogue, type Template } from './name-lines'
 import { ffmpegMp3Writer, ffmpegPcm, fileUrl, TURN, type Alignment, type PcmReader, type PcmWriter, type TimedTake, type Turn, type VoiceName, type VoiceStore } from './voice'
 
 /** The level a name clip of a template is stored at ([activeDb]), so a line's one gain fits every name. */
@@ -118,6 +118,17 @@ export class NameStore {
     return this.o.settings.on && !!this.pcm && !!this.mp3 && !!this.voice.eleven?.configured
   }
 
+  /** The node set LANI_VOICE_NAMES: the name is checked, whatever else can or can't run. */
+  get guarding(): boolean { return this.o.settings.on }
+
+  /**
+   * Whether [text] says [a]'s name and that name may not be voiced ([nameOk]). Any text: the learner's own lines, a declined form,
+   * a re-record and a line the catalogue doesn't know have their name just the same. The phone's voice says them.
+   */
+  refuses(text: string, a: Addressee): boolean {
+    return !nameOk(a.name) && saysName(text, a.name, a.forms)
+  }
+
   private get db() { return this.voice.database }
   private get language() { return this.voice.language }
 
@@ -174,15 +185,15 @@ export class NameStore {
   }
 
   private async answer(text: string, voice: VoiceName, a: Addressee, turn: Turn): Promise<NameAnswer> {
+    if (!this.guarding) return BEFORE
+    // before anything else of the line: voiced whole, it would say the name just the same
+    if (this.refuses(text, a)) return PHONE
     if (!this.on) return BEFORE
     const norm = normalizeText(text)
     if (this.voice.best(norm, voice)) return BEFORE
     const line = this.o.catalogue()?.find(text, a.name)
-    if (!line) return BEFORE
-    // before anything else of the line: a line voiced whole would say the name just the same
     const name = nameOk(a.name)
-    if (!name) return PHONE
-    if (line.type === 'whole') return BEFORE
+    if (!line || !name || line.type === 'whole') return BEFORE
     // a Slovene narrator speaks through their Slovene voice, when that comes first; else their clips cost nothing
     if (this.voice.sloveneNarrator(voice) && !this.voice.elevenlabsFirst(voice)) return BEFORE
     const speaker = this.voice.slVoiceOf(voice) ?? voice
@@ -191,7 +202,8 @@ export class NameStore {
     const key = `${voice}:${norm}`
     const done = this.db.query('SELECT id FROM name_joined WHERE key = ? AND engine_voice = ? ORDER BY created_at DESC').get(key, own) as { id: string } | null
     if (done) return { say: 'joined', url: lineUrl(done.id), engine: 'elevenlabs' }
-    if (turn === TURN.live && !this.voice.liveSlot()) return PHONE
+    // the rate limit of live lines is on what is voiced: a line of parts all here costs nothing
+    if (turn === TURN.live && !this.paidFor(line, voice, name, own) && !this.voice.liveSlot()) return PHONE
     const spec = await this.once(`line|${voice}|${line.said}`, () => this.manifest(line, voice, speaker, own, turn))
     if (spec === 'cap') return PHONE
     if (!spec || spec.type === 'whole') return BEFORE
@@ -199,6 +211,12 @@ export class NameStore {
     if (clip === 'cap') return PHONE
     if (!clip?.file) return BEFORE
     return { say: 'joined', url: lineUrl(this.joined(text, voice, own, spec, clip)), engine: 'elevenlabs' }
+  }
+
+  /** Whether [line]'s manifest and its name clip are here in the voice now: joining it voices nothing. */
+  private paidFor(line: KnownLine, voice: VoiceName, name: string, own: string): boolean {
+    return !!this.db.query('SELECT 1 FROM name_lines WHERE line = ? AND engine_voice = ?').get(lineId(this.language, voice, line.said), own) &&
+      !!this.db.query('SELECT 1 FROM name_clips WHERE language = ? AND voice = ? AND name = ? AND kind = ? AND engine_voice = ?').get(this.language, voice, name, line.kind, own)
   }
 
   private once<T>(key: string, make: () => Promise<T>): Promise<T> {
@@ -293,15 +311,23 @@ export class NameStore {
     const cuts: { y: Float32Array; pitch: number; model: string }[] = []
     let chars = 0
     let model = this.voice.eleven!.model
+    // something outside the take went wrong (ElevenLabs, ffmpeg under load): no verdict on this name, it is tried again
+    let passing = false
     for (let i = 0; i < takes; i++) {
       const take = await this.voice.eleven!.timed(carrier, speaker, turn)
-      if (!take) break
+      if (!take) {
+        passing = true
+        break
+      }
       this.spend(take.chars)
       chars += take.chars
       model = take.model
       const ready = await this.voice.cuttable(take.bytes, speaker)
       const x = ready ? await this.pcm!(ready.bytes) : null
-      if (!ready || !x?.length) continue
+      if (!ready || !x?.length) {
+        passing = true
+        continue
+      }
       const tr = tracks(x)
       const a = scaled(take.alignment, ready.tempo)
       const said = nameCut(x, a, spoken, tr)
@@ -314,7 +340,7 @@ export class NameStore {
       // how high the name is said, not the phrase around it: the words before it would decide otherwise
       cuts.push({ y, pitch: medianPitch(slice(x, said[0], said[1])), model: take.model })
     }
-    if (!chars) return null
+    if (!chars || (passing && !cuts.length)) return null
     // of the takes that cut, the lower: a voice said high stands out of the line around it
     const best = cuts.reduce<(typeof cuts)[number] | undefined>((b, c) => (!b || (c.pitch > 0 && (b.pitch === 0 || c.pitch < b.pitch)) ? c : b), undefined)
     const row: NameClip = { language: this.language, voice, name, kind: line.kind, ...(phrase ? { phrase: line.carrier } : {}), file: null, ms: 0, engine_voice: own, model }
@@ -325,10 +351,9 @@ export class NameStore {
         y = y.map(v => v * g)
       }
       const bytes = await this.mp3!(y)
-      if (bytes) {
-        row.file = this.write(`name|${this.language}|${voice}|${name}|${line.kind}|${own}|${model}`, bytes)
-        row.ms = Math.round((y.length / SR) * 1000)
-      }
+      if (!bytes) return null
+      row.file = this.write(`name|${this.language}|${voice}|${name}|${line.kind}|${own}|${model}`, bytes)
+      row.ms = Math.round((y.length / SR) * 1000)
     }
     if (!row.file) this.o.log?.(`voice: a name in "${line.carrier}" (${voice}) could not be cut: its lines are voiced whole`)
     this.db
@@ -398,7 +423,14 @@ export class NameStore {
   /** [index] (GET /voice/index) with the lines joined here: a whole clip of a line stays its clip. */
   withLines<T extends Record<string, Record<string, string>>>(index: T): T {
     if (!this.o.settings.on) return index
-    for (const r of this.db.query('SELECT id, norm, voice FROM name_joined ORDER BY created_at').all() as { id: string; norm: string; voice: string }[]) {
+    const now = new Map<string, string | undefined>()
+    const ownOf = (v: string) => {
+      if (!now.has(v)) now.set(v, elevenlabsOf(this.voice.slVoiceOf(v) ?? v))
+      return now.get(v)
+    }
+    for (const r of this.db.query('SELECT id, norm, voice, engine_voice FROM name_joined ORDER BY created_at').all() as { id: string; norm: string; voice: string; engine_voice: string }[]) {
+      // a voice swapped under it: left out, so the app asks for the line and it is made again in the voice now
+      if (ownOf(r.voice) !== r.engine_voice) continue
       const at = ((index as Record<string, Record<string, string>>)[r.norm] ??= {})
       if (!at[r.voice] || at[r.voice].startsWith('/voice/line/')) at[r.voice] = lineUrl(r.id)
     }
