@@ -80,39 +80,87 @@ other composable in the app keeps state through `key` like that.
 
 A fresh `ScrollState` reads as scrolling on until it's measured, so `MoreBelow` waits for a viewport: without that, "▾" flashed on every item.
 
-## A unit's page under the status bar
+## Pages under the status bar
 
-`UnitScreen` had no `StatusBarScrim`, so the page's text ran over the clock and the icons, at rest too (the gold "Avanti" under the clock).
-It has one now, split as `HomeScreen` is. The scrim only came once the header had gone, and a unit's goal runs to several lines: at rest in
-between, the header's white text still lay on the clock. So `overHeader = true` brings it from the first pixel of scroll, on this page alone;
-the other screens keep theirs.
+A `GradientHeader` that scrolls away under a transparent status bar leaves the page's text over the clock and the icons, at rest too (a unit's gold "Avanti" under the clock). The lead asked for it on a unit's page, then on every page of that shape.
 
-QA reads the status bar's own pixels (its frame from `dumpsys window`, the middle third, where no icon stands): the widest difference in
-colour, 0 to 255, over four stops as the page scrolls.
+`Modifier.statusBarScrim` draws the bar over the list or the column itself, so a screen is its scroll state and the modifier: `LazyColumn(Modifier.fillMaxSize().statusBarScrim(list), state = list, …)`, or `Column(Modifier.fillMaxSize().statusBarScrim(scroll).verticalScroll(scroll))`. It comes with the first pixel of scroll, because a header's own text would pass under the clock too: a unit's goal runs to several lines, and the first fix, which waited for the header to go, left that text on the clock at rest in between. `StatusBarScrim` stays as it was on the screens that already have one, and on those the header's text still passes under the clock: a separate look.
 
-| Screen | Before | After |
-|---|---|---|
-| Phone | 210, 255, 255, 255 | 9, 10, 10, 10 |
-| Small phone | 247, 253, 228, 228 | 10, 7, 9, 9 |
-| Phone on its side | 247, 0, 253, 0 | 10, 0, 10, 0 |
-| Teo's tablet upright | 19, 19, 19, 19 | 19, 19, 19, 19 |
-| Teo's tablet on its side | 27, 253, 253, 253 | 1, 10, 10, 10 |
+On a unit's page, School, Packs, Cases, Numbers, Readings, Settings, Settings' sub-pages, read-aloud, placement, and on `TalkScreen`'s list and debrief. **`TalkScreen` wasn't asked for:** its two lists have the same shape and the report that listed the screens missed them, so they stand in a commit of their own, to drop if unwanted.
 
-The tablet upright has nothing to scroll: the whole page fits, under its header.
+QA reads the status bar's own pixels (its frame from `dumpsys window`, the middle third, where no icon stands): the widest difference in colour, 0 to 255, at four stops as the page scrolls.
+
+| Page | Screen | Before | After |
+|---|---|---|---|
+| A unit's page | phone | 210, 255, 255, 255 | 9, 10, 10, 10 |
+| | small phone | 247, 253, 228, 228 | 10, 10, 9, 9 |
+| | phone on its side | 247, 0, 253, 0 | 10, 0, 10, 0 |
+| | Teo's tablet upright | 19, 19, 19, 19 (fits) | 19, 19, 19, 19 (fits) |
+| | Teo's tablet on its side | 27, 253, 253, 253 | 1, 10, 10, 10 |
+| School | phone | 247, 236, 222, 186 | 10, 9, 9, 7 |
+| | small phone | 248, 205, 27, 180 | 10, 8, 1, 7 |
+| Settings | phone | 247, 247, 247, 247 | 10, 10, 10, 10 |
+| | small phone | 248, 228, 28, 28 | 10, 9, 1, 1 |
+| Settings' 🔊 page | phone | 247, 228, 236, 253 | 10, 9, 10, 10 |
+| | small phone | 247, 244, 228, 236 | 10, 10, 9, 10 |
+| Packs | phone | 247, 25, 180, 180 | 10, 1, 7, 6 |
+| | small phone | 248, 219, 180, 157 | 10, 9, 6, 6 |
+| Numbers | small phone | not reached | 10, 10, 10, 10 |
+| Cases | small phone | 248, 248, 248, 248 | 10, 10, 10, 10 |
+| Talks' list | phone | 247, 219, 219, 219 | 10, 9, 10, 8 |
+| | small phone | 248, 236, 219, 219 | 10, 8, 8, 9 |
+| Placement | small phone | 248, 205, 205, 205 | 10, 8, 8, 8 |
+
+The pages' before is a learner at A1, their after one at B2: what fills a page differs a little, the flaw doesn't.
+
+**Read on no device:** Readings and read-aloud, the same two lines, compiled. The synthetic learners' reading corner is empty, at A1 and at B2 and with the cast met, so there is nothing to scroll and no reading to read aloud; why isn't established. Numbers has no "before": the old run's step opened it by a link that doesn't reach it. The debrief needs a talk with a tutor, which QA has none of. The list above it is read. On a phone Cases, Numbers and placement fit, so the small phone is what reads them. The tablet upright has nothing to scroll on a unit's page.
+
+## The buttons under an answer
+
+On a small phone "Avanti · Weiter" had what "💬 Chiedi · Fragen" left it, less than its longest word, and broke inside its words: "Avan / ti · / Weit / er". `AnswerButtons` decides by the labels' measure, so it holds for any two languages and for large text:
+
+1. The way on takes the room left, while that holds its longest word. Its label may wrap between words, as it did.
+2. If not, Ask gives up its words for its 💬 (`EmojiLabel`: TalkBack still says its name) and stays in the row.
+3. Only on a tiny row in large text do they stand one above the other.
+
+The first try went straight to 3. It kept the words whole, but took 122 dp of a card held at 220 and cut the answer itself in half behind Ask, a new flaw on the same screen. The shots showed it; no test did. The row stays 56 dp tall now, against about 96 dp for the broken label.
+
+All twelve pairs on a small phone (720 × 1280 at 320 dpi), each in its own language's village, since a learner's target is their village's (`--steps answer-buttons`):
+
+| The labels' language | Base | The way on | Its size | Ask |
+|---|---|---|---|---|
+| Slovene | English | Naprej · Next | 176 × 40 px | 💬 |
+| | German | Naprej · Weiter | 201 × 40 px | 💬 |
+| | Italian | Naprej · Avanti | 199 × 40 px | 💬 |
+| German | Slovene | Weiter · Naprej | 201 × 40 px | 💬 |
+| | English | Weiter · Next | 103 × 80 px | its words |
+| | Italian | Weiter · Avanti | 197 × 40 px | 💬 |
+| English | Slovene | Next · Naprej | 94 × 80 px | its words |
+| | German | Next · Weiter | 103 × 80 px | its words |
+| | Italian | Next · Avanti | 111 × 80 px | its words |
+| Italian | Slovene | Avanti · Naprej | 199 × 40 px | 💬 |
+| | English | Avanti · Next | 111 × 80 px | its words |
+| | German | Avanti · Weiter | 197 × 40 px | 💬 |
+
+At 80 px the label wraps at its space, two whole words.
+
+`AnswerButtonsTest` has the twelve in real text (native graphics), on rows of 200 to 380 dp, at 1, 1.3 and 1.6 times the text; with the longest word left out of the decision it fails, "[N, a, p, r, e, j, …]".
 
 ## Tests
 
-On the final tree: the bridge's and the relay's `tsc` clean; the smoke 4,571 checks, none failed; `prompt-clashes` exit 0 (343 in the baseline, none new); the relay's tests 28, 2 of them new; Python `companion/tests` 188 (11 skipped) and `tests` 253; the Android suite 4,514 tests, 2 skipped, 0 failures. New: `MoreBelowTest` (4), `TalkTest` at 21 talks with the A2 ones held to the B1 and B2 ones' rules, the smoke's counts and Marko's A2 talk.
+On the final tree: the bridge's and the relay's `tsc` clean; the smoke 4,571 checks, none failed; `prompt-clashes` exit 0 (343 in the baseline, none new); the relay's tests 28, 2 of them new; Python `companion/tests` 188 (11 skipped) and `tests` 253; the Android suite 4,518 tests, 2 skipped, 0 failures, in the usual order. New: `MoreBelowTest` (4), `AnswerButtonsTest` (4), `TalkTest` at 21 talks with the A2 ones held to the B1 and B2 ones' rules, the smoke's counts and Marko's A2 talk.
 
-`companion/bin/qa --steps long-pages` (companion/README.md has the line) passes on the final build, on all five screens. On the app before these fixes it fails on each thing it checks: "Senza microfono" on four screens, the item opening scrolled down, the status bar on four. Its first versions were wrong twice, and each error hid something: it took a tablet that fits for one that doesn't, and it skipped the status bar's first stop, which is how the header's text under the clock nearly went through. It reads every stop now. `friuli-school-unit` on `periodo-ipotetico` passes too, a whole unit's changes of item, on the build before `overHeader`, which touches only the unit's scrim.
+On the final build: `long-pages` on five screens, `scrim-pages` on two, `answer-buttons` in the four villages and `friuli-school-unit` on `periodo-ipotetico`, a whole unit's changes of item, all pass. On the app before these fixes `long-pages` and `scrim-pages` fail on each thing they check.
 
-**One red run, for the record.** `LaniSheetTest`'s canary (Material's own sheet still bounces) failed once, getting no frames (2988 to 2988 px). That run's order wasn't the usual one: Gradle runs what failed last first, and I had just failed `MoreBelowTest` on purpose to see that its test catches the flash. It passes on its own, with `MoreBelowTest` right before it in one JVM, and in the full run after it in the usual order. So my test doesn't break it by itself, and what did isn't established. nav-perf.md has the same canary falling to frame waits an earlier test left behind.
+QA was wrong four times on the way, and each time it hid something or claimed something: it took a tablet that fits for one that doesn't; it skipped the status bar's first stop, which is how the header's text under the clock nearly went through; a first scroll check tested a next item short enough to clamp any offset to nothing, so `key(index)` looked needless; and its first sweep of the pairs left the answer card, since a change of pair goes Home.
+
+**On this machine, `python3` through mise's shim fails 1 smoke check and 22 of `tests/test_db_port.py`** since mise 2026.11.0 came at 16:42 on 2026-11-05: the shim writes under `$HOME`, those tests run with a `$HOME` of their own and compare the files left behind, and the smoke's check reads its output. Nothing in the branch: with `/usr/bin` first in `PATH`, the same Python 3.14.8, as the CI has it, all of them pass, and those are the numbers above.
+
+**One red run, for the record.** `LaniSheetTest`'s canary (Material's own sheet still bounces) failed once, getting no frames (2988 to 2988 px). That run's order wasn't the usual one: Gradle runs what failed last first, and `MoreBelowTest` had just been failed on purpose to see that it catches the flash. It passes on its own, with `MoreBelowTest` right before it in one JVM, and in both full runs since, in the usual order. So that test doesn't break it by itself, and what did isn't established. nav-perf.md has the same canary falling to frame waits an earlier test left behind.
 
 ## What's left
 
-- **The same shape elsewhere, not changed and not seen on a device:** a `GradientHeader` scrolling away with no scrim in the lists of
-  `PacksScreen`, `CasesScreen`, `NumbersScreen`, `ReadingsScreen`, `SchoolScreen`, `SettingsScreen`, and the columns of Settings' sub-pages,
-  `ReadAloudScreen`, `PlacementScreen`. A list takes the unit's two lines; a column needs its scroll state read another way. The screens that
-  have a scrim (Home, Progress, the grammar book, towns, villagers) still let their header's text pass under the clock.
-- **"Avanti · Weiter" breaks inside its word** on the small phone ("Avan / ti · / Weit / er"), beside "Chiedi · Fragen" in the answer's card. Seen in QA, not changed.
-- **Not shown by any device:** the talks played with a tutor (QA starts none; the smoke validates and serves them, nothing has spoken them); their voice; the relay's sweep on a real hard stop (a stale file was placed by hand, in the test and in the image).
+- **Readings and read-aloud** on a device (above), and **the talks' debrief**.
+- **`SceneDialog`'s typed turn** has the same row as the answer's: `LetMeChoose` beside "Preveri · Check" with `weight(1f)`, and "Controlla" is a long word. Not looked at on a small phone, not changed. `RoadSheet`'s two equal halves leave room for their longest words by arithmetic.
+- **The screens that already have a scrim** (Home, Progress, the grammar book, towns, villagers) still let their header's text pass under the clock: left, a separate look.
+- **Not shown by any device:** the talks played with a tutor (QA starts none; the smoke validates and serves them, nothing has spoken them); their voice; the relay's sweep on a real hard stop (a stale file was placed by hand, in the test and in the image); TalkBack itself on the 💬 (the name is in the tree, no screen reader has said it).
