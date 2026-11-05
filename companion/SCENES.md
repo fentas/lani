@@ -198,7 +198,10 @@ gets "Samo eno jajce? Deset? Ne razumem …"; ti to an old man, "Tikaš me? No, 
 puzzled "Hm? Kako, prosim?". The reaction is the wrong choice's `reply`: one short sentence at the scene's level, in the
 person's voice (Micka warm, Luka cheeky, Janez dry; for a child always gentle), kind and a little funny, never mocking,
 in every language the choice has. It never says the right form ("Deset jajc? Seveda." would give the answer away): the
-learner still finds it. It may carry an `fx` of the art (Micka brings water), which passes: it shows while the learner
+learner still finds it. It may say back what the learner said, an echo ("Als waren Sie?"), but in a wrong word order not
+with a moved word beside what the right choice puts next to it ("Geholfen hat es" for "hat geholfen" gives the order away), and
+of two words that trade places it may only ask ("Od spodaj?"), as stating one says who gets which ("Tone hoče drobno.");
+`DialogReactionsTest` holds both. It may carry an `fx` of the art (Micka brings water), which passes: it shows while the learner
 picks again and goes with the next pick; it has no `sky` (the bridge rejects one).
 
 The app (`DialogRun.choose`) puts the wrong choice into the conversation, marked wrong (red, ✗), and the reaction after

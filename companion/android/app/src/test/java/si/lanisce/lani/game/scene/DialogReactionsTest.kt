@@ -62,22 +62,6 @@ class DialogReactionsTest {
             }
     }
 
-    /**
-     * The turns of a cycle whose reaction repeats the learner's own wrong sentence back ("Als waren Sie?", "Enough thick?"):
-     * a word moved in a wrong word order counts here as what sets the right choice apart, so saying it trips the check below,
-     * though the wrong choice holds it too and nothing is given away. Written before the cycles were held to this test and
-     * voiced, so they aren't reworded (docs/plans/05-built/cleanup-code.md, "Cycles"): the check stays as it is for every other
-     * turn. A new one fails, and so does one listed here that no longer trips it.
-     */
-    private val cycleEchoes = setOf(
-        "kaernten/kopa/cycle/stages[3].talks[0].levels.B2/1/1", "kaernten/kopa/cycle/stages[4].talks[1].levels.B1/1/1", "kaernten/kopa/cycle/stages[7].talks[1].levels.A2/1/1",
-        "kaernten/kopa/cycle/stages[9].talks[0].levels.B1/1/1", "kaernten/kopa/cycle/stages[9].talks[1].levels.B2/1/1", "kaernten/kopa/cycle/rest.talks[1].levels.B2/1/1",
-        "lakeland/kopa/cycle/stages[1].talks[0].levels.A2/1/1", "lakeland/kopa/cycle/stages[2].talks[0].levels.B2/1/1", "lakeland/kopa/cycle/stages[4].talks[2].levels.A2/1/1",
-        "lakeland/kopa/cycle/stages[5].talks[2].levels.A1/1/1", "lakeland/kopa/cycle/stages[7].talks[0].levels.A2/1/1", "lakeland/kopa/cycle/stages[7].talks[1].levels.B2/1/1",
-        "lakeland/kopa/cycle/stages[8].talks[0].levels.B2/1/1", "lakeland/kopa/cycle/stages[9].talks[0].levels.A2/1/1", "lakeland/kopa/cycle/winter.talks[0].levels.B2/1/1",
-        "primorska/kopa/cycle/stages[3].talks[0].levels.B2/2/1", "primorska/kopa/cycle/stages[3].talks[1].levels.B2/1/1",
-    )
-
     /** Every `lines` under [e] in a cycle, with where it is: a level's talk ("stages[0].talks[1].levels.B2"), whatever the part. */
     private fun linesIn(e: JsonElement?, at: String): List<Pair<String, JsonElement>> = when (e) {
         is JsonObject -> e.flatMap { (k, v) -> if (k == "lines") listOf(at to v) else linesIn(v, if (at.isEmpty()) k else "$at.$k") }
@@ -209,6 +193,58 @@ class DialogReactionsTest {
         return runs
     }
 
+    /** Whether every saying of [run] in [said] stands in a question ("Od spodaj? Si videl kje spodaj kakšen ogenj?"). */
+    private fun asked(said: String, run: List<String>): Boolean {
+        val holding = Regex("[^.!?…]+[.!?…]*").findAll(said).map { it.value.trim() }.filter { says(it, run) }.toList()
+        return holding.isNotEmpty() && holding.all { it.endsWith("?") }
+    }
+
+    /** Whether two words apart from each other trade places between [r] and [w], so the sentence says the other thing. */
+    private fun traded(r: List<String>, w: List<String>): Boolean {
+        val differ = r.indices.filter { r[it] != w.getOrNull(it) }
+        return r.size == w.size && differ.size == 2 && differ[1] - differ[0] > 1 && r[differ[0]] == w[differ[1]] && r[differ[1]] == w[differ[0]]
+    }
+
+    /** [run] with the word before it and with the word after it, wherever [r] says it. */
+    private fun placed(r: List<String>, run: List<String>): List<List<String>> = r.indices.filter { r.drop(it).take(run.size) == run }.flatMap { i ->
+        listOfNotNull(r.getOrNull(i - 1)?.let { listOf(it) + run }, r.getOrNull(i + run.size)?.let { run + it })
+    }
+
+    /**
+     * Whether [said] says [run] only as the learner did: an echo of [wrong] ("Als waren Sie?"), not the answer. [ChoiceDiff]
+     * marks a moved word as what sets [right] apart, though the wrong choice holds it too, so here the check asks what such a
+     * word could give away. Not an echo, whatever else:
+     * - a word [wrong] lacks ("Sneg? Saj ni zima. To je dež."), or holds fewer of while it has another word instead ("Bi ali
+     *   bo?" beside "…, bi kopa" and "…, bo kopa"): the form is the answer;
+     * - a word said beside what [right] puts next to it, as [wrong] doesn't have them ("Geholfen hat es" beside "geholfen hat"
+     *   and "hat geholfen"): the place is the answer;
+     * - one of two words that trade places, so that the sentence says the other thing ("Tone hoče drobno."), unless it's
+     *   only asked back ("Od spodaj?"): a statement tells who gets which.
+     * It reads forms, not meanings: a statement dressed as a question passes, and that is the reader's to see.
+     */
+    private fun echoes(said: String, run: List<String>, right: String, wrong: String): Boolean {
+        val r = words(right)
+        val w = words(wrong)
+        if (!says(wrong, run)) return false
+        val replaced = run.any { x -> r.count { it == x } > w.count { it == x } } && w.toSet().any { x -> w.count { it == x } > r.count { it == x } }
+        return when {
+            replaced -> false
+            traded(r, w) -> asked(said, run)
+            else -> placed(r, run).none { says(said, it) && !says(wrong, it) }
+        }
+    }
+
+    /** What of [right] (the whole, or what sets it apart from [wrong]) [said] gives away, and in a translation [meant]. */
+    private fun giveaways(right: String, wrong: String, said: String, meant: Map<String, String> = emptyMap()): List<String> = buildList {
+        if (says(said, words(right))) add("says the right choice: «$said»")
+        for (run in apart(right, wrong)) {
+            val told = run.joinToString(" ")
+            if (says(said, run) && !echoes(said, run, right, wrong)) add("says «$told»: «$said»")
+            // in a translation too, where it could be read as the answer ("vam", not "je")
+            for ((l, t) in meant) if (told.length >= 3 && says(t, run) && !echoes(t, run, right, wrong)) add(".$l says «$told»: «$t»")
+        }
+    }
+
     @Test fun `every scene of Jan's and of the culture packs is here`() {
         // the Slovene village's, the culture packs' before, Kärnten's places (places-kaernten), the Lake District's (places-lakeland, and
         // lakeland-projects-b's beck, tarn and six projects), Kärnten's wood and seven projects' places (kaernten-projects-a), its six
@@ -248,27 +284,40 @@ class DialogReactionsTest {
                     val reply = c["reply"].obj() ?: return@flatMap emptyList()
                     val said = who.render(reply.str(lang).orEmpty())
                     val wrong = who.render(c.str(lang).orEmpty())
-                    rights.flatMap { right ->
-                        buildList {
-                            if (says(said, words(right))) add("$at/$k says the right choice: «$said»")
-                            for (run in apart(right, wrong)) {
-                                if (says(said, run)) add("$at/$k says «${run.joinToString(" ")}»: «$said»")
-                                // in a translation too, where it could be read as the answer ("vam", not "je")
-                                for (l in langs - lang) {
-                                    val meant = reply.str(l)?.let(who::render) ?: continue
-                                    if (run.joinToString(" ").length >= 3 && says(meant, run)) add("$at/$k.$l says «${run.joinToString(" ")}»: «$meant»")
-                                }
-                            }
-                        }
-                    }
+                    val meant = (langs - lang).mapNotNull { l -> reply.str(l)?.let { l to who.render(it) } }.toMap()
+                    rights.flatMap { right -> giveaways(right, wrong, said, meant).map { "$at/$k $it" } }
                 }
             }
         } }.distinct()
-        // where a line of the list above is from: "<turn>/<choice>", a translation's with its language after it
-        fun turnOf(t: String) = t.substringBefore(" says ").replace(Regex("\\.(sl|en|de|it)$"), "")
-        val (echoed, others) = told.partition { turnOf(it) in cycleEchoes }
-        assertTrue(others.joinToString("\n"), others.isEmpty())
-        assertEquals("the cycles' echoes", cycleEchoes, echoed.map(::turnOf).toSet())
+        assertTrue(told.joinToString("\n"), told.isEmpty())
+    }
+
+    @Test fun `an echo of the learner's words passes, and what gave the answer away never does`() {
+        // the nine reactions the piles' cycles once had, each reworded since, and the tenth the rule found: right, wrong, said
+        val leaks = listOf(
+            Triple("Ali naj jih nesem vsa naenkrat?", "Ali naj ga nesem vsa naenkrat?", "Ga? Koga? Tam jih je cel kup."),
+            Triple("Če bi jih naredili preveč, bi kopa dobila preveč zraka, kajne?", "Če bi jih naredili preveč, bo kopa dobila preveč zraka, kajne?", "Bi ali bo? Odloči se, kopa ne čaka."),
+            Triple("Zakaj je dež dober?", "Zakaj je sneg dober?", "Sneg? Saj ni zima. To je dež."),
+            Triple("Torej debelo oglje prodate trgovcem, drobno pa ostane kovaču.", "Torej drobno oglje prodate trgovcem, debelo pa ostane kovaču.", "Ravno obratno. Tone hoče drobno."),
+            Triple("Koliko vam je plačal?", "Koliko vam bo plačal?", "Bo? Saj je že plačal. Tone nikomur nič ne dolguje."),
+            Triple("Koliko vam je plačal za oglje?", "Koliko vam bo plačal za oglje?", "Bo? Saj je že plačal. Tone nikomur nič ne dolguje."),
+            Triple("Sì, volentieri!", "No, volentieri!", "No, volentieri? Allora sì o no?"),
+            Triple("Per il fabbro Bruno?", "Per il gatto Bruno?", "Il gatto? Bruno non è un gatto: è il fabbro!"),
+            Triple("Grazie! Che bella capanna!", "Grazie! Che bella barca!", "Una barca? Nel bosco? È la mia capanna!"),
+            Triple("Ob das Kreuz geholfen hat, weiß man nicht, aber geschadet hat es sicher nicht.", "Ob das Kreuz hat geholfen, weiß man nicht, aber geschadet hat es sicher nicht.", "Hm. Geholfen hat es, aber der Satz ist ein bisschen durcheinander."),
+        )
+        for ((right, wrong, said) in leaks) assertTrue("$said: passes", giveaways(right, wrong, said).isNotEmpty())
+        // and an echo with the right choice said after it isn't one, nor a word asked back while it's stated too
+        assertTrue(giveaways("Wenn der Meiler kalt ist.", "Wenn der Meiler ist kalt.", "Ist kalt? Du meinst: wenn der Meiler kalt ist.").isNotEmpty())
+        assertTrue(giveaways("Torej debelo oglje prodate, drobno pa ostane.", "Torej drobno oglje prodate, debelo pa ostane.", "Drobno? Tone hoče drobno.").isNotEmpty())
+        // the moved word, asked back as the learner said it; a word of two that trade places; the person turned round
+        val echoes = listOf(
+            Triple("Was haben Sie gekocht, als Sie das erste Mal allein hier waren?", "Was haben Sie gekocht, als waren Sie das erste Mal allein hier?", "Als waren Sie? Hm, jetzt hab ich den Faden verloren."),
+            Triple("How can you tell when it's thick enough?", "How can you tell when it's enough thick?", "Enough thick? It came out back to front, lad. Like my first pit."),
+            Triple("Zakaj prižigate od zgoraj, ne od spodaj?", "Zakaj prižigate od spodaj, ne od zgoraj?", "Od spodaj? Si videl kje spodaj kakšen ogenj?"),
+            Triple("What do you do with the small pieces?", "What you do with the small pieces?", "What I do? I'm a collier, lad."),
+        )
+        for ((right, wrong, said) in echoes) assertEquals(said, emptyList<String>(), giveaways(right, wrong, said))
     }
 
     @Test fun `a reaction passes - no weather, one short line, only its art's effects`() {
