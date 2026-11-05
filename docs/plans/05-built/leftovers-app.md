@@ -149,3 +149,37 @@ Nothing spent. Nothing new needs a clip: these are settings' lines, read by nobo
 - `companion/relay/test`: the drop boxes' limits; none of a parent's routes through the relay.
 - The bridge's smoke, `test/smoke/family-members.ts`: a real child's bridge refusing all of it; an id that's never shell text; what reaches the new bridge's environment; another adult's devices; what's left, with its command.
 - `companion/bin/qa`: `family-parent` with `family-child` (`LANI_QA_FAMILY_TABLET=1`), `family-computer-parent` with `family-computer-child`, on the two emulators at once. Between two emulators nothing multicasts, so QA gives the address (hook "family:peer:"): **`FamilyNsd`, the Wi-Fi's discovery, has run in no test and on no emulator.** The channel behind it has; finding the other device hasn't, and that's the first thing to try on two real phones.
+
+## What a device has shown
+
+Seen on emulators, each journey's steps green, at this branch's final code:
+
+| Journey | Parent | New device | Seen |
+|---|---|---|---|
+| A family on devices | phone | tablet, on its side, a child's | the code unspent with no internet here; "take it now"; the parent's hold, a tap doing nothing; the key waiting, then checked once online; the budget on its way, then there on both; a ceiling behind the child's hold, higher chips off, no way out; no family's page on a child's device; the removal, leaving, then gone, the key gone there; a second scan refused |
+| A family on a computer | tablet, on its side | phone, a child's | a new member by a hold, a tap doing nothing; a **real second bridge** by the real `lani-bridge start`; another code by a hold; the code read by "Someone in my family already uses Lani", paired with that bridge; the child's town linked to the parent's as its guardian; no family's page on it; the device on the parent's list; its budget through the computer, read by the device; its removal, and "Ni več seznanjen · Not paired any more" on Home |
+
+**Only tested in code, not on a device:**
+
+- **`FamilyNsd`, finding the other device on a Wi-Fi.** Two emulators don't multicast to each other, so QA gives the address. Everything after the finding is seen; the finding is not.
+- **The relay, on a device.** The exchange and the notes are tested against the relay's contract, and the relay's own routes in its tests, but no two devices have met through a running one.
+- **`tailscale serve` from a bridge.** QA's node has a stand-in for it and an address from `LANI_FAMILY_URL`. The smoke has the failing case.
+- **The tutor of a new member.** QA starts no tutor session.
+- **A real camera** reading the codes: QA hands the text over (hook "family:scan:").
+
+## What needs Jan
+
+**To try on two real phones and a camera, in this order:**
+
+1. Two phones on one Wi-Fi: add a member with the camera, then set a budget with Lani open on both. It should arrive within a minute with no address given: that's `FamilyNsd`'s first real run. Try a guest Wi-Fi too, which may block devices from seeing each other: the row should simply go on saying "on its way".
+2. Remove that device with both open, and see the tutor gone from it.
+3. A new phone in flight mode with Wi-Fi on but no internet (a phone's hotspot with its data off): scan, see the code unspent, "take it now", then go online.
+4. On the family's computer: add a member from a phone, with the real `tailscale serve`. If it asks for the operator's right, the page should show the command.
+5. Read the family page on the real tablet, upright too: QA saw it on its side.
+
+**Decisions:**
+
+- **A child's device under a limit from a lost phone** stays under it until it's set up again with a new code. An adult's device can leave the family; a child's can't, because a child's device can't change a budget. Jan may prefer another way out, such as the family's computer or a code from a second parent.
+- **Any adult on a computer looks after every child there**, as `looksAfter` has it, while only the owner's town links a child. So a second parent can manage a child's devices, and so can any other adult with a profile there.
+- **A parent isn't told when an adult's device leaves by itself:** the row just stops being in touch. The key is gone from it either way.
+- **Hosting the relay:** see "The relay".
