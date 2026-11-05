@@ -67,6 +67,14 @@ export type Config = {
   /** Origins whose pages may call the family API (CORS); the relay's own family page needs none. */
   familyOrigins: string[]
 
+  /** A family's drop boxes (drop.ts): how much one sealed note may be, how many wait in a box, how long at most (days). */
+  dropMaxBytes: number
+  dropBoxMax: number
+  dropDays: number
+  /** All the notes kept at once, and how many writes an address may do in a minute. */
+  dropTotalBytes: number
+  dropRatePerMin: number
+
   /** The clock (tests move it). */
   now: () => number
 }
@@ -114,6 +122,11 @@ export function configFromEnv(env: Record<string, string | undefined> = process.
     storeMaxBytes: n('RELAY_STORE_MAX_BYTES', 4 * 1024 * MB),
     backupUploads: n('RELAY_BACKUP_UPLOADS', 4),
     familyOrigins: (env.RELAY_FAMILY_ORIGINS ?? '').split(',').map(s => s.trim().replace(/\/+$/, '')).filter(Boolean),
+    dropMaxBytes: n('RELAY_DROP_MAX_BYTES', 16 * 1024),
+    dropBoxMax: n('RELAY_DROP_BOX_MAX', 32),
+    dropDays: n('RELAY_DROP_DAYS', 14),
+    dropTotalBytes: n('RELAY_DROP_TOTAL_BYTES', 256 * MB),
+    dropRatePerMin: n('RELAY_DROP_RATE_PER_MIN', 120),
     now: Date.now,
   }
 }

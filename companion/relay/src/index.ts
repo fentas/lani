@@ -29,7 +29,7 @@ const server = Bun.serve({
 const sweeper = setInterval(() => {
   try {
     const gone = relay.sweep()
-    if (gone.mail || gone.replies) console.error(`[lani-relay] retention: ${gone.mail} message(s), ${gone.replies} answer(s) gone`)
+    if (gone.mail || gone.replies || gone.drops) console.error(`[lani-relay] retention: ${gone.mail} message(s), ${gone.replies} answer(s), ${gone.drops} note(s) gone`)
   } catch (e) {
     console.error(`[lani-relay] sweep: ${(e as Error).message}`)
   }

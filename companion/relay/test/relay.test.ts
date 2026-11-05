@@ -426,6 +426,84 @@ describe('backups', () => {
   })
 })
 
+describe("a family's drop boxes", () => {
+  const box = 'ab'.repeat(32)
+  const other = 'cd'.repeat(32)
+  const put = (relay: Relay, b: string, body: string | Uint8Array, headers: Record<string, string> = {}, ip = '10.0.0.1') =>
+    relay.fetch(new Request(`${BASE}/v1/drop/${b}`, { method: 'PUT', body: body as BodyInit, headers }), ip)
+  const take = (relay: Relay, b: string, q = '') => relay.fetch(new Request(`${BASE}/v1/drop/${b}${q}`))
+  const items = async (r: Response) => ((await r.json()) as { items: string[] }).items.map(i => Buffer.from(i, 'base64').toString())
+
+  test('a note is read once, oldest first, by whoever knows the box, and no other box sees it', async () => {
+    const relay = relayWith()
+    expect((await put(relay, box, 'first')).status).toBe(202)
+    expect((await put(relay, box, 'second')).status).toBe(202)
+    expect(await items(await take(relay, other))).toEqual([])
+    expect(await items(await take(relay, box))).toEqual(['first', 'second'])
+    expect(await items(await take(relay, box))).toEqual([])
+  })
+
+  test('it needs no key and no town, and the bytes come back as they went', async () => {
+    const relay = relayWith()
+    const bytes = Uint8Array.from([0, 255, 1, 254])
+    expect((await put(relay, box, bytes)).status).toBe(202)
+    const r = (await (await take(relay, box)).json()) as { items: string[] }
+    expect([...Buffer.from(r.items[0], 'base64')]).toEqual([0, 255, 1, 254])
+    expect(relay.store.town(box.slice(0, 32))).toBeUndefined()
+  })
+
+  test('a long poll wakes when a note comes, and a closed one takes nothing', async () => {
+    const relay = relayWith()
+    const waiting = take(relay, box, '?wait=5')
+    await Bun.sleep(20)
+    await put(relay, box, 'hello')
+    expect(await items(await waiting)).toEqual(['hello'])
+    const gone = new AbortController()
+    const left = relay.fetch(new Request(`${BASE}/v1/drop/${box}?wait=5`, { signal: gone.signal }))
+    await Bun.sleep(20)
+    gone.abort()
+    await put(relay, box, 'later')
+    expect(await items(await left)).toEqual([])
+    expect(await items(await take(relay, box))).toEqual(['later'])
+  })
+
+  test('a note runs out: its own time, at most the longest the relay keeps one', async () => {
+    const relay = relayWith({ dropDays: 2 })
+    await put(relay, box, 'short', { 'x-lani-drop-ttl': '180' })
+    await put(relay, box, 'long', { 'x-lani-drop-ttl': String(99 * 86_400) })
+    const start = clock
+    try {
+      clock = start + 181_000
+      expect(relay.sweep().drops).toBe(1)
+      clock = start + 2 * 86_400_000 - 1_000
+      expect(relay.sweep().drops).toBe(0)
+      clock = start + 2 * 86_400_000 + 1_000
+      expect(relay.sweep().drops).toBe(1)
+      expect(await items(await take(relay, box))).toEqual([])
+    } finally {
+      clock = start
+    }
+  })
+
+  test('the limits: an empty note, too large, a full box, a full relay, too many writes, a bad name, a wrong method', async () => {
+    const relay = relayWith({ dropMaxBytes: 100, dropBoxMax: 2, dropTotalBytes: 250 })
+    expect((await put(relay, box, '')).status).toBe(400)
+    expect((await put(relay, box, 'x'.repeat(101))).status).toBe(413)
+    await put(relay, box, 'x'.repeat(100))
+    await put(relay, box, 'x'.repeat(100))
+    expect(((await (await put(relay, box, 'x')).json()) as any).code).toBe('box_full')
+    expect(((await (await put(relay, other, 'x'.repeat(100))).json()) as any).code).toBe('full')
+    expect((await put(relay, 'ab'.repeat(31), 'x')).status).toBe(404)
+    expect((await put(relay, box.toUpperCase(), 'x')).status).toBe(404)
+    expect((await relay.fetch(new Request(`${BASE}/v1/drop/${box}`, { method: 'DELETE' }))).status).toBe(405)
+    const slow = relayWith({ dropRatePerMin: 10 })
+    const answers = []
+    for (let i = 0; i < 12; i++) answers.push((await put(slow, other, 'x', {}, '10.0.0.9')).status)
+    expect(answers.filter(s => s === 429).length).toBeGreaterThan(0)
+    expect((await put(slow, other, 'x', {}, '10.0.0.10')).status).toBe(202)
+  })
+})
+
 test('health', async () => {
   const r = await asJson(await relayWith().fetch(new Request(`${BASE}/health`)))
   expect(r.body).toMatchObject({ ok: true, service: 'lani-relay' })
