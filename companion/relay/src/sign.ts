@@ -5,7 +5,8 @@
 // - X-Lani-Key: the public key, base64 SPKI DER;
 // - X-Lani-Time: unix milliseconds;
 // - X-Lani-Sig: a base64 DER ECDSA signature (SHA-256) over `${METHOD}\n${path with query}\n${time}\n${hex SHA-256 of the body}`.
-// The relay takes a time within ±5 minutes and each signed message once (replays: store.ts, seen).
+// The relay takes a time within ±5 minutes and each signed message once (replays: store.ts, seen). A backup's PUT, whose
+// body can take a while, counts from when the request starts (backup.ts, UPLOAD_WINDOW_MS).
 import { createHash, createPublicKey, verify, type KeyObject } from 'node:crypto'
 
 export const MAX_SKEW_MS = 5 * 60_000

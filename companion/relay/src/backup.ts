@@ -5,8 +5,9 @@
 //   GET    /v1/backup          [{name, size, time}]                (time: unix ms of the PUT)
 //   DELETE /v1/backup/{name}                                       → {ok: true}
 // A PUT's body is streamed to a temp file and hashed on the way; its signature (over that hash) is checked before the
-// file takes the name. Each key has a quota of bytes and a number of backups. A hard stop leaves its temp file behind:
-// the next start sweeps the old ones.
+// file takes the name. Its time counts from when the request starts, and the last byte has UPLOAD_WINDOW_MS after that, so
+// a slow connection isn't refused for being slow (docs/plans/05-built/last-small.md). Each key has a quota of bytes and a
+// number of backups. A hard stop leaves its temp file behind: the next start sweeps the old ones.
 import { createHash, randomBytes } from 'node:crypto'
 import { closeSync, existsSync, mkdirSync, openSync, readdirSync, renameSync, statSync, unlinkSync, writeSync } from 'node:fs'
 import { join } from 'node:path'
@@ -17,10 +18,22 @@ import type { Store } from './store'
 
 export const BACKUP_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/
 
-/** A temp file no write has touched for this long is no upload's: Bun closes a stalled request after two minutes. */
+/** A temp file no write has touched for this long is no upload's: a stalled upload is cut after [UPLOAD_STALL_S]. */
 const STALE_UPLOAD_MS = 60 * 60_000
 
-export type Admit = (signed: Signed) => void
+/**
+ * From a backup's headers to its last byte: 50 MiB at 0.23 Mbit/s. The hard end of what the time check allows: no upload is
+ * admitted later, and the replay check keeps a PUT in mind this much longer (`admit`), so a copy can't outlast the memory of it.
+ */
+export const UPLOAD_WINDOW_MS = 30 * 60_000
+
+/** No byte for this long: the sender is gone. Bun's timer for a request isn't reset by its body, so each piece sets it again. */
+export const UPLOAD_STALL_S = 120
+
+export type Admit = (signed: Signed, landsWithin?: number) => void
+
+/** Sets how long the server waits for this request from now, in seconds (Bun's `server.timeout`). */
+export type SetTimeout = (seconds: number) => void
 
 /** Removes what a hard stop left in [staging], where no cleanup ran. Only old files go: during a restart another relay may be writing there. */
 function sweepStaging(staging: string, now: number): void {
@@ -61,8 +74,8 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     return check.signed
   }
 
-  /** Streams [req]'s body into a temp file under [dir], at most [max] bytes: its path, size and SHA-256. */
-  async function spool(req: Request, dir: string, max: number): Promise<{ tmp: string; size: number; sha256: string }> {
+  /** Streams [req]'s body into a temp file under [dir], at most [max] bytes, until [deadline]: its path, size and SHA-256. */
+  async function spool(req: Request, dir: string, max: number, deadline: number, timeout?: SetTimeout): Promise<{ tmp: string; size: number; sha256: string }> {
     if (Number(req.headers.get('content-length') ?? 0) > max) throw new HttpError(413, 'too_large', `a backup is at most ${max} bytes`)
     mkdirSync(dir, { recursive: true, mode: 0o700 })
     const tmp = join(dir, `.tmp-${randomBytes(8).toString('hex')}`)
@@ -74,7 +87,13 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
         const reader = req.body.getReader()
         for (;;) {
           const { done, value } = await reader.read()
+          if (cfg.now() > deadline) {
+            await reader.cancel().catch(() => {})
+            // the retry-after: OkHttp repeats a plain 408 by itself, with a signature that is old by now
+            throw new HttpError(408, 'too_slow', `a backup's upload takes at most ${UPLOAD_WINDOW_MS / 60_000} minutes`, { 'retry-after': '60' })
+          }
           if (done) break
+          timeout?.(UPLOAD_STALL_S)
           size += value.byteLength
           if (size > max) {
             await reader.cancel().catch(() => {})
@@ -93,13 +112,14 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     return { tmp, size, sha256: hash.digest('hex') }
   }
 
-  async function put(req: Request, url: URL, name: string): Promise<Response> {
+  async function put(req: Request, url: URL, name: string, timeout?: SetTimeout): Promise<Response> {
     // what can be checked before the body: the headers' shape, the clock, the key's quota and the relay's room for what
     // it says it sends, and how many uploads run (the signature needs the whole body)
+    const started = cfg.now()
     const timeText = req.headers.get('x-lani-time') ?? ''
     const claimed = parseKey(req.headers.get('x-lani-key'))
     if (!claimed || !req.headers.get('x-lani-sig') || !/^\d{1,16}$/.test(timeText)) throw new HttpError(401, 'unsigned', 'the request is not signed by a town key')
-    if (Math.abs(cfg.now() - Number(timeText)) > MAX_SKEW_MS) throw new HttpError(401, 'stale', "the request's time is more than 5 minutes off")
+    if (Math.abs(started - Number(timeText)) > MAX_SKEW_MS) throw new HttpError(401, 'stale', "the request's time is more than 5 minutes off")
     const announced = Number(req.headers.get('content-length') ?? cfg.backupMaxBytes)
     const mine = store.backups(claimed.fingerprint)
     const kept = mine.reduce((n, b) => n + b.size, 0) - (mine.find(b => b.name === name)?.size ?? 0)
@@ -109,15 +129,16 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     uploads++
     let spooled: { tmp: string; size: number; sha256: string }
     try {
-      spooled = await spool(req, staging, cfg.backupMaxBytes)
+      spooled = await spool(req, staging, cfg.backupMaxBytes, started + UPLOAD_WINDOW_MS, timeout)
     } finally {
       uploads--
     }
     const { tmp, size, sha256 } = spooled
     try {
-      const check = checkSigned(req.headers, { method: 'PUT', pathWithQuery: url.pathname + url.search, bodySha256: sha256, now: cfg.now() })
+      // the clock as the request started: what took the time since is the upload, and [spool] ended that at its deadline
+      const check = checkSigned(req.headers, { method: 'PUT', pathWithQuery: url.pathname + url.search, bodySha256: sha256, now: started })
       if (!check.ok) throw new HttpError(401, check.code, 'the request is not signed by a town key')
-      admit(check.signed)
+      admit(check.signed, UPLOAD_WINDOW_MS)
       const owner = check.signed.id
       const all = store.backups(owner)
       const old = all.find(b => b.name === name)
@@ -159,7 +180,7 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
   }
 
   /** The backup routes; undefined when [url] isn't one. */
-  return async (req: Request, url: URL): Promise<Response | undefined> => {
+  return async (req: Request, url: URL, timeout?: SetTimeout): Promise<Response | undefined> => {
     if (url.pathname === '/v1/backup') {
       if (req.method !== 'GET') throw new HttpError(405, 'method', 'GET only')
       return list(req, url)
@@ -171,7 +192,7 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
       name = decodeURIComponent(m[1])
     } catch {}
     if (!BACKUP_NAME.test(name)) throw new HttpError(400, 'bad_name', 'a backup name is 1-128 letters, digits, ".", "_" or "-", starting with a letter or digit')
-    if (req.method === 'PUT') return put(req, url, name)
+    if (req.method === 'PUT') return put(req, url, name, timeout)
     if (req.method === 'GET') return get(req, url, name)
     if (req.method === 'DELETE') return remove(req, url, name)
     throw new HttpError(405, 'method', 'PUT, GET or DELETE')

@@ -5,10 +5,11 @@ import { generateKeyPairSync, sign, type KeyObject } from 'node:crypto'
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, rmSync, utimesSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
+import { UPLOAD_STALL_S, UPLOAD_WINDOW_MS } from '../src/backup'
 import { configFromEnv, type Config } from '../src/config'
 import { familyRoute } from '../src/family'
 import { createRelay, type Relay } from '../src/relay'
-import { fingerprintOf, sha256hex, signedMessage, verifySig } from '../src/sign'
+import { MAX_SKEW_MS, fingerprintOf, sha256hex, signedMessage, verifySig } from '../src/sign'
 
 const temps: string[] = []
 afterAll(() => {
@@ -385,6 +386,170 @@ describe('the family page', () => {
     expect(no.status).toBe(403)
     expect(no.headers.get('access-control-allow-origin')).toBeNull()
   })
+})
+
+/**
+ * A PUT of [body] in two halves, [between] running after the first: a phone on a slow connection, on the test's clock. The
+ * request starts when this is called, its last byte comes after [between].
+ */
+function slowPut(relay: Relay, path: string, headers: Record<string, string>, body: Uint8Array, between: () => void | Promise<void>, timeout?: (s: number) => void) {
+  const half = body.length >> 1
+  let step = 0
+  const parts = new ReadableStream<Uint8Array>(
+    {
+      async pull(c) {
+        step++
+        if (step === 1) c.enqueue(body.subarray(0, half))
+        else if (step === 2) {
+          await between()
+          c.enqueue(body.subarray(half))
+        } else c.close()
+      },
+    },
+    { highWaterMark: 0 },
+  )
+  return relay.fetch(new Request(BASE + path, { method: 'PUT', headers, body: parts, duplex: 'half' } as RequestInit), 'local', timeout)
+}
+
+describe('a slow backup: the time counts from the start, a replay stays refused', () => {
+  const path = '/v1/backup/lani-20261105T120000Z.lbk'
+  const body = new Uint8Array(4000).fill(7)
+  const stagingOf = (dataDir: string) => join(dataDir, 'backup', '.incoming')
+
+  test('the last byte may come long after the five minutes, and the backup is there whole', async () => {
+    const relay = relayWith()
+    const a = newKey()
+    const r = await slowPut(relay, path, signed(a, 'PUT', path, body), body, () => {
+      clock += UPLOAD_WINDOW_MS - 1000
+    })
+    expect(r.status).toBe(200)
+    const got = await call(relay, a, 'GET', path)
+    expect(new Uint8Array(await got.arrayBuffer())).toEqual(body)
+  })
+
+  test('a copy that starts at the last fresh moment and takes the whole window is refused, the memory swept just before its last byte', async () => {
+    const relay = relayWith()
+    const a = newKey()
+    const time = clock
+    const headers = signed(a, 'PUT', path, body, time)
+    expect((await slowPut(relay, path, headers, body, () => {})).status).toBe(200)
+    clock = time + MAX_SKEW_MS
+    const copy = await slowPut(relay, path, headers, body, () => {
+      clock += UPLOAD_WINDOW_MS
+      relay.sweep()
+    })
+    expect((await asJson(copy)).body.code).toBe('replayed')
+    // a moment later no copy can start any more, so nothing has to remember it
+    clock += 1
+    expect((await asJson(await slowPut(relay, path, headers, body, () => {}))).body.code).toBe('stale')
+  })
+
+  test('two copies at once: the one that finishes first takes it, the one that started first is refused', async () => {
+    const relay = relayWith()
+    const a = newKey()
+    const headers = signed(a, 'PUT', path, body)
+    const started = await slowPut(relay, path, headers, body, async () => {
+      expect((await slowPut(relay, path, headers, body, () => {})).status).toBe(200)
+    })
+    expect((await asJson(started)).body.code).toBe('replayed')
+  })
+
+  test('the time is still checked as the request starts: too old or too far ahead is refused before the body is read', async () => {
+    const relay = relayWith()
+    const a = newKey()
+    for (const time of [clock - MAX_SKEW_MS - 1, clock + MAX_SKEW_MS + 1]) {
+      let read = false
+      const r = await slowPut(relay, path, signed(a, 'PUT', path, body, time), body, () => {
+        read = true
+      })
+      expect((await asJson(r)).body.code).toBe('stale')
+      expect(read).toBe(false)
+    }
+  })
+
+  test('the signature is still checked: a changed body, slow or not, takes no name', async () => {
+    const relay = relayWith()
+    const a = newKey()
+    const r = await slowPut(relay, path, signed(a, 'PUT', path, 'something else'), body, () => {
+      clock += 10 * 60_000
+    })
+    expect((await asJson(r)).body.code).toBe('bad_signature')
+    expect((await call(relay, a, 'GET', path)).status).toBe(404)
+  })
+
+  test('past the window it is cut: 408, nothing kept, the slot free, the same signature not spent', async () => {
+    const dataDir = mkdtempSync(join(tmpdir(), 'lani-relay-test-'))
+    temps.push(dataDir)
+    const relay = relayWith({ dataDir, backupUploads: 1 })
+    const a = newKey()
+    const headers = signed(a, 'PUT', path, body)
+    const r = await slowPut(relay, path, headers, body, () => {
+      clock += UPLOAD_WINDOW_MS + 1
+    })
+    expect(r.status).toBe(408)
+    expect(r.headers.get('retry-after')).toBeTruthy() // or OkHttp repeats it by itself
+    expect((await r.json() as any).code).toBe('too_slow')
+    expect(readdirSync(stagingOf(dataDir))).toEqual([])
+    expect((await asJson(await call(relay, a, 'GET', '/v1/backup'))).body).toEqual([])
+    expect((await call(relay, a, 'PUT', path, { body })).status).toBe(200)
+  })
+
+  test('a body that stops with the deadline passed is cut too, though no piece came after it', async () => {
+    const relay = relayWith()
+    const a = newKey()
+    const parts = new ReadableStream<Uint8Array>(
+      {
+        pull(c) {
+          clock += UPLOAD_WINDOW_MS + 1
+          c.close()
+        },
+      },
+      { highWaterMark: 0 },
+    )
+    const r = await relay.fetch(new Request(BASE + path, { method: 'PUT', headers: signed(a, 'PUT', path, ''), body: parts, duplex: 'half' } as RequestInit))
+    expect(r.status).toBe(408)
+  })
+
+  test('each piece tells the server to wait on: its timer is not reset by a body', async () => {
+    const relay = relayWith()
+    const asked: number[] = []
+    const r = await slowPut(relay, path, signed(newKey(), 'PUT', path, body), body, () => {}, s => asked.push(s))
+    expect(r.status).toBe(200)
+    expect(asked).toEqual([UPLOAD_STALL_S, UPLOAD_STALL_S])
+  })
+
+  test('other signed requests are remembered as before, a backup longer: it costs one row a day', async () => {
+    const relay = relayWith()
+    const a = newKey()
+    const time = clock
+    await call(relay, a, 'GET', '/v1/backup', { time })
+    const put = signed(a, 'PUT', path, body, time)
+    expect((await slowPut(relay, path, put, body, () => {})).status).toBe(200)
+    const until = (relay.store as any).db.query('SELECT until FROM seen ORDER BY until').all().map((r: { until: number }) => r.until - time)
+    expect(until).toEqual([MAX_SKEW_MS + 60_000, MAX_SKEW_MS + UPLOAD_WINDOW_MS + 60_000])
+  })
+
+  test('over a real socket an upload outlives the server\'s timer for a request, as long as its pieces come', async () => {
+    const relay = relayWith()
+    const server = Bun.serve({ hostname: '127.0.0.1', port: 0, idleTimeout: 4, fetch: (req, srv) => relay.fetch(req, 'local', s => srv.timeout(req, s)) })
+    try {
+      const a = newKey()
+      const blob = new Uint8Array(7000).fill(9)
+      let sent = 0
+      const pieces = new ReadableStream<Uint8Array>({
+        async pull(c) {
+          if (sent === 7) return c.close()
+          await Bun.sleep(1000)
+          c.enqueue(blob.subarray(sent * 1000, ++sent * 1000))
+        },
+      })
+      const r = await fetch(`http://127.0.0.1:${server.port}${path}`, { method: 'PUT', headers: signed(a, 'PUT', path, blob), body: pieces, duplex: 'half' } as RequestInit)
+      expect(r.status).toBe(200)
+      expect(((await r.json()) as any).size).toBe(7000)
+    } finally {
+      server.stop(true)
+    }
+  }, 20_000)
 })
 
 describe('backups', () => {

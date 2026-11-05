@@ -15,7 +15,7 @@
 // - A family's drop boxes: /v1/drop/{box} (drop.ts), sealed notes between two of a family's devices, for a device with no town.
 // - Backups: /v1/backup (backup.ts). Health: /health.
 import { randomBytes, timingSafeEqual } from 'node:crypto'
-import { backups } from './backup'
+import { backups, type SetTimeout } from './backup'
 import type { Config } from './config'
 import { drops } from './drop'
 import { familyPage, familyRoute } from './family'
@@ -47,8 +47,8 @@ const b64 = (b: Uint8Array) => Buffer.from(b).toString('base64')
 const iso = (ms: number) => new Date(ms).toISOString()
 
 export type Relay = {
-  /** Answers one request; [ip]: the client's address (for the limits on unsigned requests). */
-  fetch: (req: Request, ip?: string) => Promise<Response>
+  /** Answers one request; [ip]: the client's address (for the limits on unsigned requests); [timeout]: the server's timer for it. */
+  fetch: (req: Request, ip?: string, timeout?: SetTimeout) => Promise<Response>
   /** Removes what ran out (the server runs it every minute). */
   sweep: () => ReturnType<Store['sweep']>
   close: () => void
@@ -66,11 +66,15 @@ export function createRelay(cfg: Config): Relay {
 
   const limited = (wait: number, what: string) => new HttpError(429, 'rate_limited', `too many requests ${what}: try again later`, { 'retry-after': String(Math.ceil(wait / 1000)) })
 
-  /** A signed request's signer, once its signature is fresh, its rate allows it and it wasn't seen before. */
-  function admit(signed: Signed) {
+  /**
+   * A signed request's signer, once its signature is fresh, its rate allows it and it wasn't seen before. [landsWithin]: how long
+   * after it starts such a request may still arrive whole (a backup's upload). A copy starts at most MAX_SKEW_MS after the
+   * signed time and lands at most [landsWithin] after that, so this memory outlasts both and no copy finds it gone.
+   */
+  function admit(signed: Signed, landsWithin = 0) {
     const wait = keyLimit.take(signed.id)
     if (wait) throw limited(wait, 'from this key')
-    const until = Math.max(now(), Number(signed.time)) + MAX_SKEW_MS + 60_000
+    const until = Math.max(now(), Number(signed.time)) + MAX_SKEW_MS + landsWithin + 60_000
     if (!store.firstTime(`${signed.id}:${sha256hex(signed.message)}`, until)) throw new HttpError(401, 'replayed', 'this request was seen before')
   }
 
@@ -402,7 +406,7 @@ export function createRelay(cfg: Config): Relay {
     }
   }
 
-  async function route(req: Request, ip: string): Promise<Response> {
+  async function route(req: Request, ip: string, timeout?: SetTimeout): Promise<Response> {
     const url = new URL(req.url)
     const path = url.pathname
     const wait = ipLimit.take(`ip:${ip}`)
@@ -428,16 +432,16 @@ export function createRelay(cfg: Config): Relay {
     }
     if ((m = /^\/v1\/mail\/(m_[A-Za-z0-9_-]{16,40})\/(body|reply)$/.exec(path))) return mailRoute(req, url, m[1], m[2])
     if ((m = /^\/v1\/drop\/([0-9a-f]{64})$/.exec(path))) return drop(req, url, m[1], ip)
-    const b = await backup(req, url)
+    const b = await backup(req, url, timeout)
     if (b) return b
     return fail(404, 'not_found', 'not found')
   }
 
   return {
     store,
-    async fetch(req, ip = 'local') {
+    async fetch(req, ip = 'local', timeout) {
       try {
-        return await route(req, ip)
+        return await route(req, ip, timeout)
       } catch (e) {
         if (e instanceof HttpError) return fail(e.status, e.code, e.message, e.headers)
         console.error(`[lani-relay] ${req.method} ${new URL(req.url).pathname}: ${(e as Error)?.stack ?? e}`)

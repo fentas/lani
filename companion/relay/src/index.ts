@@ -10,7 +10,8 @@ const relay = createRelay(cfg)
 const server = Bun.serve({
   hostname: cfg.host,
   port: cfg.port,
-  // long polls hold a request up to RELAY_POLL_WAIT_MAX_MS (30 s); Bun closes idle ones after this many seconds
+  // long polls hold a request up to RELAY_POLL_WAIT_MAX_MS (30 s); Bun closes a request after this many seconds, a body
+  // that keeps coming too: it doesn't reset this timer, so a backup's upload sets it again with each piece (backup.ts)
   idleTimeout: 120,
   development: false,
   // a backup (50 MB) and a little over; every route has its own, smaller limit
@@ -18,7 +19,7 @@ const server = Bun.serve({
   fetch(req, srv) {
     // the entry the proxy in front added (the right-most): the ones before it are the client's to write
     const forwarded = cfg.trustProxy ? req.headers.get('x-forwarded-for')?.split(',').at(-1)?.trim() : undefined
-    return relay.fetch(req, forwarded || srv.requestIP(req)?.address || 'unknown')
+    return relay.fetch(req, forwarded || srv.requestIP(req)?.address || 'unknown', seconds => srv.timeout(req, seconds))
   },
   error(e) {
     console.error(`[lani-relay] ${e.stack ?? e}`)

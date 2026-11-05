@@ -136,6 +136,10 @@ the headers' shape and time, the claimed key's quota and the relay's room for th
 and at most 4 uploads at once (`429 busy`). A hard stop leaves the temp file in `backup/.incoming`: each start removes
 the ones no write has touched for an hour.
 
+A `PUT`'s time counts from when the request starts, so a slow connection isn't refused for being slow: the last byte has
+30 minutes after that (`408 too_slow`, with a `Retry-After`: 50 MiB at 0.23 Mbit/s), and two minutes without a byte end the
+upload. Why that keeps a replay refused: [last-small.md](last-small.md).
+
 ## Signed requests
 
 The shared contract: `X-Lani-Key` (the town key, base64 SPKI DER, EC P-256), `X-Lani-Time` (unix ms), `X-Lani-Sig`
@@ -143,8 +147,9 @@ The shared contract: `X-Lani-Key` (the town key, base64 SPKI DER, EC P-256), `X-
 
 - A time more than 5 minutes off: `401 stale`. Unsigned: `401 unsigned`; not a P-256 key: `401 bad_key`; a wrong
   signature: `401 bad_signature`.
-- Each signed text is taken once (`401 replayed`), remembered in the database for 6 minutes, so a restart doesn't
-  forget it. The relay remembers the text, not the signature: an ECDSA signature can be changed into another valid one.
+- Each signed text is taken once (`401 replayed`), remembered in the database for 6 minutes (a backup's `PUT` 36: it can
+  land 30 minutes after it starts), so a restart doesn't forget it. The relay remembers the text, not the signature: an
+  ECDSA signature can be changed into another valid one.
   So two requests must differ: the bridge's `relayHeaders` takes the clock, or one millisecond more than its last time.
 - The path is the one the relay sees: it sits at the root of its host (a proxy that strips a prefix breaks every
   signature).
@@ -312,7 +317,7 @@ glas runs on Jan's lok8s cluster; the relay fits beside it:
   inner request, away at once, no answer in time and taken back), the family page (the page, no family, a wrong token,
   the learner's answer route refused, the token passed on, a recording, away: a read refused, a challenge queued), CORS,
   backups (put, get, list, delete, another key's view, a changed body, a replay, too large, the quota, a replaced one,
-  bad names, a broken escape, the quota and the relay's room before the body); after the review: a polling town is there
+  bad names, a broken escape, the quota and the relay's room before the body, a slow upload and its replays); after the review: a polling town is there
   however short `RELAY_ONLINE_MS`, an answer nobody waits for isn't kept, a poll doesn't load the bodies it only lists.
 - **The end-to-end smoke** (`companion/bridge/test/relay.ts`): the relay and three bridges, 37 checks, all through the
   relay: Ana's town is self-hosted with a URL the others can't reach, Marta's (the QA's fixture town) and Cene's are
