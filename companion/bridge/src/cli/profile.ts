@@ -19,7 +19,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { keysFile, parseEnvFile } from '../env'
 import { APP_LANGUAGES, cultureIds, culturesIn, DEFAULT_CULTURE, LANDSCAPES, landscapesOf, readManifest } from '../cultures'
-import { aimOf, entryDataDir, GENDERS, initLearnerData, languageCode, LANGUAGES, newEntry, readRegistry, writeRegistry, type ProfileEntry } from '../learners'
+import { addLearner, aimOf, entryDataDir, GENDERS, languageCode, LANGUAGES, type ProfileEntry } from '../learners'
 import { defaultTarget, levelOf, readProfile, setTargetIn } from '../aim'
 import { LeaseGuard } from '../lease'
 import { localDate } from '../rhythm'
@@ -145,22 +145,15 @@ async function add() {
     const offered = landscapesOf(culturesDir, culture)
     if (!offered.includes(landscape)) die(`--landscape ${landscape}: ${culture} has no sea; its landscapes are ${offered.join(', ')}`)
   }
-  const r = readRegistry(registryDir)
   let entry: ProfileEntry
   try {
-    entry = newEntry(registryDir, r, id, { name, target, base, child: values.child, culture, landscape }, {
+    entry = addLearner(registryDir, projectDir, id, { name, target, base, level, targetLevel, child: values.child, culture, landscape, ...(gender ? { gender } : {}) }, {
       port: values.port ? Number(values.port) : undefined,
       httpsPort: values['https-port'] ? Number(values['https-port']) : undefined,
     })
   } catch (e) {
     die((e as Error).message)
   }
-  try {
-    initLearnerData(projectDir, entryDataDir(registryDir, entry), { name, target, base, level, targetLevel, child: values.child, ...(gender ? { gender } : {}) })
-  } catch (e) {
-    die((e as Error).message)
-  }
-  writeRegistry(registryDir, { ...r, profiles: [...r.profiles, entry] })
   console.log(`Added ${id}: ${name}${values.child ? ' (child)' : ''}${gender ? `, ${gender}` : ''}, learns ${LANGUAGES[target]} from ${LANGUAGES[base]}, level ${level}, aims at ${targetLevel}.`)
   if (manifest.manifest.language !== target) console.log(`  The ${culture} culture pack is in ${LANGUAGES[manifest.manifest.language] ?? manifest.manifest.language}, not ${LANGUAGES[target]}: its village speaks that.`)
   if (!gender)

@@ -6,6 +6,7 @@ import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { configFromEnv, type Config } from '../src/config'
+import { familyRoute } from '../src/family'
 import { createRelay, type Relay } from '../src/relay'
 import { fingerprintOf, sha256hex, signedMessage, verifySig } from '../src/sign'
 
@@ -502,6 +503,12 @@ describe("a family's drop boxes", () => {
     expect(answers.filter(s => s === 429).length).toBeGreaterThan(0)
     expect((await put(slow, other, 'x', {}, '10.0.0.10')).status).toBe(202)
   })
+})
+
+test("a parent's routes never go through the relay: only the family page's do", () => {
+  for (const [method, rest] of [['GET', 'family/members'], ['POST', 'family/members'], ['POST', 'family/members/zan/pair'], ['DELETE', 'family/members/zan/devices/d_00000000'], ['PUT', 'family/members/zan/devices/d_00000000/budget'], ['GET', 'family/rules']]) {
+    expect(familyRoute(method, rest)).toBeUndefined()
+  }
 })
 
 test('health', async () => {

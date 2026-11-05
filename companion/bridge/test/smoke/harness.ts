@@ -98,6 +98,8 @@ export const familyToken = 'family-smoke-token'
 // The node's other learners (lani-profile add): Jan's bridge reads this registry to find the children's towns of the node
 // it may link as their parent (test/smoke/towns.ts adds a child's and an adult's profile to it).
 export const profilesDir = tempDir('lani-smoke-profiles-')
+// What a parent's device starts on the computer (src/family-members.ts): fakes test/smoke/family-members.ts writes here.
+export const familyBin = tempDir('lani-smoke-family-bin-')
 export const base = `http://127.0.0.1:${port}`
 export const auth = { authorization: `Bearer ${token}`, 'content-type': 'application/json' }
 
@@ -238,7 +240,7 @@ await client.connect(
   new StdioClientTransport({
     command: 'bun',
     args: [resolve(import.meta.dir, '../../src/index.ts')],
-    env: { ...process.env, LANI_DICTIONARY_SOURCE: dictionaries.url, LANI_DICTIONARY_CACHE: tempDir('lani-smoke-dictionary-'), LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: String(port), LANI_BRIDGE_TOKEN: token, LANI_PACKS_DIR: curatedDir, LANI_MODULES_DIR: modulesDir, LANI_RHYTHM: 'off', LANI_SCENARIOS_DIR: resolve(import.meta.dir, '../../../scenarios'), LANI_GRAMMAR_DIR: resolve(import.meta.dir, '../../../grammar'), LANI_COURSE_DIR: courseRoot, LANI_DRILLS_DIR: resolve(import.meta.dir, '../../../drills'), LANI_SCENES_DIR: scenesDir, LANI_CULTURES_DIR: culturesDir, LANI_FAMILY_TOKEN: familyToken, LANI_PROFILES_DIR: profilesDir, ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: bridgeEleven.url, LANI_GEPARD_URL: bridgeGepard.url, LANI_VOICE_QUEUE_DELAY_MS: '0', LANI_STT_URL: bridgeWhisper.url, LANI_STT_TIMEOUT_MS: '800', LANI_WORDS_NOTE_MS: '1000', LANI_GLOSS_GAP_MS: '300', LANI_WORD_REQUEST_MS: '300', LANI_WORD_REQUEST_RETELL_MS: '4000', LANI_TOWN_FRIEND_CACHE_MS: '0', LANI_PIPER_URL: piper.source, LANI_PIPER_CACHE: piper.cache, LANI_PIPER_CATALOG: piper.catalog } as Record<string, string>,
+    env: { ...process.env, LANI_DICTIONARY_SOURCE: dictionaries.url, LANI_DICTIONARY_CACHE: tempDir('lani-smoke-dictionary-'), LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: String(port), LANI_BRIDGE_TOKEN: token, LANI_PACKS_DIR: curatedDir, LANI_MODULES_DIR: modulesDir, LANI_RHYTHM: 'off', LANI_SCENARIOS_DIR: resolve(import.meta.dir, '../../../scenarios'), LANI_GRAMMAR_DIR: resolve(import.meta.dir, '../../../grammar'), LANI_COURSE_DIR: courseRoot, LANI_DRILLS_DIR: resolve(import.meta.dir, '../../../drills'), LANI_SCENES_DIR: scenesDir, LANI_CULTURES_DIR: culturesDir, LANI_FAMILY_TOKEN: familyToken, LANI_PROFILES_DIR: profilesDir, LANI_PROFILE_PORT_BASE: String(port + 15), LANI_FAMILY_BIN: familyBin, LANI_FAMILY_TAILSCALE: join(familyBin, 'tailscale'), LANI_FAMILY_WATCHDOG: 'off', LANI_FAMILY_START_MS: '6000', LANI_TAILNET_HOST: 'smoke.example.ts.net', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: bridgeEleven.url, LANI_GEPARD_URL: bridgeGepard.url, LANI_VOICE_QUEUE_DELAY_MS: '0', LANI_STT_URL: bridgeWhisper.url, LANI_STT_TIMEOUT_MS: '800', LANI_WORDS_NOTE_MS: '1000', LANI_GLOSS_GAP_MS: '300', LANI_WORD_REQUEST_MS: '300', LANI_WORD_REQUEST_RETELL_MS: '4000', LANI_TOWN_FRIEND_CACHE_MS: '0', LANI_PIPER_URL: piper.source, LANI_PIPER_CACHE: piper.cache, LANI_PIPER_CATALOG: piper.catalog } as Record<string, string>,
     stderr: 'inherit',
   }),
 )

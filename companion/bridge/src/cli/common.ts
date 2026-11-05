@@ -6,7 +6,9 @@ import { controlSocket } from '../control'
 import { DEFAULT_CULTURE } from '../cultures'
 import { expandHome, setting } from '../env'
 import { releaseDir } from '../paths'
-import { DEFAULT_ID, DEFAULT_PROFILE, defaultDataDir, entryDataDir, learnerFacts, profilesDir, readRegistry, type ProfileEntry } from '../learners'
+import { DEFAULT_ID, DEFAULT_PROFILE, defaultDataDir, entryDataDir, learnerFacts, profilesDir, readRegistry, tailnetHost, type ProfileEntry } from '../learners'
+
+export { tailnetHost }
 
 export const projectDir = process.env.CLAUDE_PROJECT_DIR ?? resolve(import.meta.dir, '../../../..')
 export const registryDir = profilesDir(projectDir)
@@ -108,18 +110,6 @@ export const serviceTmux = (p: Resolved) => (p.isDefault ? 'lani-bridge' : `lani
 
 /** 'x' → `'x'`, safe inside a shell command line. */
 export const q = (s: string) => `'${s.replace(/'/g, `'\\''`)}'`
-
-/** This node's tailnet name (node.tailnet.ts.net): $LANI_TAILNET_HOST, else `tailscale status`; undefined when unknown. */
-export function tailnetHost(): string | undefined {
-  if (process.env.LANI_TAILNET_HOST) return process.env.LANI_TAILNET_HOST
-  const p = spawnSync('tailscale', ['status', '--json'], { encoding: 'utf8', timeout: 5_000 })
-  if (p.status !== 0) return undefined
-  try {
-    return String(JSON.parse(p.stdout)?.Self?.DNSName ?? '').replace(/\.$/, '') || undefined
-  } catch {
-    return undefined
-  }
-}
 
 /** The HTTPS URL the app uses for [p], once `tailscale serve` publishes it. */
 export const tailnetUrl = (p: Resolved, host = tailnetHost() ?? '<node>.<tailnet>.ts.net') => `https://${host}${p.httpsPort === 443 ? '' : `:${p.httpsPort}`}`
