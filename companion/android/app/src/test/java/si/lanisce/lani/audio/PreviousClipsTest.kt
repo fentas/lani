@@ -238,4 +238,47 @@ class PreviousClipsTest {
         assertEquals(2, s.downloaded)
         assertTrue(File(files.clips, "k2.mp3").isFile && File(files.clips, "m2.mp3").isFile)
     }
+
+    // --- the audio trial's end: the connection's empty index forgets nothing on the phone (data/AudioPlan.kt) ---------------
+
+    @Test fun `after the trial what is on the phone stays and the rest goes`() {
+        val old = mapOf("kruh" to mapOf("female" to url("k"), "grandma" to url("g")), "mleko" to mapOf("female" to url("m")))
+        val kept = PreviousClips.heard(listOf(old), emptyMap(), emptyMap(), on("k"))
+        assertEquals(mapOf("kruh" to mapOf("female" to url("k"))), kept)
+    }
+
+    @Test fun `the newest index with the file wins, then an earlier clip standing in`() {
+        val disk = mapOf("kruh" to mapOf("female" to url("k2")), "mleko" to mapOf("female" to url("m2")))
+        val app = mapOf("kruh" to mapOf("female" to url("k3")))
+        val previous = mapOf("mleko" to mapOf("female" to url("m1")))
+        assertEquals(
+            mapOf("kruh" to mapOf("female" to url("k2")), "mleko" to mapOf("female" to url("m1"))),
+            PreviousClips.heard(listOf(app, disk), emptyMap(), previous, on("k2", "m1")),
+        )
+    }
+
+    @Test fun `what the connection's own index says comes first`() {
+        val old = mapOf("kruh" to mapOf("female" to url("k")))
+        val new = mapOf("kruh" to mapOf("female" to url("own")), "mleko" to mapOf("male" to url("m")))
+        assertEquals(new, PreviousClips.heard(listOf(old), new, emptyMap(), on("k", "own")))
+    }
+
+    @Test fun `nothing to keep hands the index back as it came`() {
+        val new = mapOf("kruh" to mapOf("female" to url("own")))
+        assertTrue(new === PreviousClips.heard(listOf(mapOf("mleko" to mapOf("female" to url("gone")))), new, emptyMap(), on()))
+    }
+
+    @Test fun `what stays is no re-voice, and its earlier clip keeps playing`() {
+        val files = AudioFiles(tmp.newFolder("audio"))
+        files.clips.mkdirs()
+        File(files.clips, "k.mp3").writeBytes(ByteArray(10))
+        File(files.clips, "m1.mp3").writeBytes(ByteArray(10))
+        val before = mapOf("kruh" to mapOf("female" to url("k")), "mleko" to mapOf("female" to url("m2")))
+        PreviousClips.update(files.clips) { mapOf("mleko" to mapOf("female" to url("m1"))) to Unit }
+        val kept = PreviousClips.heard(listOf(before), emptyMap(), PreviousClips.read(files.clips), PreviousClips.onPhone(files))
+        assertEquals(emptyMap<String, Long>(), PreviousClips.swapIn(files, listOf(before), kept, referenced = emptySet()))
+        assertEquals(emptyMap<String, Map<String, String>>(), PreviousClips.read(files.clips))
+        assertTrue("nothing deleted", File(files.clips, "k.mp3").isFile && File(files.clips, "m1.mp3").isFile)
+        assertEquals(listOf(url("m1")), PreviousClips.pick(kept, emptyMap(), "mleko", "female", PreviousClips.onPhone(files))?.urls)
+    }
 }

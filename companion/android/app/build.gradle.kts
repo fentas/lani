@@ -479,13 +479,16 @@ val laniVersionName = "0.2.$gitCommitCount"
  * app (or GitHub App) the device flow signs in with, from the Gradle property lani.githubClientId (gradle.properties,
  * ~/.gradle/gradle.properties or -P) or LANI_GITHUB_CLIENT_ID; empty by default, and then only a pasted token connects.
  * The relay the encrypted backup goes to (sync/Backup.kt): lani.relayUrl or LANI_RELAY_URL, empty until it is hosted.
- * A client id is public (it is in every device flow's request); neither is a secret.
+ * The voice service the audio trial speaks with (data/AudioPlan.kt): lani.glasUrl or LANI_GLAS_URL, empty until it is hosted;
+ * empty, there is no trial: no request, no card, no row, the app as it was.
+ * A client id is public (it is in every device flow's request); none of them is a secret.
  */
 fun buildSetting(property: String, env: String): String =
     (providers.gradleProperty(property).orNull ?: providers.environmentVariable(env).orNull ?: "").trim()
         .also { require(it.none { c -> c == '"' || c == '\\' || c.isWhitespace() }) { "$property: no quotes, backslashes or spaces" } }
 val githubClientId = buildSetting("lani.githubClientId", "LANI_GITHUB_CLIENT_ID")
 val relayUrl = buildSetting("lani.relayUrl", "LANI_RELAY_URL")
+val glasUrl = buildSetting("lani.glasUrl", "LANI_GLAS_URL")
 /**
  * Where a town's invitation's web link points (companion/README.md, "Towns"; the bridge's LANI_INVITE_URL): the app opens
  * https://<host>/town… as an Android App Link, verified by https://<host>/.well-known/assetlinks.json. lani.page and
@@ -533,6 +536,7 @@ android {
         versionName = laniVersionName
         buildConfigField("String", "GITHUB_CLIENT_ID", "\"$githubClientId\"")
         buildConfigField("String", "RELAY_URL", "\"$relayUrl\"")
+        buildConfigField("String", "GLAS_URL", "\"$glasUrl\"")
         manifestPlaceholders["inviteHost"] = inviteHost
     }
 

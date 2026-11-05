@@ -34,6 +34,7 @@ import si.lanisce.lani.audio.ClipFiles
 import si.lanisce.lani.audio.Piper
 import si.lanisce.lani.audio.PreviousClips
 import si.lanisce.lani.audio.Room
+import si.lanisce.lani.data.AudioPlan
 import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.ClipsApi
 import si.lanisce.lani.data.Notifier
@@ -111,7 +112,8 @@ class RoadPrepService : Service() {
         // the quiz's target-language texts the node can't voice: the phone's own voice in the target language, if it has one
         val own = RoadPrompts(this)
         var ownOpened: Boolean? = null
-        val api = runCatching { Prefs(this).config() }.getOrNull()?.let(::ClipsApi)
+        AudioPlan.open(this)
+        val api = runCatching { Prefs(this).config() }.getOrNull()?.let { ClipsApi(it) }
         var prepares = api != null
         // the car's library counts in the learner's cap (si.lanisce.lani.audio.AudioCap), after the day's clips: what doesn't
         // fit is left out, as what can't be had
