@@ -86,7 +86,7 @@ speaks, not only their gender, and went with the German.
 wrong choice first. It found 26 turns:
 
 - **9 gave the answer away** ("è il fabbro!", "To je dež.", against SCENES.md's "never says the right form"): reworded in all their
-  languages, 8 reactions, 322 voiced characters.
+  languages, 8 reactions, 324 voiced characters.
 - **17 only repeat the learner's own wrong sentence** ("Als waren Sie?", "Enough thick?"). In a wrong word order `ChoiceDiff` marks a moved
   word as what sets the right choice apart, though the wrong choice holds it too, so nothing is given away. Rewording them costs clips
   for nothing, and loosening the check would loosen it for every scene. They are listed by name in the test (`cycleEchoes`): a new one
@@ -156,9 +156,9 @@ cover them, as before.
 
 - The 72 translations and 5 voiced lines of "A helper's words", most of all Kärnten's Slovene: present and impersonal forms stand in for
   a past ("Izmerjeno: točno drži", "Tu so macesnove deske"), and some read freer than the German.
-- The 8 reactions of "Cycles" (*Bo? Tako zanesljivo?*, *Sneg? Saj ni zima. Poglej v nebo.*).
+- The 8 reactions of "Cycles" (*Bo? Tako zanesljivo?*, *Sneg? Saj ni zima. Kaj pada z neba?*).
 - `languages/sl.md`'s *s*/*z* and *-ost* lines, the print's "Piši na hrbtno stran" and its Italian and German.
 
 ## Voice
 
-Nothing spent. A voice build would take 632 characters: 310 (helpers) and 322 (reactions). A changed line loses its clip until then.
+Nothing spent. A voice build would take 634 characters: 310 (helpers) and 324 (reactions). A changed line loses its clip until then.
