@@ -84,7 +84,7 @@ object LineJoin {
     /**
      * Where a part's [want] samples start in the [decoded] a decoder gave. The manifest says a part's true length, and that tells
      * what the decoder did: one that honours the gapless header gives that length and nothing to take off (an emulator on
-     * API 35 did, to a sample; taking the delay off as well cost every part 13 ms of its start); one that doesn't gives the
+     * API 36 did, to a sample; taking the delay off as well cost every part 13 ms of its start); one that doesn't gives the
      * encoder's [delay] before the sound and the padding after it.
      */
     fun soundStart(decoded: Int, want: Int, delay: Int): Int = if (decoded - want <= TRIMMED_SLACK) 0 else delay.coerceAtMost(decoded - want)

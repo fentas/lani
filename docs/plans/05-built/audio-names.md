@@ -267,7 +267,7 @@ whole-voiced lines:
 
 ## What the device showed
 
-`companion/bin/qa-slot --steps name-join` on an emulator (API 35, a synthetic learner called Matej, the fake ElevenLabs, whose takes
+`companion/bin/qa-slot --steps name-join` on an emulator (API 36, a synthetic learner called Matej, the fake ElevenLabs, whose takes
 are speech-like), measured from the file the phone plays:
 
 | What | Measured |
@@ -324,6 +324,8 @@ No screen changed: 0 taps before, 0 after. A new line may play sooner with prelo
 - **Jan's ears** on the samples, and the native check.
 - **Prebuilding** the first scenes and A1 is a decision, not built: nothing makes pieces ahead of need.
 - **`voice-build` knows nothing of name lines:** its plans still count whole lines, and `--upgrade-model` doesn't touch pieces or name clips.
-- **Declined names** (`{learner:dat}` and the others, about 20 lines) are voiced whole.
+- **A woman's own lines with a splice** are the largest whole class: 35 in Primorska, 5 in Friuli, because Ana has no stop to anchor a left
+  edge on. A filler with one (Marta has the same shape as Marko) would bring them in, but no take of it has been measured.
+- **Declined names** (`{learner:dat}` and the others) are voiced whole: one voiced line today.
 - **Whole takes are kept** beside each line, with their timestamps, so a better cut later costs nothing. No tool re-cuts them yet.
 - **The hosted library** plugs in where `NameStore` makes a line or a name: built by `audio-service`.

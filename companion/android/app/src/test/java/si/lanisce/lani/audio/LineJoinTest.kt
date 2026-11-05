@@ -90,7 +90,7 @@ class LineJoinTest {
         assertEquals(50, w.size)
     }
 
-    @Test fun `a decoder that honours the gapless header has nothing taken off, as on the emulator's API 35`() {
+    @Test fun `a decoder that honours the gapless header has nothing taken off, as on the emulator's API 36`() {
         // what QA read: 25,799 samples for a part of 585 ms, 127,229 for one of 2,885
         assertEquals(0, LineJoin.soundStart(25_799, 25_798, 576))
         assertEquals(0, LineJoin.soundStart(127_229, 127_228, 576))
