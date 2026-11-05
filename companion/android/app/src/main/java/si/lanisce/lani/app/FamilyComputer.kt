@@ -1,10 +1,12 @@
 package si.lanisce.lani.app
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.data.FamilyMembersApi
 import java.io.IOException
 
@@ -63,6 +65,7 @@ class FamilyComputer(private val scope: CoroutineScope, private val api: () -> F
     fun add(name: String, target: String, base: String, child: Boolean) {
         step { a ->
             code = a.add(name.trim(), target, base, child)
+            if (BuildConfig.QA) Log.i(TAG, "member code ${code?.pair}") // a one-time code and an address: never a key
             family = a.list()
         }
     }
@@ -90,5 +93,9 @@ class FamilyComputer(private val scope: CoroutineScope, private val api: () -> F
     fun done() {
         code = null
         problem = null
+    }
+
+    private companion object {
+        const val TAG = "Family"
     }
 }

@@ -218,18 +218,24 @@ class FamilyDevices(
 
     /** The app came to the screen, or left it. */
     fun foreground(on: Boolean) {
+        val before = loop
         if (!on) {
-            loop?.cancel()
+            before?.cancel()
             loop = null
-            closeOffice()
             return
         }
-        if (loop?.isActive == true) return
+        if (before?.isActive == true) return
+        // the office is the loop's alone, opened and closed on it: nothing keeps it open once the app has left the screen
         loop = scope.launch(Dispatchers.IO) {
+            before?.join()
             loaded.join()
-            while (isActive) {
-                runCatching { round() }.onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
-                withTimeoutOrNull(ROUND_MS) { poke.receive() }
+            try {
+                while (isActive) {
+                    runCatching { round() }.onFailure { if (it is kotlinx.coroutines.CancellationException) throw it }
+                    withTimeoutOrNull(ROUND_MS) { poke.receive() }
+                }
+            } finally {
+                closeOffice()
             }
         }
     }

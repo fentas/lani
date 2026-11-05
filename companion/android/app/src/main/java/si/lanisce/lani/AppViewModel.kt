@@ -732,6 +732,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             }
 
             override suspend fun check(k: si.lanisce.lani.data.FamilyKeyWaiting): si.lanisce.lani.tutor.live.FamilyKey {
+                // a key set here while this one waited is the learner's choice
+                if (live.familyShare().key != null) return si.lanisce.lani.tutor.live.FamilyKey.KEPT
                 val r = live.receiveFamily(si.lanisce.lani.data.FamilyLink.Gift(provider = k.provider, key = k.key, preset = k.preset))
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) { familyKeySaid(r) }
                 return r
@@ -751,6 +753,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         val c = connected?.takeUnless { hosted.active } ?: return
         viewModelScope.launch {
             val r = runCatching { si.lanisce.lani.data.FamilyMembersApi(c).rules() }.getOrNull() ?: return@launch
+            if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("Family", "rule cap=${r.cap}")
             if (r.cap != live.settings.familyCap || r.by != live.settings.familyCapBy) live.update { it.copy(familyCap = r.cap, familyCapBy = r.by) }
         }
     }
@@ -860,7 +863,10 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         if (g.key == null) return
         viewModelScope.launch {
             val r = if (familyOnline) live.receiveFamily(g) else si.lanisce.lani.tutor.live.FamilyKey.NOT_CHECKED
-            if (r == si.lanisce.lani.tutor.live.FamilyKey.NOT_CHECKED) familyDevices.keyWaits(g)
+            if (r == si.lanisce.lani.tutor.live.FamilyKey.NOT_CHECKED) {
+                familyDevices.keyWaits(g)
+                if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("Family", "key waits")
+            }
             familyKeySaid(r)
         }
     }
@@ -887,8 +893,14 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun qaFamily(what: String) {
         when {
             what == "offline" -> familyOfflineForQa = true
-            what == "online" -> familyOfflineForQa = false
-            what.startsWith("peer:") -> familyDevices.peer = what.removePrefix("peer:").let { it.substringBeforeLast(':') to it.substringAfterLast(':').toInt() }
+            what == "online" -> {
+                familyOfflineForQa = false
+                familyDevices.page(false) // a round at once
+            }
+            what.startsWith("peer:") -> {
+                familyDevices.peer = what.removePrefix("peer:").let { it.substringBeforeLast(':') to it.substringAfterLast(':').toInt() }
+                familyDevices.page(false) // a round at once
+            }
         }
     }
 

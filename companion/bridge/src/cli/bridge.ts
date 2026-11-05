@@ -133,7 +133,7 @@ function describe(s: Service, st: Status | undefined): string {
 async function start(p: Resolved) {
   const s = serviceOf(p)
   // tmux doesn't pass this shell's environment on: what decides the profile, the keys and the socket's place goes along
-  const pass = { LANI_PROFILES_DIR: registryDir, LANI_KEYS_FILE: process.env.LANI_KEYS_FILE, XDG_STATE_HOME: process.env.XDG_STATE_HOME }
+  const pass = { LANI_PROFILES_DIR: registryDir, LANI_KEYS_FILE: process.env.LANI_KEYS_FILE, LANI_ENV_FILE: process.env.LANI_ENV_FILE, LANI_CONFIG_DIR: process.env.LANI_CONFIG_DIR, XDG_STATE_HOME: process.env.XDG_STATE_HOME }
   const env = Object.entries(pass).flatMap(([k, v]) => (v ? [`${k}=${q(v)}`] : [])).join(' ')
   const command = `cd ${q(projectDir)} && exec env ${env} companion/bin/lani-bridge run${p.isDefault ? '' : ` --profile ${q(p.id)}`}`
   if (values.print) {
