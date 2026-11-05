@@ -17507,6 +17507,13 @@ def name_join():
     status = api("/voice/status")
     if not (status.get("names") or {}).get("on"):
         return "no name lines on the dev bridge (LANI_VOICE_NAMES=on, LANI_DEV_FAKE_ELEVENLABS=1)"
+    # the system's notification prompt pauses the app, and a line said then never leaves it: out of the way first
+    adb("shell", "pm", "grant", PKG, "android.permission.POST_NOTIFICATIONS", check=False)
+    time.sleep(1)
+    allow = next((c for t, c in nodes() if t == "Allow"), None)
+    if allow:
+        adb("shell", "input", "tap", str(allow[0]), str(allow[1]))
+        time.sleep(2 * slow())
     name = api("/state")["databases"]["learner_profile"]["learner"]["name"]
     said = None
     for f in sorted((ROOT / "companion/scenes").glob("*.json")):
@@ -17539,7 +17546,7 @@ def name_join():
         head = (out / "line.mp3").read_bytes()[:4]
         assert head[:3] == b"ID3" or head[:2] == b"\xff\xfb", f"not an MP3: {head}"
         print(f"    an older app: one finished MP3 ({(out / 'line.mp3').stat().st_size} bytes), played to its end")
-        return ""
+        return None
     assert f"joined {file}" in log, "the phone didn't join it"
     assert f"clip start {file}" in log and f"clip end {file}" in log, "the joined line didn't play to its end"
 
