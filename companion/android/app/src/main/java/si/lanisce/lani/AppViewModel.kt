@@ -1871,11 +1871,19 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /**
      * QA's "placement…" (a debug build, app/QaHooks.kt): "" the placement test's page; "fresh" the dev village's class
      * readied with nothing of the course done ([si.lanisce.lani.app.QaHooks.readyPlacement]) and the school opened, its
-     * card offering the test; "answer:<part>" the test on screen answered to its end as a learner who knows up to that part.
+     * card offering the test; "answer:<part>" the test on screen answered to its end as a learner who knows up to that part;
+     * "waiting:<level>" a test taken yesterday whose level the node hasn't recorded, "sent:<level>" the same today, its page.
      */
     fun qaPlacement(arg: String) {
+        fun unrecorded(level: String, day: java.time.LocalDate) {
+            game.apply { si.lanisce.lani.app.QaHooks.placedUnrecorded(it, school.language, level.trim().uppercase(), day) }
+            school.touch()
+            openPlacement()
+        }
         when {
             arg.isEmpty() -> openPlacement()
+            arg.startsWith("waiting:") -> unrecorded(arg.removePrefix("waiting:"), java.time.LocalDate.now().minusDays(1))
+            arg.startsWith("sent:") -> unrecorded(arg.removePrefix("sent:"), java.time.LocalDate.now())
             arg == "fresh" -> {
                 game.apply { si.lanisce.lani.app.QaHooks.readyPlacement(it, school.language, System.currentTimeMillis()) }
                 school.touch()
