@@ -1,8 +1,7 @@
 # Built: the leftovers round, content (leftovers-content, 2026-11-05)
 
 Branch 1 of the lead kit's followups-21.md: what the earlier rounds left of the content. Everything written here is machine-written (Claude)
-and waits for the native check below. No screen changes, so no emulator QA: a new dialog is a format the app already plays, and the hint's
-card is the one `GermanHintTest` and `EnglishHintTest` read.
+and waits for the native check below. One line on a screen changes, a table's credit; see "On a device" for what was played.
 
 ## Native check
 
@@ -20,6 +19,8 @@ card is the one `GermanHintTest` and `EnglishHintTest` read.
 Slovene table first: «kratko z opuščajem, pripeto na besedo pred njim», «have, has sežeta do zdaj; kar je bilo še prej: had», «za predlogom
 nikoli that». German: «kurz mit Apostroph, an das Wort davor gehängt», «have, has reichen bis jetzt», «Nicht geschehen: if + had …». Italian: «forme
 brevi con l'apostrofo, unite alla parola prima», «have, has arrivano fino a ora».
+
+**`pojti`:** the supplement's lemma for *pošla*, "to run out", while Sloleks 3.0 has *poiti*. Which is the head? Not looked up.
 
 **Slovene and Italian:** the translations of the four dialogs. Slovene: «Tu leži zvezek. Je Lenin?», «Si vsaj {m:vzel|f:vzela} ključ od skednja»,
 «Na ključu? Si ga {m:imel|f:imela} za stol?», «Potem se to danes ne izide več.», «paglavec» for *Lausbub*. Italian: «Sì, è il quaderno di lei.», «Allora oggi
@@ -115,28 +116,76 @@ One clip goes: «Hm. Geholfen hat es, aber …», 66 characters. The English rul
 The note on the pack word *lignji* said the singular is *lignj*. SP2001 has [lígenj -gnja](https://fran.si/iskanje?View=1&Query=ligenj&FilteredDictionaryIds=134), and Sloleks 3.0 has
 *ligenj*, *lignja*. The note now says *ligenj* in its three languages, a card's text, so no clip goes. Found while checking the supplement against 3.0.
 
-## Found on the way, not done
+## Comparatives read as plain forms
 
-- **Comparatives read as plain forms.** The supplement writes a comparative's label with its degree once, at the start ("comparative nominative/accusative masculine singular; dative/locative
-  feminine singular; …"), and `slotsOf` reads the parts after it as plain adjective: 111 slots of 37 adjectives hold a comparative or a superlative. `sl.forms-order.json` already names the
-  plain form in 49 of them. I haven't traced the other 62 through a real table: a lemma Wiktionary has takes Wiktionary's forms, so some may never show. If it shows, the fix is in `slotsOf`: a degree
-  at the label's start holds for every part. Not done here, since it changes what the forms cards serve.
-- **`PhoneBridgeNodeTest.aWordAndItsReview` failed once** in the full suite, at 72 s on a loaded machine, and passed alone (26 of 26, 0.26 s). The message is cut before the two outputs differ, so
-  the cause isn't known. Nothing on this branch touches that path.
+The supplement writes an adjective's degree once, at a label's start ("comparative genitive feminine singular; nominative feminine plural"), and each part was read alone, so what came after it was
+the plain adjective's: *točnejše* stood as *točen*'s neuter, *najšibkejši* as *šibek*'s plural. **Two doors, not one:** `slotsOf` for the table and `adjectiveForms` for a forms card's cases split a label the same
+way. Both now read it through `readingsOf`, where the degree holds for every reading. None of Wiktionary's 322 strings starts with a degree, and all read as before.
 
-## What no device has shown
+The 111 slots of 37 adjectives counted `slotsOf` alone. Traced through `formsOf` and `formsCardOf`:
 
-The four new dialogs and the reworded reaction were never played on an emulator: nothing here changes a screen, and `DialogReactionsTest` plays every dialog with every wrong choice first. What the chip
-says at the new turns was read from `GermanHintTest`'s report, in Slovene, not from a card on a device.
+| The 111 | Slots |
+|---|---|
+| `sl.forms-order.json` already named the plain form | 49 |
+| Wiktionary takes the lemma, so the supplement's label never reaches a table (17 adjectives) | 51 |
+| reached a table with no correction | 11, of them 3 with the wrong form first |
+
+**What a learner could have seen,** with the 40 adjectives such labels belong to: 18 take Wiktionary's forms and 2 have no plain form to mix with, which leaves 20.
+
+| Where | Adjectives | Slots | What it did |
+|---|---|---|---|
+| a tap's word table, which lists a slot's forms | 20 | 60 | a comparative beside the right form; first in 3: *najšibkejši*, *najljubši*, *močnejši* as the masculine plural |
+| a forms card, its answer | 5 | 39 | a comparative or superlative shown as the answer: *ljub* 16, *pameten* 9, *viden* 6, *šibek* 4, *močen* 4 |
+| a forms card, what it accepts | 20 | 440 | a comparative taken as right |
+
+Only *pameten* of those five is a pack word (B1, `znacaj`), so on a card it's the one a learner meets by learning a pack; the other four need a tapped word saved first. All 20 stand in the content, so a tap reaches each. A learner's deck
+wasn't read: this is what the content allows, not what anyone met.
+
+**A card made before** keeps what its slots held, so GET /state serves it without them, as it serves a card's order: `degreeForms` gives the forms that are only a degree, and `cardInOrder` takes them out of a plain slot, shown or accepted.
+Nothing is written and no deck is migrated. **A slot of nothing else goes,** with what tested it: *pameten*'s nine plural cases held only comparatives, as its entry leaves out *pametnih*, *pametnim*, so its card asks nine slots fewer until
+they're added. After the fix the same trace finds 0 slots in tables and on cards. The smoke holds it for every such adjective.
+
+## A table's credit
+
+**A correction to my first report:** I wrote that Slovene tables have no attribution. The bridge did send Wiktionary's for them, and the forms overview showed it. What was missing was the word card's line, which `WordFormsTable` showed for other languages only, any line on a
+hand-checked table, and any mention of Sloleks.
+
+`formsAttribution` now credits both of the bridge's table answers: Wiktionary for the forms that are its, Sloleks for any Slovene table, since `sl.forms-order.json` reads every one. So it holds whichever way the supplement goes. The word card shows the line for Slovene: «📖 Wiktionary (CC BY-SA 4.0) via
+kaikki.org; Sloleks 3.0, CJVT UL (CC BY-SA 4.0)». `FormsCard.credit` says the same on the two paths no answer reaches, the table after a forms card and one from the phone's cache. A word with no table has no line, and a tapped interjection's card says nothing of Sloleks.
+
+## Found on the way
+
+- **`PhoneBridgeNodeTest.aWordAndItsReview` failed once** in a full suite, at 72 s on a loaded machine, and passed alone (26 of 26, 0.26 s) and in the next full run. The message is cut before the two outputs differ, so the cause isn't known. Nothing on this branch
+  touches that path.
+- **`narrow()`** in `lexicon.ts`, which trims a label for the word card, reads the same labels part by part, so a tapped comparative's grammar can lose its degree there. It's display only and fills no slot, so it stays.
+
+## On a device
+
+Two steps of `bin/qa`, only when named, each on an emulator at 1080 × 2400 with a synthetic learner. Shots: the session's scratchpad, ux-leftovers-content/.
+
+**`kaernten-leftovers`** (`make-learner.ts --target de --base sl`, LANI_CULTURE=kaernten, LANI_QA_PAIR=de-sl): Opa Sepp's `glockner-gestern` in the Stube, each turn's wrong choice first, then the charcoal burner at B2.
+
+| Turn | Wrong choice | Reaction on screen |
+|---|---|---|
+| 1 | *Ich hattest keine Zeit, Opa Sepp.* | «Ich hattest? Ich, du, wer denn jetzt?» |
+| 2 | *Waren ihr auch auf dem Großglockner?* | «Waren ihr? Ihr, wir …» |
+| 3 | *Ja, ich komme gern, deshalb ich habe Zeit.* | «Deshalb ich habe? Der Satz hinkt ja mehr als ich.» |
+| Köhler Michl, the stage `anzuenden`, B2 | *Ob das Kreuz hat geholfen, …* | «Hm. Hat geholfen? Der Satz ist ein bisschen durcheinander.», and «Geholfen hat es» nowhere |
+
+**`table-credit`** (a Slovene learner): *točen*'s "📋 Vse oblike · All forms" ends with «Wiktionary (CC BY-SA 4.0) via kaikki.org; Sloleks 3.0, CJVT UL (CC BY-SA 4.0)», and none of the 246 texts read there is a comparative. Once the word is added, its card's table
+ends with the same line after «📖». So the slot fix and the credit are both seen on a device.
+
+**What the runs taught.** A new learner isn't asked these turns at all, as their rules aren't introduced: played plainly the dialog ran to "Ausgezeichnet! Ohne Fehler" with no choice, which is the app working as designed. So the step uses QA's "turns:type" and "let
+me choose": it shows the turns as a learner meets them once the rule is theirs, not as an A1 learner does. The table under a word shows only for a word the learner has; a new word's way in is "All forms". `setup` also failed three times with "home did not load" over the notification
+prompt, with Home right there under it. That's QA's, not the app's, and leftovers-app-qa had fixed it already, so this branch cherry-picks its 81be298bf.
+
+**What no device has shown:** `hausuebung-hefte`, `bestellung-hammer` and `neuigkeiten-b2-leiter`; the hint's card at the new turns, read from `GermanHintTest`'s report; a card made before the slot fix, as GET /state serves it (the smoke holds that); and a tablet.
 
 ## Checks
 
-On this branch without the Sloleks commits, so these hold if the lead drops them; ports 11280-11299, LANI_SMOKE_DRAMA3_PORT 11298:
+Without the Sloleks commits, so these hold if the lead drops them; ports 11280-11299, LANI_SMOKE_DRAMA3_PORT 11298:
 
-- `bunx tsc --noEmit -p .`: clean. `bun test/prompt-clashes.ts`: exit 0, no new clash. `tutor-export --check`: 140 files match.
-- `check-culture` and `check-steps` for primorska, friuli, kaernten and lakeland: each exit 0.
-- The smoke: all checks passed, 4279 lines.
-- Python: `tests` 253 OK, `companion/tests` 185 OK (11 skipped).
-- `:app:testDebugUnitTest`: 4,354 tests in 546 classes, 2 skipped, 1 failed: `PhoneBridgeNodeTest.aWordAndItsReview`, above, which passed when run again alone. The other 4,353 passed, among them
-  `DialogReactionsTest` 8, `EnglishHintTest` 14, `GermanHintTest`, `SaidChoicesTest`, `WhoAnswersTest` and `SceneCoherenceTest`.
-- No emulator QA, as "What no device has shown" says.
+- With the forms fix, the credit and QA's steps: `bunx tsc --noEmit -p .` clean, the smoke all passed (4,284 lines), `FormsCardTest`, `WordFormsTest` and the `test_qa*` Python tests.
+- Before them, at 214f3b902: `prompt-clashes` exit 0, no new clash; `tutor-export --check` 140 files; `check-culture` and `check-steps` exit 0 for the four cultures; Python 253 OK and 185 OK (11 skipped); `:app:testDebugUnitTest` 4,354 tests in 546 classes, 2 skipped, 1 failed:
+  `PhoneBridgeNodeTest.aWordAndItsReview`, above, which passed when run again alone.
+- The full Android suite with the forms fix and the credit ran on the branch's tip, with the Sloleks commits on it. Without them it wasn't run again: those commits change `source` strings, one entry, citations and their own tool and test.
