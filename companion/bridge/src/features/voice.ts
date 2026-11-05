@@ -20,6 +20,7 @@ import { readISpy } from '../ispy'
 import { localDate } from '../rhythm'
 import { NameCatalogue, PROBE_NAME } from '../name-lines'
 import { nameSettings, NameStore } from '../name-store'
+import { Preload, PRELOAD_LINES, preloadSettings } from '../voice-preload'
 import { corpus, EXPLANATION_CHARS, fileUrl, LINE_CHARS, TURN, voiceInstructionsFor, type CorpusItem, type Redo, type VoiceStore } from '../voice'
 
 // voice: a speaker of the cast (female, male, grandma, …), someone's own voice ("@micka"), or the learner's ("player":
@@ -33,6 +34,8 @@ const sayIn = lineIn.extend({ text: z.string().trim().min(1).max(EXPLANATION_CHA
 const redoIn = lineIn.extend({ client_id: z.string().optional() })
 // the car's getting ready, and the day's audio (the next unit's explanations among them): up to 20 texts, each in the
 // voice the app plays it in
+// what the learner has just opened, in play order; no lines: they left it
+const queueIn = z.object({ id: z.string().min(1).max(64), lines: z.array(lineIn).max(PRELOAD_LINES) })
 const prepareIn = z.object({ texts: z.array(sayIn).min(1).max(20) })
 
 /** Why [t] is too long for the node: a line over LINE_CHARS (an explanation, with its lang, may have EXPLANATION_CHARS); else undefined. */
@@ -168,6 +171,22 @@ export const voice: FeatureFactory = ctx => {
     }
     return why
   }
+  // the lines of what the learner has just opened, got ready ahead: off unless the node sets LANI_VOICE_PRELOAD
+  const preload = new Preload(voice, {
+    settings: preloadSettings(),
+    log: ctx.log,
+    done: ({ text, voice: asked }) => {
+      const v = voiceOf(asked)
+      return !isVoice(v) || !!refusal(text, undefined) || !!voice.best(voice.normOf(text), v)
+    },
+    make: async ({ text, voice: asked }) => {
+      const v = voiceOf(asked)
+      if (!isVoice(v)) return
+      const own = asked === PLAYER || isLearnerVoice(v)
+      const named = own ? undefined : await names.line(text, v, ctx.addressee(), TURN.preload)
+      if (!named || named.say === 'before') await voice.voice(text, v, 'preload', { turn: TURN.preload, carrier: own })
+    },
+  })
   const handleRedo = async (req: Request) => {
     const r = redoIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
@@ -322,6 +341,19 @@ export const voice: FeatureFactory = ctx => {
       // (6,000) voiced new a day, the clips there come all the same. A clip made once is reused: a retry is harmless. The
       // day's audio on Wi-Fi asks here too, the next school unit's explanations among it (each with its lang).
       { method: 'POST', path: '/voice/prepare', handle: ({ req }) => handlePrepare(req) },
+      // What the learner has just opened (a dialog, a test, a module), its lines in play order: the ones the node lacks are got
+      // ready ahead, at a turn between a live line and the background. A new start replaces the last; no lines: they left it.
+      {
+        method: 'POST',
+        path: '/voice/queue',
+        handle: async ({ req }) => {
+          const r = queueIn.safeParse(await readJson(req))
+          if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+          if (!r.data.lines.length) preload.cancel(r.data.id)
+          const queued = r.data.lines.length ? preload.start(r.data.id, r.data.lines) : 0
+          return json({ queued, today: preload.spentToday() })
+        },
+      },
       { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), names: names.stats(), profiles: views().people }) },
       // Everyone's voice: their speaker (their own "@id", else their archetype) and the pitch and pace to play it with.
       { method: 'GET', path: '/voice/profiles', areas: ['content'], handle: () => json(views()) },

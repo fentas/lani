@@ -860,9 +860,9 @@ export interface Engine {
    * [lang]: the language of the text when it isn't the village's (an explanation in the learner's own language);
    * [urgent]: someone waits for it (a live line is): it goes ahead of the background work waiting its turn ([Gate]);
    * [carrier]: a short text said inside its carrier sentence whatever the voice (ElevenLabs; a re-record, the learner's
-   * own line).
+   * own line); [turn]: its turn at the gate when it isn't live, urgent or the background ([TURN]).
    */
-  synth(text: string, voice: VoiceName, o?: { live?: boolean; lang?: string; urgent?: boolean; carrier?: boolean }): Promise<Take | null>
+  synth(text: string, voice: VoiceName, o?: { live?: boolean; lang?: string; urgent?: boolean; carrier?: boolean; turn?: Turn }): Promise<Take | null>
   status(): Promise<Record<string, unknown>>
 }
 
@@ -1177,9 +1177,9 @@ export class ElevenLabs implements Engine {
    * explanation in another language than the village's ([lang]) is asked for plainly and without a language_code, so
    * the model says the learner's language as it is and the Slovene forms inside it as Slovene.
    */
-  async synth(text: string, voice: VoiceName, o: { live?: boolean; lang?: string; urgent?: boolean; carrier?: boolean } = {}): Promise<Take | null> {
+  async synth(text: string, voice: VoiceName, o: { live?: boolean; lang?: string; urgent?: boolean; carrier?: boolean; turn?: Turn } = {}): Promise<Take | null> {
     if (!this.o.key) return null
-    const urgent = !!(o.live || o.urgent)
+    const urgent = o.turn ?? !!(o.live || o.urgent)
     const said = this.usesCarrier(text, voice, o.lang, o.carrier) ? this.carrierFor(text, voice, o.carrier) : undefined
     const id = this.o.voices?.[voice] ?? elevenlabsOf(voice)
     if (!said) {
@@ -1222,14 +1222,14 @@ export class ElevenLabs implements Engine {
   }
 
   /** [text] asked for as it is; [mixed]: an explanation, its language left to the model (no language_code); [urgent]: [Gate]. */
-  private async plain(text: string, voice: VoiceName, mixed = false, urgent = false): Promise<Uint8Array | null> {
+  private async plain(text: string, voice: VoiceName, mixed = false, urgent: boolean | Turn = false): Promise<Uint8Array | null> {
     const id = this.voiceId(voice)
     if (!id) return null
     return this.plainWith(text, id, mixed ? undefined : (this.o.language ?? 'sl'), urgent)
   }
 
   /** [text] asked for as it is in the voice [id], with [language] as its language_code (none: the model's own guess). */
-  private async plainWith(text: string, id: string, language: string | undefined, urgent: boolean): Promise<Uint8Array | null> {
+  private async plainWith(text: string, id: string, language: string | undefined, urgent: boolean | Turn): Promise<Uint8Array | null> {
     try {
       const r = await this.tts(
         `${this.base}/v1/text-to-speech/${id}?output_format=mp3_44100_128`,
@@ -1263,7 +1263,7 @@ export class ElevenLabs implements Engine {
    * word ([retry]: ffmpeg failed, not the word; the carrier sentence is then off until a restart, so no more takes
    * are paid for nothing); null when ElevenLabs can't now or the request failed (the last error says why).
    */
-  async carrierTake(text: string, voice: VoiceName, urgent = false, force = false): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
+  async carrierTake(text: string, voice: VoiceName, urgent: boolean | Turn = false, force = false): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
     const said = this.carrierFor(text, voice, force)
     if (!this.o.key || !said || !this.cut) return null
     const id = this.voiceId(voice)
@@ -1272,7 +1272,7 @@ export class ElevenLabs implements Engine {
   }
 
   /** [carrierTake] of [text] inside [said] (its carrier sentence), in the voice [id], with [language] as its language_code. */
-  private async carrierWith(text: string, said: string, id: string, language: string, urgent: boolean): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
+  private async carrierWith(text: string, said: string, id: string, language: string, urgent: boolean | Turn): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
     const cut = this.cut
     if (!this.o.key || !cut) return null
     let d: { audio_base64?: string; alignment?: Alignment; normalized_alignment?: Alignment }
@@ -2056,6 +2056,8 @@ export type VoiceOptions = {
    * (cast.ts PLAYER).
    */
   carrier?: boolean
+  /** Its turn at ElevenLabs when it isn't a live line ([TURN]): a line got ready ahead. */
+  turn?: Turn
 }
 
 /** Carrier re-voices a day, by default (about 720 characters sent: about 360 credits with eleven_v4_turbo, MODEL_CREDITS). */
@@ -2647,7 +2649,7 @@ export class VoiceStore {
         try {
           // a short narrator word costs its carrier sentence
           if (!(await e.ready(e.cost?.(t, voice, lang, opt.carrier) ?? t.length, !!opt.live))) continue
-          const take = await e.synth(t, voice, { live: !!opt.live, lang, carrier: opt.carrier })
+          const take = await e.synth(t, voice, { live: !!opt.live, lang, carrier: opt.carrier, turn: opt.turn })
           if (take) return await this.save(norm, t, voice, e.name, take.bytes, source, take)
         } catch (err) {
           this.o.log?.(`voice: ${e.name} failed: ${(err as Error).message}`)
@@ -2694,7 +2696,7 @@ export class VoiceStore {
           // a lone word costs its carrier sentence (Nina and Luka say it in one since 2026-10-26; [opt].carrier: in any
           // voice, the learner's own line); an explanation in another language, said plainly, its text
           if (!(await e.ready(e.cost?.(t, v, opt.lang, opt.carrier) ?? t.length, !!opt.live))) continue
-          const take = await e.synth(t, v, { live: !!opt.live, lang: opt.lang, carrier: opt.carrier })
+          const take = await e.synth(t, v, { live: !!opt.live, lang: opt.lang, carrier: opt.carrier, turn: opt.turn })
           if (take) return await this.save(norm, t, v, name, take.bytes, source, take)
         } catch (err) {
           this.o.log?.(`voice: ${name} failed: ${(err as Error).message}`)

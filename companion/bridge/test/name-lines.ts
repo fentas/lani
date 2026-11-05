@@ -347,6 +347,50 @@ async function revoice(check: Check) {
   check('caps: by default about a third of the cap is kept (30 of 100), a setting says otherwise', revoiceKeep(100, {}) === 30 && revoiceKeep(40, {}) === 12 && revoiceKeep(100, { LANI_VOICE_REVOICE_KEEP: '50' }) === 50 && revoiceKeep(10, { LANI_VOICE_REVOICE_KEEP: '50' }) === 10)
 }
 
+async function preloading(check: Check) {
+  const { Preload, preloadSettings } = await import('../src/voice-preload')
+  const { normalizeText } = await import('../src/family')
+  const fe = fakeEleven()
+  const vs = new VoiceStore({ appDir: temp('lani-names-preload-'), engines: [new ElevenLabs({ key: 'test-key', base: fe.url, reserve: 0 })], queueDelayMs: 0, level: null, denoise: null, language: 'sl' })
+  fe.st.delayMs = 30
+  const made: string[] = []
+  const pre = (daily: number) => new Preload(vs, {
+    settings: { on: true, daily },
+    done: l => !!vs.best(normalizeText(l.text), l.voice),
+    make: async l => {
+      made.push(l.text)
+      await vs.voice(l.text, l.voice, 'preload', { turn: TURN.preload })
+    },
+  })
+  const p = pre(4_000)
+  const lines = ['Prva vrstica.', 'Druga vrstica.', 'Tretja vrstica.', 'Četrta vrstica.'].map(text => ({ text, voice: 'grandma' }))
+  await vs.voice('Prva vrstica.', 'grandma', 'scene:test')
+  const queued = p.start('a', [...lines, lines[1]])
+  check('preload: only what is missing, each once', queued === 3, queued)
+  for (let i = 0; i < 100 && made.length < 1; i++) await Bun.sleep(5)
+  p.cancel('b')
+  check("preload: someone else's cancel leaves it", made.length >= 1)
+  p.cancel('a')
+  const stopped = made.length
+  await Bun.sleep(150)
+  check('preload: leaving stops it: what is left is not made', made.length === stopped && made.length < 3 && made[0] === 'Druga vrstica.', made)
+  const q = pre(4_000)
+  made.length = 0
+  q.start('c', [{ text: 'Peta vrstica.', voice: 'grandma' }, { text: 'Šesta vrstica.', voice: 'grandma' }])
+  q.start('d', [{ text: 'Sedma vrstica.', voice: 'grandma' }])
+  for (let i = 0; i < 100 && (q as unknown as { working: boolean }).working; i++) await Bun.sleep(10)
+  check('preload: a new start replaces the last', made.join() === 'Peta vrstica.,Sedma vrstica.', made)
+  check('preload: what it cost is counted', q.spentToday() > 0, q.spentToday())
+  const small = pre(q.spentToday() + 5)
+  made.length = 0
+  small.start('e', [{ text: 'Osma vrstica je dolga.', voice: 'grandma' }])
+  await Bun.sleep(30)
+  check("preload: over the day's characters nothing more is made", made.length === 0, made)
+  const off = new Preload(vs, { settings: { on: false, daily: 4_000 }, done: () => false, make: async () => void made.push('x') })
+  check('preload: off unless the node sets it', off.start('f', lines) === 0 && !preloadSettings({}).on && preloadSettings({ LANI_VOICE_PRELOAD: 'on' }).on && made.length === 0)
+  fe.stop()
+}
+
 /** The routes on a real bridge, the fake ElevenLabs behind it, with the setting on and an older app's asks. */
 async function routes(check: Check, port: number) {
   const fe = fakeEleven()
@@ -396,6 +440,8 @@ async function routes(check: Check, port: number) {
     check('routes: an unknown line is a 404', (await fetch(`${base}/voice/line/${'0'.repeat(40)}.json`, { headers: auth })).status === 404 && (await fetch(`${base}/voice/line/${'0'.repeat(40)}.mp3`, { headers: auth })).status === 404)
     const st = (await (await fetch(`${base}/voice/status`, { headers: auth })).json()) as { names: { on: boolean; lines: number; name_clips: number } }
     check('routes: voice_status says what there is', st.names?.on === true && st.names.lines >= 1 && st.names.name_clips >= 1, st.names)
+    const q = await fetch(`${base}/voice/queue`, { method: 'POST', headers: auth, body: JSON.stringify({ id: 'x', lines: [{ text, voice: 'grandma' }] }) })
+    check('routes: POST /voice/queue answers, with nothing queued while the setting is off', q.status === 200 && ((await q.json()) as { queued: number }).queued === 0)
     // a name changed to something that isn't one: the phone's voice, silently
     writeFileSync(join(data, 'learner-profile.json'), JSON.stringify({ learner: { name: 'Buy Coins Now Please', gender: 'male' } }))
     const said = await say(line.said.replace('{n}', 'Buy Coins Now Please'))
@@ -413,6 +459,7 @@ export default async function nameLines(check: Check, port: number) {
   await store(check)
   await gate(check)
   await revoice(check)
+  await preloading(check)
   await routes(check, port)
 }
 
