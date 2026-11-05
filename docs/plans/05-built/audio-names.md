@@ -321,7 +321,7 @@ are speech-like), measured from the file the phone plays:
 | A click where parts meet | sample steps of 7 and 1, out of 32,768 |
 | Against the node's file for an older app | 0.00 ms apart |
 | Said again | from the phone |
-| A dialog opened | 198 to 236 characters got ready ahead, by the dialog |
+| A dialog opened | 180 to 236 characters got ready ahead, by the dialog |
 
 The measurement found a bug no unit test would have: this emulator's decoder honours the gapless header and gives each part its true
 length, so taking the encoder's delay off as well cut 13 ms from the start of every part. A part now starts where the decoder leaves
