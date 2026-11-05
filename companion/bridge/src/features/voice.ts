@@ -354,7 +354,7 @@ export const voice: FeatureFactory = ctx => {
           return json({ queued, today: preload.spentToday() })
         },
       },
-      { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), names: names.stats(), profiles: views().people }) },
+      { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), names: names.stats(), preload: { on: preload.on, today: preload.spentToday() }, profiles: views().people }) },
       // Everyone's voice: their speaker (their own "@id", else their archetype) and the pitch and pace to play it with.
       { method: 'GET', path: '/voice/profiles', areas: ['content'], handle: () => json(views()) },
       // The learner's own voice ("🗣️ Moj glas · My voice"): the voices offered them (their gender's, their age's), the one
@@ -450,7 +450,7 @@ export const voice: FeatureFactory = ctx => {
         handle: async () => {
           const m = mine()
           const my_voice = { choice: m.choice ?? null, voice: m.option ? `${m.option.id} (${m.option.name})` : null, off: m.off, age: m.age, offered: m.options.map(o => `${o.id} (${o.name})`) }
-          return ok(JSON.stringify({ ...(await voice.status(voiceCorpus(ctx))), names: names.stats(), my_voice }, null, 2))
+          return ok(JSON.stringify({ ...(await voice.status(voiceCorpus(ctx))), names: names.stats(), preload: { on: preload.on, today: preload.spentToday() }, my_voice }, null, 2))
         },
       },
     ],

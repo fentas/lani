@@ -372,6 +372,8 @@ const DEV_GLOSSES: Record<string, { lemma: string; pos: string; gender?: string;
 // down (companion/bin/qa's visit-voices: a line the node can't voice); the bridge then pauses ElevenLabs for a while, as it
 // does for the real one.
 const fake = process.env.LANI_DEV_FAKE_ELEVENLABS === '1' ? fakeEleven({ tones: true }) : undefined
+// lines with the learner's name are cut from takes that sound like speech ([speechTake]); a tone has nothing to cut at
+if (fake) fake.st.speech = process.env.LANI_VOICE_NAMES === 'on'
 if (fake) {
   const num = (name: string, d: number) => (process.env[name] ? Number(process.env[name]) : d)
   Object.assign(fake.st, {

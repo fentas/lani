@@ -2,10 +2,11 @@
 // routes, against the fake ElevenLabs. The smoke's section runs this. On its own: `bun test/name-lines.ts`.
 //
 //   bun test/name-lines.ts --table      what the content's lines come to, per culture: the types and templates
+//   bun test/name-lines.ts --cost       what building them would cost, in characters and credits: nothing is voiced
 import './isolate'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
-import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { addressee } from '../src/addressee'
@@ -37,9 +38,15 @@ const cultures = join(companion, 'cultures')
 const temp = (p: string) => mkdtempSync(join(tmpdir(), p))
 const CULTURES: [id: string, language: string][] = [['primorska', 'sl'], ['friuli', 'it'], ['kaernten', 'de'], ['lakeland', 'en']]
 
-/** The texts [id]'s village says to a man or a woman called [PROBE_NAME], as voice-build reads its content. */
-export function voiced(id: string, language: string, gender: 'male' | 'female'): string[] {
-  useCastFile(join(cultureDir(cultures, id), 'voice-cast.json'))
+/** Which of a village's content: all of it, its A1 (the scenes at A1, the villagers, who greet at any level), or its first scenes. */
+type Scope = 'all' | 'A1' | 'first'
+/** The fire and the tent: what a new village has, each culture's. */
+const FIRST: Record<string, string[]> = { primorska: ['ob-ognju', 'v-sotoru'], friuli: ['al-fuoco', 'nella-tenda'], kaernten: ['am-feuer', 'im-zelt'], lakeland: ['by-the-fire', 'in-the-tent'] }
+
+/** The texts [id]'s village says to a man or a woman called [PROBE_NAME], as voice-build reads its content, each in its voice. */
+export function voicedItems(id: string, language: string, gender: 'male' | 'female', scope: Scope = 'all') {
+  const own = join(cultureDir(cultures, id), 'voice-cast.json')
+  useCastFile(existsSync(own) ? own : undefined)
   const app = temp('lani-names-')
   const log = () => {}
   const ofLanguage = (d: string) => (language === 'sl' ? d : join(d, language))
@@ -53,14 +60,25 @@ export function voiced(id: string, language: string, gender: 'male' | 'female'):
   const grammar = new GrammarStore(grammarDir(join(companion, 'grammar'), language), language, join(app, 'grammar'), log)
   const course = new CourseStore(courseDir(join(companion, 'course'), language), language, join(app, 'course'), log, () => 'en')
   const arrivals = Object.entries(cultureArrivals(cultures, id, language).file?.cast ?? {}).map(([k, a]) => ({ id: k, levels: (a as { levels: never }).levels }))
+  const learner = addressee({ name: PROBE_NAME, gender }, language)
+  if (scope !== 'all') {
+    // a dialog with no level is everyone's; one above A1 isn't said to a beginner
+    const a1 = (d: { level?: string }) => !d.level || d.level === 'A1'
+    const picked = scenes.resolved()
+      .filter(s => (scope === 'first' ? FIRST[id].includes(s.id) : (s as { level?: string }).level === 'A1'))
+      .map(s => ({ ...s, dialogs: s.dialogs.filter(a1), variants: (s as { variants?: { level?: string }[] }).variants?.filter(a1) }))
+    return corpus({ packs: [], modules: [], scenarios: [], scenes: picked as never, villagers: villagers.all(), language, learner, ownVoice: i => !!personVoice(`@${i}`) }).filter(i => !i.lang && (scope === 'A1' || i.source.startsWith('scene:')))
+  }
   return corpus({
     packs: packs.all(), modules: modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? []), scenarios: scenarios.all(), scenes: scenes.resolved(),
     keepers: cultureKeepers(cultures, id).map(k => ({ ...k, tellings: keeperTellings(k) })),
     steps: [...cultureStepFiles(cultures, id).map(f => ({ project: f.project, tellings: stepTellings(f) })), ...cultureCelebrationFiles(cultures, id).map(f => ({ project: `party:${f.age}`, tellings: partyTellings(f) }))],
     villagers: villagers.all(), stories: stories.all(), drills: drills.all(), grammar: grammar.all(), course: { units: course.served()?.units ?? [], pages: grammar.all(), bases: ['en'], has: () => false },
-    arrivals, ispy: readISpy(join(companion, 'ispy')), ownVoice: i => !!personVoice(`@${i}`), language, learner: addressee({ name: PROBE_NAME, gender }, language),
-  }).filter(i => !i.lang).map(i => i.text)
+    arrivals, ispy: readISpy(join(companion, 'ispy')), ownVoice: i => !!personVoice(`@${i}`), language, learner,
+  }).filter(i => !i.lang)
 }
+
+const voiced = (id: string, language: string, gender: 'male' | 'female') => voicedItems(id, language, gender).map(i => i.text)
 
 /** Every name line of a village, flagged. */
 export const catalogueOf = (id: string, language: string) => new NameCatalogue(language, voiced(id, language, 'male'), voiced(id, language, 'female'))
@@ -469,6 +487,47 @@ if (import.meta.main) {
       const lines = catalogueOf(id, language).all()
       const chars = (t: string) => lines.filter(l => l.type === t).reduce((n, l) => n + l.said.length, 0)
       console.log(`${id}: ${lines.length} lines; ${JSON.stringify(count(lines, l => l.type))}; ${JSON.stringify(count(lines, l => l.template))}; characters ${JSON.stringify(Object.fromEntries(LINE_TYPES.map(t => [t, chars(t)])))}`)
+    }
+    process.exit(0)
+  }
+  if (process.argv.includes('--cost')) {
+    // what eleven_v4_turbo billed in the test: 0.2 credits a character (the name-splice ledger); takes as the default setting
+    const CREDITS = 0.2
+    const TAKES = nameSettings({}).takes
+    const n = (v: number) => Math.round(v).toLocaleString('en-US')
+    const NAME = 'Matej'
+    for (const scope of ['first', 'A1', 'all'] as Scope[]) {
+      console.log(`\n${scope === 'first' ? 'the first scenes (the fire, the tent)' : scope === 'A1' ? 'A1 (scenes at A1, the villagers)' : 'all the content'}:`)
+      for (const [id, language] of CULTURES) {
+        const men = voicedItems(id, language, 'male', scope)
+        const women = voicedItems(id, language, 'female', scope)
+        const cat = new NameCatalogue(language, men.map(i => i.text), women.map(i => i.text))
+        const named = [...men, ...women].filter(i => i.text.includes(PROBE_NAME))
+        const seen = new Set<string>()
+        let lines = 0, pieces = 0, wholeLines = 0, wholeChars = 0, asToday = 0
+        const clips = new Map<string, number>()
+        for (const i of named) {
+          const key = `${i.voice}|${i.text}`
+          if (seen.has(key)) continue
+          seen.add(key)
+          const l = cat.find(i.text, PROBE_NAME)
+          if (!l) continue
+          const said = (t: string) => t.split('{n}').join(NAME).length
+          asToday += said(l.said)
+          lines++
+          if (l.type === 'whole') {
+            wholeLines++
+            wholeChars += said(l.said)
+            continue
+          }
+          if (l.head || l.tail) pieces += l.said.length - 3 + FILLERS[language].m.length
+          clips.set(`${i.voice}|${l.kind}`, said(l.carrier) * TAKES)
+        }
+        const names = [...clips.values()].reduce((a, b) => a + b, 0)
+        const voices = new Set(named.map(i => i.voice)).size
+        const row = (c: number) => `${n(c)} chars, ${n(c * CREDITS)} credits`
+        console.log(`  ${id}: ${lines} lines in ${voices} voices; once for everyone: ${row(pieces)}; a new name: ${clips.size} clips, ${row(names + wholeChars)} (${wholeLines} lines voiced whole in it); as today per learner: ${row(asToday)}`)
+      }
     }
     process.exit(0)
   }

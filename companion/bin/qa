@@ -503,7 +503,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
                        pulled into the run's folder; airplane mode off again after); "previous-clip" a line's clip
                        re-voiced (QA's hook "audio:revoice:…"): its old clip plays offline and until the new one came,
-                       then goes; "voice-node-clip" a new line a villager says (QA's hook "audio:say:<text>|<voice>|<person>") voiced
+                       then goes; "name-join" a line with the learner's name joined on the phone, measured from the file it
+                       plays (LANI_DEV_FAKE_ELEVENLABS=1 LANI_VOICE_NAMES=on, a synthetic learner: LANI_DEV_DATA; with
+                       LANI_VOICE_PRELOAD=on a dialog's lines got ready as it opens); "voice-node-clip" a new line a villager says (QA's hook "audio:say:<text>|<voice>|<person>") voiced
                        by the dev bridge, downloaded and played as its clip, not by the phone's voice (the app's log, tag
                        Speaker), also with Lani's audio at its cap (the car's library taking it, the day's clips over the
                        20 MB the clips played keep: the trim after the download dropped the new clip before it played);
@@ -583,6 +585,7 @@ Italian learner); LANI_DEV_FAKE_ELEVENLABS=1 a fake ElevenLabs for the dev bridg
 test/dev-bridge.ts); LANI_QA_VISIT_PAIR the phone's pair on a visit (QA's hook "pair:<t>-<b>", asked on Friends;
 visit-voices: it-de unless set).
 """
+import array
 import atexit
 import html
 import json
@@ -593,11 +596,13 @@ import shlex
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
+import wave
 from pathlib import Path
 
 # -h / --help: the usage above, nothing run (QA has no other options parser: a run started for --help built, installed and
@@ -17490,6 +17495,121 @@ def offline_voice():
         time.sleep(3)
 
 
+def name_join():
+    """A line with the learner's name, joined on the phone (docs/plans/05-built/audio-names.md), measured, not heard: a line of
+    the content said by a villager comes from the node as a manifest, the phone joins it and plays one file ("clip start" and
+    "clip end" of the line's name, LineJoin's log). The file is pulled and read: it holds the parts' length to a few
+    milliseconds, the manifest's pause and no other at the seam, no click where the parts meet, and it lines up with the file
+    the node joins for an older app within 2 ms, so the phone's decoder and the encoder's delay taken off are right. Said again,
+    it plays from the phone. Then, with LANI_VOICE_PRELOAD=on, a dialog opened tells the node what it will say. Needs the fake
+    ElevenLabs, the setting and a synthetic learner: LANI_DEV_FAKE_ELEVENLABS=1 LANI_VOICE_NAMES=on LANI_DEV_DATA=<make-learner>."""
+    go_home()
+    status = api("/voice/status")
+    if not (status.get("names") or {}).get("on"):
+        return "no name lines on the dev bridge (LANI_VOICE_NAMES=on, LANI_DEV_FAKE_ELEVENLABS=1)"
+    name = api("/state")["databases"]["learner_profile"]["learner"]["name"]
+    said = None
+    for f in sorted((ROOT / "companion/scenes").glob("*.json")):
+        for raw in re.findall(r'"sl":\s*"([^"{}]{1,18}, \{learner\}[.!] [^"{}]{8,60})"', f.read_text(encoding="utf-8")):
+            said = said or raw
+    assert said, "no phrase line in the scenes"
+    line = said.replace("{learner}", name)
+    voice = "grandma"
+    print(f"    {line!r} in {voice}")
+    norm = re.sub(r"\s+", " ", re.sub(r"[^\w\s]", "", line.lower())).strip()
+    adb("logcat", "-c")
+    qa_hook(f"'audio:say:{line}|{voice}|'")
+    end = time.time() + 60 * slow()
+    url = None
+    while time.time() < end and not url:
+        url = (api("/voice/index").get(norm) or {}).get(voice)
+        time.sleep(1)
+    assert url and url.startswith("/voice/line/"), f"the node gave no joined line: {url}"
+    file = url.rsplit("/", 1)[1]
+    log = ""
+    while time.time() < end and f"clip end {file}" not in log:
+        log = adb("logcat", "-d", "-s", "Voice:I", "LineJoin:I", check=False)
+        time.sleep(1)
+    print("\n".join(f"    {l.split(': ', 1)[-1]}" for l in log.splitlines() if file in l))
+    assert f"joined {file}" in log, "the phone didn't join it"
+    assert f"clip start {file}" in log and f"clip end {file}" in log, "the joined line didn't play to its end"
+
+    m = api(url.replace(".mp3", ".json"))
+    out = Path(tempfile.mkdtemp(prefix="lani-name-join-"))
+    assert pull(f"files/voice-clips/{file}", out / "joined.wav"), "no joined file on the phone"
+    with wave.open(str(out / "joined.wav")) as w:
+        assert (w.getframerate(), w.getnchannels(), w.getsampwidth()) == (44100, 1, 2), "not 44.1 kHz mono 16 bits"
+        x = array.array("h", w.readframes(w.getnframes()))
+    rate = 44100
+    want = sum(p["ms"] for p in m["parts"])
+    got = len(x) * 1000 / rate
+    print(f"    {[(p['kind'], p['ms']) for p in m['parts']]}: {want} ms; the file {got:.1f} ms")
+    assert abs(got - want) <= 2 * len(m["parts"]), f"the file is {got:.1f} ms, its parts {want} ms"
+
+    def quiet(a: int, b: int) -> int:
+        """The longest run of samples under -58 dBFS in [a, b)."""
+        best = run = 0
+        for v in x[max(0, a):b]:
+            run = run + 1 if abs(v) < 40 else 0
+            best = max(best, run)
+        return best
+
+    at = 0
+    for p, nxt in zip(m["parts"], m["parts"][1:] + [None]):
+        n = p["ms"] * rate // 1000
+        if p["kind"] == "gap":
+            around = quiet(at - rate // 10, at + n + rate // 10) * 1000 // rate
+            print(f"    the seam at {at * 1000 // rate} ms: the manifest's pause {p['ms']} ms, quiet there for {around} ms")
+            assert p["ms"] <= around <= p["ms"] + 45, f"the pause at the seam is {around} ms, the manifest's {p['ms']} ms"
+            exact = all(v == 0 for v in x[at:at + n])
+            assert exact, "the pause isn't silence"
+        at += n
+    # where a part ends and a pause begins, no step: a click is a step well over its neighbours'
+    seams, at = [], 0
+    for p in m["parts"]:
+        at += p["ms"] * rate // 1000
+        seams.append(at)
+    for k in seams[:-1]:
+        step = abs(x[k] - x[k - 1])
+        typical = sorted(abs(x[i] - x[i - 1]) for i in range(max(1, k - 220), min(len(x), k + 220)))
+        print(f"    a step of {step} at sample {k}, around it {typical[len(typical) // 2]}, at most {typical[-1]}")
+        assert step <= max(60, typical[-1]), f"a click at sample {k}: a step of {step}"
+
+    # what the node joins for an older app, against what the phone joined: the same sound at the same moment
+    req = urllib.request.Request(f"http://127.0.0.1:{PORT}{url}", headers={"Authorization": f"Bearer {TOKEN}"})
+    (out / "node.mp3").write_bytes(urllib.request.urlopen(req, timeout=20).read())
+    raw = subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-i", str(out / "node.mp3"), "-ac", "1", "-ar", str(rate), "-f", "s16le", "pipe:1"], capture_output=True).stdout
+    y = array.array("h", raw)
+    a, b = len(x) // 3, 2 * len(x) // 3
+    assert abs(len(y) - len(x)) <= rate // 100, f"the node's file is {len(y)} samples, the phone's {len(x)}"
+    best = max(range(-200, 201, 2), key=lambda lag: sum(x[i] * y[i + lag] for i in range(a, b, 7) if 0 <= i + lag < len(y)))
+    print(f"    the phone's join against the node's: {best / rate * 1000:.2f} ms apart")
+    assert abs(best) <= 88, f"the phone's join stands {best} samples from the node's"
+
+    adb("logcat", "-c")
+    qa_hook(f"'audio:say:{line}|{voice}|'")
+    time.sleep(6 * slow())
+    how = [l.split("»: ", 1)[-1] for l in adb("logcat", "-d", "-s", "Speaker:I", check=False).splitlines() if "said «" in l]
+    assert how and how[-1].startswith("clip on the phone"), f"said again: {how}"
+    print("    said again: from the phone")
+
+    if (status.get("preload") or {}).get("on"):
+        before = api("/voice/status")["preload"]["today"]
+        for sid, hid in dialog_happenings()[:6]:
+            qa_hook(f"happening:{sid}/{hid}", f"scene:{sid}@{sid}/{hid}")
+            if wait_for("‹ Vas · Village", 8) is None:
+                continue
+            end = time.time() + 20 * slow()
+            while time.time() < end and api("/voice/status")["preload"]["today"] <= before:
+                time.sleep(1)
+            if api("/voice/status")["preload"]["today"] > before:
+                break
+        qa_hook("happening:")
+        after = api("/voice/status")["preload"]["today"]
+        print(f"    a dialog opened: {after - before} characters got ready ahead")
+        assert after > before, "a dialog opened got nothing ready"
+
+
 def previous_clip():
     """A re-voiced line keeps its old clip until the new one is here (companion/README.md, "Offline on the phone"): a line
     with both narrators' clips on the dev bridge is said once (its female clip downloaded), then re-voiced on the phone's
@@ -21406,6 +21526,7 @@ def plan():
         ("prefetch", prefetch, go_home, False, ""),
         ("offline-voice", offline_voice, go_home, False, ""),
         ("voice-node-clip", voice_node_clip, go_home, False, ""),
+        ("name-join", name_join, go_home, False, ""),
         ("previous-clip", previous_clip, go_home, False, ""),
         ("shadow-tutor", shadow_tutor, go_home, False, ""),
         ("shadow-matrix", shadow_matrix, go_home, False, ""),
