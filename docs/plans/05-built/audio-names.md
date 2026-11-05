@@ -153,6 +153,10 @@ made, so a line or a name made once by anyone is there for every node:
 - **A key that may read but not add** reads: what it can't add is said once in the log.
 - **Out of reach** is no library: the node goes on alone, and nothing waits for what is being added.
 
+Against the service's real routes, on its own in-process stack with fake engines: one node with a `publish` key reached four lines, one
+of each shape, and its 4 lines and 4 name clips were all taken (200); a second node with a key that may only read joined all four and
+voiced nothing.
+
 ## What it does
 
 **Off unless the node sets it.** With `LANI_VOICE_NAMES` unset nothing here runs: every line is voiced whole, as before, and
@@ -317,7 +321,7 @@ are speech-like), measured from the file the phone plays:
 | A click where parts meet | sample steps of 7 and 1, out of 32,768 |
 | Against the node's file for an older app | 0.00 ms apart |
 | Said again | from the phone |
-| A dialog opened | 236 characters got ready ahead |
+| A dialog opened | 198 to 236 characters got ready ahead, by the dialog |
 
 The measurement found a bug no unit test would have: this emulator's decoder honours the gapless header and gives each part its true
 length, so taking the encoder's delay off as well cut 13 ms from the start of every part. A part now starts where the decoder leaves
