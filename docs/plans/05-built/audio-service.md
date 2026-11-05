@@ -116,6 +116,8 @@ payment would decide is that key's monthly cap, nothing else. No card, name or i
   the 403 ending the trial, and with the server stopped a clip heard before playing from the phone and a new line going to the phone's
   voice.
 
+- A build with no `lani.glasUrl`: `--steps first-run` on a device, 6 taps to the village's map, no crash.
+
 **What no device has shown:** a natural end by date (the end came through the dev server and the 403), `closed`, a start offline, the
 daily read, leaving this device for a node, the prefetch and the car's library on a trial, a "player" line, any voice but `female`, a
 minified build. Nobody has listened: the evidence is logs and files.
