@@ -115,8 +115,11 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         val needs = vm.game.state?.let { HomeLogic.needs(it, vm.scenes.active(it, now), vm.villagers.people(it), vm.scenes.all, offered) }.orEmpty()
             .filterNot { it.alarm && today.primary is HomeAction.Defend }
 
-        // after the first finished session, once: the minutes and the aim (app/FirstRun.pace)
+        // after the first finished session, once: the minutes and the aim (app/FirstRun.pace); one card at a time, so the audio
+        // trial's waits for it and for the first moment, and says what the trial is or that it ended, once each
+        val trialCard = vm.audioTrial.card?.takeUnless { vm.firstRun.state.moment }
         if (vm.firstRun.state.pace(vm.practisedOnce, vm.child)) item("pace") { si.lanisce.lani.ui.home.PaceCard(vm, d) }
+        else if (trialCard != null) item("audio-trial") { si.lanisce.lani.ui.home.AudioTrialCard(vm, trialCard) }
         item("today") {
             TodayCard(
                 today,
