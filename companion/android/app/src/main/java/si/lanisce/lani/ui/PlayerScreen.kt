@@ -36,6 +36,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -142,6 +143,8 @@ import si.lanisce.lani.ui.game.PeekButton
 import si.lanisce.lani.ui.game.ReadFirstText
 import si.lanisce.lani.ui.game.RewardSummary
 import si.lanisce.lani.ui.game.giftWords
+import si.lanisce.lani.ui.scene.MoreBelow
+import si.lanisce.lani.ui.scene.keyboardUp
 import si.lanisce.lani.ui.stage.Cast
 import si.lanisce.lani.ui.stage.IntroSheet
 import si.lanisce.lani.ui.stage.Intros
@@ -494,15 +497,21 @@ fun ExerciseRun(
                             peeking = !peeking
                         }
                         Box(Modifier.weight(1f)) {
+                            // each item opens at its top: a tall one after a tall one kept its scroll and hid its question. remember(index),
+                            // not key(index): a key's group here hung the run on the change of item, its composition never ending
+                            val scroll = remember(index) { ScrollState(0) }
                             // the question stays under the text (what was typed is kept), out of TalkBack's way while it's covered
                             Column(
-                                Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(vertical = 16.dp)
+                                Modifier.fillMaxSize().verticalScroll(scroll).padding(vertical = 16.dp)
                                     .then(if (peeking) Modifier.clearAndSetSemantics { } else Modifier),
                             ) {
                                 key(index) {
                                     ExerciseView(vm, moduleId, index, exercises[index], locked = outcome != null, done = answered, adapted = adapted, onStep = { steps = it })
                                 }
                             }
+                            // an item's last row can lie wholly below the fold ("Senza microfono" under what the teacher asks and a word
+                            // tip), with nothing to say so. In the corner: a choice's centre stays free, and a field's the keyboard's
+                            if (!peeking && !keyboardUp()) MoreBelow(scroll, Modifier.align(Alignment.BottomEnd))
                             if (peeking && text != null) Surface(
                                 color = MaterialTheme.colorScheme.surface, tonalElevation = 3.dp, shadowElevation = 6.dp, shape = MaterialTheme.shapes.large,
                                 modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),

@@ -158,12 +158,14 @@ internal fun LinesOverTurn(
 
 /**
  * "▾" at a turn's foot while it goes on below: a long line said takes the room, and a third long choice, the right one perhaps, can
- * lie wholly out of sight, with nothing to say so. A tap brings the rest up; it goes when the turn's end is in view.
+ * lie wholly out of sight, with nothing to say so. A tap brings the rest up; it goes when the turn's end is in view. The exercise
+ * player ([si.lanisce.lani.ui.ExerciseRun]) keeps one on an item for the same reason.
  */
 @Composable
 internal fun MoreBelow(scroll: ScrollState, modifier: Modifier = Modifier) {
     val scope = rememberCoroutineScope()
-    AnimatedVisibility(visible = scroll.canScrollForward, modifier = modifier, enter = fadeIn(tween(DialogRoom.MOVE_MS)), exit = fadeOut(tween(DialogRoom.MOVE_MS))) {
+    // before its first measure a scroll's end is unknown and it reads as going on: no flash of the cue over what fits
+    AnimatedVisibility(visible = scroll.canScrollForward && scroll.viewportSize > 0, modifier = modifier, enter = fadeIn(tween(DialogRoom.MOVE_MS)), exit = fadeOut(tween(DialogRoom.MOVE_MS))) {
         Surface(
             onClick = { scope.launch { scroll.animateScrollBy(scroll.viewportSize * 0.8f) } },
             shape = CircleShape,
