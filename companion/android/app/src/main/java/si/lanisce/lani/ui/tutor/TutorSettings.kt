@@ -167,6 +167,11 @@ fun TutorSettings(vm: AppViewModel, modifier: Modifier = Modifier, heading: Bool
         }
         s.familyCap?.let { cap ->
             Text("👪 " + bi("family.capHere", "cap" to money(cap), "device" to s.familyCapBy.orEmpty()), style = MaterialTheme.typography.bodySmall, color = muted, modifier = Modifier.testTag("family-cap"))
+            // never a wall: if the device that set it is gone, this one can leave, and the family's key goes with the limit
+            if (vm.familyDevices.book.parent != null) {
+                Text(bi("family.leaveWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
+                si.lanisce.lani.ui.setup.HoldToOpen("🔒 ${bi("family.holdLeave")}", onLight = true, onOpen = vm.familyDevices::leave)
+            }
         }
         Text(
             "💶 " + bi("tutorLive.spend", "today" to money(si.lanisce.lani.tutor.Meter.spend(live.today.calls)), "cap" to money(s.capNow), "month" to money(month ?: 0.0)),

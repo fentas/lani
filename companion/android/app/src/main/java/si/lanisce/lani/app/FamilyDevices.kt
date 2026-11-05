@@ -216,6 +216,18 @@ class FamilyDevices(
         change { it.drop(id) }
     }
 
+    /**
+     * This device leaves by itself: the way out when the device that set a limit is gone, since only that one could raise it. What it
+     * costs is what the limit protects: the family's key goes with it. On a child's device it stands behind a parent's hold.
+     */
+    fun leave() {
+        val p = synchronized(lock) { current.parent } ?: return
+        scope.launch(Dispatchers.IO) {
+            home.forget(p)
+            change { it.copy(parent = null) }
+        }
+    }
+
     /** The app came to the screen, or left it. */
     fun foreground(on: Boolean) {
         val before = loop

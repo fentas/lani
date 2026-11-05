@@ -38,11 +38,15 @@ class FamilyDevicesTest {
     private var online = true
     private var answer = FamilyKey.NOT_CHECKED
     private val checked = mutableListOf<FamilyKeyWaiting>()
+    @Volatile private var forgot: FamilyParent? = null
     private val vault = KeyVault(SoftCipher(), MemoryStore())
 
     private val home = object : FamilyHome {
         override suspend fun cap(cap: Double?, by: String) = Unit
-        override suspend fun forget(p: FamilyParent) = Unit
+        override suspend fun forget(p: FamilyParent) {
+            forgot = p
+        }
+
         override suspend fun check(k: FamilyKeyWaiting): FamilyKey {
             checked += k
             return answer
@@ -93,6 +97,14 @@ class FamilyDevicesTest {
         val again = devices()
         until("read again") { again.book.member("m1") != null }
         assertEquals(0.5, again.book.member("m1")!!.cap)
+    }
+
+    @Test fun `a device can leave by itself, if the one that set its limit is gone`() {
+        val d = devices()
+        d.joined(FamilyLink.Gift(key = key, provider = "anthropic", family = "fam", member = "m1", from = "Pixel"), bond)
+        d.leave()
+        until("gone") { d.book.parent == null }
+        assertEquals("Pixel", forgot?.name)
     }
 
     @Test fun `a family id is made once`() {
