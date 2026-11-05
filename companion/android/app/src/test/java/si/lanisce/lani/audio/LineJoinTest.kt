@@ -90,6 +90,21 @@ class LineJoinTest {
         assertEquals(50, w.size)
     }
 
+    @Test fun `a decoder that honours the gapless header has nothing taken off, as on the emulator's API 35`() {
+        // what QA read: 25,799 samples for a part of 585 ms, 127,229 for one of 2,885
+        assertEquals(0, LineJoin.soundStart(25_799, 25_798, 576))
+        assertEquals(0, LineJoin.soundStart(127_229, 127_228, 576))
+    }
+
+    @Test fun `a decoder that leaves the delay and the padding has the delay taken off`() {
+        assertEquals(576, LineJoin.soundStart(27_119, 25_798, 576))
+    }
+
+    @Test fun `a short decode never reads past its end`() {
+        assertEquals(0, LineJoin.soundStart(100, 25_798, 576))
+        assertEquals(100, LineJoin.soundStart(25_898, 25_798, 576))
+    }
+
     // the first bytes of an MP3 as the node's ffmpeg writes a piece: an ID3 tag, then the frame with its LAME header
     private val ffmpegHead = Base64.getDecoder().decode(
         "SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYzLjEuMTAyAAAAAAAAAAAAAAD/+5DAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAADwAAABEAAB1iABwcHBwcKioqKioqODg4ODg4R0dHR0dHVVVVVVVVY2NjY2NjcXFxcXFxf39/f39/jo6Ojo6cnJycnJyqqqqqqqq4uLi4uLjHx8fHx8fV1dXV1dXj4+Pj4+Px8fHx8fH//////wAAAABMYXZjNjMuMS4AAAAAAAAAAAAAAAAkBVgAAAAAAAAdYnB4i9QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",

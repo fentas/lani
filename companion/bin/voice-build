@@ -892,7 +892,7 @@ if (narrators) {
   // Slovene: a clip of this village's corpus, of a source the corpus has, or a line the app spoke here
   const keys = new Set(items.map(i => clipKey(normalizeText(i.text), i.voice)))
   const sources = new Set(items.map(i => i.source))
-  const spoken = new Set(['live', 'road'])
+  const spoken = new Set(['live', 'road', 'preload'])
   const slovene = (c: Clip) => keys.has(c.key) || sources.has(c.source) || spoken.has(c.source)
   const { todo, skipped } = store.narratorQueue(slovene)
   // each clip's voice now, and the local voice it is made in (female: ana for a lone word, nina for a sentence)

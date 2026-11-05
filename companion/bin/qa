@@ -1319,7 +1319,7 @@ def setup(url=None, token=None):
         qa_hook(f"pair:{pair}")
     # the learner's own pair from here (the profile's, or LANI_QA_PAIR's): Home's and the founding's labels in it
     today, where, here = (f"{say(k, 0)}" for k in ("common.today", "founding.title", "founding.here"))
-    end = time.time() + 30
+    end = time.time() + 30 * slow()
     while time.time() < end:  # Home, and the notification permission whenever it comes
         ns = list(nodes())
         c = next((c for t, c in ns if t == "Allow"), None)
@@ -17531,6 +17531,15 @@ def name_join():
         log = adb("logcat", "-d", "-s", "Voice:I", "LineJoin:I", check=False)
         time.sleep(1)
     print("\n".join(f"    {l.split(': ', 1)[-1]}" for l in log.splitlines() if file in l or "decoded " in l))
+    if os.environ.get("LANI_QA_OLDER_APP") == "1":
+        # an app from before the manifests (qa --apk <older>): it downloads the URL as any clip's and plays one finished MP3
+        out = Path(tempfile.mkdtemp(prefix="lani-name-join-"))
+        assert f"clip start {file}" in log and f"clip end {file}" in log, "the older app didn't play it to its end"
+        assert pull(f"files/voice-clips/{file}", out / "line.mp3"), "no file on the phone"
+        head = (out / "line.mp3").read_bytes()[:4]
+        assert head[:3] == b"ID3" or head[:2] == b"\xff\xfb", f"not an MP3: {head}"
+        print(f"    an older app: one finished MP3 ({(out / 'line.mp3').stat().st_size} bytes), played to its end")
+        return ""
     assert f"joined {file}" in log, "the phone didn't join it"
     assert f"clip start {file}" in log and f"clip end {file}" in log, "the joined line didn't play to its end"
 

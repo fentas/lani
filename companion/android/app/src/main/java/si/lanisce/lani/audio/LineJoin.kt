@@ -82,15 +82,21 @@ object LineJoin {
     }
 
     /**
-     * The MP3 [file] as the samples its encoder was given: what the decoder gives, its encoder's delay taken off the front
-     * ([Mp3Gapless]), then [ms] of it, so the padding at its end goes too. The manifest says each part's true length.
+     * Where a part's [want] samples start in the [decoded] a decoder gave. The manifest says a part's true length, and that tells
+     * what the decoder did: one that honours the gapless header gives that length and nothing to take off (an emulator on
+     * API 35 did, to a sample; taking the delay off as well cost every part 13 ms of its start); one that doesn't gives the
+     * encoder's [delay] before the sound and the padding after it.
      */
+    fun soundStart(decoded: Int, want: Int, delay: Int): Int = if (decoded - want <= TRIMMED_SLACK) 0 else delay.coerceAtMost(decoded - want)
+
+    /** The MP3 [file] as the samples its encoder was given: [ms] of what the decoder gives, from [soundStart]. */
     fun samplesOf(file: File, ms: Int): ShortArray {
         val all = Mp3Decoder.decode(file)
-        val delay = Mp3Gapless.delay(file)
         val want = (ms.toLong() * RATE / 1000).toInt()
-        if (BuildConfig.QA) Log.i(TAG, "decoded ${file.name}: ${all.size} samples, delay $delay, wanted $want, first sound at ${all.indexOfFirst { kotlin.math.abs(it.toInt()) > 200 }}")
-        return all.copyOfRange(delay.coerceAtMost(all.size), (delay + want).coerceAtMost(all.size))
+        val delay = Mp3Gapless.delay(file)
+        val from = soundStart(all.size, want, delay)
+        if (BuildConfig.QA) Log.i(TAG, "decoded ${file.name}: ${all.size} samples, wanted $want, from $from")
+        return all.copyOfRange(from, (from + want).coerceAtMost(all.size))
     }
 
     /** [parts] joined into [to], whole or not at all. */
@@ -102,6 +108,9 @@ object LineJoin {
         if (BuildConfig.QA) Log.i(TAG, "joined ${to.name}: ${parts.size} parts, ${joined.size} samples, ${joined.size * 1000L / RATE} ms")
     }
 
+    /** A decoder that trimmed gives a part's length within a rounding of the manifest's milliseconds. */
+    private const val TRIMMED_SLACK = 64
+
     private const val TAG = "LineJoin"
     private const val WAV_HEADER = 44
     private const val MAX_GAP_MS = 2_000
@@ -111,8 +120,8 @@ object LineJoin {
 /** What the encoder of an MP3 put before its sound, from its LAME header. */
 object Mp3Gapless {
     /**
-     * The samples before the sound in what Android's decoder gives: the encoder's delay. Android takes the decoder's own 529 off
-     * itself. LAME's 576 when the header doesn't say.
+     * The samples before the sound where a decoder leaves them ([LineJoin.soundStart]): the encoder's delay; Android takes the
+     * decoder's own 529 off itself. LAME's 576 when the header doesn't say.
      */
     const val LAME_DELAY = 576
 
