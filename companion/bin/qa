@@ -13418,13 +13418,19 @@ def family_tablet(on: bool):
     time.sleep(2)
 
 
+def family_device_row():
+    """A device's row on the family's page, (its text, where): not the list's heading or a button that also starts with 📱."""
+    others = [say(k, 0) for k in ("family.devices", "family.keyOnly", "family.show")]
+    return next(((t, c) for t, c in nodes() if t.startswith("📱 ") and not any(o in t for o in others)), None)
+
+
 def family_devices_parent():
     """The parent's half of the list of devices: the one just added on it, its budget by a hold, on its way until the device came
     by, then its removal, which stays on the list until the device has heard."""
     assert scroll_to(say("family.devices", 0), 8), "the list of the family's devices"
     assert scroll_to(say("family.reachWifi", 0)[:30], 6), "where no channel reaches, said plainly"
     shot("family-devices")
-    row = next(((t, c) for t, c in nodes() if t.startswith("📱 ") and say("family.show", 0) not in t), None)
+    row = family_device_row()
     assert row, "the device on the list"
     print(f"    on the list: {row[0]}")
     tap_at(row[1])
@@ -13450,7 +13456,7 @@ def family_devices_parent():
         (FAMILY_DIR / "cap-there").touch()
         family_wait("cap-seen", 200)
         # the removal: a parent's hold, on the list until the device hears, then gone
-        row = next(((t, c) for t, c in nodes() if t.startswith("📱 ")), None)
+        row = family_device_row()
         if row and not find(say("family.removeWhat", 0)[:30]):
             tap_at(row[1])
             time.sleep(1)
@@ -13699,7 +13705,7 @@ def family_computer_parent():
             time.sleep(1)
             open_settings("family")
             assert scroll_to(say("family.onComputer", 0), 6), "the family on the computer"
-            device = next(((t, c) for t, c in nodes() if t.startswith("📱 ") and say("family.keyOnly", 0) not in t and say("family.show", 0) not in t), None)
+            device = family_device_row()
         assert device, "the new device on the parent's list"
         print(f"    on the list: {device[0]}")
         shot("fc-list")
@@ -13711,7 +13717,7 @@ def family_computer_parent():
         shot("fc-budget")
         (FAMILY_DIR / "cap-set").touch()
         family_wait("cap-seen", 200)
-        row = next(((t, c) for t, c in nodes() if t.startswith("📱 ") and say("family.keyOnly", 0) not in t), None)
+        row = family_device_row()
         if row and not find(say("family.unpairWhat", 0)[:20]):
             tap_at(row[1])
             time.sleep(1)
@@ -22023,10 +22029,12 @@ def hosted_home(timeout=60, found=False):
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
             founded = True
         elif any("Kje bo tvoja vas" in t for t, _ in ns):
-            # the founding (ui/game/FoundingScreen): its button under the picture, below the screen's edge
+            # the founding (ui/game/FoundingScreen): its button under the picture, below the screen's edge; on a tablet on its
+            # side the screen ends before a phone's swipe would begin
             if not founded:
                 hosted_shot("founding")
-            adb("shell", "input", "swipe", "540", "1700", "540", "700", "300")
+            high = int(adb("shell", "wm", "size").split()[-1].split("x")[1])
+            adb("shell", "input", "swipe", "540", str(high * 7 // 10), "540", str(high * 3 // 10), "300")
             time.sleep(1)
         elif founded and first_moment():
             continue
