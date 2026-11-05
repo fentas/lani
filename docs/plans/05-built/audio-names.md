@@ -233,3 +233,97 @@ the project steps, which have few name lines.
 - QA: `companion/bin/qa-slot --steps name-join` with `LANI_DEV_FAKE_ELEVENLABS=1 LANI_VOICE_NAMES=on LANI_VOICE_PRELOAD=on` and a synthetic
   learner. See [what the device showed](#what-the-device-showed).
 
+## How good it is, on real speech
+
+`test/name-samples.ts` drives the real store with the splice test's own takes, replayed by the fake ElevenLabs: nothing is voiced. All
+14 of the test's lines join, with none voiced whole, and every take they ask for exists. On the test's own rating, against its
+whole-voiced lines:
+
+| Line | Type | Template | This build | The test |
+|---|---|---|---|---|
+| g1 `{n}! Pridi, juha je vroča.` | first | arch | 80.6 | 80.9 |
+| g2 `O, {n}! Ravno kuham. Si lačen?` | phrase | arch | 33.8 | 34.0 |
+| g3 `Hvala, {n}. Ti si zlat.` | phrase | ending | 88.6 | 90.2 |
+| g4 `{n}? Še buden? …` | first | rise | 71.8 | 59.5 |
+| p1 `Lovski blagor, {n}!` | phrase | ending | 78.4 | 78.5 |
+| p2 `Dober dan, {n}! Si prišel pomagat?` | phrase | arch | 63.8 | 83.2 |
+| p3 `Lahko noč, {n}.` | phrase | ending | 94.5 | 94.8 |
+| p4 `{n}, imaš čas za eno zgodbo?` | first | arch | 62.1 | 61.7 |
+| p5 `Glasen? Kdo je glasen, {n}?` | phrase | rise | 25.1 | 25.3 |
+| t1 `{n}! To je pa res posebno darilo. …` | first | arch | 79.4 | 81.8 |
+| t2 `Hvala, {n}! Odlično darilo. Pet plus!` | phrase | ending | 78.3 | 81.6 |
+| t3 `Hvala, {n}. Odlično delo.` | phrase | ending | 62.2 | 63.0 |
+| t4 `{n}, kaj nosiš na čelu sprevoda?` | first | arch | 81.7 | 66.5 |
+| t5 `Oho? Še enkrat, {n}, in na glas.` | splice | ending | 86.9 | 89.3 |
+| **Median, worst** | | | **78.3, 25.1** | **79.7, 25.3** |
+
+- **The one real loss is p2.** Its two takes are nearly level on pitch without word times (−3.7 and −3.0 semitones here; −3.3 and
+  −3.7 in Praat on the same span), so the lower-take rule picks the other one. The test separated them with Whisper's word times, which
+  a node doesn't have at this point. It isn't tuned here: one line of nine.
+- **g4 and t4 gain** because a line now takes the one carrier of its template, not the test's pick by seam targets.
+- **Only Jan's name.** The test's 68.6 on other names can't be remade without new takes: its name-first carriers for them are other
+  sentences than the ones this build asks for.
+- **Weakest stay weakest:** question lines and p5 above all. Jan's question from the test stands: does p5 sound wrong, or only different?
+
+## What the device showed
+
+`companion/bin/qa-slot --steps name-join` on an emulator (API 35, a synthetic learner called Matej, the fake ElevenLabs, whose takes
+are speech-like), measured from the file the phone plays:
+
+| What | Measured |
+|---|---|
+| The line | `O, Matej! Pridi, pridi. Pečem potico. Mi pomagaš?`: name 585 ms, pause 300 ms, piece 2,885 ms |
+| Joined and played | `joined … 3 parts, 166256 samples`, `clip start … (3770 ms)`, `clip end` |
+| Its length | 3,770.0 ms against the parts' 3,770 ms |
+| The pause at the seam | the manifest's 300 ms; quiet there for 307 ms |
+| A click where parts meet | sample steps of 7 and 1, out of 32,768 |
+| Against the node's file for an older app | 0.00 ms apart |
+| Said again | from the phone |
+| A dialog opened | 236 characters got ready ahead |
+
+The measurement found a bug no unit test would have: this emulator's decoder honours the gapless header and gives each part its true
+length, so taking the encoder's delay off as well cut 13 ms from the start of every part. A part now starts where the decoder leaves
+it, read from the manifest's length (`LineJoin.soundStart`).
+
+## Samples to listen to
+
+Built by `bun test/name-samples.ts <the test's folder> <folder>`: `<id>-joined.mp3` beside `<id>-whole.mp3`, the same line voiced whole.
+Play the whole one first. The rating is the table above, not an ear.
+
+| Sample | Line | Listen for |
+|---|---|---|
+| g3 | `Hvala, Jan. Ti si zlat.` | A phrase: the commonest shape |
+| g1 | `Jan! Pridi, juha je vroča.` | The name first, only the name new |
+| t4 | `Jan, kaj nosiš na čelu sprevoda?` | The name first with a comma: rated far above the test's |
+| t5 | `Oho? Še enkrat, Jan, in na glas.` | A splice: pauses on both sides |
+| g4 | `Jan? Še buden? …` | A question: does the rise sound right? |
+| p2 | `Dober dan, Jan! Si prišel pomagat?` | The take the rule got wrong |
+| p5 | `Glasen? Kdo je glasen, Jan?` | The lowest rating: wrong, or only different? |
+
+## Native check
+
+All machine-written, all in `name-lines.ts`. The Slovene ones were used by the test but no native speaker has checked them.
+
+- **Name carriers:** sl `{n}! Pridi sem.`, `Vidiš, {n}. Zdaj vem.`, `{n}? Si tu?`; it `{n}! Vieni qui.`, `Psst, {n}. Adesso lo so.`, `{n}? Sei qui?`;
+  de `{n}! Komm her.`, `Ach, {n}. Jetzt weiß ich es.`, `{n}? Bist du da?`; en `{n}! Come here.`, `Look, {n}. Now I know.`, `{n}? Are you there?`.
+- **Phrase tails:** sl ` Pridi sem.`, ` Zdaj vem.`, ` in tiho.`, ` Povej.`; it ` Vieni qui.`, ` Adesso lo so.`, ` e piano.`, ` Dimmi.`;
+  de ` Komm her.`, ` Jetzt weiß ich es.`, ` und leise.`, ` Sag es.`; en ` Come here.`, ` Now I know.`, ` and quietly.`, ` Tell me.`
+- **Fillers:** Marko, Ana; Marco, Anna; Marko, Anna; Marco, Anna.
+- **What a thanks or a goodbye starts with,** by language (`CLOSINGS`): it decides between `arch` and `ending`.
+- **The words no voice says as a name** (`NOT_NAMES`).
+
+The Italian, German and English carriers have never been voiced: the test was Slovene only. Whether a name cuts as cleanly from them is
+unmeasured. Italian's ending carrier starts with "Psst" because a word before the name should end in a voiceless sound, and few Italian ones do.
+
+## Tap counts
+
+No screen changed: 0 taps before, 0 after. A new line may play sooner with preloading on; nothing else shows.
+
+## What's left
+
+- **Jan's ears** on the samples, and the native check.
+- **Prebuilding** the first scenes and A1 is a decision, not built: nothing makes pieces ahead of need.
+- **`voice-build` knows nothing of name lines:** its plans still count whole lines, and `--upgrade-model` doesn't touch pieces or name clips.
+- **Declined names** (`{learner:dat}` and the others, about 20 lines) are voiced whole.
+- **Whole takes are kept** beside each line, with their timestamps, so a better cut later costs nothing. No tool re-cuts them yet.
+- **The hosted library** plugs in where `NameStore` makes a line or a name: built by `audio-service`.
