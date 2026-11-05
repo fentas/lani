@@ -152,6 +152,10 @@ at the second: the button is on the screen, but QA's dump of the screen doesn't 
 that; the app isn't at fault). So the second item and "✍️ Scrivi anche" have still not been seen on an emulator. `ProductionTest` and the smoke
 cover them, as before.
 
+**Not seen on a device, only tested in code:** `UnmetChecks` with a check not met (QA types the model, so its text passes), "📨 Pošlji znova"
+(it needs a node that hasn't recorded a level by the next day), and a child's test reading its prompts (`PromptSpeech`; `placement` runs as an
+adult).
+
 ## Native check
 
 - The 72 translations and 5 voiced lines of "A helper's words", most of all Kärnten's Slovene: present and impersonal forms stand in for
