@@ -4941,8 +4941,8 @@ def answer_row(wanted: set) -> bool:
 
 def kaernten_leftovers():
     """What leftovers-content wrote, played on a device, by a German learner in Kärnten (LANI_DEV_DATA from make-learner.ts --target de
-    --base sl, LANI_CULTURE=kaernten, LANI_QA_PAIR=de-sl): [LEFTOVERS_DIALOG] through QA's hook "happening:", each turn's wrong choice first,
-    its reaction on screen, then the right one; then the charcoal burner at B2 on the first day of [LEFTOVERS_REACTION]'s stage (hooks
+    --base sl, LANI_CULTURE=kaernten, LANI_QA_PAIR=de-sl): [LEFTOVERS_DIALOG] through QA's hook "happening:", with "turns:type" and "let me
+    choose" (a new learner hasn't met these rules, so isn't asked them), each turn's wrong choice first, its reaction on screen, then the right one; then the charcoal burner at B2 on the first day of [LEFTOVERS_REACTION]'s stage (hooks
     "kopa:<stage>", "level:B2", "hour:17.5"): his meeting and the day's talk played on to its turn, the wrong choice, the reaction
     reworded because «Geholfen hat es» gave the order away. leftovers-*.png, also in $LANI_QA_LEFTOVERS_SHOTS."""
     culture = api("/culture").get("id") or "primorska"
@@ -4958,18 +4958,63 @@ def kaernten_leftovers():
             out.mkdir(parents=True, exist_ok=True)
             shutil.copy(shots[-1], out / f"{name}.png")
 
+    def past_offer():
+        """"Moj glas" offered over the panel, at the learner's first line: taken, as the story's step does (the app has its learner
+        by now, so the bridge's /learner/voice comes too late)."""
+        ok = find(label("myVoice.keep"))
+        if ok is not None:
+            tap_at(ok)
+            time.sleep(1.5)
+
+    def reaction_up(text: str) -> bool:
+        """[text] on screen, the offer taken on the way: it comes with the learner's first line, here the wrong choice."""
+        end = time.time() + 15 * slow()
+        while time.time() < end:
+            past_offer()
+            if find(text) is not None:
+                return True
+            time.sleep(1)
+        return False
+
     sid, hid, did, first, turns = LEFTOVERS_DIALOG
-    close = label("common.close")
+    close, nxt = label("common.close"), label("common.next")
+    choose, typed = label("adaptive.letMeChoose", half=True), label("adaptive.typeMissingWord", half=True)
+
+    def show_choices() -> bool:
+        """A typed turn's choices: down the turn to "let me choose", which lies below a phone's fold, as a learner swipes it, and tapped."""
+        w, h = screen_size()
+        for _ in range(6):
+            c = find(choose)
+            if c is not None and c[1] < h * 0.96:
+                tap_at(c)
+                time.sleep(1.5)
+                return True
+            adb("shell", "input", "swipe", str(w // 4), str(int(h * 0.85)), str(w // 4), str(int(h * 0.6)), "400")
+            time.sleep(1)
+        return False
+
     plain_village()
+    # a turn of a rule the learner hasn't met isn't asked at all (SCENES.md, "Rules not yet"): as if each were secure, then "let me choose"
+    qa_hook("turns:type")
     qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
     try:
         assert wait_for(close, 15), f"{sid}/{did} opens"
         assert wait_for(first, 15), f"{did}: «{first}» (on screen: {[t[:40] for t, _ in nodes() if t][:14]})"
         for k, (wrong, reaction, right) in enumerate(turns, 1):
-            assert to_german_turn(), f"{did}: turn {k} (on screen: {[t[:40] for t, _ in nodes() if t][:14]})"
+            for _ in range(8):  # (the offer can come as the turn does, and the last turn's header linger a moment)
+                past_offer()
+                if to_german_turn():
+                    if any(typed in t or choose in t for t, _ in nodes()):
+                        show_choices()
+                    if any(t == wrong for t, _ in nodes()):
+                        break
+                past_offer()
+                tap(nxt, 2)
+            else:
+                raise AssertionError(f"{did}: turn {k} (on screen: {[t[:40] for t, _ in nodes() if t][:14]})")
             snap(f"leftovers-sepp-{k}-turn")
             assert answer_row({wrong}), f"{did}: the wrong choice «{wrong}» (on screen: {[t[:40] for t, _ in nodes() if t][:16]})"
-            assert wait_for(reaction, 12), f"{did}: the reaction «{reaction}» (on screen: {[t[:50] for t, _ in nodes() if t][:16]})"
+            assert reaction_up(reaction), f"{did}: the reaction «{reaction}» (on screen: {[t[:50] for t, _ in nodes() if t][:16]})"
             print(f"    turn {k}: «{wrong}» → «{reaction}»")
             snap(f"leftovers-sepp-{k}-reaction")
             assert answer_row({right}), f"{did}: the right choice «{right}» (on screen: {[t[:40] for t, _ in nodes() if t][:16]})"
@@ -4993,7 +5038,8 @@ def kaernten_leftovers():
                 walk(x)
 
     walk(json.loads((ROOT / "companion/cultures/kaernten/world.json").read_text())["spots"]["kopa"])
-    nxt = label("common.next")
+    # not this turn's: a long turn can show its right choice with the wrong one below the fold
+    right.discard(wrong.replace("hat geholfen", "geholfen hat"))
     try:
         qa_hook("hour:17.5")
         qa_hook("level:B2")
@@ -5001,12 +5047,16 @@ def kaernten_leftovers():
         kopa_day(stage)
         assert kopa_open(title), f"the charcoal burner's bubble «{title}»"
         for _ in range(24):
+            past_offer()
             texts = [t for t, _ in nodes()]
             if any(t == wrong or t.startswith(wrong[:40]) for t in texts):
                 break
             if any(g in t for t in texts for g in KOPA_GLOSS):  # a tap a slow emulator took for a long press
                 adb("shell", "input", "keyevent", "KEYCODE_BACK")
                 time.sleep(1.5)
+                continue
+            if any(typed in t or choose in t for t in texts):  # a typed turn, all of them with "turns:type"
+                show_choices()
                 continue
             if not answer_row(right) and not tap(nxt, 2):
                 time.sleep(1)
@@ -5015,7 +5065,7 @@ def kaernten_leftovers():
             raise AssertionError(f"the turn with «{wrong[:40]}» (on screen: {[t[:40] for t, _ in nodes() if t][:16]})")
         snap("leftovers-kohler-turn")
         assert answer_row({wrong}), f"the wrong choice «{wrong[:40]}»"
-        assert wait_for(reaction, 12), f"the reaction «{reaction}» (on screen: {[t[:60] for t, _ in nodes() if t][:16]})"
+        assert reaction_up(reaction), f"the reaction «{reaction}» (on screen: {[t[:60] for t, _ in nodes() if t][:16]})"
         assert find("Geholfen hat es") is None, "the old reaction, which gave the order away"
         print(f"    the charcoal burner: «{reaction}»")
         snap("leftovers-kohler-reaction")
@@ -5025,40 +5075,64 @@ def kaernten_leftovers():
         qa_hook("kopa:")
         qa_hook("level:")
         qa_hook("hour:")
+        qa_hook("turns:")
 
 
 def table_credit():
-    """A Slovene word card (QA's hook "word:") whose table credits its sources, as CC BY-SA 4.0 asks: točen, a word of the supplement, its
-    table's last line «📖 Wiktionary …; Sloleks 3.0 …», and none of the comparatives or superlatives that stood in its plain slots.
+    """A Slovene table credits its sources, as CC BY-SA 4.0 asks (QA's hook "word:"): točen, a word of the supplement, read two ways. "📋
+    Vse oblike · All forms", the overview a new word has: Wiktionary and Sloleks 3.0 on its last line, and none of the comparatives or
+    superlatives that stood in its plain rows. Then the word added, and the table a known word has under its card: «📖 …» with both.
     table-credit-*.png, also in $LANI_QA_LEFTOVERS_SHOTS."""
     if pair_now()[0] != "sl":
         return f"skipped: the phone shows {'-'.join(pair_now())}: a Slovene word card's table"
     out = Path(os.environ["LANI_QA_LEFTOVERS_SHOTS"]) if os.environ.get("LANI_QA_LEFTOVERS_SHOTS") else None
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def read_down(want: str, swipes=9) -> tuple:
+        """Everything on screen, scrolled down until [want] shows: (the texts seen, the text with [want])."""
+        seen = []
+        for _ in range(swipes):
+            seen += [t for t, _ in nodes() if t]
+            hit = next((t for t in seen if want in t), None)
+            if hit is not None:
+                return seen, hit
+            w, h = screen_size()
+            adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.8)), str(w // 2), str(int(h * 0.45)), "400")
+            time.sleep(1.2)
+        return seen, None
+
     plain_village()
-    qa_hook("word:točen|Vlak je točen.|The train is punctual.")
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", QA_HOOK, shlex.quote("word:točen|Vlak je točen.|The train is punctual."))
     assert word_card(), "točen's word card"
     time.sleep(2.5)
-    shot("table-credit-card")
-    seen = []
-    credit = None
-    for _ in range(8):
-        seen += [t for t, _ in nodes() if t]
-        credit = next((t for t in seen if "Sloleks 3.0" in t), None)
-        if credit is not None:
-            break
-        w, h = screen_size()
-        adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.8)), str(w // 2), str(int(h * 0.45)), "400")
-        time.sleep(1.2)
-    shot("table-credit-line")
-    if out is not None:
-        out.mkdir(parents=True, exist_ok=True)
-        for n in (-2, -1):
-            shutil.copy(shots[n], out / Path(shots[n]).name)
-    assert credit is not None, f"the table's credit (on screen: {[t[:40] for t in seen][-14:]})"
-    print(f"    the table's line: «{credit}»")
+    snap("table-credit-card")
+    assert tap(label("formsCard.allForms"), 6), f"«{label('formsCard.allForms')}» (on screen: {[t[:40] for t, _ in nodes() if t][:14]})"
+    time.sleep(3)
+    snap("table-credit-overview")
+    seen, credit = read_down("Sloleks 3.0")
+    snap("table-credit-overview-line")
+    assert credit is not None, f"the overview's credit (on screen: {[t[:40] for t in seen][-14:]})"
+    print(f"    the overview's line: «{credit}»")
     assert "Wiktionary" in credit and "CJVT UL" in credit, credit
-    stray = [t for t in seen if any(f in t for f in ("najtočnejš", "točnejše", "točnejši /", "/ točnejši"))]
+    stray = [t for t in seen if any(f in t for f in ("najtočnejš", "točnejše", "točnejša", "točnejših"))]
     assert not stray, f"a comparative in točen's plain rows: {stray[:4]}"
+    print(f"    {len(seen)} texts read, none a comparative of točen's")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(2)
+    # the word added: the table a known word has under its card
+    assert word_card(), "back on točen's word card"
+    assert tap(label("words.addToMyWords"), 6), "add točen to the learner's words"
+    time.sleep(3)
+    seen, line = read_down("Sloleks 3.0")
+    snap("table-credit-card-line")
+    assert line is not None, f"the word card's table line (on screen: {[t[:40] for t in seen][-14:]})"
+    print(f"    the word card's line: «{line}»")
+    assert line.startswith("📖") and "Wiktionary" in line, line
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1.5)
 
