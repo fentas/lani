@@ -237,6 +237,9 @@ async function store(check: Check) {
   const bad = storeOf([say(PROBE_NAME, 'Lahko noč, {n}.')])
   check("store: a name that is no name, in a line of the content: the phone's voice, silently", (await bad.ns.line('Lahko noč, Admin.', 'grandma', addressee({ name: 'Admin' }))).say === 'phone' && bad.fe.st.tts.length === 0)
 
+  const badWhole = storeOf([say(PROBE_NAME, 'Danes je {n} doma.')])
+  check("store: a name that is no name, in a line voiced whole: the phone's voice too: a whole take would say it", (await badWhole.ns.line('Danes je Admin doma.', 'grandma', addressee({ name: 'Admin' }))).say === 'phone' && badWhole.fe.st.tts.length === 0)
+
   // no learner in the log, not even a name
   check('store: no name in any log line', !logged.some(l => /\bjan\b|\bana\b/i.test(l)), logged)
 

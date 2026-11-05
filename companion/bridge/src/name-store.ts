@@ -178,14 +178,16 @@ export class NameStore {
     const norm = normalizeText(text)
     if (this.voice.best(norm, voice)) return BEFORE
     const line = this.o.catalogue()?.find(text, a.name)
-    if (!line || line.type === 'whole') return BEFORE
+    if (!line) return BEFORE
+    // before anything else of the line: a line voiced whole would say the name just the same
+    const name = nameOk(a.name)
+    if (!name) return PHONE
+    if (line.type === 'whole') return BEFORE
     // a Slovene narrator speaks through their Slovene voice, when that comes first; else their clips cost nothing
     if (this.voice.sloveneNarrator(voice) && !this.voice.elevenlabsFirst(voice)) return BEFORE
     const speaker = this.voice.slVoiceOf(voice) ?? voice
     const own = elevenlabsOf(speaker)
     if (!own) return BEFORE
-    const name = nameOk(a.name)
-    if (!name) return PHONE
     const key = `${voice}:${norm}`
     const done = this.db.query('SELECT id FROM name_joined WHERE key = ? AND engine_voice = ? ORDER BY created_at DESC').get(key, own) as { id: string } | null
     if (done) return { say: 'joined', url: lineUrl(done.id), engine: 'elevenlabs' }
@@ -314,7 +316,7 @@ export class NameStore {
     }
     if (!chars) return null
     // of the takes that cut, the lower: a voice said high stands out of the line around it
-    const best = cuts.reduce<(typeof cuts)[number] | undefined>((b, c) => (!b || (c.pitch > 0 && c.pitch < b.pitch) ? c : b), undefined)
+    const best = cuts.reduce<(typeof cuts)[number] | undefined>((b, c) => (!b || (c.pitch > 0 && (b.pitch === 0 || c.pitch < b.pitch)) ? c : b), undefined)
     const row: NameClip = { language: this.language, voice, name, kind: line.kind, ...(phrase ? { phrase: line.carrier } : {}), file: null, ms: 0, engine_voice: own, model }
     if (best) {
       let y = fades(best.y)

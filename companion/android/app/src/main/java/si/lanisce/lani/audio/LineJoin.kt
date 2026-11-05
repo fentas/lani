@@ -165,6 +165,9 @@ object Mp3Gapless {
 internal object Mp3Decoder {
     private const val TIMEOUT_US = 10_000L
 
+    /** How many turns in a row with nothing from the decoder end it: a codec that never comes to its end mustn't hold a line up. */
+    private const val MAX_IDLE = 300
+
     fun decode(file: File): ShortArray {
         val ex = MediaExtractor()
         var codec: MediaCodec? = null
@@ -182,6 +185,7 @@ internal object Mp3Decoder {
             var rate = format.getInteger(MediaFormat.KEY_SAMPLE_RATE)
             val info = MediaCodec.BufferInfo()
             var inputDone = false
+            var idle = 0
             while (true) {
                 if (!inputDone) {
                     val i = c.dequeueInputBuffer(TIMEOUT_US)
@@ -197,6 +201,8 @@ internal object Mp3Decoder {
                     }
                 }
                 val o = c.dequeueOutputBuffer(info, TIMEOUT_US)
+                idle = if (o == MediaCodec.INFO_TRY_AGAIN_LATER) idle + 1 else 0
+                if (idle > MAX_IDLE) throw IOException("the decoder stopped in ${file.name}")
                 when {
                     o >= 0 -> {
                         val buf = c.getOutputBuffer(o)!!
