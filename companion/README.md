@@ -3973,7 +3973,9 @@ else the regular check's forms (below), else what `lexicon/sl.forms-order.json` 
 `lexicon/tools/sl-forms-order.ts` (*aktualizirate* before *aktualiziraste*, *mesecu* before *mescu*; 1,127 slots), never the alphabet. The same
 file lists the nouns Sloleks has no dual or plural of (*grozdje*): their tables ask neither. A forms card keeps its slots from the day it
 was made, so GET /state serves each Slovene card as a new one would be (`cardInOrder`): only what's read changes, the deck and its
-history stay as they are.
+history stay as they are. A comparative or a superlative is no form of the plain adjective: the supplement says the degree once, at a
+label's start, and it holds for each of the label's readings (`readingsOf`, which `slotsOf` and `adjectiveForms` read), so *točnejše* isn't
+*točen*'s neuter. A card made while such forms stood in its slots serves without them (`degreeForms`), and a slot of nothing else goes.
 
 **The forms book.** `lexicon/sl.forms.json` is written by hand (machine-written, not reviewed by a native speaker:
 `"reviewed": false`, `"machine_written": true`):

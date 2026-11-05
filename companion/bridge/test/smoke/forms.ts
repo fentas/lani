@@ -33,6 +33,13 @@ export default async function formsSection() {
     [slotsOf('verb', 'feminine singular l-participle; masculine dual l-participle; neuter plural l-participle'), slotsOf('noun', 'nominative/accusative dual; genitive singular')],
   )
   check(
+    "slotsOf: the supplement's degree, said once at a label's start, holds for each of its readings: a comparative is no plain adjective's plural",
+    same(slotsOf('adj', 'comparative nominative/accusative masculine singular; dative/locative feminine singular; nominative masculine plural'), { keys: ['cmp.m.sg'], other: true }) &&
+      same(slotsOf('adj', 'superlative genitive feminine singular; nominative/accusative neuter singular'), { keys: [], other: true }) &&
+      same(slotsOf('adj', 'nominative masculine plural'), { keys: ['adj.m.pl'], other: false }),
+    slotsOf('adj', 'comparative nominative/accusative masculine singular; dative/locative feminine singular; nominative masculine plural'),
+  )
+  check(
     'slotsOf: an infinitive, a supine, an imperative with a gender and no person are no slot; "first/second/third-person singular imperative" is the second person\'s',
     same(slotsOf('verb', 'infinitive; supine'), { keys: [], other: true }) &&
       same(slotsOf('verb', 'feminine singular imperative'), { keys: [], other: true }) &&

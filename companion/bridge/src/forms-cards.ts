@@ -283,10 +283,12 @@ export function cardOfItem(item: Record<string, unknown>): FormsCardData | null 
  * so an old one still has the alphabet's pick first (mleki before mleku). The forms book's table of the word when it has one
  * now, whatever the card says it was made from (potok has one, a card from before it doesn't); else a noun's slot its regular
  * declension confirms, the fitting forms first, the others also accepted, and the form the order file names; a collective
- * noun without its dual and plural. Nothing a slot accepted is lost, no slot's key changes, and nothing is written: only
- * what's served (GET /state) changes, the deck and its history stay as they are. Another language's card comes back as it is.
+ * noun without its dual and plural; an adjective's plain slots without its comparative and superlative ([degree]: they stood there
+ * by a misread label, so *točnejši* was *točen*'s plural, and a slot left with nothing goes). Else nothing a slot accepted is lost, no
+ * slot's key changes, and nothing is written: only what's served (GET /state) changes, the deck and its history stay as they are.
+ * Another language's card comes back as it is.
  */
-export function cardInOrder(card: FormsCardData, book: Pick<FormsBook, 'firstForms' | 'singularOnly' | 'animate' | 'table'>): FormsCardData {
+export function cardInOrder(card: FormsCardData, book: Pick<FormsBook, 'firstForms' | 'singularOnly' | 'animate' | 'table'>, degree: (lemma: string) => Set<string> = () => new Set()): FormsCardData {
   if (card.language && card.language !== 'sl') return card
   const norm = (f: string) => normalizeForm(f, 'sl')
   const list = (v: string | string[] | undefined) => (typeof v === 'string' ? [v] : (v ?? [])).map(norm)
@@ -295,12 +297,17 @@ export function cardInOrder(card: FormsCardData, book: Pick<FormsBook, 'firstFor
   const singular = noun && book.singularOnly(card.lemma)
   const first = book.firstForms(card.lemma, card.pos)
   const check = noun && !table ? checkNoun(card.lemma, card.gender, new Map(card.slots.map(s => [s.key, s.forms])), book.animate(card.lemma)) : null
-  const slots = card.slots.filter(s => !(singular && isDualOrPlural(s.key))).map(s => {
+  const gone = card.pos === 'adj' ? degree(card.lemma) : new Set<string>()
+  const plain = (s: CardSlot, f: string) => !(s.key.startsWith('adj.') && gone.has(f))
+  const slots = card.slots.filter(s => !(singular && isDualOrPlural(s.key))).flatMap(s => {
     const own = list(table?.forms[s.key])
     const sure = check?.slots.get(s.key)
-    const forms = own.length ? own : shownFirst(sure?.standard ?? s.forms, first[s.key])
-    const also = [...new Set([...s.forms, ...(s.also ?? []), ...list(table?.also?.[s.key]), ...list(table?.variants?.[s.key])])].filter(f => !forms.includes(f))
-    return { ...s, forms, ...(also.length ? { also } : {}) }
+    const held = s.forms.filter(f => plain(s, f))
+    const forms = own.length ? own : shownFirst(sure?.standard ?? held, first[s.key])
+    if (!forms.length) return []
+    const also = [...new Set([...held, ...(s.also ?? []).filter(f => plain(s, f)), ...list(table?.also?.[s.key]), ...list(table?.variants?.[s.key])])].filter(f => !forms.includes(f))
+    const { also: _, ...rest } = s
+    return [{ ...rest, forms, ...(also.length ? { also } : {}) }]
   })
   const kept = new Set(slots.map(s => s.key))
   return { ...card, slots, tested: card.tested.filter(k => kept.has(k)), ...(card.fresh ? { fresh: card.fresh.filter(k => kept.has(k)) } : {}) }
