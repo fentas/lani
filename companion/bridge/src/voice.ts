@@ -207,7 +207,7 @@ export function wordSpan(alignment: Alignment | undefined, word: string, tail = 
 export type Cutter = (mp3: Uint8Array, from: number, to: number) => Promise<Uint8Array | null>
 
 /** The node's ffmpeg: [bin], else LANI_FFMPEG, else ffmpeg on the PATH or /usr/bin/ffmpeg; undefined for none ("off"). */
-function ffmpegPath(bin?: string): string | undefined {
+export function ffmpegPath(bin?: string): string | undefined {
   const name = bin ?? (process.env.LANI_FFMPEG || Bun.which('ffmpeg') || '/usr/bin/ffmpeg')
   if (!name || name === 'off') return undefined
   return name.includes('/') ? (existsSync(name) ? name : undefined) : (Bun.which(name) ?? undefined)
@@ -445,10 +445,10 @@ export function trimChain(e: Edges, spec: EdgeSpec = EDGES): string {
 /** The rate the edges and the pace are measured at: 32 kHz, so a sibilant's sound up to 16 kHz counts. */
 const MEASURE_RATE = 32_000
 
-/** The audio file [file] (through the audio filter [af] first) as mono samples at MEASURE_RATE; null when ffmpeg failed. */
-function decodePcm(path: string, file: string, af?: string): Promise<Float32Array | null> {
+/** The audio file [file] (through the audio filter [af] first) as mono samples at [rate]; null when ffmpeg failed. */
+function decodePcm(path: string, file: string, af?: string, rate = MEASURE_RATE): Promise<Float32Array | null> {
   return new Promise<Float32Array | null>(done => {
-    const p = Bun.spawn([path, '-hide_banner', '-loglevel', 'error', '-i', file, ...(af ? ['-af', af] : []), '-ac', '1', '-ar', String(MEASURE_RATE), '-f', 'f32le', 'pipe:1'], { stdin: 'ignore', stdout: 'pipe', stderr: 'ignore' })
+    const p = Bun.spawn([path, '-hide_banner', '-loglevel', 'error', '-i', file, ...(af ? ['-af', af] : []), '-ac', '1', '-ar', String(rate), '-f', 'f32le', 'pipe:1'], { stdin: 'ignore', stdout: 'pipe', stderr: 'ignore' })
     const timer = setTimeout(() => p.kill(), 30_000)
     Promise.all([new Response(p.stdout).arrayBuffer(), p.exited])
       .then(([b, code]) => done(code === 0 ? new Float32Array(b, 0, b.byteLength >> 2) : null))
@@ -476,6 +476,45 @@ export function ffmpegFileEdges(bin?: string): ((file: string, word?: boolean) =
   const path = ffmpegPath(bin)
   if (!path) return undefined
   return (file, word = false) => decodePcm(path, file).then(x => (x ? edgesOf(x, MEASURE_RATE, 0, EDGES, word) : null)).catch(() => null)
+}
+
+/** An MP3 as mono samples at [rate], through a file so the gapless header is honoured: the samples, or null. */
+export type PcmReader = (mp3: Uint8Array, rate?: number) => Promise<Float32Array | null>
+
+/** The read with ffmpeg (found as for the cut): undefined when there is none. */
+export function ffmpegPcm(bin?: string): PcmReader | undefined {
+  const path = ffmpegPath(bin)
+  if (!path) return undefined
+  return (mp3, rate = 44_100) => (isMp3(mp3) ? inTemp(mp3, 'mp3', file => decodePcm(path, file, undefined, rate)).catch(() => null) : Promise.resolve(null))
+}
+
+/** Mono samples at [rate] as one MP3 ([kbps] kbit/s), its gapless header written: the MP3, or null. */
+export type PcmWriter = (x: Float32Array, rate?: number, kbps?: number) => Promise<Uint8Array | null>
+
+/** The write with ffmpeg (found as for the cut): undefined when there is none. Through a file: a pipe has no gapless header. */
+export function ffmpegMp3Writer(bin?: string): PcmWriter | undefined {
+  const path = ffmpegPath(bin)
+  if (!path) return undefined
+  return async (x, rate = 44_100, kbps = 128) => {
+    const out = join(tmpdir(), `lani-ffmpeg-${randomUUID()}.mp3`)
+    try {
+      const p = Bun.spawn([path, '-hide_banner', '-loglevel', 'error', '-f', 'f32le', '-ar', String(rate), '-ac', '1', '-i', 'pipe:0', '-c:a', 'libmp3lame', '-b:a', `${kbps}k`, '-f', 'mp3', '-y', out], {
+        stdin: new Uint8Array(x.buffer, x.byteOffset, x.byteLength),
+        stdout: 'ignore',
+        stderr: 'ignore',
+      })
+      const timer = setTimeout(() => p.kill(), 30_000)
+      const code = await p.exited.finally(() => clearTimeout(timer))
+      const bytes = code === 0 && existsSync(out) ? new Uint8Array(readFileSync(out)) : new Uint8Array()
+      return isMp3(bytes) ? bytes : null
+    } catch {
+      return null
+    } finally {
+      try {
+        unlinkSync(out)
+      } catch {}
+    }
+  }
 }
 
 /**
@@ -840,6 +879,9 @@ export type Quota = {
   voice_edits_max?: number
 }
 
+/** A take of a whole text with its characters' times (name lines: name-store.ts): the MP3, as it came, and what it cost. */
+export type TimedTake = { bytes: Uint8Array; alignment: Alignment; chars: number; voice: string; model: string }
+
 /** One of Voice Design's takes: its id (to save it as a voice) and how it sounds. */
 export type DesignTake = { id: string; audio: Uint8Array }
 
@@ -882,13 +924,21 @@ const BUSY_RETRIES = 2
 const BUSY_WAIT_MS = 1_000
 
 /**
- * At most [size] at a time ([run]); the rest wait their turn, first come first served, but an [urgent] one (someone in
- * the app waits for it: a live line, a re-record) ahead of all that aren't: the lazy re-voice and the prebuilds don't
- * keep the learner waiting past the app's few seconds (its WAIT_MS), which it would then speak with the phone's voice.
+ * Whose turn comes first at ElevenLabs ([Gate]): a line someone waits for, then the lines of what the learner has just
+ * opened, got ready ahead ([preload]: a dialog, a test, a module; docs/plans/05-built/audio-names.md), then everything else.
+ */
+export const TURN = { live: 0, preload: 1, background: 2 } as const
+export type Turn = (typeof TURN)[keyof typeof TURN]
+
+/**
+ * At most [size] at a time ([run]); the rest wait their turn, first come first served, but an urgent one (someone in
+ * the app waits for it: a live line, a re-record) ahead of all that aren't, and a preload's ahead of the background: the
+ * lazy re-voice and the prebuilds don't keep the learner waiting past the app's few seconds (its WAIT_MS), which it would
+ * then speak with the phone's voice.
  */
 export class Gate {
   private busy = 0
-  private readonly waiting: { go: () => void; urgent: boolean }[] = []
+  private readonly waiting: { go: () => void; turn: Turn }[] = []
   constructor(readonly size: number) {}
 
   /** At work now. */
@@ -897,14 +947,15 @@ export class Gate {
   /** Waiting their turn. */
   get queued(): number { return this.waiting.length }
 
-  async run<T>(f: () => Promise<T>, urgent = false): Promise<T> {
+  async run<T>(f: () => Promise<T>, urgent: boolean | Turn = false): Promise<T> {
+    const turn: Turn = urgent === true ? TURN.live : urgent === false ? TURN.background : urgent
     if (this.busy < this.size) this.busy++
     // the one done before hands its place over
     else
       await new Promise<void>(go => {
-        const at = urgent ? this.waiting.findIndex(w => !w.urgent) : -1
-        if (at < 0) this.waiting.push({ go, urgent })
-        else this.waiting.splice(at, 0, { go, urgent })
+        const at = this.waiting.findIndex(w => w.turn > turn)
+        if (at < 0) this.waiting.push({ go, turn })
+        else this.waiting.splice(at, 0, { go, turn })
       })
     try {
       return await f()
@@ -937,6 +988,8 @@ export class ElevenLabs implements Engine {
   private readonly gate: Gate
   /** Requests ElevenLabs refused as busy and that were asked again, since the start. */
   private busyAgain = 0
+  /** The month's cap and its count, the store's ([VoiceStore]: LANI_VOICE_MONTHLY): over it the engine isn't ready. */
+  guard?: { allows(chars: number): boolean; spent(chars: number): void }
 
   constructor(
     private readonly o: {
@@ -1011,6 +1064,7 @@ export class ElevenLabs implements Engine {
 
   async ready(chars: number, live: boolean): Promise<boolean> {
     if (!this.o.key || Date.now() < this.pausedUntil) return false
+    if (this.guard && !this.guard.allows(chars)) return false
     const q = await this.subscription()
     if (!q) return false
     return q.limit - q.used - chars >= (live ? 0 : this.reserve)
@@ -1098,7 +1152,7 @@ export class ElevenLabs implements Engine {
    * another process's requests, voice-build's) asks it again a moment later, up to BUSY_RETRIES times, without pausing
    * the engine; any other error is the caller's. Throws as fetch does (the network, the timeout).
    */
-  private async tts<T>(url: string, body: unknown, accept: string | undefined, read: (r: Response) => Promise<T>, urgent = false): Promise<Answer<T>> {
+  private async tts<T>(url: string, body: unknown, accept: string | undefined, read: (r: Response) => Promise<T>, urgent: boolean | Turn = false): Promise<Answer<T>> {
     for (let attempt = 0; ; attempt++) {
       const a: Answer<T> = await this.gate.run(async () => {
         const r = await fetch(url, {
@@ -1194,6 +1248,7 @@ export class ElevenLabs implements Engine {
         return null
       }
       if (this.quota) this.quota.used += text.length
+      this.guard?.spent(text.length)
       return bytes
     } catch (e) {
       this.lastError = this.redact(`tts: ${(e as Error).message}`)
@@ -1240,6 +1295,7 @@ export class ElevenLabs implements Engine {
       return null
     }
     if (this.quota) this.quota.used += said.length
+    this.guard?.spent(said.length)
     const take = d.audio_base64 ? new Uint8Array(Buffer.from(d.audio_base64, 'base64')) : new Uint8Array()
     if (!isMp3(take)) {
       this.lastError = 'tts (carrier): no MP3 in the response'
@@ -1257,6 +1313,43 @@ export class ElevenLabs implements Engine {
     const [len, whole] = [mp3Duration(clip), mp3Duration(take)]
     if (len < 0.1 || (whole > 0 && len >= whole)) return { miss: `the cut is ${len.toFixed(2)} s of the take's ${whole.toFixed(2)} s` }
     return clip
+  }
+
+  /**
+   * [text] as it is in [voice], with its characters' times (/with-timestamps): a name line's take, or a name's in its carrier
+   * sentence (name-store.ts). In its [turn] ([Gate]). Null when ElevenLabs can't now, or the answer has no usable sound or times.
+   */
+  async timed(text: string, voice: VoiceName, turn: Turn = TURN.background): Promise<TimedTake | null> {
+    const id = this.voiceId(voice)
+    if (!this.o.key || !id) return null
+    let d: { audio_base64?: string; alignment?: Alignment; normalized_alignment?: Alignment }
+    try {
+      const r = await this.tts(
+        `${this.base}/v1/text-to-speech/${id}/with-timestamps?output_format=mp3_44100_128`,
+        { text, model_id: this.model, language_code: this.o.language ?? 'sl' },
+        undefined,
+        async r => (await r.json()) as typeof d,
+        turn,
+      )
+      if (!r.ok) {
+        this.failed(r.status, r.text, 'tts (timed)')
+        return null
+      }
+      d = r.value
+    } catch (e) {
+      this.lastError = this.redact(`tts (timed): ${(e as Error).message}`)
+      this.o.log?.(`elevenlabs: ${this.lastError}`)
+      return null
+    }
+    if (this.quota) this.quota.used += text.length
+    this.guard?.spent(text.length)
+    const bytes = d.audio_base64 ? new Uint8Array(Buffer.from(d.audio_base64, 'base64')) : new Uint8Array()
+    const alignment = d.alignment ?? d.normalized_alignment
+    if (!isMp3(bytes) || !alignment?.characters?.length) {
+      this.lastError = 'tts (timed): no MP3 or no timestamps in the response'
+      return null
+    }
+    return { bytes, alignment, chars: text.length, voice: id, model: this.model }
   }
 
   /**
@@ -1984,6 +2077,19 @@ export const revoiceDaily = (env: Record<string, string | undefined> = process.e
 export const redoDaily = (env: Record<string, string | undefined> = process.env) => dailySetting(env, 'LANI_VOICE_REDO_DAILY')
 
 /**
+ * How many of the day's re-voices are kept from an older model's upgrades, for the clips in the wrong voice (a swapped voice, a
+ * character's local clip): LANI_VOICE_REVOICE_KEEP, a whole number; by default about 30 % of the cap ([daily]). An upgrade only
+ * makes a clip better, a wrong voice is a wrong person, and the upgrades alone would spend a day's cap by morning.
+ */
+export function revoiceKeep(daily: number, env: Record<string, string | undefined> = process.env): number {
+  const set = dailySetting(env, 'LANI_VOICE_REVOICE_KEEP')
+  return Math.min(daily, set ?? Math.floor(daily * 0.3))
+}
+
+/** The characters ElevenLabs may be sent in a calendar month (LANI_VOICE_MONTHLY, a whole number; none set or 0: no cap). */
+export const voiceMonthly = (env: Record<string, string | undefined> = process.env) => dailySetting(env, 'LANI_VOICE_MONTHLY') || undefined
+
+/**
  * Whether a clip of an older ElevenLabs model than LANI_ELEVENLABS_MODEL is made again as the app asks for it, after the
  * clips of a swapped voice, within the same day's cap (LANI_VOICE_UPGRADE_MODEL_LAZY: on unless "off", "0", "false" or "no").
  */
@@ -2125,6 +2231,13 @@ export class VoiceStore {
        * LANI_VOICE_UPGRADE_MODEL_LAZY, on by default), after the clips of a swapped voice, within the day's cap.
        */
       lazyModel?: boolean
+      /**
+       * How many of the day's re-voices an older model's upgrades leave for the clips in the wrong voice ([revoiceKeep]:
+       * LANI_VOICE_REVOICE_KEEP).
+       */
+      revoiceKeep?: number
+      /** The characters ElevenLabs may be sent in a calendar month ([voiceMonthly]: LANI_VOICE_MONTHLY); absent: no cap. */
+      monthly?: number
     },
   ) {
     this.dir = o.dir ?? join(o.appDir, 'voice')
@@ -2183,13 +2296,33 @@ export class VoiceStore {
       // the lines Drama 3 could not make (no take passed its checks), and why: voice-build --drama3 reports them and
       // leaves them for the next run only with --retry-failed; a line whose text changed has another key
       this.db.exec('CREATE TABLE IF NOT EXISTS drama3_failed (key TEXT PRIMARY KEY, voice TEXT NOT NULL, text TEXT NOT NULL, reasons TEXT NOT NULL, at TEXT NOT NULL, tries INTEGER NOT NULL DEFAULT 1)')
+      // the characters sent to ElevenLabs, per calendar month (the node's clock): the month's cap, LANI_VOICE_MONTHLY
+      this.db.exec('CREATE TABLE IF NOT EXISTS spend (month TEXT PRIMARY KEY, chars INTEGER NOT NULL)')
+    }
+    const el = this.eleven
+    if (el && !o.readonly)
+      el.guard = {
+        allows: chars => o.monthly === undefined || this.spentThisMonth() + chars <= o.monthly,
+        spent: chars => this.db.query('INSERT INTO spend (month, chars) VALUES (?, ?) ON CONFLICT (month) DO UPDATE SET chars = chars + excluded.chars').run(localDay().slice(0, 7), chars),
+      }
+  }
+
+  /** The characters sent to ElevenLabs this calendar month, all counted (the bridge's and voice-build's). */
+  spentThisMonth(): number {
+    try {
+      return (this.db.query('SELECT chars FROM spend WHERE month = ?').get(localDay().slice(0, 7)) as { chars: number } | null)?.chars ?? 0
+    } catch {
+      return 0 // a store from before, only read
     }
   }
+
+  /** The month's cap on what ElevenLabs is sent (LANI_VOICE_MONTHLY); undefined: none. */
+  get monthly(): number | undefined { return this.o.monthly }
 
   get engines() { return this.o.engines }
 
   /** The ElevenLabs engine, when the store has one. */
-  private get eleven(): ElevenLabs | undefined {
+  get eleven(): ElevenLabs | undefined {
     return this.o.engines.find((e): e is ElevenLabs => e instanceof ElevenLabs)
   }
 
@@ -2367,6 +2500,19 @@ export class VoiceStore {
 
   /** The loudness clips are brought to (LUFS): the level's target. */
   get levelTarget(): number { return this.leveller?.target ?? LEVEL.target }
+
+  /**
+   * An ElevenLabs take of [voice] made ready to cut: through its filter and its tempo, at the level, its edges left alone so
+   * its timestamps stay true but for the [tempo] it is played at. Null when it can't be (no ffmpeg, ffmpeg failed): a cut
+   * needs all of them.
+   */
+  async cuttable(bytes: Uint8Array, voice: VoiceName): Promise<{ bytes: Uint8Array; tempo: number } | null> {
+    const lv = this.leveller
+    if (!lv) return null
+    const pace = clipPace(voice, 'elevenlabs', this.pace) ?? undefined
+    const r = await lv.level(bytes, { denoise: denoiseOf(voice), pace, edges: false })
+    return r ? { bytes: r.bytes, tempo: pace?.tempo ?? 1 } : null
+  }
 
   /** The local voice's pace (PACE; LANI_VOICE_GEPARD_TEMPO, LANI_VOICE_GEPARD_PAUSES); null: none, the worker's own. */
   get pace(): GepardPace | null {
@@ -2824,13 +2970,30 @@ export class VoiceStore {
   /**
    * What the lazy re-voice takes up: old-style words, the Slovene narrators' upgrades, the clips of a swapped voice and the
    * characters' local clips ([localUpgradeQueue]) the app asked for, most asked for first, then the oldest; after them the
-   * older model's ([lazyModel]).
+   * older model's ([lazyModel]), as long as the day's cap has room for them ([modelRoom]).
    */
   lazyQueue(asked = true): Clip[] {
     const first = [...this.revoiceQueue(asked), ...this.upgradeQueue(asked), ...this.staleQueue('voice'), ...this.localUpgradeQueue(asked)]
       .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
     const seen = new Set(first.map(c => c.key))
-    return [...first, ...(this.lazyModel ? this.staleQueue('model').filter(c => !seen.has(c.key)) : [])]
+    return [...first, ...(this.lazyModel && this.modelRoom() ? this.staleQueue('model').filter(c => !seen.has(c.key)) : [])]
+  }
+
+  /** The re-voices of the day's cap kept from an older model's upgrades ([revoiceKeep]). */
+  get revoiceKept(): number { return this.o.revoiceKeep ?? revoiceKeep(this.revoiceDaily) }
+
+  /** An older model's upgrades made today. */
+  modelsToday(): number {
+    try {
+      return (this.db.query('SELECT n FROM revoices WHERE day = ?').get(`${localDay()}|model`) as { n: number } | null)?.n ?? 0
+    } catch {
+      return 0 // a store from before, only read
+    }
+  }
+
+  /** Whether an older model's clip may still be made today: within the cap less what is kept for the wrong voices. */
+  private modelRoom(): boolean {
+    return this.modelsToday() < this.revoiceDaily - this.revoiceKept
   }
 
   /**
@@ -3073,6 +3236,7 @@ export class VoiceStore {
         const r = this.oldStyle(c) ? await this.revoiceOne(c) : stale || local ? await this.remake(c, true) : await this.upgradeOne(c)
         if (r === 'stop') break
         if (r === 'skip') skipped.add(c.key)
+        if (r === 'made' && stale === 'model') this.db.query('INSERT INTO revoices (day, n) VALUES (?, 1) ON CONFLICT (day) DO UPDATE SET n = n + 1').run(`${localDay()}|model`)
         if (r === 'made') {
           if (this.oldStyle(c)) words++
           else if (stale === 'voice') voices++

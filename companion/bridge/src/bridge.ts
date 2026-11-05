@@ -18,7 +18,7 @@ import { tutorOf } from './cultures'
 import { appApi, buildBridge as build, type BuiltBridge as Built, type Platform, type Voicing, type VoiceSetting } from './build'
 import type { FeatureFactory } from './feature'
 import { router, serve } from './http'
-import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, lazyModelUpgrade, redoDaily, revoiceDaily, sloveneNarrators, VoiceStore } from './voice'
+import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, lazyModelUpgrade, redoDaily, revoiceDaily, sloveneNarrators, voiceMonthly, VoiceStore } from './voice'
 import { Profiles } from './profiles'
 import { voiceDir } from './paths'
 
@@ -58,6 +58,8 @@ export function nodeVoices({ env, language, culture }: VoiceSetting): Voicing {
         lazyModel: lazyModelUpgrade(env),
         // Jan's re-records on request (a long press on 🔊) a day, on their own count
         redoDaily: redoDaily(env),
+        // the characters ElevenLabs may be sent in a calendar month, whatever for (LANI_VOICE_MONTHLY; none: no cap)
+        monthly: voiceMonthly(env),
         // the local voice's pace: its own unless LANI_VOICE_GEPARD_TEMPO or LANI_VOICE_GEPARD_PAUSES says
         pace: gepardPace(env, log),
         // the narrators of a Slovene village speak with their Slovene ElevenLabs voices (Nina, Luka), the local voice as their
