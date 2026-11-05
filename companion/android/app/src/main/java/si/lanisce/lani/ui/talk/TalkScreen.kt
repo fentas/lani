@@ -62,6 +62,7 @@ import si.lanisce.lani.data.TalkLine
 import si.lanisce.lani.data.TalkPhase
 import si.lanisce.lani.data.TalkState
 import si.lanisce.lani.data.Words
+import si.lanisce.lani.ui.statusBarScrim
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.ChatBubble
 import si.lanisce.lani.ui.EmojiLabel
@@ -150,7 +151,8 @@ private fun Header(title: String, subtitle: String?, back: String, onBack: () ->
 @Composable
 private fun ScenarioList(vm: AppViewModel) {
     val t = vm.talk
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+    val list = rememberLazyListState()
+    LazyColumn(Modifier.fillMaxSize().statusBarScrim(list), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
         item {
             Header(
                 "🗣️ ${bi("common.talk")}",
@@ -548,7 +550,7 @@ private fun TalkEnd(vm: AppViewModel, st: TalkState) {
     LaunchedEffect(t.thread.size, t.threadWaiting) {
         if (t.thread.isNotEmpty()) list.animateScrollToItem(1 + t.thread.size + (if (t.threadWaiting) 1 else 0))
     }
-    LazyColumn(Modifier.fillMaxSize().imePadding(), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
+    LazyColumn(Modifier.fillMaxSize().statusBarScrim(list).imePadding(), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
         item {
             Header(
                 "🎉 ${inTarget("playerScreen.bravo")}",
