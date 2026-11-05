@@ -232,6 +232,23 @@ class QaHooksTest {
         assertTrue(r.buildings.any { it.type == si.lanisce.lani.game.BuildingType.LIPA })
     }
 
+    @Test fun `a placement the node hasn't recorded - send again from the day after, not the day it went, and the other languages' kept`() {
+        val today = java.time.LocalDate.of(2026, 11, 5)
+        val other = si.lanisce.lani.game.Placed(day = "2026-10-01", from = "A1", level = "A2", confirmed = true)
+        val s = si.lanisce.lani.game.GameState(course = si.lanisce.lani.game.CourseProgress(placements = mapOf("de" to other)))
+        val yesterday = QaHooks.placedUnrecorded(s, "sl", "B1", today.minusDays(1)).course!!.placements
+        assertEquals(other, yesterday["de"])
+        val placed = yesterday.getValue("sl")
+        assertEquals("B1", placed.level)
+        assertFalse(placed.confirmed)
+        assertTrue(si.lanisce.lani.game.LevelPlacement.waiting(placed, today))
+        assertFalse(si.lanisce.lani.game.LevelPlacement.waiting(QaHooks.placedUnrecorded(s, "sl", "B1", today).course!!.placements["sl"], today))
+        // the node with a lower level leaves it waiting; once it has the level, it is confirmed
+        val waits = si.lanisce.lani.game.GameState(course = si.lanisce.lani.game.CourseProgress(placements = yesterday))
+        assertFalse(si.lanisce.lani.game.LevelPlacement.confirm(waits, "sl", "A1").course!!.placements.getValue("sl").confirmed)
+        assertTrue(si.lanisce.lani.game.LevelPlacement.confirm(waits, "sl", "B1").course!!.placements.getValue("sl").confirmed)
+    }
+
     @Test fun `a sheet asked by its unit and id, the test by its name, none without both`() {
         assertEquals("sedanjik" to "sedanjik-3", QaHooks.sheetOf("sedanjik/sedanjik-3"))
         assertEquals("biti" to "test", QaHooks.sheetOf(" biti / test "))

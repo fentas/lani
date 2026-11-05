@@ -12,10 +12,12 @@
 //   until the town answers, and answered with the town's own answer. So a bridge reaches a town that is only here by its
 //   URL <relay>/v1/towns/{id}, as it reaches any other. GET …/town/hello answers for the town (its key, as it signed).
 // - The family page: static at /family/{id}/, its API at /v1/family/{id}/… through the town's mailbox (family.ts).
+// - A family's drop boxes: /v1/drop/{box} (drop.ts), sealed notes between two of a family's devices, for a device with no town.
 // - Backups: /v1/backup (backup.ts). Health: /health.
 import { randomBytes, timingSafeEqual } from 'node:crypto'
 import { backups } from './backup'
 import type { Config } from './config'
+import { drops } from './drop'
 import { familyPage, familyRoute } from './family'
 import { HttpError, RELAY_HEADER, asBody, fail, json, parseJson, readBody } from './http'
 import { RateLimiter, Waiters } from './limits'
@@ -178,6 +180,7 @@ export function createRelay(cfg: Config): Relay {
   // --- the routes ----------------------------------------------------------------------------------------------------------
 
   const backup = backups(cfg, store, admit)
+  const drop = drops(cfg, store, waiters, ipLimit => limited(ipLimit, 'from this address'))
 
   /** The inner request of a town's tunnelled or delivered request: from the signer, for town [id]. */
   function innerFrom(headers: Headers | Record<string, string>, signed: Signed, id: string) {
@@ -424,6 +427,7 @@ export function createRelay(cfg: Config): Relay {
       return json({ ok: true, acked: store.ack(signed.id, ids) })
     }
     if ((m = /^\/v1\/mail\/(m_[A-Za-z0-9_-]{16,40})\/(body|reply)$/.exec(path))) return mailRoute(req, url, m[1], m[2])
+    if ((m = /^\/v1\/drop\/([0-9a-f]{64})$/.exec(path))) return drop(req, url, m[1], ip)
     const b = await backup(req, url)
     if (b) return b
     return fail(404, 'not_found', 'not found')

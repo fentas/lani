@@ -146,6 +146,8 @@ been fixed already; it only needed its run.
 the press, with QA's hook "turns:type", since no start-of-village dialog has one. Seen in de-sl, de-en and de-it: "with «helfe»: this verb
 takes the dative", "after «Aus»: the dative".
 
+*Corrected 2026-11-05 by [leftovers-app.md](leftovers-app.md): the dump didn't fail. A scrolling column reports only the rows inside it, and the button lay just below its edge.*
+
 **`friuli-school-unit`, a child's path (item 11): only partly seen.** It plays speaking and writing now (LANI_CHILD=1, $LANI_QA_IT_SHEET). On
 `periodo-ipotetico`'s sheet of them the first speaking item went through on the emulator: "Senza microfono", the self-rating, rated. It stops
 at the second: the button is on the screen, but QA's dump of the screen doesn't return it, so no tap is sent (a log line on each tap showed

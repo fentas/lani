@@ -376,12 +376,24 @@ private fun Family(vm: AppViewModel, speech: List<HintPiece>, go: (SetupFlow) ->
     val ask = androidx.activity.compose.rememberLauncherForActivityResult(androidx.activity.result.contract.ActivityResultContracts.RequestPermission()) { granted = it }
     LaunchedEffect(Unit) { if (!granted) ask.launch(android.Manifest.permission.CAMERA) }
     val fetch = vm.familyFetch
+    val trouble = vm.familyPairTrouble
     SetupPage(vm.hintVoice, speech) {
         Text("👪 ${bi("family.scanTitle")}", style = MaterialTheme.typography.headlineSmall, color = White, textAlign = TextAlign.Center)
         Text(bi("family.scanWhat"), color = Muted, textAlign = TextAlign.Center)
-        if (fetch == AppViewModel.FamilyFetch.WAITING) {
+        if (trouble != null) {
+            // a code from the family's computer that couldn't pair: the words and ways of the computer's own scan
+            TroubleCard(trouble.first, onRetry = { vm.familyPair(trouble.second) }, onScan = vm::familyPairDone, onManual = { vm.familyPairDone(); go(vm.setupFlow.manual()) })
+        } else if (fetch == AppViewModel.FamilyFetch.PAIRING) {
+            androidx.compose.material3.CircularProgressIndicator(color = White)
+            Text(bi("pairScan.pairingTutor"), color = White, textAlign = TextAlign.Center)
+        } else if (fetch == AppViewModel.FamilyFetch.WAITING) {
             androidx.compose.material3.CircularProgressIndicator(color = White)
             Text(bi("family.waiting"), color = White, textAlign = TextAlign.Center)
+        } else if (fetch == AppViewModel.FamilyFetch.OFFLINE) {
+            // nothing claimed: the code stays good, and a key that can't be checked now is no reason to spend it
+            Text("📵 ${bi("family.offline")}", color = Warn, textAlign = TextAlign.Center)
+            BigButton("📷 ${bi("setup.scanAgain")}", onClick = vm::familyScanAgain, color = TriglavRed)
+            if (vm.familyCanTakeAnyway) TextButton(onClick = vm::familyTakeAnyway) { Text("📥 ${bi("family.takeAnyway")}", color = White, textAlign = TextAlign.Center) }
         } else {
             if (fetch == AppViewModel.FamilyFetch.REFUSED) Text("⌛ ${bi("family.refused")}", color = Warn, textAlign = TextAlign.Center)
             if (fetch == AppViewModel.FamilyFetch.UNREACHABLE) Text("📶 ${bi("family.unreachable")}", color = Warn, textAlign = TextAlign.Center)

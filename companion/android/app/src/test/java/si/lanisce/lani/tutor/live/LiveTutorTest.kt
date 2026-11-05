@@ -24,6 +24,7 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import si.lanisce.lani.data.BridgeConfig
@@ -386,6 +387,75 @@ class LiveTutorTest {
         t.update { it.copy(dailyCap = 5.0) }.join()
         t.awaitIdle()
         assertEquals(TurnStatus.DONE, t.today.turns.single().status)
+    }
+
+    @Test fun `a parent's limit is a ceiling, whatever the device chose`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(dailyCap = 5.0, familyCap = 0.0001, familyCapBy = "Mama") }.join()
+        assertEquals(0.0001, t.settings.capNow, 0.0)
+        node.push("chat", "main", "Živjo")
+        t.backgroundCheck()
+        assertEquals("one call, then the family's limit", 1, posts().size)
+        assertEquals(LiveState.PAUSED_BUDGET, t.state)
+        // the device chooses under it, never over: it's the lower of the two that counts
+        t.update { it.copy(dailyCap = 0.00001) }.join()
+        assertEquals(0.00001, t.settings.capNow, 0.0)
+        // the parent takes it back: the device's own again
+        t.update { it.copy(dailyCap = 5.0, familyCap = null, familyCapBy = null) }.join()
+        assertEquals(5.0, t.settings.capNow, 0.0)
+        t.awaitIdle()
+        assertEquals(TurnStatus.DONE, t.today.turns.single().status)
+    }
+
+    @Test fun `a limit from the computer and one from a parent's device stay apart, and the lower counts`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(dailyCap = 5.0, familyCap = 0.5, familyCapBy = "Mama", computerCap = 2.0, computerCapBy = "Jan") }.join()
+        assertEquals(0.5, t.settings.capNow, 0.0)
+        assertEquals("Mama", t.settings.ceilingBy)
+        // the computer says it has none: what came over the bond stands
+        t.update { it.copy(computerCap = null, computerCapBy = null) }.join()
+        assertEquals(0.5, t.settings.capNow, 0.0)
+        t.update { it.copy(familyCap = 2.0, computerCap = 1.0, computerCapBy = "Jan") }.join()
+        assertEquals(1.0, t.settings.capNow, 0.0)
+        assertEquals("Jan", t.settings.ceilingBy)
+        // leaving the family leaves the computer's
+        t.forgetFamily(null, null)
+        assertEquals(1.0, t.settings.capNow, 0.0)
+    }
+
+    @Test fun `the family's key is kept, refused, or a check that couldn't run, which says nothing of it`() = runBlocking {
+        val t = tutor()
+        t.refreshCredentials()
+        val gift = si.lanisce.lani.data.FamilyLink.Gift(provider = "anthropic", key = FAKE_KEY, preset = "BALANCED")
+        modelsFail = Triple(529, """{"type":"error","error":{"type":"overloaded_error","message":"Overloaded"}}""", "application/json")
+        assertEquals("the service down isn't a bad key", FamilyKey.NOT_CHECKED, t.receiveFamily(gift))
+        assertNull("nor is it kept before a check", vault.load())
+        modelsFail = Triple(401, """{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"}}""", "application/json")
+        assertEquals(FamilyKey.REFUSED, t.receiveFamily(gift))
+        assertNull(vault.load())
+        modelsFail = null
+        assertEquals(FamilyKey.KEPT, t.receiveFamily(gift))
+        assertEquals(FAKE_KEY, vault.load())
+    }
+
+    @Test fun `no key came and there's nothing to check`() = runBlocking {
+        val t = tutor()
+        t.refreshCredentials()
+        assertEquals(FamilyKey.KEPT, t.receiveFamily(si.lanisce.lani.data.FamilyLink.Gift(target = "it", base = "de")))
+    }
+
+    @Test fun `a device that leaves its family loses the family's key and limit, never a key of its own`() = runBlocking {
+        val t = tutor()
+        t.refreshCredentials()
+        assertEquals(null, t.setKey(FAKE_KEY))
+        t.update { it.copy(familyCap = 0.5, familyCapBy = "Mama") }.join()
+        assertEquals("another key is the learner's own", false, t.forgetFamily("anthropic", si.lanisce.lani.data.FamilyPost.sha("sk-ant-another")))
+        assertEquals(FAKE_KEY, vault.load())
+        assertNull("the limit goes either way", t.settings.familyCap)
+        t.update { it.copy(familyCap = 0.5, familyCapBy = "Mama") }.join()
+        assertEquals(true, t.forgetFamily("anthropic", si.lanisce.lani.data.FamilyPost.sha(FAKE_KEY)))
+        assertNull(vault.load())
+        assertNull(t.settings.familyCap)
     }
 
     @Test fun `a refused key pauses it and says so, a new key goes on`() = runBlocking {

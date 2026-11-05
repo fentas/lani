@@ -28,6 +28,7 @@ import { course as courseFeature } from './features/course'
 import { culture as cultureFeature } from './features/culture'
 import { events } from './features/events'
 import { family, familyWords } from './features/family'
+import { familyMembers } from './features/family-members'
 import { friendship } from './features/friendship'
 import { game } from './features/game'
 import { drills as drillsFeature } from './features/drills'
@@ -129,6 +130,8 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'towns', factory: towns },
   // a child's links that wait for the parent (features/town-requests.ts): routes only
   { name: 'town-requests', factory: townRequests },
+  // a family on a computer from a parent's device (features/family-members.ts): routes only
+  { name: 'family-members', factory: familyMembers },
   { name: 'friendship', factory: friendship },
   { name: 'questions', factory: townQuestions },
   { name: 'progress', factory: progress },

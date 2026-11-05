@@ -10,6 +10,7 @@ import { isAbsolute, join, relative, resolve } from 'node:path'
 import { CULTURE_ID, DEFAULT_CULTURE, LANDSCAPES, cultureFor } from './cultures'
 import { setting } from './env'
 import { defaultTarget } from './aim'
+import { withLock } from './pairing'
 
 export const DEFAULT_ID = 'default'
 
@@ -65,6 +66,8 @@ export type ProfileEntry = {
   created: string
   /** Extra environment for the session and its bridge (e.g. LANI_VOICE_DESIGN=off). */
   env?: Record<string, string>
+  /** The learner whose device added this one from the app (family-members.ts); not set for a profile added on the computer. */
+  added_by?: string
 }
 
 export type Registry = { schema: 'lani.profiles/v1'; profiles: ProfileEntry[] }
@@ -87,6 +90,18 @@ export function writeRegistry(dir: string, r: Registry) {
 }
 
 export const entryDataDir = (dir: string, e: ProfileEntry) => resolve(dir, e.data_dir)
+
+/** This node's tailnet name (node.tailnet.ts.net): $LANI_TAILNET_HOST, else `tailscale status`; undefined when unknown. */
+export function tailnetHost(env: Record<string, string | undefined> = process.env): string | undefined {
+  if (env.LANI_TAILNET_HOST) return env.LANI_TAILNET_HOST
+  const p = spawnSync('tailscale', ['status', '--json'], { encoding: 'utf8', timeout: 5_000 })
+  if (p.status !== 0) return undefined
+  try {
+    return String(JSON.parse(p.stdout)?.Self?.DNSName ?? '').replace(/\.$/, '') || undefined
+  } catch {
+    return undefined
+  }
+}
 
 /**
  * The default profile's data directory, resolved as the bridge resolves it (lani_paths.data_dir,
@@ -253,7 +268,7 @@ export function aimOf(level: string, aim: string | undefined): string | undefine
 }
 
 /** A new registry entry for [id], with its ports and names picked; the caller writes the registry. */
-export function newEntry(dir: string, r: Registry, id: string, l: NewLearner, o: { port?: number; httpsPort?: number; dataDir?: string } = {}): ProfileEntry {
+export function newEntry(dir: string, r: Registry, id: string, l: NewLearner, o: { port?: number; httpsPort?: number; dataDir?: string; addedBy?: string } = {}): ProfileEntry {
   if (!ID.test(id) || id === DEFAULT_ID) throw new Error(`profile id must be lowercase letters, digits and dashes (not "${DEFAULT_ID}"): ${id}`)
   if (r.profiles.some(p => p.id === id)) throw new Error(`profile ${id} exists already`)
   const port = o.port ?? pickPort(r)
@@ -278,7 +293,31 @@ export function newEntry(dir: string, r: Registry, id: string, l: NewLearner, o:
     created: today(),
     // Voices of one's own take ElevenLabs voice slots the default profile's village uses: off until wanted.
     env: { LANI_VOICE_DESIGN: 'off' },
+    ...(o.addedBy ? { added_by: o.addedBy } : {}),
   }
+}
+
+/**
+ * A new learner in the registry at [dir]: `lani-profile add` and a parent's device (family-members.ts) both. Under a lock, since
+ * the CLI and a bridge may add one at once; [id] is that of the new learner, or picked from what's taken. Their data first, so
+ * a failure leaves no profile without any.
+ */
+export function addLearner(
+  dir: string,
+  projectDir: string,
+  id: string | ((taken: (id: string) => boolean) => string),
+  l: NewLearner,
+  o: { port?: number; httpsPort?: number; dataDir?: string; addedBy?: string } = {},
+): ProfileEntry {
+  mkdirSync(dir, { recursive: true })
+  return withLock(join(dir, 'profiles.json.lock'), () => {
+    const r = readRegistry(dir)
+    const taken = (x: string) => x === DEFAULT_ID || r.profiles.some(p => p.id === x) || existsSync(join(dir, x))
+    const entry = newEntry(dir, r, typeof id === 'string' ? id : id(taken), l, o)
+    initLearnerData(projectDir, entryDataDir(dir, entry), l)
+    writeRegistry(dir, { ...r, profiles: [...r.profiles, entry] })
+    return entry
+  })
 }
 
 // --- what the bridge knows about its learner ---------------------------------------------------------

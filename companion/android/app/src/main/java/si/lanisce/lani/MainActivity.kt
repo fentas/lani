@@ -102,7 +102,7 @@ class MainActivity : ComponentActivity() {
             data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
             request = vm::qaRequest, word = vm::qaWord, sentence = vm::qaSentence, friends = { vm.openFriends() }, sheet = vm::qaSheet, grammar = { vm.grammar.show(it) }, talk = { vm.talkWithVillager(it) }, cases = vm::qaCases, tips = vm::qaTips, news = { vm.game.qaNews() },
             setupPhone = { code -> vm.setupFlow = si.lanisce.lani.app.SetupFlow.start(code) }, readOlder = vm::qaReadOlder, placement = vm::qaPlacement, firstRun = vm::qaFirstRun,
-            family = { text -> vm.scanFamily(text) { gift -> vm.setupFlow = vm.setupFlow.fromFamily(gift) } },
+            family = { text -> vm.scanFamily(text) { gift -> vm.setupFlow = vm.setupFlow.fromFamily(gift) } }, familyQa = vm::qaFamily,
             notify = { kind ->
                 if (kind == "message") si.lanisce.lani.data.Notifier.post(this, si.lanisce.lani.data.Notice(si.lanisce.lani.data.NotifyChannel.MESSAGES,
                     si.lanisce.lani.data.NotifyChannels.CHAT, "💬 ${si.lanisce.lani.l10n.inTarget("common.yourTutor")}", "QA", si.lanisce.lani.data.DeepLink.Chat))

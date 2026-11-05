@@ -50,7 +50,8 @@ const fixture = JSON.parse(readFileSync(resolve(import.meta.dir, 'dev-town.json'
 const modulesDir = join(projectDir, 'companion/modules', values.target === 'sl' ? '' : values.target!)
 const below = (existsSync(modulesDir) ? readdirSync(modulesDir) : []).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(modulesDir, f), 'utf8')))
   .filter(m => m.quest && LEVELS.indexOf(m.level) < LEVELS.indexOf(values.level!))
-const played = below.map(m => ({ id: `tutor-${m.id}-v1`, moduleId: m.id, giver: m.quest.giver, source: 'TUTOR', since: day(-30), done: true }))
+// all a quest needs: without one of these the app can't read the village, and takes the learner for one who has none
+const played = below.map(m => ({ id: `tutor-${m.id}-v1`, moduleId: m.id, giver: m.quest.giver, emoji: m.quest.emoji ?? '📜', title: m.id, story: '', skill: String(m.quest.skill ?? 'stone').toUpperCase(), reward: {}, source: 'TUTOR', since: day(-30), done: true }))
 const state = { ...(days(fixture.state) as Record<string, unknown>), quests: played, chest: { goods: {}, tools: {} }, visitor: null, residents: cast.map((id, i) => ({ id, since: day(-40 + 5 * i) })), villagers: cast.length }
 writeFileSync(join(data, 'app/game.json'), JSON.stringify({ rev: 1, state }))
 console.log(data)

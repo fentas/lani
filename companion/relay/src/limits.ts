@@ -12,8 +12,8 @@ export class RateLimiter {
     private readonly now: () => number,
   ) {}
 
-  /** Milliseconds until [name] may go again; 0 when it may now (and its token is spent). */
-  take(name: string): number {
+  /** Milliseconds until [name] may go again; 0 when it may now (and its [n] tokens are spent). */
+  take(name: string, n = 1): number {
     if (this.perMin <= 0) return 0
     const now = this.now()
     if (this.buckets.size > 50_000) {
@@ -24,11 +24,11 @@ export class RateLimiter {
     b.tokens = Math.min(this.burst, b.tokens + (now - b.at) * rate)
     b.at = now
     this.buckets.set(name, b)
-    if (b.tokens >= 1) {
-      b.tokens -= 1
+    if (b.tokens >= n) {
+      b.tokens -= n
       return 0
     }
-    return Math.ceil((1 - b.tokens) / rate)
+    return Math.ceil((n - b.tokens) / rate)
   }
 }
 

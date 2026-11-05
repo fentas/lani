@@ -72,7 +72,8 @@ function cleanRequest(q: any) {
   }
 }
 
-export const townRequests: FeatureFactory = ({ cfg, townKey: key, profile, culture, events, relay, log }) => {
+export const townRequests: FeatureFactory = ctx => {
+  const { cfg, townKey: key, profile, culture, events, relay, log } = ctx
   const store = new Towns(cfg.appDir, log)
   const requests = new LinkRequests(cfg.appDir)
   const nonces = new Nonces()
@@ -83,6 +84,16 @@ export const townRequests: FeatureFactory = ({ cfg, townKey: key, profile, cultu
   /** The node's owner (its default learner, an adult) links their own children's towns of this node directly. */
   const owner = profile.isDefault && !profile.child
   const notified = new Map<string, number[]>()
+
+  // a child added from a parent's device (features/family-members.ts), as this feature's own POST /towns/children/:id/link
+  ctx.linkLocalChild = async id => {
+    if (!owner) return false
+    const c = localChildren(cfg.projectDir).find(k => k.profile === id)
+    if (!c) return false
+    const done = await linkLocalChild({ self: { key, towns: store, url, relay: relayAddr, display: display() }, child: c, culturesDir: culture.dir })
+    if (done) relay?.nudge()
+    return !!done
+  }
 
   async function signed(c: RouteCtx, keyOf: (id: string) => string | undefined) {
     const body = await readText(c.req, 16 * 1024)

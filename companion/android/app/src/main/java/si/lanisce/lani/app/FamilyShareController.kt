@@ -15,18 +15,27 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.data.FamilyLink
+import si.lanisce.lani.data.FamilyPost
 import java.net.Inet4Address
 import java.net.InetAddress
 
 /**
- * The sending side of "Add a family member" (data/FamilyLink; ui/settings/FamilyShare): the QR code shown on the Wi-Fi this device
- * is on, the device that claimed it, the parent's decision. The gift is read only when the parent has held the button, and
- * lives in memory for as long as it takes to seal it. Compose state, on the main thread.
+ * The sending side of "Add a family member" (data/FamilyLink; ui/settings/FamilyShare): the QR code, good on the Wi-Fi this device is
+ * on and through the relay when one is set, the device that claimed it, the parent's decision. The gift is read only when the
+ * parent has held the button, and lives in memory for as long as it takes to seal it. Never from a child's device. Compose state,
+ * on the main thread.
  */
-class FamilyShareController(private val scope: CoroutineScope, private val context: Context, private val gift: suspend () -> FamilyLink.Gift) {
+class FamilyShareController(
+    private val scope: CoroutineScope,
+    private val context: Context,
+    private val devices: FamilyDevices,
+    private val child: () -> Boolean,
+    private val relay: () -> String,
+    private val gift: suspend () -> FamilyLink.Gift,
+) {
     sealed interface Phase {
         data object Idle : Phase
-        /** No Wi-Fi: nothing could reach this device. */
+        /** No Wi-Fi and no relay: nothing could reach this device. */
         data object NoWifi : Phase
         data class Showing(val text: String) : Phase
         /** [device] claimed the code: what the parent decides on. */
@@ -40,22 +49,33 @@ class FamilyShareController(private val scope: CoroutineScope, private val conte
         private set
 
     private var sender: FamilyLink.Sender? = null
-    private var listener: FamilyLink.Listener? = null
+    private var ways: List<FamilyLink.Way> = emptyList()
+
+    /** The way the claim came: the parent's decision goes back by it. */
+    @Volatile private var claimedBy: FamilyLink.Way? = null
     private var job: Job? = null
 
     /** A new code, shown until it's claimed or expires; the one before it is gone. */
     fun show() {
         close()
-        val address = wifiAddress(context) ?: return Unit.also { phase = Phase.NoWifi }
+        if (child()) return
+        val address = wifiAddress(context)
+        val through = relay().takeIf { it.isNotBlank() }
         // QA's forwarded port reaches the emulator on its loopback: every address in a debug build, the Wi-Fi's alone otherwise
-        val l = runCatching { FamilyLink.Listener(address.takeUnless { BuildConfig.QA }) }.getOrNull() ?: return Unit.also { phase = Phase.NoWifi }
-        val s = FamilyLink.Sender(address.hostAddress.orEmpty(), l.port, System.currentTimeMillis())
-        listener = l
+        val l = address?.let { a -> runCatching { FamilyLink.Listener(a.takeUnless { BuildConfig.QA }) }.getOrNull() }
+        if (l == null && through == null) return Unit.also { phase = Phase.NoWifi }
+        val s = FamilyLink.Sender(if (l != null) address.hostAddress.orEmpty() else "", l?.port ?: 0, System.currentTimeMillis(), relay = through)
+        ways = listOfNotNull(l, through?.let { FamilyLink.RelayWay(si.lanisce.lani.data.HttpDrop(it), s.offer) })
         sender = s
         phase = Phase.Showing(s.offer.text())
         if (BuildConfig.QA) Log.i(TAG, "showing ${s.offer.text()}") // a one-time code and a public key: never a provider's key
         job = scope.launch {
-            launch(Dispatchers.IO) { l.serve(s) { device -> scope.launch { phase = Phase.Asking(device) } } }
+            for (way in ways) launch(Dispatchers.IO) {
+                way.serve(s) { device ->
+                    claimedBy = way
+                    scope.launch { phase = Phase.Asking(device) }
+                }
+            }
             delay(FamilyLink.TTL_MS)
             if (phase !is Phase.Sent) over()
         }
@@ -65,10 +85,21 @@ class FamilyShareController(private val scope: CoroutineScope, private val conte
     fun confirm() {
         val s = sender ?: return
         val device = (phase as? Phase.Asking)?.device ?: return
+        val way = claimedBy ?: return
+        if (child()) return
         scope.launch {
-            val sealed = s.confirm(gift(), System.currentTimeMillis())
-            withContext(Dispatchers.IO) { listener?.send(sealed) }
-            if (sealed != null) phase = Phase.Sent(device) else over()
+            val family = devices.familyId()
+            val member = FamilyPost.newId()
+            val sealed = s.confirm(gift().copy(family = family, member = member, from = android.os.Build.MODEL ?: "Android"), System.currentTimeMillis())
+            val bond = s.bond
+            // on the list before it goes: a device with a bond the parent can't see is worse than a row that never hears
+            if (sealed != null && bond != null) devices.added(family, member, device, bond)
+            val went = withContext(Dispatchers.IO) { way.send(sealed) }
+            if (sealed != null && went) phase = Phase.Sent(device)
+            else {
+                if (sealed != null) devices.drop(member)
+                over()
+            }
             stop()
         }
     }
@@ -93,10 +124,11 @@ class FamilyShareController(private val scope: CoroutineScope, private val conte
     private fun stop() {
         job?.cancel()
         job = null
-        val l = listener
-        listener = null
+        val all = ways
+        ways = emptyList()
+        claimedBy = null
         sender = null
-        if (l != null) scope.launch(Dispatchers.IO) { runCatching { l.close() } }
+        if (all.isNotEmpty()) scope.launch(Dispatchers.IO) { all.forEach { runCatching { it.close() } } }
     }
 
     companion object {

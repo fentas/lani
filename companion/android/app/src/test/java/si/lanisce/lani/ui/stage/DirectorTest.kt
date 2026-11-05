@@ -37,6 +37,17 @@ class DirectorTest {
     private val dictation = Exercise.Dictation("Dober večer", listOf("Dober večer"))
     private val hiddenSpeak = Exercise.Speak("Hvala lepa", "Say thank you", show = false)
 
+    @Test fun `a run that reads its prompts keeps the lead-in on screen and doesn't say it, on the first exercise and at a new kind`() {
+        val d = Director(luka, 1, day)
+        val first = d.prompt(0, cloze, null, read = true)!!
+        assertNotNull(first.line)
+        assertFalse("said, it would stop the prompt's reading", first.voice)
+        val next = d.prompt(1, quietFlash, cloze, read = true)!!
+        assertNotNull(next.line)
+        assertFalse(next.voice)
+        assertTrue("any other run says it", Director(luka, 1, day).prompt(0, cloze, null)!!.voice)
+    }
+
     @Test fun `listening cups an ear, quietly, until the answer`() {
         val d = Director(luka, 1, day)
         for (ex in listOf(listen, dictation)) {

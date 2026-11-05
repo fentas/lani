@@ -124,7 +124,7 @@ private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
     SettingsSection.LANGUAGES -> vm.langPair.let { "${it.target.ownName} · ${it.base.ownName}" }
     SettingsSection.AIM -> AimShown.of(vm.content.dashboard, vm.game.state?.age ?: si.lanisce.lani.game.Age.OGENJ)?.summary() ?: "…"
     SettingsSection.ABOUT -> vm.content.dashboard?.let { "${it.level} · ${it.goalMinutes} min" } ?: "…"
-    SettingsSection.FAMILY -> bi("family.show")
+    SettingsSection.FAMILY -> bi("family.rowWhat")
     SettingsSection.SOUND -> bi("settings.soundAbout")
     SettingsSection.TIPS -> if (vm.game.state?.tips?.off == true) bi("tips.offNow") else bi("tips.onNow")
     SettingsSection.NOTIFY -> "🔔 " + if (vm.notify.reminderOn(vm.child)) bi("notify.reminderOnNow") else bi("notify.reminderOffNow")

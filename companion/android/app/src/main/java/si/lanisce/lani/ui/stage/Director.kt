@@ -37,9 +37,10 @@ class Director(
 
     /**
      * A new exercise [ex] at [index]; [prev] is the one before it. Null keeps the last cue: in a [fast] run,
-     * the cheer for the answer just before stays up rather than a lead-in for the same kind of exercise.
+     * the cheer for the answer just before stays up rather than a lead-in for the same kind of exercise. [read]: the run
+     * reads its prompts itself (a child's placement test): the line shows, and isn't said, or it would stop that reading.
      */
-    fun prompt(index: Int, ex: Exercise, prev: Exercise?, fast: Boolean = false): Cue? {
+    fun prompt(index: Int, ex: Exercise, prev: Exercise?, fast: Boolean = false, read: Boolean = false): Cue? {
         val greeting = if (index == 0 && greet) {
             Lines.warmest(who.lines.greet.at(clock()), who.level)?.let(::remember) ?: say("greet", Lines.greet(who.register))
         } else null
@@ -53,7 +54,7 @@ class Director(
         val line = greeting ?: say("lead-in", Lines.leadIns(ex, who.register))
         // Every exercise gets its line on screen; the voice only when the kind changes, so five flashcards
         // in a row don't hear "Se spomniš te besede?" five times.
-        val voice = !autoAudioAtPrompt(ex) && (index == 0 || prev == null || kind(prev) != kind(ex))
+        val voice = !read && !autoAudioAtPrompt(ex) && (index == 0 || prev == null || kind(prev) != kind(ex))
         return Cue(Pose.TALK, line, voice, holdMs = talkMs(line))
     }
 

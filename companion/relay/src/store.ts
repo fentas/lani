@@ -64,6 +64,9 @@ export class Store {
         owner TEXT NOT NULL, name TEXT NOT NULL, size INTEGER NOT NULL, time INTEGER NOT NULL, sha256 TEXT NOT NULL,
         PRIMARY KEY (owner, name));
       CREATE TABLE IF NOT EXISTS seen (k TEXT PRIMARY KEY, until INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS drops (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, box TEXT NOT NULL, body BLOB NOT NULL, size INTEGER NOT NULL, at INTEGER NOT NULL, expires INTEGER NOT NULL);
+      CREATE INDEX IF NOT EXISTS drops_box ON drops (box, id);
     `)
   }
 
@@ -205,20 +208,46 @@ export class Store {
     return this.db.query('DELETE FROM backups WHERE owner = ? AND name = ?').run(owner, name).changes > 0
   }
 
-  /** All the bytes the relay keeps: backups, mail, answers. */
+  // --- a family's drop boxes (drop.ts) -----------------------------------------------------------------------------------
+
+  /** How many notes wait in [box] now. */
+  dropCount(box: string, now: number): number {
+    return (this.db.query('SELECT COUNT(*) AS n FROM drops WHERE box = ? AND expires > ?').get(box, now) as any).n
+  }
+
+  /** All the notes' bytes, in every box. */
+  dropBytes(): number {
+    return (this.db.query('SELECT COALESCE(SUM(size), 0) AS bytes FROM drops').get() as any).bytes
+  }
+
+  putDrop(box: string, body: Uint8Array, at: number, expires: number) {
+    this.db.query('INSERT INTO drops (box, body, size, at, expires) VALUES (?, ?, ?, ?, ?)').run(box, body, body.length, at, expires)
+  }
+
+  /** The notes of [box], oldest first, and gone: what's read here is read once. */
+  takeDrops(box: string, now: number): Uint8Array[] {
+    return this.db.transaction(() => {
+      const rows = this.db.query('SELECT body FROM drops WHERE box = ? AND expires > ? ORDER BY id').all(box, now) as { body: Uint8Array }[]
+      this.db.query('DELETE FROM drops WHERE box = ?').run(box)
+      return rows.map(r => r.body)
+    })()
+  }
+
+  /** All the bytes the relay keeps: backups, mail, answers, a family's notes. */
   totalBytes(): number {
     const sum = (table: string) => (this.db.query(`SELECT COALESCE(SUM(size), 0) AS bytes FROM ${table}`).get() as any).bytes as number
-    return sum('backups') + sum('mail') + sum('replies')
+    return sum('backups') + sum('mail') + sum('replies') + sum('drops')
   }
 
   // --- retention ---------------------------------------------------------------------------------------------------------
 
-  /** Removes what ran out: mail (14 days, or a request's own deadline), answers, remembered signatures. */
-  sweep(now: number): { mail: number; replies: number; seen: number } {
+  /** Removes what ran out: mail (14 days, or a request's own deadline), answers, a family's notes, remembered signatures. */
+  sweep(now: number): { mail: number; replies: number; seen: number; drops: number } {
     return {
       mail: this.db.query('DELETE FROM mail WHERE expires <= ?').run(now).changes,
       replies: this.db.query('DELETE FROM replies WHERE expires <= ?').run(now).changes,
       seen: this.db.query('DELETE FROM seen WHERE until <= ?').run(now).changes,
+      drops: this.db.query('DELETE FROM drops WHERE expires <= ?').run(now).changes,
     }
   }
 }

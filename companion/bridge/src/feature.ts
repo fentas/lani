@@ -48,6 +48,11 @@ export type Feature = {
 }
 
 export type Ctx = {
+  /**
+   * A parent's link to their own child's town of this node, by the child's profile (features/town-requests.ts sets it): false when
+   * this town isn't the node's owner's or the child's bridge doesn't answer.
+   */
+  linkLocalChild?: (profile: string) => Promise<boolean>
   cfg: Config
   log: Log
   /** Which learner this bridge serves (LANI_PROFILE; "default" is today's setup) and whether they are a child. */

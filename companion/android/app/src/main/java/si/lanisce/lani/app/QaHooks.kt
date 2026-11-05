@@ -97,7 +97,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "placement": the placement test's page opens (app/PlacementController, game/LevelPlacement); "placement:fresh" readies
  *   the class (as "school") with no unit of the course done or begun and no test taken ([readyPlacement]) and opens the
  *   school, its card offering the test; "placement:answer:<part>" answers the test on screen to its end as a learner who
- *   knows the course up to that part (its index: 5 is A2's last, -1 none): its result shows.
+ *   knows the course up to that part (its index: 5 is A2's last, -1 none): its result shows; "placement:waiting:<level>"
+ *   its page as the day after a test whose level the node hasn't recorded ([placedUnrecorded]: "📨 Pošlji znova" shows),
+ *   "placement:sent:<level>" the same on the day it went (the outbox is still at it: none shows).
  * - "meet:<id>": that villager moved in and not met yet (the dev bridge's copy), their introduction opened at the learner's
  *   level, or "level:<lv>"'s (companion/VILLAGERS.md "Arrivals": Tone's B1, "meet:tone" after "level:B1").
  * - "sheet:<unit>/<sheet>": the class readied (as "school") and that sheet of the unit played at once ("sheet:sedanjik/
@@ -140,7 +142,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   cards of the learner's ([withRequest]: the cards a request was made from, a grammar card among them) and its challenge
  *   starts, as from its bubble: what the challenge asks of each card (companion/GAME.md, "Cards in a challenge").
  * - "firstrun:device", "firstrun:paired", "firstrun:": app/FirstRun as after a first run on this device or with a computer, or
- *   none; "family:scan:<text, URL-encoded>": a family's code as if the camera had read it.
+ *   none; "family:scan:<text, URL-encoded>": a family's code as if the camera had read it; "family:peer:<host>:<port>": where the
+ *   parent's device answers (two emulators can't find each other on a Wi-Fi); "family:offline", "family:online": as if this device
+ *   had no internet for what the family's key needs, and back.
  * - "setup:phone:<code>": the first launch from its welcome as on a phone in that language ("setup:phone:de": Teo's
  *   German tablet on an English emulator).
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the settings' languages page
@@ -406,7 +410,7 @@ object QaHooks {
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
         cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {}, icon: (String) -> Unit = {}, notify: (String) -> Unit = {},
         setupPhone: (String) -> Unit = {}, readOlder: (Long) -> Unit = {}, placement: (String) -> Unit = {},
-        firstRun: (String) -> Unit = {}, family: (String) -> Unit = {},
+        firstRun: (String) -> Unit = {}, family: (String) -> Unit = {}, familyQa: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -418,6 +422,7 @@ object QaHooks {
             command.startsWith("firstrun:") -> firstRun(command.removePrefix("firstrun:").trim())
             // "family:scan:<the code's text>": as if the camera had read it (the emulator's camera can't)
             command.startsWith("family:scan:") -> family(java.net.URLDecoder.decode(command.removePrefix("family:scan:").trim(), "UTF-8"))
+            command.startsWith("family:") -> familyQa(command.removePrefix("family:").trim())
             // "icon:<alias>": the launcher shows that alias a few seconds after the app goes to the background, as the
             // developer's "Try the next icon" does; "icon:" the day's icon again (data/AppIconWork.kt)
             command.startsWith("icon:") -> icon(command.removePrefix("icon:"))
@@ -657,6 +662,17 @@ object QaHooks {
         val c = r.course ?: si.lanisce.lani.game.CourseProgress()
         val mine = { k: String -> k.startsWith("$language/") }
         return r.copy(course = c.copy(units = c.units.filterKeys { !mine(it) }, opened = c.opened.filterKeys { !mine(it) || it == "$language/A1" }, placements = c.placements - language))
+    }
+
+    /**
+     * [s] after a placement test taken on [day] that raised the learner to [level], which the node hasn't recorded
+     * ("placement:waiting:<level>", "placement:sent:<level>"): its result kept and not confirmed, as a node that never
+     * got the report leaves it. A debug build's, on the dev bridge's copy.
+     */
+    fun placedUnrecorded(s: si.lanisce.lani.game.GameState, language: String, level: String, day: java.time.LocalDate): si.lanisce.lani.game.GameState {
+        val c = s.course ?: si.lanisce.lani.game.CourseProgress()
+        val placed = si.lanisce.lani.game.Placed(day = day.toString(), from = "A1", level = level, start = level, part = 1, parts = 1, right = 4, of = 4, minutes = 5)
+        return s.copy(course = c.copy(placements = c.placements + (language to placed)))
     }
 
     /**

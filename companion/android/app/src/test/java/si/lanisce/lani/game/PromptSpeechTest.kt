@@ -16,6 +16,20 @@ class PromptSpeechTest {
         assertFalse(said.any { "sono" in it.text })
     }
 
+    @Test fun `a line in both languages is said each half in its own voice`() {
+        val e = Exercise.Choice(prompt = "Il cane", options = listOf("a", "b"), answer = 0, instruction = "C'è o ci sono? · Sortiere")
+        assertEquals(listOf(HintPiece("C'è o ci sono?", true), HintPiece("Sortiere", false), HintPiece("Il cane", true)), PromptSpeech.of(e, italian))
+    }
+
+    @Test fun `a sentence with a gap is the language learned's, even with few words known by it, unless it reads as the base`() {
+        val gap = Exercise.Choice(prompt = "Maestra, Lei ____ tedesco? (parlare)", options = listOf("parla", "parli"), answer = 0)
+        assertEquals(listOf(HintPiece("Maestra, Lei … tedesco? (parlare)", true)), PromptSpeech.of(gap, { false }, { false }))
+        val base = Exercise.Choice(prompt = "Wie heißt ____ auf Italienisch?", options = listOf("a", "b"), answer = 0)
+        assertEquals(listOf(HintPiece("Wie heißt … auf Italienisch?", false)), PromptSpeech.of(base, { false }, { "Wie" in it }))
+        val plain = Exercise.Choice(prompt = "Wähle.", options = listOf("a", "b"), answer = 0)
+        assertEquals("no gap: by the words alone", listOf(HintPiece("Wähle.", false)), PromptSpeech.of(plain, { false }, { false }))
+    }
+
     @Test fun `word chips say their question, never the sentence they build`() {
         val e = Exercise.Reorder(prompt = "Baue den Satz.", tokens = listOf("Il", "gatto", "dorme"), solutions = listOf(listOf("Il", "gatto", "dorme")))
         assertEquals(listOf(HintPiece("Baue den Satz.", false)), PromptSpeech.of(e, italian))

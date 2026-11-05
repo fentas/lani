@@ -380,6 +380,11 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        writing"): the teacher's question, the self-rating the emulator's missing microphone leads to, the
                        writing's checks ticked as the model is typed, checked right, the model; the test's speaking item
                        rated, which doesn't count there;
+                       "school-unmet" (only when named) what a written text lacks, in the verdict's panel: that sheet's
+                       writing item given a text that doesn't pass, one check not met ("Skoraj"), then too short and
+                       lacking all it must use ("Ne čisto"), each named between the verdict and "Naprej · Next", no must
+                       that is met; on Teo's tablet too; LANI_QA_UNIT=periodo-ipotetico with an adult's it-de: what it
+                       should have avoided, struck through (unmet-*.png);
                        "choices-order" (only when named; a synthetic learner, LANI_DEV_DATA) that unit played as "school-unit"
                        plays it, by the options' texts: each choice's options from the top to choices-order.txt, a shot of
                        one whose right answer isn't on top before and after its tap (it's right, the unit passes), and the
@@ -394,7 +399,15 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "placement" (only when named) the placement test (QA's hooks "placement:fresh", "placement:
                        answer:5"): the school's card with nothing of the course done, the test's page, its first probe
                        (no cheat sheet), its result for a learner who knows A2 (B1), "Začnem tukaj", the school after
-                       (A1 and A2 done, B1 open, ★); the taps in placement.txt;
+                       (A1 and A2 done, B1 open, ★); the taps in placement.txt; an adult's test says nothing as it
+                       comes up;
+                       "placement-again" (only when named) "📨 Pošlji znova" on the test's page (QA's hooks "placement:
+                       sent:<level>", "placement:waiting:<level>"): none the day the level went, from the day after the
+                       line and the button, on the phone and Teo's tablet, a tap: the dev bridge's learner raised, one
+                       session, and both gone once the app has the level (pa-*.png); "placement-child" (only when named,
+                       LANI_CHILD=1, a synthetic Teo as "friuli-school") a child's test reading each prompt as it comes
+                       up: what the screen asks and never an option (tag HintVoice: placement-child.log, also in
+                       $LANI_QA_PLACEMENT_SHOTS with pc-*.png), on the phone and Teo's tablet;
                        "school-a2" an A2 unit end to end (QA's hook "school:reveal"): cigav from the school's levels,
                        its intro step by step (the summary card: the page cigav), its possessives' table and choice,
                        the gap text "Nered pri Micki" with one gap wrong (its correction), then its test straight away,
@@ -558,7 +571,15 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "first-cards" (only when named) the voice's card after the first dialog, the minutes and the aim on
                        Home, the school's card put away, each once (hook firstrun:…);
                        "family-parent", "family-child" (each alone, at the same time on the two emulators) add a family
-                       member: the code, the parent's hold, the key on a child's device, a second scan refused;
+                       member: the code; with no internet the code not spent, "take it now", the key checked once online; the
+                       parent's hold, the key on a child's device, a second scan refused; then the list of devices: a daily budget
+                       by a hold, on its way until the device came by (QA's hook "family:peer:", the office's port forwarded), a
+                       ceiling on the child's device, the removal, the key gone there (LANI_QA_FAMILY_TABLET=1: the child's on a
+                       tablet); "family-computer-parent", "family-computer-child" (at the same time, the parent's with a synthetic
+                       learner, LANI_DEV_DATA) a family on a computer: a new member by a hold, a real second bridge by
+                       the real `lani-bridge start` (LANI_FAMILY_URL, the block's ports, none of the machine's keys), the
+                       code read by "Someone in my family already uses Lani", the device on the parent's list, its budget
+                       through the computer, its removal (LANI_QA_FAMILY_TABLET=1: the parent's on a tablet);
                        "first-run" (alone, --steps first-run: no node) the first run timed, to the village and a line said
                        aloud (firstrun.txt, firstrun-*.png in $LANI_QA_FIRSTRUN_SHOTS; LANI_QA_FIRSTRUN_CHILD=1,
                        LANI_QA_FIRSTRUN_TABLET=1);
@@ -1325,7 +1346,7 @@ def setup(url=None, token=None):
         qa_hook(f"pair:{pair}")
     # the learner's own pair from here (the profile's, or LANI_QA_PAIR's): Home's and the founding's labels in it
     today, where, here = (f"{say(k, 0)}" for k in ("common.today", "founding.title", "founding.here"))
-    end = time.time() + 30 * slow()
+    end, home = time.time() + 30 * slow(), False
     while time.time() < end:  # Home, and the notification permission whenever it comes
         ns = list(nodes())
         c = next((c for t, c in ns if t == "Allow"), None)
@@ -1350,9 +1371,19 @@ def setup(url=None, token=None):
                 time.sleep(3 * slow())
             end = max(end, time.time() + 30)  # Home's time to come, after the founding's reading
         elif any(t.startswith(f"{today} · ") for t, _ in ns):
+            home = True
             break
         time.sleep(1)
-    assert any(t.startswith(f"{today} · ") for t, _ in nodes()), "home did not load"
+    assert home, "home did not load"
+    # the system's question about notifications comes a moment after Home: answered here, or it lies over the next step's
+    # first screen, which its hook opens under it (a step that begins with go_home takes it away with a Back, others wait);
+    # Home isn't looked for again: under that question a dump has only the question
+    end = time.time() + 5 * slow()
+    while time.time() < end:
+        if (c := next((c for t, c in nodes() if t == "Allow"), None)) is not None:
+            tap_at(c)
+            break
+        time.sleep(0.5)
 
 
 def intro_voice():
@@ -1400,6 +1431,15 @@ def intro_voice():
     assert any(t.startswith(today) for t, _ in nodes()), "back to Home"
 
 
+SWIPE_FROM = 1600  # where [page_down] swipes from: higher while a step has laid the emulator on its side (1600 px tall)
+
+
+def page_down():
+    """A swipe of 600 px down the page, for [scroll_to] and [tap_above]."""
+    adb("shell", "input", "swipe", "540", str(SWIPE_FROM), "540", str(SWIPE_FROM - 600), "400")
+    time.sleep(1)
+
+
 def scroll_to(text: str, swipes=5, exact=False, bottom=1850):
     """Scrolls down until [text] is on screen clear of the header and the tutor bar; its centre, or None. [exact]: only a
     label that is exactly [text] (Home's "Pogovor" tile, not a row that says "Pogovori se"). [bottom]: how low on the screen
@@ -1408,8 +1448,7 @@ def scroll_to(text: str, swipes=5, exact=False, bottom=1850):
         c = next((c for t, c in nodes() if t == text), None) if exact else find(text)
         if c is not None and 300 < c[1] < bottom:
             return c
-        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
-        time.sleep(1)
+        page_down()
     return None
 
 
@@ -8883,7 +8922,7 @@ def school():
     assert tap("Naprej · Next", 6), "on"
     assert tap("Naprej · Continue", 10), "back to the unit"
     # the test straight away: passed, the unit done
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     assert wait_for("Dopolni", 10), "the test's first sheet"
     for label, answer in [("jaz, biti", "sem"), ("vidva, biti", "sta"), ("oni, biti", "so"), ("ti (ne), biti", "nisi")]:
         assert fill(label, answer), f"the test's cell {label}"
@@ -9145,14 +9184,26 @@ def tap_above(text: str, bottom: int, swipes=4) -> bool:
             tap_at(c)
             return True
         if k < swipes:
-            adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
-            time.sleep(1)
+            page_down()
     return False
+
+
+def test_out(text: str):
+    """[text] ("⏩ Znam že: kar na test") on a unit's page tapped, and the test open: the button gone. The page keeps its
+    scroll from the sheet below it, and what QA's swipes moved it by varies with the machine's load: the button can end
+    under the status bar, which takes the tap, and the step then fails looking for the test's first item. So the page to its
+    top first."""
+    to_top()
+    assert tap(text, 8), "⏩ the test"
+    end = time.time() + 8 * slow()
+    while time.time() < end and find(text) is not None:
+        time.sleep(1)
+    assert find(text) is None, "⏩ the test: it didn't open"
 
 
 def check_sheet() -> bool:
     """A sheet's "Preveri · Check" tapped: in its bottom bar as biti's, else below the fold, scrolled to."""
-    return tap_above("Preveri · Check", 2400)
+    return tap_above(label("playerScreen.check"), 2400)
 
 
 def school_b1():
@@ -9422,57 +9473,113 @@ def sheet_exercise(e: dict, where: str):
         shot(f"school-unit-spoken-{where.replace(' ', '').replace('#', '-')}")
 
 
-def production_exercise(e: dict, where: str, shots: str | None = None):
-    """A speaking or writing item of a unit (companion/COURSE.md "Speaking and writing"), answered from the unit's file.
-    Speaking: the emulator has no microphone to speak into, so "Brez mikrofona · Can't speak now" (when the phone's
-    recognizer offers the 🎤 at all), the model revealed, "Rekla sem pravilno · I said it right": right on a worksheet, left
-    out of a test's count (the rating says so). Writing: the model typed (type_letters), what it must use ticked as it is
-    met on a worksheet, "Preveri · Check", right by its rules, the model and the tutor's feedback
-    on its way. [shots]: a prefix for screenshots of each stage (none: none)."""
+def no_microphone(cant: str):
+    """[cant] ("Brez mikrofona · Can't speak now") tapped on a speaking item, where the phone's recognizer offers the 🎤 at all.
+    It is the item's last row, and with what the teacher asks and the word tip above it, it lies below the fold: a scrolling
+    column's rows out of its viewport aren't in the screen's dump (a row a few px into it is, with those few px), so it is
+    scrolled to, clear of the column's edge. The item comes up a moment after Next, its rows still moving: looked at again until
+    it has gone, the self-rating's panel in its place."""
+    time.sleep(2 * slow())
+    for _ in range(3):
+        c = scroll_to(cant, 3, bottom=screen_size()[1] - 140)
+        if c is None:
+            return
+        tap_at(c)
+        time.sleep(slow())
+        if find(cant) is None:
+            return
+
+
+def column_end() -> int:
+    """Where the exercise's scrolling column ends on the screen, in px: the verdict's panel begins there, higher the more it says."""
+    for n in re.findall(r"<node [^>]*?>", screen_xml()):
+        if 'scrollable="true"' in n and (b := re.findall(r"\d+", node_attr(n, "bounds"))):
+            return int(b[3])
+    return 1540
+
+
+def over_panel(text: str, swipes=8):
+    """[text] on an answered item, scrolled to above the verdict's panel; its centre, or None. The item's column ends where the
+    panel begins: a swipe from lower down lands on the panel and leaves the column where it is, so it is swiped from inside
+    the column."""
+    for _ in range(swipes + 1):
+        end = column_end()
+        c = find(text)
+        if c is not None and 300 < c[1] < end - 40:
+            return c
+        adb("shell", "input", "swipe", "540", str(end - 120), "540", str(max(end - 720, 760)), "400")
+        time.sleep(1)
+    return None
+
+
+def write_it_too(too: str, check: str, e: dict, lang: str, snap, where: str):
+    """"✍️ Napiši še · Write it too" under a child's writing item once it is said ([too]; companion/COURSE.md, "A child's
+    version"): the field opens, the child's model typed into it, [check] tapped: what it must use ticked, just for practice."""
+    child = e.get("child") or e
+    c = over_panel(too)
+    assert c is not None, f"{where}: ✍️ write it too"
+    snap("fs-writing-too-offered")
+    tap_at(c)
+    time.sleep(1.5)
+    field = over_panel(plain_half("playerScreen.writeSlovene"))
+    assert field is not None, f"{where}: the field of ✍️ write it too"
+    tap_at(field)
+    type_letters(unit_text(child["model"]), lang)
+    c = over_panel(check)
+    assert c is not None, f"{where}: ✍️ write it too's check"
+    tap_at(c)
+    time.sleep(1.5)
+    must = child["must"][0]["label"]
+    assert over_panel(must[:24]) is not None, f"{where}: ✍️ write it too's checks: «{must}»"
+    snap("fs-writing-too")
+
+
+def production_exercise(e: dict, where: str, shots: str | None = None, text: str | None = None):
+    """A speaking or writing item of a unit (companion/COURSE.md "Speaking and writing"), answered from the unit's file, in
+    the pair the phone shows. Speaking: the emulator has no microphone to speak into, so "Brez mikrofona · Can't speak now"
+    (when the phone's recognizer offers the 🎤 at all), the model revealed, "Rekla sem pravilno · I said it right": right on a
+    worksheet, left out of a test's count (the rating says so). Writing: the model typed (type_letters), what it must use
+    ticked as it is met on a worksheet, "Preveri · Check", right by its rules, the model and the tutor's feedback on its
+    way; [text]: that typed instead, checked, its verdict the caller's. [shots]: a prefix for screenshots of each stage (none: none)."""
     kind = e["type"]
+    lang = pair_now()[0]
+    right = label("playerScreen.correct", half=True).rstrip("!")
     if kind == "speaking":
         if e.get("ask"):
             assert wait_for(unit_text(e["ask"])[:30], 8), f"{where}: what the teacher asks"
         if shots:
             shot(f"{shots}-asked")
-        c = find("Brez mikrofona · Can't speak now")
-        if c is not None:
-            tap_at(c)
+        no_microphone(label("speakExercise.cantSpeakNow"))
         # the rating comes last on the screen, under the panel that says why: as low as the screen goes (no bar below)
-        c = scroll_to("Pokaži · Reveal", 4, bottom=2300) if not e.get("show") else None
+        c = scroll_to(label("speakExercise.reveal"), 4, bottom=2300) if not e.get("show") else None
         if shots:
             shot(f"{shots}-rate")
         if c is not None:
             tap_at(c)  # the model shown and said, then the two ratings
-        c = scroll_to("sem pravilno", 4, bottom=2300)
+        c = scroll_to(plain_half("speakExercise.iSaidRight"), 4, bottom=2300)
         assert c is not None, f"{where}: ✓ I said it right"
         tap_at(c)
-        assert wait_for("Pravilno", 6) or wait_for("Naprej · Next", 2), f"{where}: rated right"
+        assert wait_for(right, 6) or wait_for(label("common.next"), 2), f"{where}: rated right"
         if shots:
             shot(f"{shots}-rated")
         return
-    c = scroll_to("Napiši v slovenščini", 4) or scroll_to("Write in", 2)
+    c = scroll_to(plain_half("playerScreen.writeSlovene"), 4)
     assert c is not None, f"{where}: the field"
     tap_at(c)
     if shots:
         shot(f"{shots}-empty")
     # as a learner types it, and checked: a text this long through adb alone came out with its words lost and out of order
-    type_letters(unit_text(e["model"]), "sl")
+    type_letters(text if text is not None else unit_text(e["model"]), lang)
     if shots:
         shot(f"{shots}-typed")
     assert check_sheet(), f"{where}: check"
-    assert wait_for("Pravilno", 8), f"{where}: right by its rules"
+    if text is not None:
+        return
+    assert wait_for(right, 8), f"{where}: right by its rules"
     if shots:
         shot(f"{shots}-checked")
-        # the model and the tutor's line lie under the checks, behind the verdict's panel: swiped from above that panel
-        seen = None
-        for _ in range(8):
-            seen = find("Primer odgovora")
-            if seen is not None and 300 < seen[1] < 1500:
-                break
-            seen = None
-            adb("shell", "input", "swipe", "540", "1300", "540", "700", "400")
-            time.sleep(1)
+        # the model and the tutor's line lie under the checks, behind the verdict's panel
+        seen = over_panel("Primer odgovora")
         shot(f"{shots}-model")
         assert seen is not None, f"{where}: the model text, reached above the verdict's panel"
 
@@ -9513,13 +9620,11 @@ def school_production():
     first = next((i for i, e in enumerate(tests) if e["type"] == "speaking"), None)
     if first is None:
         return
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     for n, e in enumerate(tests[: first + 1], 1):
         time.sleep(1.5)
         if e["type"] == "speaking":
-            c = find("Brez mikrofona · Can't speak now")
-            if c is not None:
-                tap_at(c)
+            no_microphone(label("speakExercise.cantSpeakNow"))
             assert wait_for("šteje le, ko te sliši mikrofon", 8), "the test's self-rating: it doesn't count"
             shot("production-test-rated")
             production_exercise(e, f"test #{n}", shots="production-test")  # rated right all the same: practice
@@ -9528,6 +9633,93 @@ def school_production():
         assert tap("Naprej · Next", 6), f"test #{n}: on"
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the test left: its answers so far kept, as the app keeps them
     time.sleep(2)
+
+
+# What QA writes on a unit's writing item to see what it lacks named (school-unmet), ASCII but for what the item asks: each
+# text with its verdict (a key of the app's texts), the musts it lacks by their place in the item, whether it is under the
+# length asked, what it should have avoided (as the app folds it)
+UNMET_TEXTS = {
+    "pogojnik-polno": [
+        ("Draga Vida, ves teden je bil dez. Skupaj bi kosili seno, zvecer pa bi jedli potico. Jutri pridem zgodaj zjutraj in "
+         "ti pomagam na travniku. Lep pozdrav, Ana", "playerScreen.almost", [1], False, None),
+        ("Lep pozdrav", "playerScreen.notQuite", [0, 1], True, None),
+    ],
+    "periodo-ipotetico": [
+        ("Se avessi tempo, andrei al mare a Grado con Davide e ogni sera mangerei il frico da Nonna Rosa. Se andrei in paese, "
+         "vedrei anche Zia Nives e Nonno Bepi sotto il tiglio.", "playerScreen.almost", [], False, "se andrei"),
+        ("Se andrei al mare", "playerScreen.notQuite", [0, 1], True, "se andrei"),
+    ],
+}
+
+
+def school_unmet():
+    """What a written text lacks, in the verdict's panel (UnmetChecks; docs/plans/05-built/cleanup-code.md "Lesson
+    production"), only when named: $LANI_QA_UNIT's sheet of speaking and writing in the village's course (QA's hook
+    "sheet:<unit>/<sheet>"; pogojnik-polno by default, periodo-ipotetico for an adult learner of Italian: LANI_QA_SETUP_PAIR=
+    it-de, whose item has what to avoid), its speaking items rated, its writing item given a text of [UNMET_TEXTS] that
+    doesn't pass: one check not met ("Skoraj"), then a text too short that lacks all it must use ("Ne čisto"). Each time the
+    panel, between its verdict and its "Naprej · Next", names each must not met, the length not reached and what it should
+    have avoided, struck through, and no must that is met. The second text again on Teo's tablet on its side (the panel
+    beside the text: a new density starts a sheet afresh) and upright. unmet-*.png."""
+    lang, base = pair_now()
+    path = ROOT / f"companion/course/{lang}/units/{QA_UNIT}.json"
+    if QA_UNIT not in UNMET_TEXTS or not path.exists():
+        return f"skipped: no text that fails for {QA_UNIT} in the {lang} course"
+    u = based(json.loads(path.read_text()), base)
+    sheet = next(w for w in u["worksheets"] if any(e["type"] == "writing" for e in w["exercises"]))
+    nxt = label("common.next")
+
+    def play(tag: str, text: str, verdict: str, lacks: list, short: bool, avoided: str | None):
+        go_home()
+        qa_hook(f"sheet:{QA_UNIT}/{sheet['id']}")
+        for n, e in enumerate(sheet["exercises"], 1):
+            time.sleep(1.5)
+            if e["type"] == "speaking":
+                production_exercise(e, f'{sheet["id"]} #{n}')
+                assert tap(nxt, 6), f'{sheet["id"]} #{n}: on'
+                continue
+            production_exercise(e, f'{sheet["id"]} #{n}', shots=f"unmet-{tag}", text=text)
+            said = label(verdict, half=True).rstrip("!")
+            assert wait_for(said, 8), f"{tag}: the verdict «{said}»"
+            time.sleep(1.5)
+            bs = list(boxes())
+            # the verdict's own line, not the teacher's bubble saying the same over the item
+            head = next((b for t, b in reversed(bs) if t.startswith(said)), None)
+            foot = box_of(bs, nxt)
+            assert head is not None and foot is not None, f"{tag}: the verdict's panel on screen"
+
+            def named(want: str) -> bool:
+                return any(want in t and b[1] >= head[1] and b[3] <= foot[1] and b[0] >= head[0] - 80 for t, b in bs)
+
+            musts = [m["label"][:28] for m in e["must"]]
+            wants = [musts[i] for i in lacks] + ([f'({e["length"]["min"]}–{e["length"]["max"]})'] if short else []) + ([avoided] if avoided else [])
+            shot(f"unmet-{tag}-panel")
+            print(f"    {tag}: «{said}», the panel names: {[t for t, b in bs if b[1] > head[3] and b[3] < foot[1] and b[0] >= head[0] - 80]}")
+            not_named = [w for w in wants if not named(w)]
+            assert not not_named, f"{tag}: not in the verdict's panel: {not_named}"
+            met = [m for i, m in enumerate(musts) if i not in lacks]
+            assert not any(named(m) for m in met), f"{tag}: a must that is met, named as lacking"
+            assert tap(nxt, 6), f"{tag}: on"
+        assert wait_for(label("common.continue"), 10), f"{tag}: the sheet's end"
+        assert tap(label("common.continue"), 4), f"{tag}: back to the unit"
+        time.sleep(1.5)
+
+    global SWIPE_FROM
+    texts = UNMET_TEXTS[QA_UNIT]
+    play("one", *texts[0])
+    play("more", *texts[-1])
+    try:
+        adb("shell", "wm", "density", "320")
+        for size, side, swipe in (("2560x1600", "side", 1100), ("1600x2560", "upright", 1600)):
+            adb("shell", "wm", "size", size)
+            SWIPE_FROM = swipe
+            time.sleep(5 * slow())
+            play(f"tablet-{side}", *texts[-1])
+    finally:
+        SWIPE_FROM = 1600
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+        time.sleep(4 * slow())
 
 
 def school_unit():
@@ -9600,7 +9792,7 @@ def school_unit():
     shot("school-unit-sheet-done")
     assert tap("Naprej · Continue", 4), "back to the unit"
     # the test straight away: passed, the unit done
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     tests = u["test"]["exercises"]
     for n, e in enumerate(tests, 1):
         time.sleep(1.5)
@@ -9824,14 +10016,7 @@ def friuli_school(part: str = "scene"):
         elif kind in ("speaking", "writing"):
             # a child's item (COURSE.md, "A child's version"; LANI_CHILD=1): a writing item is said first, as a speaking item of
             # its model; the emulator has no microphone, so "can't speak now", the model revealed, rated right
-            # the item comes up a moment after Next, its rows still moving: read again, until the self-rating's panel says so
-            wait_for(lab("speakExercise.cantSpeakNow"), 8)
-            for _ in range(4):
-                time.sleep(2 * slow())
-                c = find(lab("speakExercise.cantSpeakNow"))
-                if c is None:
-                    break
-                tap_at(c)
+            no_microphone(lab("speakExercise.cantSpeakNow"))
             c = scroll_to(lab("speakExercise.reveal"), 4, bottom=2300)
             snap(f"fs-{kind}-rate")
             if c is not None:
@@ -9842,12 +10027,7 @@ def friuli_school(part: str = "scene"):
             time.sleep(2)
             snap(f"fs-{kind}-rated")
             if kind == "writing":
-                # "✍️ Napiši še · Write it too": the same few words written, just for practice
-                c = scroll_to(lab("production.writeToo"), 6, bottom=2300)
-                assert c is not None, f"{where}: ✍️ write it too"
-                tap_at(c)
-                time.sleep(1.5)
-                snap("fs-writing-too")
+                write_it_too(lab("production.writeToo"), check, e, "it", snap, where)
             return  # rated: on with Next
         else:
             raise AssertionError(f"{where}: QA doesn't play a {kind} here")
@@ -10077,7 +10257,7 @@ def friuli_school(part: str = "scene"):
             assert wait_for(lab("common.continue"), 10), "the worksheet's end"
             snap("fs-sheet-done")
             assert tap(lab("common.continue"), 4), "back to the unit"
-            assert tap(half("school.testOut"), 8), "⏩ the test"
+            test_out(half("school.testOut"))
             tests = u["test"]["exercises"]
             for n, e in enumerate(tests, 1):
                 time.sleep(1.5)
@@ -10922,14 +11102,7 @@ def course_unit_one(unit: str, shots_dir: str | None):
         elif kind in ("speaking", "writing"):
             # a child's item (COURSE.md, "A child's version"; LANI_CHILD=1): a writing item is said first, as a speaking item of
             # its model; the emulator has no microphone, so "can't speak now", the model revealed, rated right
-            # the item comes up a moment after Next, its rows still moving: read again, until the self-rating's panel says so
-            wait_for(lab("speakExercise.cantSpeakNow"), 8)
-            for _ in range(4):
-                time.sleep(2 * slow())
-                c = find(lab("speakExercise.cantSpeakNow"))
-                if c is None:
-                    break
-                tap_at(c)
+            no_microphone(lab("speakExercise.cantSpeakNow"))
             c = scroll_to(lab("speakExercise.reveal"), 4, bottom=2300)
             snap(f"fs-{kind}-rate")
             if c is not None:
@@ -10940,12 +11113,7 @@ def course_unit_one(unit: str, shots_dir: str | None):
             time.sleep(2)
             snap(f"fs-{kind}-rated")
             if kind == "writing":
-                # "✍️ Napiši še · Write it too": the same few words written, just for practice
-                c = scroll_to(lab("production.writeToo"), 6, bottom=2300)
-                assert c is not None, f"{where}: ✍️ write it too"
-                tap_at(c)
-                time.sleep(1.5)
-                snap("fs-writing-too")
+                write_it_too(lab("production.writeToo"), check, e, lang, snap, where)
             return  # rated: on with Next
         else:
             raise AssertionError(f"{where}: QA doesn't play a {kind} here")
@@ -11022,7 +11190,7 @@ def course_unit_one(unit: str, shots_dir: str | None):
         assert wait_for(lab("common.continue"), 10), "the worksheet's end"
         snap("cu-sheet-done")
         assert tap(lab("common.continue"), 4), "back to the unit"
-        assert tap(half("school.testOut"), 8), "⏩ the test"
+        test_out(half("school.testOut"))
         tests = u["test"]["exercises"]
         for n, e in enumerate(tests, 1):
             time.sleep(1.5)
@@ -13353,10 +13521,14 @@ def first_cards():
 
 FAMILY_DIR = Path(os.environ.get("LANI_QA_FAMILY_DIR", OUT / "family"))
 FAMILY_PORT = int(os.environ.get("LANI_QA_FAMILY_PORT", "11079"))  # the host's port forwarded to the parent's listener
+FAMILY_POST_PORT = int(os.environ.get("LANI_QA_FAMILY_POST_PORT", "11080"))  # and to the office, where the devices come by
+FAMILY_TABLET = os.environ.get("LANI_QA_FAMILY_TABLET") == "1"
+FAMILY_WAIT = float(os.environ.get("LANI_QA_FAMILY_WAIT", "400"))  # how long a side waits for the other's emulator to come up
 
 
 def family_wait(name: str, timeout: float) -> Path:
-    """The other emulator's file [name] in $LANI_QA_FAMILY_DIR, once it's there."""
+    """The other emulator's file [name] in $LANI_QA_FAMILY_DIR, once it's there. The directory is new for each run: whichever side
+    comes first may already have written to it."""
     f = FAMILY_DIR / name
     end = time.time() + timeout
     while time.time() < end and not f.exists():
@@ -13391,14 +13563,132 @@ def family_name(name: str, child=False):
     hosted_home(found=True)
 
 
+def family_hold(key: str, swipes=8, mints=False):
+    """A parent's hold on the button of [key]: a tap first, which must do nothing, then the two seconds. [mints]: it makes a
+    pairing code, and the log (cleared just before) must have none after the tap."""
+    text = say(key, 0)
+    hold = scroll_to(text, swipes) or find(text)
+    assert hold, f"the parent's hold: {text}"
+    tap_at(hold)
+    time.sleep(1)
+    hold = find(text)
+    assert hold, f"a tap did it: {text}"
+    assert not (mints and family_log(r"(member code)", 0.1)), f"a tap minted a code: {text}"
+    adb("shell", "input", "swipe", str(hold[0]), str(hold[1]), str(hold[0]), str(hold[1]), "2800")
+    time.sleep(1.5)
+
+
+def family_tablet(on: bool):
+    """The device QA stands in as: a tablet on its side, or the emulator's own screen."""
+    if not FAMILY_TABLET:
+        return
+    if on:
+        adb("shell", "wm", "density", "320")
+        adb("shell", "wm", "size", "2560x1600")
+    else:
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+    time.sleep(2)
+
+
+def family_device_row():
+    """A device's row on the family's page, (its text, where): not the list's heading or a button that also starts with 📱."""
+    others = [say(k, 0) for k in ("family.devices", "family.keyOnly", "family.show")]
+    return next(((t, c) for t, c in nodes() if t.startswith("📱 ") and not any(o in t for o in others)), None)
+
+
+def family_devices_parent():
+    """The parent's half of the list of devices: the one just added on it, its budget by a hold, on its way until the device came
+    by, then its removal, which stays on the list until the device has heard."""
+    assert scroll_to(say("family.devices", 0), 8), "the list of the family's devices"
+    assert scroll_to(say("family.reachWifi", 0)[:30], 6), "where no channel reaches, said plainly"
+    shot("family-devices")
+    row = family_device_row()
+    assert row, "the device on the list"
+    print(f"    on the list: {row[0]}")
+    tap_at(row[1])
+    time.sleep(1)
+    assert tap("$0.50", 4), "a daily budget's chip"
+    time.sleep(0.5)
+    shot("family-budget-chosen")
+    family_hold("family.holdCap")
+    assert scroll_to(say("family.capOnItsWay", 0), 4) or find(say("family.capOnItsWay", 0)), "the budget on its way until the device has it"
+    assert find(say("family.waitingThere", 0)), "and what it waits for, in words"
+    shot("family-budget-waiting")
+    port = family_log(r"office on (\d+)", 60)
+    assert port, "the parent's device answering on its Wi-Fi"
+    adb("forward", f"tcp:{FAMILY_POST_PORT}", f"tcp:{port}")
+    try:
+        (FAMILY_DIR / "post").touch()
+        end = time.time() + 120 * slow()
+        while time.time() < end and find(say("family.capOnItsWay", 0)):
+            time.sleep(1)
+        assert not find(say("family.capOnItsWay", 0)), "the device never said it has the budget"
+        assert find(say("family.capIs", 0).replace("{cap}", "$0.50")), "the budget it has, on the list"
+        shot("family-budget-there")
+        (FAMILY_DIR / "cap-there").touch()
+        family_wait("cap-seen", FAMILY_WAIT)
+        # the removal: a parent's hold, on the list until the device hears, then gone
+        row = family_device_row()
+        if row and not find(say("family.removeWhat", 0)[:30]):
+            tap_at(row[1])
+            time.sleep(1)
+        assert scroll_to(say("family.removeWhat", 0)[:30], 6), "what a removal does and doesn't, before the hold"
+        shot("family-remove")
+        family_hold("family.holdRemove")
+        assert wait_for(say("family.leaving", 0)[:24], 10), "leaving, until it has heard"
+        shot("family-leaving")
+        (FAMILY_DIR / "remove-set").touch()
+        end = time.time() + 120 * slow()
+        while time.time() < end and find(say("family.leaving", 0)[:24]):
+            time.sleep(1)
+        assert not find(say("family.leaving", 0)[:24]), "the device never heard it was removed"
+        assert scroll_to(say("family.noDevices", 0)[:16], 6), "off the list once it has heard"
+        shot("family-removed")
+    finally:
+        adb("forward", "--remove", f"tcp:{FAMILY_POST_PORT}", check=False)
+
+
+def family_devices_child():
+    """The other half: the budget arrives and is a ceiling here, behind the parent's hold; the family's page isn't on a child's device;
+    the removal arrives, and the family's key is gone."""
+    family_wait("post", FAMILY_WAIT)
+    qa_hook(f"family:peer:10.0.2.2:{FAMILY_POST_PORT}")
+    family_wait("cap-there", FAMILY_WAIT)
+    open_settings("tutor")
+    gate = wait_for("Drži za starše", 6)
+    assert gate, "a child's tutor settings behind the parent's hold"
+    adb("shell", "input", "swipe", str(gate[0]), str(gate[1]), str(gate[0]), str(gate[1]), "2800")
+    time.sleep(2 * slow())
+    line = say("family.capHere", 0).split("{")[0]
+    assert scroll_to(line, 10), "the family's limit on this device"
+    assert not find(say("family.holdLeave", 0)), "a way out of a parent's limit on a child's device"
+    shot("family-cap-here")
+    go_home()
+    open_settings()
+    assert not find(say("family.title", 0)), "the family's page on a child's device"
+    shot("family-child-settings")
+    go_home()
+    (FAMILY_DIR / "cap-seen").touch()
+    family_wait("remove-set", FAMILY_WAIT)
+    adb("logcat", "-c")
+    qa_hook(f"family:peer:10.0.2.2:{FAMILY_POST_PORT}")
+    assert wait_for(say("family.goneKey", 0)[:24], 30), "this device told it left, and the key gone"
+    shot("family-gone")
+    time.sleep(2)
+    assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+    time.sleep(3 * slow())
+    shot("family-no-key")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+
+
 def family_parent():
     """"👪 Add a family member" (data/FamilyLink), the parent's side, on one emulator while family-child runs on the other
     (companion/README.md; $LANI_QA_FAMILY_DIR between them, the code's port forwarded through the host): a first run, a key
-    (QA's mock) set through the tutor's ways, the settings' page, the code; the page says who claimed it and what they'd get, a
-    tap doesn't send it and a hold does."""
+    (QA's mock) set through the tutor's ways, the settings' page, the code, still unspent after a device with no internet read
+    it; the page says who claimed it and what they'd get, a tap doesn't send it and a hold does; then the list of devices."""
     FAMILY_DIR.mkdir(parents=True, exist_ok=True)
-    for f in FAMILY_DIR.glob("*"):
-        f.unlink()
     start_tutor_mock()
     first_launch(way_key=None)
     qa_hook(f"tutorlive:{SHADOW_MOCK}")
@@ -13422,6 +13712,7 @@ def family_parent():
     open_settings("family")
     shot("family-page")
     adb("logcat", "-c")
+    family_wait("ready", FAMILY_WAIT)  # the code lasts 3 minutes: the other emulator's up first
     assert tap(say("family.show", 0), 4), "show the code"
     text = family_log(r"showing (lani://family\S+)")
     assert text, "the code shown"
@@ -13432,6 +13723,11 @@ def family_parent():
     adb("forward", f"tcp:{FAMILY_PORT}", f"tcp:{port}")
     (FAMILY_DIR / "offer.txt").write_text(re.sub(r"p=\d+", f"p={FAMILY_PORT}", re.sub(r"h=[^&]+", "h=10.0.2.2", text)))
     try:
+        family_wait("read-offline", FAMILY_WAIT)
+        assert not find("Deliš z napravo"), "a device with no internet claimed the code"
+        assert find(say("family.lasts", 0)[:20]), "the code still showing, unspent"
+        shot("family-code-unspent")
+        (FAMILY_DIR / "unspent").touch()
         asking = wait_for("Deliš z napravo", 240)
         assert asking, "the device that claimed the code"
         shot("family-confirm")
@@ -13444,15 +13740,27 @@ def family_parent():
         assert wait_for("Deljeno z napravo", 15), "shared"
         shot("family-sent")
         (FAMILY_DIR / "sent").touch()
-        family_wait("done", 400)
+        family_devices_parent()
+        family_wait("done", FAMILY_WAIT)
     finally:
         adb("forward", "--remove", f"tcp:{FAMILY_PORT}", check=False)
 
 
 def family_child():
     """The new device's side of [family_parent]: the first screen's small link, "Someone in my family already uses Lani", the
-    code as if scanned (QA's hook "family:scan:", the emulator's camera can't), the wait, then only the name and "For a child";
-    the tutor is there with no ways asked, its key nowhere on the settings' page; the same code again gets nothing."""
+    code as if scanned (QA's hook "family:scan:", the emulator's camera can't). With no internet (hook "family:offline") it's not
+    claimed, and says so; "take it now": the wait, then only the name and "For a child"; the key waits for its check and is checked
+    once online; the tutor is there with no ways asked, its key nowhere on the settings' page; the budget and the removal;
+    the same code again gets nothing."""
+    try:
+        family_tablet(True)
+        family_child_run()
+    finally:
+        family_tablet(False)
+
+
+def family_child_run():
+    FAMILY_DIR.mkdir(parents=True, exist_ok=True)
     start_tutor_mock()
     qa_hook(f"tutorlive:{SHADOW_MOCK}")
     assert wait_for("slovenščina", 30), "the first screen"
@@ -13470,15 +13778,33 @@ def family_child():
         tap_at(allow)
         time.sleep(slow())
     shot("family-scan")
-    text = family_wait("offer.txt", 400).read_text()
+    (FAMILY_DIR / "ready").touch()
+    text = family_wait("offer.txt", FAMILY_WAIT).read_text()
     adb("logcat", "-c")
+    # no internet here: the code isn't claimed, and the screen says what's true
+    qa_hook("family:offline")
     qa_hook("family:scan:" + urllib.parse.quote(text, safe=""))
+    offline = say("family.offline", 0)[:30]
+    assert wait_for(offline, 15), "the code held for lack of internet"
+    assert family_log(r"(held, offline)", 5), "nothing claimed"
+    assert not find("Zdaj potrdijo"), "it went on to the parent"
+    shot("family-offline")
+    (FAMILY_DIR / "read-offline").touch()
+    family_wait("unspent", FAMILY_WAIT)
+    # "take it now": it comes over the Wi-Fi, and is checked later
+    assert tap(say("family.takeAnyway", 0), 6), "take it now"
     assert wait_for("Zdaj potrdijo", 15), "the wait for the parent"
     shot("family-waiting")
     assert wait_for("Kako ti je ime?", 120), "only the name is left"
     assert family_log(r"fetched (Got)", 5) == "Got", "the gift"
     shot("family-name")
     family_name("Teo", child=True)
+    assert wait_for(say("family.keyLater", 0)[:24], 20) or family_log(r"(key waits)", 10), "the key waiting for its check, in words"
+    shot("family-key-later")
+    # online again: the check runs by itself, and the family's tutor is here
+    qa_hook("family:online")
+    assert wait_for(say("family.received", 0)[:24], 60), "the key checked once online"
+    shot("family-key-checked")
     assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
     time.sleep(3 * slow())
     assert not find("Na tem telefonu še ni učitelja"), "the family's key isn't a tutor here"
@@ -13496,12 +13822,360 @@ def family_child():
     assert not any("sk-ant-qa" in t for t, _ in nodes()), "the key shown behind the hold"
     shot("family-tutor-settings")
     go_home()
+    family_devices_child()
+    go_home()
     adb("logcat", "-c")
     qa_hook("family:scan:" + urllib.parse.quote(text, safe=""))
     again = family_log(r"fetched (\w+)", 20)
     assert again in ("Refused", "Unreachable"), f"a second scan: {again!r}"
     print(f"    a second scan: {again}")
     (FAMILY_DIR / "done").touch()
+
+
+def family_computer_parent():
+    """A family on a computer, the parent's side (docs/plans/05-built/leftovers-app.md; family-computer-child on the other emulator):
+    a device paired with the dev bridge, "👪" in the settings, a new member for a child by a hold, a real bridge for them, the QR's
+    text in the log (a one-time code), the device on the list once it paired, its budget, its removal."""
+    FAMILY_DIR.mkdir(parents=True, exist_ok=True)
+    family_tablet(True)
+    try:
+        open_settings("family")
+        assert wait_for(say("family.addWhat", 0)[:24], 15), "what adding a member is"
+        shot("fc-page")
+        field = wait_for(say("family.memberName", 0), 8)
+        assert field, "the name's field"
+        tap_at(field)
+        time.sleep(1.2 * slow())
+        adb("shell", "input", "text", "Mia")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        row = scroll_to(say("hosted.forChild", 0), 5)
+        assert row, "for a child"
+        tap_at(row)  # the whole row
+        time.sleep(1)
+        shot("fc-form")
+        adb("logcat", "-c")
+        family_wait("ready", FAMILY_WAIT)
+        family_hold("family.holdAdd", 5, mints=True)
+        added = say("family.memberAdded", 0).replace("{name}", "Mia")
+        assert wait_for(added[:20], 45), "the member added"
+        assert not find(say("family.leftStart", 0)), "the member's bridge didn't start: see its log"
+        code = family_log(r"member code (lani://pair\S+)", 10)
+        assert code, "the code for their device"
+        for secret in ("sk-", "fd_", "token"):
+            assert secret not in code, f"{secret} in the QR's text"
+        assert sorted(k for k, _ in urllib.parse.parse_qsl(code.split("?", 1)[1])) == ["c", "f", "p", "u", "v"], f"the QR's fields: {code}"
+        time.sleep(1)
+        shot("fc-code")
+        # another code is a credential too: a tap makes none, a parent's hold does
+        adb("logcat", "-c")
+        family_hold("family.holdNewCode", 6, mints=True)
+        second = family_log(r"member code (lani://pair\S+)", 15)
+        assert second and second != code, "another code by a parent's hold"
+        code = second
+        print(f"    the code, for a real bridge: {urllib.parse.urlsplit(urllib.parse.parse_qs(code.split('?', 1)[1])['u'][0]).netloc}")
+        (FAMILY_DIR / "pair.txt").write_text(code)
+        family_wait("paired", FAMILY_WAIT)
+        assert tap(say("family.done", 0), 6), "done"
+        time.sleep(1)
+        device = None
+        end = time.time() + 40 * slow()
+        while time.time() < end and device is None:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+            open_settings("family")
+            assert scroll_to(say("family.onComputer", 0), 6), "the family on the computer"
+            device = family_device_row()
+        assert device, "the new device on the parent's list"
+        print(f"    on the list: {device[0]}")
+        shot("fc-list")
+        tap_at(device[1])
+        time.sleep(1)
+        assert tap("$0.50", 4), "a daily budget's chip"
+        family_hold("family.holdCap")
+        assert wait_for(say("family.capIs", 0).replace("{cap}", "$0.50"), 15), "the budget, through the computer"
+        shot("fc-budget")
+        (FAMILY_DIR / "cap-set").touch()
+        family_wait("cap-seen", FAMILY_WAIT)
+        row = family_device_row()
+        if row and not find(say("family.unpairWhat", 0)[:20]):
+            tap_at(row[1])
+            time.sleep(1)
+        family_hold("family.holdUnpair")
+        assert wait_for(say("family.noDeviceYet", 0), 15), "its removal, at once"
+        shot("fc-removed")
+        (FAMILY_DIR / "unpaired").touch()
+        family_wait("done", FAMILY_WAIT)
+    finally:
+        family_tablet(False)
+        stop_family_bridge()
+
+
+def stop_family_bridge():
+    """The member's real bridge, gone with the run: `lani-bridge stop`, the dev bridge's own environment."""
+    if os.environ.get("LANI_PROFILES_DIR"):
+        subprocess.run([str(ROOT / "companion/bin/lani-bridge"), "stop", "--profile", "mia"], env={**os.environ, "LANI_ENV_FILE": "/dev/null"}, check=False, timeout=30)
+
+
+def family_computer_child():
+    """The new device's side: the first screen's small link, "Someone in my family already uses Lani", the parent's code as if
+    scanned, paired with the member's own bridge, Home; the parent's budget comes through the computer; taken away, the device
+    says it's no longer paired."""
+    FAMILY_DIR.mkdir(parents=True, exist_ok=True)
+    assert wait_for("slovenščina", 30), "the first screen"
+    link = l10n("en").get("setup.otherLink")
+    c = wait_for(link, 15) or tour_find(link, 3)
+    assert c, "the first screen's small link"
+    tap_at(c)
+    title = say("family.scanTitle", 0)
+    assert wait_for(title, 8), "the other ways in"
+    assert tap(title, 4), "someone in my family"
+    time.sleep(2 * slow())
+    allow = next((c for t, c in nodes() if t in ("While using the app", "Only this time", "Allow")), None)
+    if allow is not None:
+        tap_at(allow)
+        time.sleep(slow())
+    (FAMILY_DIR / "ready").touch()
+    text = family_wait("pair.txt", FAMILY_WAIT).read_text()
+    adb("logcat", "-c")
+    qa_hook("family:scan:" + urllib.parse.quote(text, safe=""))
+    hosted_home(timeout=90, found=True)
+    shot("fc-child-home")
+    # paired as a child: the family's page isn't on this device
+    open_settings()
+    assert not find(say("family.title", 0)), "the family's page on a child's device"
+    shot("fc-child-settings")
+    go_home()
+    (FAMILY_DIR / "paired").touch()
+    family_wait("cap-set", FAMILY_WAIT)
+    # the app reads what a parent set as it comes back to the screen
+    adb("shell", "input", "keyevent", "KEYCODE_HOME")
+    time.sleep(2)
+    adb("shell", "monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1")
+    assert family_log(r"rule cap=(0\.5)", 20) == "0.5", "the budget, read from the computer"
+    (FAMILY_DIR / "cap-seen").touch()
+    family_wait("unpaired", FAMILY_WAIT)
+    adb("shell", "input", "keyevent", "KEYCODE_HOME")
+    time.sleep(2)
+    adb("shell", "monkey", "-p", PKG, "-c", "android.intent.category.LAUNCHER", "1")
+    time.sleep(6 * slow())
+    shot("fc-child-unpaired")
+    (FAMILY_DIR / "done").touch()
+
+
+def placement_ready() -> bool:
+    """The dev village's class readied for the placement test (QA's hook "placement:fresh"), the school's card offering it."""
+    wait_home(30)  # an app connected before still loading its village
+    go_home()
+    offer = label("placement.offerTitle", half=True)
+    for _ in range(3):  # the hook again while the village isn't there yet (no Back: on Home it would leave the app)
+        qa_hook("placement:fresh")
+        if wait_for(offer, 10):
+            return True
+    return False
+
+
+def placement_again():
+    """"📨 Pošlji znova · Send again" (only when named; a learner's LANI_DEV_DATA): the test's page with a result the node
+    hasn't recorded (QA's hooks "placement:sent:<level>", "placement:waiting:<level>": the level above the learner's). On
+    the day it went no button: the outbox is at it. From the day after, "⏳ Učitelj nove ravni še ni zapisal" and the button,
+    on the phone and on Teo's tablet on its side and upright; a tap sends it: the dev bridge raises the learner's level, once
+    (one session of the test in its log), and once the app reads that level the line and the button are gone. pa-*.png."""
+    assert placement_ready(), "the school's card offering the test"
+    state = api("/state").get("databases", {})
+    now = state.get("learner_profile", {}).get("learner", {}).get("current_level", "A1")
+    levels = ["A1", "A2", "B1", "B2", "C1", "C2"]
+    raised = levels[min(levels.index(now) + 1, len(levels) - 1)]
+    assert raised != now, f"a level above the learner's {now}"
+    begin, waits, again = label("placement.begin"), label("treasure.tutorWaits"), label("treasure.sendAgain")
+
+    def sessions() -> list:
+        log = api("/state").get("databases", {}).get("session_log", {}).get("sessions", [])
+        return [x for x in log if x.get("command_used") == "/lani-app-placement"]
+
+    before = len(sessions())
+    qa_hook(f"placement:sent:{raised}")
+    assert wait_for(begin, 12) or scroll_to(begin, 3), "the test's page, the day the level went"
+    time.sleep(1.5)
+    shot("pa-same-day")
+    assert find(again) is None and find(waits) is None, "no send again on the day it went (the outbox is at it)"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.5)
+    qa_hook(f"placement:waiting:{raised}")
+    assert wait_for(again, 12), "📨 Pošlji znova, the day after"
+    assert find(waits), "⏳ the tutor hasn't recorded the new level"
+    time.sleep(1)
+    shot("pa-waiting")
+    try:
+        adb("shell", "wm", "density", "320")
+        for size, side in (("2560x1600", "side"), ("1600x2560", "upright")):
+            adb("shell", "wm", "size", size)
+            time.sleep(5 * slow())
+            assert wait_for(again, 12), f"📨 Pošlji znova on the tablet ({side})"
+            shot(f"pa-waiting-tablet-{side}")
+    finally:
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+        time.sleep(4 * slow())
+    assert tap(again, 10), "📨 Pošlji znova"
+    end, level = time.time() + 30 * slow(), now
+    while time.time() < end and level != raised:
+        level = api("/state").get("databases", {}).get("learner_profile", {}).get("learner", {}).get("current_level", now)
+        time.sleep(1)
+    assert level == raised, f"the dev bridge's learner at {raised} ({level})"
+    assert len(sessions()) == before + 1, f"the test's session once on the dev bridge ({len(sessions()) - before})"
+    print(f"    sent: the dev bridge's learner {now} → {level}, one session of the test")
+    end = time.time() + 45 * slow()
+    while time.time() < end and find(again) is not None:
+        time.sleep(2)
+    shot("pa-recorded")
+    assert find(again) is None and find(waits) is None, "the line and the button gone once the app has the level"
+    assert len(sessions()) == before + 1, "still one session of the test"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.5)
+
+
+def tappable() -> list:
+    """What can be tapped in the exercise on screen, from the top: (its words, its centre). A button's node says nothing
+    itself: its words are the nodes inside it. Only what lies in the exercise's scrolling column (none: the whole screen),
+    so not the stage or the top bar."""
+    ns = []
+    for n in re.findall(r"<node [^>]*?>", screen_xml()):
+        b = list(map(int, re.findall(r"\d+", node_attr(n, "bounds")))) or [0, 0, 0, 0]
+        ns.append((node_attr(n, " text") or node_attr(n, "content-desc"), b, 'clickable="true"' in n and 'enabled="true"' in n, 'scrollable="true"' in n))
+    area = next((b for _, b, _, scrolls in ns if scrolls), None)
+    out = []
+    for t, b, click, _ in ns:
+        x, y = (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
+        if click and (area is None or area[1] <= y <= area[3]):
+            words = t or " ".join(w for w, c, _, _ in ns if w and b[0] <= c[0] and b[1] <= c[1] and c[2] <= b[2] and c[3] <= b[3])
+            if words:
+                out.append((words, (x, y)))
+    return out
+
+
+def hint_pieces(lines: list[str]) -> list[tuple]:
+    """[hint_voice_log]'s lines as pieces: (language, where its sound came from, its text, at most 60 letters)."""
+    return [m.groups() for l in lines if (m := re.search(r'\d+/\d+ (\w\w) (\S+) "(.*)"$', l))]
+
+
+def placement_child():
+    """A child's placement test reads each prompt as it comes up (game/PromptSpeech; docs/plans/05-built/cleanup-code.md
+    "Placement"), only when named: a child (LANI_CHILD=1, the same synthetic Teo as "friuli-school"), the test begun from its page
+    (QA's hook "placement:fresh"), each exercise of its first probe answered by taps, right or not, as a child's are. The log
+    (tag HintVoice) says each prompt as it comes up: what the screen asks, its instruction and its question, a gap a pause,
+    never an option; the base's in the base and the language learned's in that language. Then the same first prompt on Teo's
+    tablet on its side and upright. The pieces in placement-child.log (also in $LANI_QA_PLACEMENT_SHOTS, with
+    the shots pc-*.png)."""
+    if not os.environ.get("LANI_CHILD"):
+        return "skipped: a child's test (LANI_CHILD=1)"
+    out = Path(os.environ["LANI_QA_PLACEMENT_SHOTS"]) if os.environ.get("LANI_QA_PLACEMENT_SHOTS") else None
+    pair = pair_now()
+    begin, nxt, check, title = label("placement.begin"), label("common.next"), label("playerScreen.check"), label("placement.title")
+    leave = ("🔊", "🐢", "📖", "✕", label("common.listen"), label("common.close"))  # no answers
+    sorts = [x for f in sorted((ROOT / f"companion/course/{pair[0]}/units").glob("*.json"))
+             for x in based(json.loads(f.read_text()), pair[1])["test"]["exercises"] if x["type"] == "sort"]
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def said() -> list[tuple]:
+        """What the exercise on screen said as it came up: its pieces, once the log has them and they've stopped coming."""
+        got, end = [], time.time() + 25 * slow()
+        while time.time() < end:
+            now = hint_pieces(hint_voice_log())
+            if now and now == got:
+                return now
+            got = now
+            time.sleep(1.5)
+        return got
+
+    def proved(pieces: list[tuple], where: str) -> str:
+        """Each piece is on the screen, gaps as pauses, none an option; the log's lines for it."""
+        assert pieces, f"{where}: nothing said as it came up (HintVoice); the app said: {said_in_log()}"
+        screen = [t for t, _ in nodes()]
+        options = [t for t, _ in tappable()]
+        def on_screen(p: str) -> bool:
+            # the log has a piece's first 60 letters; the screen's gap is "____", the voice's a pause
+            return any(norm(p.rstrip("…")) in norm(re.sub(r"_{2,}", "…", t)) for t in screen)
+        for lang, source, text in pieces:
+            assert lang in pair, f"{where}: «{text}» in {lang}, not the pair's {pair}"
+            assert on_screen(text), f"{where}: «{text}» isn't what the screen asks"
+            assert "_" not in text, f"{where}: a gap said as letters in «{text}»"
+            assert "…" not in text or lang == pair[0], f"{where}: a sentence with a gap in the base's voice: «{text}»"
+            assert " · " not in text, f"{where}: both languages in one voice: «{text}»"
+            assert not any(norm(text) == norm(o) for o in options), f"{where}: an option said: «{text}»"
+        return "\n".join(f"{lang} {source} \"{text}\"" for lang, source, text in pieces)
+
+    def answered(where: str):
+        """The exercise on screen answered by taps, right or not: a child's are all by taps (LevelPlacement.asked): a choice's
+        option answers it, a word goes to its gap, a sort's to its column, and "Preveri · Check" once it asks."""
+        texts = [t for t, _ in nodes()]
+        e = next((e for e in sorts if all(c["label"] in texts for c in e["columns"])), None)
+        if e is not None:  # a column isn't a button: from the course's file, as a unit's test plays it
+            for col in e["columns"]:
+                for w in col["words"]:
+                    assert tap(unit_text(w), 4), f"{where}: the word «{w}»"
+                    assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
+            assert tap_above(check, 2400), f"{where}: check"
+        for k in range(16):
+            if find(nxt) is not None:
+                return
+            ts = tappable()
+            # under the run's title: an item that fits has no scrolling column, and "Finisci · Fertig" would end the test
+            top = next((b[3] for t, b in boxes() if title in t), 700)
+            picks = [(t, c) for t, c in ts if c[1] > top and t != check and not any(x in t for x in leave)]
+            assert picks, f"{where}: nothing to tap ({[t for t, _ in ts]})"
+            # the first and the last in turn: a word, then its column
+            tap_at(picks[0 if k % 2 == 0 else -1][1])
+            if find(nxt) is None and (c := find(check)) is not None:
+                tap_at(c)  # it does nothing until the exercise is whole
+        raise AssertionError(f"{where}: still not answered after 16 taps")
+
+    assert placement_ready(), "the school's card offering the test"
+    qa_hook("placement")
+    assert wait_for(begin, 12) or scroll_to(begin, 3), "the test's page"
+    time.sleep(1)
+    snap("pc-page")
+    adb("logcat", "-c")
+    assert tap(begin, 6), "▶️ begin"
+    log = []
+    for n in range(1, 4):
+        pieces = said()
+        log.append(f"## exercise {n}\n{proved(pieces, f'exercise {n}')}")
+        print(f"    exercise {n}: {pieces}")
+        snap(f"pc-prompt-{n}")
+        adb("logcat", "-c")
+        answered(f"exercise {n}")
+        assert tap(nxt, 6), f"exercise {n}: on"
+        time.sleep(1)
+    # the phone done: the test begun again on the tablet, its first prompt read there too
+    try:
+        adb("shell", "wm", "density", "320")
+        for size, side in (("2560x1600", "side"), ("1600x2560", "upright")):
+            adb("shell", "wm", "size", size)
+            time.sleep(5 * slow())
+            go_home()
+            qa_hook("placement")
+            assert wait_for(begin, 12) or scroll_to(begin, 3), f"the test's page on the tablet ({side})"
+            adb("logcat", "-c")
+            assert tap(begin, 6), f"▶️ begin on the tablet ({side})"
+            pieces = said()
+            log.append(f"## the first, on the tablet ({side})\n{proved(pieces, f'on the tablet ({side})')}")
+            print(f"    on the tablet ({side}): {pieces}")
+            snap(f"pc-prompt-tablet-{side}")
+    finally:
+        adb("shell", "wm", "size", "reset")
+        adb("shell", "wm", "density", "reset")
+        time.sleep(4 * slow())
+    text = "\n".join(log) + "\n"
+    (OUT / "placement-child.log").write_text(text)
+    if out is not None:
+        (out / "placement-child.log").write_text(text)
+    go_home()
 
 
 def placement():
@@ -13545,11 +14219,13 @@ def placement():
     time.sleep(1)
     shot("placement-page")
     assert find("10 do 15 minut") and find("Nič se ne spremeni"), "how long, and that nothing changes until the learner says yes"
+    adb("logcat", "-c")
     assert tap("Začniva"), "▶️ Začniva"
     taps.append("▶️ Začniva")
     assert wait_for("1. del", 15), "the first probe, its part said"
     time.sleep(2)
     shot("placement-probe")
+    assert not hint_voice_log(), f"an adult's test says nothing as it comes up (placement-child: a child's does): {hint_voice_log()}"
     assert not find("Plonk listek"), "no cheat sheet in the placement test's top bar"
     qa_hook("placement:answer:5")  # A2's end known, B1 not
     assert wait_for("Tvoje mesto v šoli", 20), "the result"
@@ -13686,7 +14362,7 @@ def school_a2():
     assert press("Naprej · Next", 6), "on"
     assert press("Naprej · Continue", 10), "back to the unit"
     # the test straight away: passed, the unit done
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     assert wait_for("Dopolni tabelo", 10), "the test's table"
     for label, answer in [("ona, moški · masculine", "njen"), ("ona, ženski · feminine", "njena"),
                           ("France, moški · masculine", "Francetov"), ("France, srednji · neuter", "Francetovo")]:
@@ -13820,7 +14496,7 @@ def school_cases():
     assert wait_for("Naprej · Continue", 10), "the worksheet's end"
     assert tap("Naprej · Continue", 4), "back to the unit"
     # the test straight away: passed, the unit done
-    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    test_out("Znam že: kar na test")
     assert wait_for("Dopolni sklone", 10), "the test's table"
     for row, answer in [("2. koga? česa?", "mame"), ("3. komu? čemu?", "mami"), ("4. koga? kaj?", "mamo"), ("6. z …", "mamo")]:
         assert fill(f"{row}, mama · mum", answer), f"the test's cell {row}"
@@ -16644,6 +17320,20 @@ def label(key: str, pair=None, half=False) -> str:
     if half:
         return target.rstrip(" …").rstrip("…")
     return f"{target} · {app_texts(b).get(key, key)}"
+
+
+def plain_half(key: str) -> str:
+    """The part of [key]'s label to look for, whatever the learner: its target's, the language learned's own wording of a
+    "{targetLang, select, …}", or its base's when the target's is chosen by the learner's gender ("{learnerGender, select,
+    …} sem pravilno"); with such a choice in both, what follows it ("sem pravilno")."""
+    t, b = pair_now()
+    for text in (app_texts(t).get(key, key), app_texts(b).get(key, key)):
+        if m := re.fullmatch(r"\{targetLang, select, (.*)\}", text):
+            by = dict(re.findall(r"(\w+) \{([^{}]*)\}", m.group(1)))
+            text = by.get(t, by.get("other", text))
+        if "{" not in text:
+            return text.rstrip(" …")
+    return app_texts(t).get(key, key).rsplit("}", 1)[-1].strip()
 
 
 def next_unit_once(course: str, pair=None) -> str | None:
@@ -21414,11 +22104,14 @@ def plan():
         ("school-b1", school_b1, go_home, False, ""),
         ("school-unit", school_unit, go_home, False, ""),
         ("school-production", school_production, go_home, False, ""),
+        ("school-unmet", school_unmet, go_home, False, ""),
         ("choices-order", choices_order, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-reveal", school_reveal, go_home, False, ""),
         # only when named: the placement test from the school's card to the school after its result (QA's hooks placement:…)
         ("placement", placement, go_home, False, ""),
+        ("placement-again", placement_again, go_home, False, ""),
+        ("placement-child", placement_child, go_home, False, ""),
         ("first-cards", first_cards, go_home, False, ""),
         ("school-a2", school_a2, go_home, False, ""),
         ("school-cases", school_cases, go_home, False, ""),
@@ -21571,6 +22264,8 @@ def plan():
         # only by name, each alone on its own emulator at the same time: "Add a family member"
         ("family-parent", family_parent, None, False, ""),
         ("family-child", family_child, None, False, ""),
+        ("family-computer-parent", family_computer_parent, None, False, ""),
+        ("family-computer-child", family_computer_child, None, False, ""),
     ]
 
 
@@ -22106,14 +22801,20 @@ def hosted_home(timeout=60, found=False):
         ns = list(nodes())
         if (c := next((c for t, c in ns if t == "Allow"), None)) is not None:
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
+        elif any("Prenesi glas brez povezave" in t for t, _ in ns):
+            # the offline voice, offered once after a code paired this device (not after a typed token)
+            hosted_shot("offline-voice-offer")
+            assert tap("Ne zdaj · Not now", 4), "the offline voice's Not now"
         elif (c := next((c for t, c in ns if "Tu bo moja vas" in t), None)) is not None:
             adb("shell", "input", "tap", str(c[0]), str(c[1]))
             founded = True
         elif any("Kje bo tvoja vas" in t for t, _ in ns):
-            # the founding (ui/game/FoundingScreen): its button under the picture, below the screen's edge
+            # the founding (ui/game/FoundingScreen): its button under the picture, below the screen's edge; on a tablet on its
+            # side the screen ends before a phone's swipe would begin
             if not founded:
                 hosted_shot("founding")
-            adb("shell", "input", "swipe", "540", "1700", "540", "700", "300")
+            high = int(adb("shell", "wm", "size").split()[-1].split("x")[1])
+            adb("shell", "input", "swipe", "540", str(high * 7 // 10), "540", str(high * 3 // 10), "300")
             time.sleep(1)
         elif founded and first_moment():
             continue
@@ -22367,7 +23068,7 @@ HOSTED: dict = {}
 
 
 # The steps that run alone, with no node: the hosted mode, the tablet's first launch on this device alone.
-ALONE = {"hosted", "setup-tour", "first-run", "audio-trial", "family-parent", "family-child"}
+ALONE = {"hosted", "setup-tour", "first-run", "audio-trial", "family-parent", "family-child", "family-computer-child"}
 
 
 def hosted_only(steps) -> bool:
@@ -22382,7 +23083,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "audio-trial", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("choices-order", "parity-small", "hosted", "setup-tour", "first-run", "audio-trial", "family-parent", "family-child", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "lakeland-projects", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "lakeland-projects-b", "culture-reading", "kaernten-talk", "lakeland-talk", "primorska-talk", "it-words", "kaernten-projects-a", "kaernten-projects-b", "lens-unknown", "hints-lens", "course-unit", "map-people", "supplement-words", "map-landmarks", "party", "tutor-language", "friuli-projects", "friuli-projects-b", "practice-it", "practice-pace", "practice-it-b2", "typed-forms", "long-cell", "hint-it", "placement", "first-cards", "kaernten-levels", "practice-de", "packs-later", "practice-en", "practice-sl", "forms-other", "cases-de", "hint-en", "hint-de", "lakeland-b2", "dialogs-friuli", "kaernten-b2", "hint-de-cases", "family-computer-parent", "family-computer-child", "placement-again", "school-unmet", "placement-child") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")

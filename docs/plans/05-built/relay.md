@@ -104,6 +104,20 @@ page needs the relay's address in `app.js` first.
 On the relay every town's page has one origin, so the page keeps the token (and "record as") per town
 (`lani-family-token:<town id>`): one town's link doesn't put out another's.
 
+### A family's drop boxes
+
+Two of a family's devices that aren't on one Wi-Fi (`src/drop.ts`; docs/plans/05-built/leftovers-app.md, "The relay"). A new device has
+no town yet, and a town's mailbox needs a key and a router on the other side, so this is a box and nothing else:
+
+| Method | Path | |
+|---|---|---|
+| `PUT` | `/v1/drop/{box}` | The body as it is, at most 4 KB (`RELAY_DROP_MAX_BYTES`; the largest note, a gift with its key, is under 1 KB). `x-lani-drop-ttl`: seconds, a day by default, at most 14 days (`RELAY_DROP_DAYS`) → `202 {ok, expires}`. `507 box_full` past 32 notes (`RELAY_DROP_BOX_MAX`), `507 full` past 256 MB (`RELAY_DROP_TOTAL_BYTES`), `429` past 30 writes (`RELAY_DROP_RATE_PER_MIN`) or 16 KB (`RELAY_DROP_BYTES_PER_MIN`, a note counting as at least 1 KB) a minute from an address. |
+| `GET` | `/v1/drop/{box}?wait=<s>` | `{items: [base64]}`: every note that waits, oldest first, and gone; at once, or a long poll of up to 30 s. |
+
+`{box}` is 64 hex digits only the two devices can work out, and what's in it was sealed on one and is opened on the other. No account and
+no signature: a signature would only tie a family's boxes together, and knowing the box is the whole right to it. The relay holds
+opaque bytes under opaque names; the limits are about room and abuse, never secrecy.
+
 ### Backup
 
 Exactly the shared contract, scoped to the signing key:

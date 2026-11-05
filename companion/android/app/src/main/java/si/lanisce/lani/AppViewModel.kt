@@ -101,6 +101,9 @@ import java.io.File
 /** What the first word in the village pays: enough to see the number move. */
 private const val FIRST_WORD_FOOD = 5
 
+/** The Keystore key the family's book is sealed with (app/FamilyDevices). */
+private const val FAMILY_ALIAS = "lani-family-book"
+
 class AppViewModel(app: Application, private val savedState: SavedStateHandle) : AndroidViewModel(app) {
     private val prefs = Prefs(app)
     /** The learner's languages (l10n/LangSetting.kt), applied before anything below builds a label. */
@@ -716,8 +719,54 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         }
     }
 
+    /** QA's "family:offline": as if this device had no internet, for what the family's key needs it for. */
+    var familyOfflineForQa = false
+
+    private val familyOnline: Boolean get() = !familyOfflineForQa && si.lanisce.lani.tutor.live.AndroidOnline.of(getApplication()).now()
+
+    /** The family's devices on this one: who it shared with, what a parent set on them, the one it came from (app/FamilyDevices). */
+    val familyDevices = si.lanisce.lani.app.FamilyDevices(
+        viewModelScope, app,
+        si.lanisce.lani.tutor.KeyVault(si.lanisce.lani.tutor.KeystoreCipher(FAMILY_ALIAS), si.lanisce.lani.tutor.DataStoreSecretStore(app, "family_book_sealed")),
+        object : si.lanisce.lani.app.FamilyHome {
+            override suspend fun cap(cap: Double?, by: String) {
+                live.update { it.copy(familyCap = cap, familyCapBy = by.takeIf { cap != null }) }.join()
+            }
+
+            override suspend fun forget(p: si.lanisce.lani.data.FamilyParent) {
+                val gone = live.forgetFamily(p.provider, p.keySha)
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) { notices.banner = "👪 ${bi(if (gone) "family.goneKey" else "family.gone")}" }
+            }
+
+            override suspend fun check(k: si.lanisce.lani.data.FamilyKeyWaiting): si.lanisce.lani.tutor.live.FamilyKey {
+                // a key set here while this one waited is the learner's choice
+                if (live.familyShare().key != null) return si.lanisce.lani.tutor.live.FamilyKey.KEPT
+                val r = live.receiveFamily(si.lanisce.lani.data.FamilyLink.Gift(provider = k.provider, key = k.key, preset = k.preset))
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) { familyKeySaid(r) }
+                return r
+            }
+        },
+        child = { child }, relay = { data.relay }, online = { familyOnline },
+    )
+
+    /** A family on a computer on this device, a parent's (app/FamilyComputer; the settings' page). */
+    val familyComputer = si.lanisce.lani.app.FamilyComputer(viewModelScope, { connected?.takeUnless { hosted.active }?.let { si.lanisce.lani.data.FamilyMembersApi(it) } }, { child })
+
+    /**
+     * What a parent set for this device through the family's computer ([si.lanisce.lani.data.FamilyMembersApi.rules]), read as the app
+     * comes to the screen. A device on no computer, an older one or none in reach keeps what it has.
+     */
+    private fun readFamilyRules() {
+        val c = connected?.takeUnless { hosted.active } ?: return
+        viewModelScope.launch {
+            val r = runCatching { si.lanisce.lani.data.FamilyMembersApi(c).rules() }.getOrNull() ?: return@launch
+            if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("Family", "rule cap=${r.cap}")
+            if (r.cap != live.settings.computerCap || r.by != live.settings.computerCapBy) live.update { it.copy(computerCap = r.cap, computerCapBy = r.by) }
+        }
+    }
+
     /** The sending side of "👪 Add a family member" (data/FamilyLink; the settings' page). */
-    val familyShare = si.lanisce.lani.app.FamilyShareController(viewModelScope, app) {
+    val familyShare = si.lanisce.lani.app.FamilyShareController(viewModelScope, app, familyDevices, { child }, { data.relay }) {
         live.familyShare().copy(target = langPair.target.code, base = langPair.base.code)
     }
 
@@ -730,22 +779,80 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** The receiving side: a code being fetched, or why one gave nothing; null: the camera is on. */
     var familyFetch by mutableStateOf<FamilyFetch?>(null)
 
-    enum class FamilyFetch { WAITING, REFUSED, UNREACHABLE }
+    enum class FamilyFetch { WAITING, PAIRING, OFFLINE, REFUSED, UNREACHABLE }
 
-    /** What the family shared, in memory only until the tutor's vault has it ([takeFamilyGift]). */
+    /** A family computer's code that couldn't pair, read on "Someone in my family already uses Lani": why, and the code. */
+    var familyPairTrouble by mutableStateOf<Pair<si.lanisce.lani.data.PairTrouble, String>?>(null)
+        private set
+
+    /** What the family shared, in memory only until the tutor's vault has it ([takeFamilyGift]), and the key the two keep. */
     private var familyGift: si.lanisce.lani.data.FamilyLink.Gift? = null
+    private var familyBond: ByteArray? = null
+    private var familyRelay: String? = null
 
-    /** [text] the camera read: when it's a family's code, what it gives, then [got]. Anything else: the camera goes on. */
+    /** A code read with no internet here, not claimed yet: it stays good for the other device until [familyTakeAnyway] or a new scan. */
+    private var familyHeld: Pair<si.lanisce.lani.data.FamilyLink.Offer, (si.lanisce.lani.data.FamilyLink.Gift) -> Unit>? = null
+
+    /** Whether a code held for lack of internet could still come over the Wi-Fi, to be checked later (a relay can't be reached offline). */
+    val familyCanTakeAnyway: Boolean get() = familyHeld?.first?.host?.isNotBlank() == true
+
+    /**
+     * [text] the camera read: when it's a family's code, what it gives, then [got]. Anything else: the camera goes on. With no
+     * internet the code isn't claimed: a key couldn't be checked here, and a claim would spend the code on that.
+     */
     fun scanFamily(text: String, got: (si.lanisce.lani.data.FamilyLink.Gift) -> Unit) {
-        if (familyFetch == FamilyFetch.WAITING) return
+        if (familyFetch == FamilyFetch.WAITING || familyFetch == FamilyFetch.PAIRING) return
+        // a member of a family on a computer: the code the parent's page shows is a pairing code
+        if (PairPayload.parse(text) is si.lanisce.lani.data.PairParse.Ok) return familyPair(text)
         val offer = si.lanisce.lani.data.FamilyLink.parse(text) ?: return
+        if (!familyOnline) {
+            familyHeld = offer to got
+            familyFetch = FamilyFetch.OFFLINE
+            if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("Family", "held, offline: nothing claimed")
+            return
+        }
+        fetchFamily(offer, got)
+    }
+
+    /** Pairs with the code a parent's page showed for this member; paired, the app goes Home and this screen with it. */
+    fun familyPair(text: String) {
+        familyPairTrouble = null
+        familyFetch = FamilyFetch.PAIRING
+        pair(text) { trouble ->
+            familyFetch = null
+            familyPairTrouble = trouble?.let { it to text }
+        }
+    }
+
+    fun familyPairDone() {
+        familyPairTrouble = null
+    }
+
+    /** "📥 Vzemi zdaj": the code spent after all, on what crosses; the key is checked once this device is online. */
+    fun familyTakeAnyway() {
+        val (offer, got) = familyHeld ?: return
+        familyHeld = null
+        fetchFamily(offer, got)
+    }
+
+    /** Back to the camera: the code wasn't used, and still works on the other device while it shows. */
+    fun familyScanAgain() {
+        familyHeld = null
+        familyFetch = null
+    }
+
+    private fun fetchFamily(offer: si.lanisce.lani.data.FamilyLink.Offer, got: (si.lanisce.lani.data.FamilyLink.Gift) -> Unit) {
         familyFetch = FamilyFetch.WAITING
         viewModelScope.launch {
-            val r = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { si.lanisce.lani.data.FamilyLink.fetch(offer, android.os.Build.MODEL ?: "Android") }
+            val r = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                si.lanisce.lani.data.FamilyLink.fetch(offer, android.os.Build.MODEL ?: "Android", drop = offer.relay?.let { si.lanisce.lani.data.HttpDrop(it) })
+            }
             if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("Family", "fetched ${r::class.simpleName}") // how it ended, never what came
             familyFetch = when (r) {
                 is si.lanisce.lani.data.FamilyLink.Fetched.Got -> {
                     familyGift = r.gift
+                    familyBond = r.bond
+                    familyRelay = offer.relay
                     got(r.gift)
                     null
                 }
@@ -758,11 +865,28 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** The learner's data made: what the family shared into the tutor's vault, and gone from memory. */
     private fun takeFamilyGift() {
         val g = familyGift ?: return
+        val bond = familyBond
         familyGift = null
+        familyBond = null
+        familyDevices.joined(g, bond, familyRelay)
+        familyRelay = null
         if (g.key == null) return
         viewModelScope.launch {
-            val problem = live.receiveFamily(g)
-            notices.banner = if (problem == null) "🧑‍🏫 ${bi("family.received")}" else "⚠️ ${bi("family.keyBad")}"
+            val r = if (familyOnline) live.receiveFamily(g) else si.lanisce.lani.tutor.live.FamilyKey.NOT_CHECKED
+            if (r == si.lanisce.lani.tutor.live.FamilyKey.NOT_CHECKED) {
+                familyDevices.keyWaits(g)
+                if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("Family", "key waits")
+            }
+            familyKeySaid(r)
+        }
+    }
+
+    /** What became of the family's key, in a line; a key that waits for its check says so, and nobody has to show a new code. */
+    private fun familyKeySaid(r: si.lanisce.lani.tutor.live.FamilyKey) {
+        notices.banner = when (r) {
+            si.lanisce.lani.tutor.live.FamilyKey.KEPT -> "🧑‍🏫 ${bi("family.received")}"
+            si.lanisce.lani.tutor.live.FamilyKey.REFUSED -> "⚠️ ${bi("family.keyBad")}"
+            si.lanisce.lani.tutor.live.FamilyKey.NOT_CHECKED -> "⏳ ${bi("family.keyLater")}"
         }
     }
 
@@ -773,6 +897,21 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun found(f: si.lanisce.lani.game.Founding) {
         if (!game.introSeen) firstRun.begin(onDevice = firstRun.state.onDevice)
         game.found(f).invokeOnCompletion { viewModelScope.launch { if (game.state != null && firstRun.state.moment) openVillage() } }
+    }
+
+    /** QA's "family:peer:<host>:<port>", "family:offline" and "family:online". */
+    fun qaFamily(what: String) {
+        when {
+            what == "offline" -> familyOfflineForQa = true
+            what == "online" -> {
+                familyOfflineForQa = false
+                familyDevices.page(false) // a round at once
+            }
+            what.startsWith("peer:") -> {
+                familyDevices.peer = what.removePrefix("peer:").let { it.substringBeforeLast(':') to it.substringAfterLast(':').toInt() }
+                familyDevices.page(false) // a round at once
+            }
+        }
     }
 
     /** QA's "firstrun:device", "firstrun:paired" (the moment over) or "firstrun:" (an existing learner's device). */
@@ -1362,6 +1501,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         data.onForeground() // the data repository pulled (git connected only)
         live.onForeground() // the live tutor's long poll of the bridge's inbox (when it's on)
         audioTrial.check() // how the audio trial stands, at most once a day (on this device, with a voice service)
+        familyDevices.foreground(true) // the family's post, while on screen (app/FamilyDevices)
+        readFamilyRules()
     }
 
     /**
@@ -1378,6 +1519,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         live.onBackground() // its poll stops; the WorkManager check takes over (tutor/live/TutorWork)
         devUpload.onBackground() // the developer's data to the node (developer setting on, at most every 30 minutes)
         data.onBackground() // the phone's writes pushed, the day's backup (each only when set up)
+        familyDevices.foreground(false)
     }
 
     /**
@@ -1738,11 +1880,19 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /**
      * QA's "placement…" (a debug build, app/QaHooks.kt): "" the placement test's page; "fresh" the dev village's class
      * readied with nothing of the course done ([si.lanisce.lani.app.QaHooks.readyPlacement]) and the school opened, its
-     * card offering the test; "answer:<part>" the test on screen answered to its end as a learner who knows up to that part.
+     * card offering the test; "answer:<part>" the test on screen answered to its end as a learner who knows up to that part;
+     * "waiting:<level>" a test taken yesterday whose level the node hasn't recorded, "sent:<level>" the same today, its page.
      */
     fun qaPlacement(arg: String) {
+        fun unrecorded(level: String, day: java.time.LocalDate) {
+            game.apply { si.lanisce.lani.app.QaHooks.placedUnrecorded(it, school.language, level.trim().uppercase(), day) }
+            school.touch()
+            openPlacement()
+        }
         when {
             arg.isEmpty() -> openPlacement()
+            arg.startsWith("waiting:") -> unrecorded(arg.removePrefix("waiting:"), java.time.LocalDate.now().minusDays(1))
+            arg.startsWith("sent:") -> unrecorded(arg.removePrefix("sent:"), java.time.LocalDate.now())
             arg == "fresh" -> {
                 game.apply { si.lanisce.lani.app.QaHooks.readyPlacement(it, school.language, System.currentTimeMillis()) }
                 school.touch()

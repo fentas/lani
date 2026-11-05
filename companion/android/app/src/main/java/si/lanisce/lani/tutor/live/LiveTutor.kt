@@ -313,7 +313,7 @@ class LiveTutor(
         learner = { learner() ?: s.learnerName },
         notebook = { refreshNotebook(force = false) },
         enabled = { s.on && credentialSet() && !s.keyRefused && s.lowCredit == null },
-        budgetOk = { spent() < s.dailyCap && monthSpend() < s.monthlyCap },
+        budgetOk = { spent() < s.capNow && monthSpend() < s.monthlyCap },
         record = { job, c, thread, batch -> studioCall(job, c, thread, batch) },
         onApiError = { job, e -> studioError(job, e) },
         onFinished = { job -> studioDone(job) },
@@ -368,7 +368,7 @@ class LiveTutor(
         !credentialSet() -> LiveState.NO_CREDENTIAL
         s.keyRefused -> LiveState.PAUSED_KEY
         s.lowCredit != null -> LiveState.PAUSED_CREDIT
-        spent() >= s.dailyCap -> LiveState.PAUSED_BUDGET
+        spent() >= s.capNow -> LiveState.PAUSED_BUDGET
         monthReached && s.monthAllowed != monthNow() -> LiveState.PAUSED_MONTH
         !online.now() && q.isNotEmpty() -> LiveState.OFFLINE
         offline -> LiveState.NO_NODE
@@ -671,22 +671,63 @@ class LiveTutor(
         si.lanisce.lani.data.FamilyLink.Gift(provider = p.id.takeIf { key != null }, key = key, preset = settings.preset.name.takeIf { key != null })
     }
 
-    /** What the family shared into this device's own vault, checked as a key typed here is. Null when kept, else what went wrong (redacted). */
-    suspend fun receiveFamily(g: si.lanisce.lani.data.FamilyLink.Gift): String? {
-        val key = g.key ?: return null
-        val p = ProviderId.entries.firstOrNull { it.id == g.provider } ?: return "another provider"
+    /**
+     * What the family shared into this device's own vault, checked as a key typed here is: [FamilyKey.REFUSED] only when the provider
+     * said no. A check that couldn't run (no network, the provider down) says nothing of the key, so it's [FamilyKey.NOT_CHECKED]
+     * and whoever asked tries again ([si.lanisce.lani.app.FamilyDevices]): the code that brought it is spent, and a parent
+     * shouldn't have to show a new one.
+     */
+    suspend fun receiveFamily(g: si.lanisce.lani.data.FamilyLink.Gift): FamilyKey {
+        val key = g.key ?: return FamilyKey.KEPT
+        val p = ProviderId.entries.firstOrNull { it.id == g.provider } ?: return FamilyKey.REFUSED
         val preset = Preset.entries.firstOrNull { it.name == g.preset }
         update { it.copy(provider = p, models = emptyMap(), preset = preset ?: it.preset) }.join()
-        return when (p) {
-            ProviderId.ANTHROPIC -> setKey(key)?.let { "refused" }
-            ProviderId.OPENAI -> setOpenAIKey(key)?.let { Redact.of(it, key) }
-            ProviderId.OPENROUTER -> withContext(io) {
-                openrouter?.auth?.keep(key)
-                loadOthers()
-                routerCheck()?.let { Redact.of(it, key) }
-            }
-            ProviderId.GEMINI -> "not shared"
+        fun of(problem: KeyProblem?) = when (problem) {
+            null -> FamilyKey.KEPT
+            is KeyProblem.Failed -> FamilyKey.NOT_CHECKED
+            else -> FamilyKey.REFUSED
         }
+        return when (p) {
+            ProviderId.ANTHROPIC -> of(setKey(key))
+            ProviderId.OPENAI -> of(checkOpenAIKey(key))
+            ProviderId.OPENROUTER -> withContext(io) {
+                val auth = openrouter?.auth ?: return@withContext FamilyKey.REFUSED
+                auth.keep(key)
+                loadOthers()
+                openrouterKey = null
+                routerCheck()
+                when {
+                    openrouterKey != null -> FamilyKey.KEPT // its models may not have listed: the key is good
+                    s.keyRefused -> FamilyKey.REFUSED
+                    else -> FamilyKey.NOT_CHECKED
+                }
+            }
+            ProviderId.GEMINI -> FamilyKey.REFUSED
+        }
+    }
+
+    /**
+     * This device left its family ([si.lanisce.lani.data.FamilyNote.FORGET]): the key that came from there is gone, if it's still the
+     * one in use ([keySha]: never a key the learner set since), and so is the family's limit. True when a key went.
+     */
+    suspend fun forgetFamily(provider: String?, keySha: String?): Boolean = withContext(io) {
+        val p = ProviderId.entries.firstOrNull { it.id == provider }
+        val key = when (p) {
+            ProviderId.ANTHROPIC -> vault.load()
+            ProviderId.OPENROUTER -> openrouter?.key()
+            ProviderId.OPENAI -> openai?.apiKey?.load()
+            else -> null
+        }
+        val ours = key != null && keySha != null && si.lanisce.lani.data.FamilyPost.sha(key) == keySha
+        if (ours) when (p) {
+            ProviderId.ANTHROPIC -> removeKey().join()
+            ProviderId.OPENROUTER -> signOutOfOpenRouter()
+            ProviderId.OPENAI -> removeOpenAIKey().join()
+            else -> Unit
+        }
+        saveSettings { it.copy(familyCap = null, familyCapBy = null) }
+        wakeUp()
+        ours
     }
 
     fun removeKey() = scope.launch(io) {
@@ -696,16 +737,23 @@ class LiveTutor(
     }
 
     /** An OpenAI API [key], checked with GET /v1/models and kept. Null when kept, else what went wrong. */
-    suspend fun setOpenAIKey(key: String): String? = withContext(io) {
-        val c = openai ?: return@withContext "this build has no OpenAI"
+    suspend fun setOpenAIKey(key: String): String? = when (val p = checkOpenAIKey(key)) {
+        null -> null
+        KeyProblem.Refused -> "the key was refused (401)"
+        else -> p.text
+    }
+
+    /** [setOpenAIKey], with why it wasn't kept as a [KeyProblem]: [KeyProblem.Failed] when the check couldn't run. */
+    private suspend fun checkOpenAIKey(key: String): KeyProblem? = withContext(io) {
+        val c = openai ?: return@withContext KeyProblem.Refused
         val k = key.trim()
-        if (k.isEmpty()) return@withContext "the key is empty"
+        if (k.isEmpty()) return@withContext KeyProblem.Empty
         val models = try {
             openaiTransportFor { OpenAIBearer(k, Billing.API_KEY) }.models()
         } catch (e: CancellationException) {
             throw e
         } catch (e: ApiError) {
-            return@withContext if (e is ApiError.Auth) "the key was refused (401)" else Redact.of(e.message ?: e.kind, k)
+            return@withContext if (e is ApiError.Auth) KeyProblem.Refused else KeyProblem.Failed(Redact.of(e.message ?: e.kind, k))
         }
         c.apiKey.save(k)
         loadOpenAI()
@@ -1172,8 +1220,8 @@ class LiveTutor(
         while (true) {
             if (!s.on || !credentialSet() || s.keyRefused) return
             rollover()
-            if (spent() >= s.dailyCap) {
-                if (q.isNotEmpty()) tell("budget", "tutorLive.note.budget", mapOf("cap" to "%.2f".format(s.dailyCap)))
+            if (spent() >= s.capNow) {
+                if (q.isNotEmpty()) tell("budget", "tutorLive.note.budget", mapOf("cap" to "%.2f".format(s.capNow)))
                 return
             }
             // the monthly cap: only the learner's own chats, once they said "answer anyway"; a role-play goes on
@@ -1348,7 +1396,7 @@ class LiveTutor(
         )
         val provider = providerFor(t.model)
         val format = provider.format
-        val loop = TutorLoop(provider, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.dailyCap }, sleep = sleep, online = online::now)
+        val loop = TutorLoop(provider, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.capNow }, sleep = sleep, online = online::now)
         val want = ModelCatalog.fit(t.effort ?: ModelCatalog.effortFor(t.task, s.preset, t.model, s.efforts), t.model)
         val nb = refreshNotebook(b, force = false)
 
@@ -1488,7 +1536,7 @@ class LiveTutor(
             }
             LoopEnd.Paused -> {
                 replace(t.copy(status = TurnStatus.QUEUED))
-                tell("budget", "tutorLive.note.budget", mapOf("cap" to "%.2f".format(s.dailyCap)))
+                tell("budget", "tutorLive.note.budget", mapOf("cap" to "%.2f".format(s.capNow)))
             }
             is LoopEnd.Failed -> failed(t, end.error, th)
         }

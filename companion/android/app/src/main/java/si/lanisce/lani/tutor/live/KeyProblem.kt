@@ -21,3 +21,15 @@ sealed interface KeyProblem {
     /** It couldn't be checked: the network, a rate limit, the service down; [text] is the redacted message. */
     data class Failed(override val text: String) : KeyProblem
 }
+
+/** How a key from the family went ([LiveTutor.receiveFamily]). */
+enum class FamilyKey {
+    /** It works, and it's in this device's vault. */
+    KEPT,
+
+    /** The provider refused it, or this device can't use it. */
+    REFUSED,
+
+    /** The check couldn't run: nothing is known of the key yet. */
+    NOT_CHECKED,
+}
