@@ -19,7 +19,7 @@ import si.lanisce.lani.data.TrialAnswer
  * The audio trial for the screens ([AudioTrial]; data/AudioPlan.kt): it starts in the background as soon as the learner is on
  * this device and online, so the first moment's voices are already the village's; a failure or being offline changes nothing
  * and it is tried again later, without a word to the learner. How it stands is read at most once a day ([AudioTrial.ask]). A
- * node's learner is never asked about ([hosted]), and with no voice service ([AudioPlan.glas]) nothing is sent.
+ * node's learner is never asked about ([hosted]), and with no voice service ([glas]) nothing is sent.
  *
  * [voicesChanged]: the trial began or ended, so the clips' index is read again from who answers now. Compose state, on the
  * main thread; a background job's 403 comes through [AudioPlan.trial].
@@ -28,6 +28,7 @@ class AudioTrialController(
     context: Context,
     private val scope: CoroutineScope,
     private val hosted: () -> Boolean,
+    private val glas: () -> String = { AudioPlan.glas },
     private val voicesChanged: () -> Unit,
 ) {
     var state by mutableStateOf(AudioTrial())
@@ -51,7 +52,7 @@ class AudioTrialController(
     }
 
     /** There is a voice service and this device's learner may use it. */
-    private val offered: Boolean get() = AudioPlan.glas.isNotBlank() && hosted()
+    private val offered: Boolean get() = glas().isNotBlank() && hosted()
 
     /** The card to show on Home now: once each, none on a node or without a voice service. */
     val card: AudioTrial.Card? get() = state.card(offered, System.currentTimeMillis())
@@ -75,7 +76,7 @@ class AudioTrialController(
         if (asking || (!again && now - askedAt < RETRY_MS)) return
         asking = true
         askedAt = now
-        val api = TrialApi(AudioPlan.glas, t.id)
+        val api = TrialApi(glas(), t.id)
         scope.launch {
             val a: TrialAnswer? = withContext(Dispatchers.IO) {
                 runCatching { if (ask == AudioTrial.Ask.START) api.start() else api.read() }.getOrNull()
