@@ -9176,7 +9176,7 @@ def tap_above(text: str, bottom: int, swipes=4) -> bool:
 
 def check_sheet() -> bool:
     """A sheet's "Preveri · Check" tapped: in its bottom bar as biti's, else below the fold, scrolled to."""
-    return tap_above("Preveri · Check", 2400)
+    return tap_above(label("playerScreen.check"), 2400)
 
 
 def school_b1():
