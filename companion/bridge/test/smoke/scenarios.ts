@@ -13,7 +13,7 @@ export default async function scenarios() {
   const scenarioFiles = readdirSync(curatedScenarios).filter(f => f.endsWith('.json'))
   const levelOf = (f: string) => JSON.parse(readFileSync(join(curatedScenarios, f), 'utf8')).level
   const byLevel = (lv: string) => scenarioFiles.filter(f => levelOf(f) === lv)
-  check('18 curated scenarios: Jan\'s six at A1, six at B1, six at B2', scenarioFiles.length === 18 && byLevel('A1').length === 6 && byLevel('B1').length === 6 && byLevel('B2').length === 6, scenarioFiles.map(f => [f, levelOf(f)]))
+  check('21 curated scenarios: Jan\'s six at A1, three at A2, six at B1, six at B2', scenarioFiles.length === 21 && byLevel('A1').length === 6 && byLevel('A2').length === 3 && byLevel('B1').length === 6 && byLevel('B2').length === 6, scenarioFiles.map(f => [f, levelOf(f)]))
   // the village's packs (companion/packs and the Primorska culture pack's): what a Slovene talk's packs must be
   const slPacks = new Set(
     [resolve(curatedScenarios, '../packs'), resolve(curatedScenarios, '../cultures/primorska/packs')].flatMap(d => readdirSync(d).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(d, f), 'utf8')).id)),
@@ -25,7 +25,7 @@ export default async function scenarios() {
     // Jan's six read in a German or Italian base too: every text per base (en, de, it), the title and who per language
     const texts = [raw.setting, raw.opener_en, ...raw.goals, ...raw.vocabulary_hints.map((h: any) => h.en)]
     check(`curated scenario has its texts in en, de and it, its title and who in sl too: ${f}`, texts.every(t => t?.en && t.de && t.it) && [raw.title, raw.who].every(t => t?.sl && t.en && t.de && t.it) && /machine-written/.test(raw.review), texts.filter(t => !(t?.en && t.de && t.it)))
-    // a B1 or B2 talk: a grown-up's, its goals in Slovene too (read in the pair), the village's packs, wholly machine-written
+    // a talk above A1: a grown-up's, its goals in Slovene too (read in the pair), the village's packs, wholly machine-written
     if (raw.level !== 'A1')
       check(
         `a ${raw.level} talk is a grown-up's, its goals in sl · the base, its packs the village's: ${f}`,
@@ -70,10 +70,10 @@ export default async function scenarios() {
   const scenarioExample = [...reference.matchAll(/```json\n([\s\S]*?)\n```/g)].map(m => m[1]).find(s => s.includes('lani.scenario/v0'))
   check('module-spec.md scenario example validates', scenarioExample && validateScenario(JSON.parse(scenarioExample)).ok, scenarioExample)
   const scList = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
-  // the smoke's learner has no level yet (A1): the A1 talks (and A2, none of Jan's), never a B1 or B2 one
+  // the smoke's learner has no level yet (A1): the A1 and A2 talks, never a B1 or B2 one
   check(
-    "GET /scenarios lists the A1 learner's curated scenarios, none at B1 or B2",
-    byLevel('A1').every(f => scList.some((s: any) => `${s.id}.json` === f && s.source === 'curated')) && !scList.some((s: any) => s.level === 'B1' || s.level === 'B2'),
+    "GET /scenarios lists the A1 learner's curated scenarios, the A2 ones with them, none at B1 or B2",
+    [...byLevel('A1'), ...byLevel('A2')].every(f => scList.some((s: any) => `${s.id}.json` === f && s.source === 'curated')) && !scList.some((s: any) => s.level === 'B1' || s.level === 'B2'),
     scList.map((s: any) => [s.id, s.level]),
   )
   check('GET /scenarios/:id: a B2 talk is not found for an A1 learner', (await fetch(`${base}/scenarios/pri-zupanji`, { headers: auth })).status === 404)
@@ -85,7 +85,7 @@ export default async function scenarios() {
     writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, current_level: 'B1' } }, null, 2))
     try {
       const atB1 = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
-      check('a B1 learner is offered all 18, the B1 and B2 talks with them', scenarioFiles.every(f => atB1.some((s: any) => `${s.id}.json` === f)), atB1.map((s: any) => [s.id, s.level]))
+      check('a B1 learner is offered all 21, the B1 and B2 talks with them', scenarioFiles.every(f => atB1.some((s: any) => `${s.id}.json` === f)), atB1.map((s: any) => [s.id, s.level]))
       const mayor = await (await fetch(`${base}/scenarios/pri-zupanji`, { headers: auth })).json()
       check(
         "a B2 talk served in Jan's pair: Pri županji · At the mayor's office, a goal in sl · en for a man, the setting in English",
@@ -95,6 +95,8 @@ export default async function scenarios() {
       check('the talks are listed by level, easiest first, not by file name', atB1.map((s: any) => s.level).join() === [...atB1.map((s: any) => s.level)].sort().join() && atB1[0].level === 'A1' && atB1.at(-1).level === 'B2', atB1.map((s: any) => [s.id, s.level]))
       const marko = atB1.find((s: any) => s.id === 'vino-za-praznovanje')
       check("Marko's B1 talk names the cast's Vinar Marko, who plays it", marko?.role.startsWith('Vinar Marko,') && marko.level === 'B1', marko)
+      const osmica = atB1.find((s: any) => s.id === 'na-osmici')
+      check("Marko's A2 talk, at the osmica his reading tells of, names him too", osmica?.role.startsWith('Vinar Marko,') && osmica.level === 'A2' && osmica.title === 'Na osmici · At the osmica', osmica)
       const linked = { dialogs: [{ id: 'vino', talk: 'vino-za-praznovanje', lines: [] }] } as any
       check("a scene's \"keep talking\" into a B1 talk only for a learner it is offered to", talksOffered(linked, new Set(atB1.map((s: any) => s.id))) === linked && !('talk' in talksOffered(linked, new Set(scList.map((s: any) => s.id))).dialogs[0]))
     } finally {

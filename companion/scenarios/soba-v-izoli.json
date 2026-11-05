@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "soba-v-izoli",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Soba v Izoli", "en": "A room in Izola", "de": "Ein Zimmer in Izola", "it": "Una camera a Isola" },
+  "emoji": "🛏️",
+  "level": "A2",
+  "setting": {
+    "en": "There are two of you, and you want a weekend by the sea. You phone a small family house in Izola that lets rooms, to ask for a room from Friday to Sunday: what it costs, and what comes with it.",
+    "de": "Ihr seid zu zweit und wollt ein Wochenende am Meer verbringen. Du rufst in einem kleinen Haus in Izola an, das Zimmer vermietet, und fragst nach einem Zimmer von Freitag bis Sonntag: was es kostet und was dazugehört.",
+    "it": "Siete in due e volete passare un fine settimana al mare. Telefoni a una piccola casa di Isola che affitta camere e chiedi una camera da venerdì a domenica: quanto costa e che cosa è compreso."
+  },
+  "role": "Gospa Nadja, who lets rooms in her family house in Izola, on the phone. Friendly, talkative. Two double rooms are free: with a sea view 80 euros a night, over the courtyard 65, breakfast included. Parking is five minutes away. Asks {learner}'s name and when they arrive. Says vi.",
+  "who": { "sl": "Sobodajalka v Izoli", "en": "The landlady in Izola", "de": "Die Zimmervermieterin in Izola", "it": "L'affittacamere di Isola" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "kitchen",
+  "goals": [
+    { "sl": "Pozdravi in povej, zakaj kličeš", "en": "Greet her and say why you are calling", "de": "Grüße und sag, warum du anrufst", "it": "Saluta e di' perché telefoni" },
+    { "sl": "Vprašaj za sobo za dve noči", "en": "Ask for a room for two nights", "de": "Frag nach einem Zimmer für zwei Nächte", "it": "Chiedi una camera per due notti" },
+    { "sl": "Vprašaj, katera soba je cenejša", "en": "Ask which room is cheaper", "de": "Frag, welches Zimmer billiger ist", "it": "Chiedi quale camera costa meno" },
+    { "sl": "Vprašaj za zajtrk in parkirišče", "en": "Ask about breakfast and parking", "de": "Frag nach Frühstück und Parkplatz", "it": "Chiedi della colazione e del parcheggio" },
+    { "sl": "Povej, kdaj prideta, in se poslovi", "en": "Say when you are arriving, and say goodbye", "de": "Sag, wann ihr ankommt, und verabschiede dich", "it": "Di' quando arrivate e saluta" }
+  ],
+  "opener_sl": "Sobe Nadja, dober dan! Kako vam lahko pomagam?",
+  "opener_en": {
+    "en": "Nadja's rooms, hello! How can I help you?",
+    "de": "Zimmer Nadja, guten Tag! Wie kann ich Ihnen helfen?",
+    "it": "Camere Nadja, buongiorno! Come posso aiutarla?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Dober dan! {m:Rad|f:Rada} bi {m:rezerviral|f:rezervirala} sobo.", "en": { "en": "Hello! I'd like to book a room.", "de": "Guten Tag! Ich möchte ein Zimmer reservieren.", "it": "Buongiorno! Vorrei prenotare una camera." } },
+    { "sl": "Imate prosto sobo za dve osebi?", "en": { "en": "Have you got a free room for two people?", "de": "Haben Sie ein freies Zimmer für zwei Personen?", "it": "Ha una camera libera per due persone?" } },
+    { "sl": "Od petka do nedelje, za dve noči.", "en": { "en": "From Friday to Sunday, for two nights.", "de": "Von Freitag bis Sonntag, für zwei Nächte.", "it": "Da venerdì a domenica, per due notti." } },
+    { "sl": "{m:Rad|f:Rada} bi sobo s pogledom na morje.", "en": { "en": "I'd like a room with a sea view.", "de": "Ich hätte gern ein Zimmer mit Meerblick.", "it": "Vorrei una camera con vista sul mare." } },
+    { "sl": "Koliko stane soba na noč?", "en": { "en": "How much is the room a night?", "de": "Was kostet das Zimmer pro Nacht?", "it": "Quanto costa la camera a notte?" } },
+    { "sl": "Katera soba je cenejša?", "en": { "en": "Which room is cheaper?", "de": "Welches Zimmer ist billiger?", "it": "Quale camera costa meno?" } },
+    { "sl": "Je zajtrk vključen v ceno?", "en": { "en": "Is breakfast included in the price?", "de": "Ist das Frühstück im Preis inbegriffen?", "it": "La colazione è compresa nel prezzo?" } },
+    { "sl": "Kje lahko parkirava?", "en": { "en": "Where can we park?", "de": "Wo können wir parken?", "it": "Dove possiamo parcheggiare?" } },
+    { "sl": "Prideva v petek zvečer.", "en": { "en": "We'll arrive on Friday evening.", "de": "Wir kommen am Freitagabend an.", "it": "Arriviamo venerdì sera." } },
+    { "sl": "Hvala, se vidimo v petek.", "en": { "en": "Thank you, see you on Friday.", "de": "Danke, bis Freitag.", "it": "Grazie, ci vediamo venerdì." } }
+  ],
+  "packs": ["dom-in-hisa", "cas-in-koledar", "ob-morju", "na-potovanju", "stevila"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

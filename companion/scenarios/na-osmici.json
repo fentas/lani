@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "na-osmici",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Na osmici", "en": "At the osmica", "de": "In der Osmica", "it": "All'osmiza" },
+  "emoji": "🌿",
+  "level": "A2",
+  "setting": {
+    "en": "Green branches by the road show the way to Marko's farm in Brda: this year he has opened his first osmica. For a few days he sells his own wine at home, with bread, pršut, cheese and hard-boiled eggs, at long wooden tables.",
+    "de": "Grüne Zweige an der Straße zeigen den Weg zu Markos Hof in Brda: Dieses Jahr hat er seine erste Osmica geöffnet. Ein paar Tage lang verkauft er zu Hause seinen eigenen Wein, dazu Brot, Pršut, Käse und hart gekochte Eier, an langen Holztischen.",
+    "it": "Le frasche verdi lungo la strada indicano la via per la fattoria di Marko nel Collio: quest'anno ha aperto la sua prima osmiza. Per qualche giorno vende in casa il suo vino, con pane, prosciutto crudo, formaggio e uova sode, a lunghi tavoli di legno."
+  },
+  "role": "Vinar Marko, the young winemaker from Brda, at his first osmica. Proud and a little nervous: pours his rebula and merlot, brings plates of pršut and cheese, says what costs what and that he is open until Sunday. Drops in an Italian word (allora). Says ti to {learner}.",
+  "who": { "sl": "Vinar iz Brd", "en": "The winemaker from Brda", "de": "Der Winzer aus Brda", "it": "Il vignaiolo del Collio" },
+  "voice": "male",
+  "speaker": "young-man",
+  "goals": [
+    { "sl": "Pozdravi Marka", "en": "Greet Marko", "de": "Grüße Marko", "it": "Saluta Marko" },
+    { "sl": "Naroči kozarec vina ali soka", "en": "Order a glass of wine or juice", "de": "Bestell ein Glas Wein oder Saft", "it": "Ordina un bicchiere di vino o di succo" },
+    { "sl": "Vprašaj, katero vino je boljše", "en": "Ask which wine is better", "de": "Frag, welcher Wein besser ist", "it": "Chiedi quale vino è migliore" },
+    { "sl": "Naroči krožnik pršuta ali sira", "en": "Order a plate of pršut or cheese", "de": "Bestell einen Teller Pršut oder Käse", "it": "Ordina un piatto di prosciutto o di formaggio" },
+    { "sl": "Vprašaj, do kdaj bo osmica odprta", "en": "Ask how long the osmica will be open", "de": "Frag, bis wann die Osmica offen ist", "it": "Chiedi fino a quando è aperta l'osmiza" }
+  ],
+  "opener_sl": "Živjo! Kar naprej, prostora je dovolj. Boš kozarec rebule?",
+  "opener_en": {
+    "en": "Hi! Come on in, there's plenty of room. Will you have a glass of rebula?",
+    "de": "Hallo! Nur herein, Platz ist genug. Magst du ein Glas Rebula?",
+    "it": "Ciao! Avanti, c'è posto. Prendi un bicchiere di ribolla?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Živjo, Marko! Lepo je tukaj.", "en": { "en": "Hi, Marko! It's lovely here.", "de": "Hallo, Marko! Schön ist es hier.", "it": "Ciao, Marko! È bello qui." } },
+    { "sl": "Kozarec rebule, prosim.", "en": { "en": "A glass of rebula, please.", "de": "Ein Glas Rebula, bitte.", "it": "Un bicchiere di ribolla, per favore." } },
+    { "sl": "Danes ne pijem vina, ker vozim.", "en": { "en": "I'm not drinking wine today: I'm driving.", "de": "Heute trinke ich keinen Wein, ich fahre noch.", "it": "Oggi non bevo vino, perché guido." } },
+    { "sl": "Imaš kaj brez alkohola?", "en": { "en": "Have you got anything without alcohol?", "de": "Hast du etwas ohne Alkohol?", "it": "Hai qualcosa senza alcol?" } },
+    { "sl": "Katero vino je boljše, rebula ali merlot?", "en": { "en": "Which wine is better, the rebula or the merlot?", "de": "Welcher Wein ist besser, der Rebula oder der Merlot?", "it": "Quale vino è migliore, la ribolla o il merlot?" } },
+    { "sl": "Krožnik pršuta in sira, prosim.", "en": { "en": "A plate of pršut and cheese, please.", "de": "Einen Teller Pršut und Käse, bitte.", "it": "Un piatto di prosciutto e formaggio, per favore." } },
+    { "sl": "Mi prineseš še malo kruha?", "en": { "en": "Could you bring me a little more bread?", "de": "Bringst du mir noch ein bisschen Brot?", "it": "Mi porti ancora un po' di pane?" } },
+    { "sl": "Do kdaj bo osmica odprta?", "en": { "en": "Until when will the osmica be open?", "de": "Bis wann ist die Osmica offen?", "it": "Fino a quando è aperta l'osmiza?" } },
+    { "sl": "Koliko plačam?", "en": { "en": "How much do I pay?", "de": "Wie viel macht das?", "it": "Quanto pago?" } },
+    { "sl": "Hvala, zelo dobro je bilo!", "en": { "en": "Thanks, it was very good!", "de": "Danke, es war sehr gut!", "it": "Grazie, era molto buono!" } }
+  ],
+  "packs": ["v-kleti", "trzni-dan", "na-trznici", "v-gostilni", "stevila"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

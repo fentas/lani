@@ -1,0 +1,46 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "z-avtobusom-v-piran",
+  "language": "sl",
+  "audience": "adult",
+  "title": { "sl": "Z avtobusom v Piran", "en": "By bus to Piran", "de": "Mit dem Bus nach Piran", "it": "In autobus a Pirano" },
+  "emoji": "🚌",
+  "level": "A2",
+  "setting": {
+    "en": "The bus station in Koper on a Saturday morning. You want to spend the day in Piran and come back in the evening. You go to the ticket counter: which ticket, when, from which platform, and when is the last bus back?",
+    "de": "Der Busbahnhof in Koper an einem Samstagmorgen. Du möchtest den Tag in Piran verbringen und am Abend zurückkommen. Du gehst zum Schalter: welche Fahrkarte, wann, von welchem Bussteig, und wann fährt der letzte Bus zurück?",
+    "it": "La stazione degli autobus di Capodistria, un sabato mattina. Vuoi passare la giornata a Pirano e tornare la sera. Vai allo sportello: quale biglietto, a che ora, da quale corsia, e quando parte l'ultimo autobus per il ritorno?"
+  },
+  "role": "Prodajalka Sonja, the ticket seller at Koper bus station. Quick, patient with foreigners. A return to Piran is five euros, cash or card; the next bus leaves in twenty minutes from platform 3, the ride is forty minutes, no change; the last bus back is at nine in the evening. Says vi.",
+  "who": { "sl": "Prodajalka na avtobusni postaji", "en": "The ticket seller at the bus station", "de": "Die Verkäuferin am Busbahnhof", "it": "La bigliettaia della stazione degli autobus" },
+  "voice": "female",
+  "speaker": "young-woman",
+  "place": "square",
+  "goals": [
+    { "sl": "Pozdravi in povej, kam greš", "en": "Greet her and say where you are going", "de": "Grüße und sag, wohin du fährst", "it": "Saluta e di' dove vai" },
+    { "sl": "Kupi povratno karto", "en": "Buy a return ticket", "de": "Kauf eine Hin- und Rückfahrkarte", "it": "Compra un biglietto di andata e ritorno" },
+    { "sl": "Vprašaj, kdaj odpelje naslednji avtobus", "en": "Ask when the next bus leaves", "de": "Frag, wann der nächste Bus fährt", "it": "Chiedi quando parte il prossimo autobus" },
+    { "sl": "Vprašaj, s katerega perona odpelje", "en": "Ask which platform it leaves from", "de": "Frag, von welchem Bussteig er abfährt", "it": "Chiedi da quale corsia parte" },
+    { "sl": "Vprašaj, kdaj odpelje zadnji avtobus nazaj", "en": "Ask when the last bus back leaves", "de": "Frag, wann der letzte Bus zurückfährt", "it": "Chiedi quando parte l'ultimo autobus per il ritorno" }
+  ],
+  "opener_sl": "Dober dan, izvolite! Kam pa danes?",
+  "opener_en": {
+    "en": "Hello, go ahead! Where to today?",
+    "de": "Guten Tag, bitte sehr! Wohin soll es heute gehen?",
+    "it": "Buongiorno, mi dica! Dove va oggi?"
+  },
+  "vocabulary_hints": [
+    { "sl": "{m:Rad|f:Rada} bi {m:šel|f:šla} z avtobusom v Piran.", "en": { "en": "I'd like to go to Piran by bus.", "de": "Ich möchte mit dem Bus nach Piran fahren.", "it": "Vorrei andare a Pirano in autobus." } },
+    { "sl": "Povratno karto do Pirana, prosim.", "en": { "en": "A return ticket to Piran, please.", "de": "Eine Hin- und Rückfahrkarte nach Piran, bitte.", "it": "Un biglietto di andata e ritorno per Pirano, per favore." } },
+    { "sl": "Koliko stane karta?", "en": { "en": "How much is the ticket?", "de": "Was kostet die Fahrkarte?", "it": "Quanto costa il biglietto?" } },
+    { "sl": "Lahko plačam s kartico?", "en": { "en": "Can I pay by card?", "de": "Kann ich mit Karte zahlen?", "it": "Posso pagare con la carta?" } },
+    { "sl": "Kdaj odpelje naslednji avtobus?", "en": { "en": "When does the next bus leave?", "de": "Wann fährt der nächste Bus?", "it": "Quando parte il prossimo autobus?" } },
+    { "sl": "S katerega perona odpelje?", "en": { "en": "Which platform does it leave from?", "de": "Von welchem Bussteig fährt er ab?", "it": "Da quale corsia parte?" } },
+    { "sl": "Mi lahko pokažete, kje je tretji peron?", "en": { "en": "Could you show me where platform 3 is?", "de": "Können Sie mir zeigen, wo Bussteig 3 ist?", "it": "Mi può indicare dov'è la corsia 3?" } },
+    { "sl": "Kako dolgo traja vožnja?", "en": { "en": "How long does the ride take?", "de": "Wie lange dauert die Fahrt?", "it": "Quanto dura il viaggio?" } },
+    { "sl": "Ali moram prestopiti?", "en": { "en": "Do I have to change?", "de": "Muss ich umsteigen?", "it": "Devo cambiare?" } },
+    { "sl": "Kdaj odpelje zadnji avtobus nazaj?", "en": { "en": "When does the last bus back leave?", "de": "Wann fährt der letzte Bus zurück?", "it": "Quando parte l'ultimo autobus per il ritorno?" } }
+  ],
+  "packs": ["pot-in-promet", "cas-in-koledar", "na-potovanju", "stevila"],
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}
