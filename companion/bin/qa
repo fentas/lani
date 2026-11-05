@@ -5379,10 +5379,12 @@ def backup_failed():
                     break
                 adb("shell", "input", "swipe", "540", "1800", "540", "900", "500")
                 time.sleep(1.2)
+            texts = [t for t, _ in nodes()]
             for key in ("dataSync.autoFailed", why, then):
                 text = label(key, half=True).split("{")[0].strip()
-                if find(text) is None:
-                    wrong.append(f"{name}: «{text}» not on the sheet")
+                times = sum(t.count(text) for t in texts)
+                if times != 1:
+                    wrong.append(f"{name}: «{text}» on the sheet {times} times, not once")
             shot(f"ls-backup-{name}")
             if out is not None:
                 out.mkdir(parents=True, exist_ok=True)

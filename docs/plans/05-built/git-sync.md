@@ -221,7 +221,9 @@ lani://handover?v=1&f=…&x=…&d=…&s=<salt>          (--code)
   ("restored on a new phone with the recovery code"). The relay must accept any P-256 key for the backup routes (it
   verifies the signature with the key the request brings). Switching to the town key is one line (`DataSync.backups`),
   if the relay requires a known town.
-- **Daily** when the app goes to the background (20 hours after the last), and "💾 Back up now".
+- **Daily**, planned when the app goes to the background (20 hours after the last) and run as WorkManager work, on an unmetered
+  network unless the last good backup is over a week old; the same data isn't sent again, a failure backs off to once a day and
+  shows on the Data sheet ([last-small.md](last-small.md), "The app's backup"). "💾 Back up now" goes at once, on any network.
 - **Restore:** "♻️ Obnovi · Restore"; on a new phone, type the recovery code or passphrase. The data there is moved to
   `<filesDir>/lani/data.before-restore-<time>` first; the sync starts anew.
 

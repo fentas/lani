@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.semantics.SemanticsProperties
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -26,18 +27,22 @@ class AutoBackupFailedTest {
 
     private fun count(text: String) = compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().size
 
+    /** How often [text] is said on the screen, inside any node's text: once, not in each language's half of another line. */
+    private fun said(text: String) = compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes()
+        .sumOf { n -> n.config.getOrElse(SemanticsProperties.Text) { emptyList() }.sumOf { it.text.windowed(text.length).count { w -> w == text } } }
+
     @Test fun `nothing while none failed, else the reason, then what to do about a clock that is off`() {
         compose.setContent { AutoBackupFailed(record) }
         assertEquals("no failure, no line", 0, count(bi("dataSync.autoRetries")))
         val at = Instant.now().toString()
         record = BackupRecord(failedAt = at, problem = "UNREACHABLE", failures = 1)
         compose.waitForIdle()
-        compose.onNodeWithText(bi("dataSync.backupUnreachable"), substring = true).assertExists()
+        assertEquals("the reason said once", 1, said(bi("dataSync.backupUnreachable")))
         compose.onNodeWithText(bi("dataSync.autoRetries"), substring = true).assertExists()
         assertEquals(0, count(bi("dataSync.clockOffFix")))
         record = BackupRecord(failedAt = at, problem = "CLOCK_OFF", failures = 3)
         compose.waitForIdle()
-        compose.onNodeWithText(bi("dataSync.backupClockOff"), substring = true).assertExists()
+        assertEquals("the reason said once", 1, said(bi("dataSync.backupClockOff")))
         compose.onNodeWithText(bi("dataSync.clockOffFix"), substring = true).assertExists()
         assertEquals("retrying isn't offered as the way out", 0, count(bi("dataSync.autoRetries")))
         record = BackupRecord(digest = "abc")

@@ -94,7 +94,8 @@ class PushScheduler(
  *   [mayWrite], and hears [onPulled].
  * - **The lease:** [take] (handed over by `lani handover`, or a confirmed takeover), [handOver] back to the node.
  * - **The handover's QR code:** [receive] keeps the town's secrets (Handover.keep) and offers the repository it names.
- * - **The backup:** a recovery code or a passphrase ([setUpCode], [setUpPassphrase]); [backupNow], daily by itself;
+ * - **The backup:** a recovery code or a passphrase ([setUpCode], [setUpPassphrase]); [backupNow], and daily by itself as work
+ *   ([planBackup], [runAutoBackup], BackupWork);
  *   [restore], also on a new phone from the code alone.
  */
 class DataSync(

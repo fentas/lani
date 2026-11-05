@@ -507,14 +507,16 @@ internal fun problemText(problem: BackupProblem): String = when (problem) {
 }
 
 /**
- * The automatic backup's last failure, when it hasn't succeeded since ([BackupRecord]): when, why in plain words, and that it tries
- * again. A clock that is off has a line of its own: retrying can't heal it, the learner can.
+ * The automatic backup's last failure, when it hasn't succeeded since ([BackupRecord]): when, then why in plain words on a line of its
+ * own (each is in both languages already: one inside the other would say the reason twice), and that it tries again. A clock that is
+ * off has a line of its own too: retrying can't heal it, the learner can.
  */
 @Composable
 internal fun AutoBackupFailed(record: BackupRecord) {
     val at = record.failedAt?.let { runCatching { Instant.parse(it) }.getOrNull() } ?: return
     val problem = record.failedProblem ?: BackupProblem.BROKEN
-    Text("⚠️ ${bi("dataSync.autoFailed", "time" to whenText(at), "why" to problemText(problem))}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
+    Text("⚠️ ${bi("dataSync.autoFailed", "time" to whenText(at))}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error, fontWeight = FontWeight.SemiBold)
+    Text(problemText(problem), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.error)
     if (problem == BackupProblem.CLOCK_OFF) Text("🕒 ${bi("dataSync.clockOffFix")}", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
     else Text(bi("dataSync.autoRetries"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
