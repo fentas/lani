@@ -2,7 +2,10 @@
 // (test/smoke/harness.ts) and the dev bridge (test/dev-bridge.ts, LANI_DEV_FAKE_ELEVENLABS=1) talk to it, never to the
 // real API; its key is "test-key". Like the real one it can take its time ([st.delayMs], [st.msPerChar]) and refuse what
 // goes over its plan's concurrency ([st.concurrency]: HTTP 429 "too_many_concurrent_requests", counted in [st.refused]).
-import { existsSync } from 'node:fs'
+import { randomUUID } from 'node:crypto'
+import { existsSync, readFileSync, unlinkSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 
 /** A tagged "MP3" (an ID3 header, then [tag]): enough for the bridge's check, not for a player. */
 export const mp3 = (tag: string) => new Uint8Array([0x49, 0x44, 0x33, 4, 0, 0, ...new TextEncoder().encode(tag)])
@@ -27,6 +30,70 @@ export function tone(secs: number): Uint8Array {
 }
 
 /**
+ * A take that sounds like speech to a cut (name-cut.ts), whatever it says: each letter its own sound at the moment the
+ * timestamps say, the vowels with energy across the mid band, the nasals low, a stop's closure silent, a comma and a sentence's
+ * end real pauses ([runThrough]: the voice runs through a comma, as it often does). Real MP3, its alignment true to it.
+ */
+export function speechTake(text: string, o: { runThrough?: boolean; pitch?: number } = {}) {
+  const rate = 44_100
+  const f0 = o.pitch ?? 160
+  const parts: Float32Array[] = []
+  const chars: string[] = []
+  const starts: number[] = []
+  const ends: number[] = []
+  let t = 0
+  const add = (secs: number, at: (i: number, n: number) => number) => {
+    const n = Math.round(secs * rate)
+    const y = new Float32Array(n)
+    for (let i = 0; i < n; i++) y[i] = at(i, n)
+    parts.push(y)
+    t += secs
+  }
+  const edge = (i: number, n: number) => Math.min(1, i / 120, (n - i) / 120)
+  const voiced = (amp: number, top: number) => (i: number, n: number) => {
+    let v = 0
+    for (let h = 1; h * f0 < top; h++) v += Math.sin((2 * Math.PI * h * f0 * i) / rate) / Math.sqrt(h)
+    return (amp * v * edge(i, n)) / 3
+  }
+  const noise = (amp: number) => (i: number, n: number) => amp * edge(i, n) * Math.sin(i * i * 0.37)
+  add(0.05, () => 0)
+  for (const c of [...text]) {
+    const l = c.toLowerCase()
+    chars.push(c)
+    starts.push(t)
+    if (/[aeiouàèéìòù]/.test(l)) add(0.075, voiced(0.5, 4_000))
+    else if (/[mn]/.test(l)) add(0.065, voiced(0.45, 420))
+    else if (/[ljrvbdgzž]/.test(l)) add(0.065, voiced(0.35, 3_000))
+    else if (/[kptc]/.test(l)) {
+      add(0.06, () => 0)
+      add(0.015, noise(0.1))
+    } else if (/\p{L}/u.test(l)) add(0.07, noise(0.08))
+    else if (l === ',') { if (!o.runThrough) add(0.14, () => 0) }
+    else if (/[.!?…]/.test(l)) add(0.26, () => 0)
+    ends.push(t)
+  }
+  add(0.15, () => 0)
+  const all = new Float32Array(parts.reduce((n, p) => n + p.length, 0))
+  let at = 0
+  for (const p of parts) {
+    all.set(p, at)
+    at += p.length
+  }
+  // a room's floor, about 60 dB under: a real closure is quiet, not digital silence
+  let seed = 7
+  for (let i = 0; i < all.length; i++) {
+    seed = (seed * 1_103_515_245 + 12_345) & 0x7fffffff
+    all[i] += (seed / 0x7fffffff - 0.5) * 0.002
+  }
+  // through a file: a pipe has no gapless header, and the sound would stand 50 ms later than its times
+  const file = join(tmpdir(), `lani-fake-take-${randomUUID()}.mp3`)
+  Bun.spawnSync([ffmpegBin ?? 'ffmpeg', '-hide_banner', '-loglevel', 'error', '-f', 'f32le', '-ar', String(rate), '-ac', '1', '-i', 'pipe:0', '-c:a', 'libmp3lame', '-b:a', '128k', '-f', 'mp3', '-y', file], { stdin: new Uint8Array(all.buffer) })
+  const audio = new Uint8Array(readFileSync(file))
+  unlinkSync(file)
+  return { audio, alignment: { characters: chars, character_start_times_seconds: starts, character_end_times_seconds: ends } }
+}
+
+/**
  * The fake. [o.tones]: a plain take is a real MP3 (a tone, longer for a longer text, at most 6 s), so a phone plays it
  * (the dev bridge); else a tagged one ([mp3]: "el:<voice id>:<text>"), which the smoke checks read back. [o.port]: its
  * port (0: any free one).
@@ -43,6 +110,9 @@ export function fakeEleven(o: { tones?: boolean; port?: number } = {}) {
     delayMs: 0, msPerChar: 0, concurrency: 0, refused: 0, inFlight: 0, maxInFlight: 0,
     // the next [busy] text-to-speech requests refused as over the concurrency whatever is at work (another process's)
     busy: 0,
+    // /with-timestamps says it as speech a cut can read ([speechTake]); [runThrough]: with no pause at a comma; [pitches]: each
+    // take's pitch in turn (the next takes at the default)
+    speech: false, runThrough: false, pitches: [] as number[],
   }
   /** A text-to-speech request at work for its time, within the plan's concurrency: null when it may go on, else the 429. */
   const admit = (): Response | null => {
@@ -110,6 +180,11 @@ export function fakeEleven(o: { tones?: boolean; port?: number } = {}) {
           st.inFlight--
         }
         st.used += body.text.length
+        if (st.speech) {
+          const take = speechTake(body.text, { runThrough: st.runThrough, pitch: st.pitches.shift() })
+          st.takes.push(take.audio)
+          return Response.json({ audio_base64: Buffer.from(take.audio).toString('base64'), alignment: take.alignment, normalized_alignment: take.alignment })
+        }
         // 0.2 s of breath, then 70 ms a character, then 0.4 s
         const chars = [...(st.align === 'other' ? 'Nekaj drugega.' : body.text)] as string[]
         const starts = chars.map((_, i) => Math.round((0.2 + i * 0.07) * 1000) / 1000)

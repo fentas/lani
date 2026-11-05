@@ -6,7 +6,7 @@ import { fail, ok } from '../tool'
 import type { Ctx, FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { cardExamples } from '../cards'
-import { voicedGender } from '../addressee'
+import { addressee, voicedGender } from '../addressee'
 import { baseVoice, cast, isLearnerVoice, isVoice, PERSON_VOICE, personVoice, PLAYER, SPEAKER_ID } from '../cast'
 import { CHOICE, choiceOf, DEFAULT, mineVoice, myVoice, OFF, sampleLine, writeChoice, type MyVoice } from '../my-voice'
 import { cultureArrivals } from '../arrivals'
@@ -18,7 +18,9 @@ import { cultureStepFiles, stepTellings } from '../project-steps'
 import { cultureCelebrationFiles, partyTellings } from '../celebrations'
 import { readISpy } from '../ispy'
 import { localDate } from '../rhythm'
-import { corpus, EXPLANATION_CHARS, fileUrl, LINE_CHARS, voiceInstructionsFor, type CorpusItem, type Redo, type VoiceStore } from '../voice'
+import { NameCatalogue, PROBE_NAME } from '../name-lines'
+import { nameSettings, NameStore } from '../name-store'
+import { corpus, EXPLANATION_CHARS, fileUrl, LINE_CHARS, TURN, voiceInstructionsFor, type CorpusItem, type Redo, type VoiceStore } from '../voice'
 
 // voice: a speaker of the cast (female, male, grandma, …), someone's own voice ("@micka"), or the learner's ("player":
 // their own lines in a dialog, in the cast's `player` for their gender); an unknown one is a 400, so the app tries its
@@ -101,6 +103,15 @@ function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learne
     .filter(i => !i.lang)
 }
 
+/** How long a catalogue of the content's name lines stands before a text it doesn't know has it read again (content is published). */
+const CATALOGUE_MS = 10 * 60_000
+
+/** The name lines of this village's content ([NameCatalogue]): its texts as they are said to a man and to a woman with a name no text has. */
+function nameCatalogue(ctx: Ctx, language: string): NameCatalogue {
+  const said = (gender: string) => voiceCorpus({ ...ctx, addressee: () => addressee({ name: PROBE_NAME, gender }, language) }).map(i => i.text)
+  return new NameCatalogue(language, said('male'), said('female'))
+}
+
 // the learner's choice of their own voice ("Moj glas · My voice"): one of the voices offered them, "off" or "default"
 const choiceIn = z.object({ voice: z.string().regex(CHOICE, 'a voice offered, "off" or "default"') })
 // a voice offered, to hear its sample (its ▶)
@@ -124,6 +135,17 @@ function myVoiceBody(m: MyVoice, sample: string, language: string) {
 export const voice: FeatureFactory = ctx => {
   const { voice, profiles, outbox } = ctx
   const language = ctx.culture.manifest?.language ?? 'sl'
+  // lines with the learner's name, from shared pieces (name-store.ts): off unless the node sets LANI_VOICE_NAMES. Read when
+  // the first name line is asked for, and again a while after: the tutor publishes content
+  let catalogue: { of: NameCatalogue; at: number } | undefined
+  const names = new NameStore(voice, {
+    settings: nameSettings(),
+    log: ctx.log,
+    catalogue: () => {
+      if (!catalogue || Date.now() - catalogue.at > CATALOGUE_MS) catalogue = { of: nameCatalogue(ctx, language), at: Date.now() }
+      return catalogue.of
+    },
+  })
   // the learner's own voice: their choice (learner-profile.json preferences.my_voice), else the default of their gender
   // (the profile's learner.gender; the female one's while it says none) and age (the profile's child flag, LANI_CHILD)
   const mine = () => myVoice({ gender: voicedGender(ctx.addressee()), child: ctx.profile.child, choice: choiceOf(ctx.cfg.dataDir) })
@@ -186,6 +208,12 @@ export const voice: FeatureFactory = ctx => {
       const had = voice.best(voice.normOf(text, lang), v)
       // a character's local clip: in the speaker's ElevenLabs voice now when it can be (the lazy re-voice's daily cap,
       // never the reserve), so the day's clips got ready ahead are hers; the local clip when it can't
+      // a line with the learner's name: from shared pieces when the node builds them so, within their characters a day
+      const named = !had && asked !== PLAYER && !isLearnerVoice(v) ? await names.line(text, v, ctx.addressee(), TURN.background) : undefined
+      if (named && named.say !== 'before') {
+        clips.push(named.say === 'joined' ? { text, voice: asked, url: named.url, engine: named.engine } : { text, voice: asked, url: null })
+        continue
+      }
       const up = had && voice.wantsElevenLabsVoice(had) ? await voice.upgradeLocal(had) : undefined
       // not live: ElevenLabs only above the reserve, then the local worker (never for an explanation); nothing new over
       // the day's cap
@@ -218,7 +246,7 @@ export const voice: FeatureFactory = ctx => {
     },
     instructions: voiceInstructionsFor(language),
     routes: [
-      { method: 'GET', path: '/voice/index', access: 'any', areas: ['content'], handle: () => json(voice.index()) },
+      { method: 'GET', path: '/voice/index', access: 'any', areas: ['content'], handle: () => json(names.withLines(voice.index())) },
       {
         method: 'GET',
         path: /^\/voice\/file\/([^/]+)$/,
@@ -232,6 +260,27 @@ export const voice: FeatureFactory = ctx => {
           return new Response(Bun.file(p), {
             headers: { 'content-type': 'audio/mpeg', 'x-content-type-options': 'nosniff', 'cache-control': 'private, max-age=31536000, immutable' },
           })
+        },
+      },
+      // A line joined from shared pieces (name-store.ts). Its manifest for an app that joins it itself; for any other one the
+      // finished file, under a name like any clip's, which is what an older app asks for.
+      {
+        method: 'GET',
+        path: /^\/voice\/line\/([a-f0-9]{40})\.json$/,
+        access: 'any',
+        handle: ({ params: [id] }) => {
+          const m = names.phone(id)
+          return m ? json(m) : json({ error: 'not found' }, 404)
+        },
+      },
+      {
+        method: 'GET',
+        path: /^\/voice\/line\/([a-f0-9]{40})\.mp3$/,
+        access: 'any',
+        handle: async ({ params: [id] }) => {
+          const p = await names.finished(id)
+          if (!p) return json({ error: 'not found' }, 404)
+          return new Response(Bun.file(p), { headers: { 'content-type': 'audio/mpeg', 'x-content-type-options': 'nosniff', 'cache-control': 'private, max-age=31536000, immutable' } })
         },
       },
       {
@@ -253,6 +302,13 @@ export const voice: FeatureFactory = ctx => {
           // path in their voice, a word to three said inside the carrier sentence as a re-record says it, and never in
           // another voice when theirs can't be had now (the app speaks it otherwise)
           const own = r.data.voice === PLAYER || isLearnerVoice(v)
+          // a line of the content with the learner's name: from shared pieces, when the node builds them so; 'phone': the
+          // name can't be voiced, or nothing more may be spent now, and the phone's voice says it, without a word to the learner
+          if (!own && !voice.explains(r.data.lang)) {
+            const named = await names.line(r.data.text, v, ctx.addressee())
+            if (named.say === 'phone') return new Response(null, { status: 204 })
+            if (named.say === 'joined') return json({ url: named.url, voice: baseVoice(v), engine: named.engine })
+          }
           const c = await voice.say(r.data.text, v, r.data.lang, own ? { carrier: true, alone: true } : undefined)
           // the voice the app knows the clip by (a Slovene narrator's in its ElevenLabs voice: the narrator's)
           return c ? json({ url: fileUrl(c.file), voice: baseVoice(c.voice), engine: c.engine }) : new Response(null, { status: 204 })
@@ -266,7 +322,7 @@ export const voice: FeatureFactory = ctx => {
       // (6,000) voiced new a day, the clips there come all the same. A clip made once is reused: a retry is harmless. The
       // day's audio on Wi-Fi asks here too, the next school unit's explanations among it (each with its lang).
       { method: 'POST', path: '/voice/prepare', handle: ({ req }) => handlePrepare(req) },
-      { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), profiles: views().people }) },
+      { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), names: names.stats(), profiles: views().people }) },
       // Everyone's voice: their speaker (their own "@id", else their archetype) and the pitch and pace to play it with.
       { method: 'GET', path: '/voice/profiles', areas: ['content'], handle: () => json(views()) },
       // The learner's own voice ("🗣️ Moj glas · My voice"): the voices offered them (their gender's, their age's), the one
@@ -362,7 +418,7 @@ export const voice: FeatureFactory = ctx => {
         handle: async () => {
           const m = mine()
           const my_voice = { choice: m.choice ?? null, voice: m.option ? `${m.option.id} (${m.option.name})` : null, off: m.off, age: m.age, offered: m.options.map(o => `${o.id} (${o.name})`) }
-          return ok(JSON.stringify({ ...(await voice.status(voiceCorpus(ctx))), my_voice }, null, 2))
+          return ok(JSON.stringify({ ...(await voice.status(voiceCorpus(ctx))), names: names.stats(), my_voice }, null, 2))
         },
       },
     ],
