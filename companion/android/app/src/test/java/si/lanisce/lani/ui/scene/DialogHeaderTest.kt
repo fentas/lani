@@ -30,7 +30,7 @@ import si.lanisce.lani.l10n.bi
 
 /**
  * A dialog's header on the room its title and the translations' chip share, in real text: 180 dp is what a small phone leaves them
- * beside the portrait, the ⋯ and the ✕ (176 in the shots of Primorska's, 182 of Kärnten's). There "Oma Resi wäscht am Bach · …" had 40 dp beside "👁 Übersetzung", thirteen lines of a word
+ * beside the portrait, the ⋯ and the ✕ (about 182 in the shots, read off at 320 dpi). There "Oma Resi wäscht am Bach · …" had 40 dp beside "👁 Übersetzung", thirteen lines of a word
  * or less, and with the keyboard up a typed turn's field was out of sight.
  */
 @RunWith(RobolectricTestRunner::class)
