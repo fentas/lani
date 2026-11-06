@@ -515,4 +515,18 @@ class QaHooksTest {
         QaHooks.handle("show:pond")
         assertNull(QaHooks.show)
     }
+
+    @Test fun `the QA key's hook reaches the audio trial in a debug build, never in a release build`() {
+        var asked = ""
+        QaHooks.handle("audio:trial:qakey", audio = { asked = it })
+        assertEquals("trial:qakey", asked)
+        asked = ""
+        QaHooks.handle("audio:trial:attest", audio = { asked = it })
+        assertEquals("trial:attest", asked)
+        QaHooks.enabled = false
+        asked = ""
+        QaHooks.handle("audio:trial:qakey", audio = { asked = it })
+        QaHooks.handle("audio:trial:attest", audio = { asked = it })
+        assertEquals("a release build ignores both", "", asked)
+    }
 }

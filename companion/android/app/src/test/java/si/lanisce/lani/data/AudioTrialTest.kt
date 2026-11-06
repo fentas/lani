@@ -156,4 +156,15 @@ class AudioTrialTest {
             assertFalse(raw, AudioTrial.endedBy(raw))
         }
     }
+
+    @Test fun `a trial of the library only has no card, start or end, one kept before the tiers is every voice's`() {
+        val now = 1_000_000L
+        val library = AudioTrial(id = "0123456789abcdef0123456789abcdef", status = AudioTrial.ACTIVE, startedAt = now - 1, endsAt = now + 1, days = 14, tier = AudioTrial.LIBRARY)
+        assertEquals(null, library.card(hosted = true, now = now))
+        assertEquals(null, library.copy(status = AudioTrial.ENDED).card(hosted = true, now = now))
+        assertEquals(AudioTrial.Card.START, library.copy(tier = AudioTrial.VOICES).card(hosted = true, now = now))
+        val old = AudioTrial.decode("""{"id":"0123456789abcdef0123456789abcdef","status":"active","startedAt":1,"endsAt":2,"days":14}""")
+        assertEquals(AudioTrial.VOICES, old.tier)
+        assertEquals(library, AudioTrial.decode(library.encode()))
+    }
 }

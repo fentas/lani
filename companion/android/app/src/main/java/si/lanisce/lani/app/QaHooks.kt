@@ -56,7 +56,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   off the phone, as the settings' 🗑️ does; "audio:myvoice:offer" lets "🗣️ Moj glas · My voice" be offered again at the
  *   learner's next line in a dialog, as if they had never chosen (app/MyVoiceController); "audio:trial:url:<url>" gives this
  *   build a voice service (lani.glasUrl's place, kept on the device; a blank goes back to the build's) and asks at once,
- *   "audio:trial:read" asks how the trial stands now, whatever the day (app/AudioTrialController).
+ *   "audio:trial:read" asks how the trial stands now, whatever the day, "audio:trial:attest" enrolls a new key with the voice
+ *   service now and logs its verdict (tag GlasAttest: enrolled and its level, or refused and its reason code; never the
+ *   chain), "audio:trial:qakey" takes Jan's QA key (a key with `app`, attested in the voice service's tiers) from the file
+ *   the QA script put in the app's folder through run-as, never a command line, and "audio:trial:qakey:off" forgets it
+ *   (app/AudioTrialController; data/GlasAttest.kt).
  * - "render:full": the village's map draws its ground whole every frame, as it did before 2026-10-26, instead of keeping its
  *   still picture and drawing only its water anew ([si.lanisce.lani.game.render.VillageRenderer.groundKept]), and paints its
  *   trees every frame instead of keeping their stamps ([si.lanisce.lani.game.render.Stamps.on]): QA measures the two (the

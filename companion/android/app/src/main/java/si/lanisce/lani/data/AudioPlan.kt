@@ -36,17 +36,79 @@ interface VoicePlan {
  */
 object AudioPlan : VoicePlan {
     private val now = MutableStateFlow(AudioTrial())
+    private val attestNow = MutableStateFlow(AttestState())
     private var store: AudioTrialStore? = null
 
     /** The trial as this process knows it; every change is kept on the device at once ([change]). */
     val trial: StateFlow<AudioTrial> get() = now
 
+    /** The attested key as this process knows it (data/GlasAttest.kt); kept on the device at once ([changeAttest]). */
+    val attest: StateFlow<AttestState> get() = attestNow
+
+    /** Where attested keys are made and kept: AndroidKeyStore (a test has its own). */
+    var keys: AttestKeys = AndroidAttestKeys
+
     /** Reads the device's trial, once a process. */
     @Synchronized
     fun open(context: Context) {
         if (store != null) return
-        store = AudioTrialStore(context).also { now.value = it.read() }
+        store = AudioTrialStore(context).also {
+            now.value = it.read()
+            attestNow.value = it.attest()
+        }
+        GlasAuth.onRenew = { changeAttest { a -> if (a.status == AttestState.ENROLLED) a.copy(renew = true) else a } }
+        sign()
     }
+
+    /** Changes the attested key's state and keeps it, in one step; the requests are signed by the key that counts now. */
+    @Synchronized
+    fun changeAttest(how: (AttestState) -> AttestState) {
+        val next = how(attestNow.value)
+        if (next == attestNow.value) return
+        attestNow.value = next
+        store?.writeAttest(next)
+        sign()
+    }
+
+    /** What [GlasAuth] signs with: the enrolled key while it counts, for this voice service. */
+    private fun sign() {
+        val a = attestNow.value
+        GlasAuth.glas = glas
+        GlasAuth.key = if (glas.isNotBlank() && a.attested(System.currentTimeMillis())) runCatching { keys.key(a.alias) }.getOrNull()?.takeIf { it.keyId == a.keyId } else null
+    }
+
+    /** Whether the requests are signed by an attested key now. */
+    val attested: Boolean get() = GlasAuth.key != null
+
+    /**
+     * Enrolls a new key with the voice service, or renews ([renew]) the enrolled one: the outcome kept, the requests signed by
+     * it from now on. Off the main thread: the keystore and the network.
+     */
+    fun enroll(renew: Boolean): Enrolled {
+        val before = attestNow.value
+        val r = GlasEnroll(glas, keys).enroll(before, renew)
+        val at = System.currentTimeMillis()
+        changeAttest { a ->
+            when (r) {
+                is Enrolled.Yes -> r.state
+                is Enrolled.Refused -> {
+                    // a key the old one can't vouch for any more: forget it, the next enrollment is a new install's
+                    if (a.alias.isNotEmpty()) keys.delete(a.alias)
+                    a.refused(r.reason, at, if (r.reason == GlasEnroll.NOT_CONFIGURED) AudioTrial.DAY_MS else AttestState.REFUSED_RETRY_MS)
+                }
+                is Enrolled.NotNow -> a.failedForNow(r.reason, at)
+            }
+        }
+        return r
+    }
+
+    /** QA's hook "audio:trial:qakey" (a debug build): Jan's QA key, a key with `app`; null clears it. Never in a log. */
+    fun qaKey(key: String?) {
+        store?.qaKey = key?.trim()?.takeIf { it.startsWith("glas_") }
+    }
+
+    /** The QA key in force: a debug build's only. */
+    private val qaKey: String? get() = if (BuildConfig.QA) store?.qaKey else null
 
     /** The voice service (Gradle's lani.glasUrl), or QA's in a debug build; empty: no trial, the app as it was. */
     val glas: String get() = ((if (BuildConfig.QA) store?.qaGlas else null) ?: BuildConfig.GLAS_URL).trimEnd('/')
@@ -54,6 +116,7 @@ object AudioPlan : VoicePlan {
     /** QA's hook "audio:trial:url:<url>" (a debug build): the voice service of a build with none; blank: the build's. */
     fun qaGlas(url: String) {
         store?.qaGlas = url.ifBlank { null }
+        sign()
     }
 
     /** Changes the trial and keeps it, in one step: the app, the prefetch and a 403 may all do it at once. */
@@ -66,16 +129,21 @@ object AudioPlan : VoicePlan {
     }
 
     override fun voices(connection: BridgeConfig): BridgeConfig =
-        voices(connection, now.value, glas, L10n.ownPair.target.code, System.currentTimeMillis())
+        voices(connection, now.value, glas, L10n.ownPair.target.code, System.currentTimeMillis(), qaKey)
 
     override fun keepsHeard(connection: BridgeConfig): Boolean =
         keepsHeard(connection, now.value, glas, L10n.ownPair.target.code, System.currentTimeMillis())
 
     override fun ended() = change { it.ended(System.currentTimeMillis()) }
 
-    /** [voices] with all it depends on said: a node's connection stays the node's, whatever the trial's state ([trial]). */
-    fun voices(connection: BridgeConfig, trial: AudioTrial, glas: String, lang: String, now: Long): BridgeConfig {
+    /**
+     * [voices] with all it depends on said: a node's connection stays the node's, whatever the trial's state ([trial]). [qaKey]:
+     * a debug build's QA key (a key with `app`, attested in the voice service's tiers): the voice service's routes with it,
+     * trial or not; a release build never has one ([AudioPlan.qaKey]).
+     */
+    fun voices(connection: BridgeConfig, trial: AudioTrial, glas: String, lang: String, now: Long, qaKey: String? = null): BridgeConfig {
         if (!PhoneTransport.isPhone(connection.baseUrl)) return connection
+        if (qaKey != null && glas.isNotBlank()) return BridgeConfig("${glas.trimEnd('/')}/v1/app/$lang", qaKey)
         return addOn(connection) ?: trial.voices(glas, lang, now) ?: connection
     }
 

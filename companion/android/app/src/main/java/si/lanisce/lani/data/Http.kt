@@ -19,7 +19,9 @@ internal object Http {
      * (phone/PhoneTransport, hosted/HostedRuntime); every other request goes out as before. QA's log of the requests
      * ([NetWatch], off unless QA turns it on) sees both, and so does what each read says of the bridge's areas ([Areas]).
      */
-    private val base = OkHttpClient.Builder().addInterceptor(NetWatch).addInterceptor(Areas).addInterceptor(si.lanisce.lani.hosted.HostedRuntime.transport).build()
+    private val base = OkHttpClient.Builder().addInterceptor(NetWatch).addInterceptor(Areas).addInterceptor(si.lanisce.lani.hosted.HostedRuntime.transport)
+        // the voice service's requests, signed by the attested key while there is one (data/GlasAttest.kt)
+        .addInterceptor(GlasAuth.calls).addNetworkInterceptor(GlasAuth.attempts).build()
 
     val jsonType = "application/json".toMediaType()
 

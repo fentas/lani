@@ -66,4 +66,11 @@ class AudioPlanTest {
         assertFalse(keeps(phone, AudioTrial(status = AudioTrial.CLOSED)))
         assertFalse(keeps(node, active.copy(status = AudioTrial.ENDED)))
     }
+
+    @Test fun `a debug build's QA key, the voice service's routes with it, trial or not, a node's connection stays`() {
+        assertEquals(BridgeConfig("https://glas.example/v1/app/sl", "glas_qa_key"), AudioPlan.voices(phone, AudioTrial(), glas, "sl", now, qaKey = "glas_qa_key"))
+        assertEquals(BridgeConfig("https://glas.example/v1/app/sl", "glas_qa_key"), AudioPlan.voices(phone, active.copy(status = AudioTrial.ENDED), glas, "sl", now, qaKey = "glas_qa_key"))
+        assertEquals(node, AudioPlan.voices(node, active, glas, "sl", now, qaKey = "glas_qa_key"))
+        assertEquals("no voice service, no key's routes", phone, AudioPlan.voices(phone, AudioTrial(), "", "sl", now, qaKey = "glas_qa_key"))
+    }
 }

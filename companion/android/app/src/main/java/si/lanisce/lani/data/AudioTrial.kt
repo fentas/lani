@@ -38,6 +38,12 @@ data class AudioTrial(
     val askAfter: Long = 0,
     /** When the voice service last said how it stands: read again a day later at the soonest. */
     val readAt: Long = 0,
+    /**
+     * [VOICES]: started by an attested install (data/GlasAttest.kt), every voice; [LIBRARY]: started where the phone can't
+     * attest, the voice service's library only and the phone's voice for the rest. A trial kept before there were tiers is
+     * [VOICES], as it was.
+     */
+    val tier: String = VOICES,
 ) {
     /** What the app asks the voice service: to start one, or how the one under way stands. */
     enum class Ask { START, READ }
@@ -85,9 +91,12 @@ data class AudioTrial(
     /** Its date passed: over, whether or not the voice service could say so. */
     fun settled(now: Long): AudioTrial = if (status == ACTIVE && !live(now)) copy(status = ENDED) else this
 
-    /** The card to show on Home, on a learner on this device ([hosted]): once each, what it is, then that it ended. */
+    /**
+     * The card to show on Home, on a learner on this device ([hosted]): once each, what it is, then that it ended. None for a
+     * trial of the library only: never sell what this device can't get (the settings' line says it, quietly).
+     */
     fun card(hosted: Boolean, now: Long): Card? = when {
-        !hosted -> null
+        !hosted || tier == LIBRARY -> null
         live(now) && !startSeen -> Card.START
         status == ENDED && !endSeen -> Card.END
         else -> null
@@ -109,6 +118,8 @@ data class AudioTrial(
         const val ACTIVE = "active"
         const val ENDED = "ended"
         const val CLOSED = "closed"
+        const val VOICES = "voices"
+        const val LIBRARY = "library"
         const val DAY_MS = 24 * 60 * 60_000L
 
         /** What a voice route's 403 says when the trial is over. */
@@ -191,8 +202,23 @@ class AudioTrialStore(context: Context) {
         get() = prefs.getString(QA_GLAS, null)
         set(value) = prefs.edit().putString(QA_GLAS, value).apply()
 
+    /** The attested key's state (data/GlasAttest.kt): on this device only, like the trial. */
+    fun attest(): AttestState = AttestState.decode(prefs.getString(ATTEST, null))
+
+    fun writeAttest(a: AttestState) = prefs.edit().putString(ATTEST, a.encode()).apply()
+
+    /**
+     * QA's hook "audio:trial:qakey" (a debug build): Jan's QA key for the voice service, a key with `app` (counts as attested).
+     * Read only in a debug build ([AudioPlan.qaKey]); never in a log.
+     */
+    var qaKey: String?
+        get() = prefs.getString(QA_KEY, null)
+        set(value) = prefs.edit().putString(QA_KEY, value).apply()
+
     private companion object {
         const val TRIAL = "trial"
         const val QA_GLAS = "qa_glas"
+        const val ATTEST = "attest"
+        const val QA_KEY = "qa_glas_key"
     }
 }
