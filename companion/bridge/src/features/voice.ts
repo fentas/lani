@@ -281,7 +281,8 @@ export const voice: FeatureFactory = ctx => {
     },
     instructions: voiceInstructionsFor(language),
     routes: [
-      { method: 'GET', path: '/voice/index', access: 'any', areas: ['content'], handle: () => json(names.withLines(voice.index())) },
+      // a clip of a line with a name no voice may say (made before the check) is left out: the app asks, and the phone says it
+      { method: 'GET', path: '/voice/index', access: 'any', areas: ['content'], handle: () => json(names.unsaid(names.withLines(voice.index()), ctx.addressee())) },
       {
         method: 'GET',
         path: /^\/voice\/file\/([^/]+)$/,

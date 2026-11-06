@@ -159,9 +159,14 @@ const content = (s: string) => s.replace(/"commit": ?("[0-9a-f]*"|null)/g, '"com
 const stale = files.filter(([p, s]) => !existsSync(p) || content(readFileSync(p, 'utf8')) !== content(s))
 const entries = data.lists.reduce((n, l) => n + l.entries.length, 0)
 const summary = `${data.lists.length} lists (${entries.toLocaleString('en-US')} entries), ${touched.length} of ${given.length.toLocaleString('en-US')} given names, ${readKeep(keepText).length} kept; ${rows.length.toLocaleString('en-US')} probes: ${count('invalid')} invalid, ${count('blocked')} blocked, ${count('known')} known, ${count('unknown')} unknown`
+// NOTICE.md names the pinned sources by their commits: a pin moved on is a row to change by hand
+const noticeMd = readFileSync(resolve(bridge, '../../NOTICE.md'), 'utf8')
+const pins = (['ldnoobw', 'profane-words'] as const).map(k => (sources[k] as { commit?: string } | undefined)?.commit?.slice(0, 7)).filter((c): c is string => !!c)
+const unnamed = pins.filter(c => !noticeMd.includes(`\`${c}\``))
+if (unnamed.length) console.error(`NOTICE.md doesn't name the pinned commit${unnamed.length > 1 ? 's' : ''} ${unnamed.join(', ')}: change its rows for the name check's lists`)
 if (values.check) {
-  if (stale.length) {
-    console.error(`names-sync --check: the bridge's copy is not glas's at ${commit?.slice(0, 7) ?? 'its checkout'}: ${stale.map(([p]) => p.slice(bridge.length + 1)).join(', ')}. Run companion/bin/names-sync ${positionals[0]}`)
+  if (stale.length || unnamed.length) {
+    if (stale.length) console.error(`names-sync --check: the bridge's copy is not glas's at ${commit?.slice(0, 7) ?? 'its checkout'}: ${stale.map(([p]) => p.slice(bridge.length + 1)).join(', ')}. Run companion/bin/names-sync ${positionals[0]}`)
     process.exit(1)
   }
   console.log(`The bridge's copy is glas's at ${commit?.slice(0, 7) ?? 'its checkout'}: ${summary}.`)

@@ -218,6 +218,20 @@ export async function visitVoiceChecks(jan: Town, mia: Town, luka: Town) {
   // a word no section voiced before (the host has none of it)
   const word = await (await say(mia, jan, { text: 'brumbrumček', voice: 'female' })).json()
   check("visit voices: … a lone word of the female narrator in her local voice for words (ana)", word.from === 'node' && visitGepard.st.calls.some((c: any) => c.text === 'brumbrumček' && c.speaker === 'ana'), { word, calls: visitGepard.st.calls.slice(-2) })
+  // a line with the visitor's own name, while the name check refuses it (src/name-check.ts): voiced by no engine of her node
+  {
+    const profile = join(mia.data, 'learner-profile.json')
+    const was = readFileSync(profile, 'utf8')
+    const p = JSON.parse(was)
+    writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, name: 'Kurba' } }, null, 2))
+    const e0 = visitEleven.st.tts.length
+    const g0 = visitGepard.st.calls.length
+    const named = await say(mia, jan, { text: 'Lepo, da si spet tu, Kurba.', voice: 'grandma' })
+    await Bun.sleep(5)
+    writeFileSync(profile, was)
+    check("visit voices: … a line with the visitor's name, which the name check refuses: no engine of her node voices it (204, the phone says it)",
+      named.status === 204 && visitEleven.st.tts.length === e0 && visitGepard.st.calls.length === g0, { status: named.status, sent: visitEleven.st.tts.length - e0, local: visitGepard.st.calls.slice(g0) })
+  }
 
   // --- kept clips checked against the host again (Mia's node: about a second instead of a day and a week) --------------
   // the line voiced on her node: Jan's town makes its own take of it later; once its time came, the next time it is

@@ -275,6 +275,11 @@ async function store(check: Check) {
     v.vs.enqueue([{ text: 'Dobro jutro, Kurba.', voice: 'grandma', source: 'scene:test', priority: 1 }])
     check('store: the voice store makes no take of a text with a refused name: a line, a live line, a re-record, a publish\'s lines', c === null && said === null && redo.status === 'failed' && v.vs.queued === 0 && v.fe.st.tts.length === 0, { c, said, redo, queued: v.vs.queued })
     check('store: … and any other text as ever', !!(await v.vs.voice('Lahko noč, Jan.', 'grandma', 'scene:test')) && v.fe.st.tts.length === 1)
+    const { normalizeText } = await import('../src/family')
+    const idx = Object.fromEntries(['Lahko noč, Kurba.', 'Sveža voda za Kurbo.', 'Lahko noč, Jan.'].map((t, i) => [normalizeText(t), { grandma: `/voice/file/${i}.mp3` }]))
+    const svinja = addressee({ name: 'Kurba-Svinja', gender: 'female' })
+    const hyphened = { [normalizeText('Dober dan, Kurba-Svinja!')]: { grandma: '/voice/file/h.mp3' } }
+    check("store: a clip made before of a line with a refused name is left out of the app's index, the rest as ever", Object.keys(v.ns.unsaid(idx, kurba)).join() === normalizeText('Lahko noč, Jan.') && v.ns.unsaid(idx, jan) === idx && !Object.keys(v.ns.unsaid(hyphened, svinja)).length, v.ns.unsaid(idx, kurba))
   }
 
   // no learner in the log, not even a name

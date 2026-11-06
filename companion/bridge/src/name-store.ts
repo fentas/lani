@@ -666,6 +666,20 @@ export class NameStore {
     return index
   }
 
+  /**
+   * [index] without the texts that say [a]'s name while no voice may say it ([refusal]): a clip of one made before stays in the
+   * store, but the app isn't given it, asks for the line, and the phone says it.
+   */
+  unsaid<T extends Record<string, Record<string, string>>>(index: T, a: Addressee): T {
+    if (!this.refusal(a)) return index
+    // the index is keyed by the normalized text, so the name and its forms are looked for normalized ("Jean-Luc" as "jeanluc")
+    const name = normalizeText(a.name)
+    const forms = Object.fromEntries(Object.entries(a.forms).map(([k, f]) => [k, normalizeText(f)]))
+    const out: Record<string, Record<string, string>> = {}
+    for (const [norm, clips] of Object.entries(index)) if (!saysName(norm, name, forms)) out[norm] = clips
+    return out as T
+  }
+
   /** What the store holds of name lines, for voice_status. */
   stats() {
     if (!this.o.settings.on) return { on: false }
