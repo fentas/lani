@@ -4713,7 +4713,8 @@ screens say "☁️ Lani na tej napravi · Lani on this device". The bridge runs
   AndroidKeyStore (never exportable; the TEE) with the challenge attached, and enrolls it: the key's certificate chain, the
   request signed by the key. From then on every request to the service's voice routes and its trial is signed by that key
   (`GlasAuth`, in the shared HTTP client: per attempt, with the service's time, an Idempotency-Key per call), and a new key,
-  vouched for by the old one, is enrolled before the enrollment ends. Where the phone can't attest (an emulator, an unlocked
+  vouched for by the old one, is enrolled before the enrollment ends. A key whose answer was lost is kept and asked about
+  first the next time (`GET /v1/app/attest`), so a renewal the service took is never lost. Where the phone can't attest (an emulator, an unlocked
   or old phone, the service refusing) the trial is the library's only: the clips the service has, the phone's voice for the
   rest, no card on Home and no error; the settings' line says it once, quietly. A passing failure (no network, remote keys not
   provisioned yet) is tried again later, more slowly, and starts no trial, so none is used up. The service keeps a hash of

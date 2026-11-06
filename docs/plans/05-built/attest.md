@@ -40,6 +40,12 @@ real bound.
    challenge (Android attaches a challenge only when a key is made) and enrolls it naming the old key, which signs the same
    request: the install, and with it the trial's counters, carries over, and the old key is deleted. A key lost to a backup
    restored onto a new phone isn't there: the app enrolls again as a new install.
+7. A lost answer: the service commits an enrollment before it answers, so the answer can be lost after the fact (a dropped
+   connection, a proxy's 502). The app keeps the new key until it has a definite answer (a 4xx with a code); with none, a 5xx
+   or a 429 it keeps it, and the next try first asks the service about it (`GET /v1/app/attest`, signed by that key): enrolled,
+   it is taken on with the service's own dates and the install goes on; unknown, it is forgotten and the try goes on as it would
+   have. An old key that has vouched already is answered `previous_renewed`, and the app then starts again as a new install
+   rather than refuse itself.
 
 ## Where the phone can't attest
 
