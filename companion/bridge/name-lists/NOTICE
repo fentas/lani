@@ -1,0 +1,30 @@
+The name check's lists (companion/bridge/name-lists/) are copied from the voice service's (glas: library/names/) by
+companion/bin/names-sync. Its notice, as glas has it:
+
+The name check's lists (blocklist.json.gz, given-names.txt.gz) are built by src/tools/names-data.ts from these sources, at the
+revisions and on the date in sources.json.
+
+List of Dirty, Naughty, Obscene, and Otherwise Bad Words
+  https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words
+  By its contributors (the list was started at Shutterstock). Licensed under the Creative Commons Attribution 4.0 International
+  licence (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+  Used unchanged: each language's list as published, in blocklist.json.gz under "ldnoobw:<language>".
+
+profane-words
+  https://github.com/zautumnz/profane-words
+  By zautumnz and contributors. Licensed under the WTFPL: http://www.wtfpl.net/
+  Used unchanged: words.json, in blocklist.json.gz under "profane-words".
+
+Wikidata
+  https://www.wikidata.org, queried through QLever (https://qlever.dev/wikidata, University of Freiburg)
+  Wikidata's structured data is available under Creative Commons CC0 1.0 (public domain dedication).
+  The labels of the male, female and unisex given name items, in given-names.txt.gz.
+
+Sloleks 3.0, the morphological lexicon of Slovene
+  http://hdl.handle.net/11356/1745
+  Licensed under Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0):
+  https://creativecommons.org/licenses/by-sa/4.0/
+  Used to expand the Slovene entries of lani.txt to their written forms (sl-forms.json, and blocklist.json.gz under "lani:sl"). Those forms, as an
+  adaptation of Sloleks, are under CC BY-SA 4.0.
+
+lani.txt and keep.txt are Lani's own.

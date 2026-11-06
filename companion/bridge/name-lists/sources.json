@@ -1,0 +1,57 @@
+{
+  "glas": {
+    "commit": "1aac6f46ab656c6b462795ee74df680c2ddf42ce",
+    "date": "2026-11-06",
+    "given_listed": 711,
+    "given_names": 98492
+  },
+  "ldnoobw": {
+    "repo": "LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words",
+    "commit": "5faf2ba42d7b1c0977169ec3611df25a3c08eb13",
+    "date": "2020-07-13",
+    "licence": "CC BY 4.0",
+    "url": "https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/tree/5faf2ba42d7b1c0977169ec3611df25a3c08eb13",
+    "languages": 28
+  },
+  "profane-words": {
+    "repo": "zautumnz/profane-words",
+    "commit": "4b08ea9d645c2211f46ef631a6badd094547b145",
+    "date": "2026-03-08",
+    "licence": "WTFPL",
+    "file": "words.json",
+    "url": "https://github.com/zautumnz/profane-words/tree/4b08ea9d645c2211f46ef631a6badd094547b145",
+    "entries": 2725
+  },
+  "wikidata": {
+    "endpoint": "https://qlever.dev/api/wikidata",
+    "licence": "CC0 1.0",
+    "classes": {
+      "Q12308941": "male given name",
+      "Q11879590": "female given name",
+      "Q3409032": "unisex given name"
+    },
+    "query": "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nSELECT DISTINCT ?name WHERE {\n  VALUES ?class { wd:Q12308941 wd:Q11879590 wd:Q3409032 }\n  ?item wdt:P31 ?class .\n  ?item rdfs:label ?label .\n  BIND(STR(?label) AS ?name)\n}",
+    "date": "2026-11-06",
+    "index": "Complete Wikidata, TTL from https://dumps.wikimedia.org/wikidatawiki/entities (latest-all.ttl.bz2 from 10.08.2026 munged, latest-lexemes.ttl.bz2 from 07.08.2026), updated LIVE",
+    "names": 98492
+  },
+  "lani": {
+    "entries": {
+      "*": 71,
+      "en": 234,
+      "de": 134,
+      "it": 141,
+      "sl": 174,
+      "hr": 56
+    },
+    "slovene": {
+      "expandedWith": {
+        "name": "Sloleks 3.0",
+        "url": "http://hdl.handle.net/11356/1745",
+        "licence": "CC BY-SA 4.0"
+      },
+      "inSloleks": 137,
+      "forms": 1596
+    }
+  }
+}
