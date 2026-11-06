@@ -51,12 +51,12 @@ class GlasAttestTest {
 
     @Test fun `the canonical request is glas's, line for line`() {
         // the same vector as glas's test/attest.test.ts would sign (src/attest/request.ts)
-        val c = GlasRequest.canonical("glas.lani.team", "ab".repeat(32), "post", "/v1/app/sl/voice/say?x=1", 1_762_430_000_000, "nonce-0123456789ab", "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
+        val c = GlasRequest.canonical("glas.example", "ab".repeat(32), "post", "/v1/app/sl/voice/say?x=1", 1_762_430_000_000, "nonce-0123456789ab", "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
         assertEquals(
-            "glas-request/1\nglas.lani.team\n${"ab".repeat(32)}\nPOST\n/v1/app/sl/voice/say?x=1\n1762430000000\nnonce-0123456789ab\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "glas-request/1\nglas.example\n${"ab".repeat(32)}\nPOST\n/v1/app/sl/voice/say?x=1\n1762430000000\nnonce-0123456789ab\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
             c,
         )
-        assertEquals("glas.lani.team", GlasRequest.audience("https://glas.lani.team"))
+        assertEquals("glas.example", GlasRequest.audience("https://glas.example"))
         assertEquals("10.0.2.2:11340", GlasRequest.audience("http://10.0.2.2:11340"))
         assertEquals("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", GlasRequest.sha256hex(ByteArray(0)))
     }
