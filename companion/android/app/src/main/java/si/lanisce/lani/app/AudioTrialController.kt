@@ -119,7 +119,7 @@ class AudioTrialController(
         if (!BuildConfig.QA) return
         when (r) {
             is Enrolled.Yes -> Log.i(ATTEST_TAG, "verdict=enrolled level=${r.level} key=${r.state.keyId.take(8)}")
-            is Enrolled.Refused -> Log.i(ATTEST_TAG, "verdict=refused reason=${r.reason}")
+            is Enrolled.Refused -> Log.i(ATTEST_TAG, "verdict=refused reason=${r.reason}${r.root?.let { " root=$it" } ?: ""}")
             is Enrolled.NotNow -> Log.i(ATTEST_TAG, "verdict=later reason=${r.reason}")
         }
     }

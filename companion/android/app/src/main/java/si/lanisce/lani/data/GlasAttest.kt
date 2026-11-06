@@ -212,7 +212,8 @@ object AndroidAttestKeys : AttestKeys {
 /** What an enrollment came to: enrolled, refused for good (with glas's reason code), or not now. */
 sealed interface Enrolled {
     data class Yes(val state: AttestState, val level: String) : Enrolled
-    data class Refused(val reason: String) : Enrolled
+    /** [root]: for a debug build's log, the chain's root as "<subject> <pin>" (shared by every phone of its kind), or null. */
+    data class Refused(val reason: String, val root: String? = null) : Enrolled
     data class NotNow(val reason: String) : Enrolled
 }
 
@@ -283,7 +284,7 @@ class GlasEnroll(private val glas: String, private val keys: AttestKeys = Androi
                 val reason = errorOf(answer, "reason") ?: errorOf(answer) ?: "http:$status"
                 // 403 attestation_refused is this phone's answer; anything else (a stale clock, a challenge gone, the service
                 // unavailable or out of reach) passes
-                if (status == 403) Enrolled.Refused(reason) else Enrolled.NotNow(reason)
+                if (status == 403) Enrolled.Refused(reason, rootOf(chain)) else Enrolled.NotNow(reason)
             }
         }
     }
@@ -300,6 +301,15 @@ class GlasEnroll(private val glas: String, private val keys: AttestKeys = Androi
     companion object {
         /** The service attests no app (neither GLAS_APP_SIGNERS nor GLAS_IOS_APP_IDS set). */
         const val NOT_CONFIGURED = "not_configured"
+
+        /**
+         * The chain's root, "<subject> <SHA-256 of its public key, hex>": the pin a root is known by on the service (its
+         * `glas attest-pin`). Every phone of its kind has the same; for a debug build's log only.
+         */
+        fun rootOf(chain: List<ByteArray>): String? = runCatching {
+            val c = java.security.cert.CertificateFactory.getInstance("X.509").generateCertificate(chain.last().inputStream()) as java.security.cert.X509Certificate
+            "${c.subjectX500Principal.name} ${GlasRequest.sha256hex(c.publicKey.encoded)}"
+        }.getOrNull()
     }
 
     private fun errorOf(raw: String, field: String = "code"): String? = runCatching {
