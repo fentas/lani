@@ -26,27 +26,8 @@ import java.util.Base64
  * signed and when, the enrollment's outcomes, the backoff, and what is never signed.
  */
 class GlasAttestTest {
-    /** Keys made in software, as a test's AndroidKeyStore: the same ECDSA P-256 over SHA-256 in DER. */
-    private class SoftKeys : AttestKeys {
-        val pairs = mutableMapOf<String, KeyPair>()
-        var fail: Exception? = null
-        override fun create(alias: String, challenge: ByteArray): List<ByteArray> {
-            fail?.let { throw it }
-            pairs[alias] = KeyPairGenerator.getInstance("EC").apply { initialize(ECGenParameterSpec("secp256r1")) }.generateKeyPair()
-            // a chain's place: glas checks it, not the app
-            return listOf("leaf for ".toByteArray() + challenge, "root".toByteArray())
-        }
-        override fun key(alias: String): AttestKey? = pairs[alias]?.let { p ->
-            object : AttestKey {
-                override val keyId = GlasRequest.sha256hex(p.public.encoded)
-                override fun sign(message: ByteArray): ByteArray = Signature.getInstance("SHA256withECDSA").run { initSign(p.private); update(message); sign() }
-            }
-        }
-        override fun delete(alias: String) { pairs.remove(alias) }
-    }
-
     private lateinit var server: MockWebServer
-    private val keys = SoftKeys()
+    private val keys = SoftAttestKeys()
 
     @Before fun up() {
         server = MockWebServer().apply { start() }
@@ -105,7 +86,7 @@ class GlasAttestTest {
     }
 
     @Test fun `a renewal, the old key signs the same request, and goes`() {
-        val old = SoftKeys().also { it.create("old", ByteArray(1)) }
+        val old = SoftAttestKeys().also { it.create("old", ByteArray(1)) }
         keys.pairs["old"] = old.pairs["old"]!!
         val oldId = keys.key("old")!!.keyId
         server.enqueue(MockResponse().setBody("""{"challenge":"${Base64.getUrlEncoder().withoutPadding().encodeToString(ByteArray(32))}"}"""))

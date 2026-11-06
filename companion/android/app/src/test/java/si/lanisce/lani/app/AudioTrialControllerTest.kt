@@ -18,11 +18,18 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
+import si.lanisce.lani.data.AttestState
 import si.lanisce.lani.data.AudioPlan
 import si.lanisce.lani.data.AudioTrial
+import si.lanisce.lani.data.GlasAuth
+import si.lanisce.lani.data.SoftAttestKeys
 import java.time.Instant
 
-/** When the trial is asked about: on this device with a voice service only, once, silently (data/AudioTrial.kt). */
+/**
+ * When the trial is asked about: on this device with a voice service only, once, silently (data/AudioTrial.kt); and before it
+ * starts, this install's key enrolled (data/GlasAttest.kt): attested, every request signed; refused, the library's trial with
+ * the install's token and no card; a passing failure, no start at all.
+ */
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [35])
 class AudioTrialControllerTest {
@@ -33,6 +40,16 @@ class AudioTrialControllerTest {
     private var hosted = true
     private var url = ""
     private var changed = 0
+    private val keys = SoftAttestKeys()
+    /** How the voice service answers an enrollment; [challenges]: how often it was asked for one. */
+    private var enroll = MockResponse().setBody(enrolled())
+    private var challenge = MockResponse().setBody("""{"challenge":"${"A".repeat(43)}","expires_at":"2030-01-01T00:00:00Z"}""")
+    private val challenges = java.util.concurrent.atomic.AtomicInteger()
+
+    private fun enrolled(): String {
+        val now = Instant.now()
+        return """{"status":"enrolled","key_id":"k","install":"i","expires_at":"${now.plusSeconds(30 * 86_400)}","renew_after":"${now.plusSeconds(23 * 86_400)}","level":"tee","renewed":false}"""
+    }
 
     private fun active(days: Long): String {
         val now = Instant.now()
@@ -40,20 +57,32 @@ class AudioTrialControllerTest {
     }
 
     @Before fun start() {
+        AudioPlan.open(ctx)
+        AudioPlan.keys = keys
         AudioPlan.change { AudioTrial() }
+        AudioPlan.changeAttest { AttestState() }
         glas.dispatcher = object : Dispatcher() {
-            override fun dispatch(request: RecordedRequest): MockResponse {
-                asks += request
-                return answer.clone()
+            override fun dispatch(request: RecordedRequest): MockResponse = when (request.path) {
+                "/v1/app/attest/challenge" -> challenge.clone().also { challenges.incrementAndGet() }
+                // the enrollment's own key id, as the voice service answers it
+                "/v1/app/attest" -> enroll.clone().apply { setBody(getBody()!!.readUtf8().replace("\"key_id\":\"k\"", "\"key_id\":\"${request.getHeader("X-Glas-Key")}\"")) }
+                else -> {
+                    asks += request
+                    answer.clone()
+                }
             }
         }
         glas.start()
         url = glas.url("/").toString().trimEnd('/')
+        // the voice service the requests are signed for: this one (AudioPlan.glas, as a debug build's QA sets it)
+        AudioPlan.qaGlas(url)
     }
 
     @After fun stop() {
         glas.shutdown()
         AudioPlan.change { AudioTrial() }
+        AudioPlan.changeAttest { AttestState() }
+        AudioPlan.qaGlas("")
     }
 
     private fun controller() = AudioTrialController(ctx, MainScope(), hosted = { hosted }, glas = { url }) { changed++ }
@@ -103,7 +132,10 @@ class AudioTrialControllerTest {
         val id = AudioPlan.trial.value.id
         assertTrue(id, Regex("[0-9a-f]{32}").matches(id))
         assertEquals("POST /v1/trial HTTP/1.1", asks[0].requestLine)
-        assertEquals("Bearer lani_$id", asks[0].getHeader("Authorization"))
+        assertEquals("enrolled first", 1, challenges.get())
+        assertNull("signed, no token", asks[0].getHeader("Authorization"))
+        assertEquals(AudioPlan.attest.value.keyId, asks[0].getHeader("X-Glas-Key"))
+        assertEquals(AudioTrial.VOICES, AudioPlan.trial.value.tier)
         assertEquals(1, changed)
         assertEquals(AudioTrial.Card.START, c.card)
         assertTrue(c.said)
@@ -202,5 +234,38 @@ class AudioTrialControllerTest {
         c.seen(AudioTrial.Card.END)
         until("closed") { c.card == null }
         assertTrue("the settings still say it", c.said)
+    }
+
+    @Test fun `a phone the voice service refuses gets the library's trial, with its token and no card`() {
+        enroll = MockResponse().setResponseCode(403).setBody("""{"error":{"code":"attestation_refused","reason":"bootloader_unlocked"}}""")
+        val c = controller()
+        c.check()
+        until("started") { c.state.status == AudioTrial.ACTIVE }
+        assertEquals(AttestState.REFUSED, AudioPlan.attest.value.status)
+        assertEquals("bootloader_unlocked", AudioPlan.attest.value.reason)
+        val id = AudioPlan.trial.value.id
+        assertEquals("Bearer lani_$id", asks[0].getHeader("Authorization"))
+        assertNull(asks[0].getHeader("X-Glas-Key"))
+        assertEquals(AudioTrial.LIBRARY, c.state.tier)
+        assertNull("never sold", c.card)
+        assertTrue("the settings say it", c.said)
+        assertTrue("nothing kept of the key", keys.pairs.isEmpty())
+    }
+
+    @Test fun `a passing failure starts nothing, and is tried again`() {
+        enroll = MockResponse().setResponseCode(503).setBody("""{"error":{"code":"unavailable","reason":"status_unavailable"}}""")
+        val c = controller()
+        c.check()
+        until("tried") { AudioPlan.attest.value.failures == 1 }
+        settle()
+        assertEquals("no trial started", 0, asks.size)
+        assertEquals(AudioTrial.NONE, c.state.status)
+        assertEquals(AttestState.NONE, AudioPlan.attest.value.status)
+        enroll = MockResponse().setBody(enrolled())
+        AudioPlan.changeAttest { it.copy(nextTry = 0) }
+        c.check(again = true)
+        until("started") { c.state.status == AudioTrial.ACTIVE }
+        assertEquals(AudioTrial.VOICES, c.state.tier)
+        assertTrue(GlasAuth.key != null)
     }
 }
