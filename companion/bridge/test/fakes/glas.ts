@@ -17,12 +17,14 @@ export type FakeGlasState = {
   voices: Record<string, string>
   /** The names the fake's library has. */
   names: Set<string>
+  /** Names its check refuses: name → the code (`blocked_name`, `name_review` …). */
+  refuseNames: Map<string, string>
   calls: { path: string; body?: Record<string, unknown>; items?: Record<string, unknown>[] }[]
   downloads: number
 }
 
 export function fakeGlas(o: { bytes: (text: string) => Uint8Array }) {
-  const st: FakeGlasState = { clips: new Map(), imported: new Set(), generate: true, voices: {}, names: new Set(), calls: [], downloads: 0 }
+  const st: FakeGlasState = { clips: new Map(), imported: new Set(), generate: true, voices: {}, names: new Set(), refuseNames: new Map(), calls: [], downloads: 0 }
   const of = (i: Record<string, unknown>) => `${normalizeText(String(i.text))}|${i.voice}`
   const result = (url: string, i: Record<string, unknown>) => {
     if (st.refuse) return { status: 'rejected', error: { code: st.refuse.code, message: 'refused' } }
@@ -57,7 +59,15 @@ export function fakeGlas(o: { bytes: (text: string) => Uint8Array }) {
       if (u.pathname === '/v1/usage') return Response.json({ key: { scopes: ['read-shared', ...(st.generate ? ['generate'] : [])] } })
       if (u.pathname === '/v1/clips/resolve') return Response.json({ items: (body!.items as Record<string, unknown>[]).map(i => result(url, i)) })
       if (u.pathname === '/v1/clips/say') return Response.json(result(url, body!))
-      if (u.pathname === '/v1/names/resolve') return Response.json({ items: (body!.items as { name: string }[]).map((i, index) => ({ index, status: st.names.has(i.name) ? 'ready' : 'missing' })) })
+      if (u.pathname === '/v1/names/resolve') {
+        return Response.json({
+          items: (body!.items as { name: string }[]).map((i, index) => {
+            const code = st.refuseNames.get(i.name)
+            if (code) return { index, status: 'rejected', error: { code, message: 'refused' } }
+            return { index, status: st.names.has(i.name) ? 'ready' : 'missing' }
+          }),
+        })
+      }
       if (u.pathname === '/v1/names') {
         st.names.add(String(body!.name))
         return Response.json({ status: 'added' })

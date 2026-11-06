@@ -2185,6 +2185,12 @@ export class VoiceStore {
   private revoiceSoon?: ReturnType<typeof setTimeout>
   /** A text not to voice ahead, though the content has it: it says a name that may not be voiced (name-store.ts). */
   holdBack?: (text: string) => boolean
+  /**
+   * A text no engine may voice: it says the learner's name, which the name check or the voice service refuses (name-store.ts).
+   * Asked before every take this store would pay for, whoever asks: nothing is made, a clip there stays as it is, and the phone
+   * says the text.
+   */
+  withhold?: (text: string) => boolean
   private denoiser?: Denoiser | null
   private noDenoiserLogged = false
   private levelling?: Leveller | null
@@ -2338,6 +2344,15 @@ export class VoiceStore {
   get monthly(): number | undefined { return this.o.monthly }
 
   get engines() { return this.o.engines }
+
+  /** Whether [text] may not be voiced now ([withhold]); a check that fails holds it back. */
+  private withheld(text: string): boolean {
+    try {
+      return !!this.withhold?.(text)
+    } catch {
+      return true
+    }
+  }
 
   /** The ElevenLabs engine, when the store has one. */
   get eleven(): ElevenLabs | undefined {
@@ -2672,6 +2687,8 @@ export class VoiceStore {
     if (busy) return busy
     const job = (async () => {
       const t = text.trim()
+      // a name no voice may say: nothing is made, the phone says it
+      if (this.withheld(t)) return have ?? null
       for (const e of this.o.engines) {
         if (opt.engines && !engineIn(e.name, opt.engines)) continue
         if (waits && !engineIn(e.name, ['elevenlabs'])) continue
@@ -2719,6 +2736,7 @@ export class VoiceStore {
     if (busy) return busy
     const job = (async () => {
       const t = text.trim()
+      if (this.withheld(t)) return have ?? null
       for (const name of engines) {
         const e = this.o.engines.find(x => x.name === name)
         if (!e) continue
@@ -2986,7 +3004,7 @@ export class VoiceStore {
   private async remake(c: Clip, count: boolean): Promise<'made' | 'skip' | 'stop'> {
     const el = this.eleven
     if (this.o.readonly || !el || this.running.has(c.key)) return 'stop'
-    if (!elevenlabsOf(c.voice)) return 'skip'
+    if (!elevenlabsOf(c.voice) || this.withheld(c.text)) return 'skip'
     const lang = explanationLang(c.norm)
     // glas first, as for a new clip: what it has costs the node nothing, and nothing counts for the day
     const g = this.glas
@@ -3167,6 +3185,7 @@ export class VoiceStore {
   async redo(text: string, voice: VoiceName): Promise<Redo> {
     const norm = normalizeText(text)
     if (this.o.readonly || !norm || !isVoice(voice)) return { status: 'failed', message: 'nothing to re-record' }
+    if (this.withheld(text)) return { status: 'failed', message: 'this line cannot be re-recorded' }
     const narrator = this.sloveneNarrator(voice)
     // the clip re-recorded: a Slovene narrator's in its Slovene ElevenLabs voice ("female.sl") where that comes first
     const target = narrator && this.elevenlabsFirst(voice) && this.eleven?.configured ? this.slVoiceOf(voice)! : voice
@@ -3270,6 +3289,11 @@ export class VoiceStore {
         // a clip being re-recorded on request right now is not taken up again
         const c = this.lazyQueue().find(q => !skipped.has(q.key) && !this.running.has(q.key) && !this.running.has(clipKey(q.norm, this.slVoiceOf(q.voice) ?? q.voice)))
         if (!c) break
+        // a name no voice may say: left as it is
+        if (this.withheld(c.text)) {
+          skipped.add(c.key)
+          continue
+        }
         // an old-style word in its carrier sentence (in the voice and model now); a Slovene narrator's line in its Slovene
         // ElevenLabs voice; a swapped voice's or an older model's clip again in the voice and model now
         // a character's local clip in the speaker's ElevenLabs voice
@@ -3315,6 +3339,7 @@ export class VoiceStore {
       if (o.max !== undefined && made + plain >= o.max) break
       const cost = this.cost(c.text, c.voice)
       if (o.maxChars !== undefined && chars + cost > o.maxChars) continue
+      if (this.withheld(c.text)) continue
       const r = await this.revoiceOne(c)
       if (r === 'stop') break
       chars += cost

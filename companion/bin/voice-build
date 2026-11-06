@@ -145,6 +145,8 @@ import { cardTexts, charsPerSecond, clipKey, corpus, creditsFor, Drama3, lazyMod
 import { formatPlan, plan, run } from '../bridge/src/prebuild'
 import { availableGb, drama3Estimate, drama3Settings, Drama3Worker, duration, memoryGate } from '../bridge/src/drama3'
 import { normalizeText } from '../bridge/src/family'
+import { nameRefusal } from '../bridge/src/name-check'
+import { saysName } from '../bridge/src/name-lines'
 import { keysFile } from '../bridge/src/env'
 import { voiceDir } from '../bridge/src/paths'
 import { setting } from '../bridge/src/env'
@@ -621,6 +623,12 @@ const arrivals = (() => {
 const { eleven, gepard } = enginesFromEnv(process.env, log, language)
 // the local worker speaks only Slovene; a culture's cast without voices yet voices nothing (the phone's TTS speaks)
 const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: language === 'sl' ? [eleven, gepard] : castVoiced() ? [eleven] : [], log, readonly: !flag('--run'), ...villageVoices })
+// the learner's name, checked as the bridge checks it (name-check.ts; docs/plans/05-built/names-guard.md): a text that says a
+// name the check refuses is made by no engine here either, and the phone says it
+const learner = addresseeOf(join(appDir, '..'), language)
+const nameRefused = learner.generic ? undefined : nameRefusal(learner.name)
+const saysRefused = (text: string) => !!nameRefused && saysName(text, learner.name, learner.forms)
+if (nameRefused) store.withhold = saysRefused
 // the voices of their own that are ready (the voice profiles, in the store's database): a storyteller who has one tells
 // in it ("@janez", as the app asks for it by the fire), and ElevenLabs makes those clips in it
 const own = ownVoicesIn(store.database)
@@ -927,7 +935,7 @@ const everything = corpus({
     return existsSync(sr) ? cardTexts(JSON.parse(readFileSync(sr, 'utf8')).items ?? {}) : []
   })(),
   // rendered for the learner ({learner}, {m:…|f:…}: addressee.ts), as the app says it
-  learner: addresseeOf(join(appDir, '..'), language),
+  learner,
   // the learner's own lines (the dialogs' choices) in their voice (my-voice.ts: their choice in learner-profile.json, else
   // the default of their gender and age; the child flag LANI_CHILD, else their registry entry's); none while it's off
   mine: mineVoice(join(appDir, '..'), addresseeOf(join(appDir, '..'), language), childOf(join(appDir, '..'), root)),
@@ -935,8 +943,10 @@ const everything = corpus({
 // --only: the texts of those voices (someone's own voice counts as their speaker's: "@mojca" as the teacher's)
 const ofOnly = (v: string) => !only.length || only.includes(v) || (!!personVoice(v) && only.includes(personVoice(v)!.archetype))
 // the course's explanations: in the plan and the run with --explanations, else counted apart
-const items = everything.filter(i => ofOnly(i.voice) && (explanations || !i.lang))
-const leftOut = explanations ? [] : everything.filter(i => ofOnly(i.voice) && !!i.lang)
+// a line with a name the check refuses: in no plan and no run
+const withheld = everything.filter(i => ofOnly(i.voice) && saysRefused(i.text)).length
+const items = everything.filter(i => ofOnly(i.voice) && (explanations || !i.lang) && !saysRefused(i.text))
+const leftOut = explanations ? [] : everything.filter(i => ofOnly(i.voice) && !!i.lang && !saysRefused(i.text))
 
 if (narrators) {
   // the narrators' Slovene clips in their local voice: the corpus tells which are Slovene, no ElevenLabs
@@ -1004,6 +1014,7 @@ if (flag('--json') && !flag('--run')) {
   process.exit(0)
 }
 console.log(`Village: ${culture} (${language})${village.why ? `; ${village.wanted} isn't played: ${village.why}` : ''}`)
+if (withheld) console.log(`The learner's name is one the name check refuses (${nameRefused}): the ${withheld} line(s) that say it are left out, and the phone says them.`)
 console.log(formatPlan(before, store.dir))
 if (!flag('--run')) {
   const tail = `${only.length ? ` --only ${only.join(',')}` : ''}${explanations ? ' --explanations' : ''}${bases.length ? ` --base ${bases.join(',')}` : ''}${maxChars !== undefined ? ` --max-chars ${maxChars}` : ''}${data ? ` --data ${data}` : ''}`

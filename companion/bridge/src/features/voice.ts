@@ -152,10 +152,15 @@ export const voice: FeatureFactory = ctx => {
       return catalogue.of
     },
   })
-  // a name that fails the check isn't voiced at all, while the node builds name lines: not in the learner's own lines, a
-  // re-record, a text ahead of time. Unset, every path is as before
-  const badName = (text: string) => names.guarding && names.refuses(text, ctx.addressee())
-  if (names.guarding) voice.holdBack = badName
+  // the learner's name is checked wherever the node voices, name lines on or not (name-store.ts; docs/plans/05-built/names-guard.md):
+  // a name the check or the voice service refuses is said by no paid voice, not in a line of the content, the learner's own
+  // lines, a re-record, a sample, a text ahead of time. A route asks the service first when it hasn't had its say; the store
+  // holds back what it would voice ahead until it has, and refuses every take of a text with a name refused
+  const badName = (text: string) => names.holds(text, ctx.addressee())
+  if (names.guarding) {
+    voice.holdBack = text => names.refuses(text, ctx.addressee(), { ahead: true })
+    voice.withhold = text => names.refuses(text, ctx.addressee())
+  }
   // the learner's own voice: their choice (learner-profile.json preferences.my_voice), else the default of their gender
   // (the profile's learner.gender; the female one's while it says none) and age (the profile's child flag, LANI_CHILD)
   const mine = () => myVoice({ gender: voicedGender(ctx.addressee()), child: ctx.profile.child, choice: choiceOf(ctx.cfg.dataDir) })
@@ -184,12 +189,12 @@ export const voice: FeatureFactory = ctx => {
     log: ctx.log,
     done: ({ text, voice: asked }) => {
       const v = voiceOf(asked)
-      // it spends with nobody waiting: the name is checked whether name lines are on or not
-      return !isVoice(v) || !!refusal(text, undefined) || names.refuses(text, ctx.addressee()) || !!voice.best(voice.normOf(text), v)
+      // it spends with nobody waiting: the name is checked whether name lines are on or not, the service's word waited for
+      return !isVoice(v) || !!refusal(text, undefined) || names.refuses(text, ctx.addressee(), { ahead: true }) || !!voice.best(voice.normOf(text), v)
     },
     make: async ({ text, voice: asked }) => {
       const v = voiceOf(asked)
-      if (!isVoice(v)) return
+      if (!isVoice(v) || (await badName(text))) return
       const own = asked === PLAYER || isLearnerVoice(v)
       const named = own ? undefined : await names.line(text, v, ctx.addressee(), TURN.preload)
       if (!named || named.say === 'before') await voice.voice(text, v, 'preload', { turn: TURN.preload, carrier: own })
@@ -198,7 +203,7 @@ export const voice: FeatureFactory = ctx => {
   const handleRedo = async (req: Request) => {
     const r = redoIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
-    if (badName(r.data.text)) return json({ status: 'failed', message: 'this line cannot be re-recorded' }, 503)
+    if (await badName(r.data.text)) return json({ status: 'failed', message: 'this line cannot be re-recorded' }, 503)
     const v = voiceOf(r.data.voice)
     if (!v && r.data.voice === PLAYER) return json({ status: 'failed', message: "no voice of the cast may say the learner's lines" }, 503)
     if (!isVoice(v)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
@@ -220,7 +225,7 @@ export const voice: FeatureFactory = ctx => {
     const clips: Prepared[] = []
     for (const { text, voice: asked, lang } of r.data.texts) {
       // another language's text: no clip of it in this village's voice (the app says it otherwise)
-      if (refusal(text, lang) || badName(text)) {
+      if (refusal(text, lang) || (await badName(text))) {
         clips.push({ text, voice: asked, url: null })
         continue
       }
@@ -265,6 +270,8 @@ export const voice: FeatureFactory = ctx => {
   const myVoiceNow = () => myVoiceBody(mine(), sampleLine(language, ctx.addressee()), language)
   return {
     start: () => {
+      // the voice service's word on the learner's name, so a path that can't wait for it has it
+      names.warm(ctx.addressee())
       profiles.syncCast()
       void profiles.designNext()
       // short narrator words the app asked for that wait for their carrier re-voice (the daily cap, the reserve)
@@ -320,7 +327,7 @@ export const voice: FeatureFactory = ctx => {
           const long = tooLong(voice, r.data)
           if (long) return json({ error: long }, 400)
           // another language's text: nothing voiced, the app speaks it (204, as a line no voice of the cast may say)
-          if (refusal(r.data.text, r.data.lang) || badName(r.data.text)) return new Response(null, { status: 204 })
+          if (refusal(r.data.text, r.data.lang) || (await badName(r.data.text))) return new Response(null, { status: 204 })
           const v = voiceOf(r.data.voice)
           // the learner's own line when the cast has no voice that may say it: the phone speaks it
           if (!v && r.data.voice === PLAYER) return new Response(null, { status: 204 })
@@ -402,7 +409,8 @@ export const voice: FeatureFactory = ctx => {
           const o = mine().options.find(x => x.id === r.data.voice)
           if (!o) return json({ error: `"${r.data.voice}" isn't a voice offered`, code: 'not_offered' }, 400)
           const text = sampleLine(language, ctx.addressee())
-          const c = await voice.say(text, o.voice, undefined, { alone: true })
+          // a sample with a name no voice may say: none, and the app says it with the phone's voice
+          const c = (await badName(text)) ? null : await voice.say(text, o.voice, undefined, { alone: true })
           return json({ text, voice: o.voice, url: c ? fileUrl(c.file) : null, engine: c?.engine ?? null })
         },
       },

@@ -250,6 +250,33 @@ async function store(check: Check) {
   const badWhole = storeOf([say(PROBE_NAME, 'Danes je {n} doma.')])
   check("store: a name that is no name, in a line voiced whole: the phone's voice too: a whole take would say it", (await badWhole.ns.line('Danes je Admin doma.', 'grandma', addressee({ name: 'Admin' }))).say === 'phone' && badWhole.fe.st.tts.length === 0)
 
+  // the blocklists, as the voice service has them (name-check.ts): a list's word is no name, whatever it passes of the shape rules
+  {
+    const kurba = addressee({ name: 'Kurba', gender: 'female' })
+    const t = storeOf(lines)
+    const r = await t.ns.line('Hvala, Kurba. Ti si zlat.', 'grandma', kurba)
+    check("store: a name on a blocklist (it passes the shape rules): the phone's voice, nothing sent", r.say === 'phone' && t.fe.st.tts.length === 0, r)
+    check('store: … in a declined form and a text the content lacks too', (await t.ns.line('Sveža voda za Kurbo.', 'grandma', kurba)).say === 'phone' && (await t.ns.line('Kaj pa zdaj, Kurba?', 'grandma', kurba)).say === 'phone' && t.fe.st.tts.length === 0)
+    check('store: … and the log says why, not the name', t.logged.some(l => l.includes('the name check: blocked')) && !t.logged.some(l => /kurb/i.test(l)), t.logged)
+    const off = storeOf(lines, { on: false })
+    check("store: with name lines off a refused name is the phone's too: voiced whole, the line would say it", (await off.ns.line('Hvala, Kurba. Ti si zlat.', 'grandma', kurba)).say === 'phone' && (await off.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)).say === 'before' && off.fe.st.tts.length === 0)
+    const real = storeOf(lines)
+    const kept = await Promise.all(['Peter', 'Marica', 'Beom-sik'].map(n => real.ns.line(`Lahko noč, ${n}.`, 'grandma', addressee({ name: n }))))
+    check("store: a real name a list's word is in, or one the keep list keeps, is voiced", kept.every(k => k.say === 'joined'), kept)
+    check('store: the village\'s word for a friend, standing in for no name, is never checked', !t.ns.refuses('Hvala, prijatelj.', addressee({ name: '' })) && t.ns.refusal(addressee({ name: '' })) === undefined)
+
+    // the voice store asks before every take it would pay for, whoever asks for it
+    const v = storeOf(lines)
+    v.vs.withhold = text => v.ns.refuses(text, kurba)
+    v.vs.holdBack = text => v.ns.refuses(text, kurba, { ahead: true })
+    const c = await v.vs.voice('Lahko noč, Kurba.', 'grandma', 'scene:test')
+    const said = await v.vs.say('Kurba, pridi sem!', 'grandma')
+    const redo = await v.vs.redo('Lahko noč, Kurba.', 'grandma')
+    v.vs.enqueue([{ text: 'Dobro jutro, Kurba.', voice: 'grandma', source: 'scene:test', priority: 1 }])
+    check('store: the voice store makes no take of a text with a refused name: a line, a live line, a re-record, a publish\'s lines', c === null && said === null && redo.status === 'failed' && v.vs.queued === 0 && v.fe.st.tts.length === 0, { c, said, redo, queued: v.vs.queued })
+    check('store: … and any other text as ever', !!(await v.vs.voice('Lahko noč, Jan.', 'grandma', 'scene:test')) && v.fe.st.tts.length === 1)
+  }
+
   // no learner in the log, not even a name
   check('store: no name in any log line', !logged.some(l => /\bjan\b|\bana\b/i.test(l)), logged)
 
@@ -414,7 +441,8 @@ function fakeLibrary() {
   const lines = new Map<string, { manifest: any; pieces: any[] }>()
   const names = new Map<string, any>()
   const files = new Map<string, Uint8Array>()
-  const st = { asked: [] as any[], added: [] as any[], configured: true, down: false, own: true }
+  // refuse: name → the code its every ask is rejected with; refuseClip: the code a name clip's ask (not the name's verdict) is
+  const st = { asked: [] as any[], added: [] as any[], configured: true, down: false, own: true, refuse: new Map<string, string>(), refuseClip: undefined as string | undefined }
   const shelf: NameShelf = {
     get configured() { return st.configured },
     speakerOf: v => (st.own ? v : undefined),
@@ -426,7 +454,14 @@ function fakeLibrary() {
     nameClips: (async (items: any[]) => {
       st.asked.push(...items)
       if (st.down) return null
-      return { items: items.map((i, index) => { const c = names.get(`${i.voice}|${i.name}|${i.kind}`); return c ? { index, status: 'ready', clip: c } : { index, status: 'missing' } }) }
+      return {
+        items: items.map((i, index) => {
+          const code = st.refuse.get(i.name) ?? (i.voice !== 'female' ? st.refuseClip : undefined)
+          if (code) return { index, status: 'rejected', error: { code, message: 'refused' } }
+          const c = names.get(`${i.voice}|${i.name}|${i.kind}`)
+          return c ? { index, status: 'ready', clip: c } : { index, status: 'missing' }
+        }),
+      }
     }) as NameShelf['nameClips'],
     addLine: (async (manifest: any, pieces: any[]) => {
       st.added.push({ manifest, pieces })
@@ -449,11 +484,12 @@ function fakeLibrary() {
 async function library(check: Check) {
   const line = 'Hvala, {n}. Ti si zlat.'
   const lines = [line, '{n}! Pridi, juha je vroča.', 'Lahko noč, {n}.'].map(l => l.replace('{n}', PROBE_NAME))
-  const node = (shelf: NameShelf | undefined, o: Partial<NameSettings> = {}) => {
+  const node = (shelf: NameShelf | undefined, o: Partial<NameSettings> = {}, serviceMs?: { list: number; other: number }) => {
     const fe = fakeEleven()
     fe.st.speech = true
     const vs = new VoiceStore({ appDir: temp('lani-names-library-'), engines: [new ElevenLabs({ key: 'test-key', base: fe.url, reserve: 0 })], queueDelayMs: 0, language: 'sl' })
-    return { fe, vs, ns: new NameStore(vs, { settings: settings(o), catalogue: () => new NameCatalogue('sl', lines, lines), glas: shelf }) }
+    const logs: string[] = []
+    return { fe, vs, logs, ns: new NameStore(vs, { settings: settings(o), catalogue: () => new NameCatalogue('sl', lines, lines), glas: shelf, serviceMs, log: (...a) => logs.push(a.join(' ')) }) }
   }
   const jan = addressee({ name: 'Jan' })
   const lib = fakeLibrary()
@@ -534,8 +570,9 @@ async function library(check: Check) {
     check('library: without GLAS_URL and GLAS_KEY nothing is asked or added', l.st.asked.length === 0 && l.st.added.length === 0)
     const k = fakeLibrary()
     const off = node(k.shelf, { on: false })
-    await off.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
-    check('library: with name lines off nothing is asked either', k.st.asked.length === 0 && off.fe.st.tts.length === 0)
+    const offSaid = await off.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+    await off.ns.added()
+    check("library: with name lines off only the service's word on the name is asked, nothing added: the line as before", offSaid.say === 'before' && k.st.asked.length === 1 && k.st.asked[0].voice === 'female' && k.st.asked[0].make === false && k.st.added.length === 0 && off.fe.st.tts.length === 0, k.st.asked)
     const o = fakeLibrary()
     o.st.own = false
     const own = node(o.shelf)
@@ -551,7 +588,61 @@ async function library(check: Check) {
     const q = fakeLibrary()
     const bad = node(q.shelf)
     await bad.ns.line('Hvala, Admin. Ti si zlat.', 'grandma', addressee({ name: 'Admin' }))
-    check('library: a name that fails the check is never sent', q.st.asked.length === 0)
+    await bad.ns.line('Hvala, Kurba. Ti si zlat.', 'grandma', addressee({ name: 'Kurba', gender: 'female' }))
+    check('library: a name that fails the check is never sent, a list\'s word among them', q.st.asked.length === 0)
+  }
+
+  // the service's word on a name: a refusal, whatever its reason, ends at the phone, and no node voices the name itself
+  const hans = addressee({ name: 'Hans Wurst' })
+  for (const code of ['name_review', 'blocked_name', 'invalid_name', 'name_limit', 'something_new']) {
+    const l = fakeLibrary()
+    l.st.refuse.set('hans wurst', code)
+    const n = node(l.shelf)
+    const r = await n.ns.line('Hvala, Hans Wurst. Ti si zlat.', 'grandma', hans)
+    await n.ns.added()
+    check(`library: a name the service refuses (${code}): the phone's voice, nothing voiced, nothing added`, r.say === 'phone' && n.fe.st.tts.length === 0 && l.st.added.length === 0, { r, tts: n.fe.st.tts.map(t => t.body.text), added: l.st.added.length })
+  }
+  {
+    const l = fakeLibrary()
+    l.st.refuse.set('hans wurst', 'name_review')
+    const n = node(l.shelf, {}, { list: 60_000, other: 300 })
+    await n.ns.line('Hvala, Hans Wurst. Ti si zlat.', 'grandma', hans)
+    const asked = l.st.asked.length
+    const free = await n.ns.line('Kaj pa zdaj, Hans Wurst?', 'grandma', hans)
+    const whole = await n.ns.line('Hvala, Hans Wurst. Ti si zlat.', 'grandma', hans)
+    check("library: the service's refusal holds for every line with the name, one the content lacks too, and it isn't asked again meanwhile", free.say === 'phone' && whole.say === 'phone' && l.st.asked.length === asked && n.fe.st.tts.length === 0, { free, whole, asked: l.st.asked.length - asked })
+    check('library: … a path that can\'t wait has it too', n.ns.refuses('Dober dan, Hans Wurst.', hans) && !!n.ns.refusal(hans))
+    check('library: … the log says what, not the name', n.logs.some(l => l.includes('refuses the learner\'s name (name_review)')) && !n.logs.some(l => /hans|wurst/i.test(l)), n.logs)
+    // approved meanwhile: asked again once the word is old, and voiced
+    l.st.refuse.delete('hans wurst')
+    await Bun.sleep(320)
+    const later = await n.ns.line('Hvala, Hans Wurst. Ti si zlat.', 'grandma', hans)
+    check("library: a name waiting for approval is asked again later (an hour; a list's refusal a day), and voiced once approved", later.say === 'joined' && n.fe.st.tts.some(t => t.body.text.includes('Hans Wurst')), { later, tts: n.fe.st.tts.map(t => t.body.text) })
+  }
+  {
+    // the name passes, but the service rejects its clip in this voice (any code): the phone's voice for that line, the name unvoiced
+    const l = fakeLibrary()
+    l.st.refuseClip = 'unknown_voice'
+    const n = node(l.shelf)
+    const r = await n.ns.line('Hvala, Jan. Ti si zlat.', 'grandma', jan)
+    check('library: a name clip the service rejects, whatever the code: the phone says the line, the name is voiced by nobody', r.say === 'phone' && !n.fe.st.tts.some(t => /\bJan\b/.test(t.body.text)), { r, tts: n.fe.st.tts.map(t => t.body.text) })
+  }
+  {
+    // with nobody waiting, a name the service hasn't had its say on waits for it: asked now
+    const l = fakeLibrary()
+    const n = node(l.shelf)
+    const held = n.ns.refuses('Dober dan, Jan.', jan, { ahead: true })
+    await Bun.sleep(20)
+    check("library: a text voiced ahead waits for the service's word on the name, which is asked at once", held && l.st.asked.some(i => i.name === 'jan' && i.voice === 'female') && !n.ns.refuses('Dober dan, Jan.', jan, { ahead: true }))
+    const o = fakeLibrary()
+    o.st.configured = false
+    check('library: … without the service, only the check decides', !node(o.shelf).ns.refuses('Dober dan, Jan.', jan, { ahead: true }) && o.st.asked.length === 0)
+    const off = fakeLibrary()
+    off.st.refuse.set('hans wurst', 'name_review')
+    const warm = node(off.shelf, { on: false })
+    warm.ns.warm(hans)
+    await Bun.sleep(20)
+    check('library: warmed at the start, a path that can\'t wait has the word, name lines on or not', warm.ns.refuses('Dober dan, Hans Wurst.', hans) && (await warm.ns.line('Kaj pa zdaj, Hans Wurst?', 'grandma', hans)).say === 'phone')
   }
 }
 
@@ -665,6 +756,20 @@ async function routes(check: Check, port: number) {
     const prep2 = (await (await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: `Ime mi je ${bad}.`, voice: 'grandma' }] }) })).json()) as { clips: { url: string | null }[] }
     check('routes: … and in the day\'s audio', prep2.clips[0].url === null, prep2)
     check('routes: nothing of it reached ElevenLabs', fe.st.tts.length === paid, fe.st.tts.slice(paid).map(t => t.body.text))
+
+    // a name on a blocklist, which the shape rules let through (name-check.ts): the same on every path, the sample of a voice too
+    writeFileSync(join(data, 'learner-profile.json'), JSON.stringify({ learner: { name: 'Kurba', gender: 'female' } }))
+    const before = fe.st.tts.length
+    const listed = await say(line.said.replace('{n}', 'Kurba'))
+    const mineToo = await say('Ime mi je Kurba.', 'player')
+    const declined = await say('Sveža voda za Kurbo.')
+    const prep3 = (await (await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: 'Dober dan, Kurba.', voice: 'grandma' }] }) })).json()) as { clips: { url: string | null }[] }
+    const offered = (await (await fetch(`${base}/learner/voice`, { headers: auth })).json()) as { options?: { id: string }[] }
+    const sample = (await (await fetch(`${base}/voice/sample`, { method: 'POST', headers: auth, body: JSON.stringify({ voice: offered.options?.[0]?.id }) })).json()) as { text?: string; url?: string | null }
+    check("routes: a name on a blocklist: 204 for a line, the learner's own, a declined form; no clip ahead; a voice's sample without a clip",
+      listed.status === 204 && mineToo.status === 204 && declined.status === 204 && prep3.clips[0].url === null && sample.text?.includes('Kurba') && sample.url === null,
+      { listed: listed.status, mine: mineToo.status, declined: declined.status, prep3, sample })
+    check('routes: … nothing of it reached ElevenLabs, and the log never names it', fe.st.tts.length === before && !/kurb/i.test(logged), { tts: fe.st.tts.slice(before).map(t => t.body.text) })
   } finally {
     await client.close()
     fe.stop()

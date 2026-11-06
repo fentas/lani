@@ -2,9 +2,12 @@
 // the store, and every way it can fail going on to the node's own engines, then the phone. Against a fake (test/fakes/glas.ts).
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
+import { addressee } from '../../src/addressee'
 import { elevenlabsOf } from '../../src/cast'
 import { normalizeText } from '../../src/family'
 import { Glas, glasFromEnv } from '../../src/glas'
+import { NameCatalogue, PROBE_NAME } from '../../src/name-lines'
+import { NameStore } from '../../src/name-store'
 import { ElevenLabs, ENGINE_RANK, engineIn, Gepard, VoiceStore, type Engine } from '../../src/voice'
 import { fakeGlas } from '../fakes/glas'
 import { check, fakeEleven, fakeGepard, tempDir, tone } from './harness'
@@ -108,6 +111,29 @@ export default async function glas() {
     const key = { language: 'sl', voice: 'grandma', name: 'jan', kind: 'ending' }
     check('a name clip the library lacks: asked by its key and nothing else', (await e.nameClips([key]))?.items[0].status === 'missing' && Object.keys(fg.st.calls.at(-1)?.items?.[0] ?? {}).sort().join() === 'kind,language,name,voice', fg.st.calls.at(-1))
     check('…made here, it goes there for everyone of that name', (await e.addNameClip({ ...key, ms: 640, engine_voice: 'x', model: 'm' }, tone(1)))?.status === 'added' && (await e.nameClips([key]))?.items[0].status === 'ready')
+  }
+
+  // --- a name it refuses: no voice says it, the service's nor the node's (docs/plans/05-built/names-guard.md) ---
+  {
+    const e = engine()
+    fg.st.refuseNames.set('hans wurst', 'name_review')
+    const r = await e.nameClips([{ language: 'sl', voice: 'female', name: 'hans wurst', kind: 'arch', make: false }])
+    check('a name the service refuses comes back rejected, with why', r?.items[0].status === 'rejected' && r.items[0].error?.code === 'name_review', r)
+    const lines = ['Hvala, {n}. Ti si zlat.', 'Danes je {n} doma.'].map(l => l.replace('{n}', PROBE_NAME))
+    const vs = store(e)
+    const ns = new NameStore(vs, { settings: { on: true, daily: 3_000, names: 3, takes: 2 }, catalogue: () => new NameCatalogue('sl', lines, lines), glas: e })
+    const hans = addressee({ name: 'Hans Wurst' })
+    const tts = fe.st.tts.length
+    const n = fg.st.calls.length
+    const said = await ns.line('Hvala, Hans Wurst. Ti si zlat.', 'grandma', hans)
+    const whole = await ns.line('Danes je Hans Wurst doma.', 'grandma', hans)
+    const sent = fg.st.calls.slice(n)
+    check("…the node's name store lets the phone say every line with it: nothing voiced here, nothing asked of the service but the name's word",
+      said.say === 'phone' && whole.say === 'phone' && fe.st.tts.length === tts && sent.length === 1 && sent[0].path === '/v1/names/resolve' && sent[0].items?.[0]?.make === false, { said, whole, sent })
+    vs.withhold = t => ns.refuses(t, hans)
+    const live = await vs.voice('Dober dan, Hans Wurst.', 'grandma', 'live', { live: true })
+    check('…and the voice store makes no take of it, whatever asks', live === null && fe.st.tts.length === tts && !fg.st.calls.slice(n).some(c => c.path.startsWith('/v1/clips')), live)
+    fg.st.refuseNames.clear()
   }
 
   // --- what goes wrong ---

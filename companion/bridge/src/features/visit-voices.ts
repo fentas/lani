@@ -305,8 +305,9 @@ export const visitVoices: FeatureFactory = ({ cfg, townKey, culture, voice, voic
     const host = await fromHost(l, text, own ? [PLAYER] : v.wanted, my)
     const hostMaking = !!host?.making
     if (host?.clip) return keep(own ? v.wanted[0] : host.clip.voice, host.clip.bytes, 'host', host.clip.engine, { standIn: !own && host.clip.voice !== v.wanted[0], making: hostMaking })
-    // voiced here, in the host's cast voice (the speaker's: someone with a voice of their own in their archetype's)
-    if (v.spec && v.speaker && lang) {
+    // voiced here, in the host's cast voice (the speaker's: someone with a voice of their own in their archetype's); never a line
+    // with the learner's name when the name check or the voice service refuses it (name-store.ts): the phone says that one
+    if (v.spec && v.speaker && lang && !voice.withhold?.(text)) {
       const made = await voiceInTown({ text, language: lang, spec: v.spec, engines: voiceEngines, live: () => voice.liveSlot?.() ?? true, level, log })
       if (made) return keep(v.speaker, made.bytes, 'node', made.engine, { engine_voice: made.engine_voice, making: hostMaking })
     }

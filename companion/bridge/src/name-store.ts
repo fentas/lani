@@ -8,6 +8,10 @@
 // With the voice service set up too (GLAS_URL, GLAS_KEY) the shared library is asked first, and what the node makes is added to it,
 // so a line or a name made once by anyone is there for every node. Asking never has the service voice anything (make: false): what
 // is spent is what this node's own settings let it spend. What goes with a name is its language, voice and kind.
+//
+// The learner's name is checked wherever the node voices, LANI_VOICE_NAMES set or not (docs/plans/05-built/names-guard.md): by the
+// name check (name-check.ts: the shape rules and the blocklists, as the voice service has them), and, with the service set up, by
+// the service's word on it. A name either refuses is said by no paid voice: every text that says it is the phone's to say.
 import { createHash } from 'node:crypto'
 import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -16,7 +20,8 @@ import { elevenlabsOf } from './cast'
 import type { Glas } from './glas'
 import { normalizeText } from './family'
 import { activeDb, cutLine, fades, medianPitch, nameCut, phraseCut, SR, slice, tracks, type Span } from './name-cut'
-import { FILLERS, NAME_MARK, nameOk, saysName, spokenName, type KnownLine, type LineType, type NameCatalogue, type Template } from './name-lines'
+import { checkedName, nameRefusal } from './name-check'
+import { FILLERS, NAME_MARK, saysName, spokenName, type KnownLine, type LineType, type NameCatalogue, type Template } from './name-lines'
 import { ffmpegMp3Writer, ffmpegPcm, fileUrl, TURN, type Alignment, type PcmReader, type PcmWriter, type TimedTake, type Turn, type VoiceName, type VoiceStore } from './voice'
 
 /** The level a name clip of a template is stored at ([activeDb]), so a line's one gain fits every name. */
@@ -50,6 +55,18 @@ export const nameSettings = (env: Record<string, string | undefined> = process.e
 
 /** What the store uses of the voice service (glas.ts). */
 export type NameShelf = Pick<Glas, 'configured' | 'speakerOf' | 'lines' | 'nameClips' | 'addLine' | 'addNameClip' | 'bytesOf'>
+
+/**
+ * How long the voice service's word on a name holds before it is asked again: a refusal by its lists (`blocked_name`,
+ * `invalid_name`) a day, since they change only with a new build of the service and a name Jan blocked stays blocked; anything
+ * else an hour, a name waiting for approval (`name_review`) among them, and a name it lets through.
+ */
+export const SERVICE_WORD_MS = { list: 24 * 3_600_000, other: 3_600_000 }
+const LIST_CODES = new Set(['blocked_name', 'invalid_name'])
+/** What the service answers before it reads the name: no word on the name. */
+const NOT_OF_THE_NAME = new Set(['unknown_voice', 'invalid_kind'])
+/** The voice the service is asked about a name in: a narrator every language's cast has. Its word is the name's, in any voice. */
+const ASKED_IN: VoiceName = 'female'
 
 /** A part of a line's manifest: the name, a pause, or a shared piece. */
 export type LinePart = { kind: 'name' } | { kind: 'gap'; ms: number } | { kind: 'piece'; part: 'head' | 'tail'; text: string; file: string; ms: number }
@@ -97,9 +114,18 @@ export class NameStore {
   /** Told once a day that the day's characters are spent, not at every line. */
   private capLogged = ''
 
+  /** The voice service's last word on a name (normalized): the code it refused it with, or none, and until when it holds. */
+  private readonly told = new Map<string, { refused?: string; until: number }>()
+  /** The check's word on a learner's name as written: why it refuses it, '' when it doesn't. */
+  private readonly checked = new Map<string, string>()
+
   constructor(
     private readonly voice: VoiceStore,
-    private readonly o: { settings: NameSettings; catalogue: () => NameCatalogue | undefined; log?: (...a: unknown[]) => void; pcm?: PcmReader; mp3?: PcmWriter; glas?: NameShelf },
+    private readonly o: {
+      settings: NameSettings; catalogue: () => NameCatalogue | undefined; log?: (...a: unknown[]) => void; pcm?: PcmReader; mp3?: PcmWriter; glas?: NameShelf
+      /** How long the service's word holds ([SERVICE_WORD_MS]). */
+      serviceMs?: { list: number; other: number }
+    },
   ) {
     if (!o.settings.on) return
     this.pcm = o.pcm ?? ffmpegPcm()
@@ -142,15 +168,110 @@ export class NameStore {
   /** Done once what was made so far has gone to the library. */
   added(): Promise<unknown> { return this.adding }
 
-  /** The node set LANI_VOICE_NAMES: the name is checked, whatever else can or can't run. */
-  get guarding(): boolean { return this.o.settings.on }
+  /**
+   * The name is checked wherever this store can voice anything, LANI_VOICE_NAMES set or not: a node. The phone's store has no
+   * engine (its app speaks), and nothing is checked there.
+   */
+  get guarding(): boolean { return (this.voice.engines?.length ?? 0) > 0 }
+
+  /** Why the check refuses [raw] ('invalid', 'blocked'), '' when it doesn't: kept, as it is asked at every line. */
+  private ownWord(raw: string): string {
+    let w = this.checked.get(raw)
+    if (w !== undefined) return w
+    try {
+      w = nameRefusal(raw) ?? ''
+    } catch (e) {
+      // lists that can't be read refuse every name: the phone says the lines, and the log says why
+      this.o.log?.(`voice: the name check's lists can't be read (${(e as Error).message})`)
+      w = 'unchecked'
+    }
+    this.checked.set(raw, w)
+    if (w) this.o.log?.(`voice: the learner's name is not voiced (the name check: ${w}): the phone says the lines with it`)
+    return w
+  }
 
   /**
-   * Whether [text] says [a]'s name and that name may not be voiced ([nameOk]). Any text: the learner's own lines, a declined form,
-   * a re-record and a line the catalogue doesn't know have their name just the same. The phone's voice says them.
+   * Why no voice may say [a]'s name now, or undefined: the check's word (name-check.ts), else the voice service's last word while
+   * it holds. One gone stale is asked again, the last standing meanwhile. Nothing waits here: what a path that can't wait asks.
    */
-  refuses(text: string, a: Addressee): boolean {
-    return !nameOk(a.name) && saysName(text, a.name, a.forms)
+  refusal(a: Pick<Addressee, 'name' | 'generic'>): string | undefined {
+    // the village's word for a friend stands in for no name: content, not the learner's text
+    if (!this.guarding || a.generic) return undefined
+    const own = this.ownWord(a.name)
+    if (own) return own
+    const name = checkedName(a.name)!
+    const w = this.told.get(name)
+    if (w && w.until <= Date.now()) void this.ask(name)
+    return w?.refused
+  }
+
+  /** Whether the voice service is set up and hasn't said a word on [a]'s name yet: it is asked now. */
+  private unheard(a: Pick<Addressee, 'name'>): boolean {
+    const name = checkedName(a.name)
+    if (!name || !this.asking || this.told.has(name)) return false
+    void this.ask(name)
+    return true
+  }
+
+  /**
+   * Whether [text] says [a]'s name and no voice may say it now ([refusal]). Any text: the learner's own lines, a declined form,
+   * a re-record and a line the catalogue doesn't know have their name just the same. The phone's voice says them. [ahead]: for
+   * what is voiced with nobody waiting (a publish's lines, a preload), a name the voice service hasn't had its say on waits too.
+   */
+  refuses(text: string, a: Addressee, o: { ahead?: boolean } = {}): boolean {
+    if (!this.guarding || a.generic) return false
+    const held = !!this.refusal(a) || (!!o.ahead && this.unheard(a))
+    return held && saysName(text, a.name, a.forms)
+  }
+
+  /**
+   * [refuses], for a line someone waits for: the voice service is asked first when it hasn't had its say on the name yet, or when
+   * its refusal is old (a name approved meanwhile is voiced at once). A word it let through is asked again behind the line.
+   */
+  async holds(text: string, a: Addressee): Promise<boolean> {
+    if (!this.guarding || a.generic || !saysName(text, a.name, a.forms)) return false
+    if (this.ownWord(a.name)) return true
+    const name = checkedName(a.name)!
+    const w = this.told.get(name)
+    if (!w || (w.refused && w.until <= Date.now())) await this.ask(name)
+    else if (w.until <= Date.now()) void this.ask(name)
+    return !!this.told.get(name)?.refused
+  }
+
+  /** The service's word on [a]'s name, asked now when it has none: so a line that can't wait has it. Nothing waits for it. */
+  warm(a: Pick<Addressee, 'name' | 'generic'>) {
+    if (this.guarding && !a.generic && this.refusal(a) === undefined) this.unheard(a)
+  }
+
+  /** Whether the voice service is asked about names: set up, and with the voice it is asked in. */
+  private get asking(): boolean {
+    const g = this.o.glas
+    return !!g?.configured && !!g.speakerOf(ASKED_IN)
+  }
+
+  /**
+   * The voice service's word on [name] (normalized): asked with `make: false`, which voices nothing and keeps nothing (the
+   * service counts the verdict, nobody's). Out of reach, the last word stands, or none, and the check's alone decides.
+   */
+  private ask(name: string): Promise<void> {
+    if (!this.asking) return Promise.resolve()
+    const g = this.o.glas!
+    return this.once(`told|${name}`, async () => {
+      const a = (await g.nameClips([{ language: this.language, voice: ASKED_IN, name, kind: 'arch', make: false }]))?.items[0]
+      if (!a) return
+      const code = a.status === 'rejected' ? (a.error?.code ?? 'rejected') : undefined
+      if (code && NOT_OF_THE_NAME.has(code)) return
+      this.hear(name, code)
+    })
+  }
+
+  /** The service's word on [name]: refused with [code], or not. */
+  private hear(name: string, code: string | undefined) {
+    const ms = { ...SERVICE_WORD_MS, ...this.o.serviceMs }
+    const was = this.told.get(name)
+    const hold = code && LIST_CODES.has(code) ? ms.list : ms.other
+    this.told.set(name, { ...(code ? { refused: code } : {}), until: Date.now() + hold })
+    if (code && was?.refused !== code) this.o.log?.(`voice: the voice service refuses the learner's name (${code}): the phone says the lines with it, asked again in ${Math.round(hold / 60_000)} min`)
   }
 
   private get db() { return this.voice.database }
@@ -211,12 +332,12 @@ export class NameStore {
   private async answer(text: string, voice: VoiceName, a: Addressee, turn: Turn): Promise<NameAnswer> {
     if (!this.guarding) return BEFORE
     // before anything else of the line: voiced whole, it would say the name just the same
-    if (this.refuses(text, a)) return PHONE
+    if (await this.holds(text, a)) return PHONE
     if (!this.on) return BEFORE
     const norm = normalizeText(text)
     if (this.voice.best(norm, voice)) return BEFORE
     const line = this.o.catalogue()?.find(text, a.name)
-    const name = nameOk(a.name)
+    const name = checkedName(a.name)
     if (!line || !name || line.type === 'whole') return BEFORE
     // a Slovene narrator speaks through their Slovene voice, when that comes first; else their clips cost nothing
     if (this.voice.sloveneNarrator(voice) && !this.voice.elevenlabsFirst(voice)) return BEFORE
@@ -232,7 +353,8 @@ export class NameStore {
     if (spec === 'cap') return PHONE
     if (!spec || spec.type === 'whole') return BEFORE
     const clip = await this.once(`name|${voice}|${name}|${spec.kind}`, () => this.nameClip(name, line, voice, speaker, own, turn))
-    if (clip === 'cap') return PHONE
+    // the day's characters spent, or the voice service won't have the name voiced: no node voices it either
+    if (clip === 'cap' || clip === 'refused') return PHONE
     if (!clip?.file) return BEFORE
     return { say: 'joined', url: lineUrl(this.joined(text, voice, own, spec, clip)), engine: 'elevenlabs' }
   }
@@ -355,8 +477,11 @@ export class NameStore {
 
   // --- the name ---------------------------------------------------------------------------------------------------------
 
-  /** [name] in [voice] as [line] wants it: the clip there (a voice swapped under it counts as none), made if it isn't. */
-  private async nameClip(name: string, line: KnownLine, voice: VoiceName, speaker: VoiceName, own: string, turn: Turn): Promise<NameClip | 'cap' | null> {
+  /**
+   * [name] in [voice] as [line] wants it: the clip there (a voice swapped under it counts as none), made if it isn't; 'refused'
+   * when the voice service won't have it voiced.
+   */
+  private async nameClip(name: string, line: KnownLine, voice: VoiceName, speaker: VoiceName, own: string, turn: Turn): Promise<NameClip | 'cap' | 'refused' | null> {
     const had = this.db.query('SELECT * FROM name_clips WHERE language = ? AND voice = ? AND name = ? AND kind = ? AND engine_voice = ?').get(this.language, voice, name, line.kind, own) as NameClip | null
     if (had) return had
     const shared = await this.nameFromLibrary(name, line, voice, own)
@@ -437,13 +562,20 @@ export class NameStore {
   /**
    * [name] from the library, when it has it in the voice this cast has now. It never has the service voice one: what this asks
    * costs nobody anything. A phrase the service voiced itself comes as it was voiced, one a node added at the level already: the
-   * level sees to the first and leaves the second alone. Its length is measured here, for what the phone reads it by.
+   * level sees to the first and leaves the second alone. Its length is measured here, for what the phone reads it by. 'refused':
+   * the service rejected it, whatever the reason (a name nobody knows of two words waiting for approval among them): the phone
+   * says the line, and the node voices it no more than the service does.
    */
-  private async nameFromLibrary(name: string, line: KnownLine, voice: VoiceName, own: string): Promise<NameClip | null> {
+  private async nameFromLibrary(name: string, line: KnownLine, voice: VoiceName, own: string): Promise<NameClip | 'refused' | null> {
     const g = this.shelf(voice)
     if (!g) return null
     const language = this.language
     const a = (await g.nameClips([{ language, voice, name, kind: line.kind, make: false }]))?.items[0]
+    if (a?.status === 'rejected') {
+      const code = a.error?.code ?? 'rejected'
+      if (!NOT_OF_THE_NAME.has(code)) this.hear(name, code)
+      return 'refused'
+    }
     const c = a?.clip
     if (a?.status !== 'ready' || !c || c.engine_voice !== own) return null
     const got = await g.bytesOf(c.url)
