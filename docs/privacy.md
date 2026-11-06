@@ -35,7 +35,8 @@ With `ELEVENLABS_API_KEY` in `keys.env`, the bridge asks ElevenLabs to speak tex
 - lines the tutor writes for the learner (role-play, new content), when the app first plays them;
 - for a villager's own voice (Voice Design): a description of the character and a sample sentence.
 
-The texts only: not the learner's name, data, recordings or answers (unless the tutor wrote them into a line). The
+The texts only: not the learner's data, recordings or answers (unless the tutor wrote them into a line). A line that speaks to
+the learner by name goes with the name in it, and only once the name has passed the name check ([below](#the-name-library)). The
 bridge also reads the account's remaining characters. Without a key nothing goes to ElevenLabs, and the phone speaks.
 
 ## The voice service: the audio trial and the add-on
@@ -47,17 +48,20 @@ It is off until you use it: an app that has no trial running and a node without 
 own voices speak, and the clips already on the phone stay there. Nothing else is asked for and nothing is charged.
 
 - **What is sent:** the text of a line the app wants said, the voice to say it in, and a random number the app made when it was
-  first set up. That number is how a trial is told from another. It says nothing about you, and it is the only thing the service
-  knows about the phone: no name, no account, no device details, no advertising id. The service keeps a hash of it, and removes
-  it 90 days after the trial ends.
+  first set up. That number is how a trial is told from another. It says nothing about you: no name, no account, no device
+  details, no advertising id. The service keeps a hash of it, and removes it 90 days after the trial ends. The service also
+  counts the trials and new names that come from the phone's address each day, in memory only, under a hash whose key changes
+  daily; the address is never written down.
 - **What is kept:** a line of Lani's own content is voiced once and kept for everyone, with nothing that says who asked. Any other
-  line (a tutor's reply, say) is neither voiced nor kept: the phone says it. What a phone listened to is not recorded.
+  line (a tutor's reply, say) is neither voiced nor kept: the phone says it. What a phone listened to is not recorded. Of a line
+  with your name, the trial makes one name only: it keeps a keyed hash of that name on the trial's row, removed with the row.
 - **A line with your name in it** goes there with the name in it, and comes back from the name library, below.
 
 **On a node.** With `GLAS_URL` and `GLAS_KEY` in `keys.env` the bridge asks the service first, with the text of each line and the
 speaker. A line of Lani's own content is kept for everyone. Any other line, a line with the learner's name in it among them, goes
 into the key's private namespace, is never in the shared library, and is deleted with the key's data. Someone's own designed voice
-is never sent.
+is never sent. The bridge also sends the learner's name alone, about once an hour, to ask whether a voice may say it: that ask
+voices nothing, and nothing of it is kept but a count of the answers.
 
 ### The name library
 
@@ -67,7 +71,12 @@ on the clip or in any log. So the fifty samples of Jonas made for one Jonas are 
 first one was.
 
 That also means a name can't be deleted as *yours*, because nothing says it is. Ask, and that name goes out of the library for
-everyone. A name that isn't one (too long, more than three words, anything but letters) is never voiced: the phone says the line.
+everyone. A name that isn't one (too long, more than two words, anything but letters) is never voiced: the phone says the line.
+
+A name is checked before any voice says it: a word on a list of swear words, slurs and threats (28 languages and Slovene) is
+never voiced or kept, and the phone says the line. A name no list of given names knows goes on a review list (the name, how often
+it was asked, when; nothing about who). A name of two words isn't voiced until it is approved. A node checks the name against the
+same lists before its own voices say it, with the service or without it, and a name the service refuses is voiced by neither.
 
 ## If you use Tailscale: Tailscale
 

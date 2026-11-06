@@ -201,11 +201,12 @@ A line is `whole` when a word follows the name with no pause, the name comes twi
 the frame. Nothing else was tuned. A plain join, no pitch match, one stored gain for a name-only line.
 
 **The name is the learner's own text.** At most 24 characters and two words, Latin letters with their marks, a hyphen or an apostrophe
-inside a word, a vowel, no letter four times running, a short list of words no voice says as a name. At most 3 new names a calendar
-month on a node (`name_seen` holds the month and the name, nobody's). A name already counted goes on. With `LANI_VOICE_NAMES` set, a name
-that fails is voiced nowhere, not only in name lines: any text that says it or a form of it goes to the phone's voice (204), the learner's
-own lines, a text the content doesn't have, the day's audio and what a publish queues among them. A re-record of such a text fails
-plainly. Preloading checks the name whether `LANI_VOICE_NAMES` is set or not, because it spends with nobody waiting.
+inside a word, a vowel, no letter four times running, a short list of words no voice says as a name; then the voice service's blocklists,
+which the bridge keeps a copy of (`name-check.ts`, [names-guard](names-guard.md)). At most 3 new names a calendar month on a node
+(`name_seen` holds the month and the name, nobody's). A name already counted goes on. A name that fails, or one the voice service refuses,
+is voiced nowhere, `LANI_VOICE_NAMES` set or not, and not only in name lines: any text that says it or a form of it goes to the phone's
+voice (204), the learner's own lines, a text the content doesn't have, a voice's sample, the day's audio and what a publish queues among
+them. A re-record of such a text fails plainly.
 
 **The join on the phone** (`audio/LineJoin.kt`). The manifest's parts are downloaded as clips of their own, decoded with the phone's
 decoder, the encoder's delay taken off by the LAME header, and written sample against sample into one WAV under the line's name
@@ -269,7 +270,7 @@ the project steps, which have few name lines.
 
 - `bun test/name-lines.ts` (the smoke's section `name-lines`): the flags of every name line of all four villages, the name check, the cut,
   the store against the fake ElevenLabs, the gate's turns, the caps, preloading, the library against a fake of it, and the routes on a
-  real bridge.
+  real bridge. `bun test/name-check.ts` (the same section): the bridge's check against the voice service's own verdicts.
 - `LineJoinTest`, `DialogAheadTest`: the manifest, the join, the WAV, the LAME header of a real ffmpeg file, a dialog's lines.
 - `LineFallbackTest`: a join that fails against the voice service, by each way it can, ending with no clip and no error.
 - QA: `companion/bin/qa-slot --steps name-join` with `LANI_DEV_FAKE_ELEVENLABS=1 LANI_VOICE_NAMES=on LANI_VOICE_PRELOAD=on` and a synthetic
@@ -375,6 +376,6 @@ No screen changed: 0 taps before, 0 after. A new line may play sooner with prelo
 - **Declined names** (`{learner:dat}` and the others) are voiced whole: one voiced line today.
 - **Whole takes are kept** beside each line, with their timestamps, so a better cut later costs nothing. No tool re-cuts them yet.
 - **A piece that can't be written** after its take is paid for (ffmpeg failing at that moment) pays for the take again at the next ask.
-- **The service's name rule** is a copy of `nameOk` from before its vowels were read without their marks: "Gergő" passes here and fails there,
-  so that name is made on its node and not shared. One line to bring over.
+- **The bridge's copy of the name check** (the voice service's lists and rules, [names-guard](names-guard.md)) is brought over by hand when
+  the service's change: `companion/bin/names-sync <glas checkout>`, and `--check` says whether the copy is behind.
 - **The service levelling its phrases:** see [a phrase clip](#a-name-clip).

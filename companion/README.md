@@ -2551,7 +2551,10 @@ records ([GAME.md](GAME.md#background-sounds)).
 ([audio-names](../docs/plans/05-built/audio-names.md)); until then they are voiced whole per learner, like any line. A line is voiced
 once with a filler name and cut, a name clip is made the first time anyone of that name needs it, and the phone joins the two
 into one file. Each line's type and template come from its text, in any of the four languages: `bun test/name-lines.ts --table` in
-`companion/bridge` shows them, the smoke fails a line without them, and `--cost` says what building them would take.
+`companion/bridge` shows them, the smoke fails a line without them, and `--cost` says what building them would take. Whatever the
+setting, the learner's name is checked before any voice says it, as the voice service checks it, with a copy of its lists
+([names-guard](../docs/plans/05-built/names-guard.md)): a name on a list of swear words, slurs and threats, or one the service refuses,
+is said by the phone in every line.
 
 **Getting lines ready.** With `LANI_VOICE_PRELOAD` set, a dialog, a test or a module opened tells the node what it will say, in play
 order (`POST /voice/queue`), and the node makes what it lacks at a turn between a live line and the background. Leaving cancels it.

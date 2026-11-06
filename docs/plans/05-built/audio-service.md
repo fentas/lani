@@ -71,7 +71,9 @@ To [audio-names](audio-names.md)'s contract, which owns the shapes. A name clip'
 account, node, key or device on a row or in a log line, and the name is never logged.
 
 - `voice` is a speaker of the cast. A row keeps the voice it is in, so a speaker moved to another voice finds nothing and is made again.
-- A name is untrusted text, and the service applies the bridge's rule to the letter (`nameOk`): a name passes both or neither.
+- A name is untrusted text, and the service applies the bridge's rule to the letter (`nameOk`): a name passes both or neither. The
+  bridge keeps a copy of the service's lists too, so a node checks a name the same way, and a name the service rejects is voiced by no
+  node ([names-guard](names-guard.md)).
 - A piece and a name clip come out of a take cut by its timestamps, which a bridge does: it adds them with a `publish` key
   (`Glas.addLine`, `Glas.addNameClip`). The one thing the service voices itself is a phrase that ends its line ("Lahko noč, {n}!"), which
   needs no cut: only a phrase of a manifest we added, with only a valid name in it.
