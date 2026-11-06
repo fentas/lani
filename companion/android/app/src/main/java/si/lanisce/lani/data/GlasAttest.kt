@@ -58,6 +58,12 @@ data class AttestState(
     val nextTry: Long = 0,
     /** The voice service asked for a new key (X-Glas-Renew). */
     val renew: Boolean = false,
+    /**
+     * A key sent to be enrolled whose answer never came (a dropped connection, a proxy's 502): the service may have enrolled it
+     * (and ended the old key, for a renewal). Kept until a definite answer; the next try asks the service about it first.
+     */
+    val pendingAlias: String = "",
+    val pendingKeyId: String = "",
 ) {
     /** Enrolled, and the key still counts. */
     fun attested(now: Long): Boolean = status == ENROLLED && keyId.isNotEmpty() && now < expiresAt
@@ -221,11 +227,39 @@ sealed interface Enrolled {
  * Enrollment with the voice service ([glas]): a challenge, a new key for it, the chain sent signed by the key (and by the
  * old one, renewing [state]'s). [clock]: the server's time as the phone knows it ([GlasAuth.now]).
  */
-class GlasEnroll(private val glas: String, private val keys: AttestKeys = AndroidAttestKeys, private val clock: () -> Long = GlasAuth::now) {
-    private val http = Http.client(connectSeconds = 5, readSeconds = 20)
+class GlasEnroll(
+    private val glas: String,
+    private val keys: AttestKeys = AndroidAttestKeys,
+    private val clock: () -> Long = GlasAuth::now,
+    /** Keeps a key that is about to be sent ([AttestState.pendingAlias]); ("", "") forgets it. Before the request goes. */
+    private val pending: (alias: String, keyId: String) -> Unit = { _, _ -> },
+) {
+    /**
+     * Never sent twice by OkHttp itself on a broken connection: a copy of an enrollment the service took would come back as
+     * a refusal (its challenge used) and the key would be dropped. A lost answer is an IOException here, the key kept.
+     */
+    private val http = Http.client(connectSeconds = 5, readSeconds = 20).newBuilder().retryOnConnectionFailure(false).build()
     private val base = glas.trimEnd('/')
 
     fun enroll(state: AttestState, renew: Boolean): Enrolled {
+        // a key from a try whose answer never came: the service is asked about it before anything new is made
+        if (state.pendingAlias.isNotEmpty()) {
+            val kept = keys.key(state.pendingAlias)?.takeIf { it.keyId == state.pendingKeyId }
+            val known = kept?.let { mine(it) }
+            when {
+                known is Mine.Enrolled -> {
+                    // it was enrolled: taken on, with the service's own dates; the old key ended with it
+                    if (state.alias.isNotEmpty() && state.alias != state.pendingAlias) keys.delete(state.alias)
+                    return Enrolled.Yes(known.state.copy(alias = state.pendingAlias), known.level)
+                }
+                known is Mine.NoAnswer -> return Enrolled.NotNow("pending:${known.why}")
+                else -> {
+                    // never enrolled, ended, or gone from the keystore: forgotten, and the try goes on as it would have
+                    keys.delete(state.pendingAlias)
+                    pending("", "")
+                }
+            }
+        }
         val (code, raw) = call(Request.Builder().url("$base/v1/app/attest/challenge").post(ByteArray(0).toRequestBody(Http.jsonType)).build())
         // a service that attests no app at all: its library only, asked again the next day
         if (code == 503 && errorOf(raw, "reason") == NOT_CONFIGURED) return Enrolled.Refused(NOT_CONFIGURED)
@@ -260,33 +294,73 @@ class GlasEnroll(private val glas: String, private val keys: AttestKeys = Androi
             h[GlasRequest.PREV_KEY] = previous.keyId
             h[GlasRequest.PREV_SIGNATURE] = Base64.getEncoder().encodeToString(previous.sign(message.toByteArray()))
         }
+        // kept before it goes: if the answer is lost, the next try finds out whether the service took it
+        pending(alias, key.keyId)
         val req = Request.Builder().url(url).post(body.toRequestBody(Http.jsonType)).apply { h.forEach { (k, v) -> header(k, v) } }.build()
         val (status, answer) = call(req)
         val o = runCatching { json.parseToJsonElement(answer) as JsonObject }.getOrNull()
         fun field(k: String) = o?.get(k)?.jsonPrimitive?.contentOrNull
+        val code2 = errorOf(answer)
         return when {
             status == 200 && field("status") == "enrolled" -> {
                 if (previous != null) keys.delete(state.alias)
-                Enrolled.Yes(
-                    AttestState(
-                        alias = alias,
-                        keyId = field("key_id") ?: key.keyId,
-                        install = field("install") ?: key.keyId,
-                        expiresAt = field("expires_at")?.let { java.time.Instant.parse(it).toEpochMilli() } ?: 0,
-                        renewAfter = field("renew_after")?.let { java.time.Instant.parse(it).toEpochMilli() } ?: 0,
-                        status = AttestState.ENROLLED,
-                    ),
-                    field("level") ?: "",
-                )
+                Enrolled.Yes(enrolled(alias, key.keyId, o!!), field("level") ?: "")
             }
-            else -> {
+            // a definite answer (a 4xx with its code, not 429): the key goes
+            status in 400..499 && status != 429 && code2 != null -> {
                 keys.delete(alias)
-                val reason = errorOf(answer, "reason") ?: errorOf(answer) ?: "http:$status"
-                // 403 attestation_refused is this phone's answer; anything else (a stale clock, a challenge gone, the service
-                // unavailable or out of reach) passes
-                if (status == 403) Enrolled.Refused(reason, rootOf(chain)) else Enrolled.NotNow(reason)
+                pending("", "")
+                val reason = errorOf(answer, "reason") ?: code2
+                when {
+                    // the old key may not vouch (it vouched already, and that answer was lost before this version kept keys;
+                    // or it ended): this phone is not refused, it starts again as a new install, once
+                    status == 403 && previous != null && (reason == "previous_renewed" || reason == "previous_invalid") -> {
+                        keys.delete(state.alias)
+                        enroll(AttestState(), renew = false)
+                    }
+                    // 403 attestation_refused is this phone's answer; anything else (a stale clock, a challenge gone) passes
+                    status == 403 -> Enrolled.Refused(reason, rootOf(chain))
+                    else -> Enrolled.NotNow(reason)
+                }
             }
+            // no answer, a 5xx, a 429: the service may have taken it; the key stays, asked about next time
+            else -> Enrolled.NotNow(code2?.let { "pending:$it" } ?: "pending:http:$status")
         }
+    }
+
+    /** What the service says of [key]: its enrollment ([Mine.Enrolled]), none ([Mine.Unknown]), ended, or no answer. */
+    sealed interface Mine {
+        data class Enrolled(val state: AttestState, val level: String) : Mine
+        data object Unknown : Mine
+        data object Ended : Mine
+        data class NoAnswer(val why: String) : Mine
+    }
+
+    /** GET /v1/app/attest signed by [key]: the key's own enrollment, as the service answered (or would have) its enrollment. */
+    fun mine(key: AttestKey): Mine {
+        val url = "$base/v1/app/attest".toHttpUrlOrNull()!!
+        val h = GlasRequest.headers(GlasRequest.audience(glas), key, "GET", GlasRequest.pathWithQuery(url), ByteArray(0), clock())
+        val (status, raw) = call(Request.Builder().url(url).apply { h.forEach { (k, v) -> header(k, v) } }.build())
+        val o = runCatching { json.parseToJsonElement(raw) as JsonObject }.getOrNull()
+        return when {
+            status == 200 && o?.get("status")?.jsonPrimitive?.contentOrNull == "enrolled" -> Mine.Enrolled(enrolled("", key.keyId, o), o["level"]?.jsonPrimitive?.contentOrNull ?: "")
+            status == 200 -> Mine.Ended
+            status == 401 && errorOf(raw) == "unknown_key" -> Mine.Unknown
+            else -> Mine.NoAnswer(errorOf(raw) ?: "http:$status")
+        }
+    }
+
+    /** The enrolled state an answer [o] says, for the key under [alias]. */
+    private fun enrolled(alias: String, keyId: String, o: JsonObject): AttestState {
+        fun field(k: String) = o[k]?.jsonPrimitive?.contentOrNull
+        return AttestState(
+            alias = alias,
+            keyId = field("key_id") ?: keyId,
+            install = field("install") ?: keyId,
+            expiresAt = field("expires_at")?.let { java.time.Instant.parse(it).toEpochMilli() } ?: 0,
+            renewAfter = field("renew_after")?.let { java.time.Instant.parse(it).toEpochMilli() } ?: 0,
+            status = AttestState.ENROLLED,
+        )
     }
 
     private fun call(req: Request): Pair<Int, String> = try {

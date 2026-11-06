@@ -64,7 +64,7 @@ class GlasAttestTest {
     @Test fun `an enrollment, the challenge's key, its chain, signed by itself`() {
         server.enqueue(MockResponse().setBody("""{"challenge":"${Base64.getUrlEncoder().withoutPadding().encodeToString(ByteArray(32) { 7 })}","expires_at":"2026-11-06T12:05:00Z"}""").addHeader("X-Glas-Time", "1762430400000"))
         server.enqueue(MockResponse().setBody("""{"status":"enrolled","key_id":"k","install":"i","expires_at":"2026-12-06T12:00:00Z","renew_after":"2026-11-29T12:00:00Z","level":"tee","renewed":false}"""))
-        val r = GlasEnroll(glas, keys) { 1_762_430_400_000 }.enroll(AttestState(), renew = false)
+        val r = GlasEnroll(glas, keys, { 1_762_430_400_000 }).enroll(AttestState(), renew = false)
         assertTrue(r is Enrolled.Yes)
         val s = (r as Enrolled.Yes).state
         assertEquals(AttestState.ENROLLED, s.status)
@@ -91,7 +91,7 @@ class GlasAttestTest {
         val oldId = keys.key("old")!!.keyId
         server.enqueue(MockResponse().setBody("""{"challenge":"${Base64.getUrlEncoder().withoutPadding().encodeToString(ByteArray(32))}"}"""))
         server.enqueue(MockResponse().setBody("""{"status":"enrolled","key_id":"k2","install":"$oldId","expires_at":"2026-12-06T12:00:00Z","renew_after":"2026-11-29T12:00:00Z","level":"tee","renewed":true}"""))
-        val r = GlasEnroll(glas, keys) { 1_000 }.enroll(AttestState(alias = "old", keyId = oldId, status = AttestState.ENROLLED), renew = true)
+        val r = GlasEnroll(glas, keys, { 1_000 }).enroll(AttestState(alias = "old", keyId = oldId, status = AttestState.ENROLLED), renew = true)
         assertTrue(r is Enrolled.Yes)
         assertEquals(oldId, (r as Enrolled.Yes).state.install)
         server.takeRequest()
@@ -112,7 +112,9 @@ class GlasAttestTest {
         assertTrue("a refused key is not kept", keys.pairs.isEmpty())
         challenge()
         server.enqueue(MockResponse().setResponseCode(503).setBody("""{"error":{"code":"unavailable","reason":"status_unavailable"}}"""))
-        assertEquals(Enrolled.NotNow("status_unavailable"), GlasEnroll(glas, keys).enroll(AttestState(), false))
+        assertEquals("a 5xx: the key kept, asked about next time", Enrolled.NotNow("pending:unavailable"), GlasEnroll(glas, keys).enroll(AttestState(), false))
+        assertEquals(1, keys.pairs.size)
+        keys.pairs.clear()
         server.enqueue(MockResponse().setResponseCode(503).setBody("""{"error":{"code":"unavailable","reason":"not_configured"}}"""))
         assertEquals("a service that attests no app: the library's only", Enrolled.Refused("not_configured"), GlasEnroll(glas, keys).enroll(AttestState(), false))
         server.enqueue(MockResponse().setResponseCode(429).setBody("""{"error":{"code":"rate_limited"}}"""))
@@ -210,5 +212,91 @@ class GlasAttestTest {
         val r = server.takeRequest()
         assertEquals("Bearer lani_0123", r.getHeader("Authorization"))
         assertNull(r.getHeader("X-Glas-Key"))
+    }
+
+    private fun challengeAnswer() = MockResponse().setBody("""{"challenge":"${Base64.getUrlEncoder().withoutPadding().encodeToString(ByteArray(32) { 3 })}"}""")
+
+    private fun enrolledAnswer(keyId: String, install: String) =
+        MockResponse().setBody("""{"status":"enrolled","key_id":"$keyId","install":"$install","expires_at":"2026-12-06T12:00:00Z","renew_after":"2026-11-29T12:00:00Z","level":"tee"}""")
+
+    @Test fun `a renewal whose answer was lost, the key kept, the next run takes on the successor and keeps the install`() {
+        keys.create("old", ByteArray(1))
+        val old = keys.key("old")!!
+        val state = AttestState(alias = "old", keyId = old.keyId, install = "the-install", status = AttestState.ENROLLED, expiresAt = Long.MAX_VALUE, renewAfter = 0)
+        var kept = "" to ""
+        val enroll = GlasEnroll(glas, keys, { 1_000 }) { alias, keyId -> kept = alias to keyId }
+        // the service: it commits every enrollment it is sent, and drops the answer to it; it knows the keys it took
+        val took = java.util.Collections.synchronizedList(mutableListOf<String>())
+        server.dispatcher = object : okhttp3.mockwebserver.Dispatcher() {
+            override fun dispatch(request: okhttp3.mockwebserver.RecordedRequest): MockResponse = when {
+                request.path == "/v1/app/attest/challenge" -> challengeAnswer()
+                request.method == "POST" -> MockResponse().setSocketPolicy(okhttp3.mockwebserver.SocketPolicy.DISCONNECT_AFTER_REQUEST).also { took += request.getHeader("X-Glas-Key")!! }
+                request.getHeader("X-Glas-Key") in took -> enrolledAnswer(request.getHeader("X-Glas-Key")!!, "the-install")
+                else -> MockResponse().setResponseCode(401).setBody("""{"error":{"code":"unknown_key"}}""")
+            }
+        }
+        val first = enroll.enroll(state, renew = true)
+        assertTrue(first is Enrolled.NotNow)
+        assertEquals("sent once, never again by the client itself", 1, took.size)
+        assertTrue("the new key kept", kept.first.isNotEmpty() && keys.key(kept.first) != null)
+        assertEquals(kept.second, took.single())
+        assertNotNull("the old key kept too, until it is known", keys.key("old"))
+        server.takeRequest()
+        server.takeRequest()
+        // the next run asks the service about the kept key first: enrolled, with the old install
+        val again = enroll.enroll(state.copy(pendingAlias = kept.first, pendingKeyId = kept.second), renew = true)
+        assertTrue(again is Enrolled.Yes)
+        val s2 = (again as Enrolled.Yes).state
+        assertEquals(kept.first, s2.alias)
+        assertEquals(kept.second, s2.keyId)
+        assertEquals("the install kept", "the-install", s2.install)
+        assertEquals(java.time.Instant.parse("2026-12-06T12:00:00Z").toEpochMilli(), s2.expiresAt)
+        assertEquals("", s2.pendingAlias)
+        assertNull("the old key gone", keys.key("old"))
+        val asked = server.takeRequest()
+        assertEquals("GET /v1/app/attest HTTP/1.1", asked.requestLine)
+        val message = GlasRequest.canonical(GlasRequest.audience(glas), kept.second, "GET", "/v1/app/attest", 1_000, asked.getHeader("X-Glas-Nonce")!!, GlasRequest.sha256hex(ByteArray(0)))
+        assertTrue("asked signed by the kept key", verifies(keys.pairs[kept.first]!!, message, asked.getHeader("X-Glas-Signature")!!))
+    }
+
+    @Test fun `a kept key the service never took is forgotten, and the renewal goes on with the old key`() {
+        keys.create("old", ByteArray(1))
+        keys.create("lost", ByteArray(1))
+        val old = keys.key("old")!!
+        val lost = keys.key("lost")!!
+        val state = AttestState(alias = "old", keyId = old.keyId, install = "i", status = AttestState.ENROLLED, expiresAt = Long.MAX_VALUE, pendingAlias = "lost", pendingKeyId = lost.keyId)
+        var kept = "x" to "x"
+        server.enqueue(MockResponse().setResponseCode(401).setBody("""{"error":{"code":"unknown_key","message":"no such key"}}"""))
+        server.enqueue(challengeAnswer())
+        server.enqueue(enrolledAnswer("k2", "i"))
+        val r = GlasEnroll(glas, keys, { 1_000 }) { alias, keyId -> kept = alias to keyId }.enroll(state, renew = true)
+        assertTrue(r is Enrolled.Yes)
+        assertNull("the lost key gone", keys.key("lost"))
+        server.takeRequest()
+        server.takeRequest()
+        assertEquals("vouched for by the old key", old.keyId, server.takeRequest().getHeader("X-Glas-Prev-Key"))
+        // and with no answer to the question either: nothing changes, nothing is made
+        val again = AttestState(alias = "x", keyId = "y", status = AttestState.ENROLLED, pendingAlias = kept.first, pendingKeyId = kept.second)
+        server.enqueue(MockResponse().setResponseCode(502))
+        assertEquals(Enrolled.NotNow("pending:http:502"), GlasEnroll(glas, keys, { 1_000 }).enroll(again, renew = true))
+        assertNotNull(keys.key(kept.first))
+    }
+
+    @Test fun `an old key that vouched already, its successor lost, starts again as a new install, not refused`() {
+        keys.create("old", ByteArray(1))
+        val old = keys.key("old")!!
+        val state = AttestState(alias = "old", keyId = old.keyId, install = "i", status = AttestState.ENROLLED, expiresAt = Long.MAX_VALUE)
+        server.enqueue(challengeAnswer())
+        server.enqueue(MockResponse().setResponseCode(403).setBody("""{"error":{"code":"attestation_refused","reason":"previous_renewed"}}"""))
+        server.enqueue(challengeAnswer())
+        server.enqueue(enrolledAnswer("k3", "k3"))
+        val r = GlasEnroll(glas, keys, { 1_000 }).enroll(state, renew = true)
+        assertTrue(r is Enrolled.Yes)
+        assertEquals("a new install", "k3", (r as Enrolled.Yes).state.install)
+        assertNull(keys.key("old"))
+        server.takeRequest()
+        assertEquals(old.keyId, server.takeRequest().getHeader("X-Glas-Prev-Key"))
+        server.takeRequest()
+        assertNull("the second try names no old key", server.takeRequest().getHeader("X-Glas-Prev-Key"))
     }
 }

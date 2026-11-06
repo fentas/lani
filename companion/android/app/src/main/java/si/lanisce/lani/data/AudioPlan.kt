@@ -86,7 +86,7 @@ object AudioPlan : VoicePlan {
      */
     fun enroll(renew: Boolean): Enrolled {
         val before = attestNow.value
-        val r = GlasEnroll(glas, keys).enroll(before, renew)
+        val r = GlasEnroll(glas, keys, pending = { alias, keyId -> changeAttest { it.copy(pendingAlias = alias, pendingKeyId = keyId) } }).enroll(before, renew)
         val at = System.currentTimeMillis()
         changeAttest { a ->
             when (r) {
