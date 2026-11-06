@@ -23665,7 +23665,7 @@ def attest_refused():
         assert glas_metric(metrics, 'glas_app_requests_total{tier="library",why="token"}') > 0, "the library's tier"
         assert glas_metric(metrics, 'glas_attest_enrollments_total{kind="android-key",outcome="refused",reason="root_unknown"}') >= 1, "counted by its reason"
         assert glas_metric(metrics, "glas_generations_total{outcome=\"done\"}") == 0, "nothing made"
-        qa_hook("settings:sound")
+        qa_hook("audio:refresh", "settings:sound")
         quiet = say("audioTrial.library", 0)[:40]
         assert wait_for(say("settings.sound", 0), 8) and tour_find(quiet, 8), "the settings' quiet line"
         snap("settings")

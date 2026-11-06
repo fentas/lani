@@ -81,8 +81,9 @@ with an assertion and a counter, for an iOS app one day; nothing on this side.
 
 ## QA
 
-- `--steps audio-trial` (alone, against the service's dev server): the dev server accepts the emulator's software attestation
-  and the debug build's signer (`GLAS_ATTEST_ALLOW_SOFTWARE`, refused in production), so the step shows the key enrolled
+- `--steps audio-trial` (alone, against the service's dev server): the dev server accepts the emulator's attestation (an
+  Android 16 emulator's keys are remotely provisioned under a test root, Droid Unregistered Device CA; older images use Android's
+  software root) and the debug build's signer (`GLAS_ATTEST_ALLOW_SOFTWARE`, refused in production), so the step shows the key enrolled
   ("verdict=enrolled level=software"), the trial every voice's, and the voice routes signed by the key (the service's metrics:
   signed requests, no replay). This is the evidence that enrollment and signing work end to end on an emulator.
 - `--steps attest-refused`: the dev server as production has it refuses the emulator's chain (`root_unknown`): a trial of the
