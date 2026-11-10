@@ -20374,8 +20374,26 @@ def streak():
         assert drag_to_top(STREAK_CARD) is not None, "Napredek's streak card"
         for w in want:
             assert on_screen(w, swipes=1) is not None, f"Napredek: {w}"
+        to_top()  # scroll_to only goes down: from the top again, the card framed under the header
         drag_to_top(STREAK_CARD)
         snap(name)
+
+    def tablet_card(timeout=8):
+        """Napredek on the tablet (QA's helpers swipe a phone's coordinates): from Home's 🔥 pill, then swipes of the
+        display's own size until the streak card is near the top."""
+        pill = find("Niz · Streak: ")
+        assert pill is not None, "Home's 🔥 pill on the tablet"
+        tap_at(pill)
+        assert wait_for(PROGRESS, timeout), "Napredek from the pill on the tablet"
+        time.sleep(2 * slow())
+        w, h = screen_size()
+        for _ in range(8):
+            c = find(STREAK_CARD)
+            if c is not None and c[1] < h * 0.45:
+                break
+            adb("shell", "input", "swipe", str(w // 2), str(int(h * 0.7)), str(w // 2), str(int(h * 0.35)), "600")
+            time.sleep(1.2)
+        assert find(STREAK_CARD) is not None, "the streak card on the tablet"
 
     def dark(name: str, home_line: str):
         night = adb("shell", "cmd", "uimode", "night", check=False)
@@ -20399,10 +20417,8 @@ def streak():
                 go_home()
                 assert find(home_line) is not None or on_screen(home_line, swipes=1) is not None, f"Home on the tablet ({side}): {home_line}"
                 snap(f"{name}-home-tablet-{side}")
-                if side == "side":
-                    open_progress()
-                    drag_to_top(STREAK_CARD)
-                    snap(f"{name}-stats-tablet-{side}")
+                tablet_card()
+                snap(f"{name}-stats-tablet-{side}")
         finally:
             adb("shell", "wm", "size", "reset")
             adb("shell", "wm", "density", "reset")
