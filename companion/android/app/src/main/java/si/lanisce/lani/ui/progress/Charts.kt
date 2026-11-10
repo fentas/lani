@@ -38,6 +38,15 @@ data class ChartColors(val data: Color, val surface: Color, val grid: Color, val
 /** Ice: a day a freeze covered, on the calendar and in the week's dots. */
 val FROZEN = Color(0xFF8CCBF2)
 
+/** A day a freeze covered, on its ice: a white six-armed flake of radius [r] at [c], told apart from practice in either theme. */
+private fun DrawScope.snowflake(c: Offset, r: Float) {
+    for (deg in listOf(90.0, 30.0, -30.0)) {
+        val a = Math.toRadians(deg)
+        val d = Offset((kotlin.math.cos(a) * r).toFloat(), (kotlin.math.sin(a) * r).toFloat())
+        drawLine(Color.White.copy(alpha = 0.95f), c - d, c + d, strokeWidth = 1.2.dp.toPx(), cap = StrokeCap.Round)
+    }
+}
+
 private fun DrawScope.line(points: List<Offset>, color: Color) {
     if (points.size < 2) return
     val p = Path().apply { moveTo(points[0].x, points[0].y); points.drop(1).forEach { lineTo(it.x, it.y) } }
@@ -124,6 +133,7 @@ fun Heatmap(
                 }
                 val tl = Offset(g.left + w * g.step, g.top + d * g.step)
                 drawRoundRect(color, tl, Size(g.cell, g.cell), CornerRadius(3.dp.toPx()))
+                if (level == 0 && covered(day.date)) snowflake(Offset(tl.x + g.cell / 2, tl.y + g.cell / 2), g.cell * 0.3f)
                 if (day.date == selected) {
                     drawRoundRect(colors.text, tl, Size(g.cell, g.cell), CornerRadius(3.dp.toPx()), style = Stroke(1.5.dp.toPx()))
                 }

@@ -170,7 +170,7 @@ private fun chartColors(): ChartColors {
         grid = if (dark) Color.White.copy(alpha = 0.12f) else Color.Black.copy(alpha = 0.08f),
         empty = cs.surfaceVariant,
         text = cs.onSurfaceVariant,
-        frozen = if (dark) FROZEN.copy(alpha = 0.75f) else FROZEN,
+        frozen = if (dark) Color(0xFF3F8FC4) else FROZEN,
     )
 }
 
