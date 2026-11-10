@@ -2467,7 +2467,7 @@ XP, achievements) and from the village HUD's "Naselje · Settlement" ("📊 Napr
   The bars have their TalkBack labels ("A1 units done: 1 of 18", "A1 pages in the book: 28; met: 12; secure: 5").
 - Then the streak calendar (the current and the best streak, derived from the session log; one line on the freezes
   held and how one is earned, "❄️ 1 od 2 zamrznitev — nova vsakih 7 dni zapored, še 3 · 1 of 2 freezes — one more every 7
-  days in a row, 3 to go"; a day a freeze covered drawn as ice: GAME.md, [The streak](GAME.md#the-streak)), the accuracy,
+  days in a row, 3 to go"; a day a freeze covered drawn as ice with a white flake: GAME.md, [The streak](GAME.md#the-streak)), the accuracy,
   the exercises per week, the skills, the recurring mistakes (a tap asks the tutor), the reviews due in the next 7 days,
   and the other languages' words and decks.
 

@@ -2159,7 +2159,7 @@ and never "keep your streak". The evening's nudge says what is true: "a freeze w
 day 47", "5 minutes today keeps your streak" (no freeze left), or "5 minutes today start a new streak". Napredek's streak
 card: the current and the best, "⏳ … a freeze would cover today" or "… 5 minutes keeps the streak", one line on the
 freezes ("❄️ 1 od 2 zamrznitev — nova vsakih 7 dni zapored, še 3 · 1 of 2 freezes — one more every 7 days in a row, 3
-to go"), and the calendar draws a covered day as ice (its day: "❄️ pokrila zamrznitev · covered by a freeze"). A linked
+to go"), and the calendar draws a covered day as ice with a white flake (its day: "❄️ pokrila zamrznitev · covered by a freeze"). A linked
 town's week dots show a covered day as ❄️, not as practice (the summary's `week.frozen`). The strings are machine-written
 in sl, en, de and it, for a native speaker's check (`_note_streak` in the tables).
 
