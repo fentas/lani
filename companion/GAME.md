@@ -2117,6 +2117,59 @@ for a door; a week to ten days of smoke (canmore.org.uk/event/1018726); the iron
 Mr Dixon; a breakout at 25, 18, 16 and 15 seconds; a badger for Primorska's fox. Ned's own story: `father`, `hut`, `last`, `show`
 (the pit he lost at seventeen, gone to a dance), `iron`, `after`.
 
+## The streak
+
+**One number, derived.** The streak is the days practised in a row, counted from the session log's days and today (the
+learner's day, read-db's `computed.today`). It is never a stored counter: before 2026-11-10 it was
+`learner_profile.current_streak_days`, which only a session's end changed (+1 after yesterday, else 1), so the morning
+after a missed day Home, the widget, the evening's nudge and the tutor all still said the old number, and the next
+session dropped it to 1 (Jan: "this morning i had still 46; agent is talking about keeping the streak - then I did vocab
+and reset to 1"). Now one pure function says it everywhere: `data/Streak.kt` in the app, `bridge/src/streak.ts` in the
+bridge, `.claude/hooks/lani_streak.py` in the scripts, kept equal by the shared cases of
+`bridge/test/fixtures/streak-cases.json` (21 histories, written by hand; StreakParityTest, the smoke's streak section,
+tests/test_streak.py).
+
+**The rule.**
+- A run counts its practised days. **Today is open, never a miss:** until the day ends the run is yesterday's.
+- **Freezes ❄️.** Each learner starts with 1. Every 7th practised day of a run earns 1 more, at most 2 held.
+- **Spent by themselves**, no tap: a day with no practice, before today, is covered by a held freeze. A covered day
+  keeps the run but adds nothing to its count (46 days, two days covered, then a session: 47).
+- **A gap longer than the freezes held ends the run, and spends none:** the learner keeps them for the next one. So a
+  gap in progress can show "0 left" one morning and, once it is too long, the run is over with both freezes back.
+- **Nothing new is stored**, so the rule holds for every past gap too, the same for every learner (Jan, Teo, anyone):
+  the longest streak is the longest run under the same rule. It can only grow: runs that a gap of one or two days
+  broke join when the freezes held then covered it (a run of 5, a day off, a run of 8: 13 where it was 8). How much it
+  gains has no fixed bound (a learner who missed one day after every 7th practised day never broke a run), but a
+  freeze has to be earned first: practising every other day joins the first two days only.
+- The streak is per language (each language's own session log), as the stored one was.
+
+**Why freezes, and why this way.** A missed day shouldn't erase weeks of practice (never guilt, never a wall),
+but a streak that never ends means nothing. One freeze to start means the first missed day of anyone's first week is
+forgiven; earning more with a week of practice keeps them rare; two at most covers a weekend away. Spending them by
+themselves means nothing to manage and nothing to forget, and spending none on a gap that is too long anyway means a
+lost streak never also costs the freezes. Deriving it all from the history means there's no state to repair, migrate
+or get wrong, and the app, the tutor and the hooks can't disagree.
+
+**What the learner sees.** Home's 🔥 pill shows the derived number (it pulses only while today is open and no freeze
+would cover it). "Danes · Today": "🔥 47 dni zapored · 47-day streak ✓" once today is practised (with "· ❄️ 1" while a
+freeze is held); the morning after a covered day, that day only, "❄️ Zamrznitev je ohranila niz 46 dni — še 1 · A freeze
+kept your 46-day streak — 1 left"; a streak going on, "🔥 Vadi danes za 47. dan · Practise today for day 47"; after a run
+that ended, the new start honestly, "🔥 Začni nov niz — prejšnji: 46 dni · Start a new streak — the last one: 46 days",
+and never "keep your streak". The evening's nudge says what is true: "a freeze would cover today — 5 minutes make it
+day 47", "5 minutes today keeps your streak" (no freeze left), or "5 minutes today start a new streak". Napredek's streak
+card: the current and the best, "⏳ … a freeze would cover today" or "… 5 minutes keeps the streak", one line on the
+freezes ("❄️ 1 od 2 zamrznitev — nova vsakih 7 dni zapored, še 3 · 1 of 2 freezes — one more every 7 days in a row, 3
+to go"), and the calendar draws a covered day as ice (its day: "❄️ pokrila zamrznitev · covered by a freeze"). A linked
+town's week dots show a covered day as ❄️, not as practice (the summary's `week.frozen`). The strings are machine-written
+in sl, en, de and it, for a native speaker's check (`_note_streak` in the tables).
+
+**What the tutor gets.** read-db's `computed.streak` (current, best, practised_today, freezes, the days covered in this
+run, since, today_covered: a miss today would be covered, last_run, to_next_freeze), `streak_active` as current > 0, and
+the rhythm's snapshot the same `streak`; the evening ask says only what it says. In read-db's output the profile's
+`current_streak_days` is today's derived streak too, and update-db writes it at a session's end as the derived streak
+with that session's day: an older app (Teo's tablet ran 0.2.698) reads that field and so shows the honest number as
+soon as its node runs these scripts.
+
 ## Jutri · Tomorrow
 
 `Tomorrow.teasers` (pure): what's coming, so there's always something to come back for, the most telling first: a festival's countdown (5 days ahead), tomorrow's project step (after today's), the storyteller's story by the fire (tonight's until it's heard, "Nocoj ob ognju: Janez pove zgodbo o Zlatorogu · Tonight by the fire: …", then tomorrow's, "Jutri: Janez pove, kako je Krpan srečal cesarja · Tomorrow: …"; SCENES.md, "Stories"), the pedlar's next day within a week ("Krošnjar pride v soboto · The pedlar comes on Saturday"), the next feast within a week (never a friend's gift: that comes as a surprise, see "The chest"), and, from Tabor, always tomorrow's surprise at the road. The HUD's "Danes in kmalu · Today and coming up" shows them all after today's lines, each without its day (`Teaser.what`, its card the first; tonight's story dotted until its sheet showed it), and Home's "Danes · Today" the first, under what's on in the village today.

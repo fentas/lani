@@ -1087,7 +1087,7 @@ type, text, hint?}` (kept in `<data>/app/town-challenges.json`: a retry is answe
 
 **In the app.** The friend's card: "👁️ Kaj vidi Teo · What Teo sees: 📊 Povzetek · Summary ▾" (a tap: the three levels and
 what each shows), "👀 Teo ti kaže · Teo shows you: …", and "📈 Napredek · Progress" (`ui/towns/TownProgressScreen.kt`):
-the summary (🔥 the streak, 📚 words known, 🆕 new this week, the week's days as dots, minutes, reviews, the level and the
+the summary (🔥 the streak, 📚 words known, 🆕 new this week, the week's days as dots, a day a freeze covered as ❄️, minutes, reviews, the level and the
 school's unit), "🌱 Besede, ki se jih uči · Words being learned" (a tap: the word's card; 🔊 in the word's language, the
 phone's text-to-speech), "🧗 Težave · Hard for Teo" (each pattern and its words, the words missed lately), what is due,
 "💌 Tvoji izzivi · Your challenges" and how they went, "💌 Pošlji izziv · Send a challenge" (prefilled from a word: its
@@ -2465,8 +2465,11 @@ XP, achievements) and from the village HUD's "Naselje · Settlement" ("📊 Napr
   three weakest met pages with their stars, those not practised yet last (a tap opens the page over the screen). The
   counting cards while counting is on ([Counting cards](#counting-cards)): how many, how many secure, how many due today.
   The bars have their TalkBack labels ("A1 units done: 1 of 18", "A1 pages in the book: 28; met: 12; secure: 5").
-- Then the streak calendar, the accuracy, the exercises per week, the skills, the recurring mistakes (a tap asks the
-  tutor), the reviews due in the next 7 days, and the other languages' words and decks.
+- Then the streak calendar (the current and the best streak, derived from the session log; one line on the freezes
+  held and how one is earned, "❄️ 1 od 2 zamrznitev — nova vsakih 7 dni zapored, še 3 · 1 of 2 freezes — one more every 7
+  days in a row, 3 to go"; a day a freeze covered drawn as ice: GAME.md, [The streak](GAME.md#the-streak)), the accuracy,
+  the exercises per week, the skills, the recurring mistakes (a tap asks the tutor), the reviews due in the next 7 days,
+  and the other languages' words and decks.
 
 The treasure map, the school (and a unit opened from here), a grammar page's "🎯 Vadi" and "📚 Moje besede" lead back
 to the progress screen. QA's step `progress` goes through it, in the dark theme and with the base in German too
@@ -5076,7 +5079,8 @@ grammar book. The header village draws in a layer
 of its own, a picture at a time (12 a second), and asks for the next only at its clock's ticks.
 
 **Home**, top to bottom: the village with the greeting, "🤝" to Friends (a count when a guest came, a question or a
-friend's offer waits), "⚙️" to the settings (its dot: the tutor's connection), the streak; "Danes · Today" (the one thing
+friend's offer waits), "⚙️" to the settings (its dot: the tutor's connection), the streak (derived, with its freezes:
+GAME.md, [The streak](GAME.md#the-streak)); "Danes · Today" (the one thing
 to do; wolves, a bear or a storm about make defending the village that thing; the village's day and at most two of who
 waits there, the rest "➕ Še 2 v vasi"; a tip of the game's, "💡 Namig · Tip", with its one button: see [Tips](#tips)); "Učenje · Learning", its tiles three to a row on a phone (🏫 Šola, 📚 Nove besede,
 🔤 Moje besede, 📖 Slovnica, ✨ Izzivi, 🗣️ Pogovor, 📋 Plonk listek, 📗 Branje, 🔢 Števila once open, 💌 Družina, 🚗 Za
@@ -5147,7 +5151,7 @@ each kind:
 | 🏘️ Vas · Village | the village's event: wolves, a bear, a storm, a merchant, a festival | yes |
 | 📝 Šola · School | the tutor's homework, the case trainer's assignment | yes |
 | ✨ Novo · New in Lani | a new challenge, words, a reading, a grammar page, a scene, a story, a dialog; a linked town's week | no, and silent |
-| 🔔 Opomniki · Reminders | the evening's "🔥 5 kartic čaka" | no |
+| 🔔 Opomniki · Reminders | the evening's "🔥 5 kartic čaka", with only what is true of the streak: a freeze would cover today, 5 minutes keep it, or 5 minutes start a new one | no |
 | ⚙️ Sistem · System | an update, a write the node didn't keep, a tool's approval the tutor waits for | no |
 
 The launcher draws its dot (Pixel) or count (One UI) only for the first three: what waits for the learner. Every

@@ -598,7 +598,7 @@ Show progress in fun ways:
 3. **Update learner-profile.json**:
    - Increment total_sessions
    - Add to total_study_minutes
-   - Update current_streak_days
+   - current_streak_days: update-db.py writes the streak derived from the session log (freezes included: companion/GAME.md, "The streak"); read it from read-db.py's `computed.streak`, never by counting yourself
    - Update skills.{skill_name}.last_practiced
 
 4. **Save session result file**:
