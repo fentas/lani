@@ -92,8 +92,11 @@ fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = { vm.openSett
             if (vm.unpaired) UnpairedChip(onLink)
             Spacer(Modifier.height(12.dp))
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                // the derived streak (data/Streak.kt); it pulses only while today is open and no freeze would cover it
                 val streak = d?.streak ?: 0
-                Pill("🔥", "$streak", "${bi("homeHero.streak")}: $streak", FlameOrange, pulse = streak > 0 && d?.practisedToday == false, onClick = { vm.openProgress() })
+                val freezes = d?.streaks?.freezes ?: 0
+                val said = "${bi("homeHero.streak")}: $streak" + if (freezes > 0) ", ❄️ ${bi("todayCard.freezes", "n" to freezes)}" else ""
+                Pill("🔥", "$streak", said, FlameOrange, pulse = streak > 0 && d?.practisedToday == false && d?.streaks?.todayCovered == false, onClick = { vm.openProgress() })
                 Pill("⭐", "${d?.xp ?: 0} XP", "${bi("homeHero.xp")}: ${d?.xp ?: 0}", XpGold, onClick = { vm.openProgress() })
                 Pill("🏆", "${d?.achievements ?: 0}", "${bi("homeHero.achievements")}: ${d?.achievements ?: 0}", Color.White, onClick = { vm.openProgress() })
             }

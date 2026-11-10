@@ -3946,5 +3946,16 @@
   "family.leaveWhat": "Wenn das Gerät, das es gesetzt hat, weg ist: Beim Verlassen der Familie fällt dieses Limit weg, und mit ihm der Schlüssel der Familie.",
   "family.holdLeave": "Halten, um die Familie zu verlassen",
   "family.holdNewCode": "Halten für einen neuen Code (Elternteil)",
-  "family.holdAnotherDevice": "Halten für ein weiteres Gerät (Elternteil)"
+  "family.holdAnotherDevice": "Halten für ein weiteres Gerät (Elternteil)",
+  "_note_streak": "todayCard.freezeKept, todayCard.freezes, todayCard.startNewStreakLast, progressScreen.freezesEarning, progressScreen.freezesFull, progressScreen.notPractisedTodayCovered, progressScreen.coveredByFreeze, backgroundCheck.freezeWouldCover, backgroundCheck.fiveMinutesStartStreak, townProgress.weekFrozen (2026-11-10, the streak's freezes: docs/plans/05-built/streak.md): machine-written by Claude, for a native speaker's check (the word for a freeze above all: zamrznitev, Serienschutz, congelamento).",
+  "todayCard.freezeKept": "{n, plural, one {Ein Serienschutz hat} other {# × Serienschutz haben}} deine Serie von {streak} {streak, plural, one {Tag} other {Tagen}} gehalten — {left, plural, =0 {keiner mehr} other {noch #}}",
+  "todayCard.freezes": "{n} × Serienschutz",
+  "todayCard.startNewStreakLast": "Starte eine neue Serie — die letzte: {n} {n, plural, one {Tag} other {Tage}}",
+  "progressScreen.freezesEarning": "{n} von {max} × Serienschutz — einer mehr alle 7 Tage in Folge, noch {left}",
+  "progressScreen.freezesFull": "{max} von {max} × Serienschutz — jeder deckt von selbst einen Tag ohne Übung",
+  "progressScreen.notPractisedTodayCovered": "Heute noch nicht geübt — ein Serienschutz würde den Tag abdecken",
+  "progressScreen.coveredByFreeze": "vom Serienschutz gedeckt",
+  "backgroundCheck.freezeWouldCover": "Ein Serienschutz würde heute abdecken — mit 5 Minuten wird es Tag {n}",
+  "backgroundCheck.fiveMinutesStartStreak": "5 Minuten heute starten eine neue Serie",
+  "townProgress.weekFrozen": "{n} {n, plural, one {Tag} other {Tage}} vom Serienschutz gedeckt"
 }

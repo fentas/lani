@@ -32,7 +32,11 @@ import java.time.temporal.ChronoUnit
 import kotlin.math.abs
 
 /** Chart colors for the current theme: one hue for data, recessive grid and text. */
-data class ChartColors(val data: Color, val surface: Color, val grid: Color, val empty: Color, val text: Color)
+/** [frozen]: a day a freeze covered (companion/GAME.md, "The streak"), ice blue, never the practice's colour. */
+data class ChartColors(val data: Color, val surface: Color, val grid: Color, val empty: Color, val text: Color, val frozen: Color = FROZEN)
+
+/** Ice: a day a freeze covered, on the calendar and in the week's dots. */
+val FROZEN = Color(0xFF8CCBF2)
 
 private fun DrawScope.line(points: List<Offset>, color: Color) {
     if (points.size < 2) return
@@ -76,6 +80,8 @@ fun Heatmap(
     description: String,
     onSelect: (DayActivity) -> Unit,
     modifier: Modifier = Modifier,
+    /** A day a freeze covered: drawn as ice, not as practice. */
+    covered: (LocalDate) -> Boolean = { false },
 ) {
     val tm = rememberTextMeasurer()
     val labelStyle = TextStyle(color = colors.text, fontSize = 10.sp)
@@ -111,7 +117,11 @@ fun Heatmap(
             days.forEachIndexed { d, day ->
                 if (day == null) return@forEachIndexed
                 val level = Stats.intensity(day)
-                val color = if (level == 0) colors.empty else colors.data.copy(alpha = HEAT_ALPHA[level])
+                val color = when {
+                    level > 0 -> colors.data.copy(alpha = HEAT_ALPHA[level])
+                    covered(day.date) -> colors.frozen
+                    else -> colors.empty
+                }
                 val tl = Offset(g.left + w * g.step, g.top + d * g.step)
                 drawRoundRect(color, tl, Size(g.cell, g.cell), CornerRadius(3.dp.toPx()))
                 if (day.date == selected) {

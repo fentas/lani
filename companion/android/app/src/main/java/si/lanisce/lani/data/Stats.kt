@@ -18,9 +18,6 @@ import kotlin.math.roundToInt
 /** Practice on one day, summed over its sessions. */
 data class DayActivity(val date: LocalDate, val minutes: Int, val exercises: Int, val sessions: Int)
 
-/** [current] counts back from today, or from yesterday while today is still open. */
-data class Streaks(val current: Int, val best: Int, val practisedToday: Boolean)
-
 /** A Monday-to-Sunday week. */
 data class WeekBucket(val start: LocalDate, val exercises: Int, val minutes: Int, val sessions: Int)
 
@@ -174,21 +171,8 @@ object Stats {
     fun daily(sessions: List<DayActivity>): Map<LocalDate, DayActivity> =
         sessions.groupBy { it.date }.mapValues { (d, s) -> DayActivity(d, s.sumOf { it.minutes }, s.sumOf { it.exercises }, s.sumOf { it.sessions }) }
 
-    fun streaks(days: Set<LocalDate>, today: LocalDate): Streaks {
-        val practisedToday = today in days
-        var current = 0
-        var d = if (practisedToday) today else today.minusDays(1)
-        while (d in days) { current++; d = d.minusDays(1) }
-        var best = 0
-        var run = 0
-        var prev: LocalDate? = null
-        for (day in days.filter { !it.isAfter(today) }.sorted()) {
-            run = if (prev != null && ChronoUnit.DAYS.between(prev, day) == 1L) run + 1 else 1
-            best = maxOf(best, run)
-            prev = day
-        }
-        return Streaks(current, maxOf(best, current), practisedToday)
-    }
+    /** The streak of the practice days [days] on [today]: the derived one, with its freezes ([Streak.of]). */
+    fun streaks(days: Set<LocalDate>, today: LocalDate): Streaks = Streak.of(days, today)
 
     /** The last [weeks] weeks as columns of Monday..Sunday, ending with the current week. */
     fun calendar(days: Map<LocalDate, DayActivity>, today: LocalDate, weeks: Int = 12): List<List<DayActivity?>> {
@@ -372,7 +356,8 @@ object Stats {
             wordsPerWeek = wordsPerWeek(vocabCreated, today),
             projection = projection(known, words.goal, vocabCreated, today),
             calendar = calendar(days, today),
-            streaks = streaks(days.filterValues { it.sessions > 0 }.keys, today),
+            // the derived streak of the session log's days, as the bridge and the scripts count it (data/Streak.kt)
+            streaks = Streak.ofDates(db["session_log"].obj()["sessions"].arr().map { it.obj().str("date") }, today),
             totalMinutes = sessions.sumOf { it.minutes },
             accuracy = acc,
             weeks = weekly(days, today),

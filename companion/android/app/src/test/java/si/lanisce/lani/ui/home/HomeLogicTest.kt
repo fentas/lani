@@ -12,6 +12,10 @@ import si.lanisce.lani.data.ModuleInfo
 import si.lanisce.lani.data.PackInfo
 import si.lanisce.lani.data.QuestMeta
 import si.lanisce.lani.data.ReviewCard
+import si.lanisce.lani.data.Streaks
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.Lang
+import si.lanisce.lani.l10n.LangPair
 import si.lanisce.lani.game.Age
 import si.lanisce.lani.game.EventKind
 import si.lanisce.lani.game.GameEvent
@@ -154,6 +158,37 @@ class HomeLogicTest {
         val t = HomeLogic.today(dash(practised = true), emptyList(), emptySet(), emptyList(), emptySet())
         assertTrue(t.practised)
         assertEquals(2, t.streak)
+    }
+
+    @Test fun `the streak's line says what is true, kindly`() {
+        L10n.pair = LangPair(Lang.SL, Lang.EN)
+        fun line(streak: Int, practised: Boolean, s: Streaks, kept: Int = 0) =
+            HomeLogic.streakLine(Today(HomeAction.Talk(null), emptyList(), 0, 0, 0, streak, practised, s, kept))
+        assertEquals("🔥 47 dni zapored · 47-day streak ✓", line(47, true, Streaks(47, 47, true, freezes = 0)))
+        // the morning after a covered day, that day only
+        assertEquals(
+            "❄️ Zamrznitev je ohranila niz 46 dni — nobene več · A freeze kept your 46-day streak — none left",
+            line(46, false, Streaks(46, 46, false, freezes = 0), kept = 1),
+        )
+        assertEquals(
+            "❄️ Dve zamrznitvi sta ohranili niz 46 dni — nobene več · 2 freezes kept your 46-day streak — none left",
+            line(46, false, Streaks(46, 46, false, freezes = 0), kept = 2),
+        )
+        // a streak going on, with the freezes held
+        assertEquals("🔥 Vadi danes za 47. dan · Practise today for day 47 · ❄️ 1", line(46, false, Streaks(46, 46, false, freezes = 1, todayCovered = true)))
+        assertEquals("🔥 Vadi danes za 47. dan · Practise today for day 47", line(46, false, Streaks(46, 46, false, freezes = 0)))
+        // a run that ended: a new start, with what the last one was; never "keep your streak"
+        assertEquals("🔥 Začni nov niz — prejšnji: 46 dni · Start a new streak — the last one: 46 days", line(0, false, Streaks(0, 46, false, freezes = 2, lastRun = 46)))
+        assertEquals("🔥 Začni nov niz · Start a new streak", line(0, false, Streaks.NONE))
+    }
+
+    @Test fun `Home's Today counts the days a freeze kept, the morning after`() {
+        val day = java.time.LocalDate.of(2026, 11, 10)
+        val s = si.lanisce.lani.data.Streak.of((0L until 7L).map { day.minusDays(3 + it) }, day)
+        val t = HomeLogic.today(dash().copy(streak = s.current, streaks = s, today = day), emptyList(), emptySet(), emptyList(), emptySet())
+        assertEquals(7, t.streak)
+        assertEquals(2, t.kept)
+        assertEquals(0, t.streaks.freezes)
     }
 
     // --- villagers who need Jan ------------------------------------------------------------------

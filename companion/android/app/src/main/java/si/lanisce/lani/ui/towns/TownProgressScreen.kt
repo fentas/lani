@@ -200,16 +200,28 @@ private fun SummaryCard(p: TownProgress, s: si.lanisce.lani.data.ProgressSummary
                 Stat("📚 ${s.words.known}", bi("townProgress.wordsKnown"), AlpineGreen, Modifier.weight(1f))
                 Stat("🆕 ${s.week.newWords}", bi("townProgress.newThisWeek"), XpGold, Modifier.weight(1f))
             }
-            // this week's days as dots, Monday first, each with its letter
-            val desc = inBase("townProgress.weekDesc", "n" to s.week.daysPractised, "minutes" to s.week.minutes)
+            // this week's days as dots, Monday first, each with its letter; a day a freeze covered as ice, not as practice
+            val frozen = (0 until 7).count { s.week.frozen.getOrElse(it) { false } && !s.week.days.getOrElse(it) { false } }
+            val desc = inBase("townProgress.weekDesc", "n" to s.week.daysPractised, "minutes" to s.week.minutes) +
+                if (frozen > 0) ", " + inBase("townProgress.weekFrozen", "n" to frozen) else ""
             Row(Modifier.fillMaxWidth().semantics(mergeDescendants = false) { contentDescription = desc }, horizontalArrangement = Arrangement.SpaceEvenly) {
                 for (i in 0 until 7) {
                     val on = s.week.days.getOrElse(i) { false }
+                    val ice = !on && s.week.frozen.getOrElse(i) { false }
                     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.clearAndSetSemantics { }) {
                         Box(
-                            Modifier.size(22.dp).clip(CircleShape).background(if (on) AlpineGreen else MaterialTheme.colorScheme.surfaceVariant),
+                            Modifier.size(22.dp).clip(CircleShape).background(
+                                when {
+                                    on -> AlpineGreen
+                                    ice -> si.lanisce.lani.ui.progress.FROZEN
+                                    else -> MaterialTheme.colorScheme.surfaceVariant
+                                },
+                            ),
                             contentAlignment = Alignment.Center,
-                        ) { if (on) Text("✓", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onPrimary) }
+                        ) {
+                            if (on) Text("✓", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onPrimary)
+                            else if (ice) Text("❄", style = MaterialTheme.typography.labelSmall, color = androidx.compose.ui.graphics.Color(0xFF0B3954))
+                        }
                         Text(inTarget(WEEKDAYS[i]), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }

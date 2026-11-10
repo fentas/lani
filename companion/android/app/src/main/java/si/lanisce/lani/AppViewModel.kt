@@ -938,8 +938,11 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         if (won) game.apply { s -> s.copy(resources = s.resources + (si.lanisce.lani.game.Res.FOOD to s.res(si.lanisce.lani.game.Res.FOOD) + FIRST_WORD_FOOD)) }
     }
 
-    /** A session finished at some time: the node's dashboard says so (what the first moment did isn't one). */
-    val practisedOnce: Boolean get() = content.dashboard?.let { it.practisedToday || it.streak > 0 } == true
+    /**
+     * A session finished at some time: the node's dashboard says so (what the first moment did isn't one). The session
+     * log's days, not the streak: a streak that ended is 0, the learner practised all the same.
+     */
+    val practisedOnce: Boolean get() = content.dashboard?.let { it.practisedToday || it.practised.isNotEmpty() } == true
 
     /** The learner's gender as said, the minutes a day and the level on the node; null from an older node or offline. */
     suspend fun aboutNow(): si.lanisce.lani.data.AboutApi.About? = connected?.let { c ->

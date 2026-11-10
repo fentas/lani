@@ -62,7 +62,8 @@ class ParsingTest {
         """
         val d = Dashboard.parse(raw)
         assertEquals("Jan", d.name)
-        assertEquals(2, d.streak)
+        // the profile's stored current_streak_days (2) is never read: no session log, no streak
+        assertEquals(0, d.streak)
         assertEquals(15 * 10 + 2 * 25, d.xp)
         // Error patterns store the learner's wrong answer as content: they must never become cards.
         assertEquals(listOf(ReviewCard("vocab_hvala", "hvala", "thank you", category = "politeness")), d.dueCards)

@@ -46,11 +46,15 @@ data class TheirShare(val share: String = ShareLevels.VILLAGE, val at: String = 
 @Serializable
 data class ProgressTown(val id: String = "", val name: String = "", val learner: String = "", val culture: String = "", val language: String = "")
 
-/** This week (Monday to Sunday): the days practised as seven dots, its minutes, reviews and new words. */
+/**
+ * This week (Monday to Sunday): the days practised as seven dots, the days a freeze covered ([frozen]: a town from before
+ * freezes sends none), its minutes, reviews and new words.
+ */
 @Serializable
 data class ProgressWeek(
     val start: String = "",
     val days: List<Boolean> = emptyList(),
+    val frozen: List<Boolean> = emptyList(),
     @SerialName("days_practised") val daysPractised: Int = 0,
     val minutes: Int = 0,
     val reviews: Int = 0,

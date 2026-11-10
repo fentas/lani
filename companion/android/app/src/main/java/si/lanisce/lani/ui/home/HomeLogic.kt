@@ -6,6 +6,7 @@ import si.lanisce.lani.data.ModuleInfo
 import si.lanisce.lani.data.PackInfo
 import si.lanisce.lani.data.PackSession
 import si.lanisce.lani.data.Stats
+import si.lanisce.lani.data.Streaks
 import si.lanisce.lani.data.id
 import si.lanisce.lani.data.previewLine
 import si.lanisce.lani.game.Age
@@ -107,6 +108,10 @@ data class Today(
     val streak: Int,
     /** Today already counts for the streak. */
     val practised: Boolean,
+    /** The streak with its freezes (data/Streak.kt). */
+    val streaks: Streaks = Streaks.NONE,
+    /** The morning after: the days a freeze covered since the last practice (0 once today is practised). */
+    val kept: Int = 0,
 ) {
     /** 0..1 of the daily goal. */
     val progress: Float get() = if (goal > 0) (minutes.toFloat() / goal).coerceIn(0f, 1f) else 0f
@@ -273,7 +278,7 @@ object HomeLogic {
             if ((listOf(primary) + more).any { it.key == a.key || it::class == a::class }) continue
             more += a
         }
-        return Today(primary, more, due, d.minutesToday, d.goalMinutes, d.streak, d.practisedToday)
+        return Today(primary, more, due, d.minutesToday, d.goalMinutes, d.streak, d.practisedToday, d.streaks, d.today?.let { d.streaks.keptToday(it).size } ?: 0)
     }
 
     /**
@@ -421,6 +426,24 @@ object HomeLogic {
      * The header's word on the village: an event first, then hearths going out (companion/GAME.md "Hearths"), then someone waiting for room
      * ([outlook], see [si.lanisce.lani.app.VillagerController.outlook]), else just the age.
      */
+    /**
+     * The streak's line on "Danes · Today" (companion/GAME.md, "The streak"), never guilt, never a streak that ended:
+     * practised today, "🔥 47 dni zapored · 47-day streak ✓"; the morning after a day a freeze covered, once that day,
+     * "❄️ A freeze kept your 46-day streak — none left"; a streak going on, "🔥 Practise today for day 47" (with the
+     * freezes held, "· ❄️ 1"); after a run that ended, a new start with the last one's days; else a new start.
+     */
+    fun streakLine(t: Today): String {
+        val s = t.streaks
+        val freezes = if (s.freezes > 0) " · ❄️ ${s.freezes}" else ""
+        return when {
+            t.practised && t.streak > 0 -> "🔥 ${bi("todayCard.streakDayStreak", "streak" to t.streak)} ✓$freezes"
+            t.kept > 0 && t.streak > 0 -> "❄️ ${bi("todayCard.freezeKept", "n" to t.kept, "streak" to t.streak, "left" to s.freezes)}"
+            t.streak > 0 -> "🔥 ${bi("todayCard.practiseTodayDayStreak", "streak" to (t.streak + 1))}$freezes"
+            s.lastRun > 1 -> "🔥 ${bi("todayCard.startNewStreakLast", "n" to s.lastRun)}"
+            else -> "🔥 ${bi("todayCard.startNewStreak")}"
+        }
+    }
+
     fun villageHint(state: GameState, outlook: List<Arrival> = emptyList()): VillageHint {
         val room = outlook.firstOrNull { it.waitingFor == ROOM }
         return when {

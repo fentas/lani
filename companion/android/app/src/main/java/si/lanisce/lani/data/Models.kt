@@ -699,6 +699,7 @@ data class Dashboard(
     val level: String,
     /** The level the village's ages lead to (learner.target_level; B2 when the profile names none). */
     val targetLevel: String,
+    /** The streak of today ([streaks]' current): derived from the session log, never the profile's stored counter. */
     val streak: Int,
     val achievements: Int,
     val xp: Int,
@@ -713,6 +714,13 @@ data class Dashboard(
     val minutesToday: Int = 0,
     /** A session was logged today, so today counts for the streak. */
     val practisedToday: Boolean = false,
+    /**
+     * The streak with its freezes ([Streak.of], companion/GAME.md "The streak"): what Home, the evening's nudge and the
+     * widget say. [streak] is its [Streaks.current].
+     */
+    val streaks: Streaks = Streaks.NONE,
+    /** The learner's day as the node says it (read-db's computed today); null in a dashboard made without one. */
+    val today: java.time.LocalDate? = null,
     /** The learner's daily goal in minutes (learner profile); 0 when not set. */
     val goalMinutes: Int = 0,
     /**
@@ -913,6 +921,9 @@ data class Dashboard(
             val todays = sessions.filter { it.str("date")?.take(10) == today }
             fun day(s: String?) = s?.take(10)?.let { runCatching { java.time.LocalDate.parse(it) }.getOrNull() }
             val practised = sessions.mapNotNull { day(it.str("date")) }.toSet()
+            // the streak of today, derived from the session log's days (data/Streak.kt), as the bridge and the tutor say it
+            val todayDate = day(today) ?: java.time.LocalDate.now()
+            val streaks = Streak.ofDates(sessions.map { it.str("date") }, todayDate)
             // the reviews of the cards (an error pattern is the learner's wrong answer, drilled through modules)
             val marks = items.values.map { it.obj() }.filter { it.str("type") != "error_pattern" }.flatMap { item ->
                 val level = item.str("difficulty")?.trim()?.takeIf { it.isNotEmpty() }
@@ -929,7 +940,9 @@ data class Dashboard(
                 level = learner.str("current_level") ?: "A1",
                 targetLevel = TargetNext.target(learner["target_level"]),
                 targetNext = TargetNext.parse(learner["target_level_next"]),
-                streak = profile.int("current_streak_days"),
+                streak = streaks.current,
+                streaks = streaks,
+                today = todayDate,
                 achievements = (profile["achievements"] as? JsonArray)?.size ?: 0,
                 // XP is derived, never stored: 10 per correct answer, 25 per session.
                 xp = stats.int("total_correct") * 10 + stats.int("total_sessions") * 25,

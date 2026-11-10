@@ -102,8 +102,9 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
     }
 
     /**
-     * In the evening, cards due and nothing practised today: one nudge. Off on a child's profile unless a parent turned it
-     * on ("🔔 Obvestila · Notifications" in the settings), and then without a number or a streak.
+     * In the evening, cards due and nothing practised today: one nudge, saying of the derived streak only what is true
+     * ([Notices.streakNudge]). Off on a child's profile unless a parent turned it on ("🔔 Obvestila · Notifications" in the
+     * settings), and then without a number or a streak.
      */
     private suspend fun eveningReminder(prefs: Prefs, bridge: Bridge, child: Boolean) {
         if (!NotifyChannels.reminderOn(prefs.eveningReminder(), child)) return
@@ -111,7 +112,7 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
         if (LocalTime.now().hour !in 17..21 || prefs.lastReminderDay() == today) return
         val d = bridge.dashboard()
         if (d.dueCards.isNotEmpty() && d.daysSinceLastSession >= 1) {
-            post(Notices.reminder(d.dueCards.size, child))
+            post(Notices.reminder(d.dueCards.size, child, d.streaks))
             prefs.saveLastReminderDay(today)
         }
     }

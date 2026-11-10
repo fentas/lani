@@ -184,6 +184,25 @@ class NotifyChannelsTest {
         assertTrue(Notices.reminder(12).title.contains("12"))
     }
 
+    @Test fun `the evening says of the streak only what is true`() {
+        L10n.pair = LangPair(Lang.SL, Lang.EN)
+        val day = java.time.LocalDate.of(2026, 11, 10)
+        val days = (0L until 46L).map { day.minusDays(1 + it) }
+        // a freeze held: today would be covered, five minutes still add a day
+        val covered = Streak.of(days, day)
+        assertEquals("Zamrznitev bi pokrila današnji dan — s 5 minutami bo 47. dan · A freeze would cover today — 5 minutes make it day 47", Notices.reminder(3, streak = covered).text)
+        // no freeze left: five minutes keep it
+        val kept = Streak.of(days.drop(2), day)
+        assertEquals(0, kept.freezes)
+        assertEquals("5 minut danes ohrani niz · 5 minutes today keeps your streak", Notices.reminder(3, streak = kept).text)
+        // the run is over: never "keep your streak"
+        val over = Streak.of(days.drop(3), day)
+        assertEquals(0, over.current)
+        assertEquals("5 minut danes začne nov niz · 5 minutes today start a new streak", Notices.reminder(3, streak = over).text)
+        // a child's says no streak at all
+        assertFalse(Notices.reminder(3, child = true, streak = covered).text.contains("niz"))
+    }
+
     @Test fun `the evening reminder is on for an adult and off for a child unless set`() {
         assertTrue(NotifyChannels.reminderOn(null, child = false))
         assertFalse(NotifyChannels.reminderOn(null, child = true))

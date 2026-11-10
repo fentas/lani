@@ -215,11 +215,7 @@ private fun VillageDay(lines: List<String>, onClick: () -> Unit, calls: List<Vil
 /** Minutes against the daily goal as a ring, the streak and the reviews beside it. */
 @Composable
 private fun DayProgress(t: Today) {
-    val streak = when {
-        t.practised && t.streak > 0 -> "🔥 ${bi("todayCard.streakDayStreak", "streak" to t.streak)} ✓"
-        t.streak > 0 -> "🔥 ${bi("todayCard.practiseTodayDayStreak", "streak" to (t.streak + 1))}"
-        else -> "🔥 ${bi("todayCard.startNewStreak")}"
-    }
+    val streak = HomeLogic.streakLine(t)
     val minutes = if (t.goal > 0 && t.minutes < t.goal) "${t.minutes} / ${t.goal} min" else "${t.minutes} min"
     Row(
         verticalAlignment = Alignment.CenterVertically,

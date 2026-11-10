@@ -25,6 +25,20 @@ class DashboardTodayTest {
         assertEquals(60, d.goalMinutes)
     }
 
+    @Test fun `the streak is derived from the session log, never the stored counter`() {
+        // 09-23 missed: the starter freeze covers it, the run of two goes on, the morning after says so
+        val d = Dashboard.parse(state("""{"date": "2026-09-21"}, {"date": "2026-09-22"}"""))
+        assertEquals(2, d.streak)
+        assertEquals(java.time.LocalDate.of(2026, 9, 24), d.today)
+        assertEquals(0, d.streaks.freezes)
+        assertEquals(listOf(java.time.LocalDate.of(2026, 9, 23)), d.streaks.keptToday(d.today!!))
+        // two missed days and one freeze: the run is over, whatever the profile's counter (2) says
+        val over = Dashboard.parse(state("""{"date": "2026-09-20"}, {"date": "2026-09-21"}"""))
+        assertEquals(0, over.streak)
+        assertEquals(2, over.streaks.lastRun)
+        assertEquals(1, over.streaks.freezes)
+    }
+
     @Test fun `nothing today, no goal`() {
         val d = Dashboard.parse(state("""{"date": "2026-09-23", "duration_minutes": 40}""", goal = ""))
         assertEquals(0, d.minutesToday)

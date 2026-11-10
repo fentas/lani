@@ -3943,5 +3943,16 @@
   "family.leaveWhat": "If the device that set it is gone: leaving the family removes this limit, and the family's key with it.",
   "family.holdLeave": "Hold to leave the family",
   "family.holdNewCode": "Hold for a new code (a parent)",
-  "family.holdAnotherDevice": "Hold to add another device (a parent)"
+  "family.holdAnotherDevice": "Hold to add another device (a parent)",
+  "_note_streak": "todayCard.freezeKept, todayCard.freezes, todayCard.startNewStreakLast, progressScreen.freezesEarning, progressScreen.freezesFull, progressScreen.notPractisedTodayCovered, progressScreen.coveredByFreeze, backgroundCheck.freezeWouldCover, backgroundCheck.fiveMinutesStartStreak, townProgress.weekFrozen (2026-11-10, the streak's freezes: docs/plans/05-built/streak.md): machine-written by Claude, for a native speaker's check (the word for a freeze above all: zamrznitev, Serienschutz, congelamento).",
+  "todayCard.freezeKept": "{n, plural, one {A freeze kept} other {# freezes kept}} your {streak}-day streak — {left, plural, =0 {none left} other {# left}}",
+  "todayCard.freezes": "{n, plural, one {# freeze} other {# freezes}}",
+  "todayCard.startNewStreakLast": "Start a new streak — the last one: {n, plural, one {# day} other {# days}}",
+  "progressScreen.freezesEarning": "{n} of {max} freezes — one more every 7 days in a row, {left} to go",
+  "progressScreen.freezesFull": "{max} of {max} freezes — each covers a day without practice by itself",
+  "progressScreen.notPractisedTodayCovered": "Not practised today yet — a freeze would cover today",
+  "progressScreen.coveredByFreeze": "covered by a freeze",
+  "backgroundCheck.freezeWouldCover": "A freeze would cover today — 5 minutes make it day {n}",
+  "backgroundCheck.fiveMinutesStartStreak": "5 minutes today start a new streak",
+  "townProgress.weekFrozen": "{n, plural, one {# day} other {# days}} covered by a freeze"
 }

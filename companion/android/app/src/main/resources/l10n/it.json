@@ -3946,5 +3946,16 @@
   "family.leaveWhat": "Se il dispositivo che l'ha impostato non c'è più: uscendo dalla famiglia questo limite sparisce, e con lui la chiave della famiglia.",
   "family.holdLeave": "Tieni premuto per uscire dalla famiglia",
   "family.holdNewCode": "Tieni premuto per un nuovo codice (un genitore)",
-  "family.holdAnotherDevice": "Tieni premuto per un altro dispositivo (un genitore)"
+  "family.holdAnotherDevice": "Tieni premuto per un altro dispositivo (un genitore)",
+  "_note_streak": "todayCard.freezeKept, todayCard.freezes, todayCard.startNewStreakLast, progressScreen.freezesEarning, progressScreen.freezesFull, progressScreen.notPractisedTodayCovered, progressScreen.coveredByFreeze, backgroundCheck.freezeWouldCover, backgroundCheck.fiveMinutesStartStreak, townProgress.weekFrozen (2026-11-10, the streak's freezes: docs/plans/05-built/streak.md): machine-written by Claude, for a native speaker's check (the word for a freeze above all: zamrznitev, Serienschutz, congelamento).",
+  "todayCard.freezeKept": "{n, plural, one {Un congelamento ha salvato} other {# congelamenti hanno salvato}} la tua serie di {streak, plural, one {# giorno} other {# giorni}} — {left, plural, =0 {non ne restano} one {ne resta #} other {ne restano #}}",
+  "todayCard.freezes": "{n, plural, one {# congelamento} other {# congelamenti}}",
+  "todayCard.startNewStreakLast": "Inizia una nuova serie — l'ultima: {n, plural, one {# giorno} other {# giorni}}",
+  "progressScreen.freezesEarning": "{n} congelamenti su {max} — uno in più ogni 7 giorni di fila, {left, plural, one {manca #} other {mancano #}}",
+  "progressScreen.freezesFull": "{max} congelamenti su {max} — ognuno copre da solo un giorno senza esercizio",
+  "progressScreen.notPractisedTodayCovered": "Oggi niente esercizio ancora: un congelamento coprirebbe la giornata",
+  "progressScreen.coveredByFreeze": "coperto da un congelamento",
+  "backgroundCheck.freezeWouldCover": "Un congelamento coprirebbe oggi — con 5 minuti arrivi al {n}° giorno",
+  "backgroundCheck.fiveMinutesStartStreak": "5 minuti oggi iniziano una nuova serie",
+  "townProgress.weekFrozen": "{n, plural, one {# giorno coperto} other {# giorni coperti}} da un congelamento"
 }

@@ -61,6 +61,7 @@ import si.lanisce.lani.data.MistakeStat
 import si.lanisce.lani.data.ProgressStats
 import si.lanisce.lani.data.Projection
 import si.lanisce.lani.data.SkillMastery
+import si.lanisce.lani.data.Streak
 import si.lanisce.lani.data.Trend
 import si.lanisce.lani.game.Aims
 import si.lanisce.lani.game.LevelReadiness
@@ -169,6 +170,7 @@ private fun chartColors(): ChartColors {
         grid = if (dark) Color.White.copy(alpha = 0.12f) else Color.Black.copy(alpha = 0.08f),
         empty = cs.surfaceVariant,
         text = cs.onSurfaceVariant,
+        frozen = if (dark) FROZEN.copy(alpha = 0.75f) else FROZEN,
     )
 }
 
@@ -548,18 +550,27 @@ private fun StreakCard(p: ProgressStats) {
             Stat("$active", bi("progressScreen.daysPractised"), AlpineGreen, Modifier.weight(1f))
         }
         if (!s.practisedToday && s.current > 0) {
-            Caption("⏳ ${bi("progressScreen.notPractisedTodayYet")}")
+            // today open: a freeze would cover it, or five minutes keep the streak (never a streak that ended)
+            Caption("⏳ ${bi(if (s.todayCovered) "progressScreen.notPractisedTodayCovered" else "progressScreen.notPractisedTodayYet")}")
         }
+        // the freezes held and how one is earned (data/Streak.kt), in one line
+        Caption(
+            "❄️ " + if (s.freezes >= Streak.MAX_FREEZES) bi("progressScreen.freezesFull", "max" to Streak.MAX_FREEZES)
+            else bi("progressScreen.freezesEarning", "n" to s.freezes, "max" to Streak.MAX_FREEZES, "left" to s.toNextFreeze),
+        )
         Heatmap(
             p.calendar, colors, selected?.date,
             description = inBase("progressScreen.streakCalendar", "active" to active, "minutes" to days.sumOf { it.minutes }, "current" to s.current, "best" to s.best),
             onSelect = { selected = it },
+            covered = s::isCovered,
         )
         selected?.let { d ->
-            Text(
-                "${d.date.short()}  ${if (d.sessions == 0) bi("progressScreen.noPractice") else "${d.minutes} min · ${d.exercises} ${bi("progressScreen.exercises")}"}",
-                style = MaterialTheme.typography.labelMedium,
-            )
+            val what = when {
+                d.sessions > 0 -> "${d.minutes} min · ${d.exercises} ${bi("progressScreen.exercises")}"
+                s.isCovered(d.date) -> "❄️ ${bi("progressScreen.coveredByFreeze")}"
+                else -> bi("progressScreen.noPractice")
+            }
+            Text("${d.date.short()}  $what", style = MaterialTheme.typography.labelMedium)
         }
         HeatLegend(colors)
     }
@@ -575,7 +586,10 @@ private fun HeatLegend(colors: ChartColors) {
                     .background(if (level == 0) colors.empty else colors.data.copy(alpha = HEAT_ALPHA[level])),
             )
         }
-        Caption("  ${bi("progressScreen.more")}")
+        Caption("  ${bi("progressScreen.more")}  ")
+        // a day a freeze covered
+        Box(Modifier.padding(horizontal = 1.dp).size(10.dp).clip(RoundedCornerShape(2.dp)).background(colors.frozen))
+        Caption(" ❄️")
     }
 }
 

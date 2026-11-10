@@ -3945,5 +3945,16 @@
   "family.leaveWhat": "Če naprave, ki jo je nastavila, ni več: z izhodom iz družine ta omejitev izgine, z njo pa tudi družinski ključ.",
   "family.holdLeave": "Drži za izhod iz družine",
   "family.holdNewCode": "Drži za novo kodo (starš)",
-  "family.holdAnotherDevice": "Drži za še eno napravo (starš)"
+  "family.holdAnotherDevice": "Drži za še eno napravo (starš)",
+  "_note_streak": "todayCard.freezeKept, todayCard.freezes, todayCard.startNewStreakLast, progressScreen.freezesEarning, progressScreen.freezesFull, progressScreen.notPractisedTodayCovered, progressScreen.coveredByFreeze, backgroundCheck.freezeWouldCover, backgroundCheck.fiveMinutesStartStreak, townProgress.weekFrozen (2026-11-10, the streak's freezes: docs/plans/05-built/streak.md): machine-written by Claude, for a native speaker's check (the word for a freeze above all: zamrznitev, Serienschutz, congelamento).",
+  "todayCard.freezeKept": "{n, plural, one {Zamrznitev je ohranila} two {Dve zamrznitvi sta ohranili} few {# zamrznitve so ohranile} other {# zamrznitev je ohranilo}} niz {streak} {streak, plural, one {dneva} other {dni}} — {left, plural, =0 {nobene več} other {še #}}",
+  "todayCard.freezes": "{n, plural, one {# zamrznitev} two {# zamrznitvi} few {# zamrznitve} other {# zamrznitev}}",
+  "todayCard.startNewStreakLast": "Začni nov niz — prejšnji: {n} {n, plural, one {dan} two {dneva} few {dnevi} other {dni}}",
+  "progressScreen.freezesEarning": "{n} od {max} zamrznitev — nova vsakih 7 dni zapored, še {left}",
+  "progressScreen.freezesFull": "{max} od {max} zamrznitev — vsaka sama pokrije dan brez vaje",
+  "progressScreen.notPractisedTodayCovered": "Danes še nisi {learnerGender, select, f {vadila} other {vadil}} — zamrznitev bi pokrila današnji dan",
+  "progressScreen.coveredByFreeze": "pokrila zamrznitev",
+  "backgroundCheck.freezeWouldCover": "Zamrznitev bi pokrila današnji dan — s 5 minutami bo {n}. dan",
+  "backgroundCheck.fiveMinutesStartStreak": "5 minut danes začne nov niz",
+  "townProgress.weekFrozen": "zamrznitev je pokrila {n} {n, plural, one {dan} two {dneva} few {dneve} other {dni}}"
 }

@@ -233,12 +233,23 @@ object Notices {
         Notice(NotifyChannel.VILLAGE, NotifyChannels.VILLAGE, VillageAlert.title(e.kind, child), VillageAlert.text(e, now, child), DeepLink.Village)
 
     /**
-     * The evening's nudge, [due] cards waiting: "🔥 5 kartic čaka", the streak kept in five minutes; a [child]'s says neither
-     * a number nor a streak, "🔥 Vas te pričakuje · The village is looking forward to you".
+     * The evening's nudge, [due] cards waiting: "🔥 5 kartic čaka", and what five minutes do for the [streak] ([streakNudge]);
+     * a [child]'s says neither a number nor a streak, "🔥 Vas te pričakuje · The village is looking forward to you".
      */
-    fun reminder(due: Int, child: Boolean = false): Notice =
+    fun reminder(due: Int, child: Boolean = false, streak: Streaks = Streaks.NONE): Notice =
         if (child) Notice(NotifyChannel.REMINDERS, NotifyChannels.REMINDER, "🔥 ${bi("notify.childReminderTitle")}", bi("notify.childReminderText"), DeepLink.Review)
-        else Notice(NotifyChannel.REMINDERS, NotifyChannels.REMINDER, "🔥 ${inTarget("backgroundCheck.cardsWaiting", "n" to due)}", bi("backgroundCheck.fiveMinutesKeepStreak"), DeepLink.Review)
+        else Notice(NotifyChannel.REMINDERS, NotifyChannels.REMINDER, "🔥 ${inTarget("backgroundCheck.cardsWaiting", "n" to due)}", streakNudge(streak), DeepLink.Review)
+
+    /**
+     * What the evening says of the streak, only what is true (companion/GAME.md, "The streak"): a freeze would cover today
+     * (five minutes still add the next day); five minutes keep a streak going on with no freeze left; after a run that
+     * ended, five minutes start a new one, never "keep your streak".
+     */
+    fun streakNudge(s: Streaks): String = when {
+        s.current == 0 -> bi("backgroundCheck.fiveMinutesStartStreak")
+        s.todayCovered -> bi("backgroundCheck.freezeWouldCover", "n" to s.current + 1)
+        else -> bi("backgroundCheck.fiveMinutesKeepStreak")
+    }
 
     /** A write the node rejected ([label]: what it was), [why]. */
     fun notSaved(label: String, why: String): Notice = Notice(NotifyChannel.SYSTEM, NotifyChannels.OUTBOX, "⚠️ ${bi("backgroundCheck.notSaved", "eLabel" to label)}", why)

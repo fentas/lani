@@ -18,7 +18,7 @@ class TownProgressTest {
         {"v":1,"town":{"id":"$luka","name":"Il mio villaggio","learner":"Luka","culture":"friuli","language":"it"},
          "level":"details","date":"2026-10-28","child":true,"guardian":true,"base":"sl",
          "summary":{"streak":4,"practised_today":true,
-           "week":{"start":"2026-10-26","days":[true,true,true,false,false,false,false],"days_practised":3,"minutes":35,"reviews":18,"new_words":2},
+           "week":{"start":"2026-10-26","days":[true,true,true,false,false,false,false],"frozen":[false,false,false,false,false,false,false],"days_practised":3,"minutes":35,"reviews":18,"new_words":2},
            "words":{"known":8,"tracked":10},"level":"A1","target_level":"A2",
            "course":{"level":"A1","done":1,"of":18,"current":{"id":"pozdravi","title":{"it":"Saluti","sl":"Pozdravi"}}}},
          "details":{"learning":[{"id":"vocab_cane","word":"il cane","meanings":{"sl":"pes","en":"the dog"},"added":"2026-10-28","state":"learning"},
@@ -41,6 +41,7 @@ class TownProgressTest {
         val s = p.summary!!
         assertEquals(4, s.streak)
         assertEquals(listOf(true, true, true, false, false, false, false), s.week.days)
+        assertEquals(List(7) { false }, s.week.frozen)
         assertEquals(3, s.week.daysPractised)
         assertEquals(35, s.week.minutes)
         assertEquals(2, s.week.newWords)
@@ -65,6 +66,7 @@ class TownProgressTest {
         val summary = TownProgresses.parse("""{"town":{"id":"$luka","learner":"Jan"},"level":"summary","date":"2026-10-28","summary":{"streak":2,"week":{"days":[true]},"words":{"known":3}}}""")
         assertNull(summary.details)
         assertEquals(2, summary.summary?.streak)
+        assertEquals(emptyList<Boolean>(), summary.summary?.week?.frozen) // a town from before freezes: no day frozen
         assertFalse(summary.child)
         val village = TownProgresses.parse("""{"town":{"id":"$luka"},"level":"village","date":"2026-10-28"}""")
         assertNull(village.summary)

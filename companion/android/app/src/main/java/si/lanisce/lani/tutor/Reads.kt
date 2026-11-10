@@ -155,7 +155,10 @@ object Summaries {
     private fun pretty(e: JsonElement): String = prettyJson.encodeToString(JsonElement.serializer(), e)
     private val prettyJson = kotlinx.serialization.json.Json { prettyPrint = true }
 
-    /** read-db.py's output summed up: the computed fields, the profile's learner, streak, the top mistakes, mastery, the last sessions. */
+    /**
+     * read-db.py's output summed up: the computed fields (the streak among them, derived with its freezes), the profile's
+     * learner, streak (read-db's current_streak_days is today's derived one), the top mistakes, mastery, the last sessions.
+     */
     fun learnerState(raw: String): String {
         val o = obj(raw) ?: return raw.take(4000)
         val dbs = o["databases"] as? JsonObject

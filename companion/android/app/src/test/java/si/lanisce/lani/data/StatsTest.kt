@@ -13,22 +13,29 @@ class StatsTest {
     private fun d(s: String) = LocalDate.parse(s)
     private fun days(vararg s: String) = s.map(::d).toSet()
 
-    // --- streaks ---
+    // --- streaks (the rule itself: StreakParityTest and the shared cases) ---
 
     @Test fun `no practice is no streak`() {
         assertEquals(Streaks(0, 0, false), Stats.streaks(emptySet(), today))
     }
 
     @Test fun `streak counts back from today`() {
-        assertEquals(Streaks(3, 3, true), Stats.streaks(days("2026-09-21", "2026-09-22", "2026-09-23"), today))
+        assertEquals(Streaks(3, 3, true, since = d("2026-09-21"), toNextFreeze = 4), Stats.streaks(days("2026-09-21", "2026-09-22", "2026-09-23"), today))
     }
 
     @Test fun `today not yet practised keeps yesterday's streak alive`() {
-        assertEquals(Streaks(2, 2, false), Stats.streaks(days("2026-09-21", "2026-09-22"), today))
+        assertEquals(Streaks(2, 2, false, since = d("2026-09-21"), todayCovered = true, toNextFreeze = 5), Stats.streaks(days("2026-09-21", "2026-09-22"), today))
     }
 
-    @Test fun `a missed day breaks the streak`() {
-        assertEquals(Streaks(0, 2, false), Stats.streaks(days("2026-09-20", "2026-09-21"), today))
+    @Test fun `a missed day is covered by the starter freeze`() {
+        assertEquals(
+            Streaks(2, 2, false, freezes = 0, covered = listOf(d("2026-09-22")), since = d("2026-09-20"), toNextFreeze = 5),
+            Stats.streaks(days("2026-09-20", "2026-09-21"), today),
+        )
+    }
+
+    @Test fun `two missed days with one freeze end the streak and keep the freeze`() {
+        assertEquals(Streaks(0, 2, false, freezes = 1, lastRun = 2), Stats.streaks(days("2026-09-19", "2026-09-20"), today))
     }
 
     @Test fun `best streak survives gaps`() {
@@ -38,7 +45,7 @@ class StatsTest {
     }
 
     @Test fun `future dates don't count`() {
-        assertEquals(Streaks(1, 1, true), Stats.streaks(days("2026-09-23", "2026-09-25", "2026-09-26"), today))
+        assertEquals(Streaks(1, 1, true, since = today, toNextFreeze = 6), Stats.streaks(days("2026-09-23", "2026-09-25", "2026-09-26"), today))
     }
 
     // --- calendar and weekly buckets ---
@@ -249,7 +256,8 @@ class StatsTest {
         assertEquals(2, p.wordsTrend.last())
         assertEquals(2, p.wordsTrend[p.wordsTrend.size - 2])
         assertEquals(Projection.NotEnoughData, p.projection) // no word learned recently is no pace
-        assertEquals(Streaks(1, 2, true), p.streaks)
+        // 08-26 and 08-27, then a gap longer than the starter freeze: today's session starts a new run
+        assertEquals(Streaks(1, 2, true, since = today, lastRun = 2, toNextFreeze = 6), p.streaks)
         assertEquals(51, p.totalMinutes)
         assertEquals(DayActivity(today, 16, 21, 2), p.calendar.last()[2])
         assertEquals(listOf(0.7f, 0.8f, 0.95f), p.accuracy.map { it.accuracy })
