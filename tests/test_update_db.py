@@ -193,11 +193,12 @@ class UpdateDbSmokeTest(unittest.TestCase):
         self.assertIn("breakthroughs", latest)
         self.assertIn("focus_next_session", latest)
         self.assertIn("achievements_earned", latest)
-        self.assertEqual(latest["streak_day"], 3)  # was 2, yesterday -> +1
+        # the streak of the session log's days, 04-23 and 04-24: the profile's stored 2 is never read
+        self.assertEqual(latest["streak_day"], 2)
 
         with open(self.tmp / "data" / "learner-profile.json") as f:
             profile = json.load(f)
-        self.assertEqual(profile["current_streak_days"], 3)
+        self.assertEqual(profile["current_streak_days"], 2)
         conf = profile["skills"]["vocabulary"]["confidence"]
         self.assertIsInstance(conf, int)
         self.assertGreaterEqual(conf, 0)
@@ -241,7 +242,7 @@ class UpdateDbSmokeTest(unittest.TestCase):
         self.assertEqual(proc.returncode, 1)
 
     def test_same_day_does_not_bump_streak(self):
-        # Profile last_updated = 2026-04-23; send a session on 2026-04-23.
+        # The session log's day is 2026-04-23; send a session on 2026-04-23: still the one day.
         payload = dict(SESSION_PAYLOAD)
         payload["session_id"] = "session-003"
         payload["date"] = "2026-04-23"
@@ -249,7 +250,7 @@ class UpdateDbSmokeTest(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, msg=proc.stderr)
         with open(self.tmp / "data" / "learner-profile.json") as f:
             profile = json.load(f)
-        self.assertEqual(profile["current_streak_days"], 2)
+        self.assertEqual(profile["current_streak_days"], 1)
 
     # --- Milestones (issue #8) ---
 
@@ -738,6 +739,7 @@ class UpdateDbSmokeTest(unittest.TestCase):
         """The fixtures as an update-db.py from before dates were zero-padded left them, after reports dated "2026-4-23"
         and "2026-4-24": the scripts compared such dates as text ("2026-4-9" after "2026-04-24")."""
         self._write("learner-profile.json", lambda p: p.update(last_updated="2026-4-23"))
+        self._write("session-log.json", lambda p: p["sessions"][0].update(date="2026-4-23"))
         self._write("progress-db.json", lambda p: p.update(accuracy_trend=[{"date": "2026-4-24", "accuracy": 0.5, "exercises": 2}]))
 
         def items(sr):
@@ -751,7 +753,7 @@ class UpdateDbSmokeTest(unittest.TestCase):
         proc = self._run(report)
         self.assertEqual(proc.returncode, 0, msg=proc.stderr)
         profile = self._load("learner-profile.json")
-        self.assertEqual((profile["last_updated"], profile["current_streak_days"]), ("2026-04-24", 3))  # 2026-04-23: yesterday
+        self.assertEqual((profile["last_updated"], profile["current_streak_days"]), ("2026-04-24", 2))  # 2026-04-23: yesterday
         self.assertEqual([a["earned_date"] for a in profile["achievements"]], ["2026-04-02", "2026-04-24"])
         log = self._load("session-log.json")
         self.assertEqual(log["sessions"][-1]["date"], "2026-04-24")
@@ -780,8 +782,8 @@ class UpdateDbSmokeTest(unittest.TestCase):
         self._unpadded()
         proc = self._run(dict(SESSION_PAYLOAD, review_results=[]))  # 2026-04-24
         self.assertEqual(proc.returncode, 0, msg=proc.stderr)
-        # "2026-4-23" was yesterday: the streak goes on
-        self.assertEqual(self._load("learner-profile.json")["current_streak_days"], 3)
+        # "2026-4-23" in the session log was yesterday: the streak goes on
+        self.assertEqual(self._load("learner-profile.json")["current_streak_days"], 2)
         # the day's accuracy entry is the one of "2026-4-24", its date kept as it was written
         self.assertEqual(self._load("progress-db.json")["accuracy_trend"], [{"date": "2026-4-24", "accuracy": 0.8, "exercises": 7}])
         sr = self._load("spaced-repetition.json")

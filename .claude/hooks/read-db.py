@@ -19,12 +19,13 @@ import argparse
 import json
 import re
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lani_paths import backups_dir, data_dir, force_utf8_io, now as clock  # noqa: E402
 import lani_languages as langs  # noqa: E402
+import lani_streak  # noqa: E402
 
 force_utf8_io()
 DATA_DIR = data_dir()
@@ -107,7 +108,6 @@ def load_language(code: str, home_profile: dict, today: str) -> dict:
 
 def computed(databases: dict, now: datetime, code: str = None) -> dict:
     today = now.strftime("%Y-%m-%d")
-    yesterday = (now - timedelta(days=1)).strftime("%Y-%m-%d")
 
     sr = databases.get("spaced_repetition", {})
     items = sr.get("items", {})
@@ -118,7 +118,8 @@ def computed(databases: dict, now: datetime, code: str = None) -> dict:
 
     profile = databases.get("learner_profile", {})
     last_updated = profile.get("last_updated", "")
-    streak_active = langs.norm_date(last_updated) in (today, yesterday)
+    # the streak of today, from the session log's days (lani_streak.py): never the stored counter
+    streak = lani_streak.of_log(log, today)
     try:
         days_since = (now - datetime.strptime(last_updated, "%Y-%m-%d")).days if last_updated else None
     except ValueError:
@@ -129,8 +130,9 @@ def computed(databases: dict, now: datetime, code: str = None) -> dict:
         "due_reviews_count": len(due_items),
         "due_review_items": due_items,
         "next_session_id": next_session_id(sessions, code),
-        "streak_active": streak_active,
+        "streak_active": streak["current"] > 0,
         "days_since_last_session": days_since,
+        "streak": lani_streak.computed(streak),
     }
 
 
@@ -184,9 +186,15 @@ def main():
             print(f"[Lani] Error: --language {code}: its data can't be read: {e}", file=sys.stderr)
             sys.exit(2)
 
+    fields = computed(databases, now, code)
+    # The profile's current_streak_days as of today, the derived streak: an older app shows it as the streak, and the
+    # stored one only says what the last session's end wrote (a missed day since doesn't change the file).
+    profile = databases.get("learner_profile")
+    if isinstance(profile, dict) and profile:
+        profile["current_streak_days"] = fields["streak"]["current"]
     result = {
         "databases": databases,
-        "computed": computed(databases, now, code),
+        "computed": fields,
         "language": code or home,
         "languages": summaries(home_dbs, home, today),
     }

@@ -9,10 +9,12 @@ import { backupsDir, dataDir } from './paths'
 import { Parser } from './pyargparse'
 import { dumpIndented } from './pyjson'
 import {
-  add, contains, eq, excStr, fmtDate, get, getItem, int, isDict, isExc, items, le, len, merge, or, ordinal, plusDays,
+  add, contains, eq, excStr, fmtDate, get, getItem, int, isDict, isExc, items, le, len, merge, or, ordinal,
   PyDict, repr, str as pyStr, strptime, SysExit, truthy, typeErr, typeName, type DateTime, type Py,
 } from './py'
 import { exists, pjoin, type Ctx } from './sys'
+import { streakOf } from '../streak'
+import { logDates, streakDict } from './streak'
 
 /** read-db.py's database keys -> update-db.py's. */
 const KEYS: [string, string][] = [
@@ -86,7 +88,6 @@ function loadLanguage(dir: string, code: string, homeProfile: Py, today: string)
 
 function computed(databases: PyDict, now: DateTime, code: string | null): PyDict {
   const today = fmtDate(now)
-  const yesterday = fmtDate(plusDays(now, -1))
   const sr = databases.get('spaced_repetition', new PyDict())
   const its = get(sr, 'items', new PyDict())
   const due = items(its).filter(([, item]) => le(normDate(get(item, 'due_date', '')), today)).map(([iid]) => iid)
@@ -94,7 +95,8 @@ function computed(databases: PyDict, now: DateTime, code: string | null): PyDict
   const sessions = get(log, 'sessions', [])
   const profile = databases.get('learner_profile', new PyDict())
   const lastUpdated = get(profile, 'last_updated', '')
-  const streakActive = eq(normDate(lastUpdated), today) || eq(normDate(lastUpdated), yesterday)
+  // the streak of today, from the session log's days (lani_streak.py): never the stored counter
+  const streak = streakOf(logDates(log), today)
   let daysSince: Py = null
   try {
     daysSince = truthy(lastUpdated) ? ordinal(now) - ordinal(strptime(lastUpdated)) : null
@@ -107,8 +109,9 @@ function computed(databases: PyDict, now: DateTime, code: string | null): PyDict
     due_reviews_count: due.length,
     due_review_items: due,
     next_session_id: nextSessionId(sessions, code),
-    streak_active: streakActive,
+    streak_active: streak.current > 0,
     days_since_last_session: daysSince,
+    streak: streakDict(streak),
   })
 }
 
@@ -170,9 +173,13 @@ export function main(ctx: Ctx, argv: string[]): void {
     missing = []
   }
 
+  const fields = computed(databases, now, code)
+  // the profile's current_streak_days as of today, the derived streak: an older app shows it as the streak
+  const profile = databases.get('learner_profile')
+  if (isDict(profile) && truthy(profile)) profile.set('current_streak_days', (fields.get('streak') as PyDict).get('current') as Py)
   const result = new PyDict()
   result.set('databases', databases)
-  result.set('computed', computed(databases, now, code))
+  result.set('computed', fields)
   result.set('language', code ?? home)
   result.set('languages', summaries(ctx, DATA_DIR, homeDbs, home, today))
   if (missing.length) result.set('_warnings', missing.map(m => `Missing file: ${m}`))

@@ -1,0 +1,668 @@
+{
+  "about": "The streak's rule (companion/GAME.md, \"The streak\"), one case each: the practice days as the session log keeps them (\"days\"), today (the learner's day) and what the rule answers. The app (data/Streak.kt, StreakParityTest), the bridge (src/streak.ts, the smoke's streak section) and the scripts (.claude/hooks/lani_streak.py, tests/test_streak.py) all read it. \"pattern\": the days up to today, x practised, . not, the last one today. Written by hand: never generate the expectations from an implementation.",
+  "rule": {
+    "start_freezes": 1,
+    "earn_every": 7,
+    "max_freezes": 2
+  },
+  "cases": [
+    {
+      "name": "no practice yet: no streak, the starter freeze held",
+      "pattern": "",
+      "today": "2026-11-10",
+      "days": [],
+      "expect": {
+        "current": 0,
+        "best": 0,
+        "practised_today": false,
+        "freezes": 1,
+        "covered": [],
+        "since": null,
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 7
+      }
+    },
+    {
+      "name": "only today",
+      "pattern": "x",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 1,
+        "best": 1,
+        "practised_today": true,
+        "freezes": 1,
+        "covered": [],
+        "since": "2026-11-10",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 6
+      }
+    },
+    {
+      "name": "yesterday practised, today open: today is never a miss",
+      "pattern": "x.",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-09"
+      ],
+      "expect": {
+        "current": 1,
+        "best": 1,
+        "practised_today": false,
+        "freezes": 1,
+        "covered": [],
+        "since": "2026-11-09",
+        "today_covered": true,
+        "last_run": 0,
+        "to_next_freeze": 6
+      }
+    },
+    {
+      "name": "three days in a row ending today",
+      "pattern": "xxx",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-08",
+        "2026-11-09",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 3,
+        "best": 3,
+        "practised_today": true,
+        "freezes": 1,
+        "covered": [],
+        "since": "2026-11-08",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 4
+      }
+    },
+    {
+      "name": "one missed day is covered by the starter freeze: it keeps the run and adds nothing",
+      "pattern": "xx.x",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-07",
+        "2026-11-08",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 3,
+        "best": 3,
+        "practised_today": true,
+        "freezes": 0,
+        "covered": [
+          "2026-11-09"
+        ],
+        "since": "2026-11-07",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 4
+      }
+    },
+    {
+      "name": "the morning after a covered day: the run kept, no freeze left for today",
+      "pattern": "xx..",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-07",
+        "2026-11-08"
+      ],
+      "expect": {
+        "current": 2,
+        "best": 2,
+        "practised_today": false,
+        "freezes": 0,
+        "covered": [
+          "2026-11-09"
+        ],
+        "since": "2026-11-07",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 5
+      }
+    },
+    {
+      "name": "two missed days with one freeze end the run, and the freeze is kept",
+      "pattern": "xxx...",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07"
+      ],
+      "expect": {
+        "current": 0,
+        "best": 3,
+        "practised_today": false,
+        "freezes": 1,
+        "covered": [],
+        "since": null,
+        "today_covered": false,
+        "last_run": 3,
+        "to_next_freeze": 7
+      }
+    },
+    {
+      "name": "a new start after a run that ended",
+      "pattern": "xxx..x",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 1,
+        "best": 3,
+        "practised_today": true,
+        "freezes": 1,
+        "covered": [],
+        "since": "2026-11-10",
+        "today_covered": false,
+        "last_run": 3,
+        "to_next_freeze": 6
+      }
+    },
+    {
+      "name": "the 7th practised day of a run earns a second freeze",
+      "pattern": "xxxxxxx.",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-08",
+        "2026-11-09"
+      ],
+      "expect": {
+        "current": 7,
+        "best": 7,
+        "practised_today": false,
+        "freezes": 2,
+        "covered": [],
+        "since": "2026-11-03",
+        "today_covered": true,
+        "last_run": 0,
+        "to_next_freeze": 0
+      }
+    },
+    {
+      "name": "a freeze earned today counts today",
+      "pattern": "xxxxxxx",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-08",
+        "2026-11-09",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 7,
+        "best": 7,
+        "practised_today": true,
+        "freezes": 2,
+        "covered": [],
+        "since": "2026-11-04",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 0
+      }
+    },
+    {
+      "name": "at most two freezes are held",
+      "pattern": "xxxxxxxxxxxxxxxxxxxxx",
+      "today": "2026-11-10",
+      "days": [
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31",
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-08",
+        "2026-11-09",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 21,
+        "best": 21,
+        "practised_today": true,
+        "freezes": 2,
+        "covered": [],
+        "since": "2026-10-21",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 0
+      }
+    },
+    {
+      "name": "46 days, two missed, today practised: two freezes cover the gap",
+      "pattern": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx..x",
+      "today": "2026-11-10",
+      "days": [
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-09-27",
+        "2026-09-28",
+        "2026-09-29",
+        "2026-09-30",
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31",
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 47,
+        "best": 47,
+        "practised_today": true,
+        "freezes": 0,
+        "covered": [
+          "2026-11-08",
+          "2026-11-09"
+        ],
+        "since": "2026-09-23",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 2
+      }
+    },
+    {
+      "name": "46 days, two missed, today open: the run kept by two freezes",
+      "pattern": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...",
+      "today": "2026-11-10",
+      "days": [
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-09-27",
+        "2026-09-28",
+        "2026-09-29",
+        "2026-09-30",
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31",
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07"
+      ],
+      "expect": {
+        "current": 46,
+        "best": 46,
+        "practised_today": false,
+        "freezes": 0,
+        "covered": [
+          "2026-11-08",
+          "2026-11-09"
+        ],
+        "since": "2026-09-23",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 3
+      }
+    },
+    {
+      "name": "46 days, three missed: the gap is longer than the freezes, the run ends and both are kept",
+      "pattern": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....",
+      "today": "2026-11-10",
+      "days": [
+        "2026-09-22",
+        "2026-09-23",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-09-27",
+        "2026-09-28",
+        "2026-09-29",
+        "2026-09-30",
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31",
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06"
+      ],
+      "expect": {
+        "current": 0,
+        "best": 46,
+        "practised_today": false,
+        "freezes": 2,
+        "covered": [],
+        "since": null,
+        "today_covered": false,
+        "last_run": 46,
+        "to_next_freeze": 0
+      }
+    },
+    {
+      "name": "a gap longer than the freezes held ends the run in the middle too, spending none",
+      "pattern": "xxxxxxx...xx",
+      "today": "2026-11-10",
+      "days": [
+        "2026-10-30",
+        "2026-10-31",
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-09",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 2,
+        "best": 7,
+        "practised_today": true,
+        "freezes": 2,
+        "covered": [],
+        "since": "2026-11-09",
+        "today_covered": false,
+        "last_run": 7,
+        "to_next_freeze": 0
+      }
+    },
+    {
+      "name": "one freeze left after a covered day: a miss today would be covered",
+      "pattern": "xxxxxxx..",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-08"
+      ],
+      "expect": {
+        "current": 7,
+        "best": 7,
+        "practised_today": false,
+        "freezes": 1,
+        "covered": [
+          "2026-11-09"
+        ],
+        "since": "2026-11-02",
+        "today_covered": true,
+        "last_run": 0,
+        "to_next_freeze": 7
+      }
+    },
+    {
+      "name": "spent and earned again: the 14th practised day earns one back",
+      "pattern": "xxxxxxx.xxxxxxx..x.",
+      "today": "2026-11-10",
+      "days": [
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-31",
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-09"
+      ],
+      "expect": {
+        "current": 15,
+        "best": 15,
+        "practised_today": false,
+        "freezes": 0,
+        "covered": [
+          "2026-10-30",
+          "2026-11-07",
+          "2026-11-08"
+        ],
+        "since": "2026-10-23",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 6
+      }
+    },
+    {
+      "name": "a freeze kept from a run that ended covers a gap in the next one",
+      "pattern": "xxx..xx.x",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-07",
+        "2026-11-08",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 3,
+        "best": 3,
+        "practised_today": true,
+        "freezes": 0,
+        "covered": [
+          "2026-11-09"
+        ],
+        "since": "2026-11-07",
+        "today_covered": false,
+        "last_run": 3,
+        "to_next_freeze": 4
+      }
+    },
+    {
+      "name": "old runs join across a covered day: the longest streak counts under the same rule",
+      "pattern": "xxxxx.xxxxxxxx.....",
+      "today": "2026-11-10",
+      "days": [
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31",
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05"
+      ],
+      "expect": {
+        "current": 0,
+        "best": 13,
+        "practised_today": false,
+        "freezes": 1,
+        "covered": [
+          "2026-10-28"
+        ],
+        "since": null,
+        "today_covered": false,
+        "last_run": 13,
+        "to_next_freeze": 7
+      }
+    },
+    {
+      "name": "every other day: the starter freeze joins the first two, then nothing is left to cover",
+      "pattern": "x.x.x.x.x.x.x",
+      "today": "2026-11-10",
+      "days": [
+        "2026-10-29",
+        "2026-10-31",
+        "2026-11-02",
+        "2026-11-04",
+        "2026-11-06",
+        "2026-11-08",
+        "2026-11-10"
+      ],
+      "expect": {
+        "current": 1,
+        "best": 2,
+        "practised_today": true,
+        "freezes": 0,
+        "covered": [
+          "2026-10-30"
+        ],
+        "since": "2026-11-10",
+        "today_covered": false,
+        "last_run": 1,
+        "to_next_freeze": 6
+      }
+    },
+    {
+      "name": "the session log as it is: duplicates, any order, a time after the date, an unpadded date; a later day, a date that doesn't exist and what isn't a date are left out",
+      "today": "2026-11-10",
+      "days": [
+        "2026-11-10",
+        "2026-11-09",
+        "2026-11-10",
+        "2026-11-11",
+        "2026-11-08T21:30:00",
+        "2026-11-7",
+        "garbage",
+        "2026-02-30",
+        "0000-01-01",
+        "",
+        null,
+        42
+      ],
+      "expect": {
+        "current": 4,
+        "best": 4,
+        "practised_today": true,
+        "freezes": 1,
+        "covered": [],
+        "since": "2026-11-07",
+        "today_covered": false,
+        "last_run": 0,
+        "to_next_freeze": 3
+      }
+    }
+  ]
+}

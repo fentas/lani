@@ -10,8 +10,9 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lani_paths import data_dir, ensure_backups_dir, force_utf8_io  # noqa: E402
+from lani_paths import data_dir, ensure_backups_dir, force_utf8_io, now  # noqa: E402
 import lani_data_repo  # noqa: E402
+import lani_streak  # noqa: E402
 
 force_utf8_io()
 
@@ -52,10 +53,16 @@ def main():
             with open(profile_path, 'r') as f:
                 profile = json.load(f)
 
-            streak = profile.get("current_streak_days", 0)
+            # the streak of today, from the session log's days (lani_streak.py), never the stored counter
+            try:
+                with open(data / "session-log.json", 'r') as f:
+                    log = json.load(f)
+            except (OSError, ValueError):
+                log = {}
+            streak = lani_streak.line(lani_streak.of_log(log, now().strftime("%Y-%m-%d")))
             total_sessions = profile.get("total_sessions", 0)
 
-            print(f"[Lani] 🔥 Current streak: {streak} days")
+            print(f"[Lani] 🔥 Current streak: {streak}")
             print(f"[Lani] 📊 Total sessions: {total_sessions}")
             print(f"[Lani] 👋 Great work today!")
 

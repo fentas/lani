@@ -5,11 +5,11 @@ Displays welcome message with learner stats and due reviews
 """
 import json
 import sys
-from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lani_paths import data_dir, force_utf8_io, plugin_root, results_dir  # noqa: E402
+from lani_paths import data_dir, force_utf8_io, now, plugin_root, results_dir  # noqa: E402
+import lani_streak  # noqa: E402
 
 force_utf8_io()
 
@@ -42,7 +42,14 @@ def main():
         target_lang = learner.get("target_language", "your target language")
         current_level = learner.get("current_level", "...")
         target_level = learner.get("target_level", "...")
-        streak = profile.get("current_streak_days", 0)
+        today = now().strftime("%Y-%m-%d")
+        # the streak of today, from the session log's days (lani_streak.py), never the stored counter
+        try:
+            with open(data / "session-log.json", 'r') as f:
+                log = json.load(f)
+        except (OSError, ValueError):
+            log = {}
+        streak = lani_streak.line(lani_streak.of_log(log, today))
 
         print(f"[Lani] 🌍 Welcome back, {name}!")
         print(f"[Lani] 📚 Learning: {target_lang}")
@@ -51,7 +58,7 @@ def main():
         then = (f" ({pending.get('level')} from the village's age {str(pending.get('from_age', '')).title()} on)"
                 if isinstance(pending, dict) and pending.get("level") and pending.get("from_age") else "")
         print(f"[Lani] 🎯 Level: {current_level} → {target_level}{then}")
-        print(f"[Lani] 🔥 Streak: {streak} days")
+        print(f"[Lani] 🔥 Streak: {streak}")
 
         sr_path = data / "spaced-repetition.json"
         if sr_path.exists():
@@ -59,7 +66,6 @@ def main():
                 with open(sr_path, 'r') as f:
                     sr_data = json.load(f)
 
-                today = datetime.now().strftime("%Y-%m-%d")
                 due_count = 0
 
                 items = sr_data.get("items", {})

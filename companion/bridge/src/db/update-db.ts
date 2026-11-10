@@ -14,6 +14,8 @@ import {
   truediv, truthy, typeName, unique, upper, values, weekday, type Py,
 } from './py'
 import { loads } from './pyjson'
+import { logDates } from './streak'
+import { streakOf } from '../streak'
 import { baseName, copy2, exists, globSuffix, isDir, mkdirp, parent, pjoin, type Ctx } from './sys'
 
 const DATE_FULL = /^\p{Nd}{4}-\p{Nd}{2}-\p{Nd}{2}$/u
@@ -31,7 +33,6 @@ const SESSION_FIELDS = ['duration_minutes', 'skill_scores', 'review_results', 'e
 const D = PyDict.of
 const dateStr = fmtDate
 const tomorrow = (t: Py) => dateStr(plusDays(strptime(t), 1))
-const yesterday = (t: Py) => dateStr(plusDays(strptime(t), -1))
 const datePlusDays = (t: Py, days: Py) => dateStr(plusDays(strptime(t), days))
 /** due_of: a report's due_date (new_vocabulary, resurface) as YYYY-MM-DD, zero-padded; null when it isn't one. */
 const dueOf = (v: Py): string | null => (isStr(v) && DATE_FULL.test(v) ? dateOf(v) : null)
@@ -220,14 +221,10 @@ function calculateSm2(item: Py, quality: Py): PyDict {
 
 // --- updaters (each changes its database in place) ---
 
-function updateLearnerProfile(profile: Py, session: PyDict) {
+function updateLearnerProfile(profile: Py, session: PyDict, log: Py) {
   const today = getItem(session, 'date')
-  const last = normDate(get(profile, 'last_updated', ''))
-  if (eq(last, today)) {
-    // the same day: the streak stays
-  } else if (eq(last, yesterday(today))) {
-    setItem(profile, 'current_streak_days', add(get(profile, 'current_streak_days', 0), 1))
-  } else setItem(profile, 'current_streak_days', 1)
+  // the streak with this session's day, derived from the session log (lani_streak.py), as current_streak_days
+  setItem(profile, 'current_streak_days', streakOf([...logDates(log), today], today as string).current)
 
   setItem(profile, 'last_updated', today)
   setItem(profile, 'total_sessions', add(get(profile, 'total_sessions', 0), 1))
@@ -717,7 +714,7 @@ export function main(ctx: Ctx, _argv: string[], stdin: () => string): void {
       if (!eq(get(learner, 'current_level'), level)) setItem(learner, 'level_since', getItem(session, 'date'))
       setItem(learner, 'current_level', level)
     }
-    updateLearnerProfile(db('profile'), session)
+    updateLearnerProfile(db('profile'), session, db('log'))
     updateProgressDb(db('progress'), session)
     updateMistakesDb(db('mistakes'), session)
     updateMasteryDb(db('mastery'), session, db('progress'))

@@ -34,6 +34,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lani_paths import ensure_data_dir, ensure_backups_dir, force_utf8_io  # noqa: E402
 import lani_languages as langs  # noqa: E402
+import lani_streak  # noqa: E402
 import lani_data_repo  # noqa: E402
 import lani_lease  # noqa: E402
 
@@ -68,10 +69,6 @@ def date_str(d: datetime) -> str:
 
 def tomorrow(today_str: str) -> str:
     return date_str(parse_date(today_str) + timedelta(days=1))
-
-
-def yesterday(today_str: str) -> str:
-    return date_str(parse_date(today_str) - timedelta(days=1))
 
 
 def date_plus_days(today_str: str, days: int) -> str:
@@ -324,16 +321,11 @@ def calculate_sm2(item: dict, quality: int) -> dict:
 # mastery_level, total_reviews, priority, content, answer, category,
 # difficulty fields on existing items.
 
-def update_learner_profile(profile: dict, session: dict):
+def update_learner_profile(profile: dict, session: dict, log: dict):
     today = session["date"]
-    last = langs.norm_date(profile.get("last_updated", ""))
-
-    if last == today:
-        pass
-    elif last == yesterday(today):
-        profile["current_streak_days"] = profile.get("current_streak_days", 0) + 1
-    else:
-        profile["current_streak_days"] = 1
+    # The streak with this session's day, derived from the session log (lani_streak.py), as current_streak_days: what
+    # an older app shows (read-db.py says today's).
+    profile["current_streak_days"] = lani_streak.streak(lani_streak.log_dates(log) + [today], today)["current"]
 
     profile["last_updated"] = today
     profile["total_sessions"] = profile.get("total_sessions", 0) + 1
@@ -912,7 +904,7 @@ def main():
             if learner.get("current_level") != level:
                 learner["level_since"] = session["date"]
             learner["current_level"] = level
-        update_learner_profile(data["profile"], session)
+        update_learner_profile(data["profile"], session, data["log"])
         update_progress_db(data["progress"], session)
         update_mistakes_db(data["mistakes"], session)
         update_mastery_db(data["mastery"], session, data["progress"])
