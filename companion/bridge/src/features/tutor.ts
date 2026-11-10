@@ -149,7 +149,8 @@ const str = (v: unknown) => (typeof v === 'string' ? v : undefined)
 
 /**
  * read-db.py's output summed up for the model (the same fields as the shadow's summary, tutor/Reads.kt Summaries): the
- * computed fields (the due reviews' first ids only), the languages, the profile's learner and streak, the overall
+ * computed fields (the due reviews' first ids only; the streak, derived from the practice days: src/streak.ts), the
+ * languages, the profile's learner and streak (read-db's current_streak_days is today's derived one), the overall
  * stats, the mastery per skill, the top mistakes with their latest example, the last three sessions, the deck's size.
  */
 export function learnerSummary(raw: string): string {

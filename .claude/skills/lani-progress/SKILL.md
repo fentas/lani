@@ -31,7 +31,7 @@ Prefer the helper script over manual Read calls:
 python3 "${CLAUDE_PLUGIN_ROOT:-${CLAUDE_PROJECT_DIR:-.}}/.claude/hooks/read-db.py"
 ```
 
-This returns a single JSON with all 6 databases + computed fields (`due_reviews_count`, `next_session_id`, `streak_active`, `days_since_last_session`). They are the **home language's** (the learner's town's). `languages` sums up every language, the home one first; another language practised on visits has its own databases (`read-db.py --language <code>`, see `docs/DB_SCRIPTS.md`, "Languages"). The report below is the home language's; when `languages` has others, add one short line each after the Overview: "🇮🇹 Italian: A1, 85 words, 3 due (from visits)". Never add another language's words or reviews to the home language's numbers.
+This returns a single JSON with all 6 databases + computed fields (`due_reviews_count`, `next_session_id`, `streak_active`, `days_since_last_session`, `streak`: the derived streak with its freezes). They are the **home language's** (the learner's town's). `languages` sums up every language, the home one first; another language practised on visits has its own databases (`read-db.py --language <code>`, see `docs/DB_SCRIPTS.md`, "Languages"). The report below is the home language's; when `languages` has others, add one short line each after the Overview: "🇮🇹 Italian: A1, 85 words, 3 due (from visits)". Never add another language's words or reviews to the home language's numbers.
 
 If the helper is unavailable, fall back to reading each file directly. Resolve the data directory via `lani_paths.data_dir()` first — do NOT hardcode `data/` (plugin installs store data under `~/.claude/lani-data/`):
 
@@ -63,6 +63,7 @@ Use this exact structure. Fill in values from the databases; compute percentages
 
 **Days Studying:** {total_days}
 **Current Streak:** 🔥 {streak_days} {day_or_days} {streak_message}
+**Freezes:** ❄️ {freezes} of 2 (each covers a missed day by itself; one more every 7 days in a row)
 **Total Sessions:** {total_sessions}
 **Total Study Time:** {total_minutes} minutes ({hours} hours)
 
@@ -213,7 +214,7 @@ Learner: "how am I doing on Dutch?" → auto-invoke this skill, render the full 
 ## Critical Rules
 
 - **Read-only.** Never call `update-db.py` or edit any JSON in `data/`.
-- **Use the current streak value** from `learner-profile.json`. Never guess or increment.
+- **Use the derived streak** from `computed.streak` (`current`, `best`, `freezes`, `covered`, `today_covered`, `last_run`; companion/GAME.md, "The streak"). Never guess or increment, and never the profile file's stored `current_streak_days` (it only says what the last session's end wrote). A day a freeze covered is no failure: say it kept the streak. When `current` is 0 the last streak is over: say so kindly ("your last one was {last_run} days") and never "keep your streak".
 - **Use `day` vs `days`** correctly (1 = day, else days).
 - **Skip sections with no data.** If speaking hasn't been practiced, show "Not yet practiced" — don't fabricate numbers.
 - **Cite the learner by name** from `learner-profile.json`.

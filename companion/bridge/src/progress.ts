@@ -12,6 +12,7 @@
 // family's messages, the session notes, raw databases.
 // Shared by the bridge (features/progress.ts), its smoke and the CLI (cli/town.ts).
 import { SHARE_LEVELS, cleanText, isShareLevel, localDate, shareOf, shareRank, type ShareLevel, type TownLink } from './towns'
+import { frozenDays, streakOf } from './streak'
 
 /** The version of a progress answer. */
 export const PROGRESS_VERSION = 1
@@ -73,17 +74,6 @@ export function rusty(i: Record<string, any>): boolean {
   return int(i.total_reviews) >= 1 && int(i.repetitions) === 0 && 'last_quality' in i && int(i.last_quality) < 3 && i.source !== 'lookup'
 }
 
-/** The current streak: days practised in a row, back from today, or from yesterday while today is still open. */
-export function streakOf(days: Set<string>, today: string): number {
-  let d = days.has(today) ? today : plusDays(today, -1)
-  let n = 0
-  while (days.has(d)) {
-    n++
-    d = plusDays(d, -1)
-  }
-  return n
-}
-
 /** Whether a pattern keeps recurring ("worse"), was answered right since ("better"), or neither (the app's Stats.trend). */
 export function trendOf(p: Record<string, any>, today: string): 'worse' | 'steady' | 'better' {
   if (int(p.consecutive_correct) >= 1) return 'better'
@@ -110,7 +100,8 @@ export type HardPattern = { id: string; name: string; category: string; count: n
 export type Summary = {
   streak: number
   practised_today: boolean
-  week: { start: string; days: boolean[]; days_practised: number; minutes: number; reviews: number; new_words: number }
+  /** [frozen]: the days a freeze covered (companion/GAME.md, "The streak"), shown as a freeze, not as practice. */
+  week: { start: string; days: boolean[]; frozen: boolean[]; days_practised: number; minutes: number; reviews: number; new_words: number }
   words: { known: number; tracked: number }
   level: string
   target_level?: string
@@ -210,10 +201,12 @@ export function progressOf(o: {
   const level = LEVELS.includes(learner.current_level) ? (learner.current_level as string) : 'A1'
   const target = LEVELS.includes(learner.target_level) ? (learner.target_level as string) : undefined
 
+  // the streak of today, derived from the practice days with its freezes (src/streak.ts), never a stored counter
+  const streak = streakOf(days, today)
   const summary: Summary = {
-    streak: streakOf(days, today),
-    practised_today: days.has(today),
-    week: { start, days: weekDays, days_practised: weekDays.filter(Boolean).length, minutes, reviews, new_words: vocab.filter(([, i]) => inWeek(dateOf(i.created_date))).length },
+    streak: streak.current,
+    practised_today: streak.practised_today,
+    week: { start, days: weekDays, frozen: frozenDays(streak, start).map((f, k) => f && plusDays(start, k) <= today), days_practised: weekDays.filter(Boolean).length, minutes, reviews, new_words: vocab.filter(([, i]) => inWeek(dateOf(i.created_date))).length },
     words: { known: vocab.filter(([, i]) => learned(i)).length, tracked: vocab.length },
     level,
     ...(target ? { target_level: target } : {}),
@@ -335,10 +328,12 @@ export function cleanProgress(p: any, id: string): Progress | undefined {
   const c = obj(s.course)
   const cur = obj(c.current)
   const days = arr(w.days).slice(0, 7).map(bool)
+  // the days a freeze covered; a town from before freezes sends none
+  const frozen = arr(w.frozen).slice(0, 7).map(bool)
   out.summary = {
     streak: count(s.streak, 100_000),
     practised_today: bool(s.practised_today),
-    week: { start: date(w.start) ?? '', days: [...days, ...Array(7 - days.length).fill(false)], days_practised: count(w.days_practised, 7), minutes: count(w.minutes, 7 * 24 * 60), reviews: count(w.reviews), new_words: count(w.new_words) },
+    week: { start: date(w.start) ?? '', days: [...days, ...Array(7 - days.length).fill(false)], frozen: Array.from({ length: 7 }, (_, k) => frozen[k] === true && days[k] !== true), days_practised: count(w.days_practised, 7), minutes: count(w.minutes, 7 * 24 * 60), reviews: count(w.reviews), new_words: count(w.new_words) },
     words: { known: count(obj(s.words).known), tracked: count(obj(s.words).tracked) },
     level: LEVELS.includes(s.level) ? s.level : 'A1',
     ...(LEVELS.includes(s.target_level) ? { target_level: s.target_level } : {}),

@@ -90,7 +90,7 @@ export const routineAsk: Record<Routine, string> = {
   morning:
     'Morning. Plan Jan\'s day: pick the one thing that matters most today (weakest pattern, due reviews, or what the village lacks). If useful, publish one fresh module or quest for it (lani-studio). With words_to_weave, you may also write at most 2 variants today that weave those words in (publish_dialog_variant, declared in its "words", each tested by a turn). Then reply with a short plan: 2–3 bullets, one of them a 5-minute option. Greet in Slovene. Put {"plan": true} in data.',
   evening:
-    'Evening. If Jan practised today: a warm 2–3 line recap and one tip for tomorrow. If not: a gentle, guilt-free nudge with one 5-minute thing to keep the streak. Reply, short.',
+    "Evening. If Jan practised today: a warm 2–3 line recap and one tip for tomorrow. If not: a gentle, guilt-free nudge with one 5-minute thing, and say of the streak only what the snapshot's streak says is true: today_covered: a freeze would cover today, so no pressure (five minutes still add a day); a streak going on with no freeze left: five minutes today keep the {current}-day streak; current 0: the last one is over, so never \"keep your streak\": five minutes start a new one. Reply, short.",
   weekly:
     'Weekly review. Look at the week (sessions, accuracy, recurring mistakes, words learned, the village). Retire modules the learner has mastered (tag "retired"), write one or two new ones for what keeps going wrong, and suggest the next word pack. Reply with a short weekly summary (what improved, what to focus on). Put {"weekly": true} in data.',
 }

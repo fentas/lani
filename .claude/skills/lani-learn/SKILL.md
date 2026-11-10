@@ -29,7 +29,7 @@ Need all 6 DBs. If any missing, direct the learner to `/lani-setup` and stop.
 
 ### 2. Analyze today's plan
 
-- **Streak:** `learner-profile.current_streak_days`
+- **Streak:** `computed.streak.current` (derived from the session log, with freezes: `freezes`, `covered`, `today_covered`; never the profile file's stored counter)
 - **Due reviews:** `computed.due_reviews_count`
 - **Weak patterns:** `mistakes-db.error_patterns` where `mastery_level <= 2` (descending by frequency)
 - **Recent performance:** `progress-db.weekly_summary`

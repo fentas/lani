@@ -11,7 +11,8 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import type { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { loadBridgeKey } from '../../src/pairing'
-import { cleanProgress, isoWeek, learned, progressOf, rusty, streakOf, weekStart, type Progress } from '../../src/progress'
+import { cleanProgress, isoWeek, learned, progressOf, rusty, weekStart, type Progress } from '../../src/progress'
+import { streakOf } from '../../src/streak'
 import { localDate, shareOf, signRequest } from '../../src/towns'
 import { writeLearning } from '../fixtures/learning'
 import { check, fam, tempDir } from './harness'
@@ -47,7 +48,7 @@ function cli(cmd: string[], env: Record<string, string>) {
 function pure() {
   const today = '2026-10-28' // a Wednesday
   check('progress: weeks start on Monday; the ISO week', weekStart(today) === '2026-10-26' && weekStart('2026-10-26') === '2026-10-26' && weekStart('2026-11-01') === '2026-10-26' && isoWeek(today) === '2026-W44' && isoWeek('2027-01-01') === '2026-W53')
-  check('progress: a streak counts back from today, or from yesterday while today is open', streakOf(new Set(['2026-10-28', '2026-10-27', '2026-10-25']), today) === 2 && streakOf(new Set(['2026-10-27', '2026-10-26']), today) === 2 && streakOf(new Set(['2026-10-25']), today) === 0)
+  check("progress: the streak is the derived one (a day covered by a freeze keeps it, today is open, a longer gap ends it)", streakOf(new Set(['2026-10-28', '2026-10-27', '2026-10-25']), today).current === 3 && streakOf(new Set(['2026-10-27', '2026-10-26']), today).current === 2 && streakOf(new Set(['2026-10-25']), today).current === 0)
   check("progress: learned and rusty as the app's Stats counts them", learned({ repetitions: 1 }) && !learned({ repetitions: 0, total_reviews: 2, last_quality: 2 }) && rusty({ repetitions: 0, total_reviews: 2, last_quality: 2 }) && learned({ total_reviews: 0, last_quality: 3 }) && !learned({ total_reviews: 0, last_quality: 3, source: 'lookup' }))
   const db = { databases: {}, computed: { today } }
   const dir = tempDir('lani-smoke-progress-pure-')
@@ -63,7 +64,7 @@ function pure() {
   const d = at('details')
   check('progress: just the village: who and the day, nothing of the learning', JSON.stringify(Object.keys(v).sort()) === '["child","date","level","town","v"]', v)
   check("progress: a summary: the streak, this week's days as dots, minutes, reviews, new words, the words known, the level",
-    !s.details && s.summary?.streak === 4 && JSON.stringify(s.summary.week.days) === '[true,true,true,false,false,false,false]' && s.summary.week.days_practised === 3 && s.summary.week.minutes === 35 && s.summary.week.new_words === 2 && s.summary.words.known === 8 && s.summary.words.tracked === 10 && s.summary.level === 'A1' && s.summary.target_level === 'A2' && s.summary.week.reviews > 0, s.summary)
+    !s.details && s.summary?.streak === 4 && JSON.stringify(s.summary.week.days) === '[true,true,true,false,false,false,false]' && !s.summary.week.frozen.includes(true) && s.summary.week.days_practised === 3 && s.summary.week.minutes === 35 && s.summary.week.new_words === 2 && s.summary.words.known === 8 && s.summary.words.tracked === 10 && s.summary.level === 'A1' && s.summary.target_level === 'A2' && s.summary.week.reviews > 0, s.summary)
   const dd = d.details!
   check('progress: details: the newest cards being learned (the rusty one, the new one), with their meaning in the learner\'s base and the viewer\'s where the dictionary has it',
     dd.learning.length === 10 && dd.learning[0].word === 'il cane' && dd.learning[0].state === 'learning' && dd.learning[0].meanings.de === 'der Hund' && dd.learning[0].meanings.en === 'the dog' && dd.learning[1].state === 'rusty' && dd.learning[2].state === 'known', dd.learning.slice(0, 3))
@@ -77,6 +78,14 @@ function pure() {
   const lying = cleanProgress({ ...s, town: { ...town, id: 'b'.repeat(32) } }, town.id)
   const extra = cleanProgress({ ...d, secret: SECRET, details: { ...d.details, chat: SECRET, learning: [{ ...dd.learning[0], answer: SECRET }] } }, town.id)!
   check('progress: the asking side keeps at most what the level says, of the town it asked, and only the fields it knows', !more.details && !!more.summary && lying === undefined && !JSON.stringify(extra).includes(SECRET) && extra.details?.learning[0].word === 'il cane', { more: Object.keys(more), extra: extra.details?.learning[0] })
+  // the week's frozen days: a day a freeze covered shows as a freeze, never as practice; a town from before sends none
+  const covered = { ...db, databases: { ...db.databases, session_log: { sessions: ['2026-10-23', '2026-10-24', '2026-10-25', '2026-10-27'].map(date => ({ date })) } } }
+  const f = progressOf({ db: covered, level: 'summary', town, child: false, guardian: false, now }).summary!
+  const cleaned = (frozen: unknown) => cleanProgress({ ...s, summary: { ...s.summary!, week: { ...s.summary!.week, frozen } } }, town.id)!.summary!.week.frozen
+  check("progress: the week's dots: Monday, a day a freeze covered, the run kept (a Friday, a Saturday, a Sunday before it)",
+    f.streak === 4 && JSON.stringify(f.week.days) === '[false,true,false,false,false,false,false]' && JSON.stringify(f.week.frozen) === '[true,false,false,false,false,false,false]' && f.week.days_practised === 1, f)
+  check("progress: the asking side keeps seven frozen days, none on a practised day, and none from a town that sends none",
+    JSON.stringify(cleaned([true, true, false])) === '[false,false,false,false,false,false,false]' && JSON.stringify(cleaned([false, false, false, true, 'x'])) === '[false,false,false,true,false,false,false]' && cleaned(undefined).length === 7 && !cleaned(undefined).includes(true))
   // the defaults: a guardian sees details, a child's town shares just the village with anyone else, adults a summary
   check("progress: the defaults: a guardian's town sees details (never less than its floor), a child's town shares just the village with anyone else, an adult's a summary",
     shareOf({ guardian: true }, true).level === 'details' && shareOf({ guardian: true, share: 'village' }, true).level === 'details' && shareOf({ guardian: true, floor: 'summary', share: 'village' }, true).level === 'summary' && shareOf({}, true).level === 'village' && shareOf({}, false).level === 'summary' && shareOf({ guardian: true }, false).level === 'summary')

@@ -48,7 +48,12 @@ Outputs a single JSON object:
     "due_review_items": ["vocab_dag", ...],
     "next_session_id": "session-005",
     "streak_active": true,
-    "days_since_last_session": 1
+    "days_since_last_session": 1,
+    "streak": {
+      "current": 3, "best": 9, "practised_today": false, "freezes": 1,
+      "covered": ["2026-04-22"], "since": "2026-04-20", "today_covered": true,
+      "last_run": 9, "to_next_freeze": 4
+    }
   },
   "language": "sl",
   "languages": [
@@ -61,6 +66,17 @@ Outputs a single JSON object:
 `databases` and `computed` are the home language's, as they always were. `language` is
 the code of the language they belong to; `languages` sums up every language the learner
 has, the home one first (see [Languages](#languages)).
+
+**The streak** (`computed.streak`) is derived from the session log's days and today, never
+stored (companion/GAME.md, "The streak"; `.claude/hooks/lani_streak.py`): `current` is the
+run going on (0 when it ended), `best` the longest run, `freezes` the freezes held (1 to
+start, 1 more every 7th practised day of a run, at most 2), `covered` the days a freeze
+covered in this run, `since` its first day, `today_covered` whether a miss today would be
+covered, `last_run` the run that ended last, `to_next_freeze` the practised days to the next
+freeze (0 while 2 are held). `streak_active` is `current > 0`. In the output,
+`learner_profile.current_streak_days` is today's `current`, so an older app that reads it
+shows the derived number; the file keeps what the last `update-db.py` wrote (the derived
+streak with that session's day).
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT:-${CLAUDE_PROJECT_DIR:-.}}/.claude/hooks/read-db.py" --language it
@@ -385,8 +401,8 @@ data/
   glance, refreshed by every `update-db.py` write in that language.
 - **`source`**: `home` for the town's language; `visits` for a language practised on
   visits (today the only other way).
-- **The streak** is per language: practice in Italian doesn't make or break the home
-  language's streak, and the Lani app's stats, words learned, rusty words and the
+- **The streak** is per language (each language's own session log): practice in Italian
+  doesn't make or break the home language's streak, and the Lani app's stats, words learned, rusty words and the
   village's ages count the home language only.
 
 **Why a directory per language, and not a `language` field on every item.** Everything

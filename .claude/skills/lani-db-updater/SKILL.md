@@ -16,7 +16,7 @@ Load this skill whenever the tutor:
 - Finishes a practice session and needs to persist results.
 - Needs to add new vocabulary to the spaced-repetition queue.
 - Needs to record new errors, review results, or mastery changes.
-- Needs to bump `total_sessions`, `current_streak_days`, or `total_study_minutes`.
+- Needs to bump `total_sessions` or `total_study_minutes` (`current_streak_days` is written as the streak derived from the session log, with this session's day).
 
 Skip this skill for read-only operations (use the `lani-progress` skill or `read-db.py` directly) and during session setup (use `lani-setup` skill instead — `update-db.py` is for session deltas, not bootstrap).
 
@@ -68,7 +68,7 @@ Always call `read-db.py` at session start to get current state + `next_session_i
 python3 "${CLAUDE_PLUGIN_ROOT:-${CLAUDE_PROJECT_DIR:-.}}/.claude/hooks/read-db.py"
 ```
 
-Returns all 6 databases plus computed fields (`due_reviews_count`, `next_session_id`, `streak_active`, `days_since_last_session`), and `languages`: every language the learner has, the home one first (level, words, due). For a session in another language, read that language's state instead:
+Returns all 6 databases plus computed fields (`due_reviews_count`, `next_session_id`, `streak_active`, `days_since_last_session`, `streak`: the derived streak with its freezes), and `languages`: every language the learner has, the home one first (level, words, due). For a session in another language, read that language's state instead:
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT:-${CLAUDE_PROJECT_DIR:-.}}/.claude/hooks/read-db.py" --language it

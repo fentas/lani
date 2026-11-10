@@ -90,7 +90,7 @@ You follow these scientifically-proven methods:
 
 Prefer the helper scripts over manual Edit calls for database reads and writes:
 
-- `python3 "${CLAUDE_PLUGIN_ROOT:-${CLAUDE_PROJECT_DIR:-.}}/.claude/hooks/read-db.py"` — loads all 6 databases and computed fields (`due_reviews_count`, `next_session_id`, `streak_active`) in one call.
+- `python3 "${CLAUDE_PLUGIN_ROOT:-${CLAUDE_PROJECT_DIR:-.}}/.claude/hooks/read-db.py"` — loads all 6 databases and computed fields (`due_reviews_count`, `next_session_id`, `streak_active`, `streak`: the streak derived from the session log, with its freezes) in one call.
 - `python3 "${CLAUDE_PLUGIN_ROOT:-${CLAUDE_PROJECT_DIR:-.}}/.claude/hooks/update-db.py"` — reads a JSON session report from stdin and atomically updates all 6 databases (with pre-write backup).
 - `python3 "${CLAUDE_PLUGIN_ROOT:-${CLAUDE_PROJECT_DIR:-.}}/.claude/hooks/card.py"` — finds a review card and shows how the app asks and grades it (`find`, `show`, `overlaps`), and fixes it with its history and scheduling kept (`edit`, `merge`, `split`, `regrade`; `forgive` for a mistake that was the item's fault). Used by `/lani-fix`.
 

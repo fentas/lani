@@ -7,6 +7,7 @@ import type { FeatureFactory } from '../feature'
 import { ofLanguage, ripeRules } from '../grammar'
 import { forVillage } from '../tutor-languages'
 import { dueRoutines, localDate, RhythmStore, routineAsk, type Routine } from '../rhythm'
+import { computedStreak, streakOfLog } from '../streak'
 import { VariantAsks } from '../variants'
 import { learnerLevel } from '../villagers'
 
@@ -15,6 +16,10 @@ daily_morning / daily_evening / daily_weekly: the bridge wakes you on a schedule
 Jan's progress. Do what the event asks (plan the day, recap, weekly review) and reply to conversation
 "main"; the reply reaches Jan's phone as a notification. Keep these short and warm, never guilt-tripping.
 Jan can change the times ("wake me at 8", "no evening messages"): use set_rhythm.
+A snapshot's streak is the derived one (companion/GAME.md, "The streak"): current (the days of the run going on, 0 when
+it ended), practised_today, freezes held (1 to start, 1 more every 7th practised day of a run, at most 2), covered (the
+days a freeze covered in this run), today_covered (a miss today would be covered), last_run. Say only what it says: never
+"keep your streak" when current is 0, never a streak that ended; a covered day is no failure (no guilt, no counting down).
 A snapshot's grammar_ripe lists rules the dialogs said often enough without asking for them: a good day to introduce
 one (see Grammar book, "Rules not yet"). A morning's words_to_weave lists happenings with the learner's words that fit
 them: weave them into at most 2 fresh variants a day (publish_dialog_variant, the dialog's "words"; lani-studio).
@@ -74,7 +79,8 @@ export const rhythm: FeatureFactory = ({ cfg, channel, game, learner, log, gramm
     return JSON.stringify(
       {
         today,
-        streak_days: db.learner_profile?.current_streak_days,
+        // the derived streak (read-db's computed fields; the session log's when a read-db from before has none)
+        streak: st.computed.streak ?? computedStreak(streakOfLog(db.session_log, today)),
         due_reviews: st.computed.due_reviews_count,
         words_known: items.filter(i => i.type === 'vocabulary').length,
         practised_today: { sessions: sessions.length, minutes: sessions.reduce((n: number, x: any) => n + (x.duration_minutes ?? 0), 0) },
